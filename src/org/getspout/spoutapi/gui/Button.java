@@ -24,7 +24,7 @@ public interface Button extends Control, Label{
 	/**
 	 * Sets the hex color of the control while the mouse is hovering over it
 	 * @param hexColor
-	 * @return
+	 * @return Button
 	 */
 	public Button setHoverColor(int hexColor);
 

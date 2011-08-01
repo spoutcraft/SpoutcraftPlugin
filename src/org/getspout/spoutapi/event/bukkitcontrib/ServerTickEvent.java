@@ -31,7 +31,7 @@ public class ServerTickEvent extends Event{
 	/**
 	 * Returns the seconds since the last server tick event was created
 	 * Ideally, it should be exactly 0.05 seconds, but because of server lag, it may be more
-	 * @return
+	 * @return seconds since last server tick
 	 */
 	public double getSecondsLastTick() {
 		return ((double)Math.abs(createdTime - lastTick)) / 1000;

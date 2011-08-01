@@ -8,7 +8,7 @@ public interface SpoutChest extends Chest{
 	
 	/**
 	 * Is true if the chest is part of a larger double chest
-	 * @return
+	 * @return true if is double chest
 	 */
 	public boolean isDoubleChest();
 	

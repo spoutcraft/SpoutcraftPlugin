@@ -75,7 +75,6 @@ public interface SoundManager {
 	 * @param target to play the sound effect for
 	 * @param effect to play
 	 * @param location to play at
-	 * @param intensity to play at
 	 * @param distance away it can be heard from (in full blocks) or -1 for any distance
 	 * @param volumePercent to play at (100 = normal, 200 = double volume, 50 = half volume)
 	 */
@@ -133,7 +132,7 @@ public interface SoundManager {
 	 * Stops the background music if it is playing for the given player
 	 * @param target to stop the music for
 	 * @param resetTimer whether to reset the timer (between 12000-24000 ticks) before new music plays
-	 * @param the amount of time in ms for the current audio to fade out for
+	 * @param fadeOutTime time in ms for the current audio to fade out for
 	 */
 	@ClientOnly
 	public void stopMusic(SpoutPlayer target, boolean resetTimer, int fadeOutTime);
@@ -178,7 +177,7 @@ public interface SoundManager {
 	 * @param plugin that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param Url of the file to download
 	 * @param notify whether the player should be notified of the download
-	 * @param the location to play at
+	 * @param location to play at
 	 * @param distance away it can be heard from (in full blocks) or -1 for any distance
 	 * @param volumePercent to play at
 	 */

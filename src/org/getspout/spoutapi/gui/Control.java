@@ -17,14 +17,14 @@ public interface Control extends Widget{
 	
 	/**
 	 * Not implemented
-	 * @return 
+	 * @return hover text
 	 */
 	public String getHoverText();
 	
 	/**
 	 * Not Implemented
 	 * @param text
-	 * @return
+	 * @return Control
 	 */
 	public Control setHoverText(String text);
 	

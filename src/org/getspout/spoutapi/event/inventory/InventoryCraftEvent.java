@@ -30,22 +30,23 @@ public class InventoryCraftEvent extends InventoryEvent{
 
 	/**
 	 * Get's the inventory where the crafting is taking place
+	 * @return inventory
 	 */
 	public CraftingInventory getInventory() {
 		return (CraftingInventory)this.inventory;
 	}
 
 	/**
-	 * Get's the height of the inventory crafting area
-	 * @return height
+	 * Get's the width of the inventory crafting area
+	 * @return width
 	 */
 	public int getWidth() {
 		return width;
 	}
 
 	/**
-	 * Get's the width of the inventory crafting area
-	 * @return width
+	 * Get's the height of the inventory crafting area
+	 * @return height
 	 */
 	public int getHeight() {
 		return height;
@@ -53,7 +54,7 @@ public class InventoryCraftEvent extends InventoryEvent{
 
 	/**
 	 * Get's the recipe at the inventory crafting area
-	 * @return width
+	 * @return recipe
 	 */
 	public ItemStack[][] getRecipe() {
 		return matrix;
@@ -61,7 +62,7 @@ public class InventoryCraftEvent extends InventoryEvent{
 	
 	/**
 	 * Get's the itemstack at the cursor
-	 * @return
+	 * @return cursor
 	 */
 	public ItemStack getCursor() {
 		return cursor;
