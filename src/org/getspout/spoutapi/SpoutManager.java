@@ -106,7 +106,7 @@ public class SpoutManager {
 		return getInstance().inventoryBuilder;
 	}
 	
-	public void InventoryBuilder(InventoryBuilder builder){
+	public void setInventoryBuilder(InventoryBuilder builder){
 		if (inventoryBuilder == null) {
 			inventoryBuilder = builder;
 		}
