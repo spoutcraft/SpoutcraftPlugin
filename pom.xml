@@ -1,8 +1,8 @@
 <!--
-  Maven build file for BukkitContrib
+  Maven build file for SpoutAPI
 
   Copyright (c) 2011 Afforess <http://www.afforess.com>
-  BukkitContrib is licensed under GNU LESSER GENERAL PUBLIC LICENSE Version 3
+  SpoutAPI is licensed under GNU LESSER GENERAL PUBLIC LICENSE Version 3
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
