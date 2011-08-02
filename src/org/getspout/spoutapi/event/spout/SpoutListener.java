@@ -1,12 +1,12 @@
-package org.getspout.spoutapi.event.bukkitcontrib;
+package org.getspout.spoutapi.event.spout;
 
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
-public class SpoutContribListener extends CustomEventListener implements Listener{
+public class SpoutListener extends CustomEventListener implements Listener{
 
-	public SpoutContribListener() {
+	public SpoutListener() {
 
 	}
 	

@@ -1,4 +1,4 @@
-package org.getspout.spoutapi.event.bukkitcontrib;
+package org.getspout.spoutapi.event.spout;
 
 import org.bukkit.event.Event;
 import org.getspout.spoutapi.player.SpoutPlayer;
