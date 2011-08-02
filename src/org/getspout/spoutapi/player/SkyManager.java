@@ -60,7 +60,7 @@ public interface SkyManager {
 	
 	/**
 	 * Gets the percent size of the sun, relative to the default size.
-	 * 100 percent is default size. 200 percent is double isze. 50 percent is half size.
+	 * 100 percent is default size. 200 percent is double size. 50 percent is half size.
 	 * @param player to get the size for
 	 * @return percent size of the sun
 	 */
@@ -68,7 +68,7 @@ public interface SkyManager {
 	
 	/**
 	 * Sets the percent size of the sun, relative to the default size.
-	 * 100 percent is the default size. 200 percent is double isze. 50 percent is half size.
+	 * 100 percent is the default size. 200 percent is double size. 50 percent is half size.
 	 * @param player to set the size for
 	 * @param percent to set
 	 */
@@ -89,7 +89,7 @@ public interface SkyManager {
 	public void setSunVisible(SpoutPlayer player, boolean visible);
 	
 	/**
-	 * Gets the custom url of the custom sun texture (in png, 32x32 image format), or null if no custom texture is set
+	 * Gets the custom url of the custom sun texture, or null if no custom texture is set
 	 * @param player who has the custom texture
 	 * @return url of the custom texture
 	 */
@@ -134,7 +134,7 @@ public interface SkyManager {
 	public void setMoonVisible(SpoutPlayer player, boolean visible);
 	
 	/**
-	 * Gets the custom url of the custom moon texture (in png, 32x32 image format), or null if no custom texture is set
+	 * Gets the custom url of the custom moon texture, or null if no custom texture is set
 	 * @param player who has the custom texture
 	 * @return url of the custom texture
 	 */
