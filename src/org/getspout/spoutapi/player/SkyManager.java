@@ -101,7 +101,7 @@ public interface SkyManager {
 	 * @param player to set the custom texture of
 	 * @param Url of the texture
 	 */
-	public void setSunTextureUrl(SpoutPlayer player, String Url);
+	public void setSunTextureUrl(SpoutPlayer player, String url);
 	
 	/**
 	 * Gets the size percent of the moon, relative to the default size.
@@ -146,6 +146,6 @@ public interface SkyManager {
 	 * @param player to set the custom texture of
 	 * @param Url of the texture
 	 */
-	public void setMoonTextureUrl(SpoutPlayer player, String Url);
+	public void setMoonTextureUrl(SpoutPlayer player, String url);
 
 }
