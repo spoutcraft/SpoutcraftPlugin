@@ -1,11 +1,13 @@
 package org.getspout.spoutapi;
 
-import org.bukkit.Bukkit;
+import java.util.UUID;
+
 import org.bukkit.entity.Player;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
 import org.getspout.spoutapi.player.AppearanceManager;
+import org.getspout.spoutapi.player.PlayerManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.SoundManager;
@@ -18,6 +20,7 @@ public class SpoutManager {
 	private SkyManager skyManager = null;
 	private ItemManager itemManager = null;
 	private InventoryBuilder inventoryBuilder = null;
+	private PlayerManager playerManager = null;
 	
 	protected SpoutManager(){
 
@@ -112,14 +115,37 @@ public class SpoutManager {
 		}
 	}
 	
-	public static SpoutPlayer getPlayerFromId(int entityId) {
-		Player[] online = Bukkit.getServer().getOnlinePlayers();
-		for (Player player : online) {
-			if (player.getEntityId() == entityId && player instanceof SpoutPlayer) {
-				return (SpoutPlayer)player;
-			}
+	public void setPlayerManager(PlayerManager manager) {
+		if (playerManager == null) {
+			playerManager = manager;
 		}
-		return null;
+	}
+	
+	/**
+	 * Gets a SpoutPlayer from the given id, or null if none found
+	 * @param entityId
+	 * @return SpoutPlayer
+	 */
+	public static SpoutPlayer getPlayerFromId(int entityId) {
+		return getInstance().playerManager.getPlayer(entityId);
+	}
+	
+	/**
+	 * Gets a SpoutPlayer from the given id, or null if none found
+	 * @param id
+	 * @return SpoutPlayer
+	 */
+	public static SpoutPlayer getPlayerFromId(UUID id) {
+		return getInstance().playerManager.getPlayer(id);
+	}
+	
+	/**
+	 * Gets a SpoutPlayer from the given bukkit player, will never fail
+	 * @param player
+	 * @return SpoutPlayer
+	 */
+	public static SpoutPlayer getPlayer(Player player) {
+		return getInstance().playerManager.getPlayer(player);
 	}
 
 }
