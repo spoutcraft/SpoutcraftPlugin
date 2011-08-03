@@ -22,12 +22,12 @@ public interface MCPacket18ArmAnimation extends MCPacket {
 	 * 104: Crouch
 	 * 105: Uncrouch
 	 * 
-	 * @return the bed field
+	 * @return the animate field
 	 */
 	public int getAnimate();
 	
 	/**
-	 * @param the bed field
+	 * @param the animate field
 	 */
 	public void setAnimate(int animate);
 
