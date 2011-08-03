@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
+import org.getspout.spoutapi.packet.PacketManager;
 import org.getspout.spoutapi.player.AppearanceManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -18,6 +19,7 @@ public class SpoutManager {
 	private SkyManager skyManager = null;
 	private ItemManager itemManager = null;
 	private InventoryBuilder inventoryBuilder = null;
+	private PacketManager packetManager = null;
 	
 	protected SpoutManager(){
 
@@ -71,6 +73,20 @@ public class SpoutManager {
 	public void setSoundManager(SoundManager manager){
 		if (soundManager == null) {
 			soundManager = manager;
+		}
+	}
+	
+	/**
+	 * Gets the packet manager
+	 * @return packet manager
+	 */
+	public static PacketManager getPacketManager() {
+		return getInstance().packetManager;
+	}
+	
+	public void setPacketManager(PacketManager manager){
+		if (packetManager == null) {
+			packetManager = manager;
 		}
 	}
 	
