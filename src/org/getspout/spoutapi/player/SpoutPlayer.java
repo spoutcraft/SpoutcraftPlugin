@@ -8,6 +8,7 @@ import org.getspout.spoutapi.event.input.RenderDistance;
 import org.getspout.spoutapi.gui.InGameHUD;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.SpoutPacket;
+import org.getspout.spoutapi.packet.standard.MCPacket;
 
 public interface SpoutPlayer extends org.bukkit.entity.Player{
 	
@@ -240,6 +241,17 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public void setTexturePack(String url);
 	
 	public void sendPacket(SpoutPacket packet);
+	
+	public void sendPacket(MCPacket packet);
+	
+	/**
+	 * Sends the packet immediately.  Packets sent using this method are placed at the start of the packet queue.  
+	 * If called from within a PacketListener's canSend method, the packet will be processed immediately after the current 
+	 * packet is handled.
+	 * 
+	 * @param packet the packet to send
+	 */
+	public void sendImmediatePacket(MCPacket packet);
 	
 	public void updateKeys(byte[] keys);
 	
