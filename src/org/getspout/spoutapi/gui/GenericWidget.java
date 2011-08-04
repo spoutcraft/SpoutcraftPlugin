@@ -180,8 +180,9 @@ public abstract class GenericWidget implements Widget{
 	}
 	
 	@Override
-	public void setTooltip(String t){
+	public Widget setTooltip(String t){
 		tooltip = t;
+		return this;
 	}
 	
 	@Override

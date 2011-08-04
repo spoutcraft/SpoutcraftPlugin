@@ -147,9 +147,10 @@ public interface Widget{
 	public void onTick();
 	
 	/**
-	 * Set the widgets tooltip
+	 * Set the widgets tooltip.
+	 * Returns the current instance of the widget to make chainable calls.
 	 */
-	public void setTooltip(String tooltip);
+	public Widget setTooltip(String tooltip);
 	
 	/**
 	 * Gets the widgets tooltip
