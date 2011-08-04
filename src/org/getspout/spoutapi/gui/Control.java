@@ -16,19 +16,6 @@ public interface Control extends Widget{
 	public Control setEnabled(boolean enable);
 	
 	/**
-	 * Not implemented
-	 * @return hover text
-	 */
-	public String getHoverText();
-	
-	/**
-	 * Not Implemented
-	 * @param text
-	 * @return Control
-	 */
-	public Control setHoverText(String text);
-	
-	/**
 	 * Gets the hex color of this control
 	 * @return hex color
 	 */
