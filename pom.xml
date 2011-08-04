@@ -13,8 +13,12 @@
     <artifactId>spoutapi</artifactId>
     <version>dev-SNAPSHOT</version>
     <name>SpoutAPI</name>
-    <url>http://getspout.org</url>
+    <url>http://www.getspout.org</url>
     <description>SpoutAPI is an API for the spout framework. Spout is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize, in an attempt to bring the Minecraft Multiplayer experience to parity with the single player modding experience.</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <!-- License -->
     <licenses>
@@ -25,18 +29,28 @@
         </license>
     </licenses>
 
+    <!-- Source code -->
+    <scm>
+        <developerConnection>scm:git:git@github.com:SpoutDev/${project.name}.git</developerConnection>
+        <connection>scm:git:git://github.com/SpoutDev/${project.name}.git</connection>
+        <url>https://github.com/SpoutDev/${project.name}</url>
+    </scm>
+
+    <!-- Continuous integration -->
+    <ciManagement>
+        <system>jenkins</system>
+        <url>http://ci.getspout.org</url>
+    </ciManagement>
+
     <!-- Repository locations -->
     <repositories>
         <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/artifactory/repo</url>
-        </repository>
-        <repository>
-            <id>craftfire-repo</id>
-            <url>http://repo.craftfire.com/repo</url>
+            <id>spout-repo</id>
+            <url>http://repo.getspout.org</url>
         </repository>
     </repositories>
 
+    <!-- Dependencies -->
     <dependencies>
         <!-- Bukkit -->
         <dependency>
@@ -48,7 +62,6 @@
 
     <build>
         <sourceDirectory>${basedir}/src/</sourceDirectory>
-
         <!-- Resources -->
         <resources>
             <resource>
@@ -56,15 +69,12 @@
                 <filtering>true</filtering>
                 <directory>${basedir}/src/</directory>
                 <includes>
-                    <include>README</include>
-                    <include>plugin.yml</include>
+                    <include>LICENSE.txt</include>
                 </includes>
             </resource>
         </resources>
-
         <!-- Plugins -->
         <plugins>
-
             <!-- Compile plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -75,30 +85,13 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
-
             <!-- JAR creation plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
-                <configuration>
-                    <archive>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                        <pomPropertiesFile>false</pomPropertiesFile>
-                        <manifest>
-                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
-                            <addDefaultImplementationEntries>false</addDefaultImplementationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
         </plugins>
-
     </build>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <skipTests>true</skipTests>
-    </properties>
 
 </project>
