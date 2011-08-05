@@ -11,12 +11,15 @@ public interface PacketManager {
 	 * An id of 256 will give an uncompressed Map Chunk packet 
 	 * 
 	 * @param packetId the id of the desired packet
-	 * @return number of key bindings
+	 * @return an empty MCPacket of type packetId
+	 * 
 	 */
 	MCPacket getInstance(int packetId);
 	
 	/**
 	 * adds a packet listener for uncompressed map chunk packets
+	 * 
+	 * These listeners are NOT called from within the main thread.
 	 * 
 	 * @param listener the listener instance
 	 */
@@ -24,6 +27,8 @@ public interface PacketManager {
 	
 	/**
 	 * adds a packet listener for packets of the given id
+	 * 
+	 * These listeners are called from the main server thread
 	 * 
 	 * @param packetId the packet id
 	 * @param listener the listener instance
