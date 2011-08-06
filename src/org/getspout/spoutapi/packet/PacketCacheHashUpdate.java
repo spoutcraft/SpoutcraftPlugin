@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.getspout.spoutapi.SpoutManager;
+
 public class PacketCacheHashUpdate implements SpoutPacket {
 	public long[] hashes;
 	public boolean add;
@@ -39,11 +41,7 @@ public class PacketCacheHashUpdate implements SpoutPacket {
 	}
 
 	public void run(int id) {
-		if(!this.add) {
-			for(long hash : this.hashes) {
-				//ChunkCache.removeOverwriteBackup(hash);
-			}
-		}
+		SpoutManager.getCacheManager().handle(id, add, hashes);
 	}
 
 	public PacketType getPacketType() {
