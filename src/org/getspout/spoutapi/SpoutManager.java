@@ -3,6 +3,7 @@ package org.getspout.spoutapi;
 import java.util.UUID;
 
 import org.bukkit.entity.Player;
+import org.getspout.spoutapi.chunkcache.CacheManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
@@ -23,6 +24,7 @@ public class SpoutManager {
 	private InventoryBuilder inventoryBuilder = null;
 	private PacketManager packetManager = null;
 	private PlayerManager playerManager = null;
+	private CacheManager cacheManager = null;
 	
 	protected SpoutManager(){
 
@@ -119,6 +121,16 @@ public class SpoutManager {
 		if (skyManager == null) {
 			skyManager = manager;
 		}
+	}
+	
+	public void setCacheManager(CacheManager manager) {
+		if (cacheManager == null) {
+			cacheManager = manager;
+		}
+	}
+	
+	public static CacheManager getCacheManager() {
+		return getInstance().cacheManager;
 	}
 	
 	public static InventoryBuilder getInventoryBuilder() {
