@@ -4,17 +4,24 @@ public class Color {
     private float red;
     private float green;
     private float blue;
+    private float alpha = 1;
     
     /**
      * Constructs the color with RGB spec
      * @param r Red part of the color, ranging from 0.0 to 1.0
      * @param g Green part of the color, ranging from 0.0 to 1.0
      * @param b Blue part of the color, ranging from 0.0 to 1.0
+     * @param a Alpha part of the color, ranging from 0.0 to 1.0
      */
-    public Color(float r, float g, float b){
+    public Color(float r, float g, float b, float a){
         red = r;
         green = g;
         blue = b;
+        alpha = a;
+    }
+    
+    public Color(float r, float g, float b){
+        this(r, g, b, 1);
     }
     
     /**
@@ -39,6 +46,14 @@ public class Color {
      */
     public float getBlueF(){
         return blue;
+    }
+    
+    /**
+     * 
+     * @return Blue part of the color, as float
+     */
+    public float getAlphaF(){
+        return alpha;
     }
     
     /**
@@ -72,11 +87,21 @@ public class Color {
     }
     
     /**
+     * 
+     * @param b Blue part of the color, ranging from 0.0 to 1.0
+     * @return the object to make call chainable.
+     */
+    public Color setAlpha(float a){
+        alpha = a;
+        return this;
+    }
+    
+    /**
      * Clones the object.
      * @return a copy of the object.
      */
     public Color clone() {
-        return new Color(red, green, blue);
+        return new Color(red, green, blue, alpha);
     }
     
     /**
@@ -84,7 +109,7 @@ public class Color {
      * @return
      */
     public static Color remove(){
-    	return new Color(-2,-2,-2);
+    	return new Color(-2,-2,-2,-2);
     }
     
     /**
@@ -92,6 +117,6 @@ public class Color {
      * @return
      */
     public static Color ignore(){
-    	return new Color(-1,-1,-1);
+    	return new Color(-1,-1,-1,-1);
     }
 }
