@@ -151,20 +151,47 @@ public interface SkyManager {
 	public void setMoonTextureUrl(SpoutPlayer player, String url);
 
 	/**
-	 * Sets the color of the sky
+	 * Sets the sky color for the player
+	 * @param player
+	 * @param skyColor
 	 */
 	public void setSkyColor(SpoutPlayer player, Color skyColor);
 	
 	/**
-	 * Gets the color of the sky
+	 * 
+	 * @param player
+	 * @return the set sky color of given player
+	 * @warning the return value can be null!
 	 */
 	public Color getSkyColor(SpoutPlayer player);
 	
+	/**
+	 * Sets the fog color for the player
+	 * @param player
+	 * @param fogColor
+	 */
 	public void setFogColor(SpoutPlayer player, Color fogColor);
 	
+	/**
+	 * 
+	 * @param player
+	 * @return the set fog color of given player.
+	 * @warning the return value can be null!
+	 */
 	public Color getFogColor(SpoutPlayer player);
 	
+	/**
+	 * Sets the cloud color for the player
+	 * @param player
+	 * @param cloudColor
+	 */
 	public void setCloudColor(SpoutPlayer player, Color cloudColor);
 	
+	/**
+	 * 
+	 * @param player
+	 * @return the set cloud color of the player
+	 * @warning the return value can be null!
+	 */
 	public Color getCloudColor(SpoutPlayer player);
 }
