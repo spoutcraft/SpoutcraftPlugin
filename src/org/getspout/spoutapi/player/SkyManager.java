@@ -1,5 +1,7 @@
 package org.getspout.spoutapi.player;
 
+import org.getspout.spoutapi.gui.Color;
+
 public interface SkyManager {
 	
 	/**
@@ -148,4 +150,21 @@ public interface SkyManager {
 	 */
 	public void setMoonTextureUrl(SpoutPlayer player, String url);
 
+	/**
+	 * Sets the color of the sky
+	 */
+	public void setSkyColor(SpoutPlayer player, Color skyColor);
+	
+	/**
+	 * Gets the color of the sky
+	 */
+	public Color getSkyColor(SpoutPlayer player);
+	
+	public void setFogColor(SpoutPlayer player, Color fogColor);
+	
+	public Color getFogColor(SpoutPlayer player);
+	
+	public void setCloudColor(SpoutPlayer player, Color cloudColor);
+	
+	public Color getCloudColor(SpoutPlayer player);
 }

@@ -3,9 +3,11 @@ package org.getspout.spoutapi.packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import org.getspout.spoutapi.gui.Color;
 
 public class PacketSky implements SpoutPacket{
-	private int cloudY, stars, sunPercent, moonPercent;
+	private int cloudY = 0, stars = 0, sunPercent = 0, moonPercent = 0;
+    private Color skyColor = new Color(-1,-1,-1), fogColor = new Color(-1,-1,-1), cloudColor = new Color(-1,-1,-1);
 	String sun = "";
 	String moon = "";
 	public PacketSky() {
@@ -28,18 +30,33 @@ public class PacketSky implements SpoutPacket{
 		this.moon = moonUrl;
 	}
 	
-	public PacketSky(int cloudY, int stars, int sunPercent, int moonPercent, String sunUrl, String moonUrl) {
+	public PacketSky(Color sky, Color fog, Color cloud){
+		if(sky!=null)
+			skyColor = sky.clone();
+		if(fog!=null)
+			fogColor = fog.clone();
+		if(cloud!=null)
+			cloudColor = cloud.clone();
+	}
+	
+	public PacketSky(int cloudY, int stars, int sunPercent, int moonPercent, Color sky, Color fog, Color cloud, String sunUrl, String moonUrl) {
 		this.cloudY = cloudY;
 		this.stars = stars;
 		this.sunPercent = sunPercent;
 		this.moonPercent = moonPercent;
 		this.sun = sunUrl;
 		this.moon = moonUrl;
+		if(sky!=null)
+			skyColor = sky.clone();
+		if(fog!=null)
+			fogColor = fog.clone();
+		if(cloud!=null)
+			cloudColor = cloud.clone();
 	}
 
 	@Override
 	public int getNumBytes() {
-		return 16 + PacketUtil.getNumBytes(sun) + PacketUtil.getNumBytes(moon);
+		return 25 + PacketUtil.getNumBytes(sun) + PacketUtil.getNumBytes(moon);
 	}
 
 	@Override
@@ -50,6 +67,11 @@ public class PacketSky implements SpoutPacket{
 		moonPercent = input.readInt();
 		sun = PacketUtil.readString(input, 256);
 		moon = PacketUtil.readString(input, 256);
+        float r,g,b;
+        r = input.readFloat();
+        g = input.readFloat();
+        b = input.readFloat();
+        skyColor = new Color(r,g,b);
 	}
 
 	@Override
@@ -60,6 +82,9 @@ public class PacketSky implements SpoutPacket{
 		output.writeInt(moonPercent);
 		PacketUtil.writeString(output, sun);
 		PacketUtil.writeString(output, moon);
+        PacketUtil.writeColor(output, skyColor);
+        PacketUtil.writeColor(output, fogColor);
+        PacketUtil.writeColor(output, cloudColor);
 	}
 
 	@Override
