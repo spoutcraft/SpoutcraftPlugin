@@ -4,29 +4,31 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.getspout.spoutapi.packet.PacketUtil;
+
 public class GenericGradient extends GenericWidget implements Gradient {
 	
-	protected int color1, color2;
+	protected Color color1, color2;
 	
 	public GenericGradient() {
 		
 	}
 	
-	public Gradient setTopColor(int color) {
+	public Gradient setTopColor(Color color) {
 		this.color1 = color;
 		return this;
 	}
 	
-	public Gradient setBottomColor(int color) {
+	public Gradient setBottomColor(Color color) {
 		this.color2 = color;
 		return this;
 	}
 	
-	public int getTopColor() {
+	public Color getTopColor() {
 		return this.color1;
 	}
 	
-	public int getBottomColor() {
+	public Color getBottomColor() {
 		return this.color2;
 	}
 
@@ -37,21 +39,21 @@ public class GenericGradient extends GenericWidget implements Gradient {
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + 8;
+		return super.getNumBytes() + 24;
 	}
 	
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
-		this.setTopColor(input.readInt());
-		this.setBottomColor(input.readInt());
+		this.setTopColor(PacketUtil.readColor(input));
+		this.setBottomColor(PacketUtil.readColor(input));
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
-		output.writeInt(getTopColor());
-		output.writeInt(getBottomColor());
+		PacketUtil.writeColor(output, getTopColor());
+		PacketUtil.writeColor(output, getBottomColor());
 	}
 	
 	@Override
