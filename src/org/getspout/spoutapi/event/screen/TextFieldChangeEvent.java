@@ -1,6 +1,7 @@
 package org.getspout.spoutapi.event.screen;
 
 import org.getspout.spoutapi.gui.Screen;
+import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -10,7 +11,7 @@ public class TextFieldChangeEvent extends ScreenEvent{
 	protected String oldVal;
 	protected String newVal;
 	public TextFieldChangeEvent(SpoutPlayer player, Screen screen, TextField field, String newVal) {
-		super("TextFieldChangeEvent", player, screen);
+		super("TextFieldChangeEvent", player, screen, ScreenType.CUSTOM_SCREEN);
 		this.field = field;
 		this.oldVal = field.getText();
 		this.newVal = newVal;
