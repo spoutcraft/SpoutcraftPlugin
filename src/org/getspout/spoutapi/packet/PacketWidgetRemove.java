@@ -62,5 +62,10 @@ public class PacketWidgetRemove implements SpoutPacket {
 	public PacketType getPacketType() {
 		return PacketType.PacketWidgetRemove;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 
 }

@@ -38,5 +38,10 @@ public class PacketAllowVisualCheats implements SpoutPacket{
 	public PacketType getPacketType() {
 		return PacketType.PacketAllowVisualCheats;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 
 }

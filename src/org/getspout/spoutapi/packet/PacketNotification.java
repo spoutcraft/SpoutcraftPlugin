@@ -40,5 +40,10 @@ public class PacketNotification extends PacketAlert{
 	public PacketType getPacketType() {
 		return PacketType.PacketNotification;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 
 }

@@ -48,4 +48,9 @@ public class PacketAirTime implements SpoutPacket{
 	public PacketType getPacketType() {
 		return PacketType.PacketAirTime;
 	}
+
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 }

@@ -75,5 +75,10 @@ public class PacketRenderDistance implements SpoutPacket{
 	public PacketType getPacketType() {
 		return PacketType.PacketRenderDistance;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 
 }

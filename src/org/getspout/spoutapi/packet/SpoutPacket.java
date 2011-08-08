@@ -15,5 +15,7 @@ public interface SpoutPacket {
 	public void run(int playerId);
 	
 	public PacketType getPacketType();
+	
+	public int getVersion();
 
 }
