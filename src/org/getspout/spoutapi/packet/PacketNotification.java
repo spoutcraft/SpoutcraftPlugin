@@ -4,7 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class PacketNotification extends PacketBukkitContribAlert{
+public class PacketNotification extends PacketAlert{
 	protected int time;
 	protected short data;
 	public PacketNotification() {

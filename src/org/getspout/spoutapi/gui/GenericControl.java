@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.getspout.spoutapi.packet.PacketUtil;
-
 public abstract class GenericControl extends GenericWidget implements Control{
 
 	protected boolean enabled = true;

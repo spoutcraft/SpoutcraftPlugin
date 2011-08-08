@@ -9,7 +9,7 @@ public enum PacketType {
 	PacketEntityTitle(3, PacketEntityTitle.class),
 	PacketPluginReload(4, PacketPluginReload.class),
 	PacketRenderDistance(5, PacketRenderDistance.class),
-	PacketBukkitContribAlert(6, PacketBukkitContribAlert.class),
+	PacketAlert(6, PacketAlert.class),
 	PacketPlaySound(7, PacketPlaySound.class),
 	PacketDownloadMusic(8, PacketDownloadMusic.class),
 	PacketClipboardText(9, PacketClipboardText.class),
@@ -24,6 +24,7 @@ public enum PacketType {
 	PacketScreenAction(18, PacketScreenAction.class),
 	PacketControlAction(19, PacketControlAction.class),
 	PacketCacheHashUpdate(20, PacketCacheHashUpdate.class),
+	PacketAllowVisualCheats(21, PacketAllowVisualCheats.class),
 	
 	;
 	

@@ -4,7 +4,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.getspout.spoutapi.ClientOnly;
-import org.getspout.spoutapi.event.input.RenderDistance;
 import org.getspout.spoutapi.gui.InGameHUD;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.SpoutPacket;
