@@ -104,12 +104,12 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 			return false;
 		}
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
-		ScreenCloseEvent event = new ScreenCloseEvent(player, getActivePopup());
+		ScreenCloseEvent event = new ScreenCloseEvent(player, getActivePopup(), ScreenType.CUSTOM_SCREEN);
 		Bukkit.getServer().getPluginManager().callEvent(event);
 		if (event.isCancelled()) {
 			return false;
 		}
-		player.sendPacket(new PacketScreenAction(ScreenAction.ScreenClose));
+		player.sendPacket(new PacketScreenAction(ScreenAction.Close,ScreenType.CUSTOM_SCREEN));
 		activePopup = null;
 		return true;
 	}
@@ -140,7 +140,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 	
 	public boolean attachPopupScreen(PopupScreen screen) {
 		if (getActivePopup() == null) {
-			ScreenOpenEvent event = new ScreenOpenEvent(SpoutManager.getPlayerFromId(playerId), screen);
+			ScreenOpenEvent event = new ScreenOpenEvent(SpoutManager.getPlayerFromId(playerId), screen, ScreenType.CUSTOM_SCREEN);
 			Bukkit.getServer().getPluginManager().callEvent(event);
 			if (event.isCancelled()) {
 				return false;
