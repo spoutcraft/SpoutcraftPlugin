@@ -5,15 +5,15 @@ import org.bukkit.inventory.Inventory;
 
 public interface DoubleChestInventory extends Inventory{
 	/**
-	 * Gets the left half of the double chest
-	 * @return left side
+	 * Gets the block containing the top half of the double chest
+	 * @return top half
 	 */
-	public Block getLeftSide();
+	public Block getTopHalf();
 	
 	/**
-	 * Gets the right half of the double chest
-	 * @return right side
+	 * Gets the block containing the bottom half of the double chest
+	 * @return bottom half
 	 */
-	public Block getRightSide();
+	public Block getBottomHalf();
 
 }
