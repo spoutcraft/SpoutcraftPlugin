@@ -16,7 +16,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class PacketScreenAction implements SpoutPacket{
 	protected byte action = -1;
 	protected byte screen = -1; // UnknownScreen
-        
+		
 	@Override
 	public int getNumBytes() {
 		return 2;
@@ -43,30 +43,26 @@ public class PacketScreenAction implements SpoutPacket{
 
 	@Override
 	public void run(int playerId) {
-            SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
-            
-                ScreenEvent event;
-                switch(ScreenAction.getScreenActionFromId(action)){
-                    case Close:
-                        event = new ScreenCloseEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen) );
-                        Bukkit.getServer().getPluginManager().callEvent(event);
-                        if (!event.isCancelled()) {
-                                ((InGameScreen)player.getMainScreen()).clearPopup();
-                                this.action = (byte) ScreenAction.Close.getId();
-                                player.sendPacket(this);
-                        }
-                        break;
-                    case Open:
-                        event = new ScreenOpenEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen));
-                        Bukkit.getServer().getPluginManager().callEvent(event);
-                        if (!event.isCancelled()) {
-                                ((InGameScreen)player.getMainScreen()).clearPopup();
-                                this.action = (byte) ScreenAction.Open.getId();
-                                player.sendPacket(this);
-                        }
-                        break;   
-                }
-            
+		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
+		ScreenEvent event;
+		switch(ScreenAction.getScreenActionFromId(action)){
+			case Close:
+				event = new ScreenCloseEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen) );
+				Bukkit.getServer().getPluginManager().callEvent(event);
+				if (!event.isCancelled()) {
+					this.action = (byte) ScreenAction.Close.getId();
+					player.sendPacket(this);
+				}
+				break;
+			case Open:
+				event = new ScreenOpenEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen));
+				Bukkit.getServer().getPluginManager().callEvent(event);
+				if (!event.isCancelled()) {
+					this.action = (byte) ScreenAction.Open.getId();
+					player.sendPacket(this);
+				}
+				break;
+		}
 	}
 
 	@Override
