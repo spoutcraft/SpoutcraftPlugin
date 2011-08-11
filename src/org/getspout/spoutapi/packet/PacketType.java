@@ -25,7 +25,8 @@ public enum PacketType {
 	PacketControlAction(19, PacketControlAction.class),
 	PacketCacheHashUpdate(20, PacketCacheHashUpdate.class),
 	PacketAllowVisualCheats(21, PacketAllowVisualCheats.class),
-	PacketWidgetRemove(22, PacketWidgetRemove.class),
+	PacketWidgetRemove(22, PacketWidgetRemove.class), 
+	PacketEntitySkin(23, PacketEntitySkin.class),
 	;
 	
 	private final int id;
