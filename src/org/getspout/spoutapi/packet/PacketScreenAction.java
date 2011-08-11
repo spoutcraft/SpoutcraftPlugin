@@ -49,7 +49,7 @@ public class PacketScreenAction implements SpoutPacket{
 			case Close:
 				event = new ScreenCloseEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen) );
 				Bukkit.getServer().getPluginManager().callEvent(event);
-				if (!event.isCancelled()) {
+				if (event.isCancelled()) {
 					this.action = (byte) ScreenAction.Close.getId();
 					player.sendPacket(this);
 				}
@@ -57,7 +57,7 @@ public class PacketScreenAction implements SpoutPacket{
 			case Open:
 				event = new ScreenOpenEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen));
 				Bukkit.getServer().getPluginManager().callEvent(event);
-				if (!event.isCancelled()) {
+				if (event.isCancelled()) {
 					this.action = (byte) ScreenAction.Open.getId();
 					player.sendPacket(this);
 				}
@@ -72,7 +72,7 @@ public class PacketScreenAction implements SpoutPacket{
 	
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 
 }
