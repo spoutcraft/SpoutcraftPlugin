@@ -32,8 +32,8 @@ public class SpoutManager {
 	
 	
 	/**
-	 * Gets the singleton instance of the bukkitcontrib plugin
-	 * @return bukkitcontrib plugin
+	 * Gets the singleton instance of the spout plugin
+	 * @return spout plugin
 	 */
 	public static SpoutManager getInstance() {
 		return instance;
