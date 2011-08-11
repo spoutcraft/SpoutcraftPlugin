@@ -71,4 +71,10 @@ public class PacketKeyPress implements SpoutPacket{
 	public PacketType getPacketType() {
 		return PacketType.PacketKeyPress;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
+
 }

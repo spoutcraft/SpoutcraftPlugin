@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.event.input.RenderDistance;
 import org.getspout.spoutapi.event.input.RenderDistanceChangeEvent;
+import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketRenderDistance implements SpoutPacket{
@@ -74,6 +74,11 @@ public class PacketRenderDistance implements SpoutPacket{
 	@Override
 	public PacketType getPacketType() {
 		return PacketType.PacketRenderDistance;
+	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
 	}
 
 }

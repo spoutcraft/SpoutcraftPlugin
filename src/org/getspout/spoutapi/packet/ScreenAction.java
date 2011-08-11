@@ -1,8 +1,8 @@
 package org.getspout.spoutapi.packet;
 
 public enum ScreenAction {
-	ScreenOpen(0),
-	ScreenClose(1),
+	Open(0),
+	Close(1),
 	;
 	
 	private final byte id;

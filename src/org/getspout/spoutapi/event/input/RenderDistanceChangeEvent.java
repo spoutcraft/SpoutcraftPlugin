@@ -2,6 +2,7 @@ package org.getspout.spoutapi.event.input;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
+import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class RenderDistanceChangeEvent extends Event implements Cancellable{

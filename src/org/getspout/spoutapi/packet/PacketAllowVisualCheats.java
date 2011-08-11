@@ -4,39 +4,39 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+public class PacketAllowVisualCheats implements SpoutPacket{
+	private boolean cheating = false;
+	public PacketAllowVisualCheats() {
 
-public class PacketWorldSeed implements SpoutPacket{
-	public long newSeed;
-	
-	public PacketWorldSeed() {
 	}
 	
-	public PacketWorldSeed(long newSeed) {
-		this.newSeed = newSeed;
+	public PacketAllowVisualCheats(boolean allow) {
+		this.cheating = allow;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return 8;
+		return 1;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
-		this.newSeed = input.readLong();
+		cheating = input.readBoolean();
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
-		output.writeLong(this.newSeed);
+		output.writeBoolean(cheating);
 	}
 
 	@Override
-	public void run(int id) {
+	public void run(int playerId) {
+		
 	}
 
 	@Override
 	public PacketType getPacketType() {
-		return PacketType.PacketWorldSeed;
+		return PacketType.PacketAllowVisualCheats;
 	}
 	
 	@Override

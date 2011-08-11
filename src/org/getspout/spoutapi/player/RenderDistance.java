@@ -1,4 +1,4 @@
-package org.getspout.spoutapi.event.input;
+package org.getspout.spoutapi.player;
 
 public enum RenderDistance {
 	FAR(0),

@@ -4,13 +4,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class PacketBukkitContribAlert implements SpoutPacket{
+public class PacketAlert implements SpoutPacket{
 	
-	public PacketBukkitContribAlert() {
+	public PacketAlert() {
 		
 	}
 	
-	public PacketBukkitContribAlert(String title, String message, int itemId) {
+	public PacketAlert(String title, String message, int itemId) {
 		this.title = title;
 		this.message = message;
 		this.itemId = itemId;
@@ -42,7 +42,12 @@ public class PacketBukkitContribAlert implements SpoutPacket{
 
 	@Override
 	public PacketType getPacketType() {
-		return PacketType.PacketBukkitContribAlert;
+		return PacketType.PacketAlert;
+	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
 	}
 
 	String message;

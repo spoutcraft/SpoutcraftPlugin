@@ -52,5 +52,10 @@ public class PacketCacheHashUpdate implements SpoutPacket {
 	public PacketType getPacketType() {
 		return PacketType.PacketCacheHashUpdate;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 
 }

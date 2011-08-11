@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.packet.PacketWidget;
+import org.getspout.spoutapi.packet.PacketWidgetRemove;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public abstract class GenericScreen extends GenericWidget implements Screen{
@@ -33,6 +34,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	@Override
 	public Screen attachWidget(Widget widget) {
 		widgets.add(widget);
+		widget.setDirty(true);
 		widget.setScreen(this);
 		return this;
 	}
@@ -40,11 +42,8 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	@Override
 	public Screen removeWidget(Widget widget) {
 		widgets.remove(widget);
-		boolean visibility = widget.isVisible();
-		widget.setVisible(false);
-		SpoutManager.getPlayerFromId(playerId).sendPacket(new PacketWidget(widget, getId()));
+		SpoutManager.getPlayerFromId(playerId).sendPacket(new PacketWidgetRemove(widget, getId()));
 		widget.setScreen(null);
-		widget.setVisible(visibility );
 		return this;
 	}
 	

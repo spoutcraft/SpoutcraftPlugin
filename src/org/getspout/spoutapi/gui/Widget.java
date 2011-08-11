@@ -8,6 +8,8 @@ import java.util.UUID;
 public interface Widget{
 	
 	public int getNumBytes();
+
+	public int getVersion();
 	
 	public WidgetType getType();
 	

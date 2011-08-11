@@ -1,6 +1,7 @@
 package org.getspout.spoutapi.event.screen;
 
 import org.getspout.spoutapi.gui.Screen;
+import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.gui.Slider;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -9,7 +10,7 @@ public class SliderDragEvent extends ScreenEvent {
 	protected float position;
 	protected float old;
 	public SliderDragEvent(SpoutPlayer player, Screen screen, Slider slider, float position) {
-		super("SliderDragEvent", player, screen);
+		super("SliderDragEvent", player, screen, ScreenType.CUSTOM_SCREEN);
 		this.slider = slider;
 		this.position = position;
 		this.old = slider.getSliderPosition();

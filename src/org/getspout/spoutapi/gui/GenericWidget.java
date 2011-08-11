@@ -26,6 +26,10 @@ public abstract class GenericWidget implements Widget{
 	public int getNumBytes() {
 		return 37 + PacketUtil.getNumBytes(tooltip);
 	}
+
+	public int getVersion() {
+		return 0;
+	}
 	
 	public GenericWidget(int upperRightX, int upperRightY, int width, int height) {
 		this.upperRightX = upperRightX;

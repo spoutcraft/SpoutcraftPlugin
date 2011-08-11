@@ -83,5 +83,10 @@ public class PacketPlaySound implements SpoutPacket{
 	public PacketType getPacketType() {
 		return PacketType.PacketPlaySound;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 
 }

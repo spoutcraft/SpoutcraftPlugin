@@ -8,12 +8,13 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericLabel extends GenericWidget implements Label{
 	protected String text = "";
-	protected boolean center = false;
+	protected Align vAlign = Align.FIRST;
+	protected Align hAlign = Align.FIRST;
 	protected int hexColor = 0x000000;
 	public GenericLabel(){
 		
 	}
-	
+
 	public GenericLabel(String text) {
 		this.text = text;
 	}
@@ -25,14 +26,20 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 5;
+		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 6;
+	}
+	
+	@Override
+	public int getVersion() {
+		return 1;
 	}
 	
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
 		this.setText(PacketUtil.readString(input));
-		this.setCentered(input.readBoolean());
+		this.setAlignX(Align.getAlign(input.readByte()));
+		this.setAlignY(Align.getAlign(input.readByte()));
 		this.setHexColor(input.readInt());
 	}
 
@@ -40,7 +47,8 @@ public class GenericLabel extends GenericWidget implements Label{
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		PacketUtil.writeString(output, getText());
-		output.writeBoolean(isCentered());
+		output.writeByte(hAlign.getId());
+		output.writeByte(vAlign.getId());
 		output.writeInt(getHexColor());
 	}
 
@@ -56,13 +64,24 @@ public class GenericLabel extends GenericWidget implements Label{
 	}
 
 	@Override
-	public boolean isCentered() {
-		return center;
+	public Align getAlignX() {
+		return vAlign;
 	}
 
 	@Override
-	public Label setCentered(boolean center) {
-		this.center = center;
+	public Align getAlignY() {
+		return hAlign;
+	}
+	
+	@Override
+	public Label setAlignX(Align pos) {
+		this.hAlign = pos;
+		return this;
+	}
+
+	@Override
+	public Label setAlignY(Align pos) {
+		this.vAlign = pos;
 		return this;
 	}
 

@@ -46,5 +46,10 @@ public class PacketItemName implements SpoutPacket{
 	public PacketType getPacketType() {
 		return PacketType.PacketItemName;
 	}
+	
+	@Override
+	public int getVersion() {
+		return 0;
+	}
 
 }
