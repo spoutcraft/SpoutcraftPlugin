@@ -17,6 +17,7 @@ public interface Screen extends Widget{
 	 * @param widget to attach
 	 * @return screen
 	 */
+	@Deprecated
 	public Screen attachWidget(Widget widget);
 	
 	/**
