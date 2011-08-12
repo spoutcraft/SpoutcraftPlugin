@@ -89,6 +89,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 			Plugin plugin = widgets.get(widget);
 			widgets.remove(widget);
 			widgets.put(widget, plugin);
+			widget.setScreen(this);
 			return true;
 		}
 		return false;
@@ -132,6 +133,16 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeBoolean(isBgVisible());
+	}
+	
+	@Override
+	public void setDirty(boolean dirty) {
+		super.setDirty(dirty);
+		if (dirty) {
+			for (Widget widget : getAttachedWidgets()){
+				widget.setDirty(true);
+			}
+		}
 	}
 	
 	@Override
