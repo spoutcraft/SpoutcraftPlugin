@@ -56,7 +56,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	@Override
 	public Screen removeWidgets(Plugin p) {
 		for (Widget i : getAttachedWidgets()) {
-			if (widgets.get(i).equals(p)) {
+			if (widgets.get(i) != null && widgets.get(i).equals(p)) {
 				removeWidget(i);
 			}
 		}
