@@ -168,4 +168,22 @@ public interface AppearanceManager {
 	 */
 	@ClientOnly
 	public void resetAll();
+
+	/**
+	 * Sets a new skin for the given target.
+	 * @param viewingPlayer that sees the target
+	 * @param target to change the skin for
+	 * @param url of the texture
+	 */
+	@ClientOnly
+	public void setEntitySkin(SpoutPlayer viewingPlayer, LivingEntity target, String url);
+
+	/**
+	 * Sets a new secondary skin for the given target. This skin will be used for mobs that have 2 "states" (spiders, ghasts, sheep).
+	 * @param viewingPlayer that sees the target
+	 * @param target to change the skin for
+	 * @param url of the texture
+	 */
+	@ClientOnly
+	public void setEntitySecondarySkin(SpoutPlayer viewingPlayer, LivingEntity target, String url);
 }
