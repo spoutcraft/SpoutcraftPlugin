@@ -293,4 +293,6 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly	
 	public void reconnect(String hostname);
 
+	public boolean sendInventoryEvent();
+	
 }
