@@ -8,4 +8,11 @@ public interface MCPacket {
 	 */
 	public int getId();
 	
+	
+	/**
+	 * @return the raw minecraft packet
+	 */
+	@Deprecated
+	public Object getPacket();
+	
 }
