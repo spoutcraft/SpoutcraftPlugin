@@ -8,7 +8,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericButton extends GenericControl implements Button {
 
-	protected GenericLabel label = new GenericLabel();
+	protected GenericLabel label = (GenericLabel) new GenericLabel().setAlignX(Align.SECOND);
 	protected String disabledText = "";
 	protected int hoverColor = 0xffffa0;
 	public GenericButton() {
@@ -113,5 +113,16 @@ public class GenericButton extends GenericControl implements Button {
 	
 	@Override
 	public void render() {}
+
+	@Override
+	public Label setAuto(boolean auto) {
+		label.setAuto(auto);
+		return this;
+	}
+
+	@Override
+	public boolean getAuto() {
+		return label.getAuto();
+	}
 
 }
