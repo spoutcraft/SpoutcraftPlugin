@@ -35,7 +35,7 @@ public abstract class ScreenEvent extends Event implements Cancellable{
 	}
 	
 	public void setCancelled(boolean cancel) {
-		this.cancel = true;
+		this.cancel = cancel;
 	}
 
 }
