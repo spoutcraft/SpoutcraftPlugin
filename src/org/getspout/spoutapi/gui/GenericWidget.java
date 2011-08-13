@@ -86,7 +86,7 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setScreen(Screen screen) {
-		if (screen != null && screen != this.screen) {
+		if (this.screen != null && screen != null && screen != this.screen) {
 			this.screen.removeWidget(this);
 		}
 		this.screen = screen;
