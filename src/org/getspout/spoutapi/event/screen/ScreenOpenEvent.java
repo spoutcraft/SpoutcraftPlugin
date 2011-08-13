@@ -13,7 +13,7 @@ public class ScreenOpenEvent extends ScreenEvent{
 		super("ScreenOpenEvent", player, screen, type);
 		CraftPlayer cp = (CraftPlayer) player;
 		SpoutNetServerHandler snsh = (SpoutNetServerHandler) cp.getHandle().netServerHandler;
-		if (type == ScreenType.PLAYER_INVENTORY && !snsh.activeInventory) {
+		if ((type == ScreenType.PLAYER_INVENTORY || type == ScreenType.CHEST_INVENTORY || type == ScreenType.DISPENSER_INVENTORY || type == ScreenType.FURNACE_INVENTORY || type == ScreenType.WORKBENCH_INVENTORY) && !snsh.activeInventory) {
 			snsh.activeInventory = true;
 			InventoryOpenEvent event = new InventoryOpenEvent(player, player.getInventory(), snsh.getDefaultInventory(), snsh.getActiveInventoryLocation());
 			Bukkit.getServer().getPluginManager().callEvent(event);
