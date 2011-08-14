@@ -18,17 +18,17 @@ public interface DoubleChestInventory extends Inventory{
 	public Block getBottomHalf();
 	
 	/**
-	 * Gets the left side of the double chest
-	 * @return left half
+	 * Gets the left half of the double chest
+	 * @return left side
 	 */
 	public Block getLeftSide();
 	
 	/**
-	 * Gets the right side of the double chest
-	 * @return right half
+	 * Gets the right half of the double chest
+	 * @return right side
 	 */
 	public Block getRightSide();
-	
+
 	/**
 	 * Gets the direction of the front buckle on the double chest
 	 * @return buckle direction
