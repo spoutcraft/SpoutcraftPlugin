@@ -239,6 +239,12 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly
 	public void setTexturePack(String url);
 	
+	/**
+	 * Resets the texture pack for this player to the one they were using when they joined the game
+	 */
+	@ClientOnly
+	public void resetTexturePack();
+	
 	public void sendPacket(SpoutPacket packet);
 	
 	public void sendPacket(MCPacket packet);
@@ -287,4 +293,6 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly	
 	public void reconnect(String hostname);
 
+	public boolean sendInventoryEvent();
+	
 }

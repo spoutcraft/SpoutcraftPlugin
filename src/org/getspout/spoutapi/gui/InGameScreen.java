@@ -3,6 +3,7 @@ package org.getspout.spoutapi.gui;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.screen.ScreenCloseEvent;
 import org.getspout.spoutapi.event.screen.ScreenOpenEvent;
@@ -27,7 +28,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		this.chatText = new ChatTextBox();
 		this.armor = new ArmorBar();
 		
-		attachWidget(health).attachWidget(bubble).attachWidget(chat).attachWidget(chatText).attachWidget(armor);
+		attachWidget(null, health).attachWidget(null, bubble).attachWidget(null, chat).attachWidget(null, chatText).attachWidget(null, armor);
 	}
 	@Override
 	public void onTick() {
@@ -44,10 +45,15 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		super.onTick();
 	}
 	
-	@Override
+	@Deprecated
 	public InGameScreen attachWidget(Widget widget) {
+		return attachWidget(null, widget);
+	}
+	
+	@Override
+	public InGameScreen attachWidget(Plugin plugin, Widget widget) {
 		if (canAttachWidget(widget)) {
-			super.attachWidget(widget);
+			super.attachWidget(plugin, widget);
 			return this;
 		}
 		throw new UnsupportedOperationException("Unsupported widget type");
@@ -146,6 +152,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 				return false;
 			}
 			activePopup = screen;
+			screen.setDirty(true);
 			screen.setScreen(this);
 			((GenericPopup)screen).playerId = this.playerId;
 			return true;

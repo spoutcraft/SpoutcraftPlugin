@@ -2,6 +2,8 @@ package org.getspout.spoutapi.gui;
 
 import java.util.UUID;
 
+import org.bukkit.plugin.Plugin;
+
 public interface Screen extends Widget{
 	
 	/**
@@ -15,7 +17,16 @@ public interface Screen extends Widget{
 	 * @param widget to attach
 	 * @return screen
 	 */
+	@Deprecated
 	public Screen attachWidget(Widget widget);
+	
+	/**
+	 * Attaches a widget to this screen
+	 * @param plugin that owns this widget
+	 * @param widget to attach
+	 * @return screen
+	 */
+	public Screen attachWidget(Plugin plugin, Widget widget);
 	
 	/**
 	 * Removes a widget from this screen
@@ -23,6 +34,13 @@ public interface Screen extends Widget{
 	 * @return screen
 	 */
 	public Screen removeWidget(Widget widget);
+	
+	/**
+	 * Removes all of a plugin's widgets from this screen
+	 * @param widget to remove
+	 * @return screen
+	 */
+	public Screen removeWidgets(Plugin plugin);
 	
 	/**
 	 * Is true if the screen has the given widget attached to it. Uses a linear search, takes O(n) time to complete.

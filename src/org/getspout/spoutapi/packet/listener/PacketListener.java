@@ -6,6 +6,7 @@ import org.getspout.spoutapi.packet.standard.MCPacket;
 /**
  * @author Nightgunner5
  */
+
 public interface PacketListener {
 	/**
 	 * @param player The player the packet is sent to

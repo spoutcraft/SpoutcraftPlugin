@@ -10,7 +10,8 @@ public class GenericLabel extends GenericWidget implements Label{
 	protected String text = "";
 	protected Align vAlign = Align.FIRST;
 	protected Align hAlign = Align.FIRST;
-	protected int hexColor = 0x000000;
+	protected int hexColor = 0xFFFFFF;
+	protected boolean auto = true;
 	public GenericLabel(){
 		
 	}
@@ -26,12 +27,12 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 6;
+		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 7;
 	}
 	
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 	
 	@Override
@@ -40,6 +41,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		this.setText(PacketUtil.readString(input));
 		this.setAlignX(Align.getAlign(input.readByte()));
 		this.setAlignY(Align.getAlign(input.readByte()));
+		this.setAuto(input.readBoolean());
 		this.setHexColor(input.readInt());
 	}
 
@@ -49,6 +51,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		PacketUtil.writeString(output, getText());
 		output.writeByte(hAlign.getId());
 		output.writeByte(vAlign.getId());
+		output.writeBoolean(getAuto());
 		output.writeInt(getHexColor());
 	}
 
@@ -62,15 +65,26 @@ public class GenericLabel extends GenericWidget implements Label{
 		this.text = text;
 		return this;
 	}
+	
+	@Override
+	public boolean getAuto() {
+		return auto;
+	}
+	
+	@Override
+	public Label setAuto(boolean auto) {
+		this.auto = auto;
+		return this;
+	}
 
 	@Override
 	public Align getAlignX() {
-		return vAlign;
+		return hAlign;
 	}
 
 	@Override
 	public Align getAlignY() {
-		return hAlign;
+		return vAlign;
 	}
 	
 	@Override
