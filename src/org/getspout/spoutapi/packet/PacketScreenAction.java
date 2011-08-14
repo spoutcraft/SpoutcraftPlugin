@@ -9,7 +9,6 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.screen.ScreenCloseEvent;
 import org.getspout.spoutapi.event.screen.ScreenEvent;
 import org.getspout.spoutapi.event.screen.ScreenOpenEvent;
-import org.getspout.spoutapi.gui.InGameScreen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -52,6 +51,8 @@ public class PacketScreenAction implements SpoutPacket{
 				if (event.isCancelled()) {
 					this.action = (byte) ScreenAction.Close.getId();
 					player.sendPacket(this);
+				} else if (ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
+					player.getMainScreen().closePopup();
 				}
 				break;
 			case Open:
