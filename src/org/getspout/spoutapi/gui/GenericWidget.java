@@ -8,8 +8,10 @@ import java.util.UUID;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public abstract class GenericWidget implements Widget{
-	protected int upperRightX = 0;
-	protected int upperRightY = 0;
+	protected int X = 0;
+	protected int Y = 0;
+	protected int offsetX = 0;
+	protected int offsetY = 0;
 	protected int width = 0;
 	protected int height = 0;
 	protected boolean visible = true;
@@ -18,6 +20,7 @@ public abstract class GenericWidget implements Widget{
 	protected RenderPriority priority = RenderPriority.Normal;
 	protected UUID id = UUID.randomUUID();
 	protected String tooltip = "";
+	public Container container;
 	
 	public GenericWidget() {
 
@@ -31,9 +34,9 @@ public abstract class GenericWidget implements Widget{
 		return 0;
 	}
 	
-	public GenericWidget(int upperRightX, int upperRightY, int width, int height) {
-		this.upperRightX = upperRightX;
-		this.upperRightY = upperRightY;
+	public GenericWidget(int X, int Y, int width, int height) {
+		this.X = X;
+		this.Y = Y;
 		this.width = width;
 		this.height = height;
 	}
@@ -54,8 +57,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
-		output.writeInt(getX());
-		output.writeInt(getY());
+		output.writeInt(offsetX + getX());
+		output.writeInt(offsetY + getY());
 		output.writeInt(getWidth());
 		output.writeInt(getHeight());
 		output.writeBoolean(isVisible());
@@ -128,23 +131,23 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public int getX() {
-		return upperRightX;
+		return X;
 	}
 
 	@Override
 	public int getY() {
-		return upperRightY;
+		return Y;
 	}
 
 	@Override
 	public Widget setX(int pos) {
-		this.upperRightX = pos;
+		this.X = pos;
 		return this;
 	}
 
 	@Override
 	public Widget setY(int pos) {
-		this.upperRightY = pos;
+		this.Y = pos;
 		return this;
 	}
 
@@ -195,5 +198,25 @@ public abstract class GenericWidget implements Widget{
 	@Override
 	public String getTooltip(){
 		return tooltip;
+	}
+	
+	@Override
+	public Container getContainer() {
+		return container;
+	}
+	
+	@Override
+	public void setContainer(Container container) {
+		if (this.container != null) {
+			this.container.removeChild(this);
+		}
+		this.container = container;
+		updateOffset();
+	}
+	
+	@Override
+	public void updateOffset() {
+		offsetX = getContainer().getOffsetX();
+		offsetY = getContainer().getOffsetY();
 	}
 }

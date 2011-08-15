@@ -149,13 +149,28 @@ public interface Widget{
 	public void onTick();
 	
 	/**
-	 * Set the widgets tooltip.
+	 * Set the widget's tooltip.
 	 * Returns the current instance of the widget to make chainable calls.
 	 */
 	public Widget setTooltip(String tooltip);
 	
 	/**
-	 * Gets the widgets tooltip
+	 * Gets the widget's tooltip
 	 */
 	public String getTooltip();
+	
+	/**
+	 * Gets the widget's container
+	 */
+	public Container getContainer();
+	
+	/**
+	 * Sets the parant container for this widget
+	 */
+	public void setContainer(Container container);
+	
+	/**
+	 * Updates the position of this widget on screen relative to containers
+	 */
+	public void updateOffset();
 }
