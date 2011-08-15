@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.getspout.spoutapi.chunkcache.CacheManager;
+import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
@@ -25,6 +26,7 @@ public class SpoutManager {
 	private PacketManager packetManager = null;
 	private PlayerManager playerManager = null;
 	private CacheManager cacheManager = null;
+	private ChunkDataManager chunkDataManager = null;
 	
 	protected SpoutManager(){
 
@@ -147,6 +149,16 @@ public class SpoutManager {
 		if (playerManager == null) {
 			playerManager = manager;
 		}
+	}
+	
+	public void setChunkDataManager(ChunkDataManager manager) {
+		if (chunkDataManager == null) {
+			chunkDataManager = manager;
+		}
+	}
+	
+	public static ChunkDataManager getChunkDataManager() {
+		return getInstance().chunkDataManager;
 	}
 	
 	/**

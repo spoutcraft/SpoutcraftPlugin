@@ -1,5 +1,7 @@
 package org.getspout.spoutapi.block;
 
+import java.io.Serializable;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -34,6 +36,40 @@ public interface SpoutBlock extends Block{
 	 * @param data to set the block to
 	 */
 	public void setTypeIdAndDataAsync(int type, byte data);
+	
+	/**
+	 * Sets block data for the block at (x, y, z) and a given id.  
+	 * 
+	 * Setting data for unloaded chunks has an undefined effect.
+	 * 
+	 * @param id the id used to retrieve the data
+	 * @param data the data to be stored
+	 * @return the old data for that block using that string
+	 * 
+	 */
+	public Serializable setData(String id, Serializable data);
+	
+	/**
+	 * Returns the block data for the block at (x, y, z) and a given id.
+	 * 
+	 * Retrieving data for unloaded chunks is undefined.
+	 * 
+	 * @param id the id used to retrieve the data
+	 * @return the old data for that block using that string
+	 * 
+	 */
+	public Serializable getData(String id);
+	
+	/**
+	 * Removes and returns the block data for the block at (x, y, z) and a given id.
+	 * 
+	 * Deleting data for unloaded chunks has an undefined effect.
+	 * 
+	 * @param id the id used to retrieve the data
+	 * @return the old data for that block using that string
+	 * 
+	 */
+	public Serializable removeData(String id);
 	
 	@Override
 	public SpoutBlock getFace(BlockFace face);
