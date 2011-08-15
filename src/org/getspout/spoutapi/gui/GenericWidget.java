@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public abstract class GenericWidget implements Widget{
@@ -20,16 +21,20 @@ public abstract class GenericWidget implements Widget{
 	protected RenderPriority priority = RenderPriority.Normal;
 	protected UUID id = UUID.randomUUID();
 	protected String tooltip = "";
-	public Container container;
+	protected Container container = null;
+	protected transient Plugin plugin = null;
+	protected String userId = "";
 	
 	public GenericWidget() {
 
 	}
 	
+	@Override
 	public int getNumBytes() {
 		return 37 + PacketUtil.getNumBytes(tooltip);
 	}
 
+	@Override
 	public int getVersion() {
 		return 0;
 	}
@@ -89,10 +94,16 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setScreen(Screen screen) {
+		return setScreen(null, screen);
+	}
+	
+	@Override
+	public Widget setScreen(Plugin plugin, Screen screen) {
 		if (this.screen != null && screen != null && screen != this.screen) {
 			this.screen.removeWidget(this);
 		}
 		this.screen = screen;
+		this.plugin = plugin;
 		return this;
 	}
 	
@@ -223,5 +234,16 @@ public abstract class GenericWidget implements Widget{
 			offsetX = getContainer().getOffsetX();
 			offsetY = getContainer().getOffsetY();
 		}
+	}
+
+	@Override
+	public Widget setUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+
+	@Override
+	public String getUserId() {
+		return userId;
 	}
 }
