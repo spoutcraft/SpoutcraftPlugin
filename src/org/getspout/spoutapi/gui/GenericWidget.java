@@ -55,8 +55,8 @@ public abstract class GenericWidget implements Widget{
 		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt()));
 		long msb = input.readLong();
 		long lsb = input.readLong();
-		setTooltip(PacketUtil.readString(input));
 		this.id = new UUID(msb, lsb);
+		setTooltip(PacketUtil.readString(input));
 	}
 
 	@Override

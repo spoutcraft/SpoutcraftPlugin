@@ -16,7 +16,6 @@ public class GenericContainer extends GenericWidget implements Container {
 	protected boolean fixed = false;
 	
 	public GenericContainer() {
-		
 	}
 	
 	@Override
