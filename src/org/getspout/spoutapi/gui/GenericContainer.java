@@ -16,6 +16,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		
 	}
 	
+	@Override
 	public int getOffsetX() {
 		int off = 0;
 		if (((GenericContainer) getContainer()) != null) {
@@ -24,6 +25,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		return off + getX();
 	}
 	
+	@Override
 	public int getOffsetY() {
 		int off = 0;
 		if (((GenericContainer) getContainer()) != null) {
@@ -36,6 +38,9 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container addChild(Widget child) {
 		this.children.add(child);
 		child.setContainer(this);
+		if (this.screen != null) {
+			this.screen.attachWidget(this.plugin, child);
+		}
 		return this;
 	}
 
@@ -44,6 +49,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		this.children.addAll(Arrays.asList(children));
 		for (Widget child : children) {
 			child.setContainer(this);
+			this.screen.attachWidget(this.plugin, child);
 		}
 		return this;
 	}
@@ -112,6 +118,22 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container removeChild(Widget child) {
 		children.remove(child);
 		child.setContainer(null);
+		if (this.screen != null) {
+			this.screen.removeWidget(child);
+		}
+		return this;
+	}
+
+	@Override
+	public Container setScreen(Screen screen) {
+		for (Widget child : children) {
+			if (screen != null) {
+				screen.attachWidget(this.plugin, child);
+			} else if (this.screen != null) {
+				this.screen.removeWidget(child);
+			}
+		}
+		super.setScreen(screen);
 		return this;
 	}
 }
