@@ -23,7 +23,6 @@ public abstract class GenericWidget implements Widget{
 	protected String tooltip = "";
 	protected Container container = null;
 	protected transient Plugin plugin = null;
-	protected String userId = "";
 	
 	public GenericWidget() {
 
@@ -234,16 +233,5 @@ public abstract class GenericWidget implements Widget{
 			offsetX = getContainer().getOffsetX();
 			offsetY = getContainer().getOffsetY();
 		}
-	}
-
-	@Override
-	public Widget setUserId(String userId) {
-		this.userId = userId;
-		return this;
-	}
-
-	@Override
-	public String getUserId() {
-		return userId;
 	}
 }

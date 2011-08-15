@@ -3,7 +3,6 @@ package org.getspout.spoutapi.gui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import org.getspout.spoutapi.gui.ContainerType;
 import org.getspout.spoutapi.gui.GenericWidget;
 import org.getspout.spoutapi.gui.RenderPriority;
@@ -139,36 +138,6 @@ public class GenericContainer extends GenericWidget implements Container {
 		}
 		super.setScreen(screen);
 		return this;
-	}
-	
-	@Override
-	public Widget findUserId(String userID) {
-		for (Widget child : children) {
-			if (child.getUserId().equals(userID)) {
-				return child;
-			}
-			if (child instanceof Container) {
-				if ((child = ((Container)child).findUserId(userID)) != null) {
-					return child;
-				}
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public Widget findId(UUID id) {
-		for (Widget child : children) {
-			if (child.getId().equals(id)) {
-				return child;
-			}
-			if (child instanceof Container) {
-				if ((child = ((Container)child).findId(id)) != null) {
-					return child;
-				}
-			}
-		}
-		return null;
 	}
 
 	@Override

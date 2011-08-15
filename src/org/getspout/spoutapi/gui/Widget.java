@@ -182,17 +182,4 @@ public interface Widget{
 	 * Updates the position of this widget on screen relative to containers
 	 */
 	public void updateOffset();
-	
-	/**
-	 * Set a userID for this widget
-	 * @param userID to set
-	 * @return the current instance of the widget to make chainable calls
-	 */
-	public Widget setUserId(String userId);
-	
-	/**
-	 * Get the previously set userID
-	 * @return the userID
-	 */
-	public String getUserId();
 }
