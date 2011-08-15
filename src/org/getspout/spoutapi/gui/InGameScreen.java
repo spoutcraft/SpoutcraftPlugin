@@ -35,8 +35,11 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		SpoutPlayer player = (SpoutPlayer)SpoutManager.getPlayerFromId(playerId);
 		if (player != null && player.getVersion() > 17) {
 			if (getActivePopup() != null) {
-				if (getActivePopup().isDirty() && !getActivePopup().getType().isServerOnly()) {
-					player.sendPacket(new PacketWidget(getActivePopup(), getId()));
+				if (getActivePopup().isDirty()) {
+					if(!getActivePopup().getType().isServerOnly())
+					{
+						player.sendPacket(new PacketWidget(getActivePopup(), getId()));
+					}
 					getActivePopup().setDirty(false);
 				}
 				getActivePopup().onTick();

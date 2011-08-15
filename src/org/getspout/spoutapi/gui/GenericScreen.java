@@ -101,8 +101,10 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 		if (player != null && player.getVersion() > 17) {
 			for (Widget widget : widgets.keySet()) {
 				widget.onTick();
-				if (widget.isDirty() && !widget.getType().isServerOnly()) {
-					player.sendPacket(new PacketWidget(widget, getId()));
+				if (widget.isDirty()) {
+					if(! widget.getType().isServerOnly()){
+						player.sendPacket(new PacketWidget(widget, getId()));
+					}
 					widget.setDirty(false);
 				}
 			}
