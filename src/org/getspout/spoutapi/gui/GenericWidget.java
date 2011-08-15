@@ -207,7 +207,7 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public void setContainer(Container container) {
-		if (this.container != null) {
+		if (this.container != null && container != null && container != this.container) {
 			this.container.removeChild(this);
 		}
 		this.container = container;
@@ -216,7 +216,12 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public void updateOffset() {
-		offsetX = getContainer().getOffsetX();
-		offsetY = getContainer().getOffsetY();
+		if (getContainer() == null) {
+			offsetX = 0;
+			offsetY = 0;
+		} else {
+			offsetX = getContainer().getOffsetX();
+			offsetY = getContainer().getOffsetY();
+		}
 	}
 }

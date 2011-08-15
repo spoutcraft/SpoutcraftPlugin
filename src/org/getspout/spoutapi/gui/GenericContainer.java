@@ -111,6 +111,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	@Override
 	public Container removeChild(Widget child) {
 		children.remove(child);
+		child.setContainer(null);
 		return this;
 	}
 }
