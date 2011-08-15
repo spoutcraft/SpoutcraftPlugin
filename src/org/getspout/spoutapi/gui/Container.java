@@ -1,5 +1,6 @@
 package org.getspout.spoutapi.gui;
 
+import java.util.UUID;
 import org.getspout.spoutapi.gui.Widget;
 
 public interface Container extends Widget {
@@ -34,4 +35,18 @@ public interface Container extends Widget {
 	public int getOffsetX();
 	
 	public int getOffsetY();
+	
+	/**
+	 * Find the child with a matching userID
+	 * @param userID The userID to find
+	 * @return the widget or null
+	 */
+	public Widget findUserId(String userID);
+	
+	/**
+	 * Find the child with the matching widget id
+	 * @param id The id to find
+	 * @return the widget or null
+	 */
+	public Widget findId(UUID id);
 }
