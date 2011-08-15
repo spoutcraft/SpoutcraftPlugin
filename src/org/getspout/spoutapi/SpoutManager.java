@@ -203,4 +203,8 @@ public class SpoutManager {
 	public static SpoutPlayer getPlayer(Player player) {
 		return getInstance().playerManager.getPlayer(player);
 	}
+	
+	public static PlayerManager getPlayerManager() {
+		return getInstance().playerManager;
+	}
 }

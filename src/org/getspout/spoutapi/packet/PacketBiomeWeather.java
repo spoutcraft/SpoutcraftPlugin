@@ -4,13 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.bukkit.block.Biome;
+import org.getspout.spoutapi.block.SpoutWeather;
+
 public class PacketBiomeWeather implements SpoutPacket {
 	public byte biome;
 	public byte weather;
 	
-	public PacketBiomeWeather(byte biome, byte weather) {
-		this.biome = biome;
-		this.weather = weather;
+	public PacketBiomeWeather(Biome biomeEnum, SpoutWeather weatherEnum) {
+		this.biome = (byte) biomeEnum.ordinal();
+		this.weather = (byte) weatherEnum.ordinal();
 	}
 
 	@Override

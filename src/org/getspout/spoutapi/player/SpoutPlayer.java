@@ -295,4 +295,6 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 
 	public boolean sendInventoryEvent();
 	
+	public PlayerInformation getInformation();
+	
 }

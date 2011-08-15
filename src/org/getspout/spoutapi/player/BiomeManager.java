@@ -1,6 +1,7 @@
 package org.getspout.spoutapi.player;
 
 import org.bukkit.block.Biome;
+import org.bukkit.entity.Player;
 import org.getspout.spoutapi.block.SpoutWeather;
 
 public interface BiomeManager {
@@ -36,5 +37,22 @@ public interface BiomeManager {
 	 * @param weather to set the world to
 	 */
 	public void setGlobalWeather(SpoutWeather weather);
+	
+	/**
+	 * Gets the global weather for the specified biome.
+	 * 
+	 * @param biome to get the weather for
+	 * @return the weather
+	 */
+	public SpoutWeather getGlobalBiomeWeather(Biome biome);
+	
+	/**
+	 * Gets the players weather for the specified biome.
+	 * 
+	 * @param player to get the weather for
+	 * @param biome to get the weather for
+	 * @return the weather
+	 */
+	public SpoutWeather getPlayerBiomeWeather(Player player, Biome biome);
 
 }
