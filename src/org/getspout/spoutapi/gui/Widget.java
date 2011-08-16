@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+import org.bukkit.plugin.Plugin;
 
 public interface Widget{
 	
@@ -89,6 +90,14 @@ public interface Widget{
 	 * @return widget
 	 */
 	public Widget setScreen(Screen screen);
+
+	/**
+	 * Sets the screen and plugin this widget is attached to. Should not be used normally, is handled with screen.attachWidget() is called.
+	 * @param screen this is attached to
+	 * @param plugin this is attached to
+	 * @return widget
+	 */
+	public Widget setScreen(Plugin plugin, Screen screen);
 
 	/**
 	 * Gets the x coordinate of this widget. Widgets (and screens) render from the top left cornor the screen. 0,0 represents the top left corner.

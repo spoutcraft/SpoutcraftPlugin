@@ -36,7 +36,10 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		if (player != null && player.getVersion() > 17) {
 			if (getActivePopup() != null) {
 				if (getActivePopup().isDirty()) {
-					player.sendPacket(new PacketWidget(getActivePopup(), getId()));
+					if(!getActivePopup().getType().isServerOnly())
+					{
+						player.sendPacket(new PacketWidget(getActivePopup(), getId()));
+					}
 					getActivePopup().setDirty(false);
 				}
 				getActivePopup().onTick();

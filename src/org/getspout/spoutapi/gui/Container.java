@@ -34,4 +34,38 @@ public interface Container extends Widget {
 	public int getOffsetX();
 	
 	public int getOffsetY();
+	
+	/**
+	 * Set the automatic layout type for children, triggered by setWidth() or setHeight()
+	 * @param type ContainerType.VERTICAL, .HORIZONTAL or .OVERLAY
+	 * @return the container
+	 */
+	public Container setLayout(ContainerType type);
+	
+	/**
+	 * Get the automatic layout type for children
+	 * @return the type of container
+	 */
+	public ContainerType getLayout();
+	
+	/**
+	 * Set whether the container will be resized with it's parents
+	 * @param fixed if it is a static size
+	 * @return the container
+	 */
+	public Container setFixed(boolean fixed);
+	
+	/**
+	 * Whether the container is fixed size or not
+	 * @return 
+	 */
+	public boolean getFixed();
+	
+	/**
+	 * Force the container to re-layout all non-fixed children.
+	 * This will re-position and resize all child elements.
+	 * This is automatically called when the container gets resized.
+	 * @return 
+	 */
+	public Container updateLayout();
 }
