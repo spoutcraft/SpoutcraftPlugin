@@ -12,6 +12,11 @@ public class GenericTexture extends GenericWidget implements Texture {
 		
 	}
 	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
+	}
+	
 	public GenericTexture(String url) {
 		this.url = url;
 	}

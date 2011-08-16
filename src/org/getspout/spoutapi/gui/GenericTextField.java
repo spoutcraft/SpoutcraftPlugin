@@ -18,6 +18,11 @@ public class GenericTextField extends GenericControl implements TextField{
 	}
 	
 	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
+	}
+	
+	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 16 + PacketUtil.getNumBytes(text);
 	}

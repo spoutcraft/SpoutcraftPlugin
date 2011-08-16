@@ -14,6 +14,11 @@ public class GenericGradient extends GenericWidget implements Gradient {
 		
 	}
 	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
+	}
+	
 	public Gradient setTopColor(Color color) {
 		this.color1 = color;
 		return this;

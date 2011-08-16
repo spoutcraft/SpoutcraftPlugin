@@ -23,6 +23,8 @@ public abstract class GenericWidget implements Widget{
 	protected String tooltip = "";
 	protected Container container = null;
 	protected transient Plugin plugin = null;
+	protected WidgetAnchor anchor = WidgetAnchor.TOP_LEFT;
+	protected boolean scale = true;
 	
 	public GenericWidget() {
 
@@ -30,12 +32,12 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public int getNumBytes() {
-		return 37 + PacketUtil.getNumBytes(tooltip);
+		return 39 + PacketUtil.getNumBytes(tooltip);
 	}
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 	
 	public GenericWidget(int X, int Y, int width, int height) {
@@ -44,13 +46,37 @@ public abstract class GenericWidget implements Widget{
 		this.width = width;
 		this.height = height;
 	}
+	
+	@Override
+	public Widget setAnchor(WidgetAnchor anchor) {
+		this.anchor = anchor;
+		return this;
+	}
+	
+	@Override
+	public Widget setScale(boolean scale) {
+		this.scale = scale;
+		return this;
+	}
 
+	@Override
+	public WidgetAnchor getAnchor() {
+		return anchor;
+	}
+	
+	@Override
+	public boolean getScale() {
+		return scale;
+	}
+	
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		setX(input.readInt());
 		setY(input.readInt());
 		setWidth(input.readInt());
 		setHeight(input.readInt());
+		setScale(input.readBoolean());
+		setAnchor(WidgetAnchor.getAnchor(input.readByte()));
 		setVisible(input.readBoolean());
 		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt()));
 		long msb = input.readLong();
@@ -61,10 +87,12 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
-		output.writeInt(offsetX + getX());
-		output.writeInt(offsetY + getY());
-		output.writeInt(getWidth());
-		output.writeInt(getHeight());
+		output.writeInt(getX());
+		output.writeInt(getY());
+		output.writeInt(width);
+		output.writeInt(height);
+		output.writeBoolean(getScale());
+		output.writeByte(getAnchor().getId());
 		output.writeBoolean(isVisible());
 		output.writeInt(priority.getId());
 		output.writeLong(getId().getMostSignificantBits());

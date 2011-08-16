@@ -11,6 +11,11 @@ public class GenericSlider extends GenericControl implements Slider {
 	}
 	
 	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
+	}
+	
+	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 4;
 	}

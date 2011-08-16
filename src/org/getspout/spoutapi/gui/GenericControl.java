@@ -14,6 +14,11 @@ public abstract class GenericControl extends GenericWidget implements Control{
 	}
 	
 	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
+	}
+	
+	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 9;
 	}

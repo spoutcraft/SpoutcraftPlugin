@@ -8,8 +8,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericLabel extends GenericWidget implements Label{
 	protected String text = "";
-	protected Align vAlign = Align.FIRST;
-	protected Align hAlign = Align.FIRST;
+	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
 	protected int hexColor = 0xFFFFFF;
 	protected boolean auto = true;
 	public GenericLabel(){
@@ -27,20 +26,19 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 7;
+		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 6;
 	}
 	
 	@Override
 	public int getVersion() {
-		return 2;
+		return super.getVersion() + 2;
 	}
 	
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
 		this.setText(PacketUtil.readString(input));
-		this.setAlignX(Align.getAlign(input.readByte()));
-		this.setAlignY(Align.getAlign(input.readByte()));
+		this.setAlign(WidgetAnchor.getAnchor(input.readByte()));
 		this.setAuto(input.readBoolean());
 		this.setHexColor(input.readInt());
 	}
@@ -49,8 +47,7 @@ public class GenericLabel extends GenericWidget implements Label{
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		PacketUtil.writeString(output, getText());
-		output.writeByte(hAlign.getId());
-		output.writeByte(vAlign.getId());
+		output.writeByte(align.getId());
 		output.writeBoolean(getAuto());
 		output.writeInt(getHexColor());
 	}
@@ -78,24 +75,13 @@ public class GenericLabel extends GenericWidget implements Label{
 	}
 
 	@Override
-	public Align getAlignX() {
-		return hAlign;
+	public WidgetAnchor getAlign() {
+		return align;
 	}
 
 	@Override
-	public Align getAlignY() {
-		return vAlign;
-	}
-	
-	@Override
-	public Label setAlignX(Align pos) {
-		this.hAlign = pos;
-		return this;
-	}
-
-	@Override
-	public Label setAlignY(Align pos) {
-		this.vAlign = pos;
+	public Label setAlign(WidgetAnchor pos) {
+		this.align = pos;
 		return this;
 	}
 
@@ -112,6 +98,58 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	public void render() {
 
+	}
+
+	@Override
+	@Deprecated
+	public Align getAlignX() {
+		switch (align) {
+			case TOP_CENTER:
+			case CENTER_CENTER:
+			case BOTTOM_CENTER:
+				return Align.SECOND;
+			case TOP_RIGHT:
+			case CENTER_RIGHT:
+			case BOTTOM_RIGHT:
+				return Align.THIRD;
+			case TOP_LEFT:
+			case CENTER_LEFT:
+			case BOTTOM_LEFT:
+			default:
+				return Align.FIRST;
+		}
+	}
+
+	@Override
+	@Deprecated
+	public Widget setAlignX(Align pos) {
+		return this;
+	}
+
+	@Override
+	@Deprecated
+	public Align getAlignY() {
+		switch (align) {
+			case CENTER_LEFT:
+			case CENTER_CENTER:
+			case CENTER_RIGHT:
+				return Align.SECOND;
+			case BOTTOM_LEFT:
+			case BOTTOM_CENTER:
+			case BOTTOM_RIGHT:
+				return Align.THIRD;
+			case TOP_LEFT:
+			case TOP_CENTER:
+			case TOP_RIGHT:
+			default:
+				return Align.FIRST;
+		}
+	}
+
+	@Override
+	@Deprecated
+	public Widget setAlignY(Align pos) {
+		return this;
 	}
 
 }

@@ -31,24 +31,28 @@ public interface Label extends Widget{
 	 * Get the horizontal, x, alignment of text within it's area
 	 * @return alignment enum, ( FIRST | SECOND | THIRD )
 	 */
+	@Deprecated
 	public Align getAlignX();
-	
-	/** 
-	 * Get the vertical, y, alignment of text within it's area
-	 * @return alignment enum, ( FIRST | SECOND | THIRD )
-	 */
-	public Align getAlignY();
 	
 	/** 
 	 * Sets the horizontal, x, alignment of text within it's area providing it's on auto
 	 * @return label
 	 */
+	@Deprecated
 	public Widget setAlignX(Align pos);
-
+	
+	/** 
+	 * Get the vertical, y, alignment of text within it's area
+	 * @return alignment enum, ( FIRST | SECOND | THIRD )
+	 */
+	@Deprecated
+	public Align getAlignY();
+	
 	/** 
 	 * Sets the vertical, y, alignment of text within it's area providing it's on auto
 	 * @return label
 	 */
+	@Deprecated
 	public Widget setAlignY(Align pos);
 	
 	/** 
@@ -56,12 +60,16 @@ public interface Label extends Widget{
 	 * @param auto
 	 * @return label
 	 */
-	Label setAuto(boolean auto);
+	public Label setAuto(boolean auto);
 	
 	/** 
 	 * Gets if the text will expand to fill width and height
 	 * @param auto
 	 * @return label
 	 */
-	boolean getAuto();
+	public boolean getAuto();
+	
+	public WidgetAnchor getAlign();
+	
+	public Widget setAlign(WidgetAnchor pos);
 }

@@ -8,11 +8,16 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericButton extends GenericControl implements Button {
 
-	protected GenericLabel label = (GenericLabel) new GenericLabel().setAlignX(Align.SECOND);
+	protected GenericLabel label = (GenericLabel) new GenericLabel().setAlign(WidgetAnchor.TOP_CENTER);
 	protected String disabledText = "";
 	protected int hoverColor = 0xffffa0;
 	public GenericButton() {
 		
+	}
+	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
 	}
 	
 	public GenericButton(String text) {
@@ -52,24 +57,15 @@ public class GenericButton extends GenericControl implements Button {
 	}
 	
 	@Override
+	@Deprecated
 	public Align getAlignX() {
 		return label.getAlignX();
 	}
-
-	@Override
-	public Align getAlignY() {
-		return label.getAlignY();
-	}
 	
 	@Override
+	@Deprecated
 	public Widget setAlignX(Align pos) {
 		label.setAlignX(pos);
-		return this;
-	}
-
-	@Override
-	public Widget setAlignY(Align pos) {
-		label.setAlignY(pos);
 		return this;
 	}
 
@@ -123,6 +119,28 @@ public class GenericButton extends GenericControl implements Button {
 	@Override
 	public boolean getAuto() {
 		return label.getAuto();
+	}
+
+	@Override
+	@Deprecated
+	public Align getAlignY() {
+		return label.getAlignY();
+	}
+
+	@Override
+	@Deprecated
+	public Widget setAlignY(Align pos) {
+		return label.setAlignY(pos);
+	}
+
+	@Override
+	public WidgetAnchor getAlign() {
+		return label.getAlign();
+	}
+
+	@Override
+	public Widget setAlign(WidgetAnchor pos) {
+		return label.setAlign(pos);
 	}
 
 }

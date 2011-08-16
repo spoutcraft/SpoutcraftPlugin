@@ -182,4 +182,30 @@ public interface Widget{
 	 * Updates the position of this widget on screen relative to containers
 	 */
 	public void updateOffset();
+
+	/**
+	 * Sets the anchor location for the widget
+	 * @param anchor
+	 * @return widget
+	 */
+	public Widget setAnchor(WidgetAnchor anchor);
+
+	/**
+	 * Gets the anchor location for the widget
+	 * @return widgetAnchor
+	 */
+	public WidgetAnchor getAnchor();
+
+	/**
+	 * Sets whether the widget will be scaled, or use notchs levels
+	 * @param scale
+	 * @return widget
+	 */
+	public Widget setScale(boolean scale);
+
+	/**
+	 * Gets whether the widget will be scaled, or use notchs levels
+	 * @return scale
+	 */
+	public boolean getScale();
 }

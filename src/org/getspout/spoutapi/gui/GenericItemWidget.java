@@ -15,6 +15,11 @@ public class GenericItemWidget extends GenericWidget implements ItemWidget{
 		
 	}
 	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
+	}
+	
 	public GenericItemWidget(ItemStack item) {
 		this.material = item.getTypeId();
 		this.data = item.getDurability();
