@@ -11,5 +11,7 @@ public interface PlayerManager {
 	public SpoutPlayer getPlayer(UUID id);
 	
 	public SpoutPlayer getPlayer(int entityId);
+	
+	public PlayerInformation getPlayerInfo(Player player);
 
 }

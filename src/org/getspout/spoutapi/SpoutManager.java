@@ -10,6 +10,7 @@ import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
 import org.getspout.spoutapi.packet.PacketManager;
 import org.getspout.spoutapi.player.AppearanceManager;
+import org.getspout.spoutapi.player.BiomeManager;
 import org.getspout.spoutapi.player.PlayerManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -22,6 +23,7 @@ public class SpoutManager {
 	private SoundManager soundManager = null;
 	private SkyManager skyManager = null;
 	private ItemManager itemManager = null;
+	private BiomeManager biomeManager = null;
 	private InventoryBuilder inventoryBuilder = null;
 	private PacketManager packetManager = null;
 	private PlayerManager playerManager = null;
@@ -125,6 +127,20 @@ public class SpoutManager {
 		}
 	}
 	
+	/**
+	 * Gets the biome manager
+	 * @return biome manager
+	 */
+	public static BiomeManager getBiomeManager() {
+		return getInstance().biomeManager;
+	}
+	
+	public void setBiomeManager(BiomeManager manager){
+		if (biomeManager == null) {
+			biomeManager = manager;
+		}
+	}
+	
 	public void setCacheManager(CacheManager manager) {
 		if (cacheManager == null) {
 			cacheManager = manager;
@@ -186,5 +202,9 @@ public class SpoutManager {
 	 */
 	public static SpoutPlayer getPlayer(Player player) {
 		return getInstance().playerManager.getPlayer(player);
+	}
+	
+	public static PlayerManager getPlayerManager() {
+		return getInstance().playerManager;
 	}
 }
