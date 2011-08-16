@@ -16,6 +16,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		
 	}
 	
+	@Override
 	public int getOffsetX() {
 		int off = 0;
 		if (((GenericContainer) getContainer()) != null) {
@@ -24,6 +25,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		return off + getX();
 	}
 	
+	@Override
 	public int getOffsetY() {
 		int off = 0;
 		if (((GenericContainer) getContainer()) != null) {
