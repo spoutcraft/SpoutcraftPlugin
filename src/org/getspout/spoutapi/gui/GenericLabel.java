@@ -38,7 +38,7 @@ public class GenericLabel extends GenericWidget implements Label{
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
 		this.setText(PacketUtil.readString(input));
-		this.setAlign(WidgetAnchor.getAnchor(input.readByte()));
+		this.setAlign(WidgetAnchor.getAnchorFromId(input.readByte()));
 		this.setAuto(input.readBoolean());
 		this.setHexColor(input.readInt());
 	}

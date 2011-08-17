@@ -8,7 +8,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericGradient extends GenericWidget implements Gradient {
 	
-	protected Color color1, color2;
+	protected Color color1 = new Color(0, 0, 0, 0), color2 = new Color(0, 0, 0, 0);
 	
 	public GenericGradient() {
 		

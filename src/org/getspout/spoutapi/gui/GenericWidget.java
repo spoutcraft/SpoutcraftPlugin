@@ -24,7 +24,6 @@ public abstract class GenericWidget implements Widget{
 	protected Container container = null;
 	protected transient Plugin plugin = null;
 	protected WidgetAnchor anchor = WidgetAnchor.TOP_LEFT;
-	protected boolean scale = true;
 	
 	public GenericWidget() {
 
@@ -32,12 +31,12 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public int getNumBytes() {
-		return 39 + PacketUtil.getNumBytes(tooltip);
+		return 38 + PacketUtil.getNumBytes(tooltip);
 	}
 
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 	
 	public GenericWidget(int X, int Y, int width, int height) {
@@ -52,21 +51,10 @@ public abstract class GenericWidget implements Widget{
 		this.anchor = anchor;
 		return this;
 	}
-	
-	@Override
-	public Widget setScale(boolean scale) {
-		this.scale = scale;
-		return this;
-	}
 
 	@Override
 	public WidgetAnchor getAnchor() {
 		return anchor;
-	}
-	
-	@Override
-	public boolean getScale() {
-		return scale;
 	}
 	
 	@Override
@@ -75,8 +63,7 @@ public abstract class GenericWidget implements Widget{
 		setY(input.readInt());
 		setWidth(input.readInt());
 		setHeight(input.readInt());
-		setScale(input.readBoolean());
-		setAnchor(WidgetAnchor.getAnchor(input.readByte()));
+		setAnchor(WidgetAnchor.getAnchorFromId(input.readByte()));
 		setVisible(input.readBoolean());
 		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt()));
 		long msb = input.readLong();
@@ -91,7 +78,6 @@ public abstract class GenericWidget implements Widget{
 		output.writeInt(getY());
 		output.writeInt(width);
 		output.writeInt(height);
-		output.writeBoolean(getScale());
 		output.writeByte(getAnchor().getId());
 		output.writeBoolean(isVisible());
 		output.writeInt(priority.getId());
