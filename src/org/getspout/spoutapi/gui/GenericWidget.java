@@ -23,7 +23,7 @@ public abstract class GenericWidget implements Widget{
 	protected String tooltip = "";
 	protected Container container = null;
 	protected transient Plugin plugin = null;
-	protected WidgetAnchor anchor = WidgetAnchor.TOP_LEFT;
+	protected WidgetAnchor anchor = WidgetAnchor.SCALE;
 	
 	public GenericWidget() {
 
@@ -36,7 +36,7 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public int getVersion() {
-		return 2;
+		return 1;
 	}
 	
 	public GenericWidget(int X, int Y, int width, int height) {
@@ -74,10 +74,10 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
-		output.writeInt(getX());
-		output.writeInt(getY());
-		output.writeInt(width);
-		output.writeInt(height);
+		output.writeInt(getX() + offsetX);
+		output.writeInt(getY() + offsetY);
+		output.writeInt(getWidth());
+		output.writeInt(getHeight());
 		output.writeByte(getAnchor().getId());
 		output.writeBoolean(isVisible());
 		output.writeInt(priority.getId());
