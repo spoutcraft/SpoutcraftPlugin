@@ -36,7 +36,7 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 	
 	public GenericWidget(int X, int Y, int width, int height) {
