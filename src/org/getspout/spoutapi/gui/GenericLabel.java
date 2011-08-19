@@ -9,7 +9,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 public class GenericLabel extends GenericWidget implements Label{
 	protected String text = "";
 	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
-	protected int hexColor = 0xFFFFFF;
+	protected Color color = new Color(1, 1, 1);
 	protected boolean auto = true;
 	public GenericLabel(){
 		
@@ -26,12 +26,12 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 6;
+		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 16;
 	}
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 2;
+		return super.getVersion() + 3;
 	}
 	
 	@Override
@@ -40,7 +40,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		this.setText(PacketUtil.readString(input));
 		this.setAlign(WidgetAnchor.getAnchorFromId(input.readByte()));
 		this.setAuto(input.readBoolean());
-		this.setHexColor(input.readInt());
+		this.setTextColor(PacketUtil.readColor(input));
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		PacketUtil.writeString(output, getText());
 		output.writeByte(align.getId());
 		output.writeBoolean(getAuto());
-		output.writeInt(getHexColor());
+		PacketUtil.writeColor(output, getTextColor());
 	}
 
 	@Override
@@ -86,13 +86,13 @@ public class GenericLabel extends GenericWidget implements Label{
 	}
 
 	@Override
-	public int getHexColor() {
-		return hexColor;
+	public Color getTextColor() {
+		return color;
 	}
 
 	@Override
-	public Label setHexColor(int hex) {
-		hexColor = hex;
+	public Label setTextColor(Color color) {
+		this.color = color;
 		return this;
 	}
 	
