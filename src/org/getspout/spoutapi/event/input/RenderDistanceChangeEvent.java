@@ -6,6 +6,7 @@ import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class RenderDistanceChangeEvent extends Event implements Cancellable{
+	private static final long serialVersionUID = 3737610397521859191L;
 	protected RenderDistance newView;
 	protected SpoutPlayer player;
 	protected boolean cancel = false;

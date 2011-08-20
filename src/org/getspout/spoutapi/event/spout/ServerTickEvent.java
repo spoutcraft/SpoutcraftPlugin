@@ -3,6 +3,7 @@ package org.getspout.spoutapi.event.spout;
 import org.bukkit.event.Event;
 
 public class ServerTickEvent extends Event{
+	private static final long serialVersionUID = -3947714932775639540L;
 	protected long lastTick;
 	protected long createdTime = System.currentTimeMillis();
 	private static boolean first = true;
