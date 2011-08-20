@@ -9,7 +9,7 @@ public class ChatTextBox extends GenericWidget implements Widget{
 	protected int visibleLines = 10;
 	protected int visibleChatLines = 20;
 	public ChatTextBox() {
-
+		setDirty(false);
 	}
 	
 	@Override

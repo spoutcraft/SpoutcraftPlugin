@@ -5,7 +5,7 @@ import java.util.UUID;
 public class ArmorBar extends GenericWidget{
 
 	public ArmorBar() {
-		
+		setDirty(false);
 	}
 	
 	@Override

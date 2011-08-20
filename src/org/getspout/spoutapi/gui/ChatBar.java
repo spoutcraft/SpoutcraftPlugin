@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class ChatBar extends GenericWidget implements Widget{
 	public ChatBar() {
-		
+		setDirty(false);
 	}
 	
 	@Override

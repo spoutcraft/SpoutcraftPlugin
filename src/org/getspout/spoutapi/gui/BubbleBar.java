@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class BubbleBar extends GenericWidget implements Widget{
 	public BubbleBar() {
-
+		setDirty(false);
 	}
 	
 	@Override

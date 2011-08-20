@@ -5,7 +5,7 @@ import java.util.UUID;
 public class HealthBar extends GenericWidget{
 
 	public HealthBar() {
-		
+		setDirty(false);
 	}
 	
 	@Override
