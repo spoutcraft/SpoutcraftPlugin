@@ -6,7 +6,7 @@ import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class TextFieldChangeEvent extends ScreenEvent{
-
+	private static final long serialVersionUID = -287243193163686657L;
 	protected TextField field;
 	protected String oldVal;
 	protected String newVal;

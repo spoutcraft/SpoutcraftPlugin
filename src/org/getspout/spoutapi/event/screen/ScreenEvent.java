@@ -7,6 +7,7 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public abstract class ScreenEvent extends Event implements Cancellable{
+	private static final long serialVersionUID = 5207571955055167844L;
 	protected Screen screen;
 	protected SpoutPlayer player;
 		protected ScreenType type;

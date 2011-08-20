@@ -6,6 +6,7 @@ import org.getspout.spoutapi.gui.Slider;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SliderDragEvent extends ScreenEvent {
+	private static final long serialVersionUID = 4982214332331736926L;
 	protected Slider slider;
 	protected float position;
 	protected float old;
