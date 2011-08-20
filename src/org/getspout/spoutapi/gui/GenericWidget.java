@@ -25,6 +25,7 @@ public abstract class GenericWidget implements Widget{
 	protected Container container = null;
 	protected boolean fixed = false;
 	protected int marginTop = 0, marginRight = 0, marginBottom = 0, marginLeft = 0;
+	protected int minWidth = 0, maxWidth = 427, minHeight = 0, maxHeight = 240;
 	
 	public GenericWidget() {
 
@@ -307,5 +308,53 @@ public abstract class GenericWidget implements Widget{
 	@Override
 	public int getMarginLeft() {
 		return marginLeft;
+	}
+
+	@Override
+	public Widget setMinWidth(int min) {
+		this.minWidth = min;
+		width = Math.max(width, min);
+		return this;
+	}
+
+	@Override
+	public int getMinWidth() {
+		return minWidth;
+	}
+
+	@Override
+	public Widget setMaxWidth(int max) {
+		this.maxWidth = max == 0 ? 427 : max;
+		width = Math.min(width, max);
+		return this;
+	}
+
+	@Override
+	public int getMaxWidth() {
+		return maxWidth;
+	}
+
+	@Override
+	public Widget setMinHeight(int min) {
+		this.minHeight = min;
+		height = Math.max(height, min);
+		return this;
+	}
+
+	@Override
+	public int getMinHeight() {
+		return minHeight;
+	}
+
+	@Override
+	public Widget setMaxHeight(int max) {
+		this.maxHeight = max == 0 ? 240 : max;
+		height = Math.min(height, max);
+		return this;
+	}
+
+	@Override
+	public int getMaxHeight() {
+		return maxHeight;
 	}
 }

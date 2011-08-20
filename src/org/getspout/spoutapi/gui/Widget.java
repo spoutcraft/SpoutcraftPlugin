@@ -257,6 +257,58 @@ public interface Widget{
 	public int getMarginLeft();
 
 	/**
+	 * Container Layout - Set the minimum width for this widget
+	 * @param min
+	 * @return 
+	 */
+	public Widget setMinWidth(int min);
+
+	/**
+	 * Container Layout - Get the minimum width for this widget
+	 * @return 
+	 */
+	public int getMinWidth();
+
+	/**
+	 * Container Layout - Set the maximum width for this widget
+	 * @param min
+	 * @return 
+	 */
+	public Widget setMaxWidth(int max);
+
+	/**
+	 * Container Layout - Get the maximum width for this widget
+	 * @return 
+	 */
+	public int getMaxWidth();
+
+	/**
+	 * Container Layout - Set the minimum height for this widget
+	 * @param min
+	 * @return 
+	 */
+	public Widget setMinHeight(int min);
+
+	/**
+	 * Container Layout - Get the minimum height for this widget
+	 * @return 
+	 */
+	public int getMinHeight();
+
+	/**
+	 * Container Layout - Set the maximum height for this widget
+	 * @param min
+	 * @return 
+	 */
+	public Widget setMaxHeight(int max);
+
+	/**
+	 * Container Layout - Get the maximum height for this widget
+	 * @return 
+	 */
+	public int getMaxHeight();
+
+	/**
 	 * Set the anchor point for this widget, default is CENTER
 	 * @param anchor 
 	 * @return

@@ -201,42 +201,76 @@ public class GenericContainer extends GenericWidget implements Container {
 	@Override
 	public Container updateLayout() {
 		if (getWidth() > 0 && getHeight() > 0 && !children.isEmpty()) {
+			List<Widget> visibleChildren = new ArrayList<Widget>();
 			int totalwidth = 0, totalheight = 0, vcount = 0, hcount = 0;
+			// We only layout visible children, invisible ones have zero physical presence on screen
 			for (Widget widget : children) {
 				if (widget.isVisible()) {
+					visibleChildren.add(widget);
+				}
+			}
+			// First - get the total space by fixed widgets and borders
+			for (Widget widget : visibleChildren) {
+				if (type == ContainerType.VERTICAL) {
+					if (widget.isFixed()) {
+						totalwidth = Math.max(totalwidth, widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight());
+						totalheight += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
+					} else {
+						totalwidth = Math.max(totalwidth, widget.getMarginLeft() + widget.getMarginRight());
+						totalheight += widget.getMarginTop() + widget.getMarginBottom();
+						hcount = 1;
+						vcount++;
+					}
+				} else if (type == ContainerType.HORIZONTAL) {
+					if (widget.isFixed()) {
+						totalwidth += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
+						totalheight = Math.max(totalheight, widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom());
+					} else {
+						totalwidth += widget.getMarginLeft() + widget.getMarginRight();
+						totalheight = Math.max(totalheight, widget.getMinHeight() + widget.getMarginTop() + widget.getMarginBottom());
+						vcount = 1;
+						hcount++;
+					}
+				}
+			}
+			// Work out the width and height for children
+			int newwidth = (getWidth() - totalwidth) / Math.max(1, hcount);
+			int newheight = (getHeight() - totalheight) / Math.max(1, vcount);
+			// Deal with minWidth and minHeight - change newwidth/newheight if needed
+			for (Widget widget : visibleChildren) {
+				if (!widget.isFixed()) {
 					if (type == ContainerType.VERTICAL) {
-						if (widget.isFixed()) {
-							totalwidth = Math.max(totalwidth, widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight());
-							totalheight += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
-						} else {
-							totalwidth = Math.max(totalwidth, widget.getMarginLeft() + widget.getMarginRight());
-							totalheight += widget.getMarginTop() + widget.getMarginBottom();
-							hcount = 1;
-							vcount++;
+						if (widget.getMinHeight() > newheight) {
+							totalheight += widget.getMinHeight() - newheight;
+							newheight = (getHeight() - totalheight) / Math.max(1, vcount);
+						} else if (newheight > widget.getMaxHeight()) {
+							totalheight += widget.getMaxHeight();
+							vcount--;
+							newheight = (getHeight() - totalheight) / Math.max(1, vcount);
 						}
 					} else if (type == ContainerType.HORIZONTAL) {
-						if (widget.isFixed()) {
-							totalwidth += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
-							totalheight = Math.max(totalheight, widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom());
-						} else {
-							totalwidth += widget.getMarginLeft() + widget.getMarginRight();
-							totalheight = Math.max(totalheight, widget.getMarginTop() + widget.getMarginBottom());
-							vcount = 1;
-							hcount++;
+						if (widget.getMinWidth() > newwidth) {
+							totalwidth += widget.getMinWidth() - newwidth;
+							newwidth = (getWidth() - totalwidth) / Math.max(1, hcount);
+						} else if (newwidth > widget.getMaxWidth()) {
+							totalwidth += widget.getMaxWidth();
+							hcount--;
+							newwidth = (getWidth() - totalwidth) / Math.max(1, hcount);
 						}
 					}
 				}
 			}
-			int newwidth = (getWidth() - totalwidth) / Math.max(1, hcount);
-			int newheight = (getHeight() - totalheight) / Math.max(1, vcount);
-			for (Widget widget : children) {
-				if (widget.isVisible() && !widget.isFixed()) {
-					if (widget.getHeight() - widget.getMarginTop() - widget.getMarginBottom() != newheight) {
-						widget.setHeight(newheight - widget.getMarginTop() - widget.getMarginBottom());
+			newheight = Math.max(newheight, 0);
+			newwidth = Math.max(newwidth, 0);
+			// Resize any non-fixed widgets
+			for (Widget widget : visibleChildren) {
+				if (!widget.isFixed()) {
+					if (widget.getHeight() - widget.getMarginTop() - widget.getMarginBottom() != Math.max(widget.getMinHeight(), Math.min(widget.getMaxHeight(), newheight))) {
+						widget.setHeight(Math.max(widget.getMinHeight(), Math.min(widget.getMaxHeight(), newheight)) - widget.getMarginTop() - widget.getMarginBottom());
 						widget.setDirty(true);
 					}
-					if (widget.getWidth() - widget.getMarginLeft() - widget.getMarginRight() != newwidth) {
-						widget.setWidth(newwidth - widget.getMarginLeft() - widget.getMarginRight());
+					if (widget.getWidth() - widget.getMarginLeft() - widget.getMarginRight() != Math.max(widget.getMinWidth(), Math.min(widget.getMaxWidth(), newwidth))) {
+						widget.setWidth(Math.max(widget.getMinWidth(), Math.min(widget.getMaxWidth(), newwidth)) - widget.getMarginLeft() - widget.getMarginRight());
 						widget.setDirty(true);
 					}
 					if (type == ContainerType.VERTICAL) {
@@ -246,9 +280,9 @@ public class GenericContainer extends GenericWidget implements Container {
 					}
 				}
 			}
+			// Work out the new top-left position taking into account Align
 			int left = super.getX();
 			int top = super.getY();
-
 			if (align == WidgetAnchor.TOP_CENTER || align == WidgetAnchor.CENTER_CENTER || align == WidgetAnchor.BOTTOM_CENTER) {
 				left += (super.getWidth() - totalwidth) / 2;
 			} else if (align == WidgetAnchor.TOP_RIGHT || align == WidgetAnchor.CENTER_RIGHT || align == WidgetAnchor.BOTTOM_RIGHT) {
@@ -259,22 +293,20 @@ public class GenericContainer extends GenericWidget implements Container {
 			} else if (align == WidgetAnchor.BOTTOM_LEFT || align == WidgetAnchor.BOTTOM_CENTER || align == WidgetAnchor.BOTTOM_RIGHT) {
 				top += super.getHeight() - totalheight;
 			}
-
-			for (Widget widget : children) {
-				if (widget.isVisible()) {
-					if (widget.getY() + widget.getMarginTop() != top) {
-						widget.setY(top + widget.getMarginTop());
-						widget.setDirty(true);
-					}
-					if (widget.getX() + widget.getMarginLeft() != left) {
-						widget.setX(left + widget.getMarginLeft());
-						widget.setDirty(true);
-					}
-					if (type == ContainerType.VERTICAL) {
-						top += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
-					} else if (type == ContainerType.HORIZONTAL) {
-						left += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
-					}
+			// Move all children into the correct position
+			for (Widget widget : visibleChildren) {
+				if (widget.getY() + widget.getMarginTop() != top) {
+					widget.setY(top + widget.getMarginTop());
+					widget.setDirty(true);
+				}
+				if (widget.getX() + widget.getMarginLeft() != left) {
+					widget.setX(left + widget.getMarginLeft());
+					widget.setDirty(true);
+				}
+				if (type == ContainerType.VERTICAL) {
+					top += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
+				} else if (type == ContainerType.HORIZONTAL) {
+					left += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
 				}
 			}
 		}
