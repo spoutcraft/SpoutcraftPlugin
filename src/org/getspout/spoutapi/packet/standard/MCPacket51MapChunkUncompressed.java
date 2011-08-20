@@ -5,9 +5,9 @@ public interface MCPacket51MapChunkUncompressed extends MCPacket51MapChunk {
 	/**
 	 * The chunk data contains 4 sections
 	 * 
-	 *  type data:      1 byte per block
-	 *  meta data:      1 nibble per block
-	 *  block light:    1 nibble per block
+	 *  type data:	  1 byte per block
+	 *  meta data:	  1 nibble per block
+	 *  block light:	1 nibble per block
 	 *  sunlight level: 1 nibble per block
 	 * 
 	 * The data in each section can be indexed using

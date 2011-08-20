@@ -7,7 +7,7 @@ import org.getspout.spoutapi.gui.Color;
 
 public class PacketSky implements SpoutPacket{
 	private int cloudY = 0, stars = 0, sunPercent = 0, moonPercent = 0;
-    private Color skyColor = new Color(-1,-1,-1), fogColor = new Color(-1,-1,-1), cloudColor = new Color(-1,-1,-1);
+	private Color skyColor = new Color(-1,-1,-1), fogColor = new Color(-1,-1,-1), cloudColor = new Color(-1,-1,-1);
 	String sun = "";
 	String moon = "";
 	public PacketSky() {
@@ -67,11 +67,11 @@ public class PacketSky implements SpoutPacket{
 		moonPercent = input.readInt();
 		sun = PacketUtil.readString(input, 256);
 		moon = PacketUtil.readString(input, 256);
-        float r,g,b;
-        r = input.readFloat();
-        g = input.readFloat();
-        b = input.readFloat();
-        skyColor = new Color(r,g,b);
+		float r,g,b;
+		r = input.readFloat();
+		g = input.readFloat();
+		b = input.readFloat();
+		skyColor = new Color(r,g,b);
 	}
 
 	@Override
@@ -82,9 +82,9 @@ public class PacketSky implements SpoutPacket{
 		output.writeInt(moonPercent);
 		PacketUtil.writeString(output, sun);
 		PacketUtil.writeString(output, moon);
-        PacketUtil.writeColor(output, skyColor);
-        PacketUtil.writeColor(output, fogColor);
-        PacketUtil.writeColor(output, cloudColor);
+		PacketUtil.writeColor(output, skyColor);
+		PacketUtil.writeColor(output, fogColor);
+		PacketUtil.writeColor(output, cloudColor);
 	}
 
 	@Override

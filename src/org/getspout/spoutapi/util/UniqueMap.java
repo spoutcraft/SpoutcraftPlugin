@@ -18,7 +18,7 @@ public class UniqueMap {
 	 * These associations do not persist over reloads or server restarts
 	 * 
 	 * @param string
-	 *            the string to be associated
+	 *			the string to be associated
 	 * @return the id associated with the string.
 	 */
 
@@ -50,7 +50,7 @@ public class UniqueMap {
 	 * These associations do not persist over reloads or server restarts
 	 * 
 	 * @param id
-	 *            the id
+	 *			the id
 	 * @return the string associated with the id, or null if no string is associated
 	 */
 
