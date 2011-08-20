@@ -179,20 +179,93 @@ public interface Widget{
 	public void setContainer(Container container);
 	
 	/**
-	 * Updates the position of this widget on screen relative to containers
+	 * Container Layout - Set whether the widget will be resized with it's container
+	 * @param fixed if it is a static size
+	 * @return the container
 	 */
-	public void updateOffset();
+	public Widget setFixed(boolean fixed);
+	
+	/**
+	 * Use isFixed() instead
+	 * @deprecated
+	 */
+	public boolean getFixed();
 
 	/**
-	 * Sets the anchor location for the widget
-	 * @param anchor
-	 * @return widget
+	 * Container Layout - Whether the widget is fixed size inside it's container
+	 * @return 
+	 */
+	public boolean isFixed();
+
+	// NOTE: Margins follow the same order as CSS
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param margin sets the same for all sides
+	 * @return 
+	 */
+	public Widget setMargin(int marginAll);
+
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param marginTopBottom
+	 * @param marginLeftRight
+	 * @return 
+	 */
+	public Widget setMargin(int marginTopBottom, int marginLeftRight);
+
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param marginTop
+	 * @param marginLeftRight
+	 * @param marginBottom
+	 * @return 
+	 */
+	public Widget setMargin(int marginTop, int marginLeftRight, int marginBottom);
+
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param marginTop
+	 * @param marginRight
+	 * @param marginBottom
+	 * @param marginLeft
+	 * @return 
+	 */
+	public Widget setMargin(int marginTop, int marginRight, int marginBottom, int marginLeft);
+
+	/**
+	 * Container Layout - Get the margin used for container layout
+	 * @return 
+	 */
+	public int getMarginTop();
+
+	/**
+	 * Container Layout - Get the margin used for container layout
+	 * @return 
+	 */
+	public int getMarginRight();
+
+	/**
+	 * Container Layout - Get the margin used for container layout
+	 * @return 
+	 */
+	public int getMarginBottom();
+
+	/**
+	 * Container Layout - Get the margin used for container layout
+	 * @return 
+	 */
+	public int getMarginLeft();
+
+	/**
+	 * Set the anchor point for this widget, default is CENTER
+	 * @param anchor 
+	 * @return
 	 */
 	public Widget setAnchor(WidgetAnchor anchor);
 
 	/**
-	 * Gets the anchor location for the widget
-	 * @return widgetAnchor
+	 * Get the current anchor position
+	 * @return 
 	 */
 	public WidgetAnchor getAnchor();
 }
