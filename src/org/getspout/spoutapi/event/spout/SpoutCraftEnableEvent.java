@@ -4,6 +4,7 @@ import org.bukkit.event.Event;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutCraftEnableEvent extends Event{
+	private static final long serialVersionUID = 5172371431162815630L;
 	private SpoutPlayer player;
 	public SpoutCraftEnableEvent(SpoutPlayer player) {
 		super("SpoutCraftEnableEvent");

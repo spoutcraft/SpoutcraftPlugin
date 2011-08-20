@@ -6,6 +6,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.Music;
 
 public class BackgroundMusicEvent extends Event implements Cancellable {
+	private static final long serialVersionUID = 1047470517247146587L;
 	protected Music music = null;
 	protected int volume;
 	protected SpoutPlayer target;
