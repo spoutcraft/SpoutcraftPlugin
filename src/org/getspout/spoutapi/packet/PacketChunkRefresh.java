@@ -37,6 +37,11 @@ public class PacketChunkRefresh implements SpoutPacket {
 		SpoutManager.getCacheManager().refreshChunkRequest(id, cx, cz);
 	}
 
+	@Override
+	public void failure(int id) {
+		
+	}
+
 	public PacketType getPacketType() {
 		return PacketType.PacketChunkRefresh;
 	}

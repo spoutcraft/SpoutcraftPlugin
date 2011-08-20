@@ -42,6 +42,11 @@ public class PacketClipboardText implements SpoutPacket{
 	}
 
 	@Override
+	public void failure(int id) {
+		
+	}
+
+	@Override
 	public PacketType getPacketType() {
 		return PacketType.PacketClipboardText;
 	}

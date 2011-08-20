@@ -62,6 +62,12 @@ public class PacketKeyPress implements SpoutPacket{
 		}
 	}
 
+
+	@Override
+	public void failure(int id) {
+		
+	}
+	
 	public int getNumBytes()
 	{
 		return 1 + 1 + 4 + 10;

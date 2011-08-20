@@ -54,7 +54,11 @@ public class PacketWidgetRemove implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void failure(int id) {
 		
 	}
 

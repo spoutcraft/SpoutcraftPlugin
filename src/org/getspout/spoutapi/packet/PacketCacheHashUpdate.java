@@ -49,6 +49,11 @@ public class PacketCacheHashUpdate implements SpoutPacket {
 		SpoutManager.getCacheManager().handle(id, add, hashes);
 	}
 
+	@Override
+	public void failure(int id) {
+		
+	}
+
 	public PacketType getPacketType() {
 		return PacketType.PacketCacheHashUpdate;
 	}

@@ -45,5 +45,12 @@ public class PacketBiomeWeather implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
+		
 	}
+	
+	@Override
+	public void failure(int id) {
+		
+	}
+
 }

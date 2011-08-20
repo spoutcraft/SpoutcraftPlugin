@@ -62,6 +62,11 @@ public class PacketMusicChange implements SpoutPacket{
 	}
 
 	@Override
+	public void failure(int id) {
+		
+	}
+
+	@Override
 	public PacketType getPacketType() {
 		return PacketType.PacketMusicChange;
 	}

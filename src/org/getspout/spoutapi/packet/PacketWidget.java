@@ -64,7 +64,11 @@ public class PacketWidget implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void failure(int id) {
 		
 	}
 

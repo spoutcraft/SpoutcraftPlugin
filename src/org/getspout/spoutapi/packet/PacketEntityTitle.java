@@ -36,6 +36,11 @@ public class PacketEntityTitle implements SpoutPacket{
 	public void run(int id) {
 		
 	}
+
+	@Override
+	public void failure(int id) {
+		
+	}
 	
 	@Override
 	public PacketType getPacketType() {

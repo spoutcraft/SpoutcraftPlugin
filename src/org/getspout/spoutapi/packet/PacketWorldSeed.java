@@ -32,6 +32,12 @@ public class PacketWorldSeed implements SpoutPacket{
 
 	@Override
 	public void run(int id) {
+		
+	}
+
+	@Override
+	public void failure(int id) {
+		
 	}
 
 	@Override

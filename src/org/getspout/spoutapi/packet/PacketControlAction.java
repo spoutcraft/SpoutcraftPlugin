@@ -122,6 +122,11 @@ public class PacketControlAction implements SpoutPacket{
 	}
 
 	@Override
+	public void failure(int id) {
+		
+	}
+
+	@Override
 	public PacketType getPacketType() {
 		return PacketType.PacketControlAction;
 	}
