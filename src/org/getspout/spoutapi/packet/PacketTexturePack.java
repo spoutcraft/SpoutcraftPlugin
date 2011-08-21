@@ -6,27 +6,32 @@ import java.io.IOException;
 
 public class PacketTexturePack implements SpoutPacket{
 	private String url;
+	private long expectedCRC;
+	
 	public PacketTexturePack(){
 		
 	}
 	
-	public PacketTexturePack(String url) {
+	public PacketTexturePack(String url, long expectedCRC) {
 		this.url = url;
+		this.expectedCRC = expectedCRC;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return PacketUtil.getNumBytes(url);
+		return PacketUtil.getNumBytes(url) + 4;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		url = PacketUtil.readString(input, 256);
+		expectedCRC = input.readLong();
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		PacketUtil.writeString(output, url);
+		output.writeLong(expectedCRC);
 	}
 
 	@Override
@@ -46,7 +51,7 @@ public class PacketTexturePack implements SpoutPacket{
 	
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 }
