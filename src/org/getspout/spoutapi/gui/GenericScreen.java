@@ -52,12 +52,15 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 
 	@Override
 	public Screen removeWidget(Widget widget) {
-		if (widgets.containsKey(widget)) {
-			widgets.remove(widget);
-			if(!widget.getType().isServerOnly()) {
-				SpoutManager.getPlayerFromId(playerId).sendPacket(new PacketWidgetRemove(widget, getId()));
+		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
+		if (player != null && player.getVersion() > 101) {
+			if (widgets.containsKey(widget)) {
+				widgets.remove(widget);
+				if(!widget.getType().isServerOnly()) {
+					SpoutManager.getPlayerFromId(playerId).sendPacket(new PacketWidgetRemove(widget, getId()));
+				}
+				widget.setScreen(null);
 			}
-			widget.setScreen(null);
 		}
 		return this;
 	}
