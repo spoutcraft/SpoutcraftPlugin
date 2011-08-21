@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.bukkit.plugin.Plugin;
+
 public class GenericPopup extends GenericScreen implements PopupScreen{
 	protected boolean transparent = false;
 	public GenericPopup() {
@@ -41,6 +43,14 @@ public class GenericPopup extends GenericScreen implements PopupScreen{
 	public PopupScreen setTransparent(boolean value) {
 		this.transparent = value;
 		return this;
+	}
+	
+	@Override
+	public Widget setScreen(Plugin plugin, Screen screen) {
+		if (this.screen != null && screen != null && screen != this.screen) {
+			((InGameHUD) this.screen).closePopup();
+		}
+		return super.setScreen(plugin, screen);
 	}
 	
 	@Override
