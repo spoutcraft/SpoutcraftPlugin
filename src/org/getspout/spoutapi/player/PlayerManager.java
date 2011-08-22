@@ -13,5 +13,7 @@ public interface PlayerManager {
 	public SpoutPlayer getPlayer(int entityId);
 	
 	public PlayerInformation getPlayerInfo(Player player);
+	
+	public PlayerInformation getGlobalInfo();
 
 }
