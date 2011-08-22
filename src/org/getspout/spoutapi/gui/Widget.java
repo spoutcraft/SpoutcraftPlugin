@@ -309,6 +309,18 @@ public interface Widget{
 	public int getMaxHeight();
 
 	/**
+	 * Container Layout - Save the position for later restoration
+	 * @return 
+	 */
+	public Widget savePos();
+
+	/**
+	 * Container Layout - Restore the earlier saved position
+	 * @return 
+	 */
+	public Widget restorePos();
+	
+	/**
 	 * Set the anchor point for this widget, default is CENTER
 	 * @param anchor 
 	 * @return

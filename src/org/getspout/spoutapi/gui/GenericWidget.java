@@ -26,6 +26,7 @@ public abstract class GenericWidget implements Widget{
 	protected boolean fixed = false;
 	protected int marginTop = 0, marginRight = 0, marginBottom = 0, marginLeft = 0;
 	protected int minWidth = 0, maxWidth = 427, minHeight = 0, maxHeight = 240;
+	protected int orig_x = 0, orig_y = 0;
 	
 	public GenericWidget() {
 
@@ -356,5 +357,19 @@ public abstract class GenericWidget implements Widget{
 	@Override
 	public int getMaxHeight() {
 		return maxHeight;
+	}
+
+	@Override
+	public Widget savePos() {
+		orig_x = X;
+		orig_y = Y;
+		return this;
+	}
+
+	@Override
+	public Widget restorePos() {
+		X = orig_x;
+		Y = orig_y;
+		return this;
 	}
 }

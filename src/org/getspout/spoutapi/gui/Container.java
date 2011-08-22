@@ -71,4 +71,17 @@ public interface Container extends Widget {
 	 * @return 
 	 */
 	public WidgetAnchor getAlign();
+
+	/**
+	 * Reverse the drawing order (right to left or bottom to top).
+	 * @param reverse Set to reverse direction
+	 * @return 
+	 */
+	public Container setReverse(boolean reverse);
+
+	/**
+	 * If this is drawing in reverse order.
+	 * @return 
+	 */
+	public boolean getReverse();
 }

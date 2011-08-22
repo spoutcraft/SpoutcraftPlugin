@@ -2,6 +2,7 @@ package org.getspout.spoutapi.gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.getspout.spoutapi.gui.ContainerType;
 import org.getspout.spoutapi.gui.GenericWidget;
@@ -14,6 +15,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	protected List<Widget> children = new ArrayList<Widget>();
 	protected ContainerType type = ContainerType.VERTICAL;
 	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
+	protected boolean reverse = false;
 
 	public GenericContainer() {
 	}
@@ -39,6 +41,7 @@ public class GenericContainer extends GenericWidget implements Container {
 			this.children.add(index, child);
 		}
 		child.setContainer(this);
+		child.savePos();
 		child.shiftXPos(super.getX());
 		child.shiftYPos(super.getY());
 		child.setAnchor(super.getAnchor());
@@ -138,8 +141,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container removeChild(Widget child) {
 		children.remove(child);
 		child.setContainer(null);
-		child.shiftXPos(-super.getX()); // Put it back where it was outside the container
-		child.shiftYPos(-super.getY()); // Put it back where it was outside the container
+		child.restorePos();
 		if (this.screen != null) {
 			this.screen.removeWidget(child);
 		}
@@ -199,6 +201,17 @@ public class GenericContainer extends GenericWidget implements Container {
 	}
 
 	@Override
+	public Container setReverse(boolean reverse) {
+		this.reverse = reverse;
+		return this;
+	}
+
+	@Override
+	public boolean getReverse() {
+		return reverse;
+	}
+
+	@Override
 	public Container updateLayout() {
 		if (getWidth() > 0 && getHeight() > 0 && !children.isEmpty()) {
 			List<Widget> visibleChildren = new ArrayList<Widget>();
@@ -208,6 +221,10 @@ public class GenericContainer extends GenericWidget implements Container {
 				if (widget.isVisible()) {
 					visibleChildren.add(widget);
 				}
+			}
+			// Reverse drawing order if we need to
+			if (reverse) {
+				Collections.reverse(visibleChildren);
 			}
 			// First - get the total space by fixed widgets and borders
 			for (Widget widget : visibleChildren) {
