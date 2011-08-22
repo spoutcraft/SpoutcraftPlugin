@@ -123,15 +123,18 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 		}
 	}
 	
+	@Override
 	public GenericScreen setBgVisible(boolean enable) {
 		bg = enable;
 		return this;
 	}
 	
+	@Override
 	public boolean isBgVisible() {
 		return bg;
 	}
 	
+	@Override
 	public SpoutPlayer getPlayer() {
 		return SpoutManager.getPlayerFromId(playerId);
 	}

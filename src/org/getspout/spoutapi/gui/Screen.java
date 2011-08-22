@@ -3,6 +3,7 @@ package org.getspout.spoutapi.gui;
 import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public interface Screen extends Widget{
 	
@@ -75,6 +76,11 @@ public interface Screen extends Widget{
 	 * @return visible
 	 */
 	public boolean isBgVisible();
+	/**
+	 * Get the player the screen is attached to
+	 * @return spout player
+	 */
+	public SpoutPlayer getPlayer();
 	
 	/**
 	 * Sets the visibility of the grey background. If true, it will render normally. If false, it will not appear on the screen.
