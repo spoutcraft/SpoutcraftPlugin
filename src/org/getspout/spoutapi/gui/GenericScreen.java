@@ -132,6 +132,10 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 		return bg;
 	}
 	
+	public SpoutPlayer getPlayer() {
+		return SpoutManager.getPlayerFromId(playerId);
+	}
+	
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 1;
