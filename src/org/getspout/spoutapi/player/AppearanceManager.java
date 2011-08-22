@@ -186,4 +186,10 @@ public interface AppearanceManager {
 	 */
 	@ClientOnly
 	public void setEntitySecondarySkin(SpoutPlayer viewingPlayer, LivingEntity target, String url);
+	
+	public void setGlobalEntitySkin(LivingEntity entity, String url);
+	
+	public void setGlobalEntitySecondarySkin(LivingEntity entity, String url);
+
+	void resetEntitySkin(LivingEntity entity);
 }
