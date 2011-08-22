@@ -19,7 +19,7 @@ public class PacketTexturePack implements SpoutPacket{
 
 	@Override
 	public int getNumBytes() {
-		return PacketUtil.getNumBytes(url) + 4;
+		return PacketUtil.getNumBytes(url) + 8;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class PacketTexturePack implements SpoutPacket{
 	
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 
 }
