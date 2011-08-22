@@ -96,6 +96,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		return this;
 	}
 	
+	@Override
 	public void render() {
 
 	}

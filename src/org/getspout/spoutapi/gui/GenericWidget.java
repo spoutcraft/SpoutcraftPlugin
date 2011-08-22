@@ -11,8 +11,6 @@ import org.getspout.spoutapi.packet.PacketUtil;
 public abstract class GenericWidget implements Widget{
 	protected int X = 0;
 	protected int Y = 0;
-	protected int offsetX = 0;
-	protected int offsetY = 0;
 	protected int width = 0;
 	protected int height = 0;
 	protected boolean visible = true;
@@ -21,9 +19,14 @@ public abstract class GenericWidget implements Widget{
 	protected RenderPriority priority = RenderPriority.Normal;
 	protected UUID id = UUID.randomUUID();
 	protected String tooltip = "";
-	protected Container container = null;
 	protected transient Plugin plugin = null;
 	protected WidgetAnchor anchor = WidgetAnchor.SCALE;
+	// Server side layout
+	protected Container container = null;
+	protected boolean fixed = false;
+	protected int marginTop = 0, marginRight = 0, marginBottom = 0, marginLeft = 0;
+	protected int minWidth = 0, maxWidth = 427, minHeight = 0, maxHeight = 240;
+	protected int orig_x = 0, orig_y = 0;
 	
 	public GenericWidget() {
 
@@ -74,8 +77,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
-		output.writeInt(getX() + offsetX);
-		output.writeInt(getY() + offsetY);
+		output.writeInt(getX());
+		output.writeInt(getY());
 		output.writeInt(getWidth());
 		output.writeInt(getHeight());
 		output.writeByte(getAnchor().getId());
@@ -194,7 +197,12 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setVisible(boolean enable) {
-		visible = enable;
+		if (visible != enable) {
+			visible = enable;
+			if (container != null) {
+				container.updateLayout();
+			}
+		}
 		return this;
 	}
 	
@@ -235,17 +243,133 @@ public abstract class GenericWidget implements Widget{
 			this.container.removeChild(this);
 		}
 		this.container = container;
-		updateOffset();
+	}
+
+	@Override
+	public Widget setFixed(boolean fixed) {
+		this.fixed = fixed;
+		return this;
+	}
+
+	@Override
+	public boolean getFixed() {
+		return isFixed();
+	}
+
+	@Override
+	public boolean isFixed() {
+		return fixed;
+	}
+
+	@Override
+	public Widget setMargin(int marginAll) {
+		this.marginTop = this.marginRight = this.marginBottom = this.marginLeft = marginAll;
+		return this;
 	}
 	
 	@Override
-	public void updateOffset() {
-		if (getContainer() == null) {
-			offsetX = 0;
-			offsetY = 0;
-		} else {
-			offsetX = getContainer().getOffsetX();
-			offsetY = getContainer().getOffsetY();
-		}
+	public Widget setMargin(int marginTopBottom, int marginLeftRight) {
+		this.marginTop = this.marginBottom = marginTopBottom;
+		this.marginRight = this.marginLeft = marginLeftRight;
+		return this;
+	}
+	
+	@Override
+	public Widget setMargin(int marginTop, int marginLeftRight, int marginBottom) {
+		this.marginTop = marginTop;
+		this.marginRight = this.marginLeft = marginLeftRight;
+		this.marginBottom = marginBottom;
+		return this;
+	}
+	
+	@Override
+	public Widget setMargin(int marginTop, int marginRight, int marginBottom, int marginLeft) {
+		this.marginTop = marginTop;
+		this.marginRight = marginRight;
+		this.marginBottom = marginBottom;
+		this.marginLeft = marginLeft;
+		return this;
+	}
+	
+	@Override
+	public int getMarginTop() {
+		return marginTop;
+	}
+	
+	@Override
+	public int getMarginRight() {
+		return marginRight;
+	}
+	
+	@Override
+	public int getMarginBottom() {
+		return marginBottom;
+	}
+	
+	@Override
+	public int getMarginLeft() {
+		return marginLeft;
+	}
+
+	@Override
+	public Widget setMinWidth(int min) {
+		this.minWidth = min;
+		width = Math.max(width, min);
+		return this;
+	}
+
+	@Override
+	public int getMinWidth() {
+		return minWidth;
+	}
+
+	@Override
+	public Widget setMaxWidth(int max) {
+		this.maxWidth = max == 0 ? 427 : max;
+		width = Math.min(width, max);
+		return this;
+	}
+
+	@Override
+	public int getMaxWidth() {
+		return maxWidth;
+	}
+
+	@Override
+	public Widget setMinHeight(int min) {
+		this.minHeight = min;
+		height = Math.max(height, min);
+		return this;
+	}
+
+	@Override
+	public int getMinHeight() {
+		return minHeight;
+	}
+
+	@Override
+	public Widget setMaxHeight(int max) {
+		this.maxHeight = max == 0 ? 240 : max;
+		height = Math.min(height, max);
+		return this;
+	}
+
+	@Override
+	public int getMaxHeight() {
+		return maxHeight;
+	}
+
+	@Override
+	public Widget savePos() {
+		orig_x = X;
+		orig_y = Y;
+		return this;
+	}
+
+	@Override
+	public Widget restorePos() {
+		X = orig_x;
+		Y = orig_y;
+		return this;
 	}
 }
