@@ -30,6 +30,7 @@ public class ArmorBar extends GenericWidget{
 		setDirty(false);
 		setX(427 / 2 + 82); //295
 		setY(208);
+		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
 	
 	@Override
