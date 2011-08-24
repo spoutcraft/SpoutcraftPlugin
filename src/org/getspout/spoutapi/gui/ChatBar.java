@@ -16,24 +16,117 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
+import org.getspout.spoutapi.packet.PacketUtil;
+
 public class ChatBar extends GenericWidget implements Widget{
+
+	private int cursorX = 4, cursorY = 240;
+	protected Color textColor = new Color((short)224, (short)224, (short)224, (short)0);
 	public ChatBar() {
+		super();
 		setDirty(false);
+		setX(425);
+		setY(238);
+		setWidth(425);
+		setHeight(2);
+	}
+	
+	public int getNumBytes() {
+		return super.getNumBytes() + 8 + 16;
 	}
 	
 	@Override
+	public void readData(DataInputStream input) throws IOException {
+		super.readData(input);
+		setCursorX(input.readInt());
+		setCursorY(input.readInt());
+		setTextColor(PacketUtil.readColor(input));
+	}
+	
+	@Override
+	public void writeData(DataOutputStream output) throws IOException {
+		super.writeData(output);
+		output.writeInt(getCursorX());
+		output.writeInt(getCursorY());
+		PacketUtil.writeColor(output, getTextColor());
+	}
+	
 	public WidgetType getType() {
 		return WidgetType.ChatBar;
 	}
 	
+	@Override
 	public UUID getId() {
 		return new UUID(0, 2);
 	}
 	
+	/**
+	 * Gets the x position that the cursor starts at when typing chat
+	 * @return cursor x
+	 */
+	public int getCursorX() {
+		return cursorX;
+	}
+	
+	/**
+	 * Sets the x position that the cursor starts at when typing 
+	 * @param x position to set
+	 * @return this
+	 */
+	public ChatBar setCursorX(int x) {
+		cursorX = x;
+		return this;
+	}
+	
+	/**
+	 * Gets the y position that the cursor starts at when typing chat
+	 * @return cursor y
+	 */
+	public int getCursorY() {
+		int diff = 240 - cursorY;
+		return (int) (getScreen() != null ? getScreen().getHeight() - diff : cursorY);
+	}
+	
+	/**
+	 * Sets the y position that the cursor starts at when typing 
+	 * @param y position to set
+	 * @return this
+	 */
+	public ChatBar setCursorY(int y){
+		cursorY = y;
+		return this;
+	}
+	
+	/**
+	 * Gets the default color of the text for the chat bar
+	 * @return default text color
+	 */
+	public Color getTextColor() {
+		return textColor;
+	}
+	
+	/**
+	 * Sets the default color of the text for the chat bar
+	 * @param color to set
+	 * @return this
+	 */
+	public ChatBar setTextColor(Color color) {
+		textColor = color;
+		return this;
+	}
+	
 	public void render() {
 		
+	}
+	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 1;
 	}
 
 }

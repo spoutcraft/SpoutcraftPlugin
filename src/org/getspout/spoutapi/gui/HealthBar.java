@@ -16,25 +16,125 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 public class HealthBar extends GenericWidget{
+	private int icons = 10;
+	private int iconOffset = 8;
+	private float dangerPercent = 20f; 
 
 	public HealthBar() {
+		super();
 		setDirty(false);
+		setX(427 / 2 - 91); //122
+		setY(208);
+		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
 	
 	@Override
+	public int getNumBytes() {
+		return super.getNumBytes() + 12;
+	}
+	
+	@Override
+	public void readData(DataInputStream input) throws IOException {
+		super.readData(input);
+		setMaxNumHearts(input.readInt());
+		setIconOffset(input.readInt());
+		setDangerPercent(input.readFloat());
+	}
+	
+	@Override
+	public void writeData(DataOutputStream output) throws IOException {
+		super.writeData(output);
+		output.writeInt(getMaxNumHearts());
+		output.writeInt(getIconOffset());
+		output.writeFloat(getDangerPercent());
+	}
+	
 	public WidgetType getType() {
 		return WidgetType.HealthBar;
 	}
 	
+	@Override
 	public UUID getId() {
 		return new UUID(0, 4);
 	}
 	
+	/**
+	 * Gets the maximum number of hearts displayed on the HUD.
+	 * 
+	 * Health is scaled to fit the number of hearts appropriately.
+	 * @return hearts displayed
+	 */
+	public int getMaxNumHearts() {
+		return icons;
+	}
+	
+	/**
+	 * Sets the maximum number of hearts displayed on the HUD.
+	 * 
+	 * Health is scaled to fit the number of hearts appropriately.
+	 * @param hearts to display
+	 * @return this
+	 */
+	public HealthBar setMaxNumHearts(int hearts) {
+		this.icons = hearts;
+		return this;
+	}
+	
+	/**
+	 * Gets the number of pixels each heart is offset when drawing the next heart.
+	 * @return pixel offset
+	 */
+	public int getIconOffset() {
+		return iconOffset;
+	}
+	
+	/**
+	 * Sets the number of pixels each heart is offset when drawing the next heart.
+	 * @param offset when drawing hearts
+	 * @return this
+	 */
+	public HealthBar setIconOffset(int offset) {
+		iconOffset = offset;
+		return this;
+	}
+	
+	/**
+	 * Gets the percent of health a player needs to fall to or below in order for the hearts to begin blinking.
+	 * 
+	 * Valid percents are between zero and one hundred, inclusive.
+	 * @return danger percent
+	 */
+	public float getDangerPercent() {
+		return dangerPercent;
+	}
+	
+	/**
+	 * Sets the percent of health a player needs to fall to or below in order for the hearts to begin blinking.
+	 * 
+	 * Valid percents are between zero and one hundred, inclusive.
+	 * @param percent
+	 * @return this
+	 */
+	public HealthBar setDangerPercent(float percent) {
+		dangerPercent = percent;
+		return this;
+	}
+	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 1;
+	}
+
+	@Override
 	public void render() {
-		//TODO send health packet
+		// TODO Auto-generated method stub
+		
 	}
 
 }

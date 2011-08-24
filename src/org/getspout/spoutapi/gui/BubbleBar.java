@@ -16,14 +16,41 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 public class BubbleBar extends GenericWidget implements Widget{
+	private int icons = 10;
+	private int iconOffset = 8;
 	public BubbleBar() {
+		super();
 		setDirty(false);
+		setX(427 / 2 - 91); //122
+		setY(199);
+		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
 	
 	@Override
+	public int getNumBytes() {
+		return super.getNumBytes() + 8;
+	}
+	
+	@Override
+	public void readData(DataInputStream input) throws IOException {
+		super.readData(input);
+		setMaxNumBubbles(input.readInt());
+		setIconOffset(input.readInt());
+	}
+	
+	@Override
+	public void writeData(DataOutputStream output) throws IOException {
+		super.writeData(output);
+		output.writeInt(getMaxNumBubbles());
+		output.writeInt(getIconOffset());
+	}
+	
 	public WidgetType getType() {
 		return WidgetType.BubbleBar;
 	}
@@ -31,8 +58,55 @@ public class BubbleBar extends GenericWidget implements Widget{
 	public UUID getId() {
 		return new UUID(0, 1);
 	}
+
+	/**
+	 * Gets the maximum number of bubbles displayed on the HUD.
+	 * 
+	 * Air is scaled to fit the number of bubbles appropriately.
+	 * @return bubbles displayed
+	 */
+	public int getMaxNumBubbles() {
+		return icons;
+	}
 	
+	/**
+	 * Sets the maximum number of bubbles displayed on the HUD.
+	 * 
+	 * Air is scaled to fit the number of bubbles appropriately.
+	 * @param bubbles to display
+	 * @return this
+	 */
+	public BubbleBar setMaxNumBubbles(int bubbles) {
+		this.icons = bubbles;
+		return this;
+	}
+	
+	/**
+	 * Gets the number of pixels each bubbles is offset when drawing the next bubble.
+	 * @return pixel offset
+	 */
+	public int getIconOffset() {
+		return iconOffset;
+	}
+	
+	/**
+	 * Sets the number of pixels each bubbles is offset when drawing the next bubble.
+	 * @param offset when drawing hearts
+	 * @return this
+	 */
+	public BubbleBar setIconOffset(int offset) {
+		iconOffset = offset;
+		return this;
+	}
+	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 1;
+	}
+
+	@Override
 	public void render() {
-		//TODO send update packet?
+		// TODO Auto-generated method stub
+		
 	}
 }
