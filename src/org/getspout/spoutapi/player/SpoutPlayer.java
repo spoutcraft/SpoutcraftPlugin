@@ -21,6 +21,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.gui.InGameHUD;
+import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket;
@@ -312,5 +313,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public boolean sendInventoryEvent();
 	
 	public PlayerInformation getInformation();
+	
+	public void openScreen(ScreenType type);
 	
 }
