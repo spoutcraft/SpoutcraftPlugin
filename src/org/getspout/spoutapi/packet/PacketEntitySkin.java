@@ -25,12 +25,12 @@ import org.bukkit.entity.Entity;
 public class PacketEntitySkin implements SpoutPacket {
 	protected String texture = "";
 	protected int entityId;
-	protected boolean isMainTexture = true;
+	protected byte textureId = 0;
 	
-	public PacketEntitySkin(Entity entity, String texture, boolean main){
+	public PacketEntitySkin(Entity entity, String texture, byte type){
 		this.entityId = entity.getEntityId();
 		this.texture = texture;
-		this.isMainTexture = main;
+		this.textureId = type;
 	}
 	
 	@Override
@@ -41,14 +41,14 @@ public class PacketEntitySkin implements SpoutPacket {
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		entityId = input.readInt();
-		isMainTexture = input.readBoolean();
+		textureId = input.readByte();
 		texture = PacketUtil.readString(input);
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		output.writeInt(entityId);
-		output.writeBoolean(isMainTexture);
+		output.writeByte(textureId);
 		PacketUtil.writeString(output, texture);
 	}
 
@@ -68,7 +68,7 @@ public class PacketEntitySkin implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 }

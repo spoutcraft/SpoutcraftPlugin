@@ -32,9 +32,7 @@ public interface PlayerInformation {
 
 	public void setEntitySkin(LivingEntity entity, String url);
 	
-	public String getEntitySkin(LivingEntity entity);
+	public void setEntitySkin(LivingEntity entity, String url, EntitySkinType type);
 	
-	public void setEntitySecondarySkin(LivingEntity entity, String url);
-	
-	public String getEntitySecondarySkin(LivingEntity entity);
+	public String getEntitySkin(LivingEntity entity, EntitySkinType type);
 }
