@@ -242,6 +242,14 @@ public class SpoutManager {
 		return getInstance().playerManager.getPlayer(player);
 	}
 	
+	/**
+	 * Gets the list of online players
+	 * @return online players
+	 */
+	public static SpoutPlayer[] getOnlinePlayers() {
+		return getInstance().playerManager.getOnlinePlayers();
+	}
+	
 	public static PlayerManager getPlayerManager() {
 		return getInstance().playerManager;
 	}
