@@ -27,6 +27,7 @@ import org.getspout.spoutapi.keyboard.KeyboardManager;
 import org.getspout.spoutapi.packet.PacketManager;
 import org.getspout.spoutapi.player.AppearanceManager;
 import org.getspout.spoutapi.player.BiomeManager;
+import org.getspout.spoutapi.player.FileManager;
 import org.getspout.spoutapi.player.PlayerManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -45,6 +46,7 @@ public class SpoutManager {
 	private PlayerManager playerManager = null;
 	private CacheManager cacheManager = null;
 	private ChunkDataManager chunkDataManager = null;
+	private FileManager fileManager = null;
 	
 	protected SpoutManager(){
 
@@ -157,16 +159,22 @@ public class SpoutManager {
 		}
 	}
 	
+	public static CacheManager getCacheManager() {
+		return getInstance().cacheManager;
+	}
+	
 	public void setCacheManager(CacheManager manager) {
 		if (cacheManager == null) {
 			cacheManager = manager;
 		}
 	}
 	
-	public static CacheManager getCacheManager() {
-		return getInstance().cacheManager;
-	}
-	
+	/**
+	 * Gets the inventory builder
+	 * 
+	 * The inventory builder can construct Bukkit inventories from itemstacks or an initialization size.
+	 * @return inventory builder
+	 */
 	public static InventoryBuilder getInventoryBuilder() {
 		return getInstance().inventoryBuilder;
 	}
@@ -174,6 +182,20 @@ public class SpoutManager {
 	public void setInventoryBuilder(InventoryBuilder builder){
 		if (inventoryBuilder == null) {
 			inventoryBuilder = builder;
+		}
+	}
+	
+	/**
+	 * Gets the client side file and cache manager
+	 * @return file manager
+	 */
+	public static FileManager getFileManager() {
+		return getInstance().fileManager;
+	}
+	
+	public void setFileManager(FileManager manager) {
+		if (fileManager == null) {
+			fileManager = manager;
 		}
 	}
 	

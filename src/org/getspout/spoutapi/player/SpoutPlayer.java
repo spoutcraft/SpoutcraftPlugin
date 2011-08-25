@@ -231,7 +231,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	@ClientOnly
 	public void sendNotification(String title, String message, Material toRender, short data, int time);
-	
+		
 	/**
 	 * Get's the clipboard text from the player, or null if unknown
 	 * @return clipboard text

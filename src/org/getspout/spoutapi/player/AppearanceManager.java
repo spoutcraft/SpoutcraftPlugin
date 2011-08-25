@@ -72,6 +72,7 @@ public interface AppearanceManager {
 	 * @param target to change the title for
 	 * @param title to set to the target
 	 */
+	@ClientOnly
 	public void setGlobalTitle(LivingEntity target, String title);
 	
 	/**
@@ -203,5 +204,6 @@ public interface AppearanceManager {
 	@ClientOnly
 	public void setGlobalEntitySkin(LivingEntity entity, String url, EntitySkinType type);
 	
+	@ClientOnly
 	void resetEntitySkin(LivingEntity entity);
 }
