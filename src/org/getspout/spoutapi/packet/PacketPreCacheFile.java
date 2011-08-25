@@ -2,10 +2,15 @@ package org.getspout.spoutapi.packet;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
+
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketPreCacheFile implements SpoutPacket{
 	private boolean cached = false;
+	private boolean url = false;
 	private long expectedCRC;
 	private String file;
 	private String plugin;
@@ -14,20 +19,22 @@ public class PacketPreCacheFile implements SpoutPacket{
 		
 	}
 	
-	public PacketPreCacheFile(String plugin, String file, long expectedCRC) {
+	public PacketPreCacheFile(String plugin, String file, long expectedCRC, boolean url) {
 		this.file = file;
 		this.plugin = plugin;
 		this.expectedCRC = expectedCRC;
+		this.url = url;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return 9 + PacketUtil.getNumBytes(file) + PacketUtil.getNumBytes(plugin);
+		return 10 + PacketUtil.getNumBytes(file) + PacketUtil.getNumBytes(plugin);
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		this.cached = input.readBoolean();
+		this.url = input.readBoolean();
 		this.expectedCRC = input.readLong();
 		this.file = PacketUtil.readString(input);
 		this.plugin = PacketUtil.readString(input);
@@ -36,6 +43,7 @@ public class PacketPreCacheFile implements SpoutPacket{
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		output.writeBoolean(this.cached);
+		output.writeBoolean(this.url);
 		output.writeLong(this.expectedCRC);
 		PacketUtil.writeString(output, this.file);
 		PacketUtil.writeString(output, this.plugin);
@@ -44,7 +52,13 @@ public class PacketPreCacheFile implements SpoutPacket{
 	@Override
 	public void run(int playerId) {
 		if (!cached) {
-			//TODO send file
+			SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
+			if (player != null) {
+				File file = new File(this.file);
+				if (file.exists()) {
+					player.sendPacket(new PacketCacheFile(plugin, file));
+				}
+			}
 		}
 	}
 

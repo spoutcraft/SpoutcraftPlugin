@@ -48,8 +48,7 @@ public enum PacketType {
 	PacketOpenScreen(26, PacketOpenScreen.class),
 	PacketPreCacheFile(27, PacketPreCacheFile.class),
 	PacketCacheFile(28, PacketCacheFile.class),
-	PacketCacheUrl(29, PacketCacheUrl.class),
-	PacketCacheDeleteFile(30, PacketCacheDeleteFile.class),
+	PacketCacheDeleteFile(29, PacketCacheDeleteFile.class),
 	;
 	
 	private final int id;
