@@ -85,7 +85,9 @@ public class CRCStore {
 			in = urlConn.getInputStream();
 
 			long urlLastModified = urlConn.getLastModified();
-			if (urlLastModified == modified) {
+			if (urlLastModified == 0) {
+				return 0L;
+			} else if (urlLastModified == modified) {
 				System.out.println("Cached");
 				return crc;
 			} else {
