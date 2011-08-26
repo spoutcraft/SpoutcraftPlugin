@@ -36,7 +36,7 @@ public abstract class GenericWidget implements Widget{
 	protected RenderPriority priority = RenderPriority.Normal;
 	protected UUID id = UUID.randomUUID();
 	protected String tooltip = "";
-	protected Plugin plugin = null;
+	protected Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Spout");
 	protected WidgetAnchor anchor = WidgetAnchor.SCALE;
 	// Server side layout
 	protected Container container = null;

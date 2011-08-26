@@ -88,8 +88,7 @@ public class ChatBar extends GenericWidget implements Widget{
 	 * @return cursor y
 	 */
 	public int getCursorY() {
-		int diff = 240 - cursorY;
-		return (int) (getScreen() != null ? getScreen().getHeight() - diff : cursorY);
+		return cursorY;
 	}
 	
 	/**
