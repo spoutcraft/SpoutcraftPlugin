@@ -50,7 +50,7 @@ public enum PacketType {
 	PacketCacheFile(28, PacketCacheFile.class),
 	PacketCacheUrl(29, PacketCacheUrl.class),
 	PacketCacheDeleteFile(30, PacketCacheDeleteFile.class),
-    PacketItemTexture(31, PacketItemTexture.class),
+	PacketItemTexture(31, PacketItemTexture.class),
 
 	;
 	

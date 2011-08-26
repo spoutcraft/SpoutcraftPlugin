@@ -52,9 +52,9 @@ public class PacketItemTexture implements SpoutPacket{
 		return 0;
 	}
 
-    @Override
-    public void failure(int playerId) {
-        
-    }
+	@Override
+	public void failure(int playerId) {
+
+	}
 
 }
