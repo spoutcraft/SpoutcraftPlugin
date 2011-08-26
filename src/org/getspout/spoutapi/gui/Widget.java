@@ -42,6 +42,10 @@ public interface Widget{
 	
 	public void writeData(DataOutputStream output) throws IOException;
 	
+	public Plugin getPlugin();
+	
+	public Widget setPlugin(Plugin plugin);
+	
 	/**
 	 * Marks this widget as needing an update on the client. It will be updated after the next onTick call, and marked as setDirty(false)
 	 * Every widget is dirty immediately after creation

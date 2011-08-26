@@ -21,6 +21,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.packet.PacketUtil;
 
@@ -35,7 +36,7 @@ public abstract class GenericWidget implements Widget{
 	protected RenderPriority priority = RenderPriority.Normal;
 	protected UUID id = UUID.randomUUID();
 	protected String tooltip = "";
-	protected transient Plugin plugin = null;
+	protected Plugin plugin = null;
 	protected WidgetAnchor anchor = WidgetAnchor.SCALE;
 	// Server side layout
 	protected Container container = null;
@@ -50,12 +51,12 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public int getNumBytes() {
-		return 38 + PacketUtil.getNumBytes(tooltip);
+		return 38 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin.getDescription().getName());
 	}
 
 	@Override
 	public int getVersion() {
-		return 2;
+		return 3;
 	}
 	
 	public GenericWidget(int X, int Y, int width, int height) {
@@ -77,6 +78,17 @@ public abstract class GenericWidget implements Widget{
 	}
 	
 	@Override
+	public Plugin getPlugin() {
+		return plugin;
+	}
+	
+	@Override
+	public Widget setPlugin(Plugin plugin) {
+		this.plugin = plugin;
+		return this;
+	}
+	
+	@Override
 	public void readData(DataInputStream input) throws IOException {
 		setX(input.readInt());
 		setY(input.readInt());
@@ -89,6 +101,7 @@ public abstract class GenericWidget implements Widget{
 		long lsb = input.readLong();
 		this.id = new UUID(msb, lsb);
 		setTooltip(PacketUtil.readString(input));
+		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(PacketUtil.readString(input)));
 	}
 
 	@Override
@@ -103,6 +116,7 @@ public abstract class GenericWidget implements Widget{
 		output.writeLong(getId().getMostSignificantBits());
 		output.writeLong(getId().getLeastSignificantBits());
 		PacketUtil.writeString(output, getTooltip());
+		PacketUtil.writeString(output, getPlugin().getDescription().getName());
 	}
 	
 	@Override
@@ -119,6 +133,7 @@ public abstract class GenericWidget implements Widget{
 	public UUID getId() {
 		return id;
 	}
+	
 	@Override
 	public Screen getScreen() {
 		return screen;
