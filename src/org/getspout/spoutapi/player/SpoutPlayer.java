@@ -262,6 +262,42 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly
 	public void resetTexturePack();
 	
+	/**
+	 * Modifies the effects of gravity on the player's y axis movement.
+	 * 
+	 * Ex: setGravityMultiplier(10) will cause players to fall ten times faster than normal.
+	 * 
+	 * Warning, large modifiers may trigger fly-hack warnings.
+	 * 
+	 * Default gravity multiplier is 1
+	 * @param multiplier to set.
+	 */
+	public void setGravityMultiplier(double multiplier);
+	
+	/**
+	 * Modifies the default swimming speed for this player
+	 * 
+	 * Ex: setSwimmingMultiplier(10) will cause players to swim ten times faster than normal.
+	 * 
+	 * Warning, large modifiers may trigger fly-hack warnings.
+	 * 
+	 * Default swimming multiplier is 1.
+	 * @param multiplier to set.
+	 */
+	public void setSwimmingMultiplier(double multiplier);
+	
+	/**
+	 * Modifies the default walking speed for this player
+	 * 
+	 * Ex: setWalkingMultiplier(10) will cause players to walk ten times faster than normal.
+	 * 
+	 * Warning, large modifiers may trigger fly-hack warnings.
+	 * 
+	 * Default walking multiplier is 1.
+	 * @param multiplier to set.
+	 */
+	public void setWalkingMultiplier(double multiplier);
+	
 	public void sendPacket(SpoutPacket packet);
 	
 	public void sendPacket(MCPacket packet);
