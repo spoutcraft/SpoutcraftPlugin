@@ -116,7 +116,7 @@ public abstract class GenericWidget implements Widget{
 		output.writeLong(getId().getMostSignificantBits());
 		output.writeLong(getId().getLeastSignificantBits());
 		PacketUtil.writeString(output, getTooltip());
-		PacketUtil.writeString(output, getPlugin().getDescription().getName());
+		PacketUtil.writeString(output, plugin != null ? plugin.getDescription().getName() : "Spout");
 	}
 	
 	@Override
