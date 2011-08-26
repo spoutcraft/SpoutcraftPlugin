@@ -51,7 +51,7 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public int getNumBytes() {
-		return 38 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin.getDescription().getName());
+		return 38 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin.getDescription().getName() : "Spout");
 	}
 
 	@Override
