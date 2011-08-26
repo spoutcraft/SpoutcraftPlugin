@@ -30,10 +30,11 @@ public class ChatBar extends GenericWidget implements Widget{
 	public ChatBar() {
 		super();
 		setDirty(false);
-		setX(425);
-		setY(238);
+		setX(2);
+		setY(-2);
 		setWidth(425);
-		setHeight(2);
+		setHeight(12);
+		setAnchor(WidgetAnchor.BOTTOM_LEFT);
 	}
 	
 	public int getNumBytes() {
