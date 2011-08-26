@@ -52,13 +52,11 @@ public class PacketMovementModifiers implements SpoutPacket{
 
 	@Override
 	public PacketType getPacketType() {
-		// TODO Auto-generated method stub
-		return null;
+		return PacketType.PacketMovementModifiers;
 	}
 
 	@Override
 	public int getVersion() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

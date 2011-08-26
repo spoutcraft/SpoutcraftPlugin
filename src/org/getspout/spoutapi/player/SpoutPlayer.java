@@ -263,6 +263,14 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public void resetTexturePack();
 	
 	/**
+	 * Gets the gravity multiplier for this player
+	 * 
+	 * Default gravity modifier is 1
+	 * @return gravity multiplier
+	 */
+	public double getGravityMultiplier();
+	
+	/**
 	 * Modifies the effects of gravity on the player's y axis movement.
 	 * 
 	 * Ex: setGravityMultiplier(10) will cause players to fall ten times faster than normal.
@@ -275,6 +283,14 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public void setGravityMultiplier(double multiplier);
 	
 	/**
+	 * Gets the swimming multiplier for this player
+	 * 
+	 * Default swimming modifier is 1
+	 * @return swimming multiplier
+	 */
+	public double getSwimmingMultiplier();
+	
+	/**
 	 * Modifies the default swimming speed for this player
 	 * 
 	 * Ex: setSwimmingMultiplier(10) will cause players to swim ten times faster than normal.
@@ -285,6 +301,14 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * @param multiplier to set.
 	 */
 	public void setSwimmingMultiplier(double multiplier);
+	
+	/**
+	 * Gets the walking multiplier for this player
+	 * 
+	 * Default walking modifier is 1
+	 * @return walking multiplier
+	 */
+	public double getWalkingMultiplier();
 	
 	/**
 	 * Modifies the default walking speed for this player
