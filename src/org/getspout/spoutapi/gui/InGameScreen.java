@@ -49,7 +49,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 	@Override
 	public void onTick() {
 		SpoutPlayer player = (SpoutPlayer)SpoutManager.getPlayerFromId(playerId);
-		if (player != null && player.getVersion() > 17) {
+		if (player != null & player.isSpoutCraftEnabled()) {
 			if (getActivePopup() != null) {
 				if (getActivePopup().isDirty()) {
 					if(!getActivePopup().getType().isServerOnly())
@@ -64,7 +64,6 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		super.onTick();
 	}
 	
-	@Deprecated
 	public InGameScreen attachWidget(Widget widget) {
 		return attachWidget(null, widget);
 	}

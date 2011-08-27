@@ -16,6 +16,7 @@
  */
 package org.getspout.spoutapi.player;
 
+import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.gui.Color;
 
 public interface SkyManager {
@@ -25,12 +26,14 @@ public interface SkyManager {
 	 * @param player
 	 * @return height
 	 */
+	@ClientOnly
 	public int getCloudHeight(SpoutPlayer player);
 	/**
 	 * Sets the y-axis heigh that cloud tops are rendered at for the given player
 	 * @param player
 	 * @param y axis level to render the cloud top at
 	 */
+	@ClientOnly
 	public void setCloudHeight(SpoutPlayer player, int y);
 	
 	/**
@@ -38,6 +41,7 @@ public interface SkyManager {
 	 * @param player
 	 * @return true if clouds are visible
 	 */
+	@ClientOnly
 	public boolean isCloudsVisible(SpoutPlayer player);
 	
 	/**
@@ -45,6 +49,7 @@ public interface SkyManager {
 	 * @param player
 	 * @param visible
 	 */
+	@ClientOnly
 	public void setCloudsVisible(SpoutPlayer player, boolean visible);
 	
 	/**
@@ -53,6 +58,7 @@ public interface SkyManager {
 	 * @param player to get the frequency for
 	 * @return frequency
 	 */
+	@ClientOnly
 	public int getStarFrequency(SpoutPlayer player);
 	
 	/**
@@ -60,6 +66,7 @@ public interface SkyManager {
 	 * @param player to set the frequency for
 	 * @param frequency
 	 */
+	@ClientOnly
 	public void setStarFrequency(SpoutPlayer player, int frequency);
 	
 	/**
@@ -67,6 +74,7 @@ public interface SkyManager {
 	 * @param player
 	 * @return if the stars are visible
 	 */
+	@ClientOnly
 	public boolean isStarsVisible(SpoutPlayer player);
 	
 	/**
@@ -74,6 +82,7 @@ public interface SkyManager {
 	 * @param player
 	 * @param visible
 	 */
+	@ClientOnly
 	public void setStarsVisible(SpoutPlayer player, boolean visible);
 	
 	/**
@@ -82,6 +91,7 @@ public interface SkyManager {
 	 * @param player to get the size for
 	 * @return percent size of the sun
 	 */
+	@ClientOnly
 	public int getSunSizePercent(SpoutPlayer player);
 	
 	/**
@@ -90,6 +100,7 @@ public interface SkyManager {
 	 * @param player to set the size for
 	 * @param percent to set
 	 */
+	@ClientOnly
 	public void setSunSizePercent(SpoutPlayer player, int percent);
 	
 	/**
@@ -97,6 +108,7 @@ public interface SkyManager {
 	 * @param player to check
 	 * @return true if the sun will ever render
 	 */
+	@ClientOnly
 	public boolean isSunVisible(SpoutPlayer player);
 	
 	/**
@@ -104,6 +116,7 @@ public interface SkyManager {
 	 * @param player
 	 * @param visible
 	 */
+	@ClientOnly
 	public void setSunVisible(SpoutPlayer player, boolean visible);
 	
 	/**
@@ -111,6 +124,7 @@ public interface SkyManager {
 	 * @param player who has the custom texture
 	 * @return url of the custom texture
 	 */
+	@ClientOnly
 	public String getSunTextureUrl(SpoutPlayer player);
 	
 	/**
@@ -119,6 +133,7 @@ public interface SkyManager {
 	 * @param player to set the custom texture of
 	 * @param Url of the texture
 	 */
+	@ClientOnly
 	public void setSunTextureUrl(SpoutPlayer player, String url);
 	
 	/**
@@ -135,6 +150,7 @@ public interface SkyManager {
 	 * @param player to set the size for
 	 * @param percent to set
 	 */
+	@ClientOnly
 	public void setMoonSizePercent(SpoutPlayer player, int percent);
 	
 	/**
@@ -142,6 +158,7 @@ public interface SkyManager {
 	 * @param player to check
 	 * @return true if the moon will ever render
 	 */
+	@ClientOnly
 	public boolean isMoonVisible(SpoutPlayer player);
 	
 	/**
@@ -149,6 +166,7 @@ public interface SkyManager {
 	 * @param player
 	 * @param visible
 	 */
+	@ClientOnly
 	public void setMoonVisible(SpoutPlayer player, boolean visible);
 	
 	/**
@@ -156,6 +174,7 @@ public interface SkyManager {
 	 * @param player who has the custom texture
 	 * @return url of the custom texture
 	 */
+	@ClientOnly
 	public String getMoonTextureUrl(SpoutPlayer player);
 	
 	/**
@@ -164,6 +183,7 @@ public interface SkyManager {
 	 * @param player to set the custom texture of
 	 * @param Url of the texture
 	 */
+	@ClientOnly
 	public void setMoonTextureUrl(SpoutPlayer player, String url);
 
 	/**
@@ -171,6 +191,7 @@ public interface SkyManager {
 	 * @param player
 	 * @param skyColor
 	 */
+	@ClientOnly
 	public void setSkyColor(SpoutPlayer player, Color skyColor);
 	
 	/**
@@ -179,6 +200,7 @@ public interface SkyManager {
 	 * @return the set sky color of given player
 	 * @warning the return value can be null!
 	 */
+	@ClientOnly
 	public Color getSkyColor(SpoutPlayer player);
 	
 	/**
@@ -186,6 +208,7 @@ public interface SkyManager {
 	 * @param player
 	 * @param fogColor
 	 */
+	@ClientOnly
 	public void setFogColor(SpoutPlayer player, Color fogColor);
 	
 	/**
@@ -194,6 +217,7 @@ public interface SkyManager {
 	 * @return the set fog color of given player.
 	 * @warning the return value can be null!
 	 */
+	@ClientOnly
 	public Color getFogColor(SpoutPlayer player);
 	
 	/**
@@ -201,6 +225,7 @@ public interface SkyManager {
 	 * @param player
 	 * @param cloudColor
 	 */
+	@ClientOnly
 	public void setCloudColor(SpoutPlayer player, Color cloudColor);
 	
 	/**
@@ -209,5 +234,6 @@ public interface SkyManager {
 	 * @return the set cloud color of the player
 	 * @warning the return value can be null!
 	 */
+	@ClientOnly
 	public Color getCloudColor(SpoutPlayer player);
 }

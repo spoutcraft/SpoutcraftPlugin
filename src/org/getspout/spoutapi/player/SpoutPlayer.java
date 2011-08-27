@@ -83,6 +83,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * Gets the version of the spoutcraft SP client mod in use, or -1 if none.
 	 * @return version
 	 */
+	@Deprecated
 	public int getVersion();
 	
 	/**
@@ -268,6 +269,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * Default gravity modifier is 1
 	 * @return gravity multiplier
 	 */
+	@ClientOnly
 	public double getGravityMultiplier();
 	
 	/**
@@ -280,6 +282,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * Default gravity multiplier is 1
 	 * @param multiplier to set.
 	 */
+	@ClientOnly
 	public void setGravityMultiplier(double multiplier);
 	
 	/**
@@ -288,6 +291,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * Default swimming modifier is 1
 	 * @return swimming multiplier
 	 */
+	@ClientOnly
 	public double getSwimmingMultiplier();
 	
 	/**
@@ -300,6 +304,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * Default swimming multiplier is 1.
 	 * @param multiplier to set.
 	 */
+	@ClientOnly
 	public void setSwimmingMultiplier(double multiplier);
 	
 	/**
@@ -308,6 +313,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * Default walking modifier is 1
 	 * @return walking multiplier
 	 */
+	@ClientOnly
 	public double getWalkingMultiplier();
 	
 	/**
@@ -320,6 +326,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * Default walking multiplier is 1.
 	 * @param multiplier to set.
 	 */
+	@ClientOnly
 	public void setWalkingMultiplier(double multiplier);
 	
 	/**
@@ -336,6 +343,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	public void setCanFly(boolean fly);
 	
+	@ClientOnly
 	public void sendPacket(SpoutPacket packet);
 	
 	public void sendPacket(MCPacket packet);
@@ -388,6 +396,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	
 	public PlayerInformation getInformation();
 	
+	/**
+	 * Orders the client to open the appriopriate screen type
+	 * @param type of screen to open
+	 */
+	@ClientOnly
 	public void openScreen(ScreenType type);
 	
 }

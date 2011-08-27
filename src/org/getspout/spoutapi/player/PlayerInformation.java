@@ -20,19 +20,26 @@ import java.util.Set;
 
 import org.bukkit.block.Biome;
 import org.bukkit.entity.LivingEntity;
+import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.block.SpoutWeather;
 
 public interface PlayerInformation {
 
+	@ClientOnly
 	public SpoutWeather getBiomeWeather(Biome biome);
 	
+	@ClientOnly
 	public void setBiomeWeather(Biome biome, SpoutWeather weather);
 	
+	@ClientOnly
 	public Set<Biome> getBiomes();
 
+	@ClientOnly
 	public void setEntitySkin(LivingEntity entity, String url);
 	
+	@ClientOnly
 	public void setEntitySkin(LivingEntity entity, String url, EntitySkinType type);
 	
+	@ClientOnly
 	public String getEntitySkin(LivingEntity entity, EntitySkinType type);
 }

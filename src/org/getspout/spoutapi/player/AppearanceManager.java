@@ -204,6 +204,10 @@ public interface AppearanceManager {
 	@ClientOnly
 	public void setGlobalEntitySkin(LivingEntity entity, String url, EntitySkinType type);
 	
+	/**
+	 * Resets the skin for the given entity back to the users default texture pack skin
+	 * @param entity to reset the skin for
+	 */
 	@ClientOnly
 	void resetEntitySkin(LivingEntity entity);
 }
