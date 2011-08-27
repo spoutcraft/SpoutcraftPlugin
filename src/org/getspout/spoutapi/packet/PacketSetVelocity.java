@@ -24,12 +24,14 @@ public class PacketSetVelocity implements SpoutPacket {
 	private double motX = 0;
 	private double motY = 0;
 	private double motZ = 0;
+	private int entityId = 0;
 	
 	public PacketSetVelocity() {
 		
 	}
 	
-	public PacketSetVelocity(double motX, double motY, double motZ) {
+	public PacketSetVelocity(int entityId, double motX, double motY, double motZ) {
+		this.entityId = entityId;
 		this.motX = motX;
 		this.motY = motY;
 		this.motZ = motZ;
@@ -37,11 +39,12 @@ public class PacketSetVelocity implements SpoutPacket {
 
 	@Override
 	public int getNumBytes() {
-		return 24;
+		return 28;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
+		entityId = input.readInt();
 		motX = input.readDouble();
 		motY = input.readDouble();
 		motZ = input.readDouble();
@@ -49,6 +52,7 @@ public class PacketSetVelocity implements SpoutPacket {
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
+		output.writeInt(entityId);
 		output.writeDouble(motX);
 		output.writeDouble(motY);
 		output.writeDouble(motZ);
@@ -71,7 +75,7 @@ public class PacketSetVelocity implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 }
