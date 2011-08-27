@@ -322,6 +322,20 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	public void setWalkingMultiplier(double multiplier);
 	
+	/**
+	 * Returns either the server wide fly setting, or specific player setting if a plugin has used setCanFly()
+	 * 
+	 * @return whether this player can fly.
+	 */
+	public boolean isCanFly();
+	
+	/**
+	 * Overrides the server wide fly setting, allowing this player to fly, or not to fly. 
+	 * 
+	 * @param fly
+	 */
+	public void setCanFly(boolean fly);
+	
 	public void sendPacket(SpoutPacket packet);
 	
 	public void sendPacket(MCPacket packet);
