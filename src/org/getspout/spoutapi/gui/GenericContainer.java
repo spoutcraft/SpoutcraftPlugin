@@ -20,11 +20,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.getspout.spoutapi.gui.ContainerType;
-import org.getspout.spoutapi.gui.GenericWidget;
-import org.getspout.spoutapi.gui.RenderPriority;
-import org.getspout.spoutapi.gui.Widget;
-import org.getspout.spoutapi.gui.WidgetType;
 
 public class GenericContainer extends GenericWidget implements Container {
 

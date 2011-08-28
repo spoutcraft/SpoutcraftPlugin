@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.event.screen.SliderDragEvent;

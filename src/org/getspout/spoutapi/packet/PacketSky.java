@@ -19,6 +19,7 @@ package org.getspout.spoutapi.packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
 import org.getspout.spoutapi.gui.Color;
 
 public class PacketSky implements SpoutPacket{

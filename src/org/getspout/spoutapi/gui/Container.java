@@ -16,7 +16,6 @@
  */
 package org.getspout.spoutapi.gui;
 
-import org.getspout.spoutapi.gui.Widget;
 
 public interface Container extends Widget {
 
