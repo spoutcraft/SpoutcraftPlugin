@@ -19,6 +19,7 @@ package org.getspout.spoutapi.packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;

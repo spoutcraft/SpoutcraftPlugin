@@ -33,5 +33,7 @@ public interface PlayerManager {
 	public PlayerInformation getGlobalInfo();
 
 	public SpoutPlayer[] getOnlinePlayers();
+	
+	public void setVersionString(int playerId, String versionString);
 
 }

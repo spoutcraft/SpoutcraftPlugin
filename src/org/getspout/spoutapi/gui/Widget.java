@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+
 import org.bukkit.plugin.Plugin;
 
 public interface Widget{
