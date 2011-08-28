@@ -61,6 +61,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	@Override
 	public Screen attachWidget(Plugin plugin, Widget widget) {
 		widgets.put(widget, plugin);
+		widget.setPlugin(plugin);
 		widget.setDirty(true);
 		widget.setScreen(this);
 		return this;
