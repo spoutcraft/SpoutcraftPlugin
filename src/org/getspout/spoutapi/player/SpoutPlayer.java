@@ -352,7 +352,29 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public void setJumpingMultiplier(double multiplier);
 	
 	/**
-	 * Resets all modified movement speeds, including walking, swimming, gravity and jumping modifiers.
+	 * Gets the air speed multiplier for this player
+	 * 
+	 * Default air speed modifier is 1
+	 * @return air speed multiplier
+	 */
+	@ClientOnly
+	public double getAirSpeedMultiplier();
+	
+	/**
+	 * Modifies the default air speed for this player
+	 * 
+	 * Ex: setAirSpeedMultiplier(10) will cause players to move horizontally while in the air ten times faster than normal.
+	 * 
+	 * Warning, large modifiers may trigger fly-hack warnings.
+	 * 
+	 * Default air speed multiplier is 1.
+	 * @param multiplier to set.
+	 */
+	@ClientOnly
+	public void setAirSpeedMultiplier(double multiplier);
+	
+	/**
+	 * Resets all modified movement speeds, including walking, swimming, gravity, air speed, and jumping modifiers.
 	 */
 	public void resetMovement();
 	

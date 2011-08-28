@@ -10,21 +10,23 @@ public class PacketMovementModifiers implements SpoutPacket{
 	double walkingMod = 1;
 	double swimmingMod = 1;
 	double jumpingMod = 1;
+	double airspeedMod = 1;
 	
 	public PacketMovementModifiers() {
 		
 	}
 	
-	public PacketMovementModifiers(double gravity, double walking, double swimming, double jumping) {
+	public PacketMovementModifiers(double gravity, double walking, double swimming, double jumping, double airspeed) {
 		this.gravityMod = gravity;
 		this.walkingMod = walking;
 		this.swimmingMod = swimming;
 		this.jumpingMod = jumping;
+		this.airspeedMod = airspeed;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return 32;
+		return 40;
 	}
 
 	@Override
@@ -33,6 +35,7 @@ public class PacketMovementModifiers implements SpoutPacket{
 		walkingMod = input.readDouble();
 		swimmingMod = input.readDouble();
 		jumpingMod = input.readDouble();
+		airspeedMod = input.readDouble();
 	}
 
 	@Override
@@ -41,6 +44,7 @@ public class PacketMovementModifiers implements SpoutPacket{
 		output.writeDouble(walkingMod);
 		output.writeDouble(swimmingMod);
 		output.writeDouble(jumpingMod);
+		output.writeDouble(airspeedMod);
 	}
 
 	@Override
@@ -61,7 +65,7 @@ public class PacketMovementModifiers implements SpoutPacket{
 
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 
 }
