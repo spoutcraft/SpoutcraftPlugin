@@ -330,6 +330,33 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public void setWalkingMultiplier(double multiplier);
 	
 	/**
+	 * Gets the jumping multiplier for this player
+	 * 
+	 * Default jumping modifier is 1
+	 * @return jumping multiplier
+	 */
+	@ClientOnly
+	public double getJumpingMultiplier();
+	
+	/**
+	 * Modifies the default jumping speed for this player
+	 * 
+	 * Ex: setJumpingMultiplier(10) will cause players to jump ten times higher than normal.
+	 * 
+	 * Warning, large modifiers may trigger fly-hack warnings.
+	 * 
+	 * Default jumping multiplier is 1.
+	 * @param multiplier to set.
+	 */
+	@ClientOnly
+	public void setJumpingMultiplier(double multiplier);
+	
+	/**
+	 * Resets all modified movement speeds, including walking, swimming, gravity and jumping modifiers.
+	 */
+	public void resetMovement();
+	
+	/**
 	 * Returns either the server wide fly setting, or specific player setting if a plugin has used setCanFly()
 	 * 
 	 * @return whether this player can fly.
