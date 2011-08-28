@@ -34,7 +34,6 @@ public class PacketFullVersion implements SpoutPacket {
 	
 	@Override
 	public void run(int playerId) {
-		System.out.println("Received version packet");
 		SpoutManager.getPlayerManager().setVersionString(playerId, versionString);
 	}
 	
