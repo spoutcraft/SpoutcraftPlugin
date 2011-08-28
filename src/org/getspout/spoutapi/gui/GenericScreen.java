@@ -69,7 +69,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	@Override
 	public Screen removeWidget(Widget widget) {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
-		if (player != null && player.getVersion() > 101) {
+		if (player != null && player.isSpoutCraftEnabled()) {
 			if (widgets.containsKey(widget)) {
 				widgets.remove(widget);
 				if(!widget.getType().isServerOnly()) {
@@ -126,7 +126,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	@Override
 	public void onTick() {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
-		if (player != null && player.getVersion() > 17) {
+		if (player != null && player.isSpoutCraftEnabled()) {
 			for (Widget widget : widgets.keySet()) {
 				widget.onTick();
 				if (widget.isDirty()) {
