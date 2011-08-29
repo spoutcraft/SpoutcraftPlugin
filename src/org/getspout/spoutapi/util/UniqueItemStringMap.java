@@ -18,6 +18,7 @@ package org.getspout.spoutapi.util;
  */
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -84,6 +85,10 @@ public class UniqueItemStringMap {
 	private static String decodeKey(String key) {
 		key = key.replace("**", ".");
 		return key.replace("-*-", "*");
+	}
+	
+	public static Set<Integer> getIds() {
+		return reverse.keySet();
 	}
 
 	/**
