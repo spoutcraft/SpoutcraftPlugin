@@ -17,6 +17,7 @@
 package org.getspout.spoutapi.inventory;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public interface ItemManager {
 	
@@ -51,6 +52,13 @@ public interface ItemManager {
 	public String getCustomItemName(Material item, short data);
 	
 	/**
+	 * Gets  the custom name of the item, or null if none exists
+	 * @param id the custom item id
+	 * @return name
+	 */
+	public String getCustomItemName(int id);
+	
+	/**
 	 * Sets the name of the item
 	 * @param item to name
 	 * @param name to set
@@ -64,6 +72,13 @@ public interface ItemManager {
 	 * @param name to set
 	 */
 	public void setItemName(Material item, short data, String name);
+	
+	/**
+	 * Sets the name of the item
+	 * @param id the custom item id
+	 * @param name to set
+	 */
+	public void setItemName(int id, String name);
 	
 	/**
 	 * Resets the name of the item back to the notchian default
@@ -82,5 +97,35 @@ public interface ItemManager {
 	 * Resets the names of all items to the notchian defaults. Use with care.
 	 */
 	public void reset();
+	
+	/**
+	 * Registers the key for a custom item.  This key should be unique.
+	 * 
+	 * The returned id should be used for accessing the item and is persistent between server restarts and reloads
+	 *
+	 * @param key Key of the new item
+	 * @return the unique id or null on error
+	 */
+	public Integer registerCustomItemName(String key);
+	
+	/**
+	 * Sets the block id for the block that matches this item.  This block will be placed when this item is used.
+	 * 
+	 * If the block id is null, no block will be placed and the item will trigger an interaction event instead.
+	 *
+	 * @param id the custom item id
+	 * @param blockId the matched block id
+	 * @return success
+	 */
+	public void setCustomItemBlock(int id, Integer blockId);
+	
+	/**
+	 * Creates an item stack of a custom item.  The id should be a valid custom item id.
+	 *
+	 * @param id the custom item id
+	 * @param size the size of the item stack
+	 * @return an ItemStack of that item
+	 */
+	public ItemStack getCustomItemStack(int id, int size);
 
 }
