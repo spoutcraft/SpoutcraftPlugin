@@ -179,7 +179,7 @@ public class InventoryClickEvent extends InventoryEvent{
 	}
 	
 	protected int convertSlot(int slot) {
-		if(getInventory() instanceof SpoutPlayerInventory) {
+		if (getInventory() instanceof SpoutPlayerInventory) {
 			int size = getInventory().getSize();
 			//Armour slot
 			switch(slot) {
@@ -189,7 +189,7 @@ public class InventoryClickEvent extends InventoryEvent{
 			case 8: return 36;
 			}
 			//Quickslots
-			if (slot > size) {
+			if (slot >= size) {
 				slot -= size;
 			}
 

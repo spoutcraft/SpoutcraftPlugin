@@ -27,4 +27,9 @@ public class InventoryPlayerClickEvent extends InventoryClickEvent{
 	public InventoryPlayerClickEvent(Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift, Location location) {
 		super("InventoryPlayerClickEvent", player, inventory, type, item, cursor, slot, leftClick, shift, location);
 	}
+	
+	@Override
+	protected int convertSlot(int slot) {
+		return slot;
+	}
 }
