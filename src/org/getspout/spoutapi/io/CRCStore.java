@@ -88,7 +88,7 @@ public class CRCStore {
 			if (urlLastModified == 0) {
 				return 0L;
 			} else if (urlLastModified == modified) {
-				System.out.println("Cached");
+				//System.out.println("Cached");
 				return crc;
 			} else {
 				crc = FileUtil.getCRC(in, buffer);

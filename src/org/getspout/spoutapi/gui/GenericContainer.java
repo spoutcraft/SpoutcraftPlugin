@@ -59,7 +59,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		// Relayout if we are already using layout - otherwise this will return immediately
 		updateLayout();
 		if (this.screen != null) {
-			this.screen.attachWidget(this.plugin, child);
+			this.screen.attachWidget(getPlugin(), child);
 		}
 		return this;
 	}
@@ -164,7 +164,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container setScreen(Screen screen) {
 		for (Widget child : children) {
 			if (screen != null) {
-				screen.attachWidget(this.plugin, child);
+				screen.attachWidget(getPlugin(), child);
 			} else if (this.screen != null) {
 				this.screen.removeWidget(child);
 			}

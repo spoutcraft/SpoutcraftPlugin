@@ -36,7 +36,7 @@ public abstract class GenericWidget implements Widget{
 	protected RenderPriority priority = RenderPriority.Normal;
 	protected UUID id = UUID.randomUUID();
 	protected String tooltip = "";
-	protected Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Spout");
+	protected String plugin = "Spoutcraft";
 	protected WidgetAnchor anchor = WidgetAnchor.SCALE;
 	// Server side layout
 	protected Container container = null;
@@ -51,7 +51,7 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public int getNumBytes() {
-		return 38 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin.getDescription().getName() : "Spout");
+		return 38 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin : "Spoutcraft");
 	}
 
 	@Override
@@ -79,12 +79,14 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Plugin getPlugin() {
-		return plugin;
+		return (plugin == null || plugin.equals("Spoutcraft") ? Bukkit.getServer().getPluginManager().getPlugin("Spout") : Bukkit.getServer().getPluginManager().getPlugin(plugin));
 	}
 	
 	@Override
 	public Widget setPlugin(Plugin plugin) {
-		this.plugin = plugin;
+		if (plugin != null) {
+			this.plugin = plugin.getDescription().getName();
+		}
 		return this;
 	}
 	
@@ -116,7 +118,7 @@ public abstract class GenericWidget implements Widget{
 		output.writeLong(getId().getMostSignificantBits());
 		output.writeLong(getId().getLeastSignificantBits());
 		PacketUtil.writeString(output, getTooltip());
-		PacketUtil.writeString(output, plugin != null ? plugin.getDescription().getName() : "Spout");
+		PacketUtil.writeString(output, plugin != null ? plugin : "Spoutcraft");
 	}
 	
 	@Override
@@ -150,7 +152,9 @@ public abstract class GenericWidget implements Widget{
 			this.screen.removeWidget(this);
 		}
 		this.screen = screen;
-		this.plugin = plugin;
+		if (plugin != null) {
+			this.plugin = plugin.getDescription().getName();
+		}
 		return this;
 	}
 	
