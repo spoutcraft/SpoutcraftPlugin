@@ -18,6 +18,7 @@ package org.getspout.spoutapi.inventory;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 public interface ItemManager {
 	
@@ -106,7 +107,7 @@ public interface ItemManager {
 	 * @param key Key of the new item
 	 * @return the unique id or null on error
 	 */
-	public Integer registerCustomItemName(String key);
+	public Integer registerCustomItemName(Plugin plugin, String key);
 	
 	/**
 	 * Sets the block id for the block that matches this item.  This block will be placed when this item is used.
