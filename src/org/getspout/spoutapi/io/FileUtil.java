@@ -68,6 +68,9 @@ public class FileUtil {
 	}
 
 	public static long getCRC(InputStream in, byte[] buffer) {
+		if (in == null) {
+			return 0;
+		}
 		
 		long hash = 1;
 		
