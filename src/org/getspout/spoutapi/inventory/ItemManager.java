@@ -129,13 +129,4 @@ public interface ItemManager {
 	 */
 	public ItemStack getCustomItemStack(int id, int size);
 	
-	/**
-	 * Sets the texture for a custom item
-	 * 
-	 * @param id the custom item id
-	 * @param plugin the plugin to associate the texture with
-	 * @param texture the URL of the texture
-	 */
-	public void setCustomItemTexture(int id, Plugin plugin, String texture);
-
 }
