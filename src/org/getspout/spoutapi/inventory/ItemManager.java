@@ -177,9 +177,10 @@ public interface ItemManager {
 	 *
 	 * @param id the custom item id
 	 * @param blockId the matched block id
+	 * @param metaData the meta data for the block
 	 * @return success
 	 */
-	public void setCustomItemBlock(int id, Integer blockId);
+	public void setCustomItemBlock(int id, Integer blockId, Short metaData);
 	
 	/**
 	 * Creates an item stack of a custom item.  The id should be a valid custom item id.
