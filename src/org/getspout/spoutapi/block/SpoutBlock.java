@@ -87,6 +87,24 @@ public interface SpoutBlock extends Block{
 	 */
 	public Serializable removeData(String id);
 	
+	public String getName();
+	
+	public void setBlockPowered(boolean power);
+	
+	public void setBlockPowered(boolean power, BlockFace face);
+	
+	public void resetBlockPower();
+
+	public void setLightLevel(byte level);
+	
+	public void resetLightLevel();
+	
+	public float getHardness();
+	
+	public void setHardness(float hardness);
+	
+	public void resetHardness();
+	
 	@Override
 	public SpoutBlock getFace(BlockFace face);
 	

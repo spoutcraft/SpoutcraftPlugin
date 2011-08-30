@@ -392,6 +392,8 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	public void setCanFly(boolean fly);
 	
+	public Location getLastClickedLocation();
+	
 	@ClientOnly
 	public void sendPacket(SpoutPacket packet);
 	
