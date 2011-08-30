@@ -93,9 +93,50 @@ public interface ItemManager {
 	 * @param data of the item
 	 */
 	public void resetName(Material item, short data);
-	
+	 /**
+	 * Sets the texture of the item
+	 * @param item to texture
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, String texture);
+
 	/**
-	 * Resets the names of all items to the notchian defaults. Use with care.
+	 * Sets the texture of the item
+	 * @param item to texture
+	 * @param data of the item
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, short data, String texture);
+
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @return texture
+	 */
+	public String getCustomItemTexture(Material item);
+
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @param data data of the item
+	 * @return texture 
+	 */
+	public String getCustomItemTexture(Material item, short data);
+
+	/**
+	 * Resets the texture of the item back to the notchian default
+	 * @param item to reset
+	 */
+	public void resetTexture(Material item);
+
+	/**
+	 * Resets the texture of the item back to the notchian default
+	 * @param item to reset
+	 * @param data of the item
+	 */
+	public void resetTexture(Material item, short data);
+	/**
+	 * Resets the names and textures of all items to the notchian defaults. Use with care.
 	 */
 	public void reset();
 	

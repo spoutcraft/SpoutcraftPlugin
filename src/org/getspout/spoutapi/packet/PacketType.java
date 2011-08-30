@@ -18,6 +18,17 @@ package org.getspout.spoutapi.packet;
 
 import java.util.HashMap;
 
+import org.getspout.spout.packet.PacketCacheDeleteFile;
+import org.getspout.spout.packet.PacketCacheFile;
+import org.getspout.spout.packet.PacketCustomItem;
+import org.getspout.spout.packet.PacketFullVersion;
+import org.getspout.spout.packet.PacketItemTexture;
+import org.getspout.spout.packet.PacketMovementModifiers;
+import org.getspout.spout.packet.PacketOpenScreen;
+import org.getspout.spout.packet.PacketPreCacheCompleted;
+import org.getspout.spout.packet.PacketPreCacheFile;
+import org.getspout.spout.packet.PacketSetVelocity;
+
 public enum PacketType {
 	PacketKeyPress(0, PacketKeyPress.class),
 	PacketAirTime(1, PacketAirTime.class),
@@ -51,9 +62,10 @@ public enum PacketType {
 	PacketCacheDeleteFile(29, PacketCacheDeleteFile.class),
 	PacketPreCacheCompleted(30, PacketPreCacheCompleted.class),
 	PacketMovementModifiers(31, PacketMovementModifiers.class),
-	PacketSetVelocity(32, PacketMovementModifiers.class),
+	PacketSetVelocity(32, PacketSetVelocity.class),
 	PacketFullVersion(33, PacketFullVersion.class),
 	PacketCustomItem(34, PacketCustomItem.class),
+	PacketItemTexture(35, PacketItemTexture.class),
 	;
 	
 	private final int id;
