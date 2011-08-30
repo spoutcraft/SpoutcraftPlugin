@@ -18,17 +18,6 @@ package org.getspout.spoutapi.packet;
 
 import java.util.HashMap;
 
-import org.getspout.spout.packet.PacketCacheDeleteFile;
-import org.getspout.spout.packet.PacketCacheFile;
-import org.getspout.spout.packet.PacketCustomItem;
-import org.getspout.spout.packet.PacketFullVersion;
-import org.getspout.spout.packet.PacketItemTexture;
-import org.getspout.spout.packet.PacketMovementModifiers;
-import org.getspout.spout.packet.PacketOpenScreen;
-import org.getspout.spout.packet.PacketPreCacheCompleted;
-import org.getspout.spout.packet.PacketPreCacheFile;
-import org.getspout.spout.packet.PacketSetVelocity;
-
 public enum PacketType {
 	PacketKeyPress(0, PacketKeyPress.class),
 	PacketAirTime(1, PacketAirTime.class),
