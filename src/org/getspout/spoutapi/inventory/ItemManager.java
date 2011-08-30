@@ -107,6 +107,13 @@ public interface ItemManager {
 	 * @param texture to set
 	 */
 	public void setItemTexture(Material item, short data, String texture);
+	
+	/**
+	 * Sets the texture of a custom item
+	 * @param id custom item id
+	 * @param texture to set
+	 */
+	public void setItemTexture(int id, String texture);
 
 	/**
 	 * Gets the custom texture of the item, or null if none exists
@@ -122,12 +129,25 @@ public interface ItemManager {
 	 * @return texture 
 	 */
 	public String getCustomItemTexture(Material item, short data);
+	
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param id custom item id
+	 * @return texture 
+	 */
+	public String getCustomItemTexture(int id);
 
 	/**
 	 * Resets the texture of the item back to the notchian default
 	 * @param item to reset
 	 */
 	public void resetTexture(Material item);
+	
+	/**
+	 * Resets the texture of a custom item back to the notchian default.  This will reset to the stone texture
+	 * @param id custom item id
+	 */
+	public void resetTexture(int id);
 
 	/**
 	 * Resets the texture of the item back to the notchian default
