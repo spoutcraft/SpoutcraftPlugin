@@ -41,16 +41,16 @@ public class CRCStore {
 		return urlString.replace(".", "*");
 	}
 
-	public static Long getCRC(String urlString, byte[] buffer) {
+	public static long getCRC(String urlString, byte[] buffer) {
 		if (urlString == null) {
-			return null;
+			return 0;
 		}
 		
 		URL url;
 		try {
 			url = new URL(urlString);
 		} catch (MalformedURLException mue) {
-			return null;
+			return 0;
 		}
 		
 		String key = encodeURL(url.toString());
@@ -78,7 +78,7 @@ public class CRCStore {
 		try {
 			urlConn = url.openConnection();
 		} catch (IOException ioe) {
-			return null;
+			return 0;
 		}
 		
 		try {
