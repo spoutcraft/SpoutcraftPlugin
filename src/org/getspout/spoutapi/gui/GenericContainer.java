@@ -145,6 +145,24 @@ public class GenericContainer extends GenericWidget implements Container {
 	}
 
 	@Override
+	public Widget shiftXPos(int modX) {
+		super.shiftXPos(modX);
+		for (Widget widget : children) {
+			widget.shiftXPos(modX);
+		}
+		return this;
+	}
+
+	@Override
+	public Widget shiftYPos(int modY) {
+		super.shiftYPos(modY);
+		for (Widget widget : children) {
+			widget.shiftYPos(modY);
+		}
+		return this;
+	}
+
+	@Override
 	public void render() {
 	}
 

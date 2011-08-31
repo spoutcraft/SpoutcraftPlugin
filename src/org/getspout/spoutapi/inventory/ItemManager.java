@@ -93,9 +93,70 @@ public interface ItemManager {
 	 * @param data of the item
 	 */
 	public void resetName(Material item, short data);
+	 /**
+	 * Sets the texture of the item
+	 * @param item to texture
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, String texture);
+
+	/**
+	 * Sets the texture of the item
+	 * @param item to texture
+	 * @param data of the item
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, short data, String texture);
 	
 	/**
-	 * Resets the names of all items to the notchian defaults. Use with care.
+	 * Sets the texture of a custom item
+	 * @param id custom item id
+	 * @param texture to set
+	 */
+	public void setItemTexture(int id, String texture);
+
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @return texture
+	 */
+	public String getCustomItemTexture(Material item);
+
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @param data data of the item
+	 * @return texture 
+	 */
+	public String getCustomItemTexture(Material item, short data);
+	
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param id custom item id
+	 * @return texture 
+	 */
+	public String getCustomItemTexture(int id);
+
+	/**
+	 * Resets the texture of the item back to the notchian default
+	 * @param item to reset
+	 */
+	public void resetTexture(Material item);
+	
+	/**
+	 * Resets the texture of a custom item back to the notchian default.  This will reset to the stone texture
+	 * @param id custom item id
+	 */
+	public void resetTexture(int id);
+
+	/**
+	 * Resets the texture of the item back to the notchian default
+	 * @param item to reset
+	 * @param data of the item
+	 */
+	public void resetTexture(Material item, short data);
+	/**
+	 * Resets the names and textures of all items to the notchian defaults. Use with care.
 	 */
 	public void reset();
 	
@@ -116,9 +177,10 @@ public interface ItemManager {
 	 *
 	 * @param id the custom item id
 	 * @param blockId the matched block id
+	 * @param metaData the meta data for the block
 	 * @return success
 	 */
-	public void setCustomItemBlock(int id, Integer blockId);
+	public void setCustomItemBlock(int id, Integer blockId, Short metaData);
 	
 	/**
 	 * Creates an item stack of a custom item.  The id should be a valid custom item id.
@@ -128,5 +190,5 @@ public interface ItemManager {
 	 * @return an ItemStack of that item
 	 */
 	public ItemStack getCustomItemStack(int id, int size);
-
+	
 }
