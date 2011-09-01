@@ -453,5 +453,9 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	@ClientOnly
 	public void openScreen(ScreenType type);
+
+	public void setPreCachingComplete(boolean complete);
+	
+	public boolean isPreCachingComplete();
 	
 }

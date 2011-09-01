@@ -20,6 +20,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 public class PacketPreCacheCompleted implements SpoutPacket{
 	
 	public PacketPreCacheCompleted() {
@@ -41,6 +44,8 @@ public class PacketPreCacheCompleted implements SpoutPacket{
 	@Override
 	public void run(int playerId) {
 		System.out.println(playerId + " has completed all downloads!");
+		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
+		player.setPreCachingComplete(true);
 	}
 
 	@Override
