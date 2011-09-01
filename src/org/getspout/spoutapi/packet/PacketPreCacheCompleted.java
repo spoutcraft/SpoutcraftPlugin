@@ -43,7 +43,6 @@ public class PacketPreCacheCompleted implements SpoutPacket{
 
 	@Override
 	public void run(int playerId) {
-		System.out.println(playerId + " has completed all downloads!");
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		player.setPreCachingComplete(true);
 	}
