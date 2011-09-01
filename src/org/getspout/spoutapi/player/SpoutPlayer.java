@@ -18,6 +18,7 @@ package org.getspout.spoutapi.player;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Sign;
 import org.bukkit.inventory.Inventory;
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.gui.InGameHUD;
@@ -453,7 +454,10 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	@ClientOnly
 	public void openScreen(ScreenType type);
-
+	
+	@ClientOnly
+	public void openSignEditGUI(Sign sign);
+	
 	public void setPreCachingComplete(boolean complete);
 	
 	public boolean isPreCachingComplete();
