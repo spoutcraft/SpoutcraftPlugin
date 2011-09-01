@@ -12,6 +12,10 @@ public class PacketBlockHardness implements SpoutPacket{
 	private int[] zCoords;
 	private float[] hardness;
 	
+	public PacketBlockHardness() {
+		
+	}
+	
 	public PacketBlockHardness(Location location, float hardness) {
 		xCoords = new int[1];
 		xCoords[0] = location.getBlockX();
@@ -32,7 +36,7 @@ public class PacketBlockHardness implements SpoutPacket{
 	
 	@Override
 	public int getNumBytes() {
-		return 16;
+		return 4 + (xCoords.length * 4 * 4);
 	}
 
 	@Override
