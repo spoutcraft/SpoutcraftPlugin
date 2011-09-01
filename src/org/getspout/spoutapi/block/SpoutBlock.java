@@ -87,22 +87,65 @@ public interface SpoutBlock extends Block{
 	 */
 	public Serializable removeData(String id);
 	
+	/**
+	 * Gets the name of this block
+	 * 
+	 * Ex dirt block returns "Dirt".
+	 * @return block name
+	 */
 	public String getName();
 	
+	/**
+	 * Sets the power state of this block, overriding the default power state.
+	 * 
+	 * This will override the default power state. 
+	 * Unpowering this location will prevent normal redstone sources from working, powering it will allow for non-redstone sources to generate a power current.
+	 * 
+	 * Note: The new power state will remain even if the underlying block type changes!
+	 * @param power to set
+	 */
 	public void setBlockPowered(boolean power);
 	
+	/**
+	 * Sets the power state of the block face of this block, overriding the default power state.
+	 * 
+	 * Valid block faces are null (entire block), EAST, WEST, NORTH, SOUTH, UP, DOWN. Non-valid states will throw an exception.
+	 * 
+	 * This will override the default power state of this blockface.
+	 * Unpowering this location will prevent normal redstone sources from working, powering it will allow for non-redstone sources to generate a power current.
+	 * 
+	 * Note: The new power state will remain even if the underlying block type changes!
+	 * @param power to set
+	 * @param face to affect
+	 */
 	public void setBlockPowered(boolean power, BlockFace face);
 	
+	/**
+	 * Resets the block back to the minecraft standard rules for power.
+	 */
 	public void resetBlockPower();
 
-	public void setLightLevel(byte level);
+	//public void setLightLevel(byte level);
 	
-	public void resetLightLevel();
+	//public void resetLightLevel();
 	
+	/**
+	 * Gets the hardness of this block.
+	 * @return hardness
+	 */
 	public float getHardness();
 	
+	/**
+	 * Sets the hardness of this location. 
+	 * 
+	 * Note: The new hardness value will remain even if the underlying block type changes!
+	 * @param hardness to set
+	 */
 	public void setHardness(float hardness);
 	
+	/**
+	 * Resets the hardness of this location back to the standard minecraft values.
+	 */
 	public void resetHardness();
 	
 	@Override
