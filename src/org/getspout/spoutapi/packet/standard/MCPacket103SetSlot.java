@@ -42,11 +42,11 @@ public interface MCPacket103SetSlot extends MCPacket
 		/**
 		 * The raw value contained in the packet.
 		 */
-		public final int Id;
+		public final int id;
 		
 		private Window(int id)
 		{
-			Id = id;
+			this.id = id;
 		}
 		
 		/**
@@ -436,32 +436,32 @@ public interface MCPacket103SetSlot extends MCPacket
 		/**
 		 * The raw value contained in the packet.
 		 */
-		public final int RawWindowId;
+		public final int rawWindowId;
 		/**
 		 * The raw value contained in the packet.
 		 */
-		public final int RawSlotId;
+		public final int rawSlotId;
 		
 		private Slot(int window, int slot)
 		{
-			RawWindowId = window;
-			RawSlotId = slot;
-			__Store(window, slot, this);
+			rawWindowId = window;
+			rawSlotId = slot;
+			Store(window, slot, this);
 		}
 		
 		// This is a separate method because Java doesn't let enums access static fields in the constructor. Hacky work-around.
-		private static void __Store(int window, int slot, Slot value)
+		private static void Store(int window, int slot, Slot value)
 		{	
-			if (__Slots == null)
-				__Slots = new HashMap<Integer, HashMap<Integer, Slot>>();
-			if (!__Slots.containsKey(window))
-				__Slots.put(window, new HashMap<Integer, Slot>());
-			__Slots.get(window).put(slot, value);
+			if (slots == null)
+				slots = new HashMap<Integer, HashMap<Integer, Slot>>();
+			if (!slots.containsKey(window))
+				slots.put(window, new HashMap<Integer, Slot>());
+			slots.get(window).put(slot, value);
 		}
 		
 		// No way I'm writing a huge switch nest to do a lookup. Use some hash tables instead.
 		// This is also easier to use in the future if any more windows were added.
-		private static HashMap<Integer, HashMap<Integer, Slot>> __Slots;
+		private static HashMap<Integer, HashMap<Integer, Slot>> slots;
 		
 		/**
 		 * Gets a Slot enum value based on the raw values in the packet.
@@ -471,11 +471,11 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public static Slot getSlotByRawValues(int window, int slot)
 		{
-			if (!__Slots.containsKey(window))
+			if (!slots.containsKey(window))
 				return UNKNOWN;
-			if (!__Slots.get(window).containsKey(slot))
+			if (!slots.get(window).containsKey(slot))
 				return UNKNOWN;
-			return __Slots.get(window).get(slot);
+			return slots.get(window).get(slot);
 		}
 		
 		/**
@@ -484,7 +484,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public Window getWindow()
 		{
-			return Window.getWindowById(RawWindowId);
+			return Window.getWindowById(rawWindowId);
 		}
 		
 		/**
@@ -493,7 +493,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isPlayerInventory()
 		{
-			return RawWindowId == 0;
+			return rawWindowId == 0;
 		}
 		
 		/**
@@ -502,7 +502,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isWorkbench()
 		{
-			return RawWindowId == 1;
+			return rawWindowId == 1;
 		}
 		
 		/**
@@ -511,7 +511,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isFurnace()
 		{
-			return RawWindowId == 2;
+			return rawWindowId == 2;
 		}
 		
 		/**
@@ -520,7 +520,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isChest()
 		{
-			return RawWindowId == 3;
+			return rawWindowId == 3;
 		}
 		
 		/**
@@ -529,7 +529,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isDoubleChest()
 		{
-			return RawWindowId == 4;
+			return rawWindowId == 4;
 		}
 		
 		/**
@@ -538,7 +538,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isDispenser()
 		{
-			return RawWindowId == 5;
+			return rawWindowId == 5;
 		}
 		
 		/**
@@ -547,19 +547,19 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isInventory()
 		{
-			switch (RawWindowId)
+			switch (rawWindowId)
 			{
 				case 0:
 				case 5:
-					return RawSlotId >= 9 && RawSlotId <= 35;
+					return rawSlotId >= 9 && rawSlotId <= 35;
 				case 1:
-					return RawSlotId >= 10 && RawSlotId <= 36;
+					return rawSlotId >= 10 && rawSlotId <= 36;
 				case 2:
-					return RawSlotId >= 3 && RawSlotId <= 29;
+					return rawSlotId >= 3 && rawSlotId <= 29;
 				case 3:
-					return RawSlotId >= 27 && RawSlotId <= 53;
+					return rawSlotId >= 27 && rawSlotId <= 53;
 				case 4:
-					return RawSlotId >= 54 && RawSlotId <= 80;
+					return rawSlotId >= 54 && rawSlotId <= 80;
 				default:
 					return false;
 			}
@@ -571,19 +571,19 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isHeldItems()
 		{
-			switch (RawWindowId)
+			switch (rawWindowId)
 			{
 				case 0:
 				case 5:
-					return RawSlotId >= 36 && RawSlotId <= 44;
+					return rawSlotId >= 36 && rawSlotId <= 44;
 				case 1:
-					return RawSlotId >= 37 && RawSlotId <= 45;
+					return rawSlotId >= 37 && rawSlotId <= 45;
 				case 2:
-					return RawSlotId >= 30 && RawSlotId <= 38;
+					return rawSlotId >= 30 && rawSlotId <= 38;
 				case 3:
-					return RawSlotId >= 54 && RawSlotId <= 62;
+					return rawSlotId >= 54 && rawSlotId <= 62;
 				case 4:
-					return RawSlotId >= 81 && RawSlotId <= 89;
+					return rawSlotId >= 81 && rawSlotId <= 89;
 				default:
 					return false;
 			}
@@ -596,7 +596,7 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isArmor()
 		{
-			return RawWindowId == 0 && RawSlotId >= 5 && RawSlotId <= 8;
+			return rawWindowId == 0 && rawSlotId >= 5 && rawSlotId <= 8;
 		}
 		
 		/**
@@ -606,14 +606,14 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isContents()
 		{
-			switch (RawWindowId)
+			switch (rawWindowId)
 			{
 				case 3:
-					return RawSlotId >= 0 && RawSlotId <= 26;
+					return rawSlotId >= 0 && rawSlotId <= 26;
 				case 4:
-					return RawSlotId >= 0 && RawSlotId <= 53;
+					return rawSlotId >= 0 && rawSlotId <= 53;
 				case 5:
-					return RawSlotId >= 0 && RawSlotId <= 8;
+					return rawSlotId >= 0 && rawSlotId <= 8;
 				default:
 					return false;
 			}
@@ -626,14 +626,14 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isInput()
 		{
-			switch (RawWindowId)
+			switch (rawWindowId)
 			{
 				case 0:
-					return RawSlotId >= 1 && RawSlotId <= 4;
+					return rawSlotId >= 1 && rawSlotId <= 4;
 				case 1:
-					return RawSlotId >= 1 && RawSlotId <= 9;
+					return rawSlotId >= 1 && rawSlotId <= 9;
 				case 2:
-					return RawSlotId == 0 || RawSlotId == 1;
+					return rawSlotId == 0 || rawSlotId == 1;
 				default:
 					return false;
 			}
@@ -646,13 +646,13 @@ public interface MCPacket103SetSlot extends MCPacket
 		 */
 		public boolean isOutput()
 		{
-			switch (RawWindowId)
+			switch (rawWindowId)
 			{
 				case 0:
 				case 1:
-					return RawSlotId == 0;
+					return rawSlotId == 0;
 				case 2:
-					return RawSlotId == 2;
+					return rawSlotId == 2;
 				default:
 					return false;
 			}
