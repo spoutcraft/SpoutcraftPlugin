@@ -29,6 +29,7 @@ public class CRCStore {
 
 	private static Configuration urlCRCStore;
 	private final static Object urlCRCStoreSync = new Object();
+	private final static ConcurrentHashMap<String,Long> lastCheck = new ConcurrentHashMap<String,Long>();
 
 	public static void setConfigFile(Configuration config) {
 		synchronized(urlCRCStoreSync) {
@@ -84,10 +85,24 @@ public class CRCStore {
 		try {
 			in = urlConn.getInputStream();
 
-			long urlLastModified = urlConn.getLastModified();
-			if (urlLastModified == 0) {
-				return 0L;
-			} else if (urlLastModified == modified) {
+			long currentTime = System.currentTimeMillis();
+			
+			Long previous = lastCheck.get(urlString);
+			previous = previous == null ? 0 : previous;
+			
+			boolean timeExpired = currentTime -  previous > 600000; // recheck every 10 mins
+
+			long urlLastModified = 0;
+			
+			if (timeExpired) {
+				urlLastModified = urlConn.getLastModified();
+				lastCheck.put(urlString, currentTime);
+			}
+			
+			boolean cacheHit = crc != 0;
+			boolean notUpdated = urlLastModified == modified && modified != 0;
+			
+			if (cacheHit && (!timeExpired || notUpdated)) {
 				//System.out.println("Cached");
 				return crc;
 			} else {
