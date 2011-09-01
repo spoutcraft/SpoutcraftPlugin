@@ -94,33 +94,78 @@ public interface ItemManager {
 	 */
 	public void resetName(Material item, short data);
 	 /**
-	 * Sets the texture of the item
+	 * Sets the texture of the item.  
+	 * 
+	 * Please use the version that includes the associated plugin
+	 * 
 	 * @param item to texture
 	 * @param texture to set
 	 */
+	@Deprecated
 	public void setItemTexture(Material item, String texture);
+	
+	 /**
+	 * Sets the texture of the item, for use with pre-caching
+	 * @param item to texture
+	 * @param plugin the plugin to associate with the texture
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, Plugin plugin, String texture);
 
 	/**
 	 * Sets the texture of the item
+	 * 
+	 * Please use the version that includes the associated plugin
+	 *
 	 * @param item to texture
 	 * @param data of the item
 	 * @param texture to set
 	 */
+	@Deprecated
 	public void setItemTexture(Material item, short data, String texture);
+	
+	/**
+	 * Sets the texture of the item, for use with pre-caching
+	 * @param item to texture
+	 * @param data of the item
+	 * @param plugin the plugin to associate with the texture
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, short data, Plugin plugin, String texture);
+	
+	/**
+	 * Sets the texture of a custom item
+	 *  
+	 * Please use the version that includes the associated plugin
+	 * 
+	 * @param id custom item id
+	 * @param texture to set
+	 */
+	@Deprecated
+	public void setItemTexture(int id, String texture);
 	
 	/**
 	 * Sets the texture of a custom item
 	 * @param id custom item id
+	 * @param plugin the plugin to associate with the texture
 	 * @param texture to set
 	 */
-	public void setItemTexture(int id, String texture);
+	public void setItemTexture(int id, Plugin plugin, String texture);
 
 	/**
-	 * Gets the custom texture of the item, or null if none exists
+	 * Gets the custom texture of the item, or null if none exists, for use with pre-caching
 	 * @param item to get the texture of
 	 * @return texture
 	 */
+
 	public String getCustomItemTexture(Material item);
+	
+	/**
+	 * Gets the plugin associated with the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @return texture
+	 */
+	public String getCustomItemTexturePlugin(Material item);
 
 	/**
 	 * Gets the custom texture of the item, or null if none exists
@@ -131,11 +176,26 @@ public interface ItemManager {
 	public String getCustomItemTexture(Material item, short data);
 	
 	/**
+	 * Gets the plugin associated with the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @param data data of the item
+	 * @return texture 
+	 */
+	public String getCustomItemTexturePlugin(Material item, short data);
+	
+	/**
 	 * Gets the custom texture of the item, or null if none exists
 	 * @param id custom item id
 	 * @return texture 
 	 */
 	public String getCustomItemTexture(int id);
+	
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param id custom item id
+	 * @return texture 
+	 */
+	public String getCustomItemTexturePlugin(int id);
 
 	/**
 	 * Resets the texture of the item back to the notchian default
