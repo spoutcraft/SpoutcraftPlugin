@@ -47,7 +47,8 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 	}
 	
 	public int getNumBytes() {
-		return 8 + design.getNumBytes();
+		int designBytes = (design == null) ? SpoutCustomBlockDesign.getResetNumBytes() : design.getNumBytes();
+		return 8 + designBytes;
 	}
 	
 	public void readData(DataInputStream input) throws IOException {
@@ -60,7 +61,11 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 	public void writeData(DataOutputStream output) throws IOException {
 		output.writeInt(blockId == null ? -1 : blockId);
 		output.writeInt(metaData == null ? 0 : metaData);
-		design.write(output);
+		if (design != null) {
+			design.write(output);
+		} else {
+			SpoutCustomBlockDesign.writeReset(output);
+		}
 	}
 	
 	public void run(int id) {
