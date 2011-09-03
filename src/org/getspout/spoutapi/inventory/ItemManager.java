@@ -19,6 +19,7 @@ package org.getspout.spoutapi.inventory;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.event.inventory.SpoutCustomBlockDesign;
 
 public interface ItemManager {
 	
@@ -250,5 +251,29 @@ public interface ItemManager {
 	 * @return an ItemStack of that item
 	 */
 	public ItemStack getCustomItemStack(int id, int size);
+	
+	/**
+	 * Overrides the block at location (x, y, z) to be a block with blockId and metaData
+	 * 
+	 * This can be used to set custom blocks at the location.
+	 *
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @param z the z coordinate
+	 * @param blockId the block id to use instead of the block (null to clear override)
+	 * @param metaData the metaData for the block
+	 */
+	public void overrideBlock(int x, int y, int z, Integer blockId, Integer metaData);
+	
+	/**
+	 * 
+	 * Sets the custom design for a blockId and meta data combination
+	 * 
+	 * @param blockId the blockId to override
+	 * @param metaData the meta data to override
+	 * @param design the design to use instead of the block
+	 */
+	
+	public void setCustomBlockDesign(Integer blockId, Integer metaData, SpoutCustomBlockDesign design);
 	
 }

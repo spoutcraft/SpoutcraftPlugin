@@ -60,7 +60,6 @@ public class PacketCustomItem implements SpoutPacket {
 
 	@Override
 	public void failure(int playerId) {
-		
 	}
 
 
