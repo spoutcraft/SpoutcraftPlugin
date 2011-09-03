@@ -82,7 +82,7 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return SpoutCustomBlockDesign.getVersion();
 	}
 
 }

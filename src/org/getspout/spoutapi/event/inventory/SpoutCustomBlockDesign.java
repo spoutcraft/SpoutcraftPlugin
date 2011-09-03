@@ -27,7 +27,10 @@ public class SpoutCustomBlockDesign {
 
 	private float[][] textXPos;
 	private float[][] textYPos;
-
+	
+	private float maxBrightness = 1.0F;
+	private float minBrightness = 0F;
+	
 	public SpoutCustomBlockDesign() {
 	}
 
@@ -50,7 +53,11 @@ public class SpoutCustomBlockDesign {
 
 	public int getNumBytes() {
 		return PacketUtil.getNumBytes(textureURL) + PacketUtil.getNumBytes(texturePlugin) + getDoubleArrayLength(xPos) + getDoubleArrayLength(yPos) + getDoubleArrayLength(zPos)
-		+ getDoubleArrayLength(textXPos) + getDoubleArrayLength(textYPos) + 6 * 4;
+		+ getDoubleArrayLength(textXPos) + getDoubleArrayLength(textYPos) + 8 * 4;
+	}
+	
+	public static int getVersion() {
+		return 1;
 	}
 
 	public void read(DataInputStream input) throws IOException {
@@ -72,6 +79,8 @@ public class SpoutCustomBlockDesign {
 		highXBound = input.readFloat();
 		highYBound = input.readFloat();
 		highZBound = input.readFloat();
+		maxBrightness = input.readFloat();
+		minBrightness = input.readFloat();
 	}
 
 	private final static String resetString = "[reset]";
@@ -102,6 +111,8 @@ public class SpoutCustomBlockDesign {
 		output.writeFloat(highXBound);
 		output.writeFloat(highYBound);
 		output.writeFloat(highZBound);
+		output.writeFloat(maxBrightness);
+		output.writeFloat(minBrightness);
 	}
 
 	private float[] readQuadFloat(DataInputStream input) throws IOException {
@@ -160,6 +171,14 @@ public class SpoutCustomBlockDesign {
 		this.highXBound = highX;
 		this.highYBound = highY;
 		this.highZBound = highZ;
+	}
+	
+	public void setMaxBrightness(float maxBrightness) {
+		this.maxBrightness = maxBrightness;
+	}
+	
+	public void setMinBrightness(float minBrightness) {
+		this.minBrightness = minBrightness;
 	}
 
 	public void setQuadNumber(int quads) {
