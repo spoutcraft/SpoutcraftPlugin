@@ -455,6 +455,15 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly
 	public void openScreen(ScreenType type);
 	
+	public void openScreen(ScreenType type, boolean packet);
+	
+	/**
+	 * Gets the active screen open for this player
+	 * @return active screen
+	 */
+	@ClientOnly
+	public ScreenType getActiveScreen();
+	
 	@ClientOnly
 	public void openSignEditGUI(Sign sign);
 	

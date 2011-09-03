@@ -70,6 +70,9 @@ public class PacketScreenAction implements SpoutPacket{
 				} else if (ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
 					player.getMainScreen().closePopup();
 				}
+				if (!event.isCancelled()) {
+					player.openScreen(ScreenType.GAME_SCREEN, false);
+				}
 				break;
 			case Open:
 				event = new ScreenOpenEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen));
@@ -77,6 +80,9 @@ public class PacketScreenAction implements SpoutPacket{
 				if (event.isCancelled()) {
 					this.action = (byte) ScreenAction.Open.getId();
 					player.sendPacket(this);
+				}
+				else {
+					player.openScreen(ScreenType.getType(this.screen), false);
 				}
 				break;
 		}
