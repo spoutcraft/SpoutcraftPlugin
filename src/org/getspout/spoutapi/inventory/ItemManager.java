@@ -45,6 +45,14 @@ public interface ItemManager {
 	public String getItemName(Material item, short data);
 	
 	/**
+	 * Gets notchian item name for the item, or the custom name if one overrides it
+	 * @param item to get the name of
+	 * @param data for the item
+	 * @return name
+	 */
+	public String getItemName(int item, short data);
+	
+	/**
 	 * Gets  the custom name of the item, or null if none exists
 	 * @param item to get the name of
 	 * @param data for the item
@@ -73,6 +81,14 @@ public interface ItemManager {
 	 * @param name to set
 	 */
 	public void setItemName(Material item, short data, String name);
+	
+	/**
+	 * Sets the name of the item
+	 * @param item to name
+	 * @param data of the item
+	 * @param name to set
+	 */
+	public void setItemName(int item, short data, String name);
 	
 	/**
 	 * Sets the name of the item
