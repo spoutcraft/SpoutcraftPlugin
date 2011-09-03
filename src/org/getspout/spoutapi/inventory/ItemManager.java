@@ -17,8 +17,10 @@
 package org.getspout.spoutapi.inventory;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.event.inventory.SpoutCustomBlockDesign;
 
 public interface ItemManager {
 	
@@ -110,33 +112,78 @@ public interface ItemManager {
 	 */
 	public void resetName(Material item, short data);
 	 /**
-	 * Sets the texture of the item
+	 * Sets the texture of the item.  
+	 * 
+	 * Please use the version that includes the associated plugin
+	 * 
 	 * @param item to texture
 	 * @param texture to set
 	 */
+	@Deprecated
 	public void setItemTexture(Material item, String texture);
+	
+	 /**
+	 * Sets the texture of the item, for use with pre-caching
+	 * @param item to texture
+	 * @param plugin the plugin to associate with the texture
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, Plugin plugin, String texture);
 
 	/**
 	 * Sets the texture of the item
+	 * 
+	 * Please use the version that includes the associated plugin
+	 *
 	 * @param item to texture
 	 * @param data of the item
 	 * @param texture to set
 	 */
+	@Deprecated
 	public void setItemTexture(Material item, short data, String texture);
+	
+	/**
+	 * Sets the texture of the item, for use with pre-caching
+	 * @param item to texture
+	 * @param data of the item
+	 * @param plugin the plugin to associate with the texture
+	 * @param texture to set
+	 */
+	public void setItemTexture(Material item, short data, Plugin plugin, String texture);
+	
+	/**
+	 * Sets the texture of a custom item
+	 *  
+	 * Please use the version that includes the associated plugin
+	 * 
+	 * @param id custom item id
+	 * @param texture to set
+	 */
+	@Deprecated
+	public void setItemTexture(int id, String texture);
 	
 	/**
 	 * Sets the texture of a custom item
 	 * @param id custom item id
+	 * @param plugin the plugin to associate with the texture
 	 * @param texture to set
 	 */
-	public void setItemTexture(int id, String texture);
+	public void setItemTexture(int id, Plugin plugin, String texture);
 
 	/**
-	 * Gets the custom texture of the item, or null if none exists
+	 * Gets the custom texture of the item, or null if none exists, for use with pre-caching
 	 * @param item to get the texture of
 	 * @return texture
 	 */
+
 	public String getCustomItemTexture(Material item);
+	
+	/**
+	 * Gets the plugin associated with the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @return texture
+	 */
+	public String getCustomItemTexturePlugin(Material item);
 
 	/**
 	 * Gets the custom texture of the item, or null if none exists
@@ -147,11 +194,26 @@ public interface ItemManager {
 	public String getCustomItemTexture(Material item, short data);
 	
 	/**
+	 * Gets the plugin associated with the custom texture of the item, or null if none exists
+	 * @param item to get the texture of
+	 * @param data data of the item
+	 * @return texture 
+	 */
+	public String getCustomItemTexturePlugin(Material item, short data);
+	
+	/**
 	 * Gets the custom texture of the item, or null if none exists
 	 * @param id custom item id
 	 * @return texture 
 	 */
 	public String getCustomItemTexture(int id);
+	
+	/**
+	 * Gets the custom texture of the item, or null if none exists
+	 * @param id custom item id
+	 * @return texture 
+	 */
+	public String getCustomItemTexturePlugin(int id);
 
 	/**
 	 * Resets the texture of the item back to the notchian default
@@ -206,5 +268,27 @@ public interface ItemManager {
 	 * @return an ItemStack of that item
 	 */
 	public ItemStack getCustomItemStack(int id, int size);
+	
+	/**
+	 * Overrides the block at location (x, y, z) to be a block with blockId and metaData
+	 * 
+	 * This can be used to set custom blocks at the location.
+	 *
+	 * @param block the block to override
+	 * @param blockId the block id to use instead of the block (null to clear override)
+	 * @param metaData the metaData for the block
+	 */
+	public boolean overrideBlock(Block block, Integer blockId, Integer metaData);
+	
+	/**
+	 * 
+	 * Sets the custom design for a blockId and meta data combination
+	 * 
+	 * @param blockId the blockId to override
+	 * @param metaData the meta data to override
+	 * @param design the design to use instead of the block
+	 */
+	
+	public void setCustomBlockDesign(Integer blockId, Integer metaData, SpoutCustomBlockDesign design);
 	
 }

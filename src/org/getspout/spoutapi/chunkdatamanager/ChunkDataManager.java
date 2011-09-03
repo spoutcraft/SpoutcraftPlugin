@@ -19,6 +19,7 @@ package org.getspout.spoutapi.chunkdatamanager;
 import java.io.Serializable;
 
 import org.bukkit.World;
+import org.bukkit.util.BlockVector;
 
 
 public interface ChunkDataManager {
@@ -120,5 +121,20 @@ public interface ChunkDataManager {
 	 * 
 	 */
 	public Serializable removeChunkData(String id, World world, int x, int z);
+	
+	
+	/**
+	 * Returns an array of all the blocks in the chunk that have associated data
+	 * 
+	 * Only the least significant portion of the vector coordinates is guaranteed to be correct
+	 * 
+	 * @param world the world
+	 * @param x the X chunk coordinate
+	 * @param z the Z chunk coordinate
+	 * @return and array containing all the blocks with associated data
+	 * 
+	 */
+	public BlockVector[] getTaggedBlocks(World world, int x, int z);
+
 	
 }
