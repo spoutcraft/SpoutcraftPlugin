@@ -24,7 +24,7 @@ import org.getspout.spoutapi.gui.Color;
 
 public class PacketSky implements SpoutPacket{
 	private int cloudY = 0, stars = 0, sunPercent = 0, moonPercent = 0;
-	private Color skyColor = new Color(-1,-1,-1), fogColor = new Color(-1,-1,-1), cloudColor = new Color(-1,-1,-1);
+	private Color skyColor = Color.ignore(), fogColor = Color.ignore(), cloudColor = Color.ignore();
 	String sun = "";
 	String moon = "";
 	public PacketSky() {

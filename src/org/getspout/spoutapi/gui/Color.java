@@ -193,7 +193,7 @@ public class Color {
 	 * @return
 	 */
 	public static Color remove(){
-		return new Color(-2,-2,-2,-2);
+		return new Color(-2F,-2F,-2F,-2F);
 	}
 	
 	/**
@@ -201,6 +201,6 @@ public class Color {
 	 * @return
 	 */
 	public static Color ignore(){
-		return new Color(-1,-1,-1,-1);
+		return new Color(-1F,-1F,-1F,-1F);
 	}
 }

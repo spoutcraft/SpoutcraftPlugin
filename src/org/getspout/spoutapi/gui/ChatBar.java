@@ -26,7 +26,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 public class ChatBar extends GenericWidget implements Widget{
 
 	private int cursorX = 4, cursorY = 240;
-	protected Color textColor = new Color(1, 1, 1);
+	protected Color textColor = new Color(1F, 1F, 1F);
 	public ChatBar() {
 		super();
 		setDirty(false);

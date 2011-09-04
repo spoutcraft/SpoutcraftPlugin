@@ -25,7 +25,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 public class GenericLabel extends GenericWidget implements Label{
 	protected String text = "";
 	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
-	protected Color color = new Color(1, 1, 1);
+	protected Color color = new Color(1F, 1F, 1F);
 	protected boolean auto = true;
 	public GenericLabel(){
 		
