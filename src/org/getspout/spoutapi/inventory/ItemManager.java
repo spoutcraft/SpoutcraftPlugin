@@ -238,7 +238,7 @@ public interface ItemManager {
 	public void reset();
 	
 	/**
-	 * Registers the key for a custom item.  This key should be unique.
+	 * Registers the id for a custom item.  The key should be unique.
 	 * 
 	 * The returned id should be used for accessing the item and is persistent between server restarts and reloads
 	 *
@@ -246,6 +246,16 @@ public interface ItemManager {
 	 * @return the unique id or null on error
 	 */
 	public Integer registerCustomItemName(Plugin plugin, String key);
+	
+	/**
+	 * Returns the id for a custom item.  The key should be unique.
+	 * 
+	 * The returned id should be used for accessing the item and is persistent between server restarts and reloads
+	 *
+	 * @param key Key of the new item
+	 * @return the unique id or null on error
+	 */
+	public Integer getCustomItemId(Plugin plugin, String key);
 	
 	/**
 	 * Sets the block id for the block that matches this item.  This block will be placed when this item is used.
