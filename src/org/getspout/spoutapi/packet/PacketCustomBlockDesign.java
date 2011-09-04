@@ -4,7 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.getspout.spoutapi.event.inventory.SpoutCustomBlockDesign;
+import org.getspout.spoutapi.inventory.SpoutCustomBlockDesign;
 
 public class PacketCustomBlockDesign implements SpoutPacket {
 

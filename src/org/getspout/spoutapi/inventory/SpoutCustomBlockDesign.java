@@ -1,4 +1,4 @@
-package org.getspout.spoutapi.event.inventory;
+package org.getspout.spoutapi.inventory;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,7 +9,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class SpoutCustomBlockDesign {
 	
-	boolean reset = false;
+	private boolean reset = false;
 
 	private float lowXBound;
 	private float lowYBound;
@@ -31,11 +31,15 @@ public class SpoutCustomBlockDesign {
 	private float maxBrightness = 1.0F;
 	private float minBrightness = 0F;
 	
+	private float brightness = 0.5F;
+	
+	private int renderPass = 0;
+	
 	public SpoutCustomBlockDesign() {
 	}
 
 	public SpoutCustomBlockDesign(float lowXBound, float lowYBound, float lowZBound, float highXBound, float highYBound, float highZBound, String textureURL, String texturePlugin,
-			float[][] xPos, float[][] yPos, float[][] zPos, float[][] textXPos, float[][] textYPos) {
+			float[][] xPos, float[][] yPos, float[][] zPos, float[][] textXPos, float[][] textYPos, int renderPass) {
 		this.lowXBound = lowXBound;
 		this.lowYBound = lowYBound;
 		this.lowZBound = lowZBound;
@@ -49,15 +53,36 @@ public class SpoutCustomBlockDesign {
 		this.zPos = zPos;
 		this.textXPos = textXPos;
 		this.textYPos = textYPos;
+		this.renderPass = renderPass;
+	}
+
+	public void setMaxBrightness(float maxBrightness) {
+		this.maxBrightness = maxBrightness;
+	}
+	
+	public void setMinBrightness(float minBrightness) {
+		this.minBrightness = minBrightness;
+	}
+	
+	public void setBrightness(float brightness) {
+		this.brightness = brightness * maxBrightness + (1 - brightness) * minBrightness;
+	}
+	
+	public void setRenderPass(int renderPass) {
+		this.renderPass = renderPass;
+	}
+	
+	public int getRenderPass() {
+		return renderPass;
 	}
 
 	public int getNumBytes() {
 		return PacketUtil.getNumBytes(textureURL) + PacketUtil.getNumBytes(texturePlugin) + getDoubleArrayLength(xPos) + getDoubleArrayLength(yPos) + getDoubleArrayLength(zPos)
-		+ getDoubleArrayLength(textXPos) + getDoubleArrayLength(textYPos) + 8 * 4;
+		+ getDoubleArrayLength(textXPos) + getDoubleArrayLength(textYPos) + 9 * 4;
 	}
 	
 	public static int getVersion() {
-		return 1;
+		return 2;
 	}
 
 	public void read(DataInputStream input) throws IOException {
@@ -81,6 +106,7 @@ public class SpoutCustomBlockDesign {
 		highZBound = input.readFloat();
 		maxBrightness = input.readFloat();
 		minBrightness = input.readFloat();
+		renderPass = input.readInt();
 	}
 
 	private final static String resetString = "[reset]";
@@ -113,6 +139,7 @@ public class SpoutCustomBlockDesign {
 		output.writeFloat(highZBound);
 		output.writeFloat(maxBrightness);
 		output.writeFloat(minBrightness);
+		output.writeInt(renderPass);
 	}
 
 	private float[] readQuadFloat(DataInputStream input) throws IOException {
@@ -158,12 +185,12 @@ public class SpoutCustomBlockDesign {
 			writeQuadFloat(output, floats[i]);
 		}
 	}
-
+	
 	public void setTexture(String plugin, String textureURL) {
 		this.texturePlugin = plugin;
 		this.textureURL = textureURL;
 	}
-
+	
 	public void setBoundingBox(float lowX, float lowY, float lowZ, float highX, float highY, float highZ) {
 		this.lowXBound = lowX;
 		this.lowYBound = lowY;
@@ -173,21 +200,13 @@ public class SpoutCustomBlockDesign {
 		this.highZBound = highZ;
 	}
 	
-	public void setMaxBrightness(float maxBrightness) {
-		this.maxBrightness = maxBrightness;
-	}
-	
-	public void setMinBrightness(float minBrightness) {
-		this.minBrightness = minBrightness;
-	}
-
 	public void setQuadNumber(int quads) {
 		xPos = new float[quads][];
 		yPos = new float[quads][];
 		zPos = new float[quads][];
 		textXPos = new float[quads][];
 		textYPos = new float[quads][];
-
+		
 		for (int i = 0; i < quads; i++) {
 			xPos[i] = new float[4];
 			yPos[i] = new float[4];
@@ -196,21 +215,21 @@ public class SpoutCustomBlockDesign {
 			textYPos[i] = new float[4];
 		}
 	}
-
+	
 	public void setQuad(int quadNumber,
 			float x1, float y1, float z1, int tx1, int ty1,
 			float x2, float y2, float z2, int tx2, int ty2,
 			float x3, float y3, float z3, int tx3, int ty3,
 			float x4, float y4, float z4, int tx4, int ty4,
 			int textureSizeX, int textureSizeY) {
-
+		
 		setVertex(quadNumber, 0, x1, y1, z1, tx1, ty1, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 1, x2, y2, z2, tx2, ty2, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 2, x3, y3, z3, tx3, ty3, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 3, x4, y4, z4, tx4, ty4, textureSizeX, textureSizeY);
-
+		
 	}
-
+	
 	public void setVertex(int quadNumber, int vertexNumber, float x, float y, float z, int tx, int ty, int textureSizeX, int textureSizeY) {
 		xPos[quadNumber][vertexNumber] = x;
 		yPos[quadNumber][vertexNumber] = y;
@@ -225,6 +244,10 @@ public class SpoutCustomBlockDesign {
 
 	public String getTexturePlugin() {
 		return texturePlugin;
+	}
+	
+	public boolean getReset() {
+		return reset;
 	}
 
 }
