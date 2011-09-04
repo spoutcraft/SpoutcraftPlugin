@@ -39,6 +39,20 @@ public class Color {
 	public Color(float r, float g, float b){
 		this(r, g, b, 1);
 	}
+	/**
+	 * Constructs the color with RGB spec
+	 * @param r Red part of the color, ranging from 0 to 255
+	 * @param g Green part of the color, ranging from 0 to 255
+	 * @param b Blue part of the color, ranging from 0 to 255
+	 * @param a Alpha part of the color, ranging from 0 to 255
+	 */
+	public Color(int r, int g, int b, int a){
+		this(r/255.0f, g/255.0f, b/255.0f, a);
+	}
+	
+	public Color(int r, int g, int b){
+		this(r/255.0f, g/255.0f, b/255.0f, 1);
+	}
 	
 	/**
 	 * 
@@ -46,6 +60,14 @@ public class Color {
 	 */
 	public float getRedF(){
 		return red;
+	}
+	
+	/**
+	 * 
+	 * @return Red part of the color, as int
+	 */
+	public int getRedI(){
+		return (int) (red*255);
 	}
 	
 	/**
@@ -58,10 +80,26 @@ public class Color {
 	
 	/**
 	 * 
+	 * @return Green part of the color, as int
+	 */
+	public int getGreenI(){
+		return (int) (green*255);
+	}
+	
+	/**
+	 * 
 	 * @return Blue part of the color, as float
 	 */
 	public float getBlueF(){
 		return blue;
+	}
+	
+	/**
+	 * 
+	 * @return Blue part of the color, as int
+	 */
+	public int getBlueI(){
+		return (int) (blue*255);
 	}
 	
 	/**
@@ -84,6 +122,16 @@ public class Color {
 	
 	/**
 	 * 
+	 * @param r Red part of the color, ranging from 0 to 255
+	 * @return the object to make call chainable.
+	 */
+	public Color setRed(int r){
+		red = r/255.0f;
+		return this;
+	}
+	
+	/**
+	 * 
 	 * @param g Green part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
@@ -94,11 +142,31 @@ public class Color {
 	
 	/**
 	 * 
+	 * @param g Green part of the color, ranging from 0 to 255
+	 * @return the object to make call chainable.
+	 */
+	public Color setGreen(int g){
+		green = g/255.0f;
+		return this;
+	}
+	
+	/**
+	 * 
 	 * @param b Blue part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
 	public Color setBlue(float b){
 		blue = b;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param b Blue part of the color, ranging from 0 to 255
+	 * @return the object to make call chainable.
+	 */
+	public Color setBlue(int b){
+		blue = b/255.0f;
 		return this;
 	}
 	
