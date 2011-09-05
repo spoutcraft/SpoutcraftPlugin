@@ -33,7 +33,8 @@ public enum WidgetType {
 	Slider(11, GenericSlider.class, false),
 	TextField(12, GenericTextField.class, false),
 	Gradient(13, GenericGradient.class, false),
-	Container(14, GenericContainer.class, true),
+	Container(14, GenericContainer.class, true), 
+	EntityWidget(15, GenericEntityWidget.class, false),
 	;
 	
 	private final int id;
