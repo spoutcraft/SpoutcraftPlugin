@@ -3,31 +3,33 @@ package org.getspout.spoutapi.packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Location;
 
 public class PacketBlockHardness implements SpoutPacket{
-	private int[] xCoords;
-	private int[] yCoords;
-	private int[] zCoords;
-	private float[] hardness;
+	private List<Integer> xCoords;
+	private List<Integer> yCoords;
+	private List<Integer> zCoords;
+	private List<Float> hardness;
 	
 	public PacketBlockHardness() {
 		
 	}
 	
 	public PacketBlockHardness(Location location, float hardness) {
-		xCoords = new int[1];
-		xCoords[0] = location.getBlockX();
-		yCoords = new int[1];
-		yCoords[0] = location.getBlockY();
-		zCoords = new int[1];
-		zCoords[0] = location.getBlockZ();
-		this.hardness = new float[1];
-		this.hardness[0] = hardness;
+		xCoords = new ArrayList<Integer>(1);
+		xCoords.add(location.getBlockX());
+		yCoords = new ArrayList<Integer>(1);
+		yCoords.add(location.getBlockY());
+		zCoords = new ArrayList<Integer>(1);
+		zCoords.add(location.getBlockZ());
+		this.hardness = new ArrayList<Float>(1);
+		this.hardness.add(hardness);
 	}
 	
-	public PacketBlockHardness(int[] xCoords, int[] yCoords, int zCoords[], float[] hardness) {
+	public PacketBlockHardness(List<Integer> xCoords, List<Integer> yCoords, List<Integer> zCoords, List<Float> hardness) {
 		this.xCoords = xCoords;
 		this.yCoords = yCoords;
 		this.zCoords = zCoords;
@@ -36,45 +38,45 @@ public class PacketBlockHardness implements SpoutPacket{
 	
 	@Override
 	public int getNumBytes() {
-		return 4 + (xCoords.length * 4 * 4);
+		return 4 + (xCoords.size() * 4 * 4);
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		int size = input.readInt();
-		xCoords = new int[size];
-		yCoords = new int[size];
-		zCoords = new int[size];
-		hardness = new float[size];
+		xCoords = new ArrayList<Integer>(size);
+		yCoords = new ArrayList<Integer>(size);
+		zCoords = new ArrayList<Integer>(size);
+		hardness = new ArrayList<Float>(size);
 		for (int i = 0; i < size; i++) {
-			xCoords[i] = input.readInt();
+			xCoords.add(input.readInt());
 		}
 		for (int i = 0; i < size; i++) {
-			yCoords[i] = input.readInt();
+			yCoords.add(input.readInt());
 		}
 		for (int i = 0; i < size; i++) {
-			zCoords[i] = input.readInt();
+			zCoords.add(input.readInt());
 		}
 		for (int i = 0; i < size; i++) {
-			hardness[i] = input.readFloat();
+			hardness.add(input.readFloat());
 		}
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
-		int size = xCoords.length;
+		int size = xCoords.size();
 		output.writeInt(size);
 		for (int i = 0; i < size; i++) {
-			output.writeInt(xCoords[i]);
+			output.writeInt(xCoords.get(i));
 		}
 		for (int i = 0; i < size; i++) {
-			output.writeInt(yCoords[i]);
+			output.writeInt(yCoords.get(i));
 		}
 		for (int i = 0; i < size; i++) {
-			output.writeInt(zCoords[i]);
+			output.writeInt(zCoords.get(i));
 		}
 		for (int i = 0; i < size; i++) {
-			output.writeFloat(hardness[i]);
+			output.writeFloat(hardness.get(i));
 		}
 	}
 
