@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericButton extends GenericControl implements Button {
@@ -166,6 +167,12 @@ public class GenericButton extends GenericControl implements Button {
 	@Override
 	public Button copy() {
 		return ((Button)super.copy()).setDisabledText(getDisabledText()).setText(getText()).setAuto(isAuto()).setTextColor(getTextColor()).setHoverColor(getHoverColor());
+	}
+
+	@Override
+	public void onButtonClick(ButtonClickEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

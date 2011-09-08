@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericTextField extends GenericControl implements TextField{
@@ -126,5 +127,11 @@ public class GenericTextField extends GenericControl implements TextField{
 	@Override
 	public TextField copy() {
 		return ((TextField)super.copy()).setText(getText()).setCursorPosition(getCursorPosition()).setMaximumCharacters(getMaximumCharacters()).setFieldColor(getFieldColor()).setBorderColor(getBorderColor());
+	}
+
+	@Override
+	public void onTextFieldChange(TextFieldChangeEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 }

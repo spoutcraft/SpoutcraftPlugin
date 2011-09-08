@@ -98,10 +98,12 @@ public class PacketControlAction implements SpoutPacket{
 				if (control != null) {
 					if (control instanceof Button) {
 						ButtonClickEvent event = new ButtonClickEvent(player, screen, (Button)control);
+						((Button)control).onButtonClick(event);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 					}
 					else if (control instanceof Slider) {
 						SliderDragEvent event = new SliderDragEvent(player, screen, (Slider)control, state);
+						((Slider)control).onSliderDrag(event);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 						if (event.isCancelled()) {
 							((Slider)control).setSliderPosition(event.getOldPosition());
@@ -117,6 +119,7 @@ public class PacketControlAction implements SpoutPacket{
 					}
 					else if (control instanceof TextField) {
 						TextFieldChangeEvent event = new TextFieldChangeEvent(player, screen, (TextField)control, data);
+						((TextField)control).onTextFieldChange(event);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 						if (event.isCancelled()) {
 							((TextField)control).setText(event.getOldText());

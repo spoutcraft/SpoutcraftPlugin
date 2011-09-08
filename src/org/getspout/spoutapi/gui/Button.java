@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.gui;
 
+import org.getspout.spoutapi.event.screen.ButtonClickEvent;
+
 public interface Button extends Control, Label{
 	
 	/**
@@ -52,4 +54,13 @@ public interface Button extends Control, Label{
 
 	@Override
 	public Button setAuto(boolean auto);
+	
+	/**
+	 * Fires when this button is clicked on the screen.
+	 * 
+	 * This event is also sent to the screen listener, afterwards.
+	 * 
+	 * @param event
+	 */
+	public void onButtonClick(ButtonClickEvent event);
 }
