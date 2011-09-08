@@ -35,6 +35,7 @@ public class SpoutCustomBlockDesign {
 	private float maxBrightness = 1.0F;
 	private float minBrightness = 0F;
 	
+	@SuppressWarnings("unused")
 	private float brightness = 0.5F;
 	
 	private int renderPass = 0;
