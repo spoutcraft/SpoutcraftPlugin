@@ -23,6 +23,7 @@ import org.getspout.spoutapi.chunkcache.CacheManager;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.ItemManager;
+import org.getspout.spoutapi.keyboard.KeyBindingManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
 import org.getspout.spoutapi.packet.PacketManager;
 import org.getspout.spoutapi.player.AppearanceManager;
@@ -47,6 +48,7 @@ public class SpoutManager {
 	private CacheManager cacheManager = null;
 	private ChunkDataManager chunkDataManager = null;
 	private FileManager fileManager = null;
+	private KeyBindingManager keyBindingManager = null;
 	
 	protected SpoutManager(){
 
@@ -193,6 +195,14 @@ public class SpoutManager {
 		return getInstance().fileManager;
 	}
 	
+	/**
+	 * Gets the key binding manager;
+	 * @return key binding manager
+	 */
+	public static KeyBindingManager getKeyBindingManager() {
+		return getInstance().keyBindingManager;
+	}
+	
 	public void setFileManager(FileManager manager) {
 		if (fileManager == null) {
 			fileManager = manager;
@@ -208,6 +218,12 @@ public class SpoutManager {
 	public void setChunkDataManager(ChunkDataManager manager) {
 		if (chunkDataManager == null) {
 			chunkDataManager = manager;
+		}
+	}
+	
+	public void setKeyBindingManager(KeyBindingManager manager) {
+		if(keyBindingManager == null) {
+			keyBindingManager = manager;
 		}
 	}
 	
