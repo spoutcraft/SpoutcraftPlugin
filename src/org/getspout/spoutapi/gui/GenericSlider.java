@@ -71,8 +71,7 @@ public class GenericSlider extends GenericControl implements Slider {
 	}
 
 	@Override
-	public void render() {
-
+	public Slider copy() {
+		return ((Slider)super.copy()).setSliderPosition(getSliderPosition());
 	}
-
 }

@@ -31,16 +31,17 @@ public class GenericItemWidget extends GenericWidget implements ItemWidget{
 		
 	}
 	
-	@Override
-	public int getVersion() {
-		return super.getVersion() + 0;
-	}
-	
 	public GenericItemWidget(ItemStack item) {
 		this.material = item.getTypeId();
 		this.data = item.getDurability();
 	}
 	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 0;
+	}
+	
+	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 10;
 	}
@@ -61,38 +62,46 @@ public class GenericItemWidget extends GenericWidget implements ItemWidget{
 		output.writeInt(getDepth());
 	}
 	
+	@Override
 	public ItemWidget setTypeId(int id) {
 		this.material = id;
 		return this;
 	}
 	
+	@Override
 	public int getTypeId() {
 		return material;
 	}
 	
+	@Override
 	public ItemWidget setData(short data) {
 		this.data = data;
 		return this;
 	}
 	
+	@Override
 	public short getData() {
 		return data;
 	}
 	
+	@Override
 	public ItemWidget setDepth(int depth) {
 		this.depth = depth;
 		return this;
 	}
 	
+	@Override
 	public int getDepth() {
 		return depth;
 	}
 	
+	@Override
 	public ItemWidget setHeight(int height) {
 		super.setHeight(height);
 		return this;
 	}
 	
+	@Override
 	public ItemWidget setWidth(int width) {
 		super.setWidth(width);
 		return this;
@@ -104,6 +113,8 @@ public class GenericItemWidget extends GenericWidget implements ItemWidget{
 	}
 
 	@Override
-	public void render() {}
+	public ItemWidget copy() {
+		return ((ItemWidget)super.copy()).setTypeId(getTypeId()).setData(getData()).setDepth(getDepth());
+	}
 
 }

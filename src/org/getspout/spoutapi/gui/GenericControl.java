@@ -89,5 +89,10 @@ public abstract class GenericControl extends GenericWidget implements Control{
 		this.disabledColor = color;
 		return this;
 	}
+	
+	@Override
+	public Control copy() {
+		return ((Control)super.copy()).setEnabled(isEnabled()).setColor(getColor()).setDisabledColor(getDisabledColor());
+	}
 
 }

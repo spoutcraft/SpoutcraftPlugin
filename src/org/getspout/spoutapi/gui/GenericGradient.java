@@ -78,8 +78,8 @@ public class GenericGradient extends GenericWidget implements Gradient {
 	}
 	
 	@Override
-	public void render() {
-		//
+	public Gradient copy() {
+		return ((Gradient)super.copy()).setTopColor(getTopColor()).setBottomColor(getBottomColor());
 	}
 
 }

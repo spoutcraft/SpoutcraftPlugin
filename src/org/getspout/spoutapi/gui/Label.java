@@ -83,7 +83,15 @@ public interface Label extends Widget{
 	 * @param auto
 	 * @return label
 	 */
+	@Deprecated
 	public boolean getAuto();
+	
+	/** 
+	 * True if the text will expand to fill width and height
+	 * @param auto
+	 * @return label
+	 */
+	public boolean isAuto();
 	
 	public WidgetAnchor getAlign();
 	

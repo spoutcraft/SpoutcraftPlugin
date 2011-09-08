@@ -43,5 +43,13 @@ public interface Button extends Control, Label{
 	 * @return Button
 	 */
 	public Button setHoverColor(Color color);
+	
+	@Override
+	public Button setText(String text);
+	
+	@Override
+	public Button setTextColor(Color color);
 
+	@Override
+	public Button setAuto(boolean auto);
 }

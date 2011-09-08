@@ -67,7 +67,7 @@ public class GenericButton extends GenericControl implements Button {
 	}
 
 	@Override
-	public Label setText(String text) {
+	public Button setText(String text) {
 		label.setText(text);
 		return this;
 	}
@@ -80,7 +80,7 @@ public class GenericButton extends GenericControl implements Button {
 	
 	@Override
 	@Deprecated
-	public Widget setAlignX(Align pos) {
+	public Button setAlignX(Align pos) {
 		label.setAlignX(pos);
 		return this;
 	}
@@ -91,7 +91,7 @@ public class GenericButton extends GenericControl implements Button {
 	}
 
 	@Override
-	public Label setTextColor(Color color) {
+	public Button setTextColor(Color color) {
 		label.setTextColor(color);
 		return this;
 	}
@@ -122,19 +122,22 @@ public class GenericButton extends GenericControl implements Button {
 	public WidgetType getType() {
 		return WidgetType.Button;
 	}
-	
-	@Override
-	public void render() {}
 
 	@Override
-	public Label setAuto(boolean auto) {
+	public Button setAuto(boolean auto) {
 		label.setAuto(auto);
 		return this;
 	}
 
 	@Override
+	@Deprecated
 	public boolean getAuto() {
 		return label.getAuto();
+	}
+	
+	@Override
+	public boolean isAuto() {
+		return label.isAuto();
 	}
 
 	@Override
@@ -155,8 +158,14 @@ public class GenericButton extends GenericControl implements Button {
 	}
 
 	@Override
-	public Widget setAlign(WidgetAnchor pos) {
-		return label.setAlign(pos);
+	public Button setAlign(WidgetAnchor pos) {
+		label.setAlign(pos);
+		return this;
+	}
+	
+	@Override
+	public Button copy() {
+		return ((Button)super.copy()).setDisabledText(getDisabledText()).setText(getText()).setAuto(isAuto()).setTextColor(getTextColor()).setHoverColor(getHoverColor());
 	}
 
 }

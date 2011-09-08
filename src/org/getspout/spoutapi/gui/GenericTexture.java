@@ -60,12 +60,6 @@ public class GenericTexture extends GenericWidget implements Texture {
 	}
 
 	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public String getUrl() {
 		return url;
 	}
@@ -75,5 +69,9 @@ public class GenericTexture extends GenericWidget implements Texture {
 		this.url = Url;
 		return this;
 	}
-
+	
+	@Override
+	public Texture copy() {
+		return ((Texture)super.copy()).setUrl(getUrl());
+	}
 }

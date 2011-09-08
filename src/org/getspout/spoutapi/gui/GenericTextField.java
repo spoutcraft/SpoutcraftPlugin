@@ -122,10 +122,9 @@ public class GenericTextField extends GenericControl implements TextField{
 	public WidgetType getType() {
 		return WidgetType.TextField;
 	}
-
+	
 	@Override
-	public void render() {
-		
+	public TextField copy() {
+		return ((TextField)super.copy()).setText(getText()).setCursorPosition(getCursorPosition()).setMaximumCharacters(getMaximumCharacters()).setFieldColor(getFieldColor()).setBorderColor(getBorderColor());
 	}
-
 }

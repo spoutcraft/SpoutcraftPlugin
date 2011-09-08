@@ -184,5 +184,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	}
 	
 	@Override
-	public void render() {}
+	public Widget copy() {
+		throw new UnsupportedOperationException("You can not create a copy of a screen");
+	}
 }
