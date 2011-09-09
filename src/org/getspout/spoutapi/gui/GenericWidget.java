@@ -298,23 +298,17 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMargin(int marginAll) {
-		this.marginTop = this.marginRight = this.marginBottom = this.marginLeft = marginAll;
-		return this;
+		return setMargin(marginAll, marginAll, marginAll, marginAll);
 	}
 	
 	@Override
 	public Widget setMargin(int marginTopBottom, int marginLeftRight) {
-		this.marginTop = this.marginBottom = marginTopBottom;
-		this.marginRight = this.marginLeft = marginLeftRight;
-		return this;
+		return setMargin(marginTopBottom, marginLeftRight, marginTopBottom, marginLeftRight);
 	}
 	
 	@Override
 	public Widget setMargin(int marginTop, int marginLeftRight, int marginBottom) {
-		this.marginTop = marginTop;
-		this.marginRight = this.marginLeft = marginLeftRight;
-		this.marginBottom = marginBottom;
-		return this;
+		return setMargin(marginTop, marginLeftRight, marginBottom, marginLeftRight);
 	}
 	
 	@Override
@@ -323,6 +317,9 @@ public abstract class GenericWidget implements Widget{
 		this.marginRight = marginRight;
 		this.marginBottom = marginBottom;
 		this.marginLeft = marginLeft;
+		if (container instanceof Container) {
+			container.updateSize();
+		}
 		return this;
 	}
 	
@@ -348,8 +345,11 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinWidth(int min) {
-		this.minWidth = min;
+		minWidth = min;
 		width = Math.max(width, min);
+		if (container instanceof Container) {
+			container.updateSize();
+		}
 		return this;
 	}
 
@@ -360,8 +360,11 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxWidth(int max) {
-		this.maxWidth = max == 0 ? 427 : max;
+		maxWidth = max == 0 ? 427 : max;
 		width = Math.min(width, max);
+		if (container instanceof Container) {
+			container.updateSize();
+		}
 		return this;
 	}
 
@@ -372,8 +375,11 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinHeight(int min) {
-		this.minHeight = min;
+		minHeight = min;
 		height = Math.max(height, min);
+		if (container instanceof Container) {
+			container.updateSize();
+		}
 		return this;
 	}
 
@@ -384,8 +390,11 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxHeight(int max) {
-		this.maxHeight = max == 0 ? 240 : max;
+		maxHeight = max == 0 ? 240 : max;
 		height = Math.min(height, max);
+		if (container instanceof Container) {
+			container.updateSize();
+		}
 		return this;
 	}
 

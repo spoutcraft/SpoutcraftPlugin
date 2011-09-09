@@ -99,4 +99,10 @@ public interface Container extends Widget {
 	 * @return 
 	 */
 	public boolean getReverse();
+
+	/**
+	 * Calculate the min and max dimensions for this and all children
+	 * @return 
+	 */
+	public Container updateSize();
 }
