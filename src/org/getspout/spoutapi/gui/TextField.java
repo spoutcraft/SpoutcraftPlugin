@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.gui;
 
+import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
+
 public interface TextField extends Control{
 	
 	/**
@@ -82,5 +84,14 @@ public interface TextField extends Control{
 	 * @return textfield
 	 */
 	public TextField setBorderColor(Color color);
-
+	
+	
+	/**
+	 * Fires when this text field is typed into on the screen.
+	 * 
+	 * This event is also sent to the screen listener, afterwards.
+	 * 
+	 * @param event
+	 */
+	public void onTextFieldChange(TextFieldChangeEvent event);
 }

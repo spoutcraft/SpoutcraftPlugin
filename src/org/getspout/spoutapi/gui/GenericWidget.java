@@ -416,4 +416,17 @@ public abstract class GenericWidget implements Widget{
 		Y = orig_y;
 		return this;
 	}
+	
+	@Override
+	public Widget copy() {
+		try {
+			Widget copy = getType().getWidgetClass().newInstance();
+			copy.setX(getX()).setY(getY()).setWidth(getWidth()).setHeight(getHeight()).setVisible(isVisible());
+			copy.setPriority(getPriority()).setTooltip(getTooltip()).setAnchor(getAnchor());
+			return copy;
+		}
+		catch (Exception e) {
+			throw new IllegalStateException("Unable to create a copy of " + getClass() + ". Does it have a valid widget type?");
+		}
+	}
 }

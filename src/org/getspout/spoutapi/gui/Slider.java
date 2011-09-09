@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.gui;
 
+import org.getspout.spoutapi.event.screen.SliderDragEvent;
+
 public interface Slider extends Control{
 	
 	/**
@@ -30,4 +32,13 @@ public interface Slider extends Control{
 	 * @return slider
 	 */
 	public Slider setSliderPosition(float value);
+	
+	/**
+	 * Fires when this slider is dragged on the screen.
+	 * 
+	 * This event is also sent to the screen listener, afterwards.
+	 * 
+	 * @param event
+	 */
+	public void onSliderDrag(SliderDragEvent event);
 }
