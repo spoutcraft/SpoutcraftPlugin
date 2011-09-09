@@ -18,6 +18,7 @@ package org.getspout.spoutapi;
 
 import java.util.UUID;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.getspout.spoutapi.chunkcache.CacheManager;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
@@ -231,6 +232,24 @@ public class SpoutManager {
 	 */
 	public static SpoutPlayer getPlayerFromId(UUID id) {
 		return getInstance().playerManager.getPlayer(id);
+	}
+	
+	/**
+	 * Gets a Entity from the given id, or null if none found
+	 * @param entityId
+	 * @return Entity
+	 */
+	public static Entity getEntityFromId(int entityId) {
+		return getInstance().playerManager.getEntity(entityId);
+	}
+	
+	/**
+	 * Gets a Entity from the given id, or null if none found
+	 * @param id
+	 * @return Entity
+	 */
+	public static Entity getEntityFromId(UUID id) {
+		return getInstance().playerManager.getEntity(id);
 	}
 	
 	/**
