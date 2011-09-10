@@ -63,64 +63,77 @@ public class MaterialData {
 	public static final Block greenWool = new Wool(35,13);
 	public static final Block redWool = new Wool(35,14);
 	public static final Block blackWool = new Wool(35,15);
-	//Purple error block wool, 35 - 16 ?
-	//public static final Block movedByPiston
+	public static final Block errorWool = new Wool(35,16);
+	public static final Block movedByPiston = new Solid(36);
 	public static final Block dandelion = new Solid(37);
 	public static final Block rose = new Solid(38);
 	public static final Block brownMushroom = new Solid(39);
 	public static final Block redMushroom = new Solid(40);
 	public static final Block goldBlock = new Solid(41);
 	public static final Block ironBlock = new Solid(42);
-	//public static final Block doubleSlabs
-	//public static final Block slabs
+	public static final Block stoneDoubleSlabs = new DoubleSlabs(43,0);
+	public static final Block sandstoneDoubleSlabs = new DoubleSlabs(43,1);
+	public static final Block woodenDoubleSlabs = new DoubleSlabs(43,2);
+	public static final Block cobblestoneDoubleSlabs = new DoubleSlabs(43,3);
+	//public static final Block brickDoubleSlabs = new DoubleSlabs(43,4);
+	//public static final Block stoneBrickDoubleSlabs = new DoubleSlabs(43,5);
+	public static final Block stoneSlab = new Slab(44,0);
+	public static final Block sandstoneSlab = new Slab(44,1);
+	public static final Block woodenSlab = new Slab(44,2);
+	public static final Block cobblestoneSlab = new Slab(44,3);
+	//public static final Block brickSlab = new Slab(44,4);
+	//public static final Block stoneBrickSlab = new Slab(44,5);
 	public static final Block brick = new Solid(45);
 	public static final Block tnt = new Solid(46);
 	public static final Block bookshelf = new Solid(47);
 	public static final Block mossStone = new Solid(48);
 	public static final Block obsidian = new Solid(49);
-	//public static final Block torch
-	//public static final Block fire
+	public static final Block torch = new Solid(50);
+	public static final Block fire = new Solid(51);
 	public static final Block monsterSpawner = new Solid(52);
-	//public static final Block woodenStairs
+	public static final Block woodenStairs = new Solid(53);
 	public static final Block chest = new Solid(54);
-	//public static final Block redstoneWire
-	public static final Block diamondOre = new Solid(57);
+	public static final Block redstoneWire = new Solid(55);
+	public static final Block diamondOre = new Solid(56);
+	public static final Block diamondBlock = new Solid(57);
 	public static final Block craftingTable = new Solid(58);
-	//public static final Block seeds
+	public static final Block seeds = new Solid(59);
 	public static final Block farmland = new Solid(60);
 	public static final Block furnace = new Solid(61);
 	public static final Block burningfurnace = new Solid(62);
-	//public static final Block signPost
+	public static final Block signPost = new Solid(63);
 	public static final Block woodenDoor = new Solid(64);
-	//public static final Block ladders
-	//public static final Block wallSign
-	//public static final Block lever
-	//public static final Block stonePressurePlate
+	public static final Block ladders = new Solid(65);
+	public static final Block rails = new Solid(66);
+	public static final Block cobblestoneStairs = new Solid(67);
+	public static final Block wallSign = new Solid(68);
+	public static final Block lever = new Solid(69);
+	public static final Block stonePressurePlate = new Solid(70);
 	public static final Block ironDoor = new Solid(71);
-	//public static final Block woodenPressurePlate
+	public static final Block woodenPressurePlate = new Solid(72);
 	public static final Block redstoneOre = new Solid(73);
 	public static final Block glowingRedstoneOre = new Solid(74);
-	//public static final Block redstoneTorchOff
-	//public static final Block redstoneTorchOn
-	//public static final stoneButton
+	public static final Block redstoneTorchOff = new Solid(75);
+	public static final Block redstoneTorchOn = new Solid(76);
+	public static final Block stoneButton = new Solid(77);
 	public static final Block snow = new Solid(78);
 	public static final Block Ice = new Solid(79);
 	public static final Block snowBlock = new Solid(80);
 	public static final Block cactus = new Solid(81);
 	public static final Block clayBlock = new Solid(82);
-	//public static final Block sugarCane
+	public static final Block sugarCane = new Solid(83);
 	public static final Block jukebox = new Solid(84);
 	public static final Block fence = new Solid(85);
 	public static final Block pumpkin = new Solid(86);
 	public static final Block netherrack = new Solid(87);
 	public static final Block soulSand = new Solid(88);
 	public static final Block glowstoneBlow = new Solid(89);
-	//public static final Block portal
+	public static final Block portal = new Solid(90);
 	public static final Block jackOLantern = new Solid(91);
-	//public static final Block cake
-	//public static final Block redstoneRepeaterOff
-	//public static final Block redstoneRepeaterOn
-	//public static final Block lockedChest
+	public static final Block cake = new Solid(92);
+	public static final Block redstoneRepeaterOff = new Solid(93);
+	public static final Block redstoneRepeaterOn = new Solid(94);
+	//public static final Block lockedChest = new Solid(95);
 	public static final Block trapdoor = new Solid(96);
 	
 	/*
