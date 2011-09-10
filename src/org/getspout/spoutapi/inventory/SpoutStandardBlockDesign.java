@@ -30,31 +30,37 @@ public class SpoutStandardBlockDesign extends SpoutCustomBlockDesign {
 		setVertexOffset(0, 0, 1, 1, 0, 0, t, 0, faces, textureSize);
 		setVertexOffset(0, 0, 2, 1, 0, 1, t, t, faces, textureSize);
 		setVertexOffset(0, 0, 3, 0, 0, 1, 0, t, faces, textureSize);
+		setLightSource(0, 0, -1, 0);
 		
 		setVertexOffset(1, 1, 0, 0, 0, 0, t, 0, faces, textureSize);
 		setVertexOffset(1, 1, 1, 0, 1, 0, t, t, faces, textureSize);
 		setVertexOffset(1, 1, 2, 1, 1, 0, 0, t, faces, textureSize);
 		setVertexOffset(1, 1, 3, 1, 0, 0, 0, 0, faces, textureSize);
+		setLightSource(1, 0, 0, -1);
 		
 		setVertexOffset(2, 2, 0, 1, 0, 0, t, 0, faces, textureSize);
 		setVertexOffset(2, 2, 1, 1, 1, 0, t, t, faces, textureSize);
 		setVertexOffset(2, 2, 2, 1, 1, 1, 0, t, faces, textureSize);
 		setVertexOffset(2, 2, 3, 1, 0, 1, 0, 0, faces, textureSize);
+		setLightSource(2, 1, 0, 0);
 		
 		setVertexOffset(3, 3, 0, 1, 0, 1, t, 0, faces, textureSize);
 		setVertexOffset(3, 3, 1, 1, 1, 1, t, t, faces, textureSize);
 		setVertexOffset(3, 3, 2, 0, 1, 1, 0, t, faces, textureSize);
 		setVertexOffset(3, 3, 3, 0, 0, 1, 0, 0, faces, textureSize);
+		setLightSource(3, 0, 0, 1);
 		
 		setVertexOffset(4, 4, 0, 0, 0, 1, t, 0, faces, textureSize);
 		setVertexOffset(4, 4, 1, 0, 1, 1, t, t, faces, textureSize);
 		setVertexOffset(4, 4, 2, 0, 1, 0, 0, t, faces, textureSize);
 		setVertexOffset(4, 4, 3, 0, 0, 0, 0, 0, faces, textureSize);
+		setLightSource(4, -1, 0, 0);
 		
 		setVertexOffset(5, 5, 0, 0, 1, 0, 0, 0, faces, textureSize);
 		setVertexOffset(5, 5, 1, 0, 1, 1, t, 0, faces, textureSize);
 		setVertexOffset(5, 5, 2, 1, 1, 1, t, t, faces, textureSize);
 		setVertexOffset(5, 5, 3, 1, 1, 0, 0, t, faces, textureSize);
+		setLightSource(5, 0, 1, 0);
 	
 	}
 	
