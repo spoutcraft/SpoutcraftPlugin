@@ -107,7 +107,6 @@ public class FileUtil {
 			fileNameCache.put(url, result);
 			return result;
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}
