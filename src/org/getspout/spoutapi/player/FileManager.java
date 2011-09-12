@@ -17,6 +17,7 @@
 package org.getspout.spoutapi.player;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public interface FileManager {
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
 	 * 
 	 * Ideally, precached files should be set onEnable.
+	 * @param plugin caching the files.
 	 * @param file to pre-cache
 	 * @return true if the file was pre-cached
 	 */
@@ -54,6 +56,7 @@ public interface FileManager {
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
 	 * 
 	 * Ideally, precached files should be set onEnable.
+	 * @param plugin caching the files.
 	 * @param fileUrl to pre-cache
 	 * @return true if the file was pre-cached
 	 */
@@ -66,6 +69,7 @@ public interface FileManager {
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
 	 * 
 	 * Ideally, precached files should be set onEnable.
+	 * @param plugin caching the files.
 	 * @param files to pre-cache
 	 * @return true if the files were pre-cached
 	 */
@@ -78,11 +82,27 @@ public interface FileManager {
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
 	 * 
 	 * Ideally, precached files should be set onEnable.
+	 * @param plugin caching the files.
 	 * @param fileUrls to pre-cache
 	 * @return true if the files were pre-cached
 	 */
 	@ClientOnly
 	public boolean addToPreLoginCache(Plugin plugin, List<String> fileUrls);
+	
+	/**
+	 * Sends the contents of the input stream to clients during prelogin. The contents of the steam will only be downloaded
+	 * when clients login.
+	 * 
+	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
+	 * 
+	 * Ideally, precached files should be set onEnable.
+	 * @param plugin caching the files.
+	 * @param input stream containing the bytes to be read
+	 * @param file name of the resulting file.
+	 * @return true if the files were pre-cached
+	 */
+	@ClientOnly
+	public boolean addToPreLoginCache(Plugin plugin, InputStream input, String fileName);
 	
 	/**
 	 * Adds a file to the cache for clients. This file will be downloaded immediately for any online players, and upon login of new clients.
@@ -121,6 +141,19 @@ public interface FileManager {
 	 */
 	@ClientOnly
 	public boolean addToCache(Plugin plugin, List<String> fileUrls);
+	
+	/**
+	 * Sends the contents of the input stream to clients. The contents of the steam will only be downloaded
+	 * immediately.
+	 * 
+	 * This is not recommended for larger files, since the extra latency for large downloads may disrupt the player's experience.
+	 * @param plugin caching the files.
+	 * @param input stream containing the bytes to be read
+	 * @param file name of the resulting file.
+	 * @return true if the files were pre-cached
+	 */
+	@ClientOnly
+	public boolean addToCache(Plugin plugin, InputStream input, String fileName);
 	
 	/**
 	 * Removes the given filename from the cache, if it exists.
