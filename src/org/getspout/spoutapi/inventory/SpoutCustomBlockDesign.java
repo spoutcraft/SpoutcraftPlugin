@@ -9,36 +9,36 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class SpoutCustomBlockDesign {
 	
-	private boolean reset = false;
+	protected boolean reset = false;
 
-	private float lowXBound;
-	private float lowYBound;
-	private float lowZBound;
-	private float highXBound;
-	private float highYBound;
-	private float highZBound;
+	protected float lowXBound;
+	protected float lowYBound;
+	protected float lowZBound;
+	protected float highXBound;
+	protected float highYBound;
+	protected float highZBound;
 
-	private String textureURL;
-	private String texturePlugin;
+	protected String textureURL;
+	protected String texturePlugin;
 
-	private float[][] xPos;
-	private float[][] yPos;
-	private float[][] zPos;
+	protected float[][] xPos;
+	protected float[][] yPos;
+	protected float[][] zPos;
 
-	private float[][] textXPos;
-	private float[][] textYPos;
+	protected float[][] textXPos;
+	protected float[][] textYPos;
 	
-	private int[] lightSourceXOffset;
-	private int[] lightSourceYOffset;
-	private int[] lightSourceZOffset;
+	protected int[] lightSourceXOffset;
+	protected int[] lightSourceYOffset;
+	protected int[] lightSourceZOffset;
 	
-	private float maxBrightness = 1.0F;
-	private float minBrightness = 0F;
+	protected float maxBrightness = 1.0F;
+	protected float minBrightness = 0F;
 	
 	@SuppressWarnings("unused")
-	private float brightness = 0.5F;
+	protected float brightness = 0.5F;
 	
-	private int renderPass = 0;
+	protected int renderPass = 0;
 	
 	public SpoutCustomBlockDesign() {
 	}
