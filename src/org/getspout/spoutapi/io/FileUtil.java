@@ -21,11 +21,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 public class FileUtil {
-	
+	private static final HashMap<String, String> fileNameCache = new HashMap<String, String>();
 	public static long getCRC(File file, byte[] buffer) {
 
 		FileInputStream in = null;
@@ -91,13 +93,23 @@ public class FileUtil {
 		
 	}
 	
-	public static String getFileName(String Url) {
-		int slashIndex = Url.lastIndexOf('/');
-		int dotIndex = Url.lastIndexOf('.', slashIndex);
-		if (dotIndex == -1 || dotIndex < slashIndex) {
-			return Url.substring(slashIndex + 1).replaceAll("%20", " ");
+	public static String getFileName(String url) {
+		if (fileNameCache.containsKey(url)) {
+			return fileNameCache.get(url);
 		}
-		return Url.substring(slashIndex + 1, dotIndex).replaceAll("%20", " ");
+		try {
+			URL testUrl = new URL(url);
+			String file = testUrl.getFile();
+			int end = file.lastIndexOf('?');
+			int lastDot = file.lastIndexOf('.');
+			end = end == -1 || lastDot > end ? file.length() : end;
+			String result = file.substring(file.lastIndexOf('/') + 1, end).replaceAll("%20", " ");
+			fileNameCache.put(url, result);
+			return result;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }
