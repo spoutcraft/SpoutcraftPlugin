@@ -18,8 +18,6 @@ package org.getspout.spoutapi.packet;
 
 import java.util.HashMap;
 
-import org.getspout.spout.packet.PacketKeyBinding;
-
 public enum PacketType {
 	PacketKeyPress(0, PacketKeyPress.class),
 	PacketAirTime(1, PacketAirTime.class),
