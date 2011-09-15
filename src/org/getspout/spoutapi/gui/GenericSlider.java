@@ -19,6 +19,8 @@ package org.getspout.spoutapi.gui;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.event.screen.SliderDragEvent;
 public class GenericSlider extends GenericControl implements Slider {
 
 	protected float slider = 0.5f;
@@ -71,8 +73,13 @@ public class GenericSlider extends GenericControl implements Slider {
 	}
 
 	@Override
-	public void render() {
-
+	public Slider copy() {
+		return ((Slider)super.copy()).setSliderPosition(getSliderPosition());
 	}
 
+	@Override
+	public void onSliderDrag(SliderDragEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 }

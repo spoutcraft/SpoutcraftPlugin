@@ -5,9 +5,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class GenericEntityWidget extends GenericWidget implements EntityWidget {
-
-
-	private int entityid = 0;
+	private int entityId = 0;
+	
+	public GenericEntityWidget() {
+		
+	}
+	
+	public GenericEntityWidget(int entityId) {
+		this.entityId = entityId;
+	}
 	
 	@Override
 	public WidgetType getType() {
@@ -15,28 +21,30 @@ public class GenericEntityWidget extends GenericWidget implements EntityWidget {
 	}
 
 	@Override
-	public void render() {
+	public EntityWidget setEntityId(int id) {
+		entityId = id;
+		return this;
 	}
 
 	@Override
-	public void setEntityID(int entity) {
-		entityid = entity;
-	}
-
-	@Override
-	public int getEntityID() {
-		return entityid;
+	public int getEntityId() {
+		return entityId;
 	}
 	
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
-		entityid = input.readInt();
+		entityId = input.readInt();
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
-		output.writeInt(entityid);
+		output.writeInt(entityId);
+	}
+	
+	@Override
+	public EntityWidget copy() {
+		return ((EntityWidget)super.copy()).setEntityId(getEntityId());
 	}
 }

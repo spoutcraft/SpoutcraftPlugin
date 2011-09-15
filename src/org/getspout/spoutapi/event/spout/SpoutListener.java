@@ -30,17 +30,24 @@ public class SpoutListener extends CustomEventListener implements Listener{
  
 	}
 	
+	public void onSpoutcraftFailed(SpoutcraftFailedEvent event) {
+		 
+	}
+	
 	public void onServerTick(ServerTickEvent event) {
 		
 	}
 
 	@Override
 	public void onCustomEvent(Event event) {
-		if (event instanceof SpoutCraftEnableEvent) {
+		if (event instanceof ServerTickEvent) {
+			onServerTick((ServerTickEvent)event);
+		}
+		else if (event instanceof SpoutCraftEnableEvent) {
 			onSpoutCraftEnable((SpoutCraftEnableEvent)event);
 		}
-		else if (event instanceof ServerTickEvent) {
-			onServerTick((ServerTickEvent)event);
+		else if (event instanceof SpoutcraftFailedEvent) {
+			onSpoutcraftFailed((SpoutcraftFailedEvent)event);
 		}
 	}
 

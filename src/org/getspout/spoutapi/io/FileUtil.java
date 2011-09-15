@@ -23,9 +23,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 public class FileUtil {
-	
+	private static final HashMap<String, String> fileNameCache = new HashMap<String, String>();
 	public static long getCRC(File file, byte[] buffer) {
 
 		FileInputStream in = null;
@@ -91,13 +92,19 @@ public class FileUtil {
 		
 	}
 	
-	public static String getFileName(String Url) {
-		int slashIndex = Url.lastIndexOf('/');
-		int dotIndex = Url.lastIndexOf('.', slashIndex);
-		if (dotIndex == -1 || dotIndex < slashIndex) {
-			return Url.substring(slashIndex + 1).replaceAll("%20", " ");
+	public static String getFileName(String url) {
+		if (fileNameCache.containsKey(url)) {
+			return fileNameCache.get(url);
 		}
-		return Url.substring(slashIndex + 1, dotIndex).replaceAll("%20", " ");
+		int end = url.lastIndexOf('?');
+		int lastDot = url.lastIndexOf('.');
+		int slash = url.lastIndexOf('/');
+		int forwardSlash = url.lastIndexOf("\\");
+		slash = slash > forwardSlash ? slash : forwardSlash;
+		end = end == -1 || lastDot > end ? url.length() : end;
+		String result = url.substring(slash + 1, end).replaceAll("%20", " ");
+		fileNameCache.put(url, result);
+		return result;
 	}
 	
 }

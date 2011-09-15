@@ -124,29 +124,6 @@ public interface SpoutBlock extends Block{
 	 * Resets the block back to the minecraft standard rules for power.
 	 */
 	public void resetBlockPower();
-
-	//public void setLightLevel(byte level);
-	
-	//public void resetLightLevel();
-	
-	/**
-	 * Gets the hardness of this block.
-	 * @return hardness
-	 */
-	public float getHardness();
-	
-	/**
-	 * Sets the hardness of this location. 
-	 * 
-	 * Note: The new hardness value will remain even if the underlying block type changes!
-	 * @param hardness to set
-	 */
-	public void setHardness(float hardness);
-	
-	/**
-	 * Resets the hardness of this location back to the standard minecraft values.
-	 */
-	public void resetHardness();
 	
 	@Override
 	public SpoutBlock getFace(BlockFace face);

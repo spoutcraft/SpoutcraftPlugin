@@ -29,14 +29,7 @@ public interface ItemManager {
 	 * @return name
 	 */
 	public String getItemName(Material item);
-	
-	/**
-	 * Gets  the custom name of the item, or null if none exists
-	 * @param item to get the name of
-	 * @return name
-	 */
-	public String getCustomItemName(Material item);
-	
+
 	/**
 	 * Gets notchian item name for the item, or the custom name if one overrides it
 	 * @param item to get the name of
@@ -52,6 +45,13 @@ public interface ItemManager {
 	 * @return name
 	 */
 	public String getItemName(int item, short data);
+	
+	/**
+	 * Gets  the custom name of the item, or null if none exists
+	 * @param item to get the name of
+	 * @return name
+	 */
+	public String getCustomItemName(Material item);
 	
 	/**
 	 * Gets  the custom name of the item, or null if none exists
@@ -110,6 +110,7 @@ public interface ItemManager {
 	 * @param data of the item
 	 */
 	public void resetName(Material item, short data);
+	
 	 /**
 	 * Sets the texture of the item.  
 	 * 
@@ -118,6 +119,7 @@ public interface ItemManager {
 	 * @param item to texture
 	 * @param texture to set
 	 */
+	
 	@Deprecated
 	public void setItemTexture(Material item, String texture);
 	

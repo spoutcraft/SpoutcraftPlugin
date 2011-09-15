@@ -25,10 +25,22 @@ import org.bukkit.plugin.Plugin;
 
 public interface Widget{
 	
+	/**
+	 * The number of bytes of data serialized when sending or receiving data.
+	 * @return
+	 */
 	public int getNumBytes();
 
+	/**
+	 * The version this widget is. Mismatched versions will fail to be created.
+	 * @return version
+	 */
 	public int getVersion();
 	
+	/**
+	 * The type of widget this is. Required for proper synchronization between the server and client.
+	 * @return widget type
+	 */
 	public WidgetType getType();
 	
 	/**
@@ -37,14 +49,33 @@ public interface Widget{
 	 */
 	public UUID getId();
 	
-	public void render();
-	
+	/**
+	 * Called after this widget this created for serialization. 
+	 * @param input
+	 * @throws IOException
+	 */
 	public void readData(DataInputStream input) throws IOException;
 	
+	/**
+	 * Called when this widget is serialized to the client.
+	 * 
+	 * Note: ensure that any changes here are reflected in {@link getNumBytes()} and are also present on the client.
+	 * @param output
+	 * @throws IOException
+	 */
 	public void writeData(DataOutputStream output) throws IOException;
 	
+	/**
+	 * Get's the plugin that attached this widget to the screen, or null if this screen is unattached.
+	 * @return plugin that attached this widget to the screen
+	 */
 	public Plugin getPlugin();
 	
+	/**
+	 * Internal use only. 
+	 * @param plugin
+	 * @return this
+	 */
 	public Widget setPlugin(Plugin plugin);
 	
 	/**
@@ -353,4 +384,16 @@ public interface Widget{
 	 * @return 
 	 */
 	public WidgetAnchor getAnchor();
+	
+	/**
+	 * Returns a copy of this widget with a new UUID.
+	 * 
+	 * Copies will not be equal to each other, but will have the same internal data.
+	 * 
+	 * Note: the copy will not be attached to a screen, nor be part of a container even if the original was.
+	 * 
+	 * Warning: copy will not work on screens.
+	 * @return a copy of this widget
+	 */
+	public Widget copy();
 }

@@ -19,7 +19,6 @@ package org.getspout.spoutapi.block;
 import java.io.Serializable;
 
 import org.bukkit.Chunk;
-import org.bukkit.World;
 import org.bukkit.util.BlockVector;
 
 public interface SpoutChunk extends Chunk{

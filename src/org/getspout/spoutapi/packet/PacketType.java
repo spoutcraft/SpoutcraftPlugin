@@ -23,7 +23,7 @@ public enum PacketType {
 	PacketAirTime(1, PacketAirTime.class),
 	PacketSkinURL(2, PacketSkinURL.class),
 	PacketEntityTitle(3, PacketEntityTitle.class),
-	PacketPluginReload(4, PacketPluginReload.class),
+	//PacketPluginReload(4, PacketPluginReload.class),
 	PacketRenderDistance(5, PacketRenderDistance.class),
 	PacketAlert(6, PacketAlert.class),
 	PacketPlaySound(7, PacketPlaySound.class),
@@ -55,10 +55,11 @@ public enum PacketType {
 	PacketFullVersion(33, PacketFullVersion.class),
 	PacketCustomItem(34, PacketCustomItem.class),
 	PacketItemTexture(35, PacketItemTexture.class),
-	PacketBlockHardness(36, PacketBlockHardness.class), 
+	//PacketBlockHardness(36, PacketBlockHardness.class), 
 	PacketOpenSignGUI(37, PacketOpenSignGUI.class),
 	PacketCustomBlockOverride(38, PacketCustomBlockOverride.class),
 	PacketCustomBlockDesign(39, PacketCustomBlockDesign.class),
+	PacketUniqueId(40, PacketUniqueId.class),
 	;
 	
 	private final int id;

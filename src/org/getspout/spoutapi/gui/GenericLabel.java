@@ -80,7 +80,12 @@ public class GenericLabel extends GenericWidget implements Label{
 	}
 	
 	@Override
+	@Deprecated
 	public boolean getAuto() {
+		return auto;
+	}
+	
+	public boolean isAuto() {
 		return auto;
 	}
 	
@@ -110,11 +115,6 @@ public class GenericLabel extends GenericWidget implements Label{
 	public Label setTextColor(Color color) {
 		this.color = color;
 		return this;
-	}
-	
-	@Override
-	public void render() {
-
 	}
 
 	@Override
@@ -167,6 +167,11 @@ public class GenericLabel extends GenericWidget implements Label{
 	@Deprecated
 	public Widget setAlignY(Align pos) {
 		return this;
+	}
+	
+	@Override
+	public Label copy() {
+		return ((Label)super.copy()).setText(getText()).setAuto(isAuto()).setTextColor(getTextColor());
 	}
 
 }

@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.gui;
 
+import org.getspout.spoutapi.event.screen.ButtonClickEvent;
+
 public interface Button extends Control, Label{
 	
 	/**
@@ -43,5 +45,22 @@ public interface Button extends Control, Label{
 	 * @return Button
 	 */
 	public Button setHoverColor(Color color);
+	
+	@Override
+	public Button setText(String text);
+	
+	@Override
+	public Button setTextColor(Color color);
 
+	@Override
+	public Button setAuto(boolean auto);
+	
+	/**
+	 * Fires when this button is clicked on the screen.
+	 * 
+	 * This event is also sent to the screen listener, afterwards.
+	 * 
+	 * @param event
+	 */
+	public void onButtonClick(ButtonClickEvent event);
 }

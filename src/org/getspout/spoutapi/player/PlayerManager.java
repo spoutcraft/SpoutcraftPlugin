@@ -18,6 +18,7 @@ package org.getspout.spoutapi.player;
 
 import java.util.UUID;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public interface PlayerManager {
@@ -35,5 +36,9 @@ public interface PlayerManager {
 	public SpoutPlayer[] getOnlinePlayers();
 	
 	public void setVersionString(int playerId, String versionString);
+
+	public Entity getEntity(UUID id);
+
+	public Entity getEntity(int entityId);
 
 }
