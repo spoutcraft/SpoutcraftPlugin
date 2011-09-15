@@ -176,7 +176,8 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setWidth(int width) {
-		this.width = width;
+		this.width = Math.max(getMinWidth(), Math.min(width, getMaxWidth()));
+		updateSize();
 		return this;
 	}
 
@@ -187,7 +188,8 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setHeight(int height) {
-		this.height = height;
+		this.height = Math.max(getMinHeight(), Math.min(height, getMaxHeight()));
+		updateSize();
 		return this;
 	}
 
@@ -234,9 +236,7 @@ public abstract class GenericWidget implements Widget{
 	public Widget setVisible(boolean enable) {
 		if (visible != enable) {
 			visible = enable;
-			if (container != null) {
-				container.updateLayout();
-			}
+			updateSize();
 		}
 		return this;
 	}
@@ -283,6 +283,7 @@ public abstract class GenericWidget implements Widget{
 	@Override
 	public Widget setFixed(boolean fixed) {
 		this.fixed = fixed;
+		updateSize();
 		return this;
 	}
 
@@ -317,12 +318,38 @@ public abstract class GenericWidget implements Widget{
 		this.marginRight = marginRight;
 		this.marginBottom = marginBottom;
 		this.marginLeft = marginLeft;
-		if (container instanceof Container) {
-			container.updateSize();
-		}
+		updateSize();
 		return this;
 	}
-	
+
+	@Override
+	public Widget setMarginTop(int marginTop) {
+		this.marginTop = marginTop;
+		updateSize();
+		return this;
+	}
+
+	@Override
+	public Widget setMarginRight(int marginRight) {
+		this.marginRight = marginRight;
+		updateSize();
+		return this;
+	}
+
+	@Override
+	public Widget setMarginBottom(int marginBottom) {
+		this.marginBottom = marginBottom;
+		updateSize();
+		return this;
+	}
+
+	@Override
+	public Widget setMarginLeft(int marginLeft) {
+		this.marginLeft = marginLeft;
+		updateSize();
+		return this;
+	}
+
 	@Override
 	public int getMarginTop() {
 		return marginTop;
@@ -345,11 +372,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinWidth(int min) {
-		minWidth = min;
-		width = Math.max(width, min);
-		if (container instanceof Container) {
-			container.updateSize();
-		}
+		minWidth = Math.max(min, 0);
+		setWidth(width);
 		return this;
 	}
 
@@ -360,11 +384,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxWidth(int max) {
-		maxWidth = max == 0 ? 427 : max;
-		width = Math.min(width, max);
-		if (container instanceof Container) {
-			container.updateSize();
-		}
+		maxWidth = max <= 0 ? 427 : max;
+		setWidth(width);
 		return this;
 	}
 
@@ -375,11 +396,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinHeight(int min) {
-		minHeight = min;
-		height = Math.max(height, min);
-		if (container instanceof Container) {
-			container.updateSize();
-		}
+		minHeight = Math.max(min, 0);
+		setHeight(height);
 		return this;
 	}
 
@@ -390,11 +408,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxHeight(int max) {
-		maxHeight = max == 0 ? 240 : max;
-		height = Math.min(height, max);
-		if (container instanceof Container) {
-			container.updateSize();
-		}
+		maxHeight = max <= 0 ? 240 : max;
+		setHeight(height);
 		return this;
 	}
 
@@ -423,10 +438,21 @@ public abstract class GenericWidget implements Widget{
 			Widget copy = getType().getWidgetClass().newInstance();
 			copy.setX(getX()).setY(getY()).setWidth(getWidth()).setHeight(getHeight()).setVisible(isVisible());
 			copy.setPriority(getPriority()).setTooltip(getTooltip()).setAnchor(getAnchor());
+			copy.setMargin(getMarginTop(), getMarginRight(), getMarginBottom(), getMarginLeft());
+			copy.setMinWidth(getMinWidth()).setMaxWidth(getMaxWidth()).setMinHeight(getMinHeight()).setMaxHeight(getMaxHeight());
+			copy.setFixed(isFixed());
 			return copy;
 		}
 		catch (Exception e) {
 			throw new IllegalStateException("Unable to create a copy of " + getClass() + ". Does it have a valid widget type?");
 		}
+	}
+
+	@Override
+	public Widget updateSize() {
+		if (container instanceof Container) {
+			container.updateSize();
+		}
+		return this;
 	}
 }

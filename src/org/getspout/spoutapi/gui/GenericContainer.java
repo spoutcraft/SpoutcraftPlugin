@@ -28,6 +28,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
 	protected boolean reverse = false;
 	protected int minWidthCalc = 0, maxWidthCalc = 427, minHeightCalc = 0, maxHeightCalc = 240;
+	protected boolean auto = true;
 	protected boolean recalculating = false;
 
 	public GenericContainer() {
@@ -60,11 +61,11 @@ public class GenericContainer extends GenericWidget implements Container {
 		child.shiftYPos(super.getY());
 		child.setAnchor(super.getAnchor());
 		// Relayout if we are already using layout - otherwise this will return immediately
-		updateLayout();
-		if (this.screen != null) {
-			this.screen.attachWidget(getPlugin(), child);
+		if (getScreen() != null) {
+			getScreen().attachWidget(getPlugin(), child);
 		}
 		updateSize();
+		updateLayout();
 		return this;
 	}
 
@@ -225,9 +226,10 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container updateLayout() {
-		if (getWidth() > 0 && getHeight() > 0 && !children.isEmpty()) {
+		if (super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
 			List<Widget> visibleChildren = new ArrayList<Widget>();
-			int totalwidth = 0, totalheight = 0, vcount = 0, hcount = 0;
+			int totalwidth = 0, totalheight = 0, newwidth, newheight, vcount = 0, hcount = 0;
+			int availableWidth = auto ? getWidth() : getMinWidth(), availableHeight = auto ? getHeight() : getMinHeight();
 			// We only layout visible children, invisible ones have zero physical presence on screen
 			for (Widget widget : children) {
 				if (widget.isVisible()) {
@@ -239,76 +241,84 @@ public class GenericContainer extends GenericWidget implements Container {
 				Collections.reverse(visibleChildren);
 			}
 			// First - get the total space by fixed widgets and borders
-			for (Widget widget : visibleChildren) {
-				int horiz = widget.getMarginLeft() + widget.getMarginRight();
-				int vert = widget.getMarginTop() + widget.getMarginBottom();
-				if (widget.isFixed()) {
-					horiz += widget.getWidth();
-					vert += widget.getHeight();
-				}
-				if (type == ContainerType.HORIZONTAL) {
-					totalwidth += horiz;
-					if (!widget.isFixed()) {
-						hcount++;
+			if (type == ContainerType.OVERLAY) {
+				newwidth = availableWidth;
+				newheight = availableHeight;
+			} else {
+				for (Widget widget : visibleChildren) {
+					int horiz = widget.getMarginLeft() + widget.getMarginRight();
+					int vert = widget.getMarginTop() + widget.getMarginBottom();
+					if (widget.isFixed()) {
+						horiz += widget.getWidth();
+						vert += widget.getHeight();
 					}
-				} else {
-					totalwidth = Math.max(totalwidth, horiz);
-				}
-				if (type == ContainerType.VERTICAL) {
-					totalheight += vert;
-					if (!widget.isFixed()) {
-						vcount++;
-					}
-				} else {
-					totalheight = Math.max(totalheight, vert);
-				}
-			}
-			// Work out the width and height for children
-			int newwidth = (getWidth() - totalwidth) / Math.max(1, hcount);
-			int newheight = (getHeight() - totalheight) / Math.max(1, vcount);
-			// Deal with minWidth and minHeight - change newwidth/newheight if needed
-			for (Widget widget : visibleChildren) {
-				if (!widget.isFixed()) {
-					if (type == ContainerType.OVERLAY || type == ContainerType.VERTICAL) {
-						if (widget.getMinHeight() > newheight) {
-							totalheight += widget.getMinHeight() - newheight;
-							newheight = (getHeight() - totalheight) / Math.max(1, vcount);
-						} else if (newheight > widget.getMaxHeight()) {
-							totalheight += widget.getMaxHeight();
-							vcount--;
-							newheight = (getHeight() - totalheight) / Math.max(1, vcount);
+					if (type == ContainerType.VERTICAL) {
+						totalheight += vert;
+						if (!widget.isFixed()) {
+							vcount++;
 						}
-					}
-					if (type == ContainerType.OVERLAY || type == ContainerType.HORIZONTAL) {
-						if (widget.getMinWidth() > newwidth) {
-							totalwidth += widget.getMinWidth() - newwidth;
-							newwidth = (getWidth() - totalwidth) / Math.max(1, hcount);
-						} else if (newwidth > widget.getMaxWidth()) {
-							totalwidth += widget.getMaxWidth();
-							hcount--;
-							newwidth = (getWidth() - totalwidth) / Math.max(1, hcount);
+					} else if (type == ContainerType.HORIZONTAL) {
+						totalwidth += horiz;
+						if (!widget.isFixed()) {
+							hcount++;
 						}
 					}
 				}
+				// Work out the width and height for children
+				newwidth = (availableWidth - totalwidth) / Math.max(1, hcount);
+				newheight = (availableHeight - totalheight) / Math.max(1, vcount);
+				// Deal with minWidth and minHeight - change newwidth/newheight if needed
+				for (Widget widget : visibleChildren) {
+					if (!widget.isFixed()) {
+						if (type == ContainerType.VERTICAL) {
+							if (widget.getMinHeight() > newheight) {
+								totalheight += widget.getMinHeight() - newheight;
+								newheight = (availableHeight - totalheight) / Math.max(1, vcount);
+							} else if (newheight >= widget.getMaxHeight()) {
+								totalheight += widget.getMaxHeight();
+								vcount--;
+								newheight = (availableHeight - totalheight) / Math.max(1, vcount);
+							}
+						} else if (type == ContainerType.HORIZONTAL) {
+							if (widget.getMinWidth() > newwidth) {
+								totalwidth += widget.getMinWidth() - newwidth;
+								newwidth = (availableWidth - totalwidth) / Math.max(1, hcount);
+							} else if (newwidth >= widget.getMaxWidth()) {
+								totalwidth += widget.getMaxWidth();
+								hcount--;
+								newwidth = (availableWidth - totalwidth) / Math.max(1, hcount);
+							}
+						}
+					}
+				}
+				newheight = Math.max(newheight, 0);
+				newwidth = Math.max(newwidth, 0);
 			}
-			newheight = Math.max(newheight, 0);
-			newwidth = Math.max(newwidth, 0);
+			totalheight = totalwidth = 0;
 			// Resize any non-fixed widgets
 			for (Widget widget : visibleChildren) {
 				if (!widget.isFixed()) {
-					if (widget.getHeight() - widget.getMarginTop() - widget.getMarginBottom() != Math.max(widget.getMinHeight(), Math.min(widget.getMaxHeight(), newheight))) {
-						widget.setHeight(Math.max(widget.getMinHeight(), Math.min(widget.getMaxHeight(), newheight)) - widget.getMarginTop() - widget.getMarginBottom());
-						widget.setDirty(true);
+					int realheight, realwidth;
+					if (auto) {
+						realheight = Math.max(widget.getMinHeight(), Math.min(newheight - widget.getMarginTop() - widget.getMarginBottom(), widget.getMaxHeight()));
+						realwidth = Math.max(widget.getMinWidth(), Math.min(newwidth - widget.getMarginLeft() - widget.getMarginRight(), widget.getMaxWidth()));
+					} else {
+						realheight = widget.getMinHeight() == 0 ? newheight - widget.getMarginTop() - widget.getMarginBottom() : widget.getMinHeight();
+						realwidth = widget.getMinWidth() == 0 ? newwidth - widget.getMarginLeft() - widget.getMarginRight() : widget.getMinWidth();
 					}
-					if (widget.getWidth() - widget.getMarginLeft() - widget.getMarginRight() != Math.max(widget.getMinWidth(), Math.min(widget.getMaxWidth(), newwidth))) {
-						widget.setWidth(Math.max(widget.getMinWidth(), Math.min(widget.getMaxWidth(), newwidth)) - widget.getMarginLeft() - widget.getMarginRight());
-						widget.setDirty(true);
+					if (widget.getHeight() != realheight || widget.getWidth() != realwidth) {
+						widget.setHeight(realheight).setWidth(realwidth).setDirty(true);
 					}
-					if (type == ContainerType.VERTICAL) {
-						totalheight += newheight;
-					} else if (type == ContainerType.HORIZONTAL) {
-						totalwidth += newwidth;
-					}
+				}
+				if (type == ContainerType.VERTICAL) {
+					totalheight += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
+				} else {
+					totalheight = Math.max(totalheight, widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom());
+				}
+				if (type == ContainerType.HORIZONTAL) {
+					totalwidth += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
+				} else {
+					totalwidth = Math.max(totalwidth, widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight());
 				}
 			}
 			// Work out the new top-left position taking into account Align
@@ -326,13 +336,10 @@ public class GenericContainer extends GenericWidget implements Container {
 			}
 			// Move all children into the correct position
 			for (Widget widget : visibleChildren) {
-				if (widget.getY() + widget.getMarginTop() != top) {
-					widget.setY(top + widget.getMarginTop());
-					widget.setDirty(true);
-				}
-				if (widget.getX() + widget.getMarginLeft() != left) {
-					widget.setX(left + widget.getMarginLeft());
-					widget.setDirty(true);
+				int realtop = top + widget.getMarginTop();
+				int realleft = left + widget.getMarginLeft();
+				if (widget.getY() != realtop || widget.getX() != realleft) {
+					widget.setY(realtop).setX(realleft).setDirty(true);
 				}
 				if (type == ContainerType.VERTICAL) {
 					top += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
@@ -361,42 +368,62 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public int getMaxHeight() {
-		return Math.min(super.getMaxHeight(), minHeightCalc);
+		return Math.min(super.getMaxHeight(), maxHeightCalc);
 	}
 
 	@Override
 	public Container updateSize() {
-		if (!recalculating) {
+		if (!isFixed() && !recalculating) {
 			recalculating = true; // Prevent us from getting into a loop due to both trickle down and push up
-			ContainerType layout = getLayout();
-			int minwidth = 0, maxwidth = 427, minheight = 0, maxheight = 240;
+			int minwidth = 0, maxwidth = 0, minheight = 0, maxheight = 0,  minhoriz, maxhoriz, minvert, maxvert;
+			// Work out the minimum and maximum dimensions for the contents of this container
 			for (Widget widget : children) {
 				if (widget.isVisible()) {
 					if (widget instanceof Container) { // Trickle down to children
 						((Container) widget).updateSize();
 					}
-					int horiz = widget.getMarginLeft() + widget.getMarginRight(), minhoriz = widget.getMinWidth() + horiz, maxhoriz = widget.getMaxWidth() + horiz;
-					int vert = widget.getMarginTop() + widget.getMarginBottom(), minvert = widget.getMinHeight() + vert, maxvert = widget.getMaxHeight() + vert;
+					minhoriz = maxhoriz = widget.getMarginLeft() + widget.getMarginRight();
+					minvert = maxvert = widget.getMarginTop() + widget.getMarginBottom();
 					if (widget.isFixed()) {
-						minhoriz = maxhoriz = widget.getWidth() + horiz;
-						minvert = maxvert = widget.getHeight() + vert;
-					}
-					if (layout == ContainerType.OVERLAY || layout == ContainerType.HORIZONTAL) {
-						minwidth = Math.max(minwidth, minhoriz);
-						maxwidth = Math.min(maxwidth, maxhoriz);
+						minhoriz += widget.getWidth();
+						maxhoriz += widget.getWidth();
+						minvert += widget.getHeight();
+						maxvert += widget.getHeight();
 					} else {
+						minhoriz += widget.getMinWidth();
+						maxhoriz += widget.getMaxWidth();
+						minvert += widget.getMinHeight();
+						maxvert += widget.getMaxHeight();
+					}
+					if (type == ContainerType.HORIZONTAL) {
 						minwidth += minhoriz;
 						maxwidth += maxhoriz;
-					}
-					if (layout == ContainerType.OVERLAY || layout == ContainerType.VERTICAL) {
-						minheight = Math.max(minheight, minvert);
-						maxheight = Math.min(maxheight, maxvert);
 					} else {
+						minwidth = Math.max(minwidth, minhoriz);
+						if (type == ContainerType.OVERLAY) {
+							maxwidth = Math.max(maxwidth, maxhoriz);
+						} else {
+							maxwidth = Math.min(maxwidth, maxhoriz);
+						}
+					}
+					if (type == ContainerType.VERTICAL) {
 						minheight += minvert;
 						maxheight += maxvert;
+					} else {
+						minheight = Math.max(minheight, minvert);
+						if (type == ContainerType.OVERLAY) {
+							maxheight = Math.max(maxheight, maxvert);
+						} else {
+							maxheight = Math.min(maxheight, maxvert);
+						}
 					}
 				}
 			}
+			minwidth = Math.min(minwidth, 427);
+			maxwidth = Math.min(maxwidth == 0 ? 427 : maxwidth, 427);
+			minheight = Math.min(minheight, 240);
+			maxheight = Math.min(maxheight == 0 ? 240 : maxheight, 240);
+			// Check if the dimensions have changed
 			if (minwidth != minWidthCalc || maxwidth != maxWidthCalc || minheight != minHeightCalc || maxheight != maxHeightCalc) {
 				minWidthCalc = minwidth;
 				maxWidthCalc = maxwidth;
@@ -409,5 +436,16 @@ public class GenericContainer extends GenericWidget implements Container {
 			recalculating = false;
 		}
 		return this;
+	}
+
+	@Override
+	public Container setAuto(boolean auto) {
+		this.auto = auto;
+		return this;
+	}
+
+	@Override
+	public boolean isAuto() {
+		return auto;
 	}
 }

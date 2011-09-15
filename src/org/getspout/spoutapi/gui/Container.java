@@ -101,8 +101,15 @@ public interface Container extends Widget {
 	public boolean getReverse();
 
 	/**
-	 * Calculate the min and max dimensions for this and all children
+	 * Determines if children expand to fill width and height
+	 * @param auto
 	 * @return 
 	 */
-	public Container updateSize();
+	public Container setAuto(boolean auto);
+
+	/** 
+	 * True if the children will expand to fill width and height
+	 * @return 
+	 */
+	public boolean isAuto();
 }

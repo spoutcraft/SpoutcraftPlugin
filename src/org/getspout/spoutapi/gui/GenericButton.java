@@ -175,4 +175,18 @@ public class GenericButton extends GenericControl implements Button {
 		
 	}
 
+	@Override
+	public boolean isResize() {
+		return label.isResize();
+	}
+
+	@Override
+	public Label setResize(boolean resize) {
+		return label.setResize(resize);
+	}
+
+	@Override
+	public Label doResize() {
+		return label.doResize();
+	}
 }
