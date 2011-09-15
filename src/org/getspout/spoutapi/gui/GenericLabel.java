@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.bukkit.ChatColor;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericLabel extends GenericWidget implements Label{
@@ -27,6 +28,8 @@ public class GenericLabel extends GenericWidget implements Label{
 	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
 	protected Color color = new Color(1F, 1F, 1F);
 	protected boolean auto = true;
+	protected boolean resize = false;
+	protected int textWidth = -1, textHeight = -1;
 	public GenericLabel(){
 		
 	}
@@ -64,7 +67,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		super.writeData(output);
 		PacketUtil.writeString(output, getText());
 		output.writeByte(align.getId());
-		output.writeBoolean(getAuto());
+		output.writeBoolean(isAuto());
 		PacketUtil.writeColor(output, getTextColor());
 	}
 
@@ -76,6 +79,8 @@ public class GenericLabel extends GenericWidget implements Label{
 	@Override
 	public Label setText(String text) {
 		this.text = text;
+		textHeight = textWidth = -1;
+		doResize();
 		return this;
 	}
 	
@@ -85,6 +90,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		return auto;
 	}
 	
+	@Override
 	public boolean isAuto() {
 		return auto;
 	}
@@ -171,7 +177,98 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	@Override
 	public Label copy() {
-		return ((Label)super.copy()).setText(getText()).setAuto(isAuto()).setTextColor(getTextColor());
+		return ((Label)super.copy()).setText(getText()).setAuto(isAuto()).setTextColor(getTextColor()).setResize(isResize());
 	}
 
+
+	@Override
+	public boolean isResize() {
+		return resize;
+	}
+
+	@Override
+	public Label setResize(boolean resize) {
+		this.resize = resize;
+		doResize();
+		return this;
+	}
+	
+	@Override
+	public Label doResize() {
+		if (resize) {
+			if (textHeight < 0 || textWidth < 0) {
+				textHeight = getStringHeight(text);
+				textWidth = getStringWidth(text);
+			}
+			if (super.isFixed()) {
+				super.setHeight(textHeight);
+				super.setWidth(textWidth);
+			} else {
+				super.setMinHeight(textHeight);
+				super.setMinWidth(textWidth);
+			}
+		} else {
+			textHeight = textWidth = -1;
+		}
+		return this;
+	}
+
+	@Override
+	public Widget setFixed(boolean fixed) {
+		super.setFixed(fixed);
+		doResize();
+		return this;
+	}
+
+	/**
+	 * Super secret method to get the height of a string...
+	 * @param text
+	 * @return 
+	 */
+	public static int getStringHeight(String text) {
+		return text.split("\n").length * 10;
+	}
+
+	/**
+	 * Super secret method to get the width of a string...
+	 * @param text
+	 * @return 
+	 */
+	public static int getStringWidth(String text) {
+		final int[] characterWidths = new int[]{
+			1, 9, 9, 8, 8, 8, 8, 7, 9, 8, 9, 9, 8, 9, 9, 9,
+			8, 8, 8, 8, 9, 9, 8, 9, 8, 8, 8, 8, 8, 9, 9, 9,
+			4, 2, 5, 6, 6, 6, 6, 3, 5, 5, 5, 6, 2, 6, 2, 6,
+			6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 2, 2, 5, 6, 5, 6,
+			7, 6, 6, 6, 6, 6, 6, 6, 6, 4, 6, 6, 6, 6, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4, 6, 4, 6, 6,
+			3, 6, 6, 6, 6, 6, 5, 6, 6, 2, 6, 5, 3, 6, 6, 6,
+			6, 6, 6, 6, 4, 6, 6, 6, 6, 6, 6, 5, 2, 5, 7, 6,
+			6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4, 6, 3, 6, 6,
+			6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4, 6,
+			6, 3, 6, 6, 6, 6, 6, 6, 6, 7, 6, 6, 6, 2, 6, 6,
+			8, 9, 9, 6, 6, 6, 8, 8, 6, 8, 8, 8, 8, 8, 6, 6,
+			9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+			9, 9, 9, 9, 9, 9, 9, 9, 9, 6, 9, 9, 9, 5, 9, 9,
+			8, 7, 7, 8, 7, 8, 8, 8, 7, 8, 8, 7, 9, 9, 6, 7,
+			7, 7, 7, 7, 9, 6, 7, 8, 7, 6, 6, 9, 7, 6, 7, 1
+		};
+		final String allowedCharacters = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~?Ã³ÚÔõÓÕþÛÙÞ´¯ý─┼╔µã¶÷‗¹¨ Í▄°úÏÎâßÝ¾·±Ð¬║┐«¼¢╝í½╗";
+		int length = 0;
+		for (String line : ChatColor.stripColor(text).split("\n")) {
+			int lineLength = 0;
+			boolean skip = false;
+			for (char ch : line.toCharArray()) {
+				if (skip) {
+					skip = false;
+				} else if (ch == '\u00A7') {
+					skip = true;
+				} else if (allowedCharacters.indexOf(ch) != -1) {
+					lineLength += characterWidths[ch];
+				}
+			}
+			length = Math.max(length, lineLength);
+		}
+		return length;
+	}
 }
