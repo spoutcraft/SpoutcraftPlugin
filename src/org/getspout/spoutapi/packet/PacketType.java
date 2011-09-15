@@ -59,7 +59,6 @@ public enum PacketType {
 	PacketOpenSignGUI(37, PacketOpenSignGUI.class),
 	PacketCustomBlockOverride(38, PacketCustomBlockOverride.class),
 	PacketCustomBlockDesign(39, PacketCustomBlockDesign.class),
-	PacketKeyBinding(40, PacketKeyBinding.class),
 	;
 	
 	private final int id;
