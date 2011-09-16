@@ -221,9 +221,6 @@ public class Color {
 	
 	
 	public int toInt() {
-		return	(getAlphaI() & 0xFF) << 24
-				| (getRedI() & 0xFF) << 16
-				| (getGreenI() & 0xFF) << 8
-				| (getBlueI() & 0xFF);
+		return (getAlphaI() & 0xFF) << 24 | (getRedI() & 0xFF) << 16 | (getGreenI() & 0xFF) << 8 | (getBlueI() & 0xFF);
 	}
 }
