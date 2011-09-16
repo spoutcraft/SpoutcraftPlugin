@@ -47,7 +47,7 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 3;
+		return super.getVersion() + 4;
 	}
 	
 	@Override

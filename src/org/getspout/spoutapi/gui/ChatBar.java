@@ -126,7 +126,7 @@ public class ChatBar extends GenericWidget implements Widget{
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 1;
+		return super.getVersion() + 2;
 	}
 
 }

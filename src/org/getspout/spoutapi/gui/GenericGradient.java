@@ -32,7 +32,7 @@ public class GenericGradient extends GenericWidget implements Gradient {
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 0;
+		return super.getVersion() + 1;
 	}
 	
 	public Gradient setTopColor(Color color) {

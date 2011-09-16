@@ -119,7 +119,7 @@ public class PacketSky implements SpoutPacket{
 	
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 
 }
