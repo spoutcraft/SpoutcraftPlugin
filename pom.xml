@@ -66,6 +66,13 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>trove</groupId>
+            <artifactId>trove</artifactId>
+            <version>2.1.1</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -115,6 +122,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.apache.commons:commons-io</include>
+                                    <include>trove:trove</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
