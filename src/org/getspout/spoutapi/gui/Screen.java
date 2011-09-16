@@ -104,4 +104,10 @@ public interface Screen extends Widget{
 	 * @return the screen
 	 */
 	public GenericScreen setBgVisible(boolean enable);
+	
+	/**
+	 * Gets the screen type of this screen
+	 * @return the screen type
+	 */
+	public ScreenType getScreenType();
 }

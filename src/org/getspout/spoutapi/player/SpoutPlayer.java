@@ -22,6 +22,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.inventory.Inventory;
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.gui.InGameHUD;
+import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.SpoutPacket;
@@ -73,6 +74,14 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * @return In game HUD
 	 */
 	public InGameHUD getMainScreen();
+	
+	/**
+	 * Gets a copy of the current opened screen of the player. This can be the InGameHUD, but also other screen types.
+	 * Check the screentype with Screen.getType();
+	 * @see Screen.getType()
+	 * @return the currently open screen
+	 */
+	public Screen getCurrentScreen();
 	
 	/**
 	 * Return's true if the player is using the spoutcraft single player mod
