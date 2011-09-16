@@ -48,6 +48,11 @@
             <id>spout-repo</id>
             <url>http://repo.getspout.org</url>
         </repository>
+        <repository>
+            <id>nuxeo-repo</id>
+            <name>Maven Nuxeo Repository</name>
+            <url>http://maven.nuxeo.org/nexus/content/groups/public/</url>
+        </repository>
     </repositories>
 
     <!-- Dependencies -->
