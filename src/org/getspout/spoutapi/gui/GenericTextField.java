@@ -25,42 +25,58 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericTextField extends GenericControl implements TextField{
 	
+	private static final char MASK_MAXLINES = 0x7F; // bits 1–7
+	private static final char MASK_TABINDEX = 0x3F80; // bits 8–14
+	private static final char FLAG_PASSWORD = 0x4000; // bit 15
+	private static final char FLAG_FOCUS = 0x8000; // bit 16
+	
 	protected String text = "";
 	protected int cursor = 0;
-	protected int maxChars = 16;
+	protected int maxChars = 0;
+	protected int maxLines = 0;
+	protected int tabIndex = 0;
+	protected boolean focus = false;
+	protected boolean password = false;
 	protected Color fieldColor = new Color(0, 0, 0);
 	protected Color borderColor = new Color(0.625F, 0.625F, 0.625F);
+	
 	public GenericTextField() {
 
 	}
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 1;
+		return super.getVersion() + 2;
 	}
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + 40 + PacketUtil.getNumBytes(text);
+		return super.getNumBytes() + 16 + PacketUtil.getNumBytes(text);
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
-		setCursorPosition(input.readInt());
 		setFieldColor(PacketUtil.readColor(input));
 		setBorderColor(PacketUtil.readColor(input));
-		setMaximumCharacters(input.readInt());
+		char c = input.readChar();
+		setPasswordField((c & FLAG_PASSWORD) > 0);
+		setMaximumLines(c & MASK_MAXLINES);
+		setTabIndex((c & MASK_TABINDEX) >>> 7);
+		setFocus((c & FLAG_FOCUS) > 0);
+		setCursorPosition(input.readChar());
+		setMaximumCharacters(input.readChar());
 		setText(PacketUtil.readString(input));
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
-		output.writeInt(getCursorPosition());
 		PacketUtil.writeColor(output, getFieldColor());
 		PacketUtil.writeColor(output, getBorderColor());
-		output.writeInt(getMaximumCharacters());
+		output.writeChar((char) (getMaximumLines() & MASK_MAXLINES | (getTabIndex() << 7) & MASK_TABINDEX  | (isPasswordField() ? FLAG_PASSWORD : 0) | (focus ? FLAG_FOCUS : 0)));
+		output.writeChar(getCursorPosition());
+		output.writeChar(getMaximumCharacters());
 		PacketUtil.writeString(output, getText());
 	}
 
@@ -96,7 +112,18 @@ public class GenericTextField extends GenericControl implements TextField{
 		this.maxChars = max;
 		return this;
 	}
-
+	
+	@Override
+	public int getMaximumLines() {
+		return maxLines;
+	}
+	
+	@Override
+	public TextField setMaximumLines(int max) {
+		this.maxLines = max;
+		return this;
+	}
+	
 	@Override
 	public Color getFieldColor() {
 		return fieldColor;
@@ -120,13 +147,47 @@ public class GenericTextField extends GenericControl implements TextField{
 	}
 	
 	@Override
+	public int getTabIndex() {
+		return tabIndex;
+	}
+
+	@Override
+	public TextField setTabIndex(int index) {
+		this.tabIndex = index;
+		return this;
+	}
+	
+	@Override
+	public boolean isPasswordField() {
+		return password;
+	}
+
+	@Override
+	public TextField setPasswordField(boolean password) {
+		this.password = password;
+		return null;
+	}
+
+	@Override
+	public boolean isFocused() {
+		return focus;
+	}
+
+	@Override
+	public TextField setFocus(boolean focus) {
+		this.focus = focus;
+		return this;
+	}
+	
+	@Override
 	public WidgetType getType() {
 		return WidgetType.TextField;
 	}
 	
 	@Override
 	public TextField copy() {
-		return ((TextField)super.copy()).setText(getText()).setCursorPosition(getCursorPosition()).setMaximumCharacters(getMaximumCharacters()).setFieldColor(getFieldColor()).setBorderColor(getBorderColor());
+		// ignore focus parameter which would lead to strange behaviour!
+		return ((TextField)super.copy()).setText(getText()).setCursorPosition(getCursorPosition()).setMaximumCharacters(getMaximumCharacters()).setFieldColor(getFieldColor()).setBorderColor(getBorderColor()).setMaximumLines(getMaximumLines()).setTabIndex(getTabIndex()).setPasswordField(isPasswordField());
 	}
 
 	@Override
