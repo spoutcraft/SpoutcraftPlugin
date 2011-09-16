@@ -16,26 +16,27 @@
  */
 package org.getspout.spoutapi.gui;
 
-public interface Label extends Widget{
+public interface Label extends Widget {
+
 	/**
 	 * Gets the text of the label
 	 * @return text
 	 */
 	public String getText();
-	
+
 	/**
 	 * Sets the text of the label
 	 * @param text to set
 	 * @return label
 	 */
 	public Label setText(String text);
-	
+
 	/**
 	 * Gets the color for the text
 	 * @return color
 	 */
 	public Color getTextColor();
-	
+
 	/** 
 	 * Sets the color for the text
 	 * @param color to set
@@ -49,35 +50,35 @@ public interface Label extends Widget{
 	 */
 	@Deprecated
 	public Align getAlignX();
-	
+
 	/** 
 	 * Sets the horizontal, x, alignment of text within it's area providing it's on auto
 	 * @return label
 	 */
 	@Deprecated
 	public Widget setAlignX(Align pos);
-	
+
 	/** 
 	 * Get the vertical, y, alignment of text within it's area
 	 * @return alignment enum, ( FIRST | SECOND | THIRD )
 	 */
 	@Deprecated
 	public Align getAlignY();
-	
+
 	/** 
 	 * Sets the vertical, y, alignment of text within it's area providing it's on auto
 	 * @return label
 	 */
 	@Deprecated
 	public Widget setAlignY(Align pos);
-	
+
 	/** 
 	 * Determines if text expands to fill width and height
 	 * @param auto
 	 * @return label
 	 */
 	public Label setAuto(boolean auto);
-	
+
 	/** 
 	 * Gets if the text will expand to fill width and height
 	 * @param auto
@@ -85,15 +86,42 @@ public interface Label extends Widget{
 	 */
 	@Deprecated
 	public boolean getAuto();
-	
+
 	/** 
 	 * True if the text will expand to fill width and height
-	 * @param auto
-	 * @return label
+	 * @return 
 	 */
 	public boolean isAuto();
-	
+
+	/**
+	 * Does this widget automatically resize with it's contents
+	 * @return 
+	 */
+	public boolean isResize();
+
+	/**
+	 * Tell this widget to resize with it's contents
+	 * @param resize
+	 * @return 
+	 */
+	public Label setResize(boolean resize);
+
+	/**
+	 * Actually resize the Label with the current text size
+	 * @return 
+	 */
+	public Label doResize();
+
+	/**
+	 * Get the text alignment
+	 * @return 
+	 */
 	public WidgetAnchor getAlign();
-	
+
+	/**
+	 * Set the text alignment
+	 * @param pos
+	 * @return 
+	 */
 	public Widget setAlign(WidgetAnchor pos);
 }

@@ -252,7 +252,7 @@ public interface Widget{
 	// NOTE: Margins follow the same order as CSS
 	/**
 	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
-	 * @param margin sets the same for all sides
+	 * @param marginAll
 	 * @return 
 	 */
 	public Widget setMargin(int marginAll);
@@ -283,6 +283,34 @@ public interface Widget{
 	 * @return 
 	 */
 	public Widget setMargin(int marginTop, int marginRight, int marginBottom, int marginLeft);
+
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param marginLeft
+	 * @return 
+	 */
+	public Widget setMarginTop(int marginTop);
+
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param marginLeft
+	 * @return 
+	 */
+	public Widget setMarginRight(int marginRight);
+
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param marginLeft
+	 * @return 
+	 */
+	public Widget setMarginBottom(int marginBottom);
+
+	/**
+	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
+	 * @param marginLeft
+	 * @return 
+	 */
+	public Widget setMarginLeft(int marginLeft);
 
 	/**
 	 * Container Layout - Get the margin used for container layout
@@ -396,4 +424,10 @@ public interface Widget{
 	 * @return a copy of this widget
 	 */
 	public Widget copy();
+
+	/**
+	 * Called when any dimension or limit changes
+	 * @return 
+	 */
+	public Widget updateSize();
 }

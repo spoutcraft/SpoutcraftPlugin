@@ -99,4 +99,17 @@ public interface Container extends Widget {
 	 * @return 
 	 */
 	public boolean getReverse();
+
+	/**
+	 * Determines if children expand to fill width and height
+	 * @param auto
+	 * @return 
+	 */
+	public Container setAuto(boolean auto);
+
+	/** 
+	 * True if the children will expand to fill width and height
+	 * @return 
+	 */
+	public boolean isAuto();
 }

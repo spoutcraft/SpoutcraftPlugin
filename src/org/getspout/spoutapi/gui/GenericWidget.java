@@ -176,7 +176,8 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setWidth(int width) {
-		this.width = width;
+		this.width = Math.max(getMinWidth(), Math.min(width, getMaxWidth()));
+		updateSize();
 		return this;
 	}
 
@@ -187,7 +188,8 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setHeight(int height) {
-		this.height = height;
+		this.height = Math.max(getMinHeight(), Math.min(height, getMaxHeight()));
+		updateSize();
 		return this;
 	}
 
@@ -234,9 +236,7 @@ public abstract class GenericWidget implements Widget{
 	public Widget setVisible(boolean enable) {
 		if (visible != enable) {
 			visible = enable;
-			if (container != null) {
-				container.updateLayout();
-			}
+			updateSize();
 		}
 		return this;
 	}
@@ -283,6 +283,7 @@ public abstract class GenericWidget implements Widget{
 	@Override
 	public Widget setFixed(boolean fixed) {
 		this.fixed = fixed;
+		updateSize();
 		return this;
 	}
 
@@ -298,23 +299,17 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMargin(int marginAll) {
-		this.marginTop = this.marginRight = this.marginBottom = this.marginLeft = marginAll;
-		return this;
+		return setMargin(marginAll, marginAll, marginAll, marginAll);
 	}
 	
 	@Override
 	public Widget setMargin(int marginTopBottom, int marginLeftRight) {
-		this.marginTop = this.marginBottom = marginTopBottom;
-		this.marginRight = this.marginLeft = marginLeftRight;
-		return this;
+		return setMargin(marginTopBottom, marginLeftRight, marginTopBottom, marginLeftRight);
 	}
 	
 	@Override
 	public Widget setMargin(int marginTop, int marginLeftRight, int marginBottom) {
-		this.marginTop = marginTop;
-		this.marginRight = this.marginLeft = marginLeftRight;
-		this.marginBottom = marginBottom;
-		return this;
+		return setMargin(marginTop, marginLeftRight, marginBottom, marginLeftRight);
 	}
 	
 	@Override
@@ -323,9 +318,38 @@ public abstract class GenericWidget implements Widget{
 		this.marginRight = marginRight;
 		this.marginBottom = marginBottom;
 		this.marginLeft = marginLeft;
+		updateSize();
 		return this;
 	}
-	
+
+	@Override
+	public Widget setMarginTop(int marginTop) {
+		this.marginTop = marginTop;
+		updateSize();
+		return this;
+	}
+
+	@Override
+	public Widget setMarginRight(int marginRight) {
+		this.marginRight = marginRight;
+		updateSize();
+		return this;
+	}
+
+	@Override
+	public Widget setMarginBottom(int marginBottom) {
+		this.marginBottom = marginBottom;
+		updateSize();
+		return this;
+	}
+
+	@Override
+	public Widget setMarginLeft(int marginLeft) {
+		this.marginLeft = marginLeft;
+		updateSize();
+		return this;
+	}
+
 	@Override
 	public int getMarginTop() {
 		return marginTop;
@@ -348,8 +372,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinWidth(int min) {
-		this.minWidth = min;
-		width = Math.max(width, min);
+		minWidth = Math.max(min, 0);
+		setWidth(width);
 		return this;
 	}
 
@@ -360,8 +384,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxWidth(int max) {
-		this.maxWidth = max == 0 ? 427 : max;
-		width = Math.min(width, max);
+		maxWidth = max <= 0 ? 427 : max;
+		setWidth(width);
 		return this;
 	}
 
@@ -372,8 +396,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinHeight(int min) {
-		this.minHeight = min;
-		height = Math.max(height, min);
+		minHeight = Math.max(min, 0);
+		setHeight(height);
 		return this;
 	}
 
@@ -384,8 +408,8 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxHeight(int max) {
-		this.maxHeight = max == 0 ? 240 : max;
-		height = Math.min(height, max);
+		maxHeight = max <= 0 ? 240 : max;
+		setHeight(height);
 		return this;
 	}
 
@@ -414,10 +438,21 @@ public abstract class GenericWidget implements Widget{
 			Widget copy = getType().getWidgetClass().newInstance();
 			copy.setX(getX()).setY(getY()).setWidth(getWidth()).setHeight(getHeight()).setVisible(isVisible());
 			copy.setPriority(getPriority()).setTooltip(getTooltip()).setAnchor(getAnchor());
+			copy.setMargin(getMarginTop(), getMarginRight(), getMarginBottom(), getMarginLeft());
+			copy.setMinWidth(getMinWidth()).setMaxWidth(getMaxWidth()).setMinHeight(getMinHeight()).setMaxHeight(getMaxHeight());
+			copy.setFixed(isFixed());
 			return copy;
 		}
 		catch (Exception e) {
 			throw new IllegalStateException("Unable to create a copy of " + getClass() + ". Does it have a valid widget type?");
 		}
+	}
+
+	@Override
+	public Widget updateSize() {
+		if (container instanceof Container) {
+			container.updateSize();
+		}
+		return this;
 	}
 }
