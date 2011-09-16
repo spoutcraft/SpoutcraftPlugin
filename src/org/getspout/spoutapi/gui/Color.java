@@ -54,6 +54,13 @@ public class Color {
 		this(r/255.0f, g/255.0f, b/255.0f, 1);
 	}
 	
+	public Color(int argb) {
+		setAlpha((argb >>> 24));
+		setRed((argb & 0xFF0000) >>> 16);
+		setGreen((argb & 0xFF00) >>> 8);
+		setBlue(argb & 0xFF);
+	}
+	
 	/**
 	 * 
 	 * @return Red part of the color, as float
@@ -104,10 +111,18 @@ public class Color {
 	
 	/**
 	 * 
-	 * @return Blue part of the color, as float
+	 * @return Alpha part of the color, as float
 	 */
 	public float getAlphaF(){
 		return alpha;
+	}
+	
+	/**
+	 * 
+	 * @return Alpha part of the color, as int
+	 */
+	public int getAlphaI(){
+		return (int) (alpha*255);
 	}
 	
 	/**
@@ -202,5 +217,13 @@ public class Color {
 	 */
 	public static Color ignore(){
 		return new Color(-1F,-1F,-1F,-1F);
+	}
+	
+	
+	public int toInt() {
+		return	(getAlphaI() & 0xFF) << 24
+				| (getRedI() & 0xFF) << 16
+				| (getGreenI() & 0xFF) << 8
+				| (getBlueI() & 0xFF);
 	}
 }

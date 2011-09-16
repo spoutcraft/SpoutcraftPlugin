@@ -73,7 +73,7 @@ public class PacketSky implements SpoutPacket{
 
 	@Override
 	public int getNumBytes() {
-		return 64 + PacketUtil.getNumBytes(sun) + PacketUtil.getNumBytes(moon);
+		return 31 + PacketUtil.getNumBytes(sun) + PacketUtil.getNumBytes(moon);
 	}
 
 	@Override
@@ -84,11 +84,9 @@ public class PacketSky implements SpoutPacket{
 		moonPercent = input.readInt();
 		sun = PacketUtil.readString(input, 256);
 		moon = PacketUtil.readString(input, 256);
-		float r,g,b;
-		r = input.readFloat();
-		g = input.readFloat();
-		b = input.readFloat();
-		skyColor = new Color(r,g,b);
+		skyColor = PacketUtil.readColor(input);
+		fogColor = PacketUtil.readColor(input);
+		cloudColor = PacketUtil.readColor(input);
 	}
 
 	@Override
