@@ -180,22 +180,28 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setHeight(int height) {
-		super.setHeight(height);
-		this.updateLayout();
+		if (super.getHeight() != height) {
+			super.setHeight(height);
+			this.updateLayout();
+		}
 		return this;
 	}
 
 	@Override
 	public Container setWidth(int width) {
-		super.setWidth(width);
-		this.updateLayout();
+		if (super.getWidth() != width) {
+			super.setWidth(width);
+			this.updateLayout();
+		}
 		return this;
 	}
 
 	@Override
 	public Container setLayout(ContainerType type) {
-		this.type = type;
-		updateLayout();
+		if (this.type != type) {
+			this.type = type;
+			updateLayout();
+		}
 		return this;
 	}
 
@@ -206,8 +212,10 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setAlign(WidgetAnchor align) {
-		this.align = align;
-		updateLayout();
+		if (this.align != align) {
+			this.align = align;
+			updateLayout();
+		}
 		return this;
 	}
 
@@ -218,7 +226,10 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setReverse(boolean reverse) {
-		this.reverse = reverse;
+		if (this.reverse != reverse) {
+			this.reverse = reverse;
+			updateLayout();
+		}
 		return this;
 	}
 
