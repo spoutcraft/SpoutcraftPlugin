@@ -62,7 +62,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		child.setAnchor(super.getAnchor());
 		// Relayout if we are already using layout - otherwise this will return immediately
 		if (getScreen() != null) {
-			getScreen().attachWidget(getPlugin(), child);
+			getScreen().attachWidget(child.getPlugin() == null ? getPlugin() : child.getPlugin(), child);
 		}
 		updateSize();
 		updateLayout();
