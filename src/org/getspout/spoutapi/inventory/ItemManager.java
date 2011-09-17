@@ -277,7 +277,7 @@ public interface ItemManager {
 	 * @param key Key of the new item
 	 * @return the unique id or null on error
 	 */
-	public Integer registerCustomItemName(Plugin plugin, String key);
+	public int registerCustomItemName(Plugin plugin, String key);
 	
 	/**
 	 * Returns the id for a custom item.  The key should be unique.
@@ -287,7 +287,7 @@ public interface ItemManager {
 	 * @param key Key of the new item
 	 * @return the unique id or null on error
 	 */
-	public Integer getCustomItemId(Plugin plugin, String key);
+	public int getCustomItemId(Plugin plugin, String key);
 	
 	/**
 	 * Sets the block id for the block that matches this item.  This block will be placed when this item is used.
