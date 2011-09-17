@@ -35,7 +35,7 @@ public class GenericBlock implements Block{
 	}
 
 	@Override
-	public boolean isHasSubtypes() {
+	public boolean hasSubtypes() {
 		return subtypes;
 	}
 

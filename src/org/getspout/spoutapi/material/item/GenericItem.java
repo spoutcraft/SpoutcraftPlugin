@@ -34,7 +34,7 @@ public class GenericItem implements Item {
 	}
 
 	@Override
-	public boolean isHasSubtypes() {
+	public boolean hasSubtypes() {
 		return subtypes;
 	}
 

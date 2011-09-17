@@ -6,7 +6,7 @@ public interface Material {
 	
 	public int getRawData();
 	
-	public boolean isHasSubtypes();
+	public boolean hasSubtypes();
 	
 	public String getName();
 	

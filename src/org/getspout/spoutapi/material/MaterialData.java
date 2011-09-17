@@ -321,7 +321,7 @@ public class MaterialData {
 	
 	public static Material getMaterial(int id, short data) {
 		Material mat = (Material) idMap.get(toLong(id, 0)); //Test if they id has subtypes first
-		if (!mat.isHasSubtypes()) {
+		if (!mat.hasSubtypes()) {
 			return mat;
 		}
 		return (Material) idMap.get(toLong(id, data));

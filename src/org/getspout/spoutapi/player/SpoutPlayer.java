@@ -393,7 +393,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * 
 	 * @return whether this player can fly.
 	 */
-	public boolean isCanFly();
+	public boolean canFly();
 	
 	/**
 	 * Overrides the server wide fly setting, allowing this player to fly, or not to fly. 

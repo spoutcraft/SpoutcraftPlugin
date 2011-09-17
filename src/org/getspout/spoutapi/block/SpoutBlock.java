@@ -21,6 +21,7 @@ import java.io.Serializable;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.inventory.ItemStack;
 
 public interface SpoutBlock extends Block{
 	
@@ -124,6 +125,25 @@ public interface SpoutBlock extends Block{
 	 * Resets the block back to the minecraft standard rules for power.
 	 */
 	public void resetBlockPower();
+	
+	/**
+	 * Gets the relevant block information. Allows manipulation of the base features of each type of block.
+	 * @return block type
+	 */
+	public org.getspout.spoutapi.material.Block getBlockType();
+	
+	/**
+	 * Returns an item stack with 1 of this block inside of it.
+	 * @return itemstack
+	 */
+	public ItemStack toItemStack();
+	
+	/**
+	 * Returns an item stack with the given amount of this block inside it.
+	 * @param amount to create
+	 * @return itemstack
+	 */
+	public ItemStack toItemStack(int amount);
 	
 	@Override
 	public SpoutBlock getFace(BlockFace face);
