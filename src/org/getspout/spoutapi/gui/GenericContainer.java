@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 
 public class GenericContainer extends GenericWidget implements Container {
 
@@ -62,7 +64,8 @@ public class GenericContainer extends GenericWidget implements Container {
 		child.setAnchor(super.getAnchor());
 		// Relayout if we are already using layout - otherwise this will return immediately
 		if (getScreen() != null) {
-			getScreen().attachWidget(child.getPlugin() == null ? getPlugin() : child.getPlugin(), child);
+			Plugin p = child.getPlugin();
+			getScreen().attachWidget(p == Bukkit.getServer().getPluginManager().getPlugin("Spout") ? getPlugin() : p, child);
 		}
 		updateSize();
 		updateLayout();
