@@ -20,12 +20,12 @@ public class Air extends GenericBlock implements Block {
 	}
 
 	@Override
-	public float getSlipperyness() {
+	public float getFriction() {
 		return 0;
 	}
 
 	@Override
-	public Block setSlipperyness(float slip) {
+	public Block setFriction(float slip) {
 		return this;
 	}
 

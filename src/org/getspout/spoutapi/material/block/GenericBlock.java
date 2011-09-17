@@ -61,13 +61,13 @@ public class GenericBlock implements Block{
 	}
 
 	@Override
-	public float getSlipperyness() {
+	public float getFriction() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Block setSlipperyness(float slip) {
+	public Block setFriction(float friction) {
 		// TODO Auto-generated method stub
 		return null;
 	}

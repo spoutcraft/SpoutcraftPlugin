@@ -8,9 +8,9 @@ public interface Block extends Material{
 	
 	public Block setStepSound(SoundEffect sound);
 	
-	public float getSlipperyness();
+	public float getFriction();
 	
-	public Block setSlipperyness(float slip);
+	public Block setFriction(float slip);
 	
 	public float getHardness();
 	

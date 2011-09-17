@@ -1,5 +1,9 @@
 package org.getspout.spoutapi.material;
 
+import gnu.trove.TLongObjectHashMap;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import org.getspout.spoutapi.material.block.*;
 import org.getspout.spoutapi.material.item.Coal;
 import org.getspout.spoutapi.material.item.Dye;
@@ -10,7 +14,7 @@ import org.getspout.spoutapi.material.item.GenericTool;
 import org.getspout.spoutapi.material.item.GenericWeapon;
 
 public class MaterialData {
-	
+	private final static TLongObjectHashMap idMap = new TLongObjectHashMap();
 	public static final Block air = new Air();
 	public static final Block stone = new Solid(1);
 	public static final Block grass = new Grass();
@@ -82,14 +86,14 @@ public class MaterialData {
 	public static final Block sandstoneDoubleSlabs = new DoubleSlabs(43,1);
 	public static final Block woodenDoubleSlabs = new DoubleSlabs(43,2);
 	public static final Block cobblestoneDoubleSlabs = new DoubleSlabs(43,3);
-	//public static final Block brickDoubleSlabs = new DoubleSlabs(43,4);
-	//public static final Block stoneBrickDoubleSlabs = new DoubleSlabs(43,5);
+	public static final Block brickDoubleSlabs = new DoubleSlabs(43,4);
+	public static final Block stoneBrickDoubleSlabs = new DoubleSlabs(43,5);
 	public static final Block stoneSlab = new Slab(44,0);
 	public static final Block sandstoneSlab = new Slab(44,1);
 	public static final Block woodenSlab = new Slab(44,2);
 	public static final Block cobblestoneSlab = new Slab(44,3);
-	//public static final Block brickSlab = new Slab(44,4);
-	//public static final Block stoneBrickSlab = new Slab(44,5);
+	public static final Block brickSlab = new Slab(44,4);
+	public static final Block stoneBrickSlab = new Slab(44,5);
 	public static final Block brick = new Solid(45);
 	public static final Block tnt = new Solid(46);
 	public static final Block bookshelf = new Solid(47);
@@ -140,25 +144,21 @@ public class MaterialData {
 	public static final Block cakeBlock = new Solid(92);
 	public static final Block redstoneRepeaterOff = new Solid(93);
 	public static final Block redstoneRepeaterOn = new Solid(94);
-	//public static final Block lockedChest = new Solid(95);
+	public static final Block lockedChest = new Solid(95);
 	public static final Block trapdoor = new Solid(96);
-	
-	/*
-	 * 1.8 Blocks
-	 */
-	//public static final Block silverfishStone = new Solid(97);
-	//public static final Block stoneBricks = new Solid(98);
-	//public static final Block mushroomA = new Solid(99);
-	//public static final Block mushroomB = new Solid(100);
-	//public static final Block ironBars = new Solid(101);
-	//public static final Block glassPane = new Solid(102);
-	//public static final Block watermelon = new Solid(103);
-	//public static final Block unknown1 = new Solid(104);
-	//public static final Block unknown2 = new Solid(105);
-	//public static final Block vines = new Solid(106);
-	//public static final Block fenceGate = new Solid(107);
-	//public static final Block brickStairs = new Solid(108);
-	//public static final Block stoneBrickStairs = new Solid(109);
+	public static final Block silverfishStone = new Solid(97);
+	public static final Block stoneBricks = new Solid(98);
+	public static final Block hugeRedMushroom = new Solid(99);
+	public static final Block hugeBrownMushroom = new Solid(100);
+	public static final Block ironBars = new Solid(101);
+	public static final Block glassPane = new Solid(102);
+	public static final Block watermelon = new Solid(103);
+	public static final Block pumpkinStem = new Solid(104);
+	public static final Block melonStem = new Solid(105);
+	public static final Block vines = new Solid(106);
+	public static final Block fenceGate = new Solid(107);
+	public static final Block brickStairs = new Solid(108);
+	public static final Block stoneBrickStairs = new Solid(109);
 	
 	public static final Item ironShovel = new GenericTool(256);
 	public static final Item ironPickaxe = new GenericTool(257);
@@ -280,7 +280,75 @@ public class MaterialData {
 	public static final Item cookie = new GenericFood(357);
 	public static final Item map = new GenericItem(358);
 	public static final Item shears = new GenericTool(359);
+	public static final Item melonSlice = new GenericFood(360);
+	public static final Item pumpkinSeeds = new GenericItem(361);
+	public static final Item melonSeeds = new GenericItem(362);
+	public static final Item rawBeef = new GenericFood(363);
+	public static final Item steak = new GenericFood(364);
+	public static final Item rawChicken = new GenericFood(365);
+	public static final Item cookedChicken = new GenericFood(366);
+	public static final Item rottenFlesh = new GenericFood(367);
+	public static final Item enderPearl = new GenericItem(368);
 	public static final Item goldMusicDisc = new GenericItem(2256);
 	public static final Item greenMusicDisc = new GenericItem(2257);
+	
+	private static long toLong(int msw, int lsw) {
+		return ((long) msw << 32) + lsw - Integer.MIN_VALUE;
+	}
+
+	static {
+		Field[] fields = MaterialData.class.getFields();
+		for (Field f : fields) {
+			if (f.isAccessible() && Modifier.isStatic(f.getModifiers())) {
+				try {
+					Object value = f.get(null);
+					if (value instanceof Material) {
+						Material mat = (Material)value;
+						idMap.put(toLong(mat.getRawId(), mat.getRawData()), mat);
+					}
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static Material getMaterial(int id) {
+		return getMaterial(id, (short)0);
+	}
+	
+	public static Material getMaterial(int id, short data) {
+		Material mat = (Material) idMap.get(toLong(id, 0)); //Test if they id has subtypes first
+		if (!mat.isHasSubtypes()) {
+			return mat;
+		}
+		return (Material) idMap.get(toLong(id, data));
+	}
+	
+	public static Block getBlock(int id) {
+		return getBlock(id, (short)0);
+	}
+	
+	public static Block getBlock(int id, short data) {
+		Material mat = getMaterial(id, data);
+		if (mat instanceof Block) {
+			return (Block)mat;
+		}
+		return null;
+	}
+	
+	public static Item getItem(int id) {
+		return getItem(id, (short)0);
+	}
+	
+	public static Item getItem(int id, short data) {
+		Material mat = getMaterial(id, data);
+		if (mat instanceof Item) {
+			return (Item)mat;
+		}
+		return null;
+	}
 
 }

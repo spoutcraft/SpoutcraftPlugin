@@ -91,8 +91,6 @@ public enum SoundEffect {
 	/* Block Sound Effects */
 	PORTAL(65, "portal.portal"),
 	PORTAL_TRAVEL(66, "portal.travel"),
-	@Deprecated
-	PROTAL_TRIGGER(67, "portal.trigger"),
 	PORTAL_TRIGGER(67, "portal.trigger"),
 	CLOTH(68, "step.cloth"),
 	GRASS(69, "step.grass"),
@@ -118,7 +116,9 @@ public enum SoundEffect {
 	HURT(87, "random.hurt"),
 	POP(88, "random.pop"),
 	SPLASH(89, "random.splash"),
-	WOOD_CLICK(90, "random.wood click"),	
+	WOOD_CLICK(90, "random.wood click"),
+	
+	CUSTOM_EFFECT(91, "custom"),
 	;
 	
 	private final int id;
