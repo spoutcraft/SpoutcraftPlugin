@@ -200,12 +200,11 @@ public class GenericLabel extends GenericWidget implements Label{
 				textHeight = getStringHeight(text);
 				textWidth = getStringWidth(text);
 			}
+			super.setMinHeight(textHeight);
+			super.setMinWidth(textWidth);
 			if (super.isFixed()) {
 				super.setHeight(textHeight);
 				super.setWidth(textWidth);
-			} else {
-				super.setMinHeight(textHeight);
-				super.setMinWidth(textWidth);
 			}
 		} else {
 			textHeight = textWidth = -1;
