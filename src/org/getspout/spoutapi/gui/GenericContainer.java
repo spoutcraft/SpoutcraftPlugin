@@ -180,22 +180,28 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setHeight(int height) {
-		super.setHeight(height);
-		this.updateLayout();
+		if (super.getHeight() != height) {
+			super.setHeight(height);
+			this.updateLayout();
+		}
 		return this;
 	}
 
 	@Override
 	public Container setWidth(int width) {
-		super.setWidth(width);
-		this.updateLayout();
+		if (super.getWidth() != width) {
+			super.setWidth(width);
+			this.updateLayout();
+		}
 		return this;
 	}
 
 	@Override
 	public Container setLayout(ContainerType type) {
-		this.type = type;
-		updateLayout();
+		if (this.type != type) {
+			this.type = type;
+			updateLayout();
+		}
 		return this;
 	}
 
@@ -206,8 +212,10 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setAlign(WidgetAnchor align) {
-		this.align = align;
-		updateLayout();
+		if (this.align != align) {
+			this.align = align;
+			updateLayout();
+		}
 		return this;
 	}
 
@@ -218,7 +226,10 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setReverse(boolean reverse) {
-		this.reverse = reverse;
+		if (this.reverse != reverse) {
+			this.reverse = reverse;
+			updateLayout();
+		}
 		return this;
 	}
 
@@ -229,7 +240,8 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container updateLayout() {
-		if (super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
+		if (!recalculating && super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
+			recalculating = true; // Prevent us from getting into a loop
 			List<Widget> visibleChildren = new ArrayList<Widget>();
 			int totalwidth = 0, totalheight = 0, newwidth, newheight, vcount = 0, hcount = 0;
 			int availableWidth = auto ? getWidth() : getMinWidth(), availableHeight = auto ? getHeight() : getMinHeight();
@@ -350,6 +362,7 @@ public class GenericContainer extends GenericWidget implements Container {
 					left += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
 				}
 			}
+			recalculating = false;
 		}
 		return this;
 	}
@@ -376,7 +389,7 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container updateSize() {
-		if (!isFixed() && !recalculating) {
+		if (!recalculating && !isFixed()) {
 			recalculating = true; // Prevent us from getting into a loop due to both trickle down and push up
 			int minwidth = 0, maxwidth = 0, minheight = 0, maxheight = 0,  minhoriz, maxhoriz, minvert, maxvert;
 			// Work out the minimum and maximum dimensions for the contents of this container
@@ -432,8 +445,12 @@ public class GenericContainer extends GenericWidget implements Container {
 				maxWidthCalc = maxwidth;
 				minHeightCalc = minheight;
 				maxHeightCalc = maxheight;
-				if (getContainer() instanceof Container) { // Push up to parents
-					((Container) getContainer()).updateSize();
+				recalculating = false;
+				updateLayout();
+				if (getContainer() != null) { // Push up to parents
+					recalculating = true;
+					getContainer().updateSize();
+					getContainer().updateLayout();
 				}
 			}
 			recalculating = false;

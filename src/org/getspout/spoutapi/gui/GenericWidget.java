@@ -176,8 +176,11 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setWidth(int width) {
-		this.width = Math.max(getMinWidth(), Math.min(width, getMaxWidth()));
-		updateSize();
+		width = Math.max(getMinWidth(), Math.min(width, getMaxWidth()));
+		if (this.width != width) {
+			this.width = width;
+			updateSize();
+		}
 		return this;
 	}
 
@@ -188,8 +191,11 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setHeight(int height) {
-		this.height = Math.max(getMinHeight(), Math.min(height, getMaxHeight()));
-		updateSize();
+		height = Math.max(getMinHeight(), Math.min(height, getMaxHeight()));
+		if (this.height != height) {
+			this.height = height;
+			updateSize();
+		}
 		return this;
 	}
 
@@ -282,8 +288,10 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setFixed(boolean fixed) {
-		this.fixed = fixed;
-		updateSize();
+		if (this.fixed != fixed) {
+			this.fixed = fixed;
+			updateSize();
+		}
 		return this;
 	}
 
@@ -314,39 +322,49 @@ public abstract class GenericWidget implements Widget{
 	
 	@Override
 	public Widget setMargin(int marginTop, int marginRight, int marginBottom, int marginLeft) {
-		this.marginTop = marginTop;
-		this.marginRight = marginRight;
-		this.marginBottom = marginBottom;
-		this.marginLeft = marginLeft;
-		updateSize();
+		if (this.marginTop != marginTop || this.marginRight != marginRight || this.marginBottom != marginBottom || this.marginLeft != marginLeft) {
+			this.marginTop = marginTop;
+			this.marginRight = marginRight;
+			this.marginBottom = marginBottom;
+			this.marginLeft = marginLeft;
+			updateSize();
+		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginTop(int marginTop) {
-		this.marginTop = marginTop;
-		updateSize();
+		if (this.marginTop != marginTop) {
+			this.marginTop = marginTop;
+			updateSize();
+		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginRight(int marginRight) {
-		this.marginRight = marginRight;
-		updateSize();
+		if (this.marginRight != marginRight) {
+			this.marginRight = marginRight;
+			updateSize();
+		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginBottom(int marginBottom) {
-		this.marginBottom = marginBottom;
-		updateSize();
+		if (this.marginBottom != marginBottom) {
+			this.marginBottom = marginBottom;
+			updateSize();
+		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginLeft(int marginLeft) {
-		this.marginLeft = marginLeft;
-		updateSize();
+		if (this.marginLeft != marginLeft) {
+			this.marginLeft = marginLeft;
+			updateSize();
+		}
 		return this;
 	}
 
@@ -372,8 +390,12 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinWidth(int min) {
-		minWidth = Math.max(min, 0);
-		setWidth(width);
+		min = Math.max(min, 0);
+		if (minWidth != min) {
+			minWidth = min;
+			updateSize();
+			setWidth(width); // Enforce our new size if needed
+		}
 		return this;
 	}
 
@@ -384,8 +406,12 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxWidth(int max) {
-		maxWidth = max <= 0 ? 427 : max;
-		setWidth(width);
+		max = max <= 0 ? 427 : max;
+		if (maxWidth != max) {
+			maxWidth = max;
+			updateSize();
+			setWidth(width); // Enforce our new size if needed
+		}
 		return this;
 	}
 
@@ -396,8 +422,12 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMinHeight(int min) {
-		minHeight = Math.max(min, 0);
-		setHeight(height);
+		min = Math.max(min, 0);
+		if (minHeight != min) {
+			minHeight = min;
+			updateSize();
+			setHeight(height); // Enforce our new size if needed
+		}
 		return this;
 	}
 
@@ -408,8 +438,12 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget setMaxHeight(int max) {
-		maxHeight = max <= 0 ? 240 : max;
-		setHeight(height);
+		max = max <= 0 ? 240 : max;
+		if (maxHeight != max) {
+			maxHeight = max;
+			updateSize();
+			setHeight(height); // Enforce our new size if needed
+		}
 		return this;
 	}
 
@@ -450,7 +484,7 @@ public abstract class GenericWidget implements Widget{
 
 	@Override
 	public Widget updateSize() {
-		if (container instanceof Container) {
+		if (container != null) {
 			container.updateSize();
 		}
 		return this;
