@@ -37,6 +37,7 @@ public enum WidgetType {
 	EntityWidget(15, GenericEntityWidget.class, false),
 	OverlayScreen(16, GenericOverlayScreen.class, false),
 	HungerBar(17, HungerBar.class, false),
+	ExpBar(18, ExpBar.class, false),
 	;
 	
 	private final int id;
