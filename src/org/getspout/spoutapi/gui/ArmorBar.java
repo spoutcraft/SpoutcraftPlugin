@@ -28,7 +28,7 @@ public class ArmorBar extends GenericWidget{
 
 	public ArmorBar() {
 		setDirty(false);
-		setX(427 / 2 + 82); //295
+		setX(427 / 2 - 91); //122
 		setY(191);
 		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
