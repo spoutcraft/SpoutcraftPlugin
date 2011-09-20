@@ -27,8 +27,8 @@ public class BubbleBar extends GenericWidget implements Widget{
 	public BubbleBar() {
 		super();
 		setDirty(false);
-		setX(427 / 2 - 91); //122
-		setY(199);
+		setX(427 / 2 + 82); // 295
+		setY(191);
 		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
 	

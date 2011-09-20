@@ -30,7 +30,7 @@ public class HealthBar extends GenericWidget{
 		super();
 		setDirty(false);
 		setX(427 / 2 - 91); //122
-		setY(208);
+		setY(201);
 		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
 	
