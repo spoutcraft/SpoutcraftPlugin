@@ -28,13 +28,15 @@ public class GenericButton extends GenericControl implements Button {
 	protected GenericLabel label = (GenericLabel) new GenericLabel().setAlign(WidgetAnchor.TOP_CENTER);
 	protected String disabledText = "";
 	protected Color hoverColor = new Color(1, 1, 0.627F);
+	protected float scale = 1.0F;
+	
 	public GenericButton() {
 		
 	}
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 2;
+		return super.getVersion() + 3;
 	}
 	
 	public GenericButton(String text) {
@@ -43,7 +45,7 @@ public class GenericButton extends GenericControl implements Button {
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + label.getNumBytes() + PacketUtil.getNumBytes(getDisabledText()) + 5;
+		return super.getNumBytes() + label.getNumBytes() + PacketUtil.getNumBytes(getDisabledText()) + 9;
 	}
 
 	@Override
@@ -52,6 +54,7 @@ public class GenericButton extends GenericControl implements Button {
 		label.readData(input);
 		setDisabledText(PacketUtil.readString(input));
 		setHoverColor(PacketUtil.readColor(input));
+		scale = input.readFloat();
 	}
 
 	@Override
@@ -60,6 +63,7 @@ public class GenericButton extends GenericControl implements Button {
 		label.writeData(output);
 		PacketUtil.writeString(output, getDisabledText());
 		PacketUtil.writeColor(output, getHoverColor());
+		output.writeFloat(scale);
 	}
 
 	@Override
@@ -188,5 +192,16 @@ public class GenericButton extends GenericControl implements Button {
 	@Override
 	public Label doResize() {
 		return label.doResize();
+	}
+
+	@Override
+	public Label setScale(float scale) {
+		this.scale = scale;
+		return this;
+	}
+
+	@Override
+	public float getScale() {
+		return scale;
 	}
 }
