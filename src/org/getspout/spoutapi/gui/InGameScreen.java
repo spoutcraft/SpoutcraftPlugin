@@ -51,7 +51,6 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		
 		attachWidget(null, health).attachWidget(null, bubble).attachWidget(null, chat).attachWidget(null, chatText).attachWidget(null, armor).attachWidget(null, hunger).attachWidget(null, exp);
 
-		toggleSurvivalHUD(!SpoutManager.getPlayerFromId(playerId).getGameMode().equals(GameMode.CREATIVE));
 	}
 	
 	@Override
