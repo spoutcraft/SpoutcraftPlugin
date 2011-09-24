@@ -49,6 +49,18 @@ public interface InGameHUD extends Screen{
 	public HealthBar getHealthBar();
 	
 	/**
+	 * Gets the hunger bar associated with this HUD
+	 * @return hunger bar
+	 */
+	public HungerBar getHungerBar();
+	
+	/**
+	 * Gets the exp bar associated with this HUD
+	 * @return exp bar
+	 */
+	public ExpBar getExpBar();
+	
+	/**
 	 * Is true if the widget can be attached to the screen.
 	 * Primary controls, like the health bar can not be attached twice.
 	 * Control widgets that require input from the mouse or keyboard can not be attached
@@ -76,4 +88,10 @@ public interface InGameHUD extends Screen{
 	 */
 	public boolean closePopup();
 
+	/**
+	 * Ease of use method setting all the survival mode HUD elements to setVisible(toggle);
+	 * 
+	 * @param toggle true or false
+	 */
+	public void toggleSurvivalHUD(boolean toggle);
 }
