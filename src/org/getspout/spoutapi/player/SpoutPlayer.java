@@ -389,18 +389,60 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public void resetMovement();
 	
 	/**
-	 * Returns either the server wide fly setting, or specific player setting if a plugin has used setCanFly()
+	 * Sets if the player can or can't toggle flying through normal means.
 	 * 
-	 * @return whether this player can fly.
+	 * @param fly to set
+	 */
+	public void setCanFly(boolean fly);
+	
+	/**
+	 * Checks if the player can or can't toggle flying through normal means.
+	 * 
+	 * @return ability to fly
 	 */
 	public boolean canFly();
 	
 	/**
-	 * Overrides the server wide fly setting, allowing this player to fly, or not to fly. 
+	 * Sets if the player is currently flying or not.
 	 * 
-	 * @param fly
+	 * @param flying to set
 	 */
-	public void setCanFly(boolean fly);
+	public void setFlying(boolean flying);
+	
+	/**
+	 * Gets if the player is currently flying or not.
+	 * 
+	 * @return currently flying
+	 */
+	public boolean isFlying();
+	
+	/**
+	 * Sets if the player is invulnerable to damage or not.
+	 * 
+	 * @param invulnerable to set
+	 */
+	public void setInvulnerable(boolean invulnerable);
+	
+	/**
+	 * Gets if the player is invulnerable to damage or not.
+	 * 
+	 * @return invulnerable
+	 */
+	public boolean isInvulnerable();
+	
+	/**
+	 * Sets if the player can instantly break blocks or not.
+	 * 
+	 * @param instantBreak value to set
+	 */
+	public void setInstantBreak(boolean instantBreak);
+	
+	/**
+	 * Checks if the player can instantly break blocks or not.
+	 * 
+	 * @return instantBreak
+	 */
+	public boolean canInstantBreak();
 	
 	public Location getLastClickedLocation();
 	
