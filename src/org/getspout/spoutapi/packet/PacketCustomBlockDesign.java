@@ -38,11 +38,11 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 		}
 	}
 	
-	private Integer getBlockId() {
+	protected Integer getBlockId() {
 		return blockId == -1 ? null : blockId;
 	}
 	
-	private Integer getMetaData() {
+	protected Integer getMetaData() {
 		return blockId == -1 ? null : metaData;
 	}
 	
