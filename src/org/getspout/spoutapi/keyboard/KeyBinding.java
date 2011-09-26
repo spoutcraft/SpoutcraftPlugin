@@ -1,5 +1,7 @@
 package org.getspout.spoutapi.keyboard;
 
+import java.util.UUID;
+
 import org.bukkit.plugin.Plugin;
 
 public class KeyBinding {
@@ -8,6 +10,7 @@ public class KeyBinding {
 	private String description;
 	private Plugin plugin;
 	private BindingExecutionDelegate delegate;
+	private UUID uniqueId;
 	
 	public KeyBinding(String id, Keyboard defaultkey, String description, Plugin plugin, BindingExecutionDelegate delegate)
 	{
@@ -16,6 +19,7 @@ public class KeyBinding {
 		this.description = description;
 		this.plugin = plugin;
 		this.delegate = delegate;
+		this.setUniqueId(UUID.randomUUID());
 	}
 
 	public String getId() {
@@ -56,5 +60,13 @@ public class KeyBinding {
 
 	public void setDelegate(BindingExecutionDelegate delegate) {
 		this.delegate = delegate;
+	}
+
+	public void setUniqueId(UUID uniqueId) {
+		this.uniqueId = uniqueId;
+	}
+
+	public UUID getUniqueId() {
+		return uniqueId;
 	}
 }

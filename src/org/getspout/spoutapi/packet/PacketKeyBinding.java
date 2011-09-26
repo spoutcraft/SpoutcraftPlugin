@@ -3,10 +3,9 @@ package org.getspout.spoutapi.packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.KeyBinding;
 import org.getspout.spoutapi.keyboard.Keyboard;
 
@@ -18,6 +17,7 @@ public class PacketKeyBinding implements SpoutPacket {
 	String plugin;
 	boolean pressed;
 	int screen;
+	UUID uniqueId;
 
 	public PacketKeyBinding(){
 
@@ -33,16 +33,14 @@ public class PacketKeyBinding implements SpoutPacket {
 		{
 			return 0;
 		}
-		return PacketUtil.getNumBytes(binding.getId()) + PacketUtil.getNumBytes(binding.getPlugin().getDescription().getName()) + 4 + PacketUtil.getNumBytes(binding.getDescription());
+		return PacketUtil.getNumBytes(binding.getId()) + PacketUtil.getNumBytes(binding.getPlugin().getDescription().getName()) + 4 + PacketUtil.getNumBytes(binding.getDescription()) + 16;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
-		id = PacketUtil.readString(input);
-		plugin = PacketUtil.readString(input);
 		key = Keyboard.getKey(input.readInt());
 		pressed = input.readBoolean();
-		screen = input.readInt();
+		uniqueId = new UUID(input.readLong(), input.readLong());
 	}
 
 	@Override
@@ -51,11 +49,13 @@ public class PacketKeyBinding implements SpoutPacket {
 		PacketUtil.writeString(output, binding.getDescription());
 		PacketUtil.writeString(output, binding.getPlugin().getDescription().getName());
 		output.writeInt(binding.getDefaultKey().getKeyCode());
+		output.writeLong(binding.getUniqueId().getMostSignificantBits());
+		output.writeLong(binding.getUniqueId().getLeastSignificantBits());
 	}
 
 	@Override
 	public void run(int playerId) {
-		SpoutManager.getKeyBindingManager().summonKey(id, Bukkit.getServer().getPluginManager().getPlugin(plugin), SpoutManager.getPlayerFromId(playerId), key, ScreenType.getType(screen), pressed);
+		SpoutManager.getKeyBindingManager().summonKey(uniqueId, SpoutManager.getPlayerFromId(playerId), key, pressed);
 	}
 
 	@Override
