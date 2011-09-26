@@ -39,13 +39,11 @@ public class PacketCustomBlockOverride implements SpoutPacket {
 		}
 	}
 	
-	@SuppressWarnings("unused")
-	private Integer getBlockId() {
+	protected Integer getBlockId() {
 		return blockId == -1 ? null : blockId;
 	}
 	
-	@SuppressWarnings("unused")
-	private Integer getMetaData() {
+	protected Integer getMetaData() {
 		return blockId == -1 ? null : metaData;
 	}
 	

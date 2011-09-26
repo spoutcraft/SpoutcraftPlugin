@@ -32,8 +32,8 @@ public class GenericTextField extends GenericControl implements TextField{
 	
 	protected String text = "";
 	protected int cursor = 0;
-	protected int maxChars = 0;
-	protected int maxLines = 0;
+	protected int maxChars = 16;
+	protected int maxLines = 1;
 	protected int tabIndex = 0;
 	protected boolean focus = false;
 	protected boolean password = false;
