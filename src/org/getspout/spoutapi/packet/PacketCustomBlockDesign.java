@@ -4,19 +4,20 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.getspout.spoutapi.inventory.SpoutCustomBlockDesign;
+import org.getspout.spoutapi.inventory.BlockDesign;
+import org.getspout.spoutapi.material.block.GenericCustomBlock;
 
 public class PacketCustomBlockDesign implements SpoutPacket {
 
 	private Integer blockId;
 	private Integer metaData;
 
-	private SpoutCustomBlockDesign design;
+	private BlockDesign design;
 	
 	public PacketCustomBlockDesign() {
 	}
 	
-	public PacketCustomBlockDesign(Integer blockId, Integer metaData, SpoutCustomBlockDesign design) {
+	public PacketCustomBlockDesign(Integer blockId, Integer metaData, BlockDesign design) {
 		this.design = design;
 		this.blockId = blockId;
 		this.metaData = metaData;
@@ -47,14 +48,15 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 	}
 	
 	public int getNumBytes() {
-		int designBytes = (design == null) ? SpoutCustomBlockDesign.getResetNumBytes() : design.getNumBytes();
+		int designBytes = (design == null) ? design.getResetNumBytes() : design.getNumBytes();
 		return 8 + designBytes;
 	}
 	
 	public void readData(DataInputStream input) throws IOException {
 		setBlockId(input.readInt());
 		setMetaData(input.readInt());
-		design = new SpoutCustomBlockDesign();
+		//TODO: Make this work like the Widget packet
+		design = new GenericCustomBlock(blockId);
 		design.read(input);
 	}
 	
@@ -64,7 +66,7 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 		if (design != null) {
 			design.write(output);
 		} else {
-			SpoutCustomBlockDesign.writeReset(output);
+			design.writeReset(output);
 		}
 	}
 	
@@ -82,7 +84,7 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return SpoutCustomBlockDesign.getVersion();
+		return design.getVersion();
 	}
 
 }

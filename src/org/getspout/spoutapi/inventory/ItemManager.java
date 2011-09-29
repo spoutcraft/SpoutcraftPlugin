@@ -20,6 +20,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.material.block.GenericCustomBlock;
 
 public interface ItemManager {
 
@@ -330,6 +331,6 @@ public interface ItemManager {
 	 * @param design the design to use instead of the block
 	 */
 	
-	public void setCustomBlockDesign(Integer blockId, Integer metaData, SpoutCustomBlockDesign design);
+	public void setCustomBlockDesign(Integer blockId, Integer metaData, GenericCustomBlock design);
 	
 }
