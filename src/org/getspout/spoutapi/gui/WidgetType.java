@@ -18,36 +18,64 @@ package org.getspout.spoutapi.gui;
 
 import java.util.HashMap;
 
-public enum WidgetType {
-	Label(0, GenericLabel.class, false),
-	HealthBar(1, HealthBar.class, false),
-	BubbleBar(2, BubbleBar.class, false),
-	ChatBar(3, ChatBar.class, false),
-	ChatTextBox(4, ChatTextBox.class, false),
-	ArmorBar(5, ArmorBar.class, false),
-	Texture(6, GenericTexture.class, false),
-	PopupScreen(7, GenericPopup.class, false),
-	InGameScreen(8, InGameScreen.class, false),
-	ItemWidget(9, GenericItemWidget.class, false),
-	Button(10, GenericButton.class, false),
-	Slider(11, GenericSlider.class, false),
-	TextField(12, GenericTextField.class, false),
-	Gradient(13, GenericGradient.class, false),
-	Container(14, GenericContainer.class, true), 
-	EntityWidget(15, GenericEntityWidget.class, false),
-	OverlayScreen(16, GenericOverlayScreen.class, false),
-	HungerBar(17, HungerBar.class, false),
-	ExpBar(18, ExpBar.class, false),
-	;
+public class WidgetType {
+	private static HashMap<WidgetType, Integer> lookupClass = new HashMap<WidgetType, Integer>();
+	private static HashMap<Integer, WidgetType> lookupId = new HashMap<Integer, WidgetType>();
+	private static int lastId = 0;
+
+	public static WidgetType Label = new WidgetType(GenericLabel.class, 0);
+	public static WidgetType HealthBar = new WidgetType(HealthBar.class, 1);
+	public static WidgetType BubbleBar = new WidgetType(BubbleBar.class, 2);
+	public static WidgetType ChatBar = new WidgetType(ChatBar.class, 3);
+	public static WidgetType ChatTextBox = new WidgetType(ChatTextBox.class, 4);
+	public static WidgetType ArmorBar = new WidgetType(ArmorBar.class, 5);
+	public static WidgetType Texture = new WidgetType(GenericTexture.class, 6);
+	public static WidgetType PopupScreen = new WidgetType(GenericPopup.class, 7);
+	public static WidgetType InGameScreen = new WidgetType(null, 8);
+	public static WidgetType ItemWidget = new WidgetType(GenericItemWidget.class, 9);
+	public static WidgetType Button = new WidgetType(GenericButton.class, 10);
+	public static WidgetType Slider = new WidgetType(GenericSlider.class, 11);
+	public static WidgetType TextField = new WidgetType(GenericTextField.class, 12);
+	public static WidgetType Gradient = new WidgetType(GenericGradient.class, 13);
+	public static WidgetType Container = new WidgetType(GenericGradient.class, 14, true);
+	public static WidgetType EntityWidget = new WidgetType(GenericEntityWidget.class, 15);
+	public static WidgetType OverlayScreen = new WidgetType(GenericOverlayScreen.class, 16);
+	public static WidgetType HungerBar = new WidgetType(HungerBar.class, 17);
+	public static WidgetType ExpBar = new WidgetType(ExpBar.class, 18);
 	
 	private final int id;
-	private final boolean serverOnly;
+	private final boolean server;
 	private final Class<? extends Widget> widgetClass;
-	private static final HashMap<Integer, WidgetType> lookupId = new HashMap<Integer, WidgetType>();
-	WidgetType(final int id, final Class<? extends Widget> widgetClass, final boolean serverOnly) {
+
+	public WidgetType(Class<? extends Widget> widget) {
+		widgetClass = widget;
+		id = lastId;
+		lastId++;
+		lookupClass.put(this, id);
+		lookupId.put(id, this);
+		server = false;
+	}
+
+	private WidgetType(Class<? extends Widget> widget, int id) {
+		widgetClass = widget;
 		this.id = id;
-		this.widgetClass = widgetClass;
-		this.serverOnly = serverOnly;
+		if (id > lastId) {
+			lastId = id;
+		}
+		lookupClass.put(this, id);
+		lookupId.put(id, this);
+		server = false;
+	}
+
+	private WidgetType(Class<? extends Widget> widget, int id, boolean server) {
+		widgetClass = widget;
+		this.id = id;
+		if (id > lastId) {
+			lastId = id;
+		}
+		lookupClass.put(this, id);
+		lookupId.put(id, this);
+		this.server = server;
 	}
 	
 	public int getId() {
@@ -58,18 +86,20 @@ public enum WidgetType {
 		return widgetClass;
 	}
 	
+	public static Integer getWidgetId(Class<? extends Widget> widget) {
+		return lookupClass.get(widget);
+	}
+
 	public static WidgetType getWidgetFromId(int id) {
 		return lookupId.get(id);
 	}
 	
-	static {
-		for (WidgetType packet : values()) {
-			lookupId.put(packet.getId(), packet);
-		}
+	public static int getNumWidgetTypes() {
+		return lastId;
 	}
 
 	public boolean isServerOnly() {
-		return serverOnly;
+		return server;
 	}
 
 }

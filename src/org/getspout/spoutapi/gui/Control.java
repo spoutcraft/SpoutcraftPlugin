@@ -56,4 +56,8 @@ public interface Control extends Widget{
 	 * @return Control
 	 */
 	public Control setDisabledColor(Color color);
+
+	public boolean isFocus();
+
+	public Control setFocus(boolean focus);
 }

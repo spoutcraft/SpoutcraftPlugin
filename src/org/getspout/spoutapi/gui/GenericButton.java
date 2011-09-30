@@ -175,7 +175,6 @@ public class GenericButton extends GenericControl implements Button {
 
 	@Override
 	public void onButtonClick(ButtonClickEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 

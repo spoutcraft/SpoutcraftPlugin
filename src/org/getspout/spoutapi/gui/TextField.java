@@ -66,9 +66,10 @@ public interface TextField extends Control{
 	public int getMaximumLines();
 	
 	/**
-	 * Sets the maximum lines this text field can hold
-	 * @param max lines
-	 * @return max lines
+	 * Sets the maximum lines this text field can hold. If zero is passed, the text field will hold as many lines as it can depending on its size.
+	 * 
+	 * @param max lines (0 – 127)
+	 * @return textfield
 	 */
 	public TextField setMaximumLines(int max);
 	

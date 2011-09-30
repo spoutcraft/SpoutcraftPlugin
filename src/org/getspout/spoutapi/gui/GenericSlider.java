@@ -59,8 +59,7 @@ public class GenericSlider extends GenericControl implements Slider {
 	public Slider setSliderPosition(float value) {
 		if (value > 1f) {
 			value = 1f;
-		}
-		else if (value < 0f) {
+		} else if (value < 0f) {
 			value = 0f;
 		}
 		slider = value;
@@ -79,7 +78,6 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public void onSliderDrag(SliderDragEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 }

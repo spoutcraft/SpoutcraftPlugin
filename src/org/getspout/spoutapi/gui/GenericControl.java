@@ -23,7 +23,7 @@ import java.io.IOException;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public abstract class GenericControl extends GenericWidget implements Control{
-
+	protected boolean focus = false;
 	protected boolean enabled = true;
 	protected Color color = new Color(0.878F, 0.878F, 0.878F);
 	protected Color disabledColor = new Color(0.625F, 0.625F, 0.625F);
@@ -33,12 +33,12 @@ public abstract class GenericControl extends GenericWidget implements Control{
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 2;
+		return super.getVersion() + 3;
 	}
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + 11;
+		return super.getNumBytes() + 12;
 	}
 
 	@Override
@@ -47,6 +47,7 @@ public abstract class GenericControl extends GenericWidget implements Control{
 		setEnabled(input.readBoolean());
 		setColor(PacketUtil.readColor(input));
 		setDisabledColor(PacketUtil.readColor(input));
+		setFocus(input.readBoolean());
 	}
 
 	@Override
@@ -55,6 +56,7 @@ public abstract class GenericControl extends GenericWidget implements Control{
 		output.writeBoolean(isEnabled());
 		PacketUtil.writeColor(output, getColor());
 		PacketUtil.writeColor(output, getDisabledColor());
+		output.writeBoolean(isFocus());
 	}
 	
 	@Override
@@ -90,6 +92,14 @@ public abstract class GenericControl extends GenericWidget implements Control{
 		return this;
 	}
 	
+	public boolean isFocus() {
+		return focus;
+	}
+	
+	public Control setFocus(boolean focus) {
+		this.focus = focus;
+		return this;
+	}	
 	@Override
 	public Control copy() {
 		return ((Control)super.copy()).setEnabled(isEnabled()).setColor(getColor()).setDisabledColor(getDisabledColor());
