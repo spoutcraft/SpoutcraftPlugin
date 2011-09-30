@@ -20,7 +20,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-import org.getspout.spoutapi.material.block.GenericCustomBlock;
+import org.getspout.spoutapi.material.CustomBlock;
 
 public interface ItemManager {
 
@@ -185,22 +185,11 @@ public interface ItemManager {
 	
 	/**
 	 * Sets the texture of a custom item
-	 *  
-	 * Please use the version that includes the associated plugin
-	 * 
-	 * @param id custom item id
-	 * @param texture to set
-	 */
-	@Deprecated
-	public void setItemTexture(int id, String texture);
-	
-	/**
-	 * Sets the texture of a custom item
 	 * @param id custom item id
 	 * @param plugin the plugin to associate with the texture
 	 * @param texture to set
 	 */
-	public void setItemTexture(int id, Plugin plugin, String texture);
+	public void setCustomItemTexture(int id, Plugin plugin, String texture);
 
 	/**
 	 * Gets the custom texture of the item, or null if none exists, for use with pre-caching
@@ -265,6 +254,7 @@ public interface ItemManager {
 	 * @param data of the item
 	 */
 	public void resetTexture(Material item, short data);
+	
 	/**
 	 * Resets the names and textures of all items to the notchian defaults. Use with care.
 	 */
@@ -312,15 +302,14 @@ public interface ItemManager {
 	public ItemStack getCustomItemStack(int id, int size);
 	
 	/**
-	 * Overrides the block at location (x, y, z) to be a block with blockId and metaData
+	 * Overrides the block to be the customBlock
 	 * 
 	 * This can be used to set custom blocks at the location.
 	 *
 	 * @param block the block to override
-	 * @param blockId the block id to use instead of the block (null to clear override)
-	 * @param metaData the metaData for the block
+	 * @param customBlock the custom block to use instead of the block
 	 */
-	public boolean overrideBlock(Block block, Integer blockId, Integer metaData);
+	public boolean overrideBlock(Block block, CustomBlock customBlock);
 	
 	/**
 	 * 
@@ -330,7 +319,5 @@ public interface ItemManager {
 	 * @param metaData the meta data to override
 	 * @param design the design to use instead of the block
 	 */
-	
-	public void setCustomBlockDesign(Integer blockId, Integer metaData, GenericCustomBlock design);
-	
+	public void setCustomBlockDesign(Integer blockId, Integer metaData, BlockDesign design);
 }

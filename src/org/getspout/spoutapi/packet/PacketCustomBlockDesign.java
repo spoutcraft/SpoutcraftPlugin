@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.inventory.BlockDesign;
-import org.getspout.spoutapi.material.block.GenericCustomBlock;
+import org.getspout.spoutapi.inventory.GenericBlockDesign;
 
 public class PacketCustomBlockDesign implements SpoutPacket {
 
@@ -56,7 +56,7 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 		setBlockId(input.readInt());
 		setMetaData(input.readInt());
 		//TODO: Make this work like the Widget packet
-		design = new GenericCustomBlock(blockId);
+		design = new GenericBlockDesign();
 		design.read(input);
 	}
 	

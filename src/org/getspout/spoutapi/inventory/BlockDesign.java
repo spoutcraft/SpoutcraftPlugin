@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.BlockVector;
 
 public interface BlockDesign {
@@ -30,7 +31,7 @@ public interface BlockDesign {
 	
 	public void write(DataOutputStream output) throws IOException;
 	
-	public void setTexture(String plugin, String textureURL);
+	public void setTexture(Plugin plugin, String textureURL);
 	
 	public void setBoundingBox(float lowX, float lowY, float lowZ, float highX, float highY, float highZ);
 	

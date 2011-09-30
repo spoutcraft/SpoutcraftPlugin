@@ -1,11 +1,11 @@
 package org.getspout.spoutapi.inventory;
 
-public class SpoutStandardBlockDesign extends SpoutCustomBlockDesign {
-	
+public class GenericCubeBlockDesign extends GenericBlockDesign {
+
 	private int[] faces;
 	private int maxFace;
 	
-	public SpoutStandardBlockDesign(String texturePlugin, String textureURL, int textureSize, int[] faces) {
+	public GenericCubeBlockDesign(String texturePlugin, String textureURL, int textureSize, int[] faces) {
 		lowXBound = 0;
 		lowYBound = 0;
 		lowZBound = 0;
@@ -115,5 +115,4 @@ public class SpoutStandardBlockDesign extends SpoutCustomBlockDesign {
 			}
 		}
 	}
-	
 }
