@@ -315,6 +315,10 @@ public class MaterialData {
 		}
 	}
 	
+	public static void addCustomBlock(CustomBlock block) {
+		idMap.put(toLong(block.getRawId(), block.getCustomID()), block);
+	}
+	
 	public static Material getMaterial(int id) {
 		return getMaterial(id, (short)0);
 	}
@@ -335,6 +339,14 @@ public class MaterialData {
 		Material mat = getMaterial(id, data);
 		if (mat instanceof Block) {
 			return (Block)mat;
+		}
+		return null;
+	}
+	
+	public static CustomBlock getCustomBlock(int baseId, short customId) {
+		Material mat = (Material) idMap.get(toLong(baseId, customId));
+		if (mat instanceof CustomBlock) {
+			return (CustomBlock)mat;
 		}
 		return null;
 	}
