@@ -9,7 +9,7 @@ public interface CustomBlock extends Block {
 	
 	public CustomBlock setBlockDesign(BlockDesign design);
 	
-	public int getCustomID();
+	public int getCustomId();
 	
 	public String getFullName();
 	

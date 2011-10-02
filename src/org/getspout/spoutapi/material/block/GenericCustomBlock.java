@@ -43,7 +43,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	@Override
 	public void setName(String name) {
 		super.setName(name);
-		im.setItemName(getRawId(), (short) customID, name);
+		im.setItemName(318, (short) getCustomId(), name);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	}
 
 	@Override
-	public int getCustomID() {
+	public int getCustomId() {
 		return customID;
 	}
 
