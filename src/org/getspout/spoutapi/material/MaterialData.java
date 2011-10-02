@@ -311,7 +311,7 @@ public class MaterialData {
 	}
 	
 	public static void addCustomBlock(CustomBlock block) {
-		idMap.put(block.getRawId(), block.getCustomID(), block);
+		idMap.put(block.getRawId(), block.getCustomId(), block);
 	}
 	
 	public static Material getMaterial(int id) {
