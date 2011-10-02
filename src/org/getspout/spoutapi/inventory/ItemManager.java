@@ -250,7 +250,7 @@ public interface ItemManager {
 	 * @param metaData the meta data for the block
 	 * @return success
 	 */
-	public void setCustomItemBlock(int id, Integer blockId, Short metaData);
+	public void setCustomItemBlock(int id, int blockId, short metaData);
 	
 	/**
 	 * Creates an item stack of a custom item.  The id should be a valid custom item id.
@@ -291,7 +291,7 @@ public interface ItemManager {
 	 * @param metaData the meta data to override
 	 * @param design the design to use instead of the block
 	 */
-	public void setCustomBlockDesign(Integer blockId, Integer metaData, BlockDesign design);
+	public void setCustomBlockDesign(int blockId, short metaData, BlockDesign design);
 	
 	/**
 	 * Checks if the specified block is a custom block or not

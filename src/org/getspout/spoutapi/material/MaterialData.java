@@ -1,7 +1,5 @@
 package org.getspout.spoutapi.material;
 
-import gnu.trove.TLongObjectHashMap;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import org.getspout.spoutapi.material.block.*;
@@ -12,9 +10,10 @@ import org.getspout.spoutapi.material.item.GenericFood;
 import org.getspout.spoutapi.material.item.GenericItem;
 import org.getspout.spoutapi.material.item.GenericTool;
 import org.getspout.spoutapi.material.item.GenericWeapon;
+import org.getspout.spoutapi.util.map.TIntPairObjectHashMap;
 
 public class MaterialData {
-	private final static TLongObjectHashMap idMap = new TLongObjectHashMap();
+	private final static TIntPairObjectHashMap<Material> idMap = new TIntPairObjectHashMap<Material>();
 	public static final Block air = new Air();
 	public static final Block stone = new Solid(1);
 	public static final Block grass = new Grass();
@@ -291,10 +290,6 @@ public class MaterialData {
 	public static final Item enderPearl = new GenericItem(368);
 	public static final Item goldMusicDisc = new GenericItem(2256);
 	public static final Item greenMusicDisc = new GenericItem(2257);
-	
-	private static long toLong(int msw, int lsw) {
-		return ((long) msw << 32) + lsw - Integer.MIN_VALUE;
-	}
 
 	static {
 		Field[] fields = MaterialData.class.getFields();
@@ -304,7 +299,7 @@ public class MaterialData {
 					Object value = f.get(null);
 					if (value instanceof Material) {
 						Material mat = (Material)value;
-						idMap.put(toLong(mat.getRawId(), mat.getRawData()), mat);
+						idMap.put(mat.getRawId(), mat.getRawData(), mat);
 					}
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
@@ -316,7 +311,7 @@ public class MaterialData {
 	}
 	
 	public static void addCustomBlock(CustomBlock block) {
-		idMap.put(toLong(block.getRawId(), block.getCustomID()), block);
+		idMap.put(block.getRawId(), block.getCustomID(), block);
 	}
 	
 	public static Material getMaterial(int id) {
@@ -324,11 +319,11 @@ public class MaterialData {
 	}
 	
 	public static Material getMaterial(int id, short data) {
-		Material mat = (Material) idMap.get(toLong(id, 0)); //Test if they id has subtypes first
+		Material mat = (Material) idMap.get(id, 0); //Test if they id has subtypes first
 		if (!mat.hasSubtypes()) {
 			return mat;
 		}
-		return (Material) idMap.get(toLong(id, data));
+		return (Material) idMap.get(id, data);
 	}
 	
 	public static Block getBlock(int id) {
@@ -344,7 +339,7 @@ public class MaterialData {
 	}
 	
 	public static CustomBlock getCustomBlock(int baseId, short customId) {
-		Material mat = (Material) idMap.get(toLong(baseId, customId));
+		Material mat = (Material) idMap.get(baseId, customId);
 		if (mat instanceof CustomBlock) {
 			return (CustomBlock)mat;
 		}

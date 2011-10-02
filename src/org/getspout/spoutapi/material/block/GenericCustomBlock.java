@@ -54,7 +54,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
 		this.design = design;
-		im.setCustomBlockDesign(customID, customMetaData, design);
+		im.setCustomBlockDesign(customID, (short) customMetaData, design);
 		im.setCustomItemBlock(customID, getRawId(), (short) customMetaData);
 
 		return this;
