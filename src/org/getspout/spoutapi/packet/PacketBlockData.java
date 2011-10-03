@@ -28,7 +28,6 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.getspout.spoutapi.material.Block;
-import org.getspout.spoutapi.material.MaterialData;
 
 public class PacketBlockData implements CompressablePacket{
 	byte[] data;
@@ -135,27 +134,7 @@ public class PacketBlockData implements CompressablePacket{
 
 	@Override
 	public void run(int playerId) {
-		if (data != null) {
-			for (int i = 0; i < data.length / 15; i++) {
-				int id = data[i];
-				short rawData = data[i+1];
-				Block block = MaterialData.getBlock(id, rawData);
-				if (block != null) {
-					block.setHardness(Float.intBitsToFloat(toInt(data, i+2)));
-					block.setLightLevel(toInt(data, i+6));
-					block.setFriction(Float.intBitsToFloat(toInt(data, i+10)));
-					block.setOpaque(data[i+14] != 0);
-				}
-			}
-		}
-	}
-	
-	private static int toInt(byte[] bytes, int offset) {
-		int result = 0;
-		for (int i = 0; i < 4; i++) {
-			result = (result << 8) - Byte.MIN_VALUE + (int)bytes[offset + i];
-		}
-		return result;
+
 	}
 
 	@Override
