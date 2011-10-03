@@ -51,10 +51,10 @@ public class TIntPairHashSet{
 	}
 	
 	public static int longToKey1(long composite) {
-		return (int) (composite & 4294967295L);
-	}
-
-	public static int longToKey2(long composite) {
 		return (int) ((composite >> 32) & 4294967295L);
+	}
+	
+	public static int longToKey2(long composite) {
+		return (int) (composite & 4294967295L);
 	}
 }
