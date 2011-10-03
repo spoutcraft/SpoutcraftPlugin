@@ -1,11 +1,10 @@
-package org.getspout.spoutapi.material.block;
+package org.getspout.spoutapi.material.item;
 
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.material.item.GenericItem;
 
 public class GenericCustomItem extends GenericItem implements CustomItem {
 	public static ItemManager im = SpoutManager.getItemManager();
@@ -14,7 +13,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem {
 	private final int customId;
 	public String texture;
 
-	protected GenericCustomItem(Plugin plugin, String name) {
+	public GenericCustomItem(Plugin plugin, String name) {
 		super(318, im.registerCustomItemName(plugin, plugin.getDescription().getName() + name));
 		this.fullName = plugin.getDescription().getName() + name;
 		this.customId = im.registerCustomItemName(plugin, fullName);
@@ -23,7 +22,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem {
 		MaterialData.addCustomItem(this);
 	}
 	
-	protected GenericCustomItem(Plugin plugin, String name, String texture) {
+	public GenericCustomItem(Plugin plugin, String name, String texture) {
 		this(plugin,name);
 		this.texture = texture;
 	}

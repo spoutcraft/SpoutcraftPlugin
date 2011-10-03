@@ -8,6 +8,7 @@ import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.material.item.GenericCustomItem;
 
 public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public BlockDesign design = new GenericBlockDesign();
