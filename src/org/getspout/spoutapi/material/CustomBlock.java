@@ -18,4 +18,7 @@ public interface CustomBlock extends Block {
 	public int getCustomMetaData();
 	
 	public Plugin getPlugin();
+	
+	public CustomItem getBlockItem();
+	
 }

@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.CustomItem;
 
 public interface ItemManager {
 
@@ -118,6 +119,14 @@ public interface ItemManager {
 	public void setItemName(int item, short data, String name);
 	
 	/**
+	 * Sets the name of the CustomItem
+	 * 
+	 * @param item to name
+	 * @param name to set
+	 */
+	public void setItemName(CustomItem item, String name);
+	
+	/**
 	 * Resets the name of the item back to the notchian default
 	 * @param item to reset
 	 */
@@ -171,6 +180,15 @@ public interface ItemManager {
 	 */
 	public void setItemTexture(Material item, short data, Plugin plugin, String texture);
 
+	/**
+	 * Sets the texture of the item, for use with pre-caching
+	 * 
+	 * @param item to texture
+	 * @param plugin to associate with the texture
+	 * @param texture to set
+	 */
+	public void setItemTexture(CustomItem item, Plugin plugin, String texture);
+	
 	/**
 	 * Gets the custom texture of the item, or null if none exists, for use with pre-caching
 	 * @param item to get the texture of
@@ -241,16 +259,12 @@ public interface ItemManager {
 	public int getCustomItemId(Plugin plugin, String key);
 	
 	/**
-	 * Sets the block id for the block that matches this item.  This block will be placed when this item is used.
+	 * Registers the CustomBlock to be placed by the specified CustomItem
 	 * 
-	 * If the block id is null, no block will be placed and the item will trigger an interaction event instead.
-	 *
-	 * @param id the custom item id
-	 * @param blockId the matched block id
-	 * @param metaData the meta data for the block
-	 * @return success
+	 * @param item to use
+	 * @param block to place
 	 */
-	public void setCustomItemBlock(int id, int blockId, short metaData);
+	public void setCustomItemBlock(CustomItem item, CustomBlock block);
 	
 	/**
 	 * Creates an item stack of a custom item.  The id should be a valid custom item id.

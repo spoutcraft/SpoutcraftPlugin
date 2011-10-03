@@ -5,7 +5,7 @@ import org.getspout.spoutapi.inventory.GenericCubeBlockDesign;
 
 public class GenericCubeCustomBlock extends GenericCustomBlock {
 	
-	public GenericCubeCustomBlock(Plugin plugin, String name, GenericCubeBlockDesign design, boolean isOpaque, int customMetaData) {
-		super(plugin, name, design, isOpaque, customMetaData);
+	public GenericCubeCustomBlock(Plugin plugin, String name, boolean isOpaque, GenericCubeBlockDesign design, int customMetaData) {
+		super(plugin, name, isOpaque, design, customMetaData);
 	}
 }

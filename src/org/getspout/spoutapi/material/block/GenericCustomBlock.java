@@ -6,6 +6,7 @@ import org.getspout.spoutapi.inventory.BlockDesign;
 import org.getspout.spoutapi.inventory.GenericBlockDesign;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 
 public class GenericCustomBlock extends GenericBlock implements CustomBlock {
@@ -14,36 +15,32 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	private final String fullName;
 	private final int customID;
 	private final Plugin plugin;
+	private final CustomItem item;
 	public int customMetaData = 0;
 
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
 		super(isOpaque ? 20 : 1);
+		item = new GenericCustomItem(plugin, name);
 		this.plugin = plugin;
-		this.fullName = plugin.getDescription().getName() + name;
-		this.customID = im.registerCustomItemName(plugin, fullName);
-		setName(name);
+		this.fullName = item.getFullName();
+		this.customID = item.getCustomId();
 		MaterialData.addCustomBlock(this);
 	}
 
-	public GenericCustomBlock(Plugin plugin, String name, BlockDesign design, boolean isOpaque, int customMetaData) {
+	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design, int customMetaData) {
 		this(plugin, name, isOpaque);
 		this.customMetaData = customMetaData;
 		setBlockDesign(design);
-		im.setCustomItemBlock(customID, getRawId(), (short) customMetaData);
 	}
 
 	public GenericCustomBlock(Plugin plugin, String name) {
-		super(1);
-		this.plugin = plugin;
-		this.fullName = plugin.getDescription().getName() + name;
-		this.customID = im.registerCustomItemName(plugin, fullName);
-		MaterialData.addCustomBlock(this);
+		this(plugin, name, false);
 	}
-
+	
 	@Override
 	public void setName(String name) {
 		super.setName(name);
-		im.setItemName(318, (short) getCustomId(), name);
+		item.setName(name);
 	}
 
 	@Override
@@ -55,7 +52,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public CustomBlock setBlockDesign(BlockDesign design) {
 		this.design = design;
 		im.setCustomBlockDesign(customID, (short) customMetaData, design);
-		im.setCustomItemBlock(customID, getRawId(), (short) customMetaData);
+		im.setCustomBlockDesign(318, (short) customID, design);
+		im.setCustomItemBlock(item, this);
 
 		return this;
 	}
@@ -85,5 +83,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	@Override
 	public Plugin getPlugin() {
 		return plugin;
+	}
+
+	@Override
+	public CustomItem getBlockItem() {
+		return item;
 	}
 }

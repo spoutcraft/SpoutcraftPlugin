@@ -222,7 +222,7 @@ public class MaterialData {
 	public static final Item goldChestplate = new GenericArmor(315);
 	public static final Item goldLeggings = new GenericArmor(316);
 	public static final Item goldBoots = new GenericArmor(317);
-	public static final Item flint = new GenericItem(318);
+	public static final Item flint = new GenericItem(318, 0, true);
 	public static final Item rawPorkchop = new GenericFood(319);
 	public static final Item cookedPorkchop = new GenericFood(320);
 	public static final Item paintings = new GenericItem(321);
@@ -310,8 +310,12 @@ public class MaterialData {
 		}
 	}
 	
+	public static void addCustomItem(CustomItem item) {
+		idMap.put(318, item.getCustomId(), item);
+	}
+	
 	public static void addCustomBlock(CustomBlock block) {
-		idMap.put(block.getRawId(), block.getCustomId(), block);
+		idMap.put(318, block.getCustomId(), block);
 	}
 	
 	public static Material getMaterial(int id) {
@@ -338,10 +342,18 @@ public class MaterialData {
 		return null;
 	}
 	
-	public static CustomBlock getCustomBlock(int baseId, short customId) {
-		Material mat = (Material) idMap.get(baseId, customId);
+	public static CustomBlock getCustomBlock(int customId) {
+		Material mat = (Material) idMap.get(318, customId);
 		if (mat instanceof CustomBlock) {
 			return (CustomBlock)mat;
+		}
+		return null;
+	}
+	
+	public static CustomItem getCustomItem(int customId) {
+		Material mat = (Material) idMap.get(318, customId);
+		if (mat instanceof CustomItem) {
+			return (CustomItem) mat;
 		}
 		return null;
 	}
