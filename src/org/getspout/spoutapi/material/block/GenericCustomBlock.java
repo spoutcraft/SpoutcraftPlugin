@@ -19,7 +19,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public int customMetaData = 0;
 
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
-		super(isOpaque ? 20 : 1);
+		super(isOpaque ? 1 : 20);
 		item = new GenericCustomItem(plugin, name);
 		this.plugin = plugin;
 		this.fullName = item.getFullName();
@@ -34,7 +34,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	}
 
 	public GenericCustomBlock(Plugin plugin, String name) {
-		this(plugin, name, false);
+		this(plugin, name, true);
 	}
 	
 	@Override
