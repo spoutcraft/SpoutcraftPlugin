@@ -46,7 +46,6 @@ public class PacketCacheFile implements CompressablePacket {
 			e.printStackTrace();
 		}
 		this.fileName = FileUtil.getFileName(file.getPath());
-		compress();
 	}
 	
 	//TODO move to separate thread?
