@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.inventory;
 
+import java.util.Set;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -24,6 +26,7 @@ import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.packet.SpoutPacket;
 
 public interface ItemManager {
 
@@ -56,6 +59,12 @@ public interface ItemManager {
 	public void setLightLevel(int id, short data, int level);
 	
 	public void resetLightLevel(int id, short data);
+	
+	public Set<org.getspout.spoutapi.material.Block> getModifiedBlocks();
+	
+	public SpoutPacket getCachedBlockData();
+	
+	public void setCachedBlockData(SpoutPacket packet);
 	
 	/**
 	 * Gets notchian item name for the item, or the custom name if one overrides it
