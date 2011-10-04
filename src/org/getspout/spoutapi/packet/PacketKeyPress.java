@@ -29,6 +29,7 @@ import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+@SuppressWarnings("deprecation")
 public class PacketKeyPress implements SpoutPacket{
 	public boolean pressDown;
 	public byte key;
