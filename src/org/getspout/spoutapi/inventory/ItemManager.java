@@ -183,12 +183,12 @@ public interface ItemManager {
 	
 	/**
 	 * Sets the texture of the item, for use with pre-caching
-	 * @param item to texture
+	 * @param id of the item
 	 * @param data of the item
 	 * @param plugin the plugin to associate with the texture
 	 * @param texture to set
 	 */
-	public void setItemTexture(Material item, short data, Plugin plugin, String texture);
+	public void setItemTexture(int id, short data, Plugin plugin, String texture);
 
 	/**
 	 * Sets the texture of the item, for use with pre-caching
