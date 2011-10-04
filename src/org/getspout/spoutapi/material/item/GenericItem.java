@@ -9,13 +9,13 @@ public class GenericItem implements Item {
 	private final int data;
 	private final boolean subtypes;
 
-	protected GenericItem(int id, int data, boolean subtypes) {
+	public GenericItem(int id, int data, boolean subtypes) {
 		this.id = id;
 		this.data = data;
 		this.subtypes = subtypes;
 	}
 
-	protected GenericItem(int id, int data) {
+	public GenericItem(int id, int data) {
 		this(id, data, false);
 	}
 

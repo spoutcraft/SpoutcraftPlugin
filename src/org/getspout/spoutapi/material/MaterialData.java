@@ -1,7 +1,5 @@
 package org.getspout.spoutapi.material;
 
-import gnu.trove.TLongObjectHashMap;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import org.getspout.spoutapi.material.block.*;
@@ -12,9 +10,10 @@ import org.getspout.spoutapi.material.item.GenericFood;
 import org.getspout.spoutapi.material.item.GenericItem;
 import org.getspout.spoutapi.material.item.GenericTool;
 import org.getspout.spoutapi.material.item.GenericWeapon;
+import org.getspout.spoutapi.util.map.TIntPairObjectHashMap;
 
 public class MaterialData {
-	private final static TLongObjectHashMap idMap = new TLongObjectHashMap();
+	private final static TIntPairObjectHashMap<Material> idMap = new TIntPairObjectHashMap<Material>();
 	public static final Block air = new Air();
 	public static final Block stone = new Solid(1);
 	public static final Block grass = new Grass();
@@ -223,7 +222,7 @@ public class MaterialData {
 	public static final Item goldChestplate = new GenericArmor(315);
 	public static final Item goldLeggings = new GenericArmor(316);
 	public static final Item goldBoots = new GenericArmor(317);
-	public static final Item flint = new GenericItem(318);
+	public static final Item flint = new GenericItem(318, 0, true);
 	public static final Item rawPorkchop = new GenericFood(319);
 	public static final Item cookedPorkchop = new GenericFood(320);
 	public static final Item paintings = new GenericItem(321);
@@ -291,10 +290,6 @@ public class MaterialData {
 	public static final Item enderPearl = new GenericItem(368);
 	public static final Item goldMusicDisc = new GenericItem(2256);
 	public static final Item greenMusicDisc = new GenericItem(2257);
-	
-	private static long toLong(int msw, int lsw) {
-		return ((long) msw << 32) + lsw - Integer.MIN_VALUE;
-	}
 
 	static {
 		Field[] fields = MaterialData.class.getFields();
@@ -304,7 +299,7 @@ public class MaterialData {
 					Object value = f.get(null);
 					if (value instanceof Material) {
 						Material mat = (Material)value;
-						idMap.put(toLong(mat.getRawId(), mat.getRawData()), mat);
+						idMap.put(mat.getRawId(), mat.getRawData(), mat);
 					}
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
@@ -315,16 +310,24 @@ public class MaterialData {
 		}
 	}
 	
+	public static void addCustomItem(CustomItem item) {
+		idMap.put(318, item.getCustomId(), item);
+	}
+	
+	public static void addCustomBlock(CustomBlock block) {
+		idMap.put(318, block.getCustomId(), block);
+	}
+	
 	public static Material getMaterial(int id) {
 		return getMaterial(id, (short)0);
 	}
 	
 	public static Material getMaterial(int id, short data) {
-		Material mat = (Material) idMap.get(toLong(id, 0)); //Test if they id has subtypes first
+		Material mat = (Material) idMap.get(id, 0); //Test if they id has subtypes first
 		if (!mat.hasSubtypes()) {
 			return mat;
 		}
-		return (Material) idMap.get(toLong(id, data));
+		return (Material) idMap.get(id, data);
 	}
 	
 	public static Block getBlock(int id) {
@@ -335,6 +338,22 @@ public class MaterialData {
 		Material mat = getMaterial(id, data);
 		if (mat instanceof Block) {
 			return (Block)mat;
+		}
+		return null;
+	}
+	
+	public static CustomBlock getCustomBlock(int customId) {
+		Material mat = (Material) idMap.get(318, customId);
+		if (mat instanceof CustomBlock) {
+			return (CustomBlock)mat;
+		}
+		return null;
+	}
+	
+	public static CustomItem getCustomItem(int customId) {
+		Material mat = (Material) idMap.get(318, customId);
+		if (mat instanceof CustomItem) {
+			return (CustomItem) mat;
 		}
 		return null;
 	}

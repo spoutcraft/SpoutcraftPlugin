@@ -22,6 +22,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spoutapi.material.CustomBlock;
 
 public interface SpoutBlock extends Block{
 	
@@ -159,5 +160,37 @@ public interface SpoutBlock extends Block{
 	
 	@Override
 	public SpoutChunk getChunk();
-
+	
+	/**
+	 * Gets the custom block ID associated with this SpoutBlock if it exists
+	 * 
+	 * @return blockId
+	 */
+	public Integer getCustomBlockId();
+	
+	/**
+	 * Gets the custom meta data associated with this SpoutBlock if it exists
+	 * 
+	 * @return metaData
+	 */
+	public Integer getCustomMetaData();
+	
+	/**
+	 * Checks if the SpoutBlock has a custom material data or not
+	 * 
+	 * @return true if block is custom
+	 */
+	public boolean isCustomBlock();
+	
+	/**
+	 * Removes the custom material data associated with this SpoutBlock
+	 */
+	public void removeCustomBlockData();
+	
+	/**
+	 * Gets the custom block material associated with this SpoutBlock
+	 * 
+	 * @return custom block material
+	 */
+	public CustomBlock getCustomBlock();
 }
