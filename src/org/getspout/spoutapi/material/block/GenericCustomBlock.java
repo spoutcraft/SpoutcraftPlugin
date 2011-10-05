@@ -2,8 +2,8 @@ package org.getspout.spoutapi.material.block;
 
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.inventory.BlockDesign;
-import org.getspout.spoutapi.inventory.GenericBlockDesign;
+import org.getspout.spoutapi.block.design.BlockDesign;
+import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;

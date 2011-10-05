@@ -359,6 +359,10 @@ public class MaterialData {
 	}
 	
 	public static CustomItem getCustomItem(int customId) {
+		if(getCustomBlock(customId) != null) {
+			return getCustomBlock(customId).getBlockItem();
+		}
+		
 		init();
 		Material mat = (Material) idMap.get(318, customId);
 		if (mat instanceof CustomItem) {
