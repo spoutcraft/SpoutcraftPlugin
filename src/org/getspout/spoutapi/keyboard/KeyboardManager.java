@@ -19,11 +19,13 @@ package org.getspout.spoutapi.keyboard;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+@Deprecated
 public interface KeyboardManager {
 	/**
 	 * Get's the number of key bindings associated with this key
 	 * @param key to check against
 	 * @return number of key bindings
+	 * @deprecated use KeyBindingManager instead, it provides more flexibility to the user.
 	 */
 	public int getNumKeyBindings(Keyboard key);
 	

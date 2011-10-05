@@ -35,6 +35,7 @@ import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.SoundManager;
 
+@SuppressWarnings("deprecation")
 public class SpoutManager {
 	private static SpoutManager instance = new SpoutManager();
 	private KeyboardManager keyManager = null;
