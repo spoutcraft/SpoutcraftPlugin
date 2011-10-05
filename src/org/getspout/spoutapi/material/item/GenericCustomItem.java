@@ -24,7 +24,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem {
 	
 	public GenericCustomItem(Plugin plugin, String name, String texture) {
 		this(plugin,name);
-		this.texture = texture;
+		this.setTexture(texture);
 	}
 	
 	@Override

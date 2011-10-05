@@ -22,11 +22,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
-import org.getspout.spoutapi.packet.SpoutPacket;
 
 public interface ItemManager {
 
@@ -61,11 +61,7 @@ public interface ItemManager {
 	public void resetLightLevel(int id, short data);
 	
 	public Set<org.getspout.spoutapi.material.Block> getModifiedBlocks();
-	
-	public SpoutPacket getCachedBlockData();
-	
-	public void setCachedBlockData(SpoutPacket packet);
-	
+
 	/**
 	 * Gets notchian item name for the item, or the custom name if one overrides it
 	 * @param item to get the name of
@@ -276,13 +272,22 @@ public interface ItemManager {
 	public void setCustomItemBlock(CustomItem item, CustomBlock block);
 	
 	/**
-	 * Creates an item stack of a custom item.  The id should be a valid custom item id.
+	 * Creates an item stack of a custom block.
 	 *
-	 * @param id the custom item id
+	 * @param block to make a stack of
 	 * @param size the size of the item stack
 	 * @return an ItemStack of that item
 	 */
 	public ItemStack getCustomItemStack(CustomBlock block, int size);
+	
+	/**
+	 * Creates an item stack of a custom item.
+	 * 
+	 * @param item to make a stack of
+	 * @param size of the item stack
+	 * @return an ItemStack of that item
+	 */
+	public ItemStack getCustomItemStack(CustomItem item, int size);
 	
 	/**
 	 * Overrides the block to be the customBlock
@@ -331,4 +336,12 @@ public interface ItemManager {
 	 * @return SpoutBlock
 	 */
 	public SpoutBlock getSpoutBlock(Block block);
+	
+	/**
+	 * Registers a SpoutRecipe to the server
+	 * 
+	 * @param recipe to register
+	 * @return true if successful
+	 */
+	public boolean registerSpoutRecipe(Recipe recipe);
 }

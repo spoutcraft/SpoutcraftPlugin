@@ -21,4 +21,5 @@ public interface CustomBlock extends Block {
 	
 	public CustomItem getBlockItem();
 	
+	public int getBlockId();
 }

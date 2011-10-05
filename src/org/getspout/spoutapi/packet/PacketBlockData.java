@@ -51,29 +51,33 @@ public class PacketBlockData implements CompressablePacket{
 				rawData.putFloat(next.getFriction());
 				rawData.put((byte) (next.isOpaque() ? 1 : 0));
 			}
+			
+			data = rawData.array();
 		}
 	}
 	
 	public void compress() {
 		if (!compressed) {
-			Deflater deflater = new Deflater();
-			deflater.setInput(data);
-			deflater.setLevel(Deflater.BEST_COMPRESSION);
-			deflater.finish();
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(data.length);
-			byte[] buffer = new byte[1024];
-			while(!deflater.finished())
-			{
-				int bytesCompressed = deflater.deflate(buffer);
-				bos.write(buffer, 0, bytesCompressed);
+			if (data != null) {
+				Deflater deflater = new Deflater();
+				deflater.setInput(data);
+				deflater.setLevel(Deflater.BEST_COMPRESSION);
+				deflater.finish();
+				ByteArrayOutputStream bos = new ByteArrayOutputStream(data.length);
+				byte[] buffer = new byte[1024];
+				while(!deflater.finished())
+				{
+					int bytesCompressed = deflater.deflate(buffer);
+					bos.write(buffer, 0, bytesCompressed);
+				}
+				try {
+					bos.close();
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+				data = bos.toByteArray();
 			}
-			try {
-				bos.close();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			data = bos.toByteArray();
 			compressed = true;
 		}
 	}
@@ -107,17 +111,18 @@ public class PacketBlockData implements CompressablePacket{
 	}
 	
 	public boolean isCompressed() {
-		return compressed;
+		return compressed || (data == null || data.length < 256); //dont compress for small sizes
 	}
 
 	@Override
 	public int getNumBytes() {
-		return data.length + 4;
+		return data != null ? data.length : 0 + 5;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		int size = input.readInt();
+		compressed = input.readBoolean();
 		if (size > 0) {
 			data = new byte[size];
 			input.readFully(data);
@@ -127,6 +132,7 @@ public class PacketBlockData implements CompressablePacket{
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		output.writeInt(data == null ? 0 : data.length);
+		output.writeBoolean(compressed);
 		if (data != null) {
 			output.write(data);
 		}

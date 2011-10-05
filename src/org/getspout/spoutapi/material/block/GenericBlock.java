@@ -62,26 +62,24 @@ public class GenericBlock implements Block{
 
 	@Override
 	public float getFriction() {
-		// TODO Auto-generated method stub
-		return 0;
+		return SpoutManager.getItemManager().getFriction(id, (short) data);
 	}
 
 	@Override
 	public Block setFriction(float friction) {
-		// TODO Auto-generated method stub
-		return null;
+		SpoutManager.getItemManager().setFriction(id, (short) data, friction);
+		return this;
 	}
 
 	@Override
 	public float getHardness() {
-		// TODO Auto-generated method stub
-		return 0;
+		return SpoutManager.getItemManager().getHardness(id, (short) data);
 	}
 
 	@Override
 	public Block setHardness(float hardness) {
-		// TODO Auto-generated method stub
-		return null;
+		SpoutManager.getItemManager().setHardness(id, (short) data, hardness);
+		return this;
 	}
 
 	@Override
@@ -93,30 +91,29 @@ public class GenericBlock implements Block{
 	@Override
 	public Block setExplosionResistence(float resistence) {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
 	public boolean isOpaque() {
-		// TODO Auto-generated method stub
+		SpoutManager.getItemManager().isOpaque(id, (short) data);
 		return false;
 	}
 
 	@Override
 	public Block setOpaque(boolean opaque) {
-		// TODO Auto-generated method stub
-		return null;
+		SpoutManager.getItemManager().setOpaque(id, (short) data, opaque);
+		return this;
 	}
 
 	@Override
 	public int getLightLevel() {
-		// TODO Auto-generated method stub
-		return 0;
+		return SpoutManager.getItemManager().getLightLevel(id, (short) data);
 	}
 
 	@Override
 	public Block setLightLevel(int level) {
-		// TODO Auto-generated method stub
-		return null;
+		SpoutManager.getItemManager().setLightLevel(id, (short) data, level);
+		return this;
 	}
 }

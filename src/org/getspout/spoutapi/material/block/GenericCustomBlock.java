@@ -12,16 +12,18 @@ import org.getspout.spoutapi.material.item.GenericCustomItem;
 
 public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public BlockDesign design = new GenericBlockDesign();
-	public ItemManager im = SpoutManager.getItemManager();
+	public static ItemManager im = SpoutManager.getItemManager();
 	private final String fullName;
 	private final int customID;
 	private final Plugin plugin;
 	private final CustomItem item;
+	private final int blockId;
 	public int customMetaData = 0;
 
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
 		super(isOpaque ? 1 : 20);
 		item = new GenericCustomItem(plugin, name);
+		this.blockId = isOpaque ? 1 : 20;
 		this.plugin = plugin;
 		this.fullName = item.getFullName();
 		this.customID = item.getCustomId();
@@ -89,5 +91,20 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	@Override
 	public CustomItem getBlockItem() {
 		return item;
+	}
+	
+	@Override
+	public int getRawId() {
+		return this.item.getRawId();
+	}
+	
+	@Override
+	public int getRawData() {
+		return this.item.getCustomId();
+	}
+	
+	@Override
+	public int getBlockId() {
+		return this.blockId;
 	}
 }
