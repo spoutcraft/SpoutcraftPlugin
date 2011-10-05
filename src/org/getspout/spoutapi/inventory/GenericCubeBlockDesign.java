@@ -1,11 +1,13 @@
 package org.getspout.spoutapi.inventory;
 
+import org.bukkit.plugin.Plugin;
+
 public class GenericCubeBlockDesign extends GenericBlockDesign {
 
 	private int[] faces;
 	private int maxFace;
 	
-	public GenericCubeBlockDesign(String texturePlugin, String textureURL, int textureSize, int[] faces) {
+	public GenericCubeBlockDesign(Plugin texturePlugin, String textureURL, int textureSize, int[] faces) {
 		lowXBound = 0;
 		lowYBound = 0;
 		lowZBound = 0;
@@ -13,7 +15,7 @@ public class GenericCubeBlockDesign extends GenericBlockDesign {
 		highYBound = 1;
 		highZBound = 1;
 		this.textureURL = textureURL;
-		this.texturePlugin = texturePlugin;
+		this.texturePlugin = texturePlugin.getDescription().getName();
 		this.renderPass = 0;
 		this.faces = faces;
 		createCube(textureSize);
