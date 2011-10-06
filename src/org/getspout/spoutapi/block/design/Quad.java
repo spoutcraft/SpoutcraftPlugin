@@ -45,8 +45,8 @@ public class Quad {
 	 * @return this
 	 */
 	public Quad addVertex(int vertex, float x, float y, float z) {
-		if (index < 0 || index > 3) {
-			throw new IllegalArgumentException("Invalid vertex index: " + index);
+		if (vertex < 0 || vertex > 3) {
+			throw new IllegalArgumentException("Invalid vertex index: " + vertex);
 		}
 		vertexes[index] = new Vertex(vertex, index, x, y, z, texture);
 		return this;
