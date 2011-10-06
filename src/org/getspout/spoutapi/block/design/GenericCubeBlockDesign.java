@@ -1,120 +1,92 @@
 package org.getspout.spoutapi.block.design;
 
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.block.design.GenericBlockDesign;
+import org.getspout.spoutapi.block.design.Quad;
+import org.getspout.spoutapi.block.design.Texture;
 
 public class GenericCubeBlockDesign extends GenericBlockDesign {
 
-	private int[] faces;
-	private int maxFace;
-	
-	public GenericCubeBlockDesign(Plugin texturePlugin, String textureURL, int textureSize, int[] faces) {
-		lowXBound = 0;
-		lowYBound = 0;
-		lowZBound = 0;
-		highXBound = 1;
-		highYBound = 1;
-		highZBound = 1;
-		this.textureURL = textureURL;
-		this.texturePlugin = texturePlugin.getDescription().getName();
-		this.renderPass = 0;
-		this.faces = faces;
-		createCube(textureSize);
-	}
-	
-	private void createCube(int textureSize) {
-		
-		setMaxFace();
-		
-		int t = faceSize(faces, textureSize);
-		super.setQuadNumber(6);
-		
-		setVertexOffset(0, 0, 0, 0, 0, 0, 0, 0, faces, textureSize);
-		setVertexOffset(0, 0, 1, 1, 0, 0, t, 0, faces, textureSize);
-		setVertexOffset(0, 0, 2, 1, 0, 1, t, t, faces, textureSize);
-		setVertexOffset(0, 0, 3, 0, 0, 1, 0, t, faces, textureSize);
+	/**
+	 * Creates a basic cube custom block model
+	 * 
+	 * @param plugin making this block
+	 * @param texture to use
+	 * @param textureId[6] Array of faces, give Id's for SubTexture locations
+	 */
+	public GenericCubeBlockDesign(Plugin plugin, Texture texture, int[] textureId) {
+
+		if (textureId.length != 6) {
+			throw new IllegalArgumentException("Invalid textureId Array length: " + textureId.length + ". Should be 6");
+		}
+
+		setBoundingBox(0, 0, 0, 1, 1, 1);
+
+		setQuadNumber(6);
+
+		setMinBrightness(0.0F).setMaxBrightness(1.0F).setTexture(plugin, texture);
+
+		Quad bottom = new Quad(0, texture.getSubTexture(textureId[0]));
+		bottom.addVertex(0, 0.0F, 0.0F, 0.0F);
+		bottom.addVertex(1, 1.0F, 0.0F, 0.0F);
+		bottom.addVertex(2, 1.0F, 0.0F, 1.0F);
+		bottom.addVertex(3, 0.0F, 0.0F, 1.0F);
 		setLightSource(0, 0, -1, 0);
-		
-		setVertexOffset(1, 1, 0, 0, 0, 0, t, 0, faces, textureSize);
-		setVertexOffset(1, 1, 1, 0, 1, 0, t, t, faces, textureSize);
-		setVertexOffset(1, 1, 2, 1, 1, 0, 0, t, faces, textureSize);
-		setVertexOffset(1, 1, 3, 1, 0, 0, 0, 0, faces, textureSize);
+
+		Quad face1 = new Quad(1, texture.getSubTexture(textureId[1]));
+		face1.addVertex(0, 0.0F, 0.0F, 0.0F);
+		face1.addVertex(1, 0.0F, 1.0F, 0.0F);
+		face1.addVertex(2, 1.0F, 1.0F, 0.0F);
+		face1.addVertex(3, 1.0F, 0.0F, 0.0F);
 		setLightSource(1, 0, 0, -1);
-		
-		setVertexOffset(2, 2, 0, 1, 0, 0, t, 0, faces, textureSize);
-		setVertexOffset(2, 2, 1, 1, 1, 0, t, t, faces, textureSize);
-		setVertexOffset(2, 2, 2, 1, 1, 1, 0, t, faces, textureSize);
-		setVertexOffset(2, 2, 3, 1, 0, 1, 0, 0, faces, textureSize);
+
+		Quad face2 = new Quad(2, texture.getSubTexture(textureId[2]));
+		face2.addVertex(0, 1.0F, 0.0F, 0.0F);
+		face2.addVertex(1, 1.0F, 1.0F, 0.0F);
+		face2.addVertex(2, 1.0F, 1.0F, 1.0F);
+		face2.addVertex(3, 1.0F, 0.0F, 1.0F);
 		setLightSource(2, 1, 0, 0);
-		
-		setVertexOffset(3, 3, 0, 1, 0, 1, t, 0, faces, textureSize);
-		setVertexOffset(3, 3, 1, 1, 1, 1, t, t, faces, textureSize);
-		setVertexOffset(3, 3, 2, 0, 1, 1, 0, t, faces, textureSize);
-		setVertexOffset(3, 3, 3, 0, 0, 1, 0, 0, faces, textureSize);
+
+		Quad face3 = new Quad(3, texture.getSubTexture(textureId[3]));
+		face3.addVertex(0, 1.0F, 0.0F, 1.0F);
+		face3.addVertex(1, 1.0F, 1.0F, 1.0F);
+		face3.addVertex(2, 0.0F, 1.0F, 1.0F);
+		face3.addVertex(3, 0.0F, 0.0F, 1.0F);
 		setLightSource(3, 0, 0, 1);
-		
-		setVertexOffset(4, 4, 0, 0, 0, 1, t, 0, faces, textureSize);
-		setVertexOffset(4, 4, 1, 0, 1, 1, t, t, faces, textureSize);
-		setVertexOffset(4, 4, 2, 0, 1, 0, 0, t, faces, textureSize);
-		setVertexOffset(4, 4, 3, 0, 0, 0, 0, 0, faces, textureSize);
+
+		Quad face4 = new Quad(4, texture.getSubTexture(textureId[4]));
+		face4.addVertex(0, 0.0F, 0.0F, 1.0F);
+		face4.addVertex(1, 0.0F, 1.0F, 1.0F);
+		face4.addVertex(2, 0.0F, 1.0F, 0.0F);
+		face4.addVertex(3, 0.0F, 0.0F, 0.0F);
 		setLightSource(4, -1, 0, 0);
-		
-		setVertexOffset(5, 5, 0, 0, 1, 0, 0, 0, faces, textureSize);
-		setVertexOffset(5, 5, 1, 0, 1, 1, t, 0, faces, textureSize);
-		setVertexOffset(5, 5, 2, 1, 1, 1, t, t, faces, textureSize);
-		setVertexOffset(5, 5, 3, 1, 1, 0, 0, t, faces, textureSize);
+
+		Quad top = new Quad(5, texture.getSubTexture(textureId[5]));
+		top.addVertex(0, 0.0F, 1.0F, 0.0F);
+		top.addVertex(1, 0.0F, 1.0F, 1.0F);
+		top.addVertex(2, 1.0F, 1.0F, 1.0F);
+		top.addVertex(3, 1.0F, 1.0F, 0.0F);
 		setLightSource(5, 0, 1, 0);
-	
-	}
-	
-	private void setVertexOffset(int quadNumber, int faceNumber, int vertexNumber, float x, float y, float z, int tx, int ty, int[] faces, int textureSize) {
-		int[] texturePosition = new int[2];
-		int faceSize;
-		
-		faceSize = faceSize(faces, textureSize);
-		texturePosition = facePosition(texturePosition, faceNumber, faces, faceSize);
-		
-		super.setVertex(quadNumber, vertexNumber, x, y, z, tx + texturePosition[0], ty + texturePosition[1], textureSize, textureSize);
-	}
-	
-	private int faceSize(int[] faces, int textureSize) {
-		if (maxFace <= 1) {
-			return textureSize;
-		} else if (maxFace <= 4) {
-			return textureSize / 2;
-		} else {
-			return textureSize / 4;
-		}
-	}
-	
-	private int[] facePosition(int[] buffer, int faceNumber, int[] faces, int faceSize) {
-		if (faces == null) {
-			buffer[0] = 0;
-			buffer[1] = 0;
-			return buffer;
-		}
-		int face = faces[faceNumber];
-		
-		if (maxFace <= 1) {
-			buffer[0] = 0;
-			buffer[1] = 0;
-		} else if (maxFace <= 4) {
-			buffer[0] = (face % 2) * faceSize;
-			buffer[1] = (face / 2) * faceSize;
-		} else {
-			buffer[0] = (face % 4) * faceSize;
-			buffer[1] = (face / 4) * faceSize;
-		}
-		return buffer;
+
+		setQuad(bottom).setQuad(face1).setQuad(face2).setQuad(face3).setQuad(face4).setQuad(top);
 	}
 
-	private void setMaxFace() {
-		maxFace = 0;
-		if (faces != null) {
-			for (int face : faces) {
-				if (face > maxFace) {
-					maxFace = face;
-				}
-			}
+	/**
+	 * Creates a basic cube custom block model with only one texture
+	 * 
+	 * @param plugin making this block
+	 * @param texture to use
+	 * @param textureId to get the SubTexture to use
+	 */
+	public GenericCubeBlockDesign(Plugin plugin, Texture texture, int textureId) {
+		this(plugin, texture, getIdMap(textureId));
+	}
+
+	private static int[] getIdMap(int textureId) {
+		int[] idMap = new int[6];
+		for (int i = 0; i < 6; i++) {
+			idMap[i] = textureId;
 		}
+		return idMap;
 	}
 }

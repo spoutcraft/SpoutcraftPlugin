@@ -251,7 +251,7 @@ public class GenericBlockDesign implements BlockDesign {
 	}
 
 	@Override
-	public BlockDesign setQuad(int number, Quad quad) {
+	public BlockDesign setQuad(Quad quad) {
 		return setVertex(quad.getVertex(0)).setVertex(quad.getVertex(1)).setVertex(quad.getVertex(2)).setVertex(quad.getVertex(3));
 	}
 

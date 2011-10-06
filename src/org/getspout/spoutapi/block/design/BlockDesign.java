@@ -127,7 +127,7 @@ public interface BlockDesign {
 	 * @param quad to set there
 	 * @return this
 	 */
-	public BlockDesign setQuad(int number, Quad quad);
+	public BlockDesign setQuad(Quad quad);
 	
 	/**
 	 * Manually specified a vertex for this block
