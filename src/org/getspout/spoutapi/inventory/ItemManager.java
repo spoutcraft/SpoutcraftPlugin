@@ -25,6 +25,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 
@@ -344,4 +345,20 @@ public interface ItemManager {
 	 * @return true if successful
 	 */
 	public boolean registerSpoutRecipe(Recipe recipe);
+	
+	/**
+	 * Checks if the this item is a custom item or not
+	 * 
+	 * @param item to check
+	 * @return true if it is a custom item
+	 */
+	public boolean isCustomItem(ItemStack item);
+	
+	/**
+	 * Gets the custom item from an item stack
+	 * 
+	 * @param item stack to get the custom item from
+	 * @return the custom item
+	 */
+	public CustomItem getCustomItem(ItemStack item);
 }

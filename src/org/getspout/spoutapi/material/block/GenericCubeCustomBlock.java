@@ -1,7 +1,7 @@
 package org.getspout.spoutapi.material.block;
 
 import org.bukkit.plugin.Plugin;
-import org.getspout.spoutapi.inventory.GenericCubeBlockDesign;
+import org.getspout.spoutapi.block.design.GenericCubeBlockDesign;
 
 public class GenericCubeCustomBlock extends GenericCustomBlock {
 	

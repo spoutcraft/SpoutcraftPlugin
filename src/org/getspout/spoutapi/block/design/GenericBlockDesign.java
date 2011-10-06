@@ -1,4 +1,4 @@
-package org.getspout.spoutapi.inventory;
+package org.getspout.spoutapi.block.design;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -21,6 +21,8 @@ public class GenericBlockDesign implements BlockDesign {
 
 	protected String textureURL;
 	protected String texturePlugin;
+	
+	protected Texture texture;
 
 	protected float[][] xPos;
 	protected float[][] yPos;
@@ -60,20 +62,24 @@ public class GenericBlockDesign implements BlockDesign {
 		this.renderPass = renderPass;
 	}
 
-	public void setMaxBrightness(float maxBrightness) {
+	public BlockDesign setMaxBrightness(float maxBrightness) {
 		this.maxBrightness = maxBrightness;
+		return this;
 	}
 
-	public void setMinBrightness(float minBrightness) {
+	public BlockDesign setMinBrightness(float minBrightness) {
 		this.minBrightness = minBrightness;
+		return this;
 	}
 
-	public void setBrightness(float brightness) {
+	public BlockDesign setBrightness(float brightness) {
 		this.brightness = brightness * maxBrightness + (1 - brightness) * minBrightness;
+		return this;
 	}
 
-	public void setRenderPass(int renderPass) {
+	public BlockDesign setRenderPass(int renderPass) {
 		this.renderPass = renderPass;
+		return this;
 	}
 
 	public int getRenderPass() {
@@ -151,21 +157,23 @@ public class GenericBlockDesign implements BlockDesign {
 		PacketUtil.writeIntArray(output, lightSourceZOffset);
 	}
 
-	public void setTexture(Plugin plugin, String textureURL) {
+	public BlockDesign setTexture(Plugin plugin, String textureURL) {
 		this.texturePlugin = plugin.getDescription().getName();
 		this.textureURL = textureURL;
+		return this;
 	}
 
-	public void setBoundingBox(float lowX, float lowY, float lowZ, float highX, float highY, float highZ) {
+	public BlockDesign setBoundingBox(float lowX, float lowY, float lowZ, float highX, float highY, float highZ) {
 		this.lowXBound = lowX;
 		this.lowYBound = lowY;
 		this.lowZBound = lowZ;
 		this.highXBound = highX;
 		this.highYBound = highY;
 		this.highZBound = highZ;
+		return this;
 	}
 
-	public void setQuadNumber(int quads) {
+	public BlockDesign setQuadNumber(int quads) {
 		xPos = new float[quads][];
 		yPos = new float[quads][];
 		zPos = new float[quads][];
@@ -185,23 +193,26 @@ public class GenericBlockDesign implements BlockDesign {
 			lightSourceYOffset[i] = 0;
 			lightSourceZOffset[i] = 0;
 		}
+		return this;
 	}
 
-	public void setQuad(int quadNumber, float x1, float y1, float z1, int tx1, int ty1, float x2, float y2, float z2, int tx2, int ty2, float x3, float y3, float z3, int tx3, int ty3, float x4, float y4, float z4, int tx4, int ty4, int textureSizeX, int textureSizeY) {
+	public BlockDesign setQuad(int quadNumber, float x1, float y1, float z1, int tx1, int ty1, float x2, float y2, float z2, int tx2, int ty2, float x3, float y3, float z3, int tx3, int ty3, float x4, float y4, float z4, int tx4, int ty4, int textureSizeX, int textureSizeY) {
 
 		setVertex(quadNumber, 0, x1, y1, z1, tx1, ty1, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 1, x2, y2, z2, tx2, ty2, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 2, x3, y3, z3, tx3, ty3, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 3, x4, y4, z4, tx4, ty4, textureSizeX, textureSizeY);
+		return this;
 
 	}
 
-	public void setVertex(int quadNumber, int vertexNumber, float x, float y, float z, int tx, int ty, int textureSizeX, int textureSizeY) {
+	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, int tx, int ty, int textureSizeX, int textureSizeY) {
 		xPos[quadNumber][vertexNumber] = x;
 		yPos[quadNumber][vertexNumber] = y;
 		zPos[quadNumber][vertexNumber] = z;
 		textXPos[quadNumber][vertexNumber] = (float) tx / (float) textureSizeX;
 		textYPos[quadNumber][vertexNumber] = (float) ty / (float) textureSizeY;
+		return this;
 	}
 
 	public String getTexureURL() {
@@ -216,15 +227,37 @@ public class GenericBlockDesign implements BlockDesign {
 		return reset;
 	}
 
-	public void setLightSource(int quad, int x, int y, int z) {
+	public BlockDesign setLightSource(int quad, int x, int y, int z) {
 		lightSourceXOffset[quad] = x;
 		lightSourceYOffset[quad] = y;
 		lightSourceZOffset[quad] = z;
+		return this;
 	}
 
 	public BlockVector getLightSource(int quad, int x, int y, int z) {
 		BlockVector blockVector = new BlockVector(x + lightSourceXOffset[quad], y + lightSourceYOffset[quad], z + lightSourceZOffset[quad]);
 		return blockVector;
+	}
+
+	@Override
+	public BlockDesign setTexture(Plugin plugin, Texture texture) {
+		this.texture = texture;
+		return setTexture(plugin, texture.getTexture());
+	}
+	
+	@Override
+	public Texture getTexture() {
+		return texture;
+	}
+
+	@Override
+	public BlockDesign setQuad(Quad quad) {
+		return setVertex(quad.getVertex(0)).setVertex(quad.getVertex(1)).setVertex(quad.getVertex(2)).setVertex(quad.getVertex(3));
+	}
+
+	@Override
+	public BlockDesign setVertex(Vertex vertex) {
+		return setVertex(vertex.getQuadNum(), vertex.getIndex(), vertex.getX(), vertex.getY(), vertex.getZ(), vertex.getTextureX(), vertex.getTextureY(), vertex.getTextureWidth(), vertex.getTextureHeight());
 	}
 
 }
