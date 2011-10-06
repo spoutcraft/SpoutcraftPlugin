@@ -27,6 +27,8 @@ import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 import org.getspout.spoutapi.event.screen.SliderDragEvent;
 import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
 import org.getspout.spoutapi.gui.Button;
+import org.getspout.spoutapi.gui.CheckBox;
+import org.getspout.spoutapi.gui.RadioButton;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.Slider;
 import org.getspout.spoutapi.gui.TextField;
@@ -97,6 +99,12 @@ public class PacketControlAction implements SpoutPacket{
 				Widget control = screen.getWidget(widget);
 				if (control != null) {
 					if (control instanceof Button) {
+						if(control instanceof CheckBox) {
+							((CheckBox)control).setChecked(!((CheckBox)control).isChecked());
+						}
+						if(control instanceof RadioButton) {
+							((RadioButton)control).setSelected(true);
+						}
 						ButtonClickEvent event = new ButtonClickEvent(player, screen, (Button)control);
 						((Button)control).onButtonClick(event);
 						Bukkit.getServer().getPluginManager().callEvent(event);
