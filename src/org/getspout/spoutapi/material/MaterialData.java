@@ -11,10 +11,11 @@ import org.getspout.spoutapi.material.item.GenericItem;
 import org.getspout.spoutapi.material.item.GenericTool;
 import org.getspout.spoutapi.material.item.GenericWeapon;
 import org.getspout.spoutapi.util.map.TIntPairObjectHashMap;
+import org.spoutcraft.spoutcraftapi.material.Material;
+import org.spoutcraft.spoutcraftapi.material.MaterialData;
 
 public class MaterialData {
 	private final static TIntPairObjectHashMap<Material> idMap = new TIntPairObjectHashMap<Material>();
-	private static boolean initiated = false;
 	public static final Block air = new Air();
 	public static final Block stone = new Solid(1);
 	public static final Block grass = new Grass();
@@ -291,36 +292,28 @@ public class MaterialData {
 	public static final Item goldMusicDisc = new GenericItem(2256);
 	public static final Item greenMusicDisc = new GenericItem(2257);
 	
-	private static void init() {
-		if (!initiated) {
-			Field[] fields = MaterialData.class.getFields();
-			for (Field f : fields) {
-				f.setAccessible(true);
-				if (Modifier.isStatic(f.getModifiers())) {
-					try {
-						Object value = f.get(null);
-						if (value instanceof Material) {
-							Material mat = (Material)value;
-							idMap.put(mat.getRawId(), mat.getRawData(), mat);
-						}
-					} catch (IllegalArgumentException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+	static {
+		Field[] fields = MaterialData.class.getFields();
+		for (Field f : fields) {
+			if (Modifier.isStatic(f.getModifiers())) {
+				try {
+					Object value = f.get(null);
+					if (value instanceof Material) {
+						Material mat = (Material)value;
+						idMap.put(mat.getRawId(), mat.getRawData(), mat);
 					}
+				} catch (IllegalArgumentException e) {
+				} catch (IllegalAccessException e) {
 				}
 			}
-			initiated = true;
 		}
 	}
 	
 	public static void addCustomItem(CustomItem item) {
-		init();
 		idMap.put(318, item.getCustomId(), item);
 	}
 	
 	public static void addCustomBlock(CustomBlock block) {
-		init();
 		idMap.put(318, block.getCustomId(), block);
 	}
 	
@@ -329,7 +322,6 @@ public class MaterialData {
 	}
 	
 	public static Material getMaterial(int id, short data) {
-		init();
 		Material mat = (Material) idMap.get(id, 0); //Test if they id has subtypes first
 		if (mat == null || !mat.hasSubtypes()) {
 			return mat;
@@ -350,7 +342,6 @@ public class MaterialData {
 	}
 	
 	public static CustomBlock getCustomBlock(int customId) {
-		init();
 		Material mat = (Material) idMap.get(318, customId);
 		if (mat instanceof CustomBlock) {
 			return (CustomBlock)mat;
@@ -363,7 +354,6 @@ public class MaterialData {
 			return getCustomBlock(customId).getBlockItem();
 		}
 		
-		init();
 		Material mat = (Material) idMap.get(318, customId);
 		if (mat instanceof CustomItem) {
 			return (CustomItem) mat;
