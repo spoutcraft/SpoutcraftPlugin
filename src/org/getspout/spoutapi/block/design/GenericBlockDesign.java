@@ -241,19 +241,23 @@ public class GenericBlockDesign implements BlockDesign {
 
 	@Override
 	public BlockDesign setTexture(Plugin plugin, Texture texture) {
-		return this;
+		this.texture = texture;
+		return setTexture(plugin, texture.getTexture());
+	}
+	
+	@Override
+	public Texture getTexture() {
+		return texture;
 	}
 
 	@Override
 	public BlockDesign setQuad(int number, Quad quad) {
-		// TODO Auto-generated method stub
-		return null;
+		return setVertex(quad.getVertex(0)).setVertex(quad.getVertex(1)).setVertex(quad.getVertex(2)).setVertex(quad.getVertex(3));
 	}
 
 	@Override
 	public BlockDesign setVertex(Vertex vertex) {
-		// TODO Auto-generated method stub
-		return null;
+		return setVertex(vertex.getQuadNum(), vertex.getIndex(), vertex.getX(), vertex.getY(), vertex.getZ(), vertex.getTextureX(), vertex.getTextureY(), vertex.getTextureWidth(), vertex.getTextureHeight());
 	}
 
 }

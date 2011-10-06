@@ -188,4 +188,11 @@ public interface BlockDesign {
 	 * @return BlockVector
 	 */
 	public BlockVector getLightSource(int quad, int x, int y, int z);
+
+	/**
+	 * Gets the Texture associated with this BlockDesign
+	 * 
+	 * @return the texture
+	 */
+	public Texture getTexture();
 }
