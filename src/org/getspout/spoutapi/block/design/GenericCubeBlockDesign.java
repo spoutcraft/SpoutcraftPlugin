@@ -81,6 +81,17 @@ public class GenericCubeBlockDesign extends GenericBlockDesign {
 	public GenericCubeBlockDesign(Plugin plugin, Texture texture, int textureId) {
 		this(plugin, texture, getIdMap(textureId));
 	}
+	
+	/**
+	 * Creates a basic cube custom block model with only one texture
+	 * 
+	 * @param plugin making this block
+	 * @param texture url to use - must be square
+	 * @param textureSize size of the width/height of the texture in pixels
+	 */
+	public GenericCubeBlockDesign(Plugin plugin, String texture, int textureSize) {
+		this(plugin, new Texture(plugin, texture, textureSize, textureSize, textureSize), 0);
+	}
 
 	private static int[] getIdMap(int textureId) {
 		int[] idMap = new int[6];

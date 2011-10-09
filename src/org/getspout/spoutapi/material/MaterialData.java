@@ -2,6 +2,8 @@ package org.getspout.spoutapi.material;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Iterator;
+
 import org.getspout.spoutapi.material.block.*;
 import org.getspout.spoutapi.material.item.Coal;
 import org.getspout.spoutapi.material.item.Dye;
@@ -369,6 +371,10 @@ public class MaterialData {
 			return (Item)mat;
 		}
 		return null;
+	}
+	
+	public static Iterator<Material> getMaterialIterator() {
+		return idMap.valueCollection().iterator();
 	}
 
 }
