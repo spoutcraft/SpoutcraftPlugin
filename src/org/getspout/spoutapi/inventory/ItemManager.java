@@ -361,4 +361,13 @@ public interface ItemManager {
 	 * @return the custom item
 	 */
 	public CustomItem getCustomItem(ItemStack item);
+	
+	/**
+	 * Registers an ItemStack to drop from the specified block
+	 * 
+	 * @param block that breaks
+	 * @param item to drop
+	 * @return the block that breaks
+	 */
+	public CustomBlock registerItemDrop(CustomBlock block, ItemStack item);
 }
