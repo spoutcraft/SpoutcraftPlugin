@@ -13,7 +13,6 @@ import org.getspout.spoutapi.material.item.GenericItem;
 import org.getspout.spoutapi.material.item.GenericTool;
 import org.getspout.spoutapi.material.item.GenericWeapon;
 import org.getspout.spoutapi.util.map.TIntPairObjectHashMap;
-import org.spoutcraft.spoutcraftapi.material.Material;
 
 public class MaterialData {
 	private final static TIntPairObjectHashMap<Material> idMap = new TIntPairObjectHashMap<Material>();
