@@ -3,17 +3,23 @@ package org.getspout.spoutapi.block.design;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.SpoutManager;
+
 public class Texture {
 
 	public String texture;
+	public Plugin plugin;
 	public int width;
 	public int height;
 	public int spriteSize;
 
 	public List<SubTexture> subTextures;
 
-	public Texture(String texture, int width, int height, int spriteSize) {
+	public Texture(Plugin plugin, String texture, int width, int height, int spriteSize) {
 		this.texture = texture;
+		this.plugin = plugin;
+		SpoutManager.getFileManager().addToCache(plugin, texture);
 		this.width = width;
 		this.height = height;
 		this.spriteSize = spriteSize;
@@ -50,5 +56,9 @@ public class Texture {
 	
 	public int getHeight() {
 		return height;
+	}
+	
+	public Plugin getPlugin() {
+		return plugin;
 	}
 }

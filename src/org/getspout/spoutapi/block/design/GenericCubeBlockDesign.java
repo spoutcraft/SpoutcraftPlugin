@@ -90,7 +90,7 @@ public class GenericCubeBlockDesign extends GenericBlockDesign {
 	 * @param textureSize size of the width/height of the texture in pixels
 	 */
 	public GenericCubeBlockDesign(Plugin plugin, String texture, int textureSize) {
-		this(plugin, new Texture(texture, textureSize, textureSize, textureSize), 0);
+		this(plugin, new Texture(plugin, texture, textureSize, textureSize, textureSize), 0);
 	}
 
 	private static int[] getIdMap(int textureId) {
