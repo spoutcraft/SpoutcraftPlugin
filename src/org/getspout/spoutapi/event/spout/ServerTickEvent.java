@@ -17,13 +17,18 @@
 package org.getspout.spoutapi.event.spout;
 
 import org.bukkit.event.Event;
+import org.getspout.spoutapi.event.EventType;
+import org.getspout.spoutapi.event.SpoutEvent;
 
-public class ServerTickEvent extends Event{
+public class ServerTickEvent extends Event implements SpoutEvent {
+	
 	private static final long serialVersionUID = -3947714932775639540L;
 	protected long lastTick;
 	protected long createdTime = System.currentTimeMillis();
 	private static boolean first = true;
 	private static long lastTickTime = System.currentTimeMillis();
+	private static final EventType type = EventType.Server_Tick;
+	
 	public ServerTickEvent() {
 		super("ServerTickEvent");
 		if (!first) {
@@ -52,6 +57,11 @@ public class ServerTickEvent extends Event{
 	 */
 	public double getSecondsLastTick() {
 		return ((double)Math.abs(createdTime - lastTick)) / 1000;
+	}
+
+	@Override
+	public EventType getEventType() {
+		return type;
 	}
 
 }

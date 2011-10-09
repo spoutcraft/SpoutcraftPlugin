@@ -19,6 +19,7 @@ package org.getspout.spoutapi.event.screen;
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+import org.getspout.spoutapi.event.SpoutEvent;
 
 public class ScreenListener extends CustomEventListener implements Listener{
 	
@@ -44,20 +45,24 @@ public class ScreenListener extends CustomEventListener implements Listener{
 	
 	@Override
 	public void onCustomEvent(Event event) {
-		if (event instanceof ScreenOpenEvent) {
-			onScreenOpen((ScreenOpenEvent)event);
-		}
-		else if (event instanceof ButtonClickEvent) {
-			onButtonClick((ButtonClickEvent)event);
-		}
-		else if (event instanceof SliderDragEvent) {
-			onSliderDrag((SliderDragEvent)event);
-		}
-		else if (event instanceof TextFieldChangeEvent) {
-			onTextFieldChange((TextFieldChangeEvent)event);
-		}
-		else if (event instanceof ScreenCloseEvent) {
-			onScreenClose((ScreenCloseEvent)event);
+		if (event instanceof SpoutEvent) {
+			switch (((SpoutEvent) event).getEventType()) {
+				case Screen_Open:
+					onScreenOpen((ScreenOpenEvent)event);
+					break;
+				case Button_Click:
+					onButtonClick((ButtonClickEvent)event);
+					break;
+				case Slider_Drag:
+					onSliderDrag((SliderDragEvent)event);
+					break;
+				case TextField_Change:
+					onTextFieldChange((TextFieldChangeEvent)event);
+					break;
+				case Screen_Close:
+					onScreenClose((ScreenCloseEvent)event);
+					break;
+			}
 		}
 	}
 
