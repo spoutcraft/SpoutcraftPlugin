@@ -370,4 +370,20 @@ public interface ItemManager {
 	 * @return the block that breaks
 	 */
 	public CustomBlock registerItemDrop(CustomBlock block, ItemStack item);
+	
+	/**
+	 * Checks if the block has an item drop registered to it
+	 * 
+	 * @param block to check
+	 * @return true if it has an item drop
+	 */
+	public boolean hasItemDrop(CustomBlock block);
+	
+	/**
+	 * Gets the ItemStack that drops from the specified block, if it has one
+	 * 
+	 * @param block to get the drop from
+	 * @return item stack of the drop
+	 */
+	public ItemStack getItemDrop(CustomBlock block);
 }
