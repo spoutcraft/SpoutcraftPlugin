@@ -19,9 +19,11 @@ package org.getspout.spoutapi.event.inventory;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spoutapi.event.EventType;
+import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.inventory.CraftingInventory;
 
-public class InventoryCraftEvent extends InventoryEvent{
+public class InventoryCraftEvent extends InventoryEvent implements SpoutEvent {
 	private static final long serialVersionUID = 2252453296883258337L;
 	private ItemStack result, cursor;
 	private InventorySlotType slotType;
@@ -30,6 +32,7 @@ public class InventoryCraftEvent extends InventoryEvent{
 	private int width, height;
 	private boolean left;
 	private boolean shift;
+	private static final EventType type = EventType.Inventory_Craft;
 
 	public InventoryCraftEvent(Player player, CraftingInventory inventory, Location location, InventorySlotType slotType, int slot, ItemStack[][] recipe, ItemStack result, ItemStack cursor, boolean leftClick, boolean shift) {
 		super("InventoryCraftEvent", player, inventory, location);
@@ -138,5 +141,10 @@ public class InventoryCraftEvent extends InventoryEvent{
 	 */
 	public boolean isShiftClick() {
 		return shift;
+	}
+
+	@Override
+	public EventType getEventType() {
+		return type;
 	}
 }

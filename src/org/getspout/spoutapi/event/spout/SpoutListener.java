@@ -19,35 +19,40 @@ package org.getspout.spoutapi.event.spout;
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+import org.getspout.spoutapi.event.SpoutEvent;
 
-public class SpoutListener extends CustomEventListener implements Listener{
+public class SpoutListener extends CustomEventListener implements Listener {
 
 	public SpoutListener() {
 
 	}
-	
+
 	public void onSpoutCraftEnable(SpoutCraftEnableEvent event) {
- 
+
 	}
-	
+
 	public void onSpoutcraftFailed(SpoutcraftFailedEvent event) {
-		 
+
 	}
-	
+
 	public void onServerTick(ServerTickEvent event) {
-		
+
 	}
 
 	@Override
 	public void onCustomEvent(Event event) {
-		if (event instanceof ServerTickEvent) {
-			onServerTick((ServerTickEvent)event);
-		}
-		else if (event instanceof SpoutCraftEnableEvent) {
-			onSpoutCraftEnable((SpoutCraftEnableEvent)event);
-		}
-		else if (event instanceof SpoutcraftFailedEvent) {
-			onSpoutcraftFailed((SpoutcraftFailedEvent)event);
+		if (event instanceof SpoutEvent) {
+			switch (((SpoutEvent) event).getEventType()) {
+				case Server_Tick:
+					onServerTick((ServerTickEvent) event);
+					break;
+				case Spoutcraft_Enable:
+					onSpoutCraftEnable((SpoutCraftEnableEvent) event);
+					break;
+				case Spoutcraft_Failed:
+					onSpoutcraftFailed((SpoutcraftFailedEvent) event);
+					break;
+			}
 		}
 	}
 

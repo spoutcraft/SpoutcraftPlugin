@@ -16,16 +16,21 @@
  */
 package org.getspout.spoutapi.event.screen;
 
+import org.getspout.spoutapi.event.EventType;
+import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.gui.Slider;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SliderDragEvent extends ScreenEvent {
+public class SliderDragEvent extends ScreenEvent implements SpoutEvent {
+	
 	private static final long serialVersionUID = 4982214332331736926L;
 	protected Slider slider;
 	protected float position;
 	protected float old;
+	private static final EventType type = EventType.Slider_Drag;
+	
 	public SliderDragEvent(SpoutPlayer player, Screen screen, Slider slider, float position) {
 		super("SliderDragEvent", player, screen, ScreenType.CUSTOM_SCREEN);
 		this.slider = slider;
@@ -49,4 +54,10 @@ public class SliderDragEvent extends ScreenEvent {
 		this.position = position;
 	}
 
+	@Override
+	public EventType getEventType() {
+		return type;
+	}
+	
+	
 }

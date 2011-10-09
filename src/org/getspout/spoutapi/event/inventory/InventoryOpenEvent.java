@@ -19,10 +19,14 @@ package org.getspout.spoutapi.event.inventory;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.getspout.spoutapi.event.EventType;
+import org.getspout.spoutapi.event.SpoutEvent;
 
-public class InventoryOpenEvent extends InventoryEvent {
-	private Inventory other;
+public class InventoryOpenEvent extends InventoryEvent implements SpoutEvent {
+	
 	private static final long serialVersionUID = -5638814678689580398L;
+	private Inventory other;
+	private static final EventType type = EventType.Inventory_Open;
 
 	public InventoryOpenEvent(Player player, Inventory inventory, Inventory other) {
 		super("InventoryOpenEvent", player, inventory);
@@ -48,5 +52,10 @@ public class InventoryOpenEvent extends InventoryEvent {
 	 */
 	public Inventory getBottomInventory() {
 		return this.other;
+	}
+
+	@Override
+	public EventType getEventType() {
+		return type;
 	}
 }

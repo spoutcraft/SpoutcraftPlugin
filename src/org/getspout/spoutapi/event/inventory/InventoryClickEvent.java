@@ -20,9 +20,11 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spoutapi.event.EventType;
+import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 
-public class InventoryClickEvent extends InventoryEvent{
+public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	private static final long serialVersionUID = -5555208587016292520L;
 	protected InventorySlotType type;
 	protected ItemStack item;
@@ -32,6 +34,7 @@ public class InventoryClickEvent extends InventoryEvent{
 	protected Result result = Result.DEFAULT;
 	protected boolean leftClick;
 	protected boolean shift;
+	private static final EventType eventtype = EventType.Inventory_Click;
 
 	public InventoryClickEvent(Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift) {
 		super("InventoryClickEvent", player, inventory);
@@ -196,6 +199,11 @@ public class InventoryClickEvent extends InventoryEvent{
 			return slot;
 		}
 		return slot;
+	}
+
+	@Override
+	public EventType getEventType() {
+		return eventtype;
 	}
 
 }
