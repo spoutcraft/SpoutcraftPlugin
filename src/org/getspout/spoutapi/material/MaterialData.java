@@ -2,6 +2,8 @@ package org.getspout.spoutapi.material;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Iterator;
+
 import org.getspout.spoutapi.material.block.*;
 import org.getspout.spoutapi.material.item.Coal;
 import org.getspout.spoutapi.material.item.Dye;
@@ -11,6 +13,7 @@ import org.getspout.spoutapi.material.item.GenericItem;
 import org.getspout.spoutapi.material.item.GenericTool;
 import org.getspout.spoutapi.material.item.GenericWeapon;
 import org.getspout.spoutapi.util.map.TIntPairObjectHashMap;
+import org.spoutcraft.spoutcraftapi.material.Material;
 
 public class MaterialData {
 	private final static TIntPairObjectHashMap<Material> idMap = new TIntPairObjectHashMap<Material>();
@@ -369,6 +372,10 @@ public class MaterialData {
 			return (Item)mat;
 		}
 		return null;
+	}
+	
+	public static Iterator<Material> getMaterialIterator() {
+		return idMap.valueCollection().iterator();
 	}
 
 }
