@@ -5,7 +5,7 @@ import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.block.design.GenericBlockDesign;
-import org.getspout.spoutapi.inventory.ItemManager;
+import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
@@ -13,7 +13,7 @@ import org.getspout.spoutapi.material.item.GenericCustomItem;
 
 public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public BlockDesign design = new GenericBlockDesign();
-	public static ItemManager im = SpoutManager.getItemManager();
+	public static MaterialManager mm = SpoutManager.getMaterialManager();
 	private final String fullName;
 	private final int customID;
 	private final Plugin plugin;
@@ -22,14 +22,14 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public int customMetaData = 0;
 
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
-		super(isOpaque ? 1 : 20);
+		super(name, isOpaque ? 1 : 20);
 		item = new GenericCustomItem(plugin, name);
 		this.blockId = isOpaque ? 1 : 20;
 		this.plugin = plugin;
 		this.fullName = item.getFullName();
 		this.customID = item.getCustomId();
 		MaterialData.addCustomBlock(this);
-		this.setItemDrop(im.getCustomItemStack(this, 1));
+		this.setItemDrop(mm.getCustomItemStack(this, 1));
 	}
 
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design, int customMetaData) {
@@ -56,9 +56,9 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
 		this.design = design;
-		im.setCustomBlockDesign(customID, (short) customMetaData, design);
-		im.setCustomBlockDesign(318, (short) customID, design);
-		im.setCustomItemBlock(item, this);
+		mm.setCustomBlockDesign(this, design);
+		mm.setCustomBlockDesign(this.getBlockItem(), design);
+		mm.setCustomItemBlock(item, this);
 
 		return this;
 	}
@@ -112,7 +112,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	
 	@Override
 	public CustomBlock setItemDrop(ItemStack item) {
-		im.registerItemDrop(this, item);
+		mm.registerItemDrop(this, item);
 		return this;
 	}
 }

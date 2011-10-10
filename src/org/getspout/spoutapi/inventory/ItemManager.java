@@ -29,6 +29,7 @@ import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 
+@Deprecated
 public interface ItemManager {
 
 	public String getStepSound(int id, short data);

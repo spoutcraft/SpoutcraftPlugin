@@ -4,8 +4,8 @@ import org.getspout.spoutapi.material.SolidBlock;
 
 public class DoubleSlabs extends GenericBlock implements SolidBlock {
 
-	public DoubleSlabs(int id, int data) {
-		super(id, data);
+	public DoubleSlabs(String name, int id, int data) {
+		super(name, id, data);
 	}
 
 	@Override
