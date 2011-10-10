@@ -1,5 +1,6 @@
 package org.getspout.spoutapi.material.block;
 
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.design.BlockDesign;
@@ -106,5 +107,11 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	@Override
 	public int getBlockId() {
 		return this.blockId;
+	}
+	
+	@Override
+	public CustomBlock setItemDrop(ItemStack item) {
+		im.registerItemDrop(this, item);
+		return this;
 	}
 }

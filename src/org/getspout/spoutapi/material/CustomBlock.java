@@ -1,5 +1,6 @@
 package org.getspout.spoutapi.material;
 
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.block.design.BlockDesign;
 
@@ -22,4 +23,6 @@ public interface CustomBlock extends Block {
 	public CustomItem getBlockItem();
 	
 	public int getBlockId();
+	
+	public CustomBlock setItemDrop(ItemStack item);
 }
