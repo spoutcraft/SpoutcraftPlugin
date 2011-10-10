@@ -29,6 +29,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 		this.fullName = item.getFullName();
 		this.customID = item.getCustomId();
 		MaterialData.addCustomBlock(this);
+		this.setItemDrop(im.getCustomItemStack(this, 1));
 	}
 
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design, int customMetaData) {
