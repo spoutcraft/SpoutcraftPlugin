@@ -25,7 +25,6 @@ import org.getspout.spoutapi.SpoutManager;
  * 
  */
 
-@Deprecated
 public class Listeners {
 
 	/**
