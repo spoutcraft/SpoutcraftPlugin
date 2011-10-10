@@ -56,6 +56,15 @@ public interface SpoutBlock extends Block{
 	public void setTypeIdAndDataAsync(int type, byte data);
 	
 	/**
+	 * Overrides the block to be the customBlock
+	 * 
+	 * This can be used to set custom blocks at the location.
+	 *
+	 * @param customBlock the custom block to use instead of the block
+	 */
+	public void setCustomBlock(CustomBlock block);
+	
+	/**
 	 * Sets block data for the block at (x, y, z) and a given id.  
 	 * 
 	 * Setting data for unloaded chunks has an undefined effect.
