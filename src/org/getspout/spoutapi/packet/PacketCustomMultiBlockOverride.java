@@ -22,31 +22,26 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.List;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.bukkit.Chunk;
-import org.bukkit.block.Block;
 
 public class PacketCustomMultiBlockOverride implements CompressablePacket{
 	private int chunkX;
 	private int chunkZ;
 	private boolean compressed = false;
 	private byte[] data;
-	public PacketCustomMultiBlockOverride(List<Block> blocks, TIntArrayList blockTypeIds, TIntArrayList blockMetadata) {
-		short size = (short) blocks.size();
+	public PacketCustomMultiBlockOverride(TIntArrayList xCoords, TIntArrayList yCoords, TIntArrayList zCoords, TIntArrayList blockTypeIds, TIntArrayList blockMetadata) {
+		short size = (short) xCoords.size();
 		ByteBuffer rawData = ByteBuffer.allocate(size * 7);
-		Chunk c = blocks.get(0).getChunk();
-		chunkX = c.getX();
-		chunkZ = c.getZ();
+		chunkX = xCoords.get(0) >> 4;
+		chunkZ = zCoords.get(0) >> 4;
 		for (int i = 0; i < size; i++) {
-			Block b = blocks.get(i);
-			rawData.put((byte) (b.getX() - chunkX * 16));
-			rawData.put((byte) b.getY());
-			rawData.put((byte) (b.getZ() - chunkZ * 16));
+			rawData.put((byte) (xCoords.get(i) - chunkX * 16));
+			rawData.put((byte) yCoords.get(i));
+			rawData.put((byte) (zCoords.get(i) - chunkZ * 16));
 			rawData.putShort((short)blockTypeIds.get(i));
 			rawData.putShort((short)blockMetadata.get(i));
 		}
