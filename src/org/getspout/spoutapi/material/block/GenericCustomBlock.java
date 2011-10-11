@@ -11,7 +11,7 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
 
-public class GenericCustomBlock extends GenericBlock implements CustomBlock {
+public abstract class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public BlockDesign design = new GenericBlockDesign();
 	public static MaterialManager mm = SpoutManager.getMaterialManager();
 	private final String fullName;
