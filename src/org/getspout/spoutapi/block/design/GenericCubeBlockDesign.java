@@ -13,6 +13,7 @@ public class GenericCubeBlockDesign extends GenericBlockDesign {
 	 * @param plugin making this block
 	 * @param texture to use
 	 * @param textureId[6] Array of faces, give Id's for SubTexture locations
+	 * Array is laid out as follows {bottom, face, face, face, face, top}
 	 */
 	public GenericCubeBlockDesign(Plugin plugin, Texture texture, int[] textureId) {
 
@@ -75,7 +76,7 @@ public class GenericCubeBlockDesign extends GenericBlockDesign {
 	 * Creates a basic cube custom block model with only one texture
 	 * 
 	 * @param plugin making this block
-	 * @param texture to use
+	 * @param texture url to use
 	 * @param textureId to get the SubTexture to use
 	 */
 	public GenericCubeBlockDesign(Plugin plugin, Texture texture, int textureId) {
@@ -86,7 +87,7 @@ public class GenericCubeBlockDesign extends GenericBlockDesign {
 	 * Creates a basic cube custom block model with only one texture
 	 * 
 	 * @param plugin making this block
-	 * @param texture url to use - must be square
+	 * @param texture url to use - must be a square png
 	 * @param textureSize size of the width/height of the texture in pixels
 	 */
 	public GenericCubeBlockDesign(Plugin plugin, String texture, int textureSize) {

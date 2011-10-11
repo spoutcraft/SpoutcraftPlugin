@@ -21,6 +21,13 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	private final int blockId;
 	public int customMetaData = 0;
 
+	/**
+	 * Creates a GenericCustomBlock with no model yet.
+	 * 
+	 * @param plugin creating the block
+	 * @param name of the block
+	 * @param isOpaque true if you want the block solid
+	 */
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
 		super(name, isOpaque ? 1 : 20);
 		item = new GenericCustomItem(plugin, name);
@@ -32,12 +39,27 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 		this.setItemDrop(mm.getCustomItemStack(this, 1));
 	}
 
+	/**
+	 * Creates a GenericCustomBlock with a specified Design and metadata
+	 * 
+	 * @param plugin creating the block
+	 * @param name of the block
+	 * @param isOpaque true if you want the block solid
+	 * @param design to use for the block
+	 * @param customMetaData for the block
+	 */
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design, int customMetaData) {
 		this(plugin, name, isOpaque);
 		this.customMetaData = customMetaData;
 		setBlockDesign(design);
 	}
 
+	/**
+	 * Creates a basic GenericCustomblock with no design that is opaque/solid.
+	 * 
+	 * @param plugin creating the block
+	 * @param name of the block
+	 */
 	public GenericCustomBlock(Plugin plugin, String name) {
 		this(plugin, name, true);
 	}
