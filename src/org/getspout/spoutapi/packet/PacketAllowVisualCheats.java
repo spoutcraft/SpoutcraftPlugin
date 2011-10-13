@@ -87,7 +87,7 @@ public class PacketAllowVisualCheats implements SpoutPacket{
 	
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 }
