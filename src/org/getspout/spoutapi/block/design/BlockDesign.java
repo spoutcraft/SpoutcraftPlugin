@@ -35,6 +35,7 @@ public interface BlockDesign {
 	
 	/**
 	 * Sets the number of render passes of the block
+	 * 0 for normal, 1 for translucent
 	 * 
 	 * @param renderPass to set
 	 * @return this

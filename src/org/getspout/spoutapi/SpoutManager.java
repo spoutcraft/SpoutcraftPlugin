@@ -208,8 +208,8 @@ public class SpoutManager {
 	}
 	
 	/**
-	 * Gets the keyboard manager
-	 * @return keyboard manager
+	 * Gets the material manager
+	 * @return material manager
 	 */
 	public static MaterialManager getMaterialManager() {
 		return getInstance().materialManager;
