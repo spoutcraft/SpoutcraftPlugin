@@ -22,27 +22,52 @@ import java.io.IOException;
 
 public class PacketAllowVisualCheats implements SpoutPacket{
 	private boolean cheating = false;
+        private boolean sky = false;
+        private boolean clearwater = false;
+        private boolean cloudheight = false;
+        private boolean stars = false;
+        private boolean weather = false;
+        private boolean time = false;
+        
 	public PacketAllowVisualCheats() {
 
 	}
 	
-	public PacketAllowVisualCheats(boolean allow) {
+	public PacketAllowVisualCheats(boolean allow, boolean sky, boolean clearwater, boolean cloudheight, boolean stars, boolean weather, boolean time) {
 		this.cheating = allow;
+                this.sky = sky;
+                this.clearwater = clearwater;
+                this.cloudheight = cloudheight;
+                this.stars = stars;
+                this.weather = weather;
+                this.time = time;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return 1;
+		return 7;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		cheating = input.readBoolean();
+                sky = input.readBoolean();
+                clearwater = input.readBoolean();
+                cloudheight = input.readBoolean();
+                stars = input.readBoolean();
+                weather = input.readBoolean();
+                time = input.readBoolean();                
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		output.writeBoolean(cheating);
+                output.writeBoolean(sky);
+                output.writeBoolean(clearwater);
+                output.writeBoolean(cloudheight);
+                output.writeBoolean(stars);
+                output.writeBoolean(weather);
+                output.writeBoolean(time);
 	}
 
 	@Override
