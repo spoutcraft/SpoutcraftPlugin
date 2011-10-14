@@ -8,20 +8,23 @@ public class GenericBlock implements Block{
 	private final int id;
 	private final int data;
 	private final boolean subtypes;
+	private final String name;
+	private String customName;
 	private SoundEffect stepSound = SoundEffect.STONE;
 	
-	private GenericBlock(int id, int data, boolean subtypes) {
+	private GenericBlock(String name, int id, int data, boolean subtypes) {
+		this.name = name;
 		this.id = id;
 		this.data = data;
 		this.subtypes = subtypes;
 	}
 	
-	protected GenericBlock(int id, int data) {
-		this(id, data, true);
+	protected GenericBlock(String name, int id, int data) {
+		this(name, id, data, true);
 	}
 	
-	protected GenericBlock(int id) {
-		this(id, 0, false);
+	protected GenericBlock(String name, int id) {
+		this(name, id, 0, false);
 	}
 
 	@Override
@@ -41,12 +44,20 @@ public class GenericBlock implements Block{
 
 	@Override
 	public String getName() {
-		return SpoutManager.getItemManager().getItemName(id, (short)data);
+		if(customName != null) {
+			return customName;
+		}
+		return name;
 	}
 
 	@Override
+	public String getNotchianName() {
+		return name;
+	}
+	@Override
 	public void setName(String name) {
-		SpoutManager.getItemManager().setItemName(id, (short)data, name);
+		this.customName = name;
+		SpoutManager.getMaterialManager().setItemName(this, name);
 	}
 
 	@Override
@@ -62,23 +73,23 @@ public class GenericBlock implements Block{
 
 	@Override
 	public float getFriction() {
-		return SpoutManager.getItemManager().getFriction(id, (short) data);
+		return SpoutManager.getMaterialManager().getFriction(this);
 	}
 
 	@Override
 	public Block setFriction(float friction) {
-		SpoutManager.getItemManager().setFriction(id, (short) data, friction);
+		SpoutManager.getMaterialManager().setFriction(this, friction);
 		return this;
 	}
 
 	@Override
 	public float getHardness() {
-		return SpoutManager.getItemManager().getHardness(id, (short) data);
+		return SpoutManager.getMaterialManager().getHardness(this);
 	}
 
 	@Override
 	public Block setHardness(float hardness) {
-		SpoutManager.getItemManager().setHardness(id, (short) data, hardness);
+		SpoutManager.getMaterialManager().setHardness(this, hardness);
 		return this;
 	}
 
@@ -96,24 +107,24 @@ public class GenericBlock implements Block{
 
 	@Override
 	public boolean isOpaque() {
-		SpoutManager.getItemManager().isOpaque(id, (short) data);
+		SpoutManager.getMaterialManager().isOpaque(this);
 		return false;
 	}
 
 	@Override
 	public Block setOpaque(boolean opaque) {
-		SpoutManager.getItemManager().setOpaque(id, (short) data, opaque);
+		SpoutManager.getMaterialManager().setOpaque(this, opaque);
 		return this;
 	}
 
 	@Override
 	public int getLightLevel() {
-		return SpoutManager.getItemManager().getLightLevel(id, (short) data);
+		return SpoutManager.getMaterialManager().getLightLevel(this);
 	}
 
 	@Override
 	public Block setLightLevel(int level) {
-		SpoutManager.getItemManager().setLightLevel(id, (short) data, level);
+		SpoutManager.getMaterialManager().setLightLevel(this, level);
 		return this;
 	}
 }

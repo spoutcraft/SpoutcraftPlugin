@@ -19,6 +19,7 @@ package org.getspout.spoutapi.event.inventory;
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+import org.getspout.spoutapi.event.SpoutEvent;
 
 public class InventoryListener extends CustomEventListener implements Listener{
 	
@@ -44,17 +45,21 @@ public class InventoryListener extends CustomEventListener implements Listener{
 
 	@Override
 	public void onCustomEvent(Event event) {
-		if (event instanceof InventoryCloseEvent) {
-			onInventoryClose((InventoryCloseEvent)event);
-		}
-		else if (event instanceof InventoryOpenEvent) {
-			onInventoryOpen((InventoryOpenEvent)event);
-		}
-		else if (event instanceof InventoryClickEvent) {
-			onInventoryClick((InventoryClickEvent)event);
-		}
-		else if (event instanceof InventoryCraftEvent) {
-			onInventoryCraft((InventoryCraftEvent)event);
+		if (event instanceof SpoutEvent) {
+			switch (((SpoutEvent) event).getEventType()) {
+				case Inventory_Close:
+					onInventoryClose((InventoryCloseEvent)event);
+					break;
+				case Inventory_Open:
+					onInventoryOpen((InventoryOpenEvent)event);
+					break;
+				case Inventory_Click:
+					onInventoryClick((InventoryClickEvent)event);
+					break;
+				case Inventory_Craft:
+					onInventoryCraft((InventoryCraftEvent)event);
+					break;					
+			}
 		}
 	}
 	

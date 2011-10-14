@@ -16,16 +16,21 @@
  */
 package org.getspout.spoutapi.event.screen;
 
+import org.getspout.spoutapi.event.EventType;
+import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class TextFieldChangeEvent extends ScreenEvent{
+public class TextFieldChangeEvent extends ScreenEvent implements SpoutEvent {
+	
 	private static final long serialVersionUID = -287243193163686657L;
 	protected TextField field;
 	protected String oldVal;
 	protected String newVal;
+	private static final EventType type = EventType.TextField_Change;
+	
 	public TextFieldChangeEvent(SpoutPlayer player, Screen screen, TextField field, String newVal) {
 		super("TextFieldChangeEvent", player, screen, ScreenType.CUSTOM_SCREEN);
 		this.field = field;
@@ -48,6 +53,11 @@ public class TextFieldChangeEvent extends ScreenEvent{
 	public void setNewText(String newVal) {
 		if (newVal == null) newVal = "";
 		this.newVal = newVal;
+	}
+
+	@Override
+	public EventType getEventType() {
+		return type;
 	}
 
 }

@@ -4,8 +4,8 @@ import org.getspout.spoutapi.material.Plant;
 
 public class Sapling extends GenericBlock implements Plant{
 
-	public Sapling(int data) {
-		super(6, data);
+	public Sapling(String name, int data) {
+		super(name, 6, data);
 	}
 
 	@Override

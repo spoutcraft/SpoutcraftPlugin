@@ -4,8 +4,8 @@ import org.getspout.spoutapi.material.Food;
 
 public class GenericFood extends GenericItem implements Food {
 
-	public GenericFood(int id) {
-		super(id);
+	public GenericFood(String name, int id) {
+		super(name, id);
 	}
 
 }

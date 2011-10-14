@@ -4,8 +4,8 @@ import org.getspout.spoutapi.material.Tool;
 
 public class GenericTool extends GenericItem implements Tool {
 
-	public GenericTool(int id) {
-		super(id);
+	public GenericTool(String name, int id) {
+		super(name, id);
 	}
 
 	@Override

@@ -192,7 +192,7 @@ public class GenericLabel extends GenericWidget implements Label{
 	
 	@Override
 	public Label copy() {
-		return ((Label)super.copy()).setText(getText()).setAuto(isAuto()).setTextColor(getTextColor()).setResize(isResize());
+		return ((Label)super.copy()).setText(getText()).setScale(getScale()).setAuto(isAuto()).setTextColor(getTextColor()).setResize(isResize());
 	}
 
 
@@ -212,8 +212,8 @@ public class GenericLabel extends GenericWidget implements Label{
 	public Label doResize() {
 		if (resize) {
 			if (textHeight < 0 || textWidth < 0) {
-				textHeight = getStringHeight(text);
-				textWidth = getStringWidth(text);
+				textHeight = getStringHeight(text, getScale());
+				textWidth = getStringWidth(text, getScale());
 			}
 			super.setMinHeight(textHeight);
 			super.setMinWidth(textWidth);
@@ -235,20 +235,40 @@ public class GenericLabel extends GenericWidget implements Label{
 	}
 
 	/**
-	 * Super secret method to get the height of a string...
+	 * Gets the height of the text
 	 * @param text
-	 * @return 
+	 * @return height in pixels
 	 */
 	public static int getStringHeight(String text) {
-		return text.split("\n").length * 10;
+		return getStringHeight(text, 1.0F);
+	}
+	
+	/**
+	 * Gets the height of the text, at the given scale
+	 * @param text
+	 * @param scale of the text, 1.0 is default
+	 * @return height in pixels
+	 */
+	public static int getStringHeight(String text, float scale) {
+		return (int)(text.split("\n").length * 10 * scale);
+	}
+	
+	/**
+	 * Gets the width of the text
+	 * @param text
+	 * @return width of the text
+	 */
+	public static int getStringWidth(String text) {
+		return getStringWidth(text, 1.0F);
 	}
 
 	/**
-	 * Super secret method to get the width of a string...
+	 * Gets the width of the text, at the given scale
 	 * @param text
-	 * @return 
+	 * @param scale of the text, 1.0 is default
+	 * @return width of the text
 	 */
-	public static int getStringWidth(String text) {
+	public static int getStringWidth(String text, float scale) {
 		final int[] characterWidths = new int[]{
 			1, 9, 9, 8, 8, 8, 8, 7, 9, 8, 9, 9, 8, 9, 9, 9,
 			8, 8, 8, 8, 9, 9, 8, 9, 8, 8, 8, 8, 8, 9, 9, 9,
@@ -283,6 +303,6 @@ public class GenericLabel extends GenericWidget implements Label{
 			}
 			length = Math.max(length, lineLength);
 		}
-		return length;
+		return (int)(length * scale);
 	}
 }

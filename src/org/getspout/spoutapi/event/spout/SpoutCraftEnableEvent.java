@@ -17,11 +17,16 @@
 package org.getspout.spoutapi.event.spout;
 
 import org.bukkit.event.Event;
+import org.getspout.spoutapi.event.EventType;
+import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutCraftEnableEvent extends Event{
+public class SpoutCraftEnableEvent extends Event implements SpoutEvent {
+	
 	private static final long serialVersionUID = 5172371431162815630L;
 	private SpoutPlayer player;
+	private static final EventType type = EventType.Spoutcraft_Enable;
+	
 	public SpoutCraftEnableEvent(SpoutPlayer player) {
 		super("SpoutCraftEnableEvent");
 		this.player = player;
@@ -33,5 +38,10 @@ public class SpoutCraftEnableEvent extends Event{
 	 */
 	public SpoutPlayer getPlayer() {
 		return player;
+	}
+
+	@Override
+	public EventType getEventType() {
+		return type;
 	}
 }

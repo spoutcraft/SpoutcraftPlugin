@@ -4,8 +4,8 @@ import org.getspout.spoutapi.material.SolidBlock;
 
 public class Wool extends GenericBlock implements SolidBlock {
 
-	public Wool(int id, int data) {
-		super(id, data);
+	public Wool(String name, int id, int data) {
+		super(name, id, data);
 	}
 
 	@Override

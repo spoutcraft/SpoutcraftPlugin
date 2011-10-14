@@ -4,8 +4,8 @@ import org.getspout.spoutapi.material.Weapon;
 
 public class GenericWeapon extends GenericItem implements Weapon {
 
-	public GenericWeapon(int id) {
-		super(id);
+	public GenericWeapon(String name, int id) {
+		super(name, id);
 	}
 
 }

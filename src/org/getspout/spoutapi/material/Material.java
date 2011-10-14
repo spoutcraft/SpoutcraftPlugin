@@ -8,6 +8,8 @@ public interface Material {
 	
 	public boolean hasSubtypes();
 	
+	public String getNotchianName();
+	
 	public String getName();
 	
 	public void setName(String name);

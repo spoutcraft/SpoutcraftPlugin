@@ -19,35 +19,47 @@ package org.getspout.spoutapi.event.input;
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+import org.getspout.spoutapi.event.SpoutEvent;
 
-public class InputListener extends CustomEventListener implements Listener{
-	
+public class InputListener extends CustomEventListener implements Listener {
+
 	public InputListener() {
 
 	}
-	
+
 	public void onKeyPressedEvent(KeyPressedEvent event) {
-	
+
 	}
-	
+
 	public void onKeyReleasedEvent(KeyReleasedEvent event) {
 
 	}
-	
+
 	public void onRenderDistanceChange(RenderDistanceChangeEvent event) {
-		
+
 	}
 	
+	public void onKeyBinding(KeyBindingEvent event) {
+
+	}
+
 	@Override
 	public void onCustomEvent(Event event) {
-		if (event instanceof KeyPressedEvent) {
-			onKeyPressedEvent((KeyPressedEvent)event);
-		}
-		else if (event instanceof KeyReleasedEvent) {
-			onKeyReleasedEvent((KeyReleasedEvent)event);
-		}
-		else if (event instanceof RenderDistanceChangeEvent) {
-			onRenderDistanceChange((RenderDistanceChangeEvent)event);
+		if (event instanceof SpoutEvent) {
+			switch (((SpoutEvent) event).getEventType()) {
+				case Key_Pressed:
+					onKeyPressedEvent((KeyPressedEvent) event);
+					break;
+				case Key_Released:
+					onKeyReleasedEvent((KeyReleasedEvent) event);
+					break;
+				case Key_Binding:
+					onKeyBinding((KeyBindingEvent)event);
+					break;
+				case Render_Distance_Changed:
+					onRenderDistanceChange((RenderDistanceChangeEvent) event);
+					break;
+			}
 		}
 	}
 }
