@@ -28,12 +28,15 @@ public class PacketAllowVisualCheats implements SpoutPacket {
     private boolean weather = false;
     private boolean time = false;
     private boolean coords = false;
+    private boolean brightness = false;
+    private boolean entitylabel = false;
+    private boolean renderdistance = false;
         
 	public PacketAllowVisualCheats() {
 
 	}
 	
-	public PacketAllowVisualCheats(boolean tsky, boolean tclearwater, boolean tcloudheight, boolean tstars, boolean tweather, boolean ttime, boolean tcoords) {
+	public PacketAllowVisualCheats(boolean tsky, boolean tclearwater, boolean tcloudheight, boolean tstars, boolean tweather, boolean ttime, boolean tcoords, boolean tbrightness, boolean tentitylabel, boolean trenderdistance) {
         this.sky = tsky;
         this.clearwater = tclearwater;
         this.cloudheight = tcloudheight;
@@ -41,11 +44,14 @@ public class PacketAllowVisualCheats implements SpoutPacket {
         this.weather = tweather;
         this.time = ttime;
         this.coords = tcoords;
+        this.brightness = tbrightness;
+        this.entitylabel = tentitylabel;
+        this.renderdistance = trenderdistance;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return 7;
+		return 10;
 	}
 
 	@Override
@@ -57,6 +63,9 @@ public class PacketAllowVisualCheats implements SpoutPacket {
             weather = input.readBoolean();
             time = input.readBoolean();     
             coords = input.readBoolean();
+            brightness = input.readBoolean();
+            entitylabel = input.readBoolean();
+            renderdistance = input.readBoolean();
 	}
 
 	@Override
@@ -68,6 +77,9 @@ public class PacketAllowVisualCheats implements SpoutPacket {
             output.writeBoolean(weather);
             output.writeBoolean(time);
             output.writeBoolean(coords);
+            output.writeBoolean(brightness);
+            output.writeBoolean(entitylabel);
+            output.writeBoolean(renderdistance);
 	}
 
 	@Override
