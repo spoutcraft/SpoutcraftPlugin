@@ -87,13 +87,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		doResize();
 		return this;
 	}
-	
-	@Override
-	@Deprecated
-	public boolean getAuto() {
-		return auto;
-	}
-	
+
 	@Override
 	public boolean isAuto() {
 		return auto;
@@ -138,58 +132,6 @@ public class GenericLabel extends GenericWidget implements Label{
 		return scale;
 	}
 
-	@Override
-	@Deprecated
-	public Align getAlignX() {
-		switch (align) {
-			case TOP_CENTER:
-			case CENTER_CENTER:
-			case BOTTOM_CENTER:
-				return Align.SECOND;
-			case TOP_RIGHT:
-			case CENTER_RIGHT:
-			case BOTTOM_RIGHT:
-				return Align.THIRD;
-			case TOP_LEFT:
-			case CENTER_LEFT:
-			case BOTTOM_LEFT:
-			default:
-				return Align.FIRST;
-		}
-	}
-
-	@Override
-	@Deprecated
-	public Widget setAlignX(Align pos) {
-		return this;
-	}
-
-	@Override
-	@Deprecated
-	public Align getAlignY() {
-		switch (align) {
-			case CENTER_LEFT:
-			case CENTER_CENTER:
-			case CENTER_RIGHT:
-				return Align.SECOND;
-			case BOTTOM_LEFT:
-			case BOTTOM_CENTER:
-			case BOTTOM_RIGHT:
-				return Align.THIRD;
-			case TOP_LEFT:
-			case TOP_CENTER:
-			case TOP_RIGHT:
-			default:
-				return Align.FIRST;
-		}
-	}
-
-	@Override
-	@Deprecated
-	public Widget setAlignY(Align pos) {
-		return this;
-	}
-	
 	@Override
 	public Label copy() {
 		return ((Label)super.copy()).setText(getText()).setScale(getScale()).setAuto(isAuto()).setTextColor(getTextColor()).setResize(isResize());
