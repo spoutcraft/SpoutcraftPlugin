@@ -39,19 +39,19 @@ public class Vertex {
 		
 		switch (this.index) {
 		case 0:
-			this.tx = texture.getXLoc();
+			this.tx = texture.getXTopLoc();
 			this.ty = texture.getYLoc();
 			break;
 		case 1:
-			this.tx = texture.getXLoc();
+			this.tx = texture.getXTopLoc();
 			this.ty = texture.getYTopLoc();
 			break;
 		case 2:
-			this.tx = texture.getXTopLoc();
+			this.tx = texture.getXLoc();
 			this.ty = texture.getYTopLoc();
 			break;
 		case 3:
-			this.tx = texture.getXTopLoc();
+			this.tx = texture.getXLoc();
 			this.ty = texture.getYLoc();
 		}
 		
