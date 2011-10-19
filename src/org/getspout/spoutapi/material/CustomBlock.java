@@ -127,29 +127,6 @@ public interface CustomBlock extends Block {
 	public void onBlockDestroyed(World world, int x, int y, int z);
 	
 	/**
-	 * Called to check if the block can be placed here
-	 * 
-	 * @param world being checked
-	 * @param x location to check
-	 * @param y location to check
-	 * @param z location to check
-	 * @param face of the block to check
-	 * @return true if block can be placed here
-	 */
-	public boolean canPlaceBlockAt(World world, int x, int y, int z, BlockFace face);
-	
-	/**
-	 * Called to check if the block can be placed here
-	 * 
-	 * @param world being checked
-	 * @param x location to check
-	 * @param y location to check
-	 * @param z location to check
-	 * @return true if the block can be placed here
-	 */
-	public boolean canPlaceBlockAt(World world, int x, int y, int z);
-	
-	/**
 	 * Called when the block is interacted with
 	 * 
 	 * @param world the block is in
