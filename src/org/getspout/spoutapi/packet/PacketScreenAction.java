@@ -70,7 +70,6 @@ public class PacketScreenAction implements SpoutPacket{
 					PopupScreen screen = player.getMainScreen().getActivePopup();
 					screen.setDirty(true);
 					player.sendPacket(new PacketWidget(screen, screen.getId()));
-					screen.onTick(); //force resend of all widgets
 				} else if (ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
 					player.getMainScreen().closePopup();
 				}
@@ -85,7 +84,6 @@ public class PacketScreenAction implements SpoutPacket{
 					PopupScreen screen = player.getMainScreen().getActivePopup();
 					screen.setDirty(true);
 					player.sendPacket(new PacketWidget(screen, screen.getId()));
-					screen.onTick(); //force resend of all widgets
 				}
 				else {
 					player.openScreen(ScreenType.getType(this.screen), false);
