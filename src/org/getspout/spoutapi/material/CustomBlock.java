@@ -182,5 +182,5 @@ public interface CustomBlock extends Block {
 	 * @param face to check
 	 * @return true if the face is powered
 	 */
-	public boolean isIndirectlyProdivingPowerTo(World world, int x, int y, int z, BlockFace face); 
+	public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face); 
 }

@@ -47,7 +47,7 @@ public class Color {
 	 * @param a Alpha part of the color, ranging from 0 to 255
 	 */
 	public Color(int r, int g, int b, int a){
-		this(r/255.0f, g/255.0f, b/255.0f, a);
+		this(r/255.0f, g/255.0f, b/255.0f, a/255.0f);
 	}
 	
 	public Color(int r, int g, int b){
