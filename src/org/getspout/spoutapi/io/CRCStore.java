@@ -24,7 +24,7 @@ import java.net.URLConnection;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.util.config.Configuration;
-
+@SuppressWarnings("deprecation")
 public class CRCStore {
 
 	private static Configuration urlCRCStore;
