@@ -8,6 +8,10 @@ public class GenericCheckBox extends GenericButton implements CheckBox {
 
 	boolean checked = false;
 	
+	public GenericCheckBox() {
+		super();
+	}
+	
 	public GenericCheckBox(String text) {
 		super(text);
 	}
