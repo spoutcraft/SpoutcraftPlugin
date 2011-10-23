@@ -191,7 +191,7 @@ public class Color {
 	 * @return the object to make call chainable.
 	 */
 	public Color setAlpha(float a){
-		alpha = a/255.0f;
+		alpha = a;
 		return this;
 	}
 	
