@@ -17,11 +17,12 @@
 package org.getspout.spoutapi.gui;
 
 public class Color {
-	private float red;
-	private float green;
-	private float blue;
-	private float alpha = 1;
-	
+
+	protected int red;
+	protected int green;
+	protected int blue;
+	protected int alpha = 0xFF;
+
 	/**
 	 * Constructs the color with RGB spec
 	 * @param r Red part of the color, ranging from 0.0 to 1.0
@@ -29,16 +30,17 @@ public class Color {
 	 * @param b Blue part of the color, ranging from 0.0 to 1.0
 	 * @param a Alpha part of the color, ranging from 0.0 to 1.0
 	 */
-	public Color(float r, float g, float b, float a){
-		red = r;
-		green = g;
-		blue = b;
-		alpha = a;
+	public Color(float r, float g, float b, float a) {
+		red = (int) (r * 255.0f);
+		green = (int) (g * 255.0f);
+		blue = (int) (b * 255.0f);
+		alpha = (int) (a * 255.0f);
 	}
-	
-	public Color(float r, float g, float b){
+
+	public Color(float r, float g, float b) {
 		this(r, g, b, 1);
 	}
+
 	/**
 	 * Constructs the color with RGB spec
 	 * @param r Red part of the color, ranging from 0 to 255
@@ -46,181 +48,207 @@ public class Color {
 	 * @param b Blue part of the color, ranging from 0 to 255
 	 * @param a Alpha part of the color, ranging from 0 to 255
 	 */
-	public Color(int r, int g, int b, int a){
-		this(r/255.0f, g/255.0f, b/255.0f, a/255.0f);
+	public Color(int r, int g, int b, int a) {
+		this.red = r;
+		this.green = g;
+		this.blue = b;
+		this.alpha = a;
 	}
-	
-	public Color(int r, int g, int b){
-		this(r/255.0f, g/255.0f, b/255.0f, 1);
+
+	public Color(int r, int g, int b) {
+		this(r, g, b, 255);
 	}
-	
+
 	public Color(int argb) {
-		setAlpha((argb >>> 24));
-		setRed((argb & 0xFF0000) >>> 16);
-		setGreen((argb & 0xFF00) >>> 8);
-		setBlue(argb & 0xFF);
+		this((argb & 0xFF0000) >>> 16, (argb & 0xFF00) >>> 8, argb & 0xFF, argb >>> 24);
 	}
-	
+
+	/**
+	 * Construct the color using RGBA hex string
+	 * 
+	 * Note: Alpha channel isn't supported due limitations of Integer.parseInt
+	 * 
+	 * @param color Hex string encoded color in RRGGBB format (example: FF0000 - red)
+	 */
+	public Color(String color) {
+		this(Integer.parseInt(color, 16)); // It's completely okay about possible NumberFormatException
+	}
+
 	/**
 	 * 
 	 * @return Red part of the color, as float
 	 */
-	public float getRedF(){
-		return red;
+	public float getRedF() {
+		return red / 255.0f;
 	}
-	
+
 	/**
 	 * 
 	 * @return Red part of the color, as int
 	 */
-	public int getRedI(){
-		return (int) (red*255);
+	public int getRedI() {
+		return red;
 	}
-	
+
 	/**
 	 * 
 	 * @return Green part of the color, as float
 	 */
-	public float getGreenF(){
-		return green;
+	public float getGreenF() {
+		return green / 255.0f;
 	}
-	
+
 	/**
 	 * 
 	 * @return Green part of the color, as int
 	 */
-	public int getGreenI(){
-		return (int) (green*255);
+	public int getGreenI() {
+		return green;
 	}
-	
+
 	/**
 	 * 
 	 * @return Blue part of the color, as float
 	 */
-	public float getBlueF(){
-		return blue;
+	public float getBlueF() {
+		return blue / 255.0f;
 	}
-	
+
 	/**
 	 * 
 	 * @return Blue part of the color, as int
 	 */
-	public int getBlueI(){
-		return (int) (blue*255);
+	public int getBlueI() {
+		return blue;
 	}
-	
+
 	/**
 	 * 
 	 * @return Alpha part of the color, as float
 	 */
-	public float getAlphaF(){
-		return alpha;
+	public float getAlphaF() {
+		return alpha / 255.0f;
 	}
-	
+
 	/**
 	 * 
 	 * @return Alpha part of the color, as int
 	 */
-	public int getAlphaI(){
-		return (int) (alpha*255);
+	public int getAlphaI() {
+		return (int) (alpha * 255);
 	}
-	
+
 	/**
 	 * 
 	 * @param r Red part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
-	public Color setRed(float r){
-		red = r;
+	public Color setRed(float r) {
+		red = (int) (r * 255.0f);
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * @param r Red part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */
-	public Color setRed(int r){
-		red = r/255.0f;
+	public Color setRed(int r) {
+		red = r;
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * @param g Green part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
-	public Color setGreen(float g){
-		green = g;
+	public Color setGreen(float g) {
+		green = (int) (g * 255.0f);
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * @param g Green part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */
-	public Color setGreen(int g){
-		green = g/255.0f;
+	public Color setGreen(int g) {
+		green = g;
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * @param b Blue part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
-	public Color setBlue(float b){
-		blue = b;
+	public Color setBlue(float b) {
+		blue = (int) (b * 255.0f);
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * @param b Blue part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */
-	public Color setBlue(int b){
-		blue = b/255.0f;
+	public Color setBlue(int b) {
+		blue = b;
 		return this;
 	}
-	
+
 	/**
 	 * 
-	 * @param b Blue part of the color, ranging from 0.0 to 1.0
+	 * @param a Alpha part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
-	public Color setAlpha(float a){
+	public Color setAlpha(float a) {
+		alpha = (int) (a * 255.0f);
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param a Alpha part of the color, ranging from 0.0 to 1.0
+	 * @return the object to make call chainable.
+	 */
+	public Color setAlpha(int a) {
 		alpha = a;
 		return this;
 	}
-	
+
 	/**
 	 * Clones the object.
 	 * @return a copy of the object.
 	 */
+	@Override
 	public Color clone() {
 		return new Color(red, green, blue, alpha);
 	}
-	
+
 	/**
 	 * Gets a color value that will set the color to null on the client.
 	 * @return
 	 */
-	public static Color remove(){
-		return new Color(-2F,-2F,-2F,-2F);
+	public static Color remove() {
+		return new Color(-2F, -2F, -2F, -2F);
 	}
-	
+
 	/**
 	 * Gets a color value that will be ignored on the client.
 	 * @return
 	 */
-	public static Color ignore(){
-		return new Color(-1F,-1F,-1F,-1F);
+	public static Color ignore() {
+		return new Color(-1F, -1F, -1F, -1F);
 	}
-	
-	
+
 	public int toInt() {
 		return (getAlphaI() & 0xFF) << 24 | (getRedI() & 0xFF) << 16 | (getGreenI() & 0xFF) << 8 | (getBlueI() & 0xFF);
+	}
+
+	@Override
+	public String toString() {
+		return "Color(" + this.red + ", " + this.green + ", " + this.blue + ", " + this.alpha + ")";
 	}
 }
