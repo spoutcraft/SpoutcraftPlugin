@@ -192,7 +192,6 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public void onTextFieldChange(TextFieldChangeEvent event) {
-		// TODO Auto-generated method stub
-		
+		this.callEvent(event);
 	}
 }
