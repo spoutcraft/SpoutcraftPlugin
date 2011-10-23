@@ -135,7 +135,7 @@ public class Color {
 	 * @return Alpha part of the color, as int
 	 */
 	public int getAlphaI() {
-		return (int) (alpha * 255);
+		return alpha;
 	}
 
 	/**
