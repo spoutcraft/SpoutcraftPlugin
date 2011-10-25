@@ -28,6 +28,10 @@ import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket;
 
+/**
+ * Represents a SpoutPlayer, which extends the standard Bukkit Player.
+ * SpoutPlayer's can be retrieved by casting Bukkit's org.bukkit.entity.Player class
+ */
 public interface SpoutPlayer extends org.bukkit.entity.Player{
 	
 	/**
@@ -88,14 +92,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * @return spout craft single player mod enabled
 	 */
 	public boolean isSpoutCraftEnabled();
-	
-	/**
-	 * Gets the version of the spoutcraft SP client mod in use, or -1 if none.
-	 * @return version
-	 */
-	@Deprecated
-	public int getVersion();
-	
+
 	/**
 	 * Return's the key bound to forward movement for this player, or unknown if not known.
 	 * @return forward key
@@ -257,8 +254,6 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly
 	public void setClipboardText(String text);
 	
-	public void setClipboardText(String text, boolean update);
-	
 	/**
 	 * Sets the texture pack for this player to the given url
 	 * The texture pack must be a standard texture pack (non-HD), in .zip format, and must be loadable by normal minecraft interface when offline
@@ -402,12 +397,23 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	public void setCanFly(boolean fly);
 	
+	/**
+	 * Gets the location that the player clicked on last, or null if there was no previous click locations
+	 * @return
+	 */
 	public Location getLastClickedLocation();
-	
-	@ClientOnly
-	public void sendPacket(SpoutPacket packet);
-	
+
+	/**
+	 * Sends a MCPacket to the client
+	 * @param packet to send
+	 */
 	public void sendPacket(MCPacket packet);
+	
+	/**
+	 * True if the player has completed precaching files
+	 * @return true if precaching files is complete
+	 */
+	public boolean isPreCachingComplete();
 	
 	/**
 	 * Sends the packet immediately.  Packets sent using this method are placed at the start of the packet queue.  
@@ -417,14 +423,6 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * @param packet the packet to send
 	 */
 	public void sendImmediatePacket(MCPacket packet);
-	
-	public void updateKeys(byte[] keys);
-	
-	public Location getActiveInventoryLocation();
-	
-	public void setActiveInventoryLocation(Location location);
-
-	public void setRenderDistance(RenderDistance currentRender, boolean update);
 	
 	/**
 	 * Orders the client to reconnect to another server
@@ -452,19 +450,6 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	
 	@ClientOnly	
 	public void reconnect(String hostname);
-
-	public boolean sendInventoryEvent();
-	
-	public PlayerInformation getInformation();
-	
-	/**
-	 * Orders the client to open the appriopriate screen type
-	 * @param type of screen to open
-	 */
-	@ClientOnly
-	public void openScreen(ScreenType type);
-	
-	public void openScreen(ScreenType type, boolean packet);
 	
 	/**
 	 * Gets the active screen open for this player
@@ -473,11 +458,82 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly
 	public ScreenType getActiveScreen();
 	
+	/**
+	 * Opens a sign edit GUI for the given sign
+	 * @param sign to edit
+	 */
 	@ClientOnly
 	public void openSignEditGUI(Sign sign);
 	
+	/**
+	 * Orders the client to open the appriopriate screen type
+	 * @param type of screen to open
+	 */
+	@ClientOnly
+	public void openScreen(ScreenType type);
+	
+	/**
+	 * Internal use only
+	 * @param type
+	 * @param packet
+	 */
+	public void openScreen(ScreenType type, boolean packet);
+	
+	/**
+	 * Internal use only
+	 * @param complete
+	 */
 	public void setPreCachingComplete(boolean complete);
 	
-	public boolean isPreCachingComplete();
+	/**
+	 * Internal use only
+	 * @param currentRender
+	 * @param update
+	 */
+	public void setRenderDistance(RenderDistance currentRender, boolean update);
+	
+	/**
+	 * Internal use only
+	 * @return true if event was successful
+	 */
+	public boolean sendInventoryEvent();
+	
+	/**
+	 * Internal use only
+	 * @return player information
+	 */
+	public PlayerInformation getInformation();
+	
+	/**
+	 * Internal use only
+	 * @param packet
+	 */
+	@ClientOnly
+	public void sendPacket(SpoutPacket packet);
+	
+	/**
+	 * Internal use only
+	 * @param keys
+	 */
+	public void updateKeys(byte[] keys);
+	
+	/**
+	 * Internal use only
+	 * @return location
+	 */
+	public Location getActiveInventoryLocation();
+	
+	/**
+	 * Internal use only
+	 * @param location
+	 */
+	public void setActiveInventoryLocation(Location location);
+	
+	/**
+	 * Internal use only
+	 * @param text
+	 * @param update
+	 */
+	public void setClipboardText(String text, boolean update);
 	
 }

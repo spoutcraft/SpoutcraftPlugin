@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class AbstractEventSource implements EventSource {
-
 	protected Map<Class<? extends SpoutEvent>, Set<EventListener>> eventListeners = new HashMap<Class<? extends SpoutEvent>, Set<EventListener>>();
 	
 	@Override
