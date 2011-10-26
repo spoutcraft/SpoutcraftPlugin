@@ -25,6 +25,7 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.screen.ScreenCloseEvent;
 import org.getspout.spoutapi.event.screen.ScreenEvent;
 import org.getspout.spoutapi.event.screen.ScreenOpenEvent;
+import org.getspout.spoutapi.gui.PopupScreen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -66,7 +67,9 @@ public class PacketScreenAction implements SpoutPacket{
 				Bukkit.getServer().getPluginManager().callEvent(event);
 				if (event.isCancelled()) {
 					this.action = (byte) ScreenAction.Close.getId();
-					player.sendPacket(this);
+					PopupScreen screen = player.getMainScreen().getActivePopup();
+					screen.setDirty(true);
+					player.sendPacket(new PacketWidget(screen, screen.getId()));
 				} else if (ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
 					player.getMainScreen().closePopup();
 				}
@@ -78,8 +81,9 @@ public class PacketScreenAction implements SpoutPacket{
 				event = new ScreenOpenEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen));
 				Bukkit.getServer().getPluginManager().callEvent(event);
 				if (event.isCancelled()) {
-					this.action = (byte) ScreenAction.Open.getId();
-					player.sendPacket(this);
+					PopupScreen screen = player.getMainScreen().getActivePopup();
+					screen.setDirty(true);
+					player.sendPacket(new PacketWidget(screen, screen.getId()));
 				}
 				else {
 					player.openScreen(ScreenType.getType(this.screen), false);

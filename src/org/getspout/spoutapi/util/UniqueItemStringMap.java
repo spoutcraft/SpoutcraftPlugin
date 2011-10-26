@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bukkit.util.config.Configuration;
-
+@SuppressWarnings("deprecation")
 public class UniqueItemStringMap {
 
 	private static final ConcurrentHashMap<Integer,String> reverse = new ConcurrentHashMap<Integer,String>();
@@ -32,6 +32,7 @@ public class UniqueItemStringMap {
 
 	private static final AtomicInteger idCounter = new AtomicInteger(1024);
 
+	
 	private static Configuration config;
 
 	public static void setConfigFile(Configuration config) {

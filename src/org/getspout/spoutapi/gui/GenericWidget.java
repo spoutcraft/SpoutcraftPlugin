@@ -23,9 +23,10 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.event.AbstractEventSource;
 import org.getspout.spoutapi.packet.PacketUtil;
 
-public abstract class GenericWidget implements Widget{
+public abstract class GenericWidget extends AbstractEventSource implements Widget{
 	protected int X = 0;
 	protected int Y = 0;
 	protected int width = 0;

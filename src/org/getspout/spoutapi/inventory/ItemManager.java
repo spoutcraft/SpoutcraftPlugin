@@ -29,6 +29,11 @@ import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 
+/**
+ * @deprecated Refactored and renamed into the MaterialManager.
+ * 	MaterialManager uses Spout Materials from MaterialData instead of raw ID/Data values.
+ *
+ */
 @Deprecated
 public interface ItemManager {
 

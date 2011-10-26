@@ -20,29 +20,54 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class PacketAllowVisualCheats implements SpoutPacket{
-	private boolean cheating = false;
+public class PacketAllowVisualCheats implements SpoutPacket {
+	private boolean sky = false;
+	private boolean clearwater = false;
+	private boolean stars = false;
+	private boolean weather = false;
+	private boolean time = false;
+	private boolean coords = false;
+	private boolean entitylabel = false;
+		
 	public PacketAllowVisualCheats() {
 
 	}
-	
-	public PacketAllowVisualCheats(boolean allow) {
-		this.cheating = allow;
+		
+	public PacketAllowVisualCheats(boolean tsky, boolean tclearwater, boolean tstars, boolean tweather, boolean ttime, boolean tcoords, boolean tentitylabel) {
+		this.sky = tsky;
+		this.clearwater = tclearwater;
+		this.stars = tstars;
+		this.weather = tweather;
+		this.time = ttime;
+		this.coords = tcoords;
+		this.entitylabel = tentitylabel;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return 1;
+		return 7;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
-		cheating = input.readBoolean();
+			sky = input.readBoolean();
+			clearwater = input.readBoolean();
+			stars = input.readBoolean();
+			weather = input.readBoolean();
+			time = input.readBoolean();	 
+			coords = input.readBoolean();
+			entitylabel = input.readBoolean();
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
-		output.writeBoolean(cheating);
+			output.writeBoolean(sky);
+			output.writeBoolean(clearwater);
+			output.writeBoolean(stars);
+			output.writeBoolean(weather);
+			output.writeBoolean(time);
+			output.writeBoolean(coords);
+			output.writeBoolean(entitylabel);
 	}
 
 	@Override
@@ -62,7 +87,7 @@ public class PacketAllowVisualCheats implements SpoutPacket{
 	
 	@Override
 	public int getVersion() {
-		return 0;
+		return 2;
 	}
 
 }

@@ -76,19 +76,6 @@ public class GenericButton extends GenericControl implements Button {
 		label.setText(text);
 		return this;
 	}
-	
-	@Override
-	@Deprecated
-	public Align getAlignX() {
-		return label.getAlignX();
-	}
-	
-	@Override
-	@Deprecated
-	public Button setAlignX(Align pos) {
-		label.setAlignX(pos);
-		return this;
-	}
 
 	@Override
 	public Color getTextColor() {
@@ -135,26 +122,8 @@ public class GenericButton extends GenericControl implements Button {
 	}
 
 	@Override
-	@Deprecated
-	public boolean getAuto() {
-		return label.getAuto();
-	}
-	
-	@Override
 	public boolean isAuto() {
 		return label.isAuto();
-	}
-
-	@Override
-	@Deprecated
-	public Align getAlignY() {
-		return label.getAlignY();
-	}
-
-	@Override
-	@Deprecated
-	public Widget setAlignY(Align pos) {
-		return label.setAlignY(pos);
 	}
 
 	@Override
@@ -175,7 +144,7 @@ public class GenericButton extends GenericControl implements Button {
 
 	@Override
 	public void onButtonClick(ButtonClickEvent event) {
-		
+		this.callEvent(event);
 	}
 
 	@Override

@@ -21,8 +21,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.event.screen.SliderDragEvent;
-public class GenericSlider extends GenericControl implements Slider {
 
+public class GenericSlider extends GenericControl implements Slider {
+	protected Label label = new GenericLabel();
 	protected float slider = 0.5f;
 	public GenericSlider() {
 		
@@ -30,24 +31,26 @@ public class GenericSlider extends GenericControl implements Slider {
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 0;
+		return super.getVersion() + 1;
 	}
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + 4;
+		return super.getNumBytes() + 4 + label.getNumBytes();
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
 		setSliderPosition(input.readFloat());
+		label.readData(input);
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeFloat(getSliderPosition());
+		label.writeData(output);
 	}
 
 	@Override
@@ -78,6 +81,78 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public void onSliderDrag(SliderDragEvent event) {
-		
+		this.callEvent(event);
+	}
+
+	@Override
+	public String getText() {
+		return label.getText();
+	}
+
+	@Override
+	public Color getTextColor() {
+		return label.getTextColor();
+	}
+
+	@Override
+	public boolean isAuto() {
+		return label.isAuto();
+	}
+
+	@Override
+	public WidgetAnchor getAlign() {
+		return label.getAlign();
+	}
+
+	@Override
+	public Label setScale(float scale) {
+		label.setScale(scale);
+		return this;
+	}
+
+	@Override
+	public float getScale() {
+		return label.getScale();
+	}
+
+	@Override
+	public Slider setText(String text) {
+		label.setText(text);
+		return this;
+	}
+
+	@Override
+	public Slider setTextColor(Color color) {
+		label.setTextColor(color);
+		return this;
+	}
+
+	@Override
+	public Slider setAuto(boolean auto) {
+		label.setAuto(auto);
+		return this;
+	}
+
+	@Override
+	public Slider setAlign(WidgetAnchor align) {
+		label.setAlign(align);
+		return this;
+	}
+
+	@Override
+	public boolean isResize() {
+		return label.isResize();
+	}
+
+	@Override
+	public Label setResize(boolean resize) {
+		label.setResize(resize);
+		return this;
+	}
+
+	@Override
+	public Label doResize() {
+		label.doResize();
+		return this;
 	}
 }

@@ -17,14 +17,17 @@
 package org.getspout.spoutapi.keyboard;
 
 import org.getspout.spoutapi.player.SpoutPlayer;
-
+/**
+ * Please use the KeyBinding class instead
+ */
+@Deprecated
 public interface KeyboardBinding {
-	
+	@Deprecated
 	public void onPreKeyPress(SpoutPlayer player);
-	
+	@Deprecated
 	public void onPostKeyPress(SpoutPlayer player);
-	
+	@Deprecated
 	public void onPreKeyRelease(SpoutPlayer player);
-	
+	@Deprecated
 	public void onPostKeyRelease(SpoutPlayer player);
 }

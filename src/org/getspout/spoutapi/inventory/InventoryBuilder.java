@@ -21,11 +21,32 @@ import java.util.Collection;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * The InventoryBuilder can build a org.bukkit.inventory.Inventory object from a predetermined collection, array, or size
+ */
 public interface InventoryBuilder {
 	
+	/**
+	 * Creates an inventory from the given array of itemstacks and name. The inventory will be the same size as the length of the itemstack array.
+	 * @param items to populate the inventory with
+	 * @param name of the inventory
+	 * @return Inventory
+	 */
 	public Inventory construct(ItemStack[] items, String name);
 	
+	/**
+	 * Creates an inventory from the given array of itemstacks and name. The inventory will be the same size as the size of the collection
+	 * @param collection to populate the inventory with
+	 * @param name of the inventory
+	 * @return Inventory
+	 */
 	public Inventory construct(Collection<ItemStack> items, String name);
 	
+	/**
+	 * Creates an inventory empty inventory with the given size and name
+	 * @param size of the inventory to build
+	 * @param name of the inventory
+	 * @return Inventory
+	 */
 	public Inventory construct(int size, String name);
 }

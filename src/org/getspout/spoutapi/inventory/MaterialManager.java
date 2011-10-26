@@ -15,35 +15,35 @@ import org.getspout.spoutapi.material.Material;
 
 public interface MaterialManager {
 
-	public String getStepSound(Material material);
+	public String getStepSound(org.getspout.spoutapi.material.Block block);
 
-	public void setStepSound(Material material, String url);
+	public void setStepSound(org.getspout.spoutapi.material.Block block, String url);
 
-	public void resetStepSound(Material material);
+	public void resetStepSound(org.getspout.spoutapi.material.Block block);
 
-	public float getFriction(Material material);
+	public float getFriction(org.getspout.spoutapi.material.Block block);
 	
-	public void setFriction(Material material, float friction);
+	public void setFriction(org.getspout.spoutapi.material.Block block, float friction);
 	
-	public void resetFriction(Material material);
+	public void resetFriction(org.getspout.spoutapi.material.Block block);
 	
-	public float getHardness(Material material);
+	public float getHardness(org.getspout.spoutapi.material.Block block);
 	
-	public void setHardness(Material material, float hardness);
+	public void setHardness(org.getspout.spoutapi.material.Block block, float hardness);
 	
-	public void resetHardness(Material material);
+	public void resetHardness(org.getspout.spoutapi.material.Block block);
 	
-	public boolean isOpaque(Material material);
+	public boolean isOpaque(org.getspout.spoutapi.material.Block block);
 	
-	public void setOpaque(Material material, boolean opacity);
+	public void setOpaque(org.getspout.spoutapi.material.Block block, boolean opacity);
 	
-	public void resetOpacity(Material material);
+	public void resetOpacity(org.getspout.spoutapi.material.Block block);
 	
-	public int getLightLevel(Material material);
+	public int getLightLevel(org.getspout.spoutapi.material.Block block);
 	
-	public void setLightLevel(Material material, int level);
+	public void setLightLevel(org.getspout.spoutapi.material.Block block, int level);
 	
-	public void resetLightLevel(Material material);
+	public void resetLightLevel(org.getspout.spoutapi.material.Block block);
 	
 	public Set<org.getspout.spoutapi.material.Block> getModifiedBlocks();
 	

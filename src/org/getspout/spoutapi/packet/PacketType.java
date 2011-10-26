@@ -35,7 +35,7 @@ public enum PacketType {
 	PacketItemName(13, PacketItemName.class),
 	PacketSky(14, PacketSky.class),
 	PacketTexturePack(15, PacketTexturePack.class),
-	PacketWorldSeed(16, PacketWorldSeed.class),
+	//PacketWorldSeed(16, PacketWorldSeed.class),
 	PacketNotification(17, PacketNotification.class),
 	PacketScreenAction(18, PacketScreenAction.class),
 	PacketControlAction(19, PacketControlAction.class),
@@ -63,6 +63,7 @@ public enum PacketType {
 	PacketKeyBinding(41, PacketKeyBinding.class),
 	PacketBlockData(42, PacketBlockData.class),
 	PacketCustomMultiBlockOverride(43, PacketCustomMultiBlockOverride.class),
+	PacketServerPlugins(44, PacketServerPlugins.class),
 	;
 	
 	private final int id;

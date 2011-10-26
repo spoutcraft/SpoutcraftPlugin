@@ -1,10 +1,13 @@
 package org.getspout.spoutapi.material.item;
 
+import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class GenericCustomItem extends GenericItem implements CustomItem {
 	public static MaterialManager mm = SpoutManager.getMaterialManager();
@@ -59,6 +62,11 @@ public class GenericCustomItem extends GenericItem implements CustomItem {
 	@Override
 	public String getTexture() {
 		return texture;
+	}
+
+	@Override
+	public boolean onItemInteract(SpoutPlayer player, SpoutBlock block,	BlockFace face) {
+		return true;
 	}
 	
 }

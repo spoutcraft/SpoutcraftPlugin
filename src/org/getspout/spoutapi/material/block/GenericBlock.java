@@ -54,6 +54,7 @@ public class GenericBlock implements Block{
 	public String getNotchianName() {
 		return name;
 	}
+	
 	@Override
 	public void setName(String name) {
 		this.customName = name;

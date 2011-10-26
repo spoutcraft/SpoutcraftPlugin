@@ -20,6 +20,7 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	private final CustomItem item;
 	private final int blockId;
 	public int customMetaData = 0;
+	private boolean opaque;
 
 	/**
 	 * Creates a GenericCustomBlock with no model yet.
@@ -30,6 +31,7 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
 		super(name, isOpaque ? 1 : 20);
+		this.opaque = isOpaque;
 		item = new GenericCustomItem(plugin, name);
 		this.blockId = isOpaque ? 1 : 20;
 		this.plugin = plugin;
@@ -62,6 +64,11 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	 */
 	public GenericCustomBlock(Plugin plugin, String name) {
 		this(plugin, name, true);
+	}
+	
+	@Override
+	public boolean isOpaque() {
+		return opaque;
 	}
 	
 	@Override

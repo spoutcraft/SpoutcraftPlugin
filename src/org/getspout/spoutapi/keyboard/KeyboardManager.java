@@ -27,6 +27,7 @@ public interface KeyboardManager {
 	 * @return number of key bindings
 	 * @deprecated use KeyBindingManager instead, it provides more flexibility to the user.
 	 */
+	@Deprecated
 	public int getNumKeyBindings(Keyboard key);
 	
 	/**
@@ -35,6 +36,7 @@ public interface KeyboardManager {
 	 * @param keyBinding to bind to the key
 	 * @param plugin for this binding
 	 */
+	@Deprecated
 	public void addKeyBinding(Keyboard key, KeyboardBinding keyBinding, Plugin plugin);
 	
 	/**
@@ -43,12 +45,14 @@ public interface KeyboardManager {
 	 * @param keyBindingClass that the keyboardbinding is an instanceof 
 	 * @param plugin for this binding
 	 */
+	@Deprecated
 	public void removeKeyBinding(Keyboard key, Class<? extends KeyboardBinding> keyBindingClass, Plugin plugin);
 	
 	/**
 	 * Removes all the keyboard bindings associated with this particular plugin. Automatically called onPluginDisable.
 	 * @param plugin to remove key bindings for
 	 */
+	@Deprecated
 	public void removeAllKeyBindings(Plugin plugin);
 
 	public void onPreKeyPress(Keyboard pressed, SpoutPlayer player);

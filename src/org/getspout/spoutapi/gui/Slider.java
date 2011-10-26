@@ -18,7 +18,7 @@ package org.getspout.spoutapi.gui;
 
 import org.getspout.spoutapi.event.screen.SliderDragEvent;
 
-public interface Slider extends Control{
+public interface Slider extends Control, Label{
 	
 	/**
 	 * Gets the slider position (between 0.0f and 1.0f)
@@ -32,6 +32,14 @@ public interface Slider extends Control{
 	 * @return slider
 	 */
 	public Slider setSliderPosition(float value);
+	
+	public Slider setText(String text);
+	
+	public Slider setTextColor(Color color);
+
+	public Slider setAuto(boolean auto);
+	
+	public Slider setAlign(WidgetAnchor align);
 	
 	/**
 	 * Fires when this slider is dragged on the screen.

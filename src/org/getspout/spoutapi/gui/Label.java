@@ -45,47 +45,11 @@ public interface Label extends Widget {
 	public Label setTextColor(Color color);
 
 	/** 
-	 * Get the horizontal, x, alignment of text within it's area
-	 * @return alignment enum, ( FIRST | SECOND | THIRD )
-	 */
-	@Deprecated
-	public Align getAlignX();
-
-	/** 
-	 * Sets the horizontal, x, alignment of text within it's area providing it's on auto
-	 * @return label
-	 */
-	@Deprecated
-	public Widget setAlignX(Align pos);
-
-	/** 
-	 * Get the vertical, y, alignment of text within it's area
-	 * @return alignment enum, ( FIRST | SECOND | THIRD )
-	 */
-	@Deprecated
-	public Align getAlignY();
-
-	/** 
-	 * Sets the vertical, y, alignment of text within it's area providing it's on auto
-	 * @return label
-	 */
-	@Deprecated
-	public Widget setAlignY(Align pos);
-
-	/** 
 	 * Determines if text expands to fill width and height
 	 * @param auto
 	 * @return label
 	 */
 	public Label setAuto(boolean auto);
-
-	/** 
-	 * Gets if the text will expand to fill width and height
-	 * @param auto
-	 * @return label
-	 */
-	@Deprecated
-	public boolean getAuto();
 
 	/** 
 	 * True if the text will expand to fill width and height
