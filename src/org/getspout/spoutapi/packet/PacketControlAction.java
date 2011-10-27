@@ -28,8 +28,11 @@ import org.getspout.spoutapi.event.screen.SliderDragEvent;
 import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.CheckBox;
+import org.getspout.spoutapi.gui.ListWidget;
+import org.getspout.spoutapi.gui.Orientation;
 import org.getspout.spoutapi.gui.RadioButton;
 import org.getspout.spoutapi.gui.Screen;
+import org.getspout.spoutapi.gui.Scrollable;
 import org.getspout.spoutapi.gui.Slider;
 import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.gui.Widget;
@@ -140,6 +143,25 @@ public class PacketControlAction implements SpoutPacket{
 						else {
 							((TextField)control).setText(event.getNewText());
 							((TextField)control).setCursorPosition((int)state);
+						}
+					}
+					else if (control instanceof Scrollable) {
+						if(data.equals("HORIZONTAL") || data.equals("VERTICAL")) {
+							Orientation axis = Orientation.valueOf(data);
+							Scrollable scroll = (Scrollable)control;
+							scroll.setScrollPosition(axis, (int) state);
+						}
+						else if(control instanceof ListWidget) {
+							ListWidget list = (ListWidget)control;
+							boolean dblclick = false;
+							if(data.equals("click") || data.equals("doubleclick") || data.equals("selected")) {
+								int item = (int)state;
+								if(data.equals("doubleclick")) {
+									dblclick = true;
+								}
+								list.setSelection(item);
+								list.onSelected(item, dblclick);
+							}
 						}
 					}
 				}

@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.util.Collection;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
@@ -103,11 +105,13 @@ public interface Screen extends Widget{
 	 * @param enable the visibility
 	 * @return the screen
 	 */
-	public GenericScreen setBgVisible(boolean enable);
+	public Screen setBgVisible(boolean enable);
 	
 	/**
 	 * Gets the screen type of this screen
 	 * @return the screen type
 	 */
 	public ScreenType getScreenType();
+
+	public Set<Widget> getAttachedWidgetsAsSet(boolean recursive);
 }

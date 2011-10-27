@@ -44,6 +44,9 @@ public class WidgetType {
 	public static WidgetType ExpBar = new WidgetType(ExpBar.class, 18);
 	public static WidgetType CheckBox = new WidgetType(GenericCheckBox.class, 19);
 	public static WidgetType RadioButton = new WidgetType(GenericRadioButton.class, 20);
+	public static WidgetType ListWidget = new WidgetType(GenericListWidget.class, 21);
+	//public static WidgetType DirtBackground = new WidgetType(DirtBackground.class, 22); Only on the client :P
+	//public static WidgetType ScrollArea = new WidgetType(GenericScrollArea.class, 23); Not yet :P
 	
 	private final int id;
 	private final boolean server;

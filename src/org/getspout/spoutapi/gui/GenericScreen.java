@@ -20,6 +20,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
@@ -141,7 +143,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	}
 	
 	@Override
-	public GenericScreen setBgVisible(boolean enable) {
+	public Screen setBgVisible(boolean enable) {
 		bg = enable;
 		return this;
 	}
@@ -186,5 +188,17 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	@Override
 	public Widget copy() {
 		throw new UnsupportedOperationException("You can not create a copy of a screen");
+	}
+	
+	@Override
+	public Set<Widget> getAttachedWidgetsAsSet(boolean recursive) {
+		Set<Widget> set = new HashSet<Widget>();
+		for(Widget w:widgets.keySet()) {
+			set.add(w);
+			if(w instanceof Screen && recursive) {
+				set.addAll(((Screen)w).getAttachedWidgetsAsSet(true));
+			}
+		}
+		return set;
 	}
 }
