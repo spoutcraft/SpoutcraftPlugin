@@ -24,13 +24,15 @@ import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericTexture extends GenericWidget implements Texture {
 	protected String url = null;
+	protected boolean drawAlpha = false;
+	
 	public GenericTexture() {
 		
 	}
 	
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 0;
+		return super.getVersion() + 1;
 	}
 	
 	public GenericTexture(String url) {
@@ -44,19 +46,21 @@ public class GenericTexture extends GenericWidget implements Texture {
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl());
+		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl()) + 1;
 	}
 	
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
 		this.setUrl(PacketUtil.readString(input));
+		this.setDrawAlphaChannel(input.readBoolean());
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		PacketUtil.writeString(output, getUrl());
+		output.writeBoolean(isDrawingAlphaChannel());
 	}
 
 	@Override
@@ -73,5 +77,16 @@ public class GenericTexture extends GenericWidget implements Texture {
 	@Override
 	public Texture copy() {
 		return ((Texture)super.copy()).setUrl(getUrl());
+	}
+
+	@Override
+	public boolean isDrawingAlphaChannel() {
+		return drawAlpha;
+	}
+
+	@Override
+	public Texture setDrawAlphaChannel(boolean draw) {
+		drawAlpha = draw;
+		return this;
 	}
 }
