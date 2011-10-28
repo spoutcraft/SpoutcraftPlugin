@@ -95,18 +95,6 @@ public class GenericBlock implements Block{
 	}
 
 	@Override
-	public float getExplosionResistence() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Block setExplosionResistence(float resistence) {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
-	@Override
 	public boolean isOpaque() {
 		SpoutManager.getMaterialManager().isOpaque(this);
 		return false;

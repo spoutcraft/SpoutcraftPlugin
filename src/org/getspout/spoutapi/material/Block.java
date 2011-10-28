@@ -15,11 +15,7 @@ public interface Block extends Material{
 	public float getHardness();
 	
 	public Block setHardness(float hardness);
-	
-	public float getExplosionResistence();
-	
-	public Block setExplosionResistence(float resistence);
-	
+
 	public boolean isOpaque();
 	
 	public Block setOpaque(boolean opaque);

@@ -40,16 +40,6 @@ public class Air extends GenericBlock implements Block {
 	}
 
 	@Override
-	public float getExplosionResistence() {
-		return 0;
-	}
-
-	@Override
-	public Block setExplosionResistence(float resistence) {
-		return this;
-	}
-
-	@Override
 	public boolean isOpaque() {
 		return false;
 	}
