@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.material.block.*;
 import org.getspout.spoutapi.material.item.Coal;
 import org.getspout.spoutapi.material.item.Dye;
@@ -318,6 +319,7 @@ public class MaterialData {
 	 */
 	public static void addCustomItem(CustomItem item) {
 		idMap.put(318, item.getCustomId(), item);
+		SpoutManager.getMaterialManager().onCustomMaterialRegistered(item);
 	}
 	
 	/**
@@ -326,6 +328,7 @@ public class MaterialData {
 	 */
 	public static void addCustomBlock(CustomBlock block) {
 		idMap.put(318, block.getCustomId(), block);
+		SpoutManager.getMaterialManager().onCustomMaterialRegistered(block);
 	}
 	
 	/**

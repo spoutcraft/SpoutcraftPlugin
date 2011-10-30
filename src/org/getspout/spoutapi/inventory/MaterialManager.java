@@ -47,6 +47,8 @@ public interface MaterialManager {
 	
 	public Set<org.getspout.spoutapi.material.Block> getModifiedBlocks();
 	
+	public void onCustomMaterialRegistered(Material mat);
+	
 	/**
 	 * Sets the name of the item
 	 * @param item to name
