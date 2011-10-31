@@ -86,10 +86,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	}
 
 	private int getItemYOnScreen(int n) {
-		int height = 0;
-		for(int i = 0; i<n && i<items.size(); i++) {
-			height += 24;
-		}
+		int height = items.size() * 24;
 		return height;
 	}
 
@@ -116,10 +113,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	public int getInnerSize(Orientation axis) {
 		if(axis == Orientation.HORIZONTAL) return getViewportSize(Orientation.HORIZONTAL);
 		if(cachedTotalHeight == -1) {
-			cachedTotalHeight = 0;
-			for(ListWidgetItem item:items) {
-				cachedTotalHeight+=24;
-			}
+			cachedTotalHeight = items.size() * 24;
 		}
 		return cachedTotalHeight + 10;
 	}
