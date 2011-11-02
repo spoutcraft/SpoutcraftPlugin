@@ -56,7 +56,9 @@ public interface ItemWidget extends Widget{
 	 */
 	public int getDepth();
 	
+	@Override
 	public ItemWidget setWidth(int width);
 	
+	@Override
 	public ItemWidget setHeight(int height);
 }

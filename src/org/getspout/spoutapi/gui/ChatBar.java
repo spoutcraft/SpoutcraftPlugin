@@ -37,6 +37,7 @@ public class ChatBar extends GenericWidget implements Widget{
 		setAnchor(WidgetAnchor.BOTTOM_LEFT);
 	}
 	
+	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 13;
 	}
@@ -57,6 +58,7 @@ public class ChatBar extends GenericWidget implements Widget{
 		PacketUtil.writeColor(output, getTextColor());
 	}
 	
+	@Override
 	public WidgetType getType() {
 		return WidgetType.ChatBar;
 	}

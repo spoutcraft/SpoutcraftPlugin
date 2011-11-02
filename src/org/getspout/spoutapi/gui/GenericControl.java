@@ -92,10 +92,12 @@ public abstract class GenericControl extends GenericWidget implements Control{
 		return this;
 	}
 	
+	@Override
 	public boolean isFocus() {
 		return focus;
 	}
 	
+	@Override
 	public Control setFocus(boolean focus) {
 		this.focus = focus;
 		return this;

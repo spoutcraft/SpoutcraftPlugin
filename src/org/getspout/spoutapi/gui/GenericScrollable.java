@@ -1,3 +1,19 @@
+/*
+ * This file is part of Spout API (http://wiki.getspout.org/).
+ *
+ * Spout API is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Spout API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.getspout.spoutapi.gui;
 
 import java.io.DataInputStream;
@@ -13,6 +29,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 	public GenericScrollable() {
 	}
 
+	@Override
 	public int getInnerSize(Orientation axis) {
 		switch(axis) {
 		case HORIZONTAL:
@@ -23,6 +40,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		return 0;
 	}
 
+	@Override
 	public int getScrollPosition(Orientation axis) {
 		switch(axis) {
 		case HORIZONTAL:
@@ -33,6 +51,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		return 0;
 	}
 
+	@Override
 	public void setScrollPosition(Orientation axis, int position) {
 		if(position < 0) {
 			position = 0;
@@ -50,6 +69,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		}
 	}
 
+	@Override
 	public void scroll(int x, int y) {
 		int currentX, currentY;
 		currentX = getScrollPosition(Orientation.HORIZONTAL);
@@ -60,6 +80,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		setScrollPosition(Orientation.VERTICAL, currentY);
 	}
 
+	@Override
 	public void ensureVisible(Rectangle rect) {
 		int scrollTop = getScrollPosition(Orientation.VERTICAL);
 		int scrollLeft = getScrollPosition(Orientation.HORIZONTAL);
@@ -105,10 +126,12 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		}
 	}
 
+	@Override
 	public int getMaximumScrollPosition(Orientation axis) {
 		return (int) Math.max(0, getInnerSize(axis) - (axis==Orientation.HORIZONTAL?getWidth():getHeight()));
 	}
 
+	@Override
 	public boolean needsScrollBar(Orientation axis) {
 		ScrollBarPolicy policy = getScrollBarPolicy(axis);
 		switch(policy) {
@@ -123,6 +146,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		}
 	}
 
+	@Override
 	public void setScrollBarPolicy(Orientation axis, ScrollBarPolicy policy) {
 		switch(axis) {
 		case HORIZONTAL:
@@ -134,6 +158,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		}
 	}
 	
+	@Override
 	public ScrollBarPolicy getScrollBarPolicy(Orientation axis) {
 		switch(axis) {
 		case HORIZONTAL:
@@ -155,6 +180,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		}
 	}
 
+	@Override
 	public int getViewportSize(Orientation axis) {
 		int size = 0;
 		size = (int) (axis == Orientation.HORIZONTAL?getWidth():getHeight());

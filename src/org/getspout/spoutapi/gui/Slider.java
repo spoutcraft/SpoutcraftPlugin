@@ -33,12 +33,16 @@ public interface Slider extends Control, Label{
 	 */
 	public Slider setSliderPosition(float value);
 	
+	@Override
 	public Slider setText(String text);
 	
+	@Override
 	public Slider setTextColor(Color color);
 
+	@Override
 	public Slider setAuto(boolean auto);
 	
+	@Override
 	public Slider setAlign(WidgetAnchor align);
 	
 	/**
