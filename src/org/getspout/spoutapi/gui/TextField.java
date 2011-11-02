@@ -141,6 +141,7 @@ public interface TextField extends Control{
 	 * @param focus
 	 * @return textfield
 	 */
+	@Override
 	public TextField setFocus(boolean focus);
 	
 	/**

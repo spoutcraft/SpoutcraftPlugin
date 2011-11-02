@@ -54,10 +54,12 @@ public class ArmorBar extends GenericWidget{
 		output.writeInt(getIconOffset());
 	}
 	
+	@Override
 	public WidgetType getType() {
 		return WidgetType.ArmorBar;
 	}
 	
+	@Override
 	public UUID getId() {
 		return new UUID(0, 0);
 	}

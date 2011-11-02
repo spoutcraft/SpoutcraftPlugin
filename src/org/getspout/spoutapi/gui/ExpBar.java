@@ -32,6 +32,7 @@ public class ExpBar extends GenericWidget {
 		return new UUID(0, 6);
 	}
 
+	@Override
 	public WidgetType getType() {
 		return WidgetType.ExpBar;
 	}

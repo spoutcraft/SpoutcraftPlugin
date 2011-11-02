@@ -55,6 +55,7 @@ public class ChatTextBox extends GenericWidget implements Widget{
 		output.writeInt(getFadeoutTicks());
 	}
 	
+	@Override
 	public UUID getId() {
 		return new UUID(0, 3);
 	}

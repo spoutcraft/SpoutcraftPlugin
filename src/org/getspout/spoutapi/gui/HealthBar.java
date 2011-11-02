@@ -55,6 +55,7 @@ public class HealthBar extends GenericWidget{
 		output.writeFloat(getDangerPercent());
 	}
 	
+	@Override
 	public WidgetType getType() {
 		return WidgetType.HealthBar;
 	}
