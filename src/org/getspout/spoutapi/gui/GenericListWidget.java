@@ -115,10 +115,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	public int getInnerSize(Orientation axis) {
 		if(axis == Orientation.HORIZONTAL) return getViewportSize(Orientation.HORIZONTAL);
 		if(cachedTotalHeight == -1) {
-			cachedTotalHeight = 0;
-			for(ListWidgetItem item:items) {
-				cachedTotalHeight+=24;
-			}
+			cachedTotalHeight = items.size() * 24;
 		}
 		return cachedTotalHeight + 10;
 	}
