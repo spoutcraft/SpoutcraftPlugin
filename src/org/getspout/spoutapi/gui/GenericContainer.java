@@ -32,6 +32,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	protected int minWidthCalc = 0, maxWidthCalc = 427, minHeightCalc = 0, maxHeightCalc = 240;
 	protected boolean auto = true;
 	protected boolean recalculating = false;
+	protected boolean needsLayout = true;
 
 	public GenericContainer() {
 	}
@@ -240,8 +241,14 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container updateLayout() {
-		if (!recalculating && super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
-			recalculating = true; // Prevent us from getting into a loop
+		needsLayout = true;
+		return this;
+	}
+
+	@Override
+	public void onTick() {
+		if (needsLayout && super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
+			needsLayout = false;
 			List<Widget> visibleChildren = new ArrayList<Widget>();
 			int totalwidth = 0, totalheight = 0, newwidth, newheight, vcount = 0, hcount = 0;
 			int availableWidth = auto ? getWidth() : getMinWidth(), availableHeight = auto ? getHeight() : getMinHeight();
@@ -362,9 +369,7 @@ public class GenericContainer extends GenericWidget implements Container {
 					left += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
 				}
 			}
-			recalculating = false;
 		}
-		return this;
 	}
 
 	@Override
@@ -445,10 +450,8 @@ public class GenericContainer extends GenericWidget implements Container {
 				maxWidthCalc = maxwidth;
 				minHeightCalc = minheight;
 				maxHeightCalc = maxheight;
-				recalculating = false;
 				updateLayout();
-				if (getContainer() != null) { // Push up to parents
-					recalculating = true;
+				if (hasContainer()) { // Push up to parents
 					getContainer().updateSize();
 					getContainer().updateLayout();
 				}
