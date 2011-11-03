@@ -70,6 +70,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		super.onTick();
 	}
 	
+	@Override
 	public InGameScreen attachWidget(Widget widget) {
 		return attachWidget(null, widget);
 	}
@@ -137,6 +138,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		return 427;
 	}
 	
+	@Override
 	public boolean closePopup() {
 		if (getActivePopup() == null) {
 			return false;
@@ -152,38 +154,47 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		return true;
 	}
 	
+	@Override
 	public HealthBar getHealthBar() {
 		return health;
 	}
 	
+	@Override
 	public BubbleBar getBubbleBar() {
 		return bubble;
 	}
 	
+	@Override
 	public ChatBar getChatBar() {
 		return chat;
 	}
 	
+	@Override
 	public ChatTextBox getChatTextBox() {
 		return chatText;
 	}
 	
+	@Override
 	public ArmorBar getArmorBar() {
 		return armor;
 	}
 	
+	@Override
 	public HungerBar getHungerBar() {
 		return hunger;
 	}
 	
+	@Override
 	public ExpBar getExpBar() {
 		return exp;
 	}
 	
+	@Override
 	public PopupScreen getActivePopup() {
 		return activePopup;
 	}
 	
+	@Override
 	public boolean attachPopupScreen(PopupScreen screen) {
 		if (getActivePopup() == null) {
 			ScreenOpenEvent event = new ScreenOpenEvent(SpoutManager.getPlayerFromId(playerId), screen, ScreenType.CUSTOM_SCREEN);
@@ -200,6 +211,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		return false;
 	}
 	
+	@Override
 	public boolean canAttachWidget(Widget widget) {
 		if (widget instanceof Screen) {
 			return false;
@@ -228,6 +240,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 		return ScreenType.GAME_SCREEN;
 	}
 	
+	@Override
 	public void toggleSurvivalHUD(boolean toggle) {
 		health.setVisible(toggle);
 		bubble.setVisible(toggle);

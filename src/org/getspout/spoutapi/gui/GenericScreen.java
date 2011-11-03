@@ -131,7 +131,11 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		if (player != null && player.isSpoutCraftEnabled()) {
 			for (Widget widget : widgets.keySet()) {
-				widget.onTick();
+				try {
+					widget.onTick();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 				if (widget.isDirty()) {
 					if(! widget.getType().isServerOnly()){
 						player.sendPacket(new PacketWidget(widget, getId()));

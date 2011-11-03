@@ -35,20 +35,24 @@ public class GenericGradient extends GenericWidget implements Gradient {
 		return super.getVersion() + 1;
 	}
 	
+	@Override
 	public Gradient setTopColor(Color color) {
 		this.color1 = color;
 		return this;
 	}
 	
+	@Override
 	public Gradient setBottomColor(Color color) {
 		this.color2 = color;
 		return this;
 	}
 	
+	@Override
 	public Color getTopColor() {
 		return this.color1;
 	}
 	
+	@Override
 	public Color getBottomColor() {
 		return this.color2;
 	}

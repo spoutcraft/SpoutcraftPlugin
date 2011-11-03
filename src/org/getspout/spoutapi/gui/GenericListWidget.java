@@ -1,3 +1,19 @@
+/*
+ * This file is part of Spout API (http://wiki.getspout.org/).
+ *
+ * Spout API is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Spout API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.getspout.spoutapi.gui;
 
 import java.io.DataInputStream;
@@ -13,15 +29,18 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	private int selected = -1;
 	private int cachedTotalHeight = -1;
 
+	@Override
 	public WidgetType getType() {
 		return WidgetType.ListWidget;
 	}
 
+	@Override
 	public ListWidgetItem[] getItems() {
 		ListWidgetItem[] sample = {};
 		return items.toArray(sample);
 	}
 
+	@Override
 	public ListWidgetItem getItem(int i) {
 		if(i == -1) {
 			return null;
@@ -33,6 +52,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return items[i];
 	}
 
+	@Override
 	public ListWidget addItem(ListWidgetItem item) {
 		items.add(item);
 		item.setListWidget(this);
@@ -40,6 +60,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return this;
 	}
 
+	@Override
 	public boolean removeItem(ListWidgetItem item) {
 		if(items.contains(item)){
 			items.remove(item);
@@ -50,14 +71,17 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return false;
 	}
 
+	@Override
 	public ListWidgetItem getSelectedItem() {
 		return getItem(selected);
 	}
 	
+	@Override
 	public int getSelectedRow() {
 		return selected;
 	}
 
+	@Override
 	public ListWidget setSelection(int n) {
 		selected = n;
 		if(selected < -1) {
@@ -86,18 +110,17 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	}
 
 	private int getItemYOnScreen(int n) {
-		int height = 0;
-		for(int i = 0; i<n && i<items.size(); i++) {
-			height += 24;
-		}
+		int height = items.size() * 24;
 		return height;
 	}
 
+	@Override
 	public ListWidget clearSelection() {
 		setSelection(-1);
 		return this;
 	}
 
+	@Override
 	public boolean isSelected(int n) {
 		return selected == n;
 	}
@@ -116,10 +139,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	public int getInnerSize(Orientation axis) {
 		if(axis == Orientation.HORIZONTAL) return getViewportSize(Orientation.HORIZONTAL);
 		if(cachedTotalHeight == -1) {
-			cachedTotalHeight = 0;
-			for(ListWidgetItem item:items) {
-				cachedTotalHeight+=24;
-			}
+			cachedTotalHeight = items.size() * 24;
 		}
 		return cachedTotalHeight + 10;
 	}
@@ -132,12 +152,14 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return getMaximumScrollPosition(Orientation.VERTICAL);
 	}
 
+	@Override
 	public boolean isSelected(ListWidgetItem item) {
 		if(getSelectedItem() == null)
 			return false;
 		return getSelectedItem().equals(item);
 	}
 
+	@Override
 	public ListWidget shiftSelection(int n) {
 		if(selected + n < 0){
 			setSelection(0);
@@ -147,9 +169,11 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return this;
 	}
 
+	@Override
 	public void onSelected(int item, boolean doubleClick) {
 	}
 
+	@Override
 	public void clear() {
 		items.clear();
 		cachedTotalHeight = -1;

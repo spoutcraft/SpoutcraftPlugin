@@ -51,10 +51,12 @@ public class BubbleBar extends GenericWidget implements Widget{
 		output.writeInt(getIconOffset());
 	}
 	
+	@Override
 	public WidgetType getType() {
 		return WidgetType.BubbleBar;
 	}
 	
+	@Override
 	public UUID getId() {
 		return new UUID(0, 1);
 	}

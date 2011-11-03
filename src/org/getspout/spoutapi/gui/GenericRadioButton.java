@@ -1,3 +1,19 @@
+/*
+ * This file is part of Spout API (http://wiki.getspout.org/).
+ *
+ * Spout API is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Spout API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.getspout.spoutapi.gui;
 
 import java.io.DataInputStream;
@@ -44,10 +60,12 @@ public class GenericRadioButton extends GenericButton implements RadioButton {
 		return WidgetType.RadioButton;
 	}
 	
+	@Override
 	public boolean isSelected() {
 		return selected;
 	}
 
+	@Override
 	public RadioButton setSelected(boolean selected) {
 		if(selected) {
 			for(RadioButton b:getRadiosInGroup()) {
@@ -58,10 +76,12 @@ public class GenericRadioButton extends GenericButton implements RadioButton {
 		return this;
 	}
 
+	@Override
 	public int getGroup() {
 		return group;
 	}
 
+	@Override
 	public RadioButton setGroup(int group) {
 		this.group = group;
 		return this;
