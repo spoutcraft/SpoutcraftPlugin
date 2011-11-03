@@ -21,7 +21,7 @@ import java.io.Serializable;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.inventory.ItemStack;
+import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
 
 public interface SpoutBlock extends Block{
@@ -146,14 +146,14 @@ public interface SpoutBlock extends Block{
 	 * Returns an item stack with 1 of this block inside of it.
 	 * @return itemstack
 	 */
-	public ItemStack toItemStack();
+	public SpoutItemStack toItemStack();
 	
 	/**
 	 * Returns an item stack with the given amount of this block inside it.
 	 * @param amount to create
 	 * @return itemstack
 	 */
-	public ItemStack toItemStack(int amount);
+	public SpoutItemStack toItemStack(int amount);
 	
 	@Override
 	public SpoutBlock getFace(BlockFace face);
