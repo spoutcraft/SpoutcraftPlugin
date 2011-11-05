@@ -181,7 +181,6 @@ public abstract class GenericScreen extends GenericWidget implements Screen{
 	
 	@Override
 	public void setDirty(boolean dirty) {
-		super.setDirty(dirty);
 		if (dirty) {
 			for (Widget widget : getAttachedWidgets()){
 				widget.setDirty(true);

@@ -6,6 +6,7 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.inventory.MaterialManager;
+import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
@@ -38,7 +39,7 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 		this.fullName = item.getFullName();
 		this.customID = item.getCustomId();
 		MaterialData.addCustomBlock(this);
-		this.setItemDrop(mm.getCustomItemStack(this, 1));
+		this.setItemDrop(new SpoutItemStack(this, 1));
 	}
 
 	/**
