@@ -130,10 +130,6 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return this;
 	}
 
-	public int getScrollPosition() {
-		return getScrollPosition(Orientation.VERTICAL);
-	}
-	
 	@Override
 	public int getInnerSize(Orientation axis) {
 		if(axis == Orientation.HORIZONTAL) return getViewportSize(Orientation.HORIZONTAL);
