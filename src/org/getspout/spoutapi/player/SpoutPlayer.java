@@ -526,6 +526,13 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	
 	/**
 	 * Internal use only
+	 * @param packet
+	 */
+	@ClientOnly
+	public void sendDelayedPacket(SpoutPacket packet);
+	
+	/**
+	 * Internal use only
 	 * @param keys
 	 */
 	public void updateKeys(byte[] keys);
