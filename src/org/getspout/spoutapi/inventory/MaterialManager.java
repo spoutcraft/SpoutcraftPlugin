@@ -115,21 +115,15 @@ public interface MaterialManager {
 	public void setCustomItemBlock(CustomItem item, CustomBlock block);
 	
 	/**
-	 * Creates an item stack of a custom block.
-	 *
-	 * @param block to make a stack of
-	 * @param size the size of the item stack
-	 * @return an ItemStack of that item
+	 * Use new SpoutItemStack(block, size) instead.
 	 */
+	@Deprecated
 	public ItemStack getCustomItemStack(CustomBlock block, int size);
 	
 	/**
-	 * Creates an item stack of a custom item.
-	 * 
-	 * @param item to make a stack of
-	 * @param size of the item stack
-	 * @return an ItemStack of that item
+	 * Use new SpoutItemStack(item, size) instead.
 	 */
+	@Deprecated
 	public ItemStack getCustomItemStack(CustomItem item, int size);
 	
 	/**
@@ -173,19 +167,15 @@ public interface MaterialManager {
 	public void setCustomBlockDesign(Material material, BlockDesign design);
 	
 	/**
-	 * Checks if the specified block is a custom block or not
-	 * 
-	 * @param block to check
-	 * @return true if block is custom
+	 * Use ((SpoutBlock)block).isCustomBlock() instead
 	 */
+	@Deprecated
 	public boolean isCustomBlock(Block block);
 
 	/**
-	 * Gets the SpoutBlock associated with this block
-	 * 
-	 * @param block to get the SpoutBlock from
-	 * @return SpoutBlock
+	 * Use  ((SpoutBlock)block) instead
 	 */
+	@Deprecated
 	public SpoutBlock getSpoutBlock(Block block);
 	
 	/**
@@ -197,19 +187,15 @@ public interface MaterialManager {
 	public boolean registerSpoutRecipe(Recipe recipe);
 	
 	/**
-	 * Checks if the this item is a custom item or not
-	 * 
-	 * @param item to check
-	 * @return true if it is a custom item
+	 * Use SpoutItemStack.isCustomItem() instead
 	 */
+	@Deprecated
 	public boolean isCustomItem(ItemStack item);
 	
 	/**
-	 * Gets the custom item from an item stack
-	 * 
-	 * @param item stack to get the custom item from
-	 * @return the custom item
+	 * Use (CustomItem)SpoutItemStack.getMaterial() instead
 	 */
+	@Deprecated
 	public CustomItem getCustomItem(ItemStack item);
 	
 	/**

@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.gui.InGameHUD;
 import org.getspout.spoutapi.gui.Screen;
@@ -239,6 +240,18 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	@ClientOnly
 	public void sendNotification(String title, String message, Material toRender, short data, int time);
+	
+	/**
+	 * Send's the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
+	 * The title and message may not exceed 26 characters in length
+	 * The item to render may not be null
+	 * @param title to send
+	 * @param message to send
+	 * @param item to render
+	 * @param time for the notification to remain in milliseconds
+	 */
+	@ClientOnly
+	public void sendNotification(String title, String message, ItemStack item, int time);
 		
 	/**
 	 * Get's the clipboard text from the player, or null if unknown
