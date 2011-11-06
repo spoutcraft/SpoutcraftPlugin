@@ -69,7 +69,7 @@ public class GenericContainer extends GenericWidget implements Container {
 			getScreen().attachWidget(p == Bukkit.getServer().getPluginManager().getPlugin("Spout") ? getPlugin() : p, child);
 		}
 		updateSize();
-		updateLayout();
+		deferLayout();
 		return this;
 	}
 
@@ -162,7 +162,7 @@ public class GenericContainer extends GenericWidget implements Container {
 			this.screen.removeWidget(child);
 		}
 		updateSize();
-		updateLayout();
+		deferLayout();
 		return this;
 	}
 
@@ -183,7 +183,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container setHeight(int height) {
 		if (super.getHeight() != height) {
 			super.setHeight(height);
-			this.updateLayout();
+			deferLayout();
 		}
 		return this;
 	}
@@ -192,7 +192,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container setWidth(int width) {
 		if (super.getWidth() != width) {
 			super.setWidth(width);
-			this.updateLayout();
+			deferLayout();
 		}
 		return this;
 	}
@@ -201,7 +201,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container setLayout(ContainerType type) {
 		if (this.type != type) {
 			this.type = type;
-			updateLayout();
+			deferLayout();
 		}
 		return this;
 	}
@@ -215,7 +215,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container setAlign(WidgetAnchor align) {
 		if (this.align != align) {
 			this.align = align;
-			updateLayout();
+			deferLayout();
 		}
 		return this;
 	}
@@ -229,7 +229,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container setReverse(boolean reverse) {
 		if (this.reverse != reverse) {
 			this.reverse = reverse;
-			updateLayout();
+			deferLayout();
 		}
 		return this;
 	}
@@ -240,15 +240,15 @@ public class GenericContainer extends GenericWidget implements Container {
 	}
 
 	@Override
-	public Container updateLayout() {
-		needsLayout = true;
+	public Container deferLayout() {
+		needsLayout = true;;
 		return this;
 	}
 
 	@Override
-	public void onTick() {
-		if (needsLayout && super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
-			needsLayout = false;
+	public Container updateLayout() {
+		if (!recalculating && super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
+			recalculating = true; // Prevent us from getting into a loop
 			List<Widget> visibleChildren = new ArrayList<Widget>();
 			int totalwidth = 0, totalheight = 0, newwidth, newheight, vcount = 0, hcount = 0;
 			int availableWidth = auto ? getWidth() : getMinWidth(), availableHeight = auto ? getHeight() : getMinHeight();
@@ -369,6 +369,16 @@ public class GenericContainer extends GenericWidget implements Container {
 					left += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
 				}
 			}
+			recalculating = false;
+		}
+		needsLayout = false;
+		return this;
+	}
+
+	@Override
+	public void onTick() {
+		if (needsLayout) {
+			updateLayout();
 		}
 	}
 
@@ -450,10 +460,10 @@ public class GenericContainer extends GenericWidget implements Container {
 				maxWidthCalc = maxwidth;
 				minHeightCalc = minheight;
 				maxHeightCalc = maxheight;
-				updateLayout();
+				deferLayout();
 				if (hasContainer()) { // Push up to parents
 					getContainer().updateSize();
-					getContainer().updateLayout();
+					getContainer().deferLayout();
 				}
 			}
 			recalculating = false;
