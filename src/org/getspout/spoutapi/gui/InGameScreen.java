@@ -150,7 +150,6 @@ public class InGameScreen extends GenericScreen implements InGameHUD{
 			return false;
 		}
 		player.sendPacket(new PacketScreenAction(ScreenAction.Close,ScreenType.CUSTOM_SCREEN));
-		activePopup.setDirty(false);
 		activePopup = null;
 		return true;
 	}
