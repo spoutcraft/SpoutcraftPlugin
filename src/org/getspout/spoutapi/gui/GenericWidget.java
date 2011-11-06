@@ -278,7 +278,11 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	public Container getContainer() {
 		return container;
 	}
-	
+
+	public boolean hasContainer() {
+		return container != null;
+	}
+
 	@Override
 	public void setContainer(Container container) {
 		if (this.container != null && container != null && container != this.container) {

@@ -224,7 +224,12 @@ public interface Widget{
 	 * Gets the widget's container
 	 */
 	public Container getContainer();
-	
+
+	/**
+	 * Does the widget have a container
+	 */
+	public boolean hasContainer();
+
 	/**
 	 * Sets the parant container for this widget
 	 */
