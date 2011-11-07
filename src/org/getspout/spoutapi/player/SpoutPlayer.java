@@ -484,6 +484,12 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 */
 	@ClientOnly
 	public void openScreen(ScreenType type);
+
+    /**
+     * Sends a request to the client to send a screenshot to the server.
+     */
+    @ClientOnly
+    public void sendScreenshotRequest();
 	
 	/**
 	 * Internal use only
