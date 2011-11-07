@@ -63,7 +63,7 @@ public class PacketScreenshot implements SpoutPacket {
             SpoutPlayer sp = SpoutManager.getPlayerFromId(playerId);
             ScreenshotReceivedEvent sre = new ScreenshotReceivedEvent(sp, ss);
             Bukkit.getServer().getPluginManager().callEvent(sre);
-            sp.sendNotification("Screenshot received", "Screenshot received by server", Material.PAINTING);
+            sp.sendNotification("Sending screenshot...", "Screenshot received", Material.PAINTING);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
