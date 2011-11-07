@@ -42,7 +42,11 @@ public class ScreenListener extends CustomEventListener implements Listener{
 	public void onScreenClose(ScreenCloseEvent event) {
 		
 	}
-	
+
+    public void onScreenshotReceived(ScreenshotReceivedEvent event) {
+
+    }
+
 	@Override
 	public void onCustomEvent(Event event) {
 		if (event instanceof SpoutEvent) {
@@ -62,6 +66,9 @@ public class ScreenListener extends CustomEventListener implements Listener{
 				case Screen_Close:
 					onScreenClose((ScreenCloseEvent)event);
 					break;
+                case Screenshot_Received:
+                    onScreenshotReceived((ScreenshotReceivedEvent)event);
+                    break;
 			}
 		}
 	}

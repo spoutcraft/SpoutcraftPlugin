@@ -22,6 +22,7 @@ public enum EventType {
 	Screen_Open,
 	Slider_Drag,
 	TextField_Change,
+    Screenshot_Received,
 
 	// Sound Events - Left out because there is only one event \\
 
