@@ -19,6 +19,9 @@ package org.getspout.spoutapi.gui;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The various Screens that Spout knows about.
+ */
 public enum ScreenType {
 	GAME_SCREEN(0),
 	CHAT_SCREEN(1),
@@ -38,24 +41,24 @@ public enum ScreenType {
 	GAME_OVER_SCREEN(15),
 	SLEEP_SCREEN(16),
 	UNKNOWN(-1);
-	
-	
+
 	private final int code;
 	private static Map<Integer, ScreenType> lookup = new HashMap<Integer, ScreenType>();
-	private ScreenType(int code){
+
+	private ScreenType(int code) {
 		this.code = code;
 	}
-	
-	public int getCode(){
+
+	public int getCode() {
 		return code;
 	}
-	
-	public static ScreenType getType(int code){
+
+	public static ScreenType getType(int code) {
 		return lookup.get(code);
 	}
-	
+
 	static {
-		for(ScreenType type:values()){
+		for (ScreenType type : values()) {
 			lookup.put(type.code, type);
 		}
 	}

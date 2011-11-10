@@ -16,7 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * This defines the layout for Containers.
+ */
 public enum ContainerType {
+
 	VERTICAL,
 	HORIZONTAL,
 	OVERLAY

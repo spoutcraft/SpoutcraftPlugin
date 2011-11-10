@@ -18,6 +18,11 @@ package org.getspout.spoutapi.gui;
 
 import java.util.HashMap;
 
+/**
+ * This used to be used for alignment, use WidgetAnchor now instead.
+ * @deprecated
+ */
+@Deprecated
 public enum Align {
 	FIRST(0),
 	SECOND(1),

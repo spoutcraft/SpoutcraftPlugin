@@ -16,11 +16,14 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * This is a single item for the ListWidget.
+ */
 public class ListWidgetItem {
 
 	String title;
 	String text;
-	GenericListWidget listWidget;
+	GenericListWidget listWidget = null;
 
 	public ListWidgetItem(String title, String text) {
 		this.title = title;
@@ -44,6 +47,9 @@ public class ListWidgetItem {
 	}
 
 	public void setListWidget(GenericListWidget genericListWidget) {
+		if (listWidget != null && genericListWidget != null && !listWidget.equals(genericListWidget)) {
+			listWidget.removeItem(this);
+		}
 		listWidget = genericListWidget;
 	}
 }

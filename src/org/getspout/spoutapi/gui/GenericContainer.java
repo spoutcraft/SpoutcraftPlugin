@@ -241,7 +241,7 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container deferLayout() {
-		needsLayout = true;;
+		needsLayout = true;
 		return this;
 	}
 

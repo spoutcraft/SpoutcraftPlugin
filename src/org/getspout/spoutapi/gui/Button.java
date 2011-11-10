@@ -18,47 +18,51 @@ package org.getspout.spoutapi.gui;
 
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
 
-public interface Button extends Control, Label{
-	
+/**
+ * The GenericButton class represents a Minecraft button with a label placed on it.
+ */
+public interface Button extends Control, Label {
+
 	/**
 	 * Get's the text that is displayed when the control is disabled
 	 * @return disabled text
 	 */
 	public String getDisabledText();
-	
+
 	/**
 	 * Sets the text that is displayed when the control is disabled
 	 * @param text to display
 	 * @return Button
 	 */
 	public Button setDisabledText(String text);
-	
+
 	/**
 	 * Get's the color of the control while the mouse is hovering over it
 	 * @return color
 	 */
 	public Color getHoverColor();
-	
+
 	/**
 	 * Sets the color of the control while the mouse is hovering over it
 	 * @param color
 	 * @return Button
 	 */
 	public Button setHoverColor(Color color);
-	
+
 	@Override
 	public Button setText(String text);
-	
+
 	@Override
 	public Button setTextColor(Color color);
 
 	@Override
 	public Button setAuto(boolean auto);
-	
+
 	/**
 	 * Fires when this button is clicked on the screen.
 	 * 
-	 * This event is also sent to the screen listener, afterwards.
+	 * If this is not overridden in a subclass then this event will be sent
+	 * to the screen listener.
 	 * 
 	 * @param event
 	 */

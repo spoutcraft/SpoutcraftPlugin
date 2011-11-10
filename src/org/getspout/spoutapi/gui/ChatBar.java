@@ -23,10 +23,16 @@ import java.util.UUID;
 
 import org.getspout.spoutapi.packet.PacketUtil;
 
-public class ChatBar extends GenericWidget implements Widget{
+/**
+ * The Spout implementation of the default Chat Bar.
+ *
+ * This provides extra abilities above the default version.
+ */
+public class ChatBar extends GenericWidget implements Widget {
 
 	private int cursorX = 4, cursorY = 240;
 	protected Color textColor = new Color(1F, 1F, 1F);
+
 	public ChatBar() {
 		super();
 		setDirty(false);
@@ -36,12 +42,12 @@ public class ChatBar extends GenericWidget implements Widget{
 		setHeight(12);
 		setAnchor(WidgetAnchor.BOTTOM_LEFT);
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 13;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -49,7 +55,7 @@ public class ChatBar extends GenericWidget implements Widget{
 		setCursorY(input.readInt());
 		setTextColor(PacketUtil.readColor(input));
 	}
-	
+
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
@@ -57,17 +63,17 @@ public class ChatBar extends GenericWidget implements Widget{
 		output.writeInt(getCursorY());
 		PacketUtil.writeColor(output, getTextColor());
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.ChatBar;
 	}
-	
+
 	@Override
 	public UUID getId() {
 		return new UUID(0, 2);
 	}
-	
+
 	/**
 	 * Gets the x position that the cursor starts at when typing chat
 	 * @return cursor x
@@ -75,7 +81,7 @@ public class ChatBar extends GenericWidget implements Widget{
 	public int getCursorX() {
 		return cursorX;
 	}
-	
+
 	/**
 	 * Sets the x position that the cursor starts at when typing 
 	 * @param x position to set
@@ -85,7 +91,7 @@ public class ChatBar extends GenericWidget implements Widget{
 		cursorX = x;
 		return this;
 	}
-	
+
 	/**
 	 * Gets the y position that the cursor starts at when typing chat
 	 * @return cursor y
@@ -93,17 +99,17 @@ public class ChatBar extends GenericWidget implements Widget{
 	public int getCursorY() {
 		return cursorY;
 	}
-	
+
 	/**
 	 * Sets the y position that the cursor starts at when typing 
 	 * @param y position to set
 	 * @return this
 	 */
-	public ChatBar setCursorY(int y){
+	public ChatBar setCursorY(int y) {
 		cursorY = y;
 		return this;
 	}
-	
+
 	/**
 	 * Gets the default color of the text for the chat bar
 	 * @return default text color
@@ -111,7 +117,7 @@ public class ChatBar extends GenericWidget implements Widget{
 	public Color getTextColor() {
 		return textColor;
 	}
-	
+
 	/**
 	 * Sets the default color of the text for the chat bar
 	 * @param color to set
@@ -121,14 +127,12 @@ public class ChatBar extends GenericWidget implements Widget{
 		textColor = color;
 		return this;
 	}
-	
+
 	public void render() {
-		
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 2;
 	}
-
 }

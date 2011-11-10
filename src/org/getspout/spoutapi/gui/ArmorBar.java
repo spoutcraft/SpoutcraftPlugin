@@ -21,7 +21,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-public class ArmorBar extends GenericWidget{
+/**
+ * The Spout implementation of the default Armor Bar.
+ */
+public class ArmorBar extends GenericWidget {
+
 	private int icons = 10;
 	private boolean alwaysVisible = false;
 	private int iconOffset = 8;
@@ -32,12 +36,12 @@ public class ArmorBar extends GenericWidget{
 		setY(191);
 		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 9;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -45,7 +49,7 @@ public class ArmorBar extends GenericWidget{
 		setAlwaysVisible(input.readBoolean());
 		setIconOffset(input.readInt());
 	}
-	
+
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
@@ -53,17 +57,17 @@ public class ArmorBar extends GenericWidget{
 		output.writeBoolean(isAlwaysVisible());
 		output.writeInt(getIconOffset());
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.ArmorBar;
 	}
-	
+
 	@Override
 	public UUID getId() {
 		return new UUID(0, 0);
 	}
-	
+
 	/**
 	 * Gets the maximum number of shields displayed on the HUD.
 	 * 
@@ -73,7 +77,7 @@ public class ArmorBar extends GenericWidget{
 	public int getMaxNumShields() {
 		return icons;
 	}
-	
+
 	/**
 	 * Sets the maximum number of shields displayed on the HUD.
 	 * 
@@ -85,7 +89,7 @@ public class ArmorBar extends GenericWidget{
 		this.icons = icons;
 		return this;
 	}
-	
+
 	/**
 	 * True if the armor bar will appear even when the player has no armor equipped.
 	 * @return always visible
@@ -93,7 +97,7 @@ public class ArmorBar extends GenericWidget{
 	public boolean isAlwaysVisible() {
 		return alwaysVisible;
 	}
-	
+
 	/**
 	 * Forces the armor bar to appear, even when the player has no armor equipped.
 	 * @param visible
@@ -103,7 +107,7 @@ public class ArmorBar extends GenericWidget{
 		alwaysVisible = visible;
 		return this;
 	}
-	
+
 	/**
 	 * Gets the number of pixels each shield is offset when drawing the next shield.
 	 * @return pixel offset
@@ -111,7 +115,7 @@ public class ArmorBar extends GenericWidget{
 	public int getIconOffset() {
 		return iconOffset;
 	}
-	
+
 	/**
 	 * Sets the number of pixels each shield is offset when drawing the next shield.
 	 * @param offset when drawing shields
@@ -121,7 +125,7 @@ public class ArmorBar extends GenericWidget{
 		iconOffset = offset;
 		return this;
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 1;

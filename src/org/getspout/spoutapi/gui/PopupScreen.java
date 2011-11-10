@@ -16,21 +16,28 @@
  */
 package org.getspout.spoutapi.gui;
 
-public interface PopupScreen extends Screen{
-	
+/**
+ * The GenericPopup class creates an mouseable area where you can put multiple
+ * Widgets.
+ *
+ * Optionally the background of the popup can be darkened to make it more
+ * obvious that it is a popup.
+ */
+public interface PopupScreen extends Screen {
+
 	/**
 	 * Is true if the popup screen has no transparency layer
 	 * @return transparency
 	 */
 	public boolean isTransparent();
-	
+
 	/**
 	 * Sets the transparency layer
 	 * @param value to set
 	 * @return popupscreen
 	 */
 	public PopupScreen setTransparent(boolean value);
-	
+
 	/**
 	 * Closes the screen. Functionally equivelent to InGameHUD.closePopup()
 	 * @return true if the screen was closed

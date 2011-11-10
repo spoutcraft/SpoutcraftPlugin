@@ -16,7 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * Used to define regions for Scrollable widgets.
+ */
 public class Rectangle {
+
 	int width, height, x, y;
 
 	public Rectangle(int x, int y, int width, int height) {
@@ -25,7 +29,7 @@ public class Rectangle {
 		setWidth(width);
 		setHeight(height);
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
@@ -57,23 +61,23 @@ public class Rectangle {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public int getTop() {
 		return getY();
 	}
-	
+
 	public int getLeft() {
 		return getX();
 	}
-	
+
 	public int getBottom() {
 		return getY() + getHeight();
 	}
-	
+
 	public int getRight() {
 		return getX() + getWidth();
 	}
-	
+
 	/**
 	 * Shifts the position by given x and y.
 	 * @param x
@@ -83,7 +87,7 @@ public class Rectangle {
 		this.x += x;
 		this.y += y;
 	}
-	
+
 	/**
 	 * Resizes the rect with given width and height
 	 * @param width
@@ -93,7 +97,7 @@ public class Rectangle {
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	/**
 	 * Moves rect to given x and y position.
 	 * @param x
@@ -103,10 +107,10 @@ public class Rectangle {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	@Override
 	public String toString() {
-		return super.toString() + "{ x: "+x+" y: "+y+" width: "+width+" height: "+height+" }";
+		return super.toString() + "{ x: " + x + " y: " + y + " width: " + width + " height: " + height + " }";
 	}
 
 	@Override
@@ -122,21 +126,28 @@ public class Rectangle {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Rectangle other = (Rectangle) obj;
-		if (height != other.height)
+		if (height != other.height) {
 			return false;
-		if (width != other.width)
+		}
+		if (width != other.width) {
 			return false;
-		if (x != other.x)
+		}
+		if (x != other.x) {
 			return false;
-		if (y != other.y)
+		}
+		if (y != other.y) {
 			return false;
+		}
 		return true;
 	}
 }
