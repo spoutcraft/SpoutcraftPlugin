@@ -18,33 +18,39 @@ package org.getspout.spoutapi.gui;
 
 import org.getspout.spoutapi.event.screen.SliderDragEvent;
 
-public interface Slider extends Control, Label{
-	
+/**
+ * The GenericSlider is a bar with which a user can set a value.
+ *
+ * The value is a float between 0f to 1f representing how far from the left
+ * the slider is.
+ */
+public interface Slider extends Control, Label {
+
 	/**
 	 * Gets the slider position (between 0.0f and 1.0f)
 	 * @return slider position
 	 */
 	public float getSliderPosition();
-	
+
 	/**
 	 * Sets the slider position. Values below 0.0f are rounded to 0, and values above 1.0f are rounded to 1
 	 * @param value to set
 	 * @return slider
 	 */
 	public Slider setSliderPosition(float value);
-	
+
 	@Override
 	public Slider setText(String text);
-	
+
 	@Override
 	public Slider setTextColor(Color color);
 
 	@Override
 	public Slider setAuto(boolean auto);
-	
+
 	@Override
 	public Slider setAlign(WidgetAnchor align);
-	
+
 	/**
 	 * Fires when this slider is dragged on the screen.
 	 * 

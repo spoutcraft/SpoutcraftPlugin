@@ -18,11 +18,14 @@ package org.getspout.spoutapi.gui;
 
 import java.util.HashMap;
 
+/**
+ * This defines the built-in Spout widgets.
+ */
 public class WidgetType {
+
 	private static HashMap<WidgetType, Integer> lookupClass = new HashMap<WidgetType, Integer>();
 	private static HashMap<Integer, WidgetType> lookupId = new HashMap<Integer, WidgetType>();
 	private static int lastId = 0;
-
 	public static WidgetType Label = new WidgetType(GenericLabel.class, 0);
 	public static WidgetType HealthBar = new WidgetType(HealthBar.class, 1);
 	public static WidgetType BubbleBar = new WidgetType(BubbleBar.class, 2);
@@ -47,7 +50,6 @@ public class WidgetType {
 	public static WidgetType ListWidget = new WidgetType(GenericListWidget.class, 21);
 	//public static WidgetType DirtBackground = new WidgetType(DirtBackground.class, 22); Only on the client :P
 	//public static WidgetType ScrollArea = new WidgetType(GenericScrollArea.class, 23); Not yet :P
-	
 	private final int id;
 	private final boolean server;
 	private final Class<? extends Widget> widgetClass;
@@ -82,15 +84,15 @@ public class WidgetType {
 		lookupId.put(id, this);
 		this.server = server;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public Class<? extends Widget> getWidgetClass() {
 		return widgetClass;
 	}
-	
+
 	public static Integer getWidgetId(Class<? extends Widget> widget) {
 		return lookupClass.get(widget);
 	}
@@ -98,7 +100,7 @@ public class WidgetType {
 	public static WidgetType getWidgetFromId(int id) {
 		return lookupId.get(id);
 	}
-	
+
 	public static int getNumWidgetTypes() {
 		return lastId;
 	}
@@ -106,5 +108,4 @@ public class WidgetType {
 	public boolean isServerOnly() {
 		return server;
 	}
-
 }

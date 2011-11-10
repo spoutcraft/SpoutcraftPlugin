@@ -18,53 +18,56 @@ package org.getspout.spoutapi.gui;
 
 import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
 
-public interface TextField extends Control{
-	
+/**
+ * This is a box where the user can input a string.
+ */
+public interface TextField extends Control {
+
 	/**
 	 * Gets the position of the cursor in the text field. Position zero is the start of the text.
 	 * @return position
 	 */
 	public int getCursorPosition();
-	
+
 	/**
 	 * Sets the position of the cursor in the text field.
 	 * @param position to set to
 	 * @return textfield
 	 */
 	public TextField setCursorPosition(int position);
-	
+
 	/**
 	 * Gets the text typed in this text field
 	 * @return text
 	 */
 	public String getText();
-	
+
 	/**
 	 * Sets the text visible in this text field
 	 * @param text inside of the text field
 	 * @return textfield
 	 */
 	public TextField setText(String text);
-	
+
 	/**
 	 * Gets the maximum characters that can be typed into this text field
 	 * @return maximum characters
 	 */
 	public int getMaximumCharacters();
-	
+
 	/**
 	 * Sets the maximum characters that can be typed into this text field
 	 * @param max characters that can be typed
 	 * @return max chars
 	 */
 	public TextField setMaximumCharacters(int max);
-	
+
 	/**
 	 * Gets the maximum line this text field can hold
 	 * @return max lines
 	 */
 	public int getMaximumLines();
-	
+
 	/**
 	 * Sets the maximum lines this text field can hold. If zero is passed, the text field will hold as many lines as it can depending on its size.
 	 * 
@@ -72,39 +75,39 @@ public interface TextField extends Control{
 	 * @return textfield
 	 */
 	public TextField setMaximumLines(int max);
-	
+
 	/**
 	 * Gets the color of the inner field area of the text box.
 	 * @return field color
 	 */
 	public Color getFieldColor();
-	
+
 	/**
 	 * Sets the field color of the inner field area of the text box.
 	 * @param color to render as
 	 * @return textfield
 	 */
 	public TextField setFieldColor(Color color);
-	
+
 	/**
 	 * Gets the outside color of the field area of the text box.
 	 * @return border color
 	 */
 	public Color getBorderColor();
-	
+
 	/**
 	 * Sets the outside color of the field area of the text box.
 	 * @param color to render as
 	 * @return textfield
 	 */
 	public TextField setBorderColor(Color color);
-	
+
 	/**
 	 * Gets the tab index for this text field
 	 * @return tab index
 	 */
 	public int getTabIndex();
-	
+
 	/**
 	 * Sets the tab index for this text field. When the player presses 
 	 * the tabulator key the text field with index+1 will obtain the focus.
@@ -114,13 +117,13 @@ public interface TextField extends Control{
 	 * @return textfield
 	 */
 	public TextField setTabIndex(int index);
-	
+
 	/**
 	 * Determines if this text field is a password field
 	 * @return password field
 	 */
 	public boolean isPasswordField();
-	
+
 	/**
 	 * Sets whether the text will be obfuscated by asterisk (*) characters.
 	 * Setting to true forces the maximum lines to be 1.
@@ -128,13 +131,13 @@ public interface TextField extends Control{
 	 * @return textfield
 	 */
 	public TextField setPasswordField(boolean password);
-	
+
 	/**
 	 * Determines if this text field is focused
 	 * @return focused
 	 */
 	public boolean isFocused();
-	
+
 	/**
 	 * Sets whether this text field shall obtain focus.
 	 * Make sure only one text field gets the focus at a time.
@@ -143,11 +146,12 @@ public interface TextField extends Control{
 	 */
 	@Override
 	public TextField setFocus(boolean focus);
-	
+
 	/**
 	 * Fires when this text field is typed into on the screen.
 	 * 
-	 * This event is also sent to the screen listener, afterwards.
+	 * If this is not overridden in a subclass then this event will be sent
+	 * to the screen listener.
 	 * 
 	 * @param event
 	 */

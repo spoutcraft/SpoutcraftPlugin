@@ -16,6 +16,9 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * This is used to define the orientation for Scrollable widgets.
+ */
 public enum Orientation {
 	/**
 	 * Horizontal axis (left-right)

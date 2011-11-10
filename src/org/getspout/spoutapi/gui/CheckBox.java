@@ -16,7 +16,12 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * This defines a simple checkbox widget.
+ */
 public interface CheckBox extends Button {
+
 	public boolean isChecked();
+
 	public CheckBox setChecked(boolean checked);
 }

@@ -21,10 +21,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-public class HealthBar extends GenericWidget{
+/**
+ * The Spout implementation of the default Health Bar.
+ */
+public class HealthBar extends GenericWidget {
+
 	private int icons = 10;
 	private int iconOffset = 8;
-	private float dangerPercent = 20f; 
+	private float dangerPercent = 20f;
 
 	public HealthBar() {
 		super();
@@ -33,12 +37,12 @@ public class HealthBar extends GenericWidget{
 		setY(201);
 		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 12;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -46,7 +50,7 @@ public class HealthBar extends GenericWidget{
 		setIconOffset(input.readInt());
 		setDangerPercent(input.readFloat());
 	}
-	
+
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
@@ -54,17 +58,17 @@ public class HealthBar extends GenericWidget{
 		output.writeInt(getIconOffset());
 		output.writeFloat(getDangerPercent());
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.HealthBar;
 	}
-	
+
 	@Override
 	public UUID getId() {
 		return new UUID(0, 4);
 	}
-	
+
 	/**
 	 * Gets the maximum number of hearts displayed on the HUD.
 	 * 
@@ -74,7 +78,7 @@ public class HealthBar extends GenericWidget{
 	public int getMaxNumHearts() {
 		return icons;
 	}
-	
+
 	/**
 	 * Sets the maximum number of hearts displayed on the HUD.
 	 * 
@@ -86,7 +90,7 @@ public class HealthBar extends GenericWidget{
 		this.icons = hearts;
 		return this;
 	}
-	
+
 	/**
 	 * Gets the number of pixels each heart is offset when drawing the next heart.
 	 * @return pixel offset
@@ -94,7 +98,7 @@ public class HealthBar extends GenericWidget{
 	public int getIconOffset() {
 		return iconOffset;
 	}
-	
+
 	/**
 	 * Sets the number of pixels each heart is offset when drawing the next heart.
 	 * @param offset when drawing hearts
@@ -104,7 +108,7 @@ public class HealthBar extends GenericWidget{
 		iconOffset = offset;
 		return this;
 	}
-	
+
 	/**
 	 * Gets the percent of health a player needs to fall to or below in order for the hearts to begin blinking.
 	 * 
@@ -114,7 +118,7 @@ public class HealthBar extends GenericWidget{
 	public float getDangerPercent() {
 		return dangerPercent;
 	}
-	
+
 	/**
 	 * Sets the percent of health a player needs to fall to or below in order for the hearts to begin blinking.
 	 * 
@@ -126,7 +130,7 @@ public class HealthBar extends GenericWidget{
 		dangerPercent = percent;
 		return this;
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 1;

@@ -16,17 +16,24 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * This allow an image to be downloaded and shown to the user.
+ *
+ * Images must be in either png or jpg format. You may pre-cache images using
+ * the FileManager, so only the filename is required afterwards.
+ */
 public interface Texture extends Widget {
-	
+
 	/**
 	 * Gets the url of this texture to render
 	 * @return url
 	 */
 	public String getUrl();
-	
+
 	/**
 	 * Sets the url of this texture to render
-	 * All textures must be of png type and a size that is a factor of 2 (e.g 64x128). Use the alpha channel for hiding empty space.
+	 * All textures must be of png or jpg type and a size that is a factor of
+	 * 2 (e.g 64x128). Use the alpha channel for hiding empty space.
 	 * @param url to set this texture to
 	 * @return texture
 	 */
@@ -37,7 +44,7 @@ public interface Texture extends Widget {
 	 * @return if it's drawing the alpha channel
 	 */
 	public boolean isDrawingAlphaChannel();
-	
+
 	/**
 	 * Sets if the texture should draw the full alpha channel instead of just using a bit-mask.
 	 * @param draw to set the drawing state
