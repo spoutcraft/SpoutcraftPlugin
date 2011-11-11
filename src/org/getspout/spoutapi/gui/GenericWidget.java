@@ -27,10 +27,10 @@ import org.getspout.spoutapi.event.AbstractEventSource;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public abstract class GenericWidget extends AbstractEventSource implements Widget{
-	protected int X = 0;
-	protected int Y = 0;
-	protected int width = 0;
-	protected int height = 0;
+	protected int X = 100;
+	protected int Y = 100;
+	protected int width = 50;
+	protected int height = 50;
 	protected boolean visible = true;
 	protected transient boolean dirty = true;
 	protected transient Screen screen = null;
