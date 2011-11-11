@@ -16,17 +16,17 @@
  */
 package org.getspout.spoutapi.gui;
 
-public class GenericRectange extends GenericGradient{
+public class GenericRectangle extends GenericGradient{
 	
-	public GenericRectange(){
+	public GenericRectangle(){
 		
 	}
 	
-	public GenericRectange(Color color) {
+	public GenericRectangle(Color color) {
 		setColor(color);
 	}
 	
-	public GenericRectange setColor(Color color){
+	public GenericRectangle setColor(Color color){
 		super.setTopColor(color);
 		super.setBottomColor(color);
 		return this;
