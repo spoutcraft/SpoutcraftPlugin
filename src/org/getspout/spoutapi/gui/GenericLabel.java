@@ -24,7 +24,7 @@ import org.bukkit.ChatColor;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericLabel extends GenericWidget implements Label{
-	protected String text = "";
+	protected String text = "Your Text Here";
 	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
 	protected Color color = new Color(1F, 1F, 1F);
 	protected boolean auto = true;
