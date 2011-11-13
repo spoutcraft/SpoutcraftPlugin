@@ -20,17 +20,17 @@ public class TByteTripleLongHashMap{
 		map = new TIntLongHashMap(capacity);
 	}
 	
-	public long put(byte key1, byte key2, byte key3, long value) {
+	public long put(int key1, int key2, int key3, long value) {
 		int key = key(key1, key2, key3);
 		return map.put(key, value);
 	}
 	
-	public long get(byte key1, byte key2, byte key3) {
+	public long get(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.get(key);
 	}
 	
-	public boolean containsKey(byte key1, byte key2, byte key3) {
+	public boolean containsKey(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.containsKey(key);
 	}
@@ -43,7 +43,7 @@ public class TByteTripleLongHashMap{
 		return map.containsValue(val);
 	}
 
-	public boolean increment(byte key1, byte key2, byte key3) {
+	public boolean increment(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.increment(key);
 	}
@@ -64,7 +64,7 @@ public class TByteTripleLongHashMap{
 		return map.keys();
 	}
 
-	public long remove(byte key1, byte key2, byte key3) {
+	public long remove(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.remove(key);
 	}
@@ -82,6 +82,6 @@ public class TByteTripleLongHashMap{
 	}
 	
 	private static final int key(int x, int y, int z) {
-		return (x & 0xF) << 11 | (z & 0xF) << 7 | (y & 0x7F);
+		return ((x & 0xF) << 11) | ((z & 0xF) << 7) | (y & 0x7F);
 	}
 }

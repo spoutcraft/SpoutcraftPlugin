@@ -41,21 +41,6 @@ public interface CustomBlock extends Block {
 	public String getFullName();
 	
 	/**
-	 * Sets the custom meta data associated with this CustomBlock. Use this to keep track of extra information on the disk.
-	 * 
-	 * @param customMetaData to set
-	 * @return this
-	 */
-	public CustomBlock setCustomMetaData(int customMetaData);
-
-	/**
-	 * Gets the custom meta data associated with this CustomBlock.
-	 * 
-	 * @return customMetaData
-	 */
-	public int getCustomMetaData();
-	
-	/**
 	 * Gets the plugin associated with this CustomBlock.
 	 * 
 	 * @return plugin

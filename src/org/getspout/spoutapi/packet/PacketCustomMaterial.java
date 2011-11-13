@@ -13,7 +13,6 @@ public class PacketCustomMaterial implements SpoutPacket {
 	private Plugin plugin;
 	private String name;
 	private int id;
-	private int data;
 	private byte type;
 	private boolean isItem = false;
 	private boolean isOpaque = false;
@@ -26,7 +25,6 @@ public class PacketCustomMaterial implements SpoutPacket {
 		this.plugin = block.getPlugin();
 		this.name = block.getName();
 		this.id = block.getCustomId();
-		this.data = block.getCustomMetaData();
 		this.isItem = false;
 		this.isOpaque = block.isOpaque();
 	}
@@ -35,20 +33,18 @@ public class PacketCustomMaterial implements SpoutPacket {
 		this.plugin = item.getPlugin();
 		this.name = item.getName();
 		this.id = item.getCustomId();
-		this.data = 0;
 		this.isItem = true;
 		this.isOpaque = false;
 	}
 
 	public int getNumBytes() {
-		return PacketUtil.getNumBytes(plugin.getDescription().getName()) + PacketUtil.getNumBytes(name);
+		return PacketUtil.getNumBytes(plugin.getDescription().getName()) + PacketUtil.getNumBytes(name) + 4 + 1 + 1 + 1;
 	}
 
 	public void readData(DataInputStream input) throws IOException {
 		plugin = Bukkit.getServer().getPluginManager().getPlugin((PacketUtil.readString(input)));
 		name = PacketUtil.readString(input);
 		id = input.readInt();
-		data = input.readInt();
 		type = input.readByte();
 		isItem = type == 2 ? true : false;
 		isOpaque = type == 1 ? true : false;
@@ -58,7 +54,6 @@ public class PacketCustomMaterial implements SpoutPacket {
 		PacketUtil.writeString(output, plugin.getDescription().getName());
 		PacketUtil.writeString(output, name);
 		output.writeInt(id);
-		output.writeInt(data);
 		output.writeByte(isItem ? 2 : isOpaque ? 1 : 0);
 	}
 
@@ -73,7 +68,6 @@ public class PacketCustomMaterial implements SpoutPacket {
 	}
 
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
-
 }

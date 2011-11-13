@@ -19,7 +19,6 @@ package org.getspout.spoutapi.block;
 import java.io.Serializable;
 
 import org.bukkit.Chunk;
-import org.bukkit.util.BlockVector;
 
 public interface SpoutChunk extends Chunk{
 	
@@ -58,16 +57,25 @@ public interface SpoutChunk extends Chunk{
 	public Serializable removeData(String id);
 	
 	/**
-	 * Returns an array of all the blocks in the chunk that have associated data
+	 * Gets the custom block ids that are used for the chunk at (x, z).
 	 * 
-	 * Only the least significant portion of the vector coordinates is guaranteed to be correct
+	 * It may be null if there are no custom block ids.
 	 * 
-	 * @param world the world
-	 * @param x the X chunk coordinate
-	 * @param z the Z chunk coordinate
-	 * @return and array containing all the blocks with associated data
+	 * Modifying this array <b>will</b> change the contents of this chunk.
 	 * 
+	 * @return custom block ids
 	 */
-	public BlockVector[] getTaggedBlocks();
+	public short[] getCustomBlockIds();
+
+	/**
+	 * Sets the custom block ids that are used for the chunk at (x, z).
+	 * 
+	 * This array should be 32768 in length.
+	 * 
+	 * Modifying this array will <b>override</b> the contents of this chunk.
+	 * 
+	 * @param ids the custom block ids
+	 */
+	public void setCustomBlockIds(short[] ids);
 
 }

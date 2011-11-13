@@ -14,8 +14,8 @@ public abstract class GenericCubeCustomBlock extends GenericCustomBlock {
 	 * @param design to use for the block
 	 * @param customMetaData of the block
 	 */
-	public GenericCubeCustomBlock(Plugin plugin, String name, boolean isOpaque, GenericCubeBlockDesign design, int customMetaData) {
-		super(plugin, name, isOpaque, design, customMetaData);
+	public GenericCubeCustomBlock(Plugin plugin, String name, boolean isOpaque, GenericCubeBlockDesign design) {
+		super(plugin, name, isOpaque, design);
 	}
 	
 	/**

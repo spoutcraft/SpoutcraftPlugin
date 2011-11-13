@@ -20,17 +20,17 @@ public class TByteTripleIntHashMap{
 		map = new TIntIntHashMap(capacity);
 	}
 	
-	public int put(byte key1, byte key2, byte key3, int value) {
+	public int put(int key1, int key2, int key3, int value) {
 		int key = key(key1, key2, key3);
 		return map.put(key, value);
 	}
 	
-	public int get(byte key1, byte key2, byte key3) {
+	public int get(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.get(key);
 	}
 	
-	public boolean containsKey(byte key1, byte key2, byte key3) {
+	public boolean containsKey(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.containsKey(key);
 	}
@@ -43,7 +43,7 @@ public class TByteTripleIntHashMap{
 		return map.containsValue(val);
 	}
 
-	public boolean increment(byte key1, byte key2, byte key3) {
+	public boolean increment(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.increment(key);
 	}
@@ -64,7 +64,7 @@ public class TByteTripleIntHashMap{
 		return map.keys();
 	}
 
-	public int remove(byte key1, byte key2, byte key3) {
+	public int remove(int key1, int key2, int key3) {
 		int key = key(key1, key2, key3);
 		return map.remove(key);
 	}
@@ -82,6 +82,6 @@ public class TByteTripleIntHashMap{
 	}
 	
 	private static final int key(int x, int y, int z) {
-		return (x & 0xF) << 11 | (z & 0xF) << 7 | (y & 0x7F);
+		return ((x & 0xF) << 11) | ((z & 0xF) << 7) | (y & 0x7F);
 	}
 }
