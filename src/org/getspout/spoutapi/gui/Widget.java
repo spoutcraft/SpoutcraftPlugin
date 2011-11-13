@@ -443,4 +443,23 @@ public interface Widget {
 	 * @return 
 	 */
 	public Widget updateSize();
+
+	/**
+	 * Sets whether this widget should automatically be marked as dirty when it is changed.
+	 * @param dirty if it should be automatic (default: true)
+	 * @return
+	 */
+	public Widget setAutoDirty(boolean dirty);
+
+	/**
+	 * Check whether this widget is automatically being marked as dirty.
+	 * @return
+	 */
+	public boolean isAutoDirty();
+
+	/**
+	 * Sets the dirty flag automatically is isAutoDirty() returns true.
+	 * @return 
+	 */
+	public void autoDirty();
 }

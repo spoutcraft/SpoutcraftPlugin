@@ -82,9 +82,12 @@ public class GenericLabel extends GenericWidget implements Label{
 
 	@Override
 	public Label setText(String text) {
-		this.text = text;
-		textHeight = textWidth = -1;
-		doResize();
+		if (text != null && !getText().equals(text)) {
+			this.text = text;
+			textHeight = textWidth = -1;
+			doResize();
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -106,7 +109,10 @@ public class GenericLabel extends GenericWidget implements Label{
 
 	@Override
 	public Label setAlign(WidgetAnchor pos) {
-		this.align = pos;
+		if (pos != null && !getAlign().equals(pos)) {
+			this.align = pos;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -117,7 +123,10 @@ public class GenericLabel extends GenericWidget implements Label{
 
 	@Override
 	public Label setTextColor(Color color) {
-		this.color = color;
+		if (color != null && !getTextColor().equals(color)) {
+			this.color = color;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -134,7 +143,12 @@ public class GenericLabel extends GenericWidget implements Label{
 
 	@Override
 	public Label copy() {
-		return ((Label)super.copy()).setText(getText()).setScale(getScale()).setAuto(isAuto()).setTextColor(getTextColor()).setResize(isResize());
+		return ((Label)super.copy())
+				.setText(getText())
+				.setScale(getScale())
+				.setAuto(isAuto())
+				.setTextColor(getTextColor())
+				.setResize(isResize());
 	}
 
 
@@ -157,11 +171,11 @@ public class GenericLabel extends GenericWidget implements Label{
 				textHeight = getStringHeight(text, getScale());
 				textWidth = getStringWidth(text, getScale());
 			}
-			super.setMinHeight(textHeight);
-			super.setMinWidth(textWidth);
-			if (super.isFixed()) {
-				super.setHeight(textHeight);
-				super.setWidth(textWidth);
+			setMinHeight(textHeight);
+			setMinWidth(textWidth);
+			if (isFixed()) {
+				setHeight(textHeight);
+				setWidth(textWidth);
 			}
 		} else {
 			textHeight = textWidth = -1;

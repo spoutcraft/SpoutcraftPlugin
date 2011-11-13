@@ -17,7 +17,7 @@
 package org.getspout.spoutapi.gui;
 
 /**
- * Used to define regions for Scrollable widgets.
+ * Used to create a simple rectangle.
  */
 public class Rectangle {
 

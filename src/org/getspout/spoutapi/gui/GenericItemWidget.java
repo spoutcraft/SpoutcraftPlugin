@@ -22,30 +22,30 @@ import java.io.IOException;
 
 import org.bukkit.inventory.ItemStack;
 
-public class GenericItemWidget extends GenericWidget implements ItemWidget{
+public class GenericItemWidget extends GenericWidget implements ItemWidget {
+
 	protected int material = -1;
 	protected short data = -1;
 	protected int depth = 8;
 
 	public GenericItemWidget() {
-		
 	}
-	
+
 	public GenericItemWidget(ItemStack item) {
 		this.material = item.getTypeId();
 		this.data = item.getDurability();
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 0;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 10;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -61,46 +61,55 @@ public class GenericItemWidget extends GenericWidget implements ItemWidget{
 		output.writeShort(getData());
 		output.writeInt(getDepth());
 	}
-	
+
 	@Override
 	public ItemWidget setTypeId(int id) {
-		this.material = id;
+		if (getTypeId() != id) {
+			this.material = id;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public int getTypeId() {
 		return material;
 	}
-	
+
 	@Override
 	public ItemWidget setData(short data) {
-		this.data = data;
+		if (getData() != data) {
+			this.data = data;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public short getData() {
 		return data;
 	}
-	
+
 	@Override
 	public ItemWidget setDepth(int depth) {
-		this.depth = depth;
+		if (getDepth() != depth) {
+			this.depth = depth;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public int getDepth() {
 		return depth;
 	}
-	
+
 	@Override
 	public ItemWidget setHeight(int height) {
 		super.setHeight(height);
 		return this;
 	}
-	
+
 	@Override
 	public ItemWidget setWidth(int width) {
 		super.setWidth(width);
@@ -114,7 +123,6 @@ public class GenericItemWidget extends GenericWidget implements ItemWidget{
 
 	@Override
 	public ItemWidget copy() {
-		return ((ItemWidget)super.copy()).setTypeId(getTypeId()).setData(getData()).setDepth(getDepth());
+		return ((ItemWidget) super.copy()).setTypeId(getTypeId()).setData(getData()).setDepth(getDepth());
 	}
-
 }

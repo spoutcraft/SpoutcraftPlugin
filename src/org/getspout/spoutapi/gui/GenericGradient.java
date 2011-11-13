@@ -23,35 +23,56 @@ import java.io.IOException;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericGradient extends GenericWidget implements Gradient {
-	
+
 	protected Color color1 = new Color(0, 0, 0, 0), color2 = new Color(0, 0, 0, 0);
-	
+
 	public GenericGradient() {
-		
 	}
-	
+
+	public GenericGradient(Color both) {
+		this.color1 = this.color2 = both;
+	}
+
+	public GenericGradient(Color top, Color bottom) {
+		this.color1 = top;
+		this.color2 = bottom;
+	}
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 1;
 	}
-	
+
 	@Override
 	public Gradient setTopColor(Color color) {
-		this.color1 = color;
+		if (color != null && !getTopColor().equals(color)) {
+			this.color1 = color;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public Gradient setBottomColor(Color color) {
-		this.color2 = color;
+		if (color != null && !getBottomColor().equals(color)) {
+			this.color2 = color;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
+	@Override
+	public Gradient setColor(Color color) {
+		setTopColor(color);
+		setBottomColor(color);
+		return this;
+	}
+
 	@Override
 	public Color getTopColor() {
 		return this.color1;
 	}
-	
+
 	@Override
 	public Color getBottomColor() {
 		return this.color2;
@@ -61,12 +82,12 @@ public class GenericGradient extends GenericWidget implements Gradient {
 	public WidgetType getType() {
 		return WidgetType.Gradient;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 10;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -80,10 +101,9 @@ public class GenericGradient extends GenericWidget implements Gradient {
 		PacketUtil.writeColor(output, getTopColor());
 		PacketUtil.writeColor(output, getBottomColor());
 	}
-	
+
 	@Override
 	public Gradient copy() {
-		return ((Gradient)super.copy()).setTopColor(getTopColor()).setBottomColor(getBottomColor());
+		return ((Gradient) super.copy()).setTopColor(getTopColor()).setBottomColor(getBottomColor());
 	}
-
 }

@@ -95,7 +95,10 @@ public class GenericButton extends GenericControl implements Button {
 
 	@Override
 	public Button setDisabledText(String text) {
-		disabledText = text;
+		if (text != null && !getDisabledText().equals(text)) {
+			disabledText = text;
+			autoDirty();
+		}
 		return this;
 	}
 	
@@ -106,7 +109,10 @@ public class GenericButton extends GenericControl implements Button {
 	
 	@Override
 	public Button setHoverColor(Color color) {
-		this.hoverColor = color;
+		if (color != null && !getHoverColor().equals(color)) {
+			this.hoverColor = color;
+			autoDirty();
+		}
 		return this;
 	}
 	
@@ -139,7 +145,14 @@ public class GenericButton extends GenericControl implements Button {
 	
 	@Override
 	public Button copy() {
-		return ((Button)super.copy()).setDisabledText(getDisabledText()).setText(getText()).setAuto(isAuto()).setTextColor(getTextColor()).setHoverColor(getHoverColor());
+		return (Button) ((Button) super.copy())
+				.setDisabledText(getDisabledText())
+				.setText(getText())
+				.setAuto(isAuto())
+				.setTextColor(getTextColor())
+				.setHoverColor(getHoverColor())
+				.setAuto(isAuto())
+				.setResize(isResize());
 	}
 
 	@Override

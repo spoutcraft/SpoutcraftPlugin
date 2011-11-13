@@ -21,16 +21,16 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class GenericEntityWidget extends GenericWidget implements EntityWidget {
+
 	private int entityId = 0;
-	
+
 	public GenericEntityWidget() {
-		
 	}
-	
+
 	public GenericEntityWidget(int entityId) {
 		this.entityId = entityId;
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.EntityWidget;
@@ -38,7 +38,10 @@ public class GenericEntityWidget extends GenericWidget implements EntityWidget {
 
 	@Override
 	public EntityWidget setEntityId(int id) {
-		entityId = id;
+		if (entityId != id) {
+			entityId = id;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -46,7 +49,7 @@ public class GenericEntityWidget extends GenericWidget implements EntityWidget {
 	public int getEntityId() {
 		return entityId;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -58,9 +61,9 @@ public class GenericEntityWidget extends GenericWidget implements EntityWidget {
 		super.writeData(output);
 		output.writeInt(entityId);
 	}
-	
+
 	@Override
 	public EntityWidget copy() {
-		return ((EntityWidget)super.copy()).setEntityId(getEntityId());
+		return ((EntityWidget) super.copy()).setEntityId(getEntityId());
 	}
 }

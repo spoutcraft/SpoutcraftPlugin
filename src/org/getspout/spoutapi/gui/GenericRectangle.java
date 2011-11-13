@@ -16,30 +16,26 @@
  */
 package org.getspout.spoutapi.gui;
 
-public class GenericRectangle extends GenericGradient{
-	
-	public GenericRectangle(){
-		
-	}
-	
-	public GenericRectangle(Color color) {
-		setColor(color);
-	}
-	
-	public GenericRectangle setColor(Color color){
-		super.setTopColor(color);
-		super.setBottomColor(color);
-		return this;
-	}
-	
-	@Override
-	public GenericGradient setTopColor(Color color) {
-		return setColor(color);
-	}
-	
-	@Override
-	public GenericGradient setBottomColor(Color color) {
-		return setColor(color);
+/**
+ * Merged back into GenericGradient
+ */
+@Deprecated
+public class GenericRectangle extends GenericGradient {
+
+	public GenericRectangle() {
 	}
 
+	public GenericRectangle(Color color) {
+		super(color);
+	}
+
+	@Override
+	public GenericGradient setTopColor(Color color) {
+		return (GenericGradient) setColor(color);
+	}
+
+	@Override
+	public GenericGradient setBottomColor(Color color) {
+		return (GenericGradient) setColor(color);
+	}
 }
