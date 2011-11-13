@@ -23,11 +23,18 @@ public class ListWidgetItem {
 
 	String title;
 	String text;
-	GenericListWidget listWidget = null;
+	String iconUrl = "";
+	ListWidget listWidget = null;
 
 	public ListWidgetItem(String title, String text) {
 		this.title = title;
 		this.text = text;
+	}
+	
+	public ListWidgetItem(String title, String text, String iconUrl) {
+		this.title = title;
+		this.text = text;
+		this.iconUrl = iconUrl;
 	}
 
 	public String getTitle() {
@@ -45,11 +52,19 @@ public class ListWidgetItem {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	public String getIconUrl() {
+		return iconUrl;
+	}
 
-	public void setListWidget(GenericListWidget genericListWidget) {
-		if (listWidget != null && genericListWidget != null && !listWidget.equals(genericListWidget)) {
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
+	}
+
+	public void setListWidget(ListWidget list) {
+		if (listWidget != null && list != null && !listWidget.equals(list)) {
 			listWidget.removeItem(this);
 		}
-		listWidget = genericListWidget;
+		listWidget = list;
 	}
 }
