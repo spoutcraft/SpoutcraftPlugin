@@ -57,4 +57,19 @@ public interface Gradient extends Widget {
 	 * @return gradient
 	 */
 	public Gradient setColor(Color color);
+
+	/**
+	 * Set the direction the gradient is drawn.
+	 * Default is VERTICAL, if using HORIZONTAL then read top as left and bottom as right.
+	 * @param axis the orientation to draw in
+	 * @return
+	 */
+	public Gradient setOrientation(Orientation axis);
+
+	/**
+	 * Get the direction the gradient is drawn.
+	 * Default is VERTICAL, if using HORIZONTAL then read top as left and bottom as right.
+	 * @return the orientation being used
+	 */
+	public Orientation getOrientation();
 }

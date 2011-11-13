@@ -25,6 +25,7 @@ import org.getspout.spoutapi.packet.PacketUtil;
 public class GenericGradient extends GenericWidget implements Gradient {
 
 	protected Color color1 = new Color(0, 0, 0, 0), color2 = new Color(0, 0, 0, 0);
+	protected Orientation axis = Orientation.VERTICAL;
 
 	public GenericGradient() {
 	}
@@ -40,7 +41,7 @@ public class GenericGradient extends GenericWidget implements Gradient {
 
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 1;
+		return super.getVersion() + 2;
 	}
 
 	@Override
@@ -93,6 +94,7 @@ public class GenericGradient extends GenericWidget implements Gradient {
 		super.readData(input);
 		this.setTopColor(PacketUtil.readColor(input));
 		this.setBottomColor(PacketUtil.readColor(input));
+		this.setOrientation(Orientation.getAnchorFromId(input.readByte()));
 	}
 
 	@Override
@@ -100,10 +102,25 @@ public class GenericGradient extends GenericWidget implements Gradient {
 		super.writeData(output);
 		PacketUtil.writeColor(output, getTopColor());
 		PacketUtil.writeColor(output, getBottomColor());
+		output.writeByte(getOrientation().getId());
 	}
 
 	@Override
 	public Gradient copy() {
 		return ((Gradient) super.copy()).setTopColor(getTopColor()).setBottomColor(getBottomColor());
+	}
+
+	@Override
+	public Gradient setOrientation(Orientation axis) {
+		if (getOrientation() != axis) {
+			this.axis = axis;
+			autoDirty();
+		}
+		return this;
+	}
+
+	@Override
+	public Orientation getOrientation() {
+		return axis;
 	}
 }
