@@ -21,9 +21,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-public class BubbleBar extends GenericWidget implements Widget{
+/**
+ * The Spout implementation of the default Bubble Bar.
+ */
+public class BubbleBar extends GenericWidget implements Widget {
+
 	private int icons = 10;
 	private int iconOffset = 8;
+
 	public BubbleBar() {
 		super();
 		setDirty(false);
@@ -31,31 +36,31 @@ public class BubbleBar extends GenericWidget implements Widget{
 		setY(191);
 		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 8;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
 		setMaxNumBubbles(input.readInt());
 		setIconOffset(input.readInt());
 	}
-	
+
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(getMaxNumBubbles());
 		output.writeInt(getIconOffset());
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.BubbleBar;
 	}
-	
+
 	@Override
 	public UUID getId() {
 		return new UUID(0, 1);
@@ -70,7 +75,7 @@ public class BubbleBar extends GenericWidget implements Widget{
 	public int getMaxNumBubbles() {
 		return icons;
 	}
-	
+
 	/**
 	 * Sets the maximum number of bubbles displayed on the HUD.
 	 * 
@@ -82,7 +87,7 @@ public class BubbleBar extends GenericWidget implements Widget{
 		this.icons = bubbles;
 		return this;
 	}
-	
+
 	/**
 	 * Gets the number of pixels each bubbles is offset when drawing the next bubble.
 	 * @return pixel offset
@@ -90,7 +95,7 @@ public class BubbleBar extends GenericWidget implements Widget{
 	public int getIconOffset() {
 		return iconOffset;
 	}
-	
+
 	/**
 	 * Sets the number of pixels each bubbles is offset when drawing the next bubble.
 	 * @param offset when drawing hearts
@@ -100,7 +105,7 @@ public class BubbleBar extends GenericWidget implements Widget{
 		iconOffset = offset;
 		return this;
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 1;

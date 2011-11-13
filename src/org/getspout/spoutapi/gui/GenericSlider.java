@@ -23,17 +23,18 @@ import java.io.IOException;
 import org.getspout.spoutapi.event.screen.SliderDragEvent;
 
 public class GenericSlider extends GenericControl implements Slider {
+
 	protected Label label = new GenericLabel();
 	protected float slider = 0.5f;
+
 	public GenericSlider() {
-		
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 1;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 4 + label.getNumBytes();
@@ -60,15 +61,14 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public Slider setSliderPosition(float value) {
-		if (value > 1f) {
-			value = 1f;
-		} else if (value < 0f) {
-			value = 0f;
+		float val = Math.max(0f, Math.min(value, 1f));
+		if (getSliderPosition() != val) {
+			slider = val;
+			autoDirty();
 		}
-		slider = value;
 		return this;
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.Slider;
@@ -76,7 +76,14 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public Slider copy() {
-		return ((Slider)super.copy()).setSliderPosition(getSliderPosition());
+		return (Slider) ((Slider) super.copy())
+				.setSliderPosition(getSliderPosition())
+				.setText(getText())
+				.setTextColor(getTextColor())
+				.setAuto(isAuto())
+				.setAlign(getAlign())
+				.setScale(getScale())
+				.setResize(isResize());
 	}
 
 	@Override
@@ -105,7 +112,7 @@ public class GenericSlider extends GenericControl implements Slider {
 	}
 
 	@Override
-	public Label setScale(float scale) {
+	public Slider setScale(float scale) {
 		label.setScale(scale);
 		return this;
 	}
@@ -145,13 +152,13 @@ public class GenericSlider extends GenericControl implements Slider {
 	}
 
 	@Override
-	public Label setResize(boolean resize) {
+	public Slider setResize(boolean resize) {
 		label.setResize(resize);
 		return this;
 	}
 
 	@Override
-	public Label doResize() {
+	public Slider doResize() {
 		label.doResize();
 		return this;
 	}

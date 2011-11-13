@@ -124,7 +124,6 @@ public interface BlockDesign {
 	/**
 	 * Sets the specified quad or face
 	 * 
-	 * @param number of the quad to set
 	 * @param quad to set there
 	 * @return this
 	 */

@@ -23,20 +23,20 @@ import java.io.IOException;
 public class GenericCheckBox extends GenericButton implements CheckBox {
 
 	boolean checked = false;
-	
+
 	public GenericCheckBox() {
 		super();
 	}
-	
+
 	public GenericCheckBox(String text) {
 		super(text);
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 1;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -60,9 +60,16 @@ public class GenericCheckBox extends GenericButton implements CheckBox {
 	}
 
 	@Override
-	public CheckBox setChecked(boolean checked) {
-		this.checked = checked;
-		return this;
+	public CheckBox copy() {
+		return ((CheckBox) super.copy()).setChecked(isChecked());
 	}
 
+	@Override
+	public CheckBox setChecked(boolean checked) {
+		if (isChecked() != checked) {
+			this.checked = checked;
+			autoDirty();
+		}
+		return this;
+	}
 }

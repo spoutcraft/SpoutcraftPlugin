@@ -16,6 +16,10 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * This is a simple radio button, which does not know anything about any other
+ * radio buttons on the screen.
+ */
 public interface RadioButton extends Button {
 
 	public boolean isSelected();

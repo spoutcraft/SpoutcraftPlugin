@@ -16,17 +16,42 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.util.HashMap;
+
+/**
+ * This is used to define the orientation for Scrollable widgets.
+ */
 public enum Orientation {
 	/**
 	 * Horizontal axis (left-right)
 	 */
-	HORIZONTAL,
+	HORIZONTAL(0),
 	/**
 	 * Vertical axis (top-bottom)
 	 */
-	VERTICAL,
-	;
+	VERTICAL(1);
 	
+	private final int id;
+	Orientation(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	private static final HashMap<Integer, Orientation> lookupId = new HashMap<Integer, Orientation>();
+
+	static {
+		for (Orientation t : values()) {
+			lookupId.put(t.getId(), t);
+		}
+	}
+
+	public static Orientation getAnchorFromId(int id) {
+		return lookupId.get(id);
+	}
+
 	public Orientation getOther() {
 		switch(this) {
 		case HORIZONTAL:

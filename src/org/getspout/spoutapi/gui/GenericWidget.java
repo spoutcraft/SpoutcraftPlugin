@@ -26,11 +26,12 @@ import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.event.AbstractEventSource;
 import org.getspout.spoutapi.packet.PacketUtil;
 
-public abstract class GenericWidget extends AbstractEventSource implements Widget{
-	protected int X = 0;
-	protected int Y = 0;
-	protected int width = 0;
-	protected int height = 0;
+public abstract class GenericWidget extends AbstractEventSource implements Widget {
+
+	protected int X = 100;
+	protected int Y = 100;
+	protected int width = 50;
+	protected int height = 50;
 	protected boolean visible = true;
 	protected transient boolean dirty = true;
 	protected transient Screen screen = null;
@@ -45,11 +46,11 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	protected int marginTop = 0, marginRight = 0, marginBottom = 0, marginLeft = 0;
 	protected int minWidth = 0, maxWidth = 427, minHeight = 0, maxHeight = 240;
 	protected int orig_x = 0, orig_y = 0;
-	
-	public GenericWidget() {
+	protected boolean autoDirty = true;
 
+	public GenericWidget() {
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return 38 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin : "Spoutcraft");
@@ -59,17 +60,20 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	public int getVersion() {
 		return 3;
 	}
-	
+
 	public GenericWidget(int X, int Y, int width, int height) {
 		this.X = X;
 		this.Y = Y;
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	@Override
 	public Widget setAnchor(WidgetAnchor anchor) {
-		this.anchor = anchor;
+		if (anchor != null && getAnchor().equals(anchor)) {
+			this.anchor = anchor;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -77,12 +81,12 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	public WidgetAnchor getAnchor() {
 		return anchor;
 	}
-	
+
 	@Override
 	public Plugin getPlugin() {
-		return (plugin == null || plugin.equals("Spoutcraft") ? Bukkit.getServer().getPluginManager().getPlugin("Spout") : Bukkit.getServer().getPluginManager().getPlugin(plugin));
+		return Bukkit.getServer().getPluginManager().getPlugin(plugin == null || plugin.equals("Spoutcraft") ? "Spout" : plugin);
 	}
-	
+
 	@Override
 	public Widget setPlugin(Plugin plugin) {
 		if (plugin != null) {
@@ -90,7 +94,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		}
 		return this;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		setX(input.readInt());
@@ -121,35 +125,35 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		PacketUtil.writeString(output, getTooltip());
 		PacketUtil.writeString(output, plugin != null ? plugin : "Spoutcraft");
 	}
-	
+
 	@Override
 	public void setDirty(boolean dirty) {
 		this.dirty = dirty;
 	}
-	
+
 	@Override
 	public boolean isDirty() {
 		return dirty;
 	}
-	
+
 	@Override
 	public UUID getId() {
 		return id;
 	}
-	
+
 	@Override
 	public Screen getScreen() {
 		return screen;
 	}
-	
+
 	@Override
 	public Widget setScreen(Screen screen) {
 		return setScreen(null, screen);
 	}
-	
+
 	@Override
 	public Widget setScreen(Plugin plugin, Screen screen) {
-		if (this.screen != null && screen != null && screen != this.screen) {
+		if (getScreen() != null && screen != null && !getScreen().equals(screen)) {
 			this.screen.removeWidget(this);
 		}
 		this.screen = screen;
@@ -158,29 +162,33 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		}
 		return this;
 	}
-	
+
 	@Override
 	public RenderPriority getPriority() {
 		return priority;
 	}
-	
+
 	@Override
 	public Widget setPriority(RenderPriority priority) {
-		this.priority = priority;
+		if (priority != null && !getPriority().equals(priority)) {
+			this.priority = priority;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public int getWidth() {
 		return width;
 	}
-	
+
 	@Override
 	public Widget setWidth(int width) {
 		width = Math.max(getMinWidth(), Math.min(width, getMaxWidth()));
-		if (this.width != width) {
+		if (getWidth() != width) {
 			this.width = width;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
@@ -189,13 +197,14 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	public int getHeight() {
 		return height;
 	}
-	
+
 	@Override
 	public Widget setHeight(int height) {
 		height = Math.max(getMinHeight(), Math.min(height, getMaxHeight()));
-		if (this.height != height) {
+		if (getHeight() != height) {
 			this.height = height;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
@@ -212,13 +221,19 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget setX(int pos) {
-		this.X = pos;
+		if (getX() != pos) {
+			this.X = pos;
+			autoDirty();
+		}
 		return this;
 	}
 
 	@Override
 	public Widget setY(int pos) {
-		this.Y = pos;
+		if (getY() != pos) {
+			this.Y = pos;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -227,65 +242,69 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		setX(getX() + modX);
 		return this;
 	}
-	
+
 	@Override
 	public Widget shiftYPos(int modY) {
 		setY(getY() + modY);
 		return this;
 	}
-	
+
 	@Override
 	public boolean isVisible() {
 		return visible;
 	}
-	
+
 	@Override
 	public Widget setVisible(boolean enable) {
-		if (visible != enable) {
+		if (isVisible() != enable) {
 			visible = enable;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
 		return other instanceof Widget && other.hashCode() == hashCode();
 	}
-	
+
 	@Override
 	public void onTick() {
-		
 	}
-	
+
 	@Override
-	public Widget setTooltip(String t){
-		tooltip = t;
+	public Widget setTooltip(String t) {
+		if (t != null && !getTooltip().equals(t)) {
+			tooltip = t;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
-	public String getTooltip(){
+	public String getTooltip() {
 		return tooltip;
 	}
-	
+
 	@Override
 	public Container getContainer() {
 		return container;
 	}
 
+	@Override
 	public boolean hasContainer() {
 		return container != null;
 	}
 
 	@Override
 	public void setContainer(Container container) {
-		if (this.container != null && container != null && container != this.container) {
+		if (hasContainer() && container != null && getContainer().equals(container)) {
 			this.container.removeChild(this);
 		}
 		this.container = container;
@@ -293,7 +312,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget setFixed(boolean fixed) {
-		if (this.fixed != fixed) {
+		if (isFixed() != fixed) {
 			this.fixed = fixed;
 			updateSize();
 		}
@@ -301,6 +320,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	}
 
 	@Override
+	@Deprecated
 	public boolean getFixed() {
 		return isFixed();
 	}
@@ -314,61 +334,66 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	public Widget setMargin(int marginAll) {
 		return setMargin(marginAll, marginAll, marginAll, marginAll);
 	}
-	
+
 	@Override
 	public Widget setMargin(int marginTopBottom, int marginLeftRight) {
 		return setMargin(marginTopBottom, marginLeftRight, marginTopBottom, marginLeftRight);
 	}
-	
+
 	@Override
 	public Widget setMargin(int marginTop, int marginLeftRight, int marginBottom) {
 		return setMargin(marginTop, marginLeftRight, marginBottom, marginLeftRight);
 	}
-	
+
 	@Override
 	public Widget setMargin(int marginTop, int marginRight, int marginBottom, int marginLeft) {
-		if (this.marginTop != marginTop || this.marginRight != marginRight || this.marginBottom != marginBottom || this.marginLeft != marginLeft) {
+		if (getMarginTop() != marginTop || getMarginRight() != marginRight || getMarginBottom() != marginBottom || getMarginLeft() != marginLeft) {
 			this.marginTop = marginTop;
 			this.marginRight = marginRight;
 			this.marginBottom = marginBottom;
 			this.marginLeft = marginLeft;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginTop(int marginTop) {
-		if (this.marginTop != marginTop) {
+		if (getMarginTop() != marginTop) {
 			this.marginTop = marginTop;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginRight(int marginRight) {
-		if (this.marginRight != marginRight) {
+		if (getMarginRight() != marginRight) {
 			this.marginRight = marginRight;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginBottom(int marginBottom) {
-		if (this.marginBottom != marginBottom) {
+		if (getMarginBottom() != marginBottom) {
 			this.marginBottom = marginBottom;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
 
 	@Override
 	public Widget setMarginLeft(int marginLeft) {
-		if (this.marginLeft != marginLeft) {
+		if (getMarginLeft() != marginLeft) {
 			this.marginLeft = marginLeft;
 			updateSize();
+			autoDirty();
 		}
 		return this;
 	}
@@ -377,17 +402,17 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	public int getMarginTop() {
 		return marginTop;
 	}
-	
+
 	@Override
 	public int getMarginRight() {
 		return marginRight;
 	}
-	
+
 	@Override
 	public int getMarginBottom() {
 		return marginBottom;
 	}
-	
+
 	@Override
 	public int getMarginLeft() {
 		return marginLeft;
@@ -396,7 +421,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public Widget setMinWidth(int min) {
 		min = Math.max(min, 0);
-		if (minWidth != min) {
+		if (getMinWidth() != min) {
 			minWidth = min;
 			updateSize();
 			setWidth(width); // Enforce our new size if needed
@@ -412,7 +437,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public Widget setMaxWidth(int max) {
 		max = max <= 0 ? 427 : max;
-		if (maxWidth != max) {
+		if (getMaxWidth() != max) {
 			maxWidth = max;
 			updateSize();
 			setWidth(width); // Enforce our new size if needed
@@ -428,7 +453,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public Widget setMinHeight(int min) {
 		min = Math.max(min, 0);
-		if (minHeight != min) {
+		if (getMinHeight() != min) {
 			minHeight = min;
 			updateSize();
 			setHeight(height); // Enforce our new size if needed
@@ -444,7 +469,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public Widget setMaxHeight(int max) {
 		max = max <= 0 ? 240 : max;
-		if (maxHeight != max) {
+		if (getMaxHeight() != max) {
 			maxHeight = max;
 			updateSize();
 			setHeight(height); // Enforce our new size if needed
@@ -459,39 +484,65 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget savePos() {
-		orig_x = X;
-		orig_y = Y;
+		orig_x = getX();
+		orig_y = getY();
 		return this;
 	}
 
 	@Override
 	public Widget restorePos() {
-		X = orig_x;
-		Y = orig_y;
+		setX(orig_x);
+		setY(orig_y);
 		return this;
 	}
-	
+
 	@Override
 	public Widget copy() {
 		try {
 			Widget copy = getType().getWidgetClass().newInstance();
-			copy.setX(getX()).setY(getY()).setWidth(getWidth()).setHeight(getHeight()).setVisible(isVisible());
-			copy.setPriority(getPriority()).setTooltip(getTooltip()).setAnchor(getAnchor());
-			copy.setMargin(getMarginTop(), getMarginRight(), getMarginBottom(), getMarginLeft());
-			copy.setMinWidth(getMinWidth()).setMaxWidth(getMaxWidth()).setMinHeight(getMinHeight()).setMaxHeight(getMaxHeight());
-			copy.setFixed(isFixed());
+			copy	.setX(getX())
+					.setY(getY())
+					.setWidth(getWidth())
+					.setHeight(getHeight())
+					.setVisible(isVisible())
+					.setPriority(getPriority())
+					.setTooltip(getTooltip())
+					.setAnchor(getAnchor())
+					.setMargin(getMarginTop(), getMarginRight(), getMarginBottom(), getMarginLeft())
+					.setMinWidth(getMinWidth())
+					.setMaxWidth(getMaxWidth())
+					.setMinHeight(getMinHeight())
+					.setMaxHeight(getMaxHeight())
+					.setFixed(isFixed())
+					.setAutoDirty(isAutoDirty());
 			return copy;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new IllegalStateException("Unable to create a copy of " + getClass() + ". Does it have a valid widget type?");
 		}
 	}
 
 	@Override
 	public Widget updateSize() {
-		if (container != null) {
+		if (hasContainer()) {
 			container.updateSize();
 		}
 		return this;
+	}
+
+	@Override
+	public Widget setAutoDirty(boolean dirty) {
+		return this;
+	}
+
+	@Override
+	public boolean isAutoDirty() {
+		return autoDirty;
+	}
+
+	@Override
+	public void autoDirty() {
+		if (isAutoDirty()) {
+			setDirty(true);
+		}
 	}
 }

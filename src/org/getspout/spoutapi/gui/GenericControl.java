@@ -22,20 +22,21 @@ import java.io.IOException;
 
 import org.getspout.spoutapi.packet.PacketUtil;
 
-public abstract class GenericControl extends GenericWidget implements Control{
+public abstract class GenericControl extends GenericWidget implements Control {
+
 	protected boolean focus = false;
 	protected boolean enabled = true;
 	protected Color color = new Color(0.878F, 0.878F, 0.878F);
 	protected Color disabledColor = new Color(0.625F, 0.625F, 0.625F);
+
 	public GenericControl() {
-		
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 3;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 12;
@@ -58,7 +59,7 @@ public abstract class GenericControl extends GenericWidget implements Control{
 		PacketUtil.writeColor(output, getDisabledColor());
 		output.writeBoolean(isFocus());
 	}
-	
+
 	@Override
 	public boolean isEnabled() {
 		return enabled;
@@ -66,7 +67,10 @@ public abstract class GenericControl extends GenericWidget implements Control{
 
 	@Override
 	public Control setEnabled(boolean enable) {
-		enabled = enable;
+		if (isEnabled() != enable) {
+			enabled = enable;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -77,7 +81,10 @@ public abstract class GenericControl extends GenericWidget implements Control{
 
 	@Override
 	public Control setColor(Color color) {
-		this.color = color;
+		if (color != null && !getColor().equals(color)) {
+			this.color = color;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -88,23 +95,29 @@ public abstract class GenericControl extends GenericWidget implements Control{
 
 	@Override
 	public Control setDisabledColor(Color color) {
-		this.disabledColor = color;
+		if (color != null && !getDisabledColor().equals(color)) {
+			this.disabledColor = color;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public boolean isFocus() {
 		return focus;
 	}
-	
+
 	@Override
 	public Control setFocus(boolean focus) {
-		this.focus = focus;
+		if (isFocus() != focus) {
+			this.focus = focus;
+			autoDirty();
+		}
 		return this;
-	}	
-	@Override
-	public Control copy() {
-		return ((Control)super.copy()).setEnabled(isEnabled()).setColor(getColor()).setDisabledColor(getDisabledColor());
 	}
 
+	@Override
+	public Control copy() {
+		return ((Control) super.copy()).setEnabled(isEnabled()).setColor(getColor()).setDisabledColor(getDisabledColor());
+	}
 }

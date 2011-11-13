@@ -16,6 +16,14 @@
  */
 package org.getspout.spoutapi.gui;
 
+/**
+ * The GenericLabel class represents text on the users screen.
+ *
+ * Normally the text will overflow the widget "box" if it is smaller than
+ * the text itself, however you can force the minimum size of the widget to
+ * the size of the text content with the setAuto method, and use the setFixed
+ * method to stop it resizing if inside a Container.
+ */
 public interface Label extends Widget {
 
 	/**
@@ -88,13 +96,13 @@ public interface Label extends Widget {
 	 * @return 
 	 */
 	public Widget setAlign(WidgetAnchor pos);
-	
+
 	/**
 	 * Set the scale of the text
 	 * @param scale to set
 	 */
 	public Label setScale(float scale);
-	
+
 	/**
 	 * Gets the scale of the text
 	 * @return scale of text

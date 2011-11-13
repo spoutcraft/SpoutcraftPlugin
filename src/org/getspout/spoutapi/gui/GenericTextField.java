@@ -23,13 +23,12 @@ import java.io.IOException;
 import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
 import org.getspout.spoutapi.packet.PacketUtil;
 
-public class GenericTextField extends GenericControl implements TextField{
-	
+public class GenericTextField extends GenericControl implements TextField {
+
 	private static final char MASK_MAXLINES = 0x7F; // bits 1–7
 	private static final char MASK_TABINDEX = 0x3F80; // bits 8–14
 	private static final char FLAG_PASSWORD = 0x4000; // bit 15
 	private static final char FLAG_FOCUS = 0x8000; // bit 16
-	
 	protected String text = "";
 	protected int cursor = 0;
 	protected int maxChars = 16;
@@ -39,16 +38,15 @@ public class GenericTextField extends GenericControl implements TextField{
 	protected boolean password = false;
 	protected Color fieldColor = new Color(0, 0, 0);
 	protected Color borderColor = new Color(0.625F, 0.625F, 0.625F);
-	
-	public GenericTextField() {
 
+	public GenericTextField() {
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 2;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 16 + PacketUtil.getNumBytes(text);
@@ -74,7 +72,7 @@ public class GenericTextField extends GenericControl implements TextField{
 		super.writeData(output);
 		PacketUtil.writeColor(output, getFieldColor());
 		PacketUtil.writeColor(output, getBorderColor());
-		output.writeChar((char) (getMaximumLines() & MASK_MAXLINES | (getTabIndex() << 7) & MASK_TABINDEX  | (isPasswordField() ? FLAG_PASSWORD : 0) | (focus ? FLAG_FOCUS : 0)));
+		output.writeChar((char) (getMaximumLines() & MASK_MAXLINES | (getTabIndex() << 7) & MASK_TABINDEX | (isPasswordField() ? FLAG_PASSWORD : 0) | (focus ? FLAG_FOCUS : 0)));
 		output.writeChar(getCursorPosition());
 		output.writeChar(getMaximumCharacters());
 		PacketUtil.writeString(output, getText());
@@ -87,7 +85,10 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public TextField setCursorPosition(int position) {
-		this.cursor = position;
+		if (getCursorPosition() != position) {
+			this.cursor = position;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -98,32 +99,41 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public TextField setText(String text) {
-		this.text = text;
+		if (text != null && !getText().equals(text)) {
+			this.text = text;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public int getMaximumCharacters() {
 		return maxChars;
 	}
-	
+
 	@Override
 	public TextField setMaximumCharacters(int max) {
-		this.maxChars = max;
+		if (getMaximumCharacters() != max) {
+			this.maxChars = max;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public int getMaximumLines() {
 		return maxLines;
 	}
-	
+
 	@Override
 	public TextField setMaximumLines(int max) {
-		this.maxLines = max;
+		if (getMaximumLines() != max) {
+			this.maxLines = max;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public Color getFieldColor() {
 		return fieldColor;
@@ -131,7 +141,10 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public TextField setFieldColor(Color color) {
-		this.fieldColor = color;
+		if (color != null && !getFieldColor().equals(color)) {
+			this.fieldColor = color;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -142,10 +155,13 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public TextField setBorderColor(Color color) {
-		this.borderColor = color;
+		if (color != null && !getBorderColor().equals(color)) {
+			this.borderColor = color;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public int getTabIndex() {
 		return tabIndex;
@@ -153,10 +169,13 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public TextField setTabIndex(int index) {
-		this.tabIndex = index;
+		if (getTabIndex() != index) {
+			tabIndex = index;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public boolean isPasswordField() {
 		return password;
@@ -164,7 +183,10 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public TextField setPasswordField(boolean password) {
-		this.password = password;
+		if (isPasswordField() != password) {
+			this.password = password;
+			autoDirty();
+		}
 		return null;
 	}
 
@@ -175,19 +197,30 @@ public class GenericTextField extends GenericControl implements TextField{
 
 	@Override
 	public TextField setFocus(boolean focus) {
-		this.focus = focus;
+		if (isFocused() != focus) {
+			this.focus = focus;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.TextField;
 	}
-	
+
 	@Override
 	public TextField copy() {
 		// ignore focus parameter which would lead to strange behaviour!
-		return ((TextField)super.copy()).setText(getText()).setCursorPosition(getCursorPosition()).setMaximumCharacters(getMaximumCharacters()).setFieldColor(getFieldColor()).setBorderColor(getBorderColor()).setMaximumLines(getMaximumLines()).setTabIndex(getTabIndex()).setPasswordField(isPasswordField());
+		return ((TextField) super.copy())
+				.setText(getText())
+				.setCursorPosition(getCursorPosition())
+				.setMaximumCharacters(getMaximumCharacters())
+				.setFieldColor(getFieldColor())
+				.setBorderColor(getBorderColor())
+				.setMaximumLines(getMaximumLines())
+				.setTabIndex(getTabIndex())
+				.setPasswordField(isPasswordField());
 	}
 
 	@Override

@@ -23,18 +23,18 @@ import java.io.IOException;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericTexture extends GenericWidget implements Texture {
+
 	protected String url = null;
 	protected boolean drawAlpha = false;
-	
+
 	public GenericTexture() {
-		
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 1;
 	}
-	
+
 	public GenericTexture(String url) {
 		this.url = url;
 	}
@@ -43,12 +43,12 @@ public class GenericTexture extends GenericWidget implements Texture {
 	public WidgetType getType() {
 		return WidgetType.Texture;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl()) + 1;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -70,13 +70,16 @@ public class GenericTexture extends GenericWidget implements Texture {
 
 	@Override
 	public Texture setUrl(String Url) {
-		this.url = Url;
+		if ((getUrl() != null && !getUrl().equals(Url)) || (getUrl() == null && Url != null)) {
+			this.url = Url;
+			autoDirty();
+		}
 		return this;
 	}
-	
+
 	@Override
 	public Texture copy() {
-		return ((Texture)super.copy()).setUrl(getUrl());
+		return ((Texture) super.copy()).setUrl(getUrl()).setDrawAlphaChannel(isDrawingAlphaChannel());
 	}
 
 	@Override
@@ -86,7 +89,10 @@ public class GenericTexture extends GenericWidget implements Texture {
 
 	@Override
 	public Texture setDrawAlphaChannel(boolean draw) {
-		drawAlpha = draw;
+		if (isDrawingAlphaChannel() != draw) {
+			drawAlpha = draw;
+			autoDirty();
+		}
 		return this;
 	}
 }
