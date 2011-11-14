@@ -86,7 +86,7 @@ public class GenericGradient extends GenericWidget implements Gradient {
 
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + 10;
+		return super.getNumBytes() + 11;
 	}
 
 	@Override
