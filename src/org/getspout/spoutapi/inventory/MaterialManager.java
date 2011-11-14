@@ -1,5 +1,6 @@
 package org.getspout.spoutapi.inventory;
 
+import java.io.File;
 import java.util.Set;
 
 import org.bukkit.World;
@@ -14,7 +15,8 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Material;
 
 public interface MaterialManager {
-
+	public final static String blockIdString = "org.spout.customblocks.blockid";
+	
 	public String getStepSound(org.getspout.spoutapi.material.Block block);
 
 	public void setStepSound(org.getspout.spoutapi.material.Block block, String url);
@@ -48,6 +50,8 @@ public interface MaterialManager {
 	public Set<org.getspout.spoutapi.material.Block> getModifiedBlocks();
 	
 	public void onCustomMaterialRegistered(Material mat);
+	
+	public File getWorldDirectory(World world);
 	
 	/**
 	 * Sets the name of the item

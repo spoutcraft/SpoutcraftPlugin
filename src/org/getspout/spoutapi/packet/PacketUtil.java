@@ -28,6 +28,8 @@ public abstract class PacketUtil {
 	public static final byte FLAG_COLOROVERRIDE = 2;
 	
 	public static void writeString(DataOutputStream output, String s) {
+		if (s == null) 
+			s = "";
 		try {
 			output.writeShort(s.length());
 			output.writeChars(s);

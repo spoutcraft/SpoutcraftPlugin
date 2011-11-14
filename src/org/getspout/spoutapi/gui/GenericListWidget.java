@@ -179,6 +179,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		for (ListWidgetItem item : items) {
 			bytes += PacketUtil.getNumBytes(item.getTitle());
 			bytes += PacketUtil.getNumBytes(item.getText());
+			bytes += PacketUtil.getNumBytes(item.getIconUrl());
 		}
 		return super.getNumBytes() + 4 + 4 + bytes;
 	}
@@ -189,7 +190,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		selected = input.readInt();
 		int count = input.readInt();
 		for (int i = 0; i < count; i++) {
-			ListWidgetItem item = new ListWidgetItem(PacketUtil.readString(input), PacketUtil.readString(input));
+			ListWidgetItem item = new ListWidgetItem(PacketUtil.readString(input), PacketUtil.readString(input), PacketUtil.readString(input));
 			addItem(item);
 		}
 	}
@@ -202,6 +203,12 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		for (ListWidgetItem item : items) {
 			PacketUtil.writeString(output, item.getTitle());
 			PacketUtil.writeString(output, item.getText());
+			PacketUtil.writeString(output, item.getIconUrl());
 		}
+	}
+	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 1;
 	}
 }

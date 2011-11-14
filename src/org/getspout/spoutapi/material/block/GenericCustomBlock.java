@@ -20,7 +20,6 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	private final Plugin plugin;
 	private final CustomItem item;
 	private final int blockId;
-	public int customMetaData = 0;
 	private boolean opaque;
 
 	/**
@@ -51,9 +50,8 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	 * @param design to use for the block
 	 * @param customMetaData for the block
 	 */
-	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design, int customMetaData) {
+	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design) {
 		this(plugin, name, isOpaque);
-		this.customMetaData = customMetaData;
 		setBlockDesign(design);
 	}
 
@@ -101,18 +99,6 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	@Override
 	public String getFullName() {
 		return fullName;
-	}
-
-	@Override
-	public CustomBlock setCustomMetaData(int customMetaData) {
-		this.customMetaData = customMetaData;
-
-		return this;
-	}
-
-	@Override
-	public int getCustomMetaData() {
-		return customMetaData;
 	}
 
 	@Override

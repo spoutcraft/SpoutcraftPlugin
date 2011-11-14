@@ -19,7 +19,6 @@ package org.getspout.spoutapi.chunkdatamanager;
 import java.io.Serializable;
 
 import org.bukkit.World;
-import org.bukkit.util.BlockVector;
 
 
 public interface ChunkDataManager {
@@ -35,7 +34,6 @@ public interface ChunkDataManager {
 	 */
 	public int getStringId(String string);
 	
-
 	/**
 	 * Sets block data for the block at (x, y, z) and a given id.  
 	 * 
@@ -124,17 +122,26 @@ public interface ChunkDataManager {
 	
 	
 	/**
-	 * Returns an array of all the blocks in the chunk that have associated data
+	 * Gets the custom block ids that are used for the chunk at (x, z) 
 	 * 
-	 * Only the least significant portion of the vector coordinates is guaranteed to be correct
+	 * Modifying this array <b>will</b> change the contents of this chunk.
 	 * 
 	 * @param world the world
 	 * @param x the X chunk coordinate
 	 * @param z the Z chunk coordinate
-	 * @return and array containing all the blocks with associated data
-	 * 
+	 * @return custom block ids
 	 */
-	public BlockVector[] getTaggedBlocks(World world, int x, int z);
+	public short[] getCustomBlockIds(World world, int x, int z);
 
-	
+	/**
+	 * Sets the custom block ids that are used for the chunk at (x, z) 
+	 * 
+	 * Modifying this array will <b>override</b> the contents of this chunk.
+	 * 
+	 * @param world the world
+	 * @param x the X chunk coordinate
+	 * @param z the Z chunk coordinate
+	 * @param ids the custom block ids
+	 */
+	public void setCustomBlockIds(World world, int x, int z, short[] ids);
 }

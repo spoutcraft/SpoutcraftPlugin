@@ -178,13 +178,6 @@ public interface SpoutBlock extends Block{
 	public Integer getCustomBlockId();
 	
 	/**
-	 * Gets the custom meta data associated with this SpoutBlock if it exists
-	 * 
-	 * @return metaData
-	 */
-	public Integer getCustomMetaData();
-	
-	/**
 	 * Checks if the SpoutBlock has a custom material data or not
 	 * 
 	 * @return true if block is custom

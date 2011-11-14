@@ -92,4 +92,17 @@ public interface Scrollable extends Control {
 	 * @return
 	 */
 	public int getViewportSize(Orientation axis);
+	
+	/**
+	 * Gets the background color of this list
+	 * @return color
+	 */
+	public Color getBackgroundColor();
+	
+	/**
+	 * Sets the background color of this list
+	 * @param color to set
+	 * @return this
+	 */
+	public Scrollable setBackgroundColor(Color color);
 }

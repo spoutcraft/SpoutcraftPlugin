@@ -20,11 +20,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.getspout.spoutapi.packet.PacketUtil;
+
 public abstract class GenericScrollable extends GenericControl implements Scrollable {
 	protected ScrollBarPolicy sbpVert;
 	protected ScrollBarPolicy sbpHoriz = sbpVert = ScrollBarPolicy.SHOW_IF_NEEDED;
 	protected int innerSizeHoriz = 0, innerSizeVert = 0;
 	protected int scrollX = 0, scrollY = 0;
+	private Color background = new Color(0F, 0F, 0F, 0.6F);
 	
 	public GenericScrollable() {
 	}
@@ -192,7 +195,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 	
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + 6*4;
+		return super.getNumBytes() + 6*4 + 5;
 	}
 	
 	@Override
@@ -204,6 +207,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		scrollY = input.readInt();
 		innerSizeHoriz = input.readInt();
 		innerSizeVert = input.readInt();
+		setBackgroundColor(PacketUtil.readColor(input));
 	}
 
 	@Override
@@ -215,5 +219,22 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		output.writeInt(scrollY);
 		output.writeInt(innerSizeHoriz);
 		output.writeInt(innerSizeVert);
+		PacketUtil.writeColor(output, getBackgroundColor());
+	}
+	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 1;
+	}
+
+	@Override
+	public Color getBackgroundColor() {
+		return background;
+	}
+
+	@Override
+	public Scrollable setBackgroundColor(Color color) {
+		background = color;
+		return this;
 	}
 }
