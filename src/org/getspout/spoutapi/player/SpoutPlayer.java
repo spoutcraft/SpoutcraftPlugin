@@ -136,8 +136,8 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public Keyboard getInventoryKey();
 	
 	/**
-	 * Return's the key bound to forward movement for this player, or unknown if not known.
-	 * @return forward key
+	 * Return's the key bound to dropping items for this player, or unknown if not known.
+	 * @return drop item key
 	 */
 	@ClientOnly
 	public Keyboard getDropItemKey();
