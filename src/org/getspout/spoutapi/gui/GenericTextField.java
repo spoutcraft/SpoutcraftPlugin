@@ -233,7 +233,7 @@ public class GenericTextField extends GenericControl implements TextField {
 	}
 
 	@Override
-	public void onTypingFinished(TextFieldChangeEvent event) {
+	public void onTypingFinished() {
 	}
 
 	@Override

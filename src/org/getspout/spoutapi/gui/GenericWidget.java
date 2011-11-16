@@ -54,7 +54,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	// Animation
 	protected Animation animType = Animation.NONE;
 	protected Orientation animAxis = Orientation.HORIZONTAL;
-	protected byte animValue = 1;
+	protected float animValue = 1f;
 	protected byte animCount = 0;
 	protected short animTicks = 20;
 	protected boolean animRepeat = false;
@@ -72,7 +72,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public int getNumBytes() {
-		return 48 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin : "Spoutcraft");
+		return 51 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin : "Spoutcraft");
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(PacketUtil.readString(input)));
 		animType = Animation.getAnimationFromId(input.readByte());
 		animAxis = Orientation.getOrientationFromId(input.readByte());
-		animValue = input.readByte();
+		animValue = input.readFloat();
 		animCount = input.readByte();
 		animTicks = input.readShort();
 		animRepeat = input.readBoolean();
@@ -154,7 +154,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		PacketUtil.writeString(output, plugin != null ? plugin : "Spoutcraft");
 		output.writeByte(animType.getId());
 		output.writeByte(animAxis.getId());
-		output.writeByte(animValue);
+		output.writeFloat(animValue);
 		output.writeByte(animCount);
 		output.writeShort(animTicks);
 		output.writeBoolean(animRepeat);
@@ -585,7 +585,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	}
 
 	@Override
-	public Widget animate(Animation type, Orientation axis, byte value, byte count, short ticks, boolean repeat, boolean reset) {
+	public Widget animate(Animation type, Orientation axis, float value, byte count, short ticks, boolean repeat, boolean reset) {
 		if (!type.check(this)) {
 			throw new TypeConstraintException("Cannot use Animation." + type.name() + " on " + getType().toString());
 		}
