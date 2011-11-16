@@ -22,22 +22,23 @@ import java.io.IOException;
 
 import org.bukkit.plugin.Plugin;
 
-public class GenericPopup extends GenericScreen implements PopupScreen{
+public class GenericPopup extends GenericScreen implements PopupScreen {
+
 	protected boolean transparent = false;
+
 	public GenericPopup() {
-		
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 0;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + 1;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
@@ -49,7 +50,7 @@ public class GenericPopup extends GenericScreen implements PopupScreen{
 		super.writeData(output);
 		output.writeBoolean(isTransparent());
 	}
-	
+
 	@Override
 	public boolean isTransparent() {
 		return transparent;
@@ -60,7 +61,7 @@ public class GenericPopup extends GenericScreen implements PopupScreen{
 		this.transparent = value;
 		return this;
 	}
-	
+
 	@Override
 	public Widget setScreen(Plugin plugin, Screen screen) {
 		if (this.screen != null && screen != null && screen != this.screen) {
@@ -68,18 +69,16 @@ public class GenericPopup extends GenericScreen implements PopupScreen{
 		}
 		return super.setScreen(plugin, screen);
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.PopupScreen;
 	}
-	
+
 	@Override
 	public boolean close() {
-		if (getScreen() != null) {
-			if (getScreen() instanceof InGameScreen) {
-				return ((InGameScreen)getScreen()).closePopup();
-			}
+		if (getScreen() instanceof InGameScreen) {
+			return ((InGameScreen) getScreen()).closePopup();
 		}
 		return false;
 	}

@@ -22,16 +22,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class GenericRadioButton extends GenericButton implements RadioButton {
-	
+
 	boolean selected = false;
 	int group = 0;
-	
+
 	public GenericRadioButton() {
-		super();
 	}
-	
+
 	public GenericRadioButton(String text) {
 		super(text);
 	}
@@ -51,15 +49,15 @@ public class GenericRadioButton extends GenericButton implements RadioButton {
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
-		output.writeBoolean(selected);
-		output.writeInt(group);
+		output.writeBoolean(isSelected());
+		output.writeInt(getGroup());
 	}
 
 	@Override
 	public WidgetType getType() {
 		return WidgetType.RadioButton;
 	}
-	
+
 	@Override
 	public boolean isSelected() {
 		return selected;
@@ -67,8 +65,8 @@ public class GenericRadioButton extends GenericButton implements RadioButton {
 
 	@Override
 	public RadioButton setSelected(boolean selected) {
-		if(selected) {
-			for(RadioButton b:getRadiosInGroup()) {
+		if (selected) {
+			for (RadioButton b : getRadiosInGroup()) {
 				b.setSelected(false);
 			}
 		}
@@ -86,13 +84,13 @@ public class GenericRadioButton extends GenericButton implements RadioButton {
 		this.group = group;
 		return this;
 	}
-	
+
 	public List<RadioButton> getRadiosInGroup() {
 		List<RadioButton> ret = new ArrayList<RadioButton>();
-		for(Widget w:getScreen().getAttachedWidgets()) {
-			if(w instanceof RadioButton) {
-				if(((RadioButton)w).getGroup() == group) {
-					ret.add((RadioButton)w);
+		for (Widget w : getScreen().getAttachedWidgets()) {
+			if (w instanceof RadioButton) {
+				if (((RadioButton) w).getGroup() == group) {
+					ret.add((RadioButton) w);
 				}
 			}
 		}

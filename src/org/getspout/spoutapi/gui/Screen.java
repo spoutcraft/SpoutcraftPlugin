@@ -50,6 +50,14 @@ public interface Screen extends Widget {
 	public Screen attachWidget(Plugin plugin, Widget widget);
 
 	/**
+	 * Attach a series of widgets to this screen in one call.
+	 * @param plugin that owns these widgets
+	 * @param widgets to attach
+	 * @return screen
+	 */
+	public Screen attachWidgets(Plugin plugin, Widget... widgets);
+
+	/**
 	 * Removes a widget from this screen
 	 * @param widget to remove
 	 * @return screen
