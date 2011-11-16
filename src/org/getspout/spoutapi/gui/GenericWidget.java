@@ -21,13 +21,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import javax.xml.bind.TypeConstraintException;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.event.AbstractEventSource;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public abstract class GenericWidget extends AbstractEventSource implements Widget {
-
+	/**
+	 * Set if this is Spoutcraft (client), cleared if it is Spout (server)...
+	 */
+	static final protected transient boolean isSpoutcraft = false;
 	protected int X = 100;
 	protected int Y = 100;
 	protected int width = 50;
@@ -47,18 +51,33 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	protected int minWidth = 0, maxWidth = 427, minHeight = 0, maxHeight = 240;
 	protected int orig_x = 0, orig_y = 0;
 	protected boolean autoDirty = true;
+	// Animation
+	protected WidgetAnim animType = WidgetAnim.NONE;
+	protected Orientation animAxis = Orientation.HORIZONTAL;
+	protected float animValue = 1f;
+	protected byte animCount = 0;
+	protected short animTicks = 20;
+	protected boolean animRepeat = false;
+	protected boolean animReset = true;
+	protected boolean animRunning = false;
+	protected boolean animStopping = false;
 
 	public GenericWidget() {
 	}
 
 	@Override
+	final public boolean isSpoutcraft() {
+		return isSpoutcraft;
+	}
+
+	@Override
 	public int getNumBytes() {
-		return 38 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin : "Spoutcraft");
+		return 51 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin : "Spoutcraft");
 	}
 
 	@Override
 	public int getVersion() {
-		return 3;
+		return 4;
 	}
 
 	public GenericWidget(int X, int Y, int width, int height) {
@@ -109,6 +128,15 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		this.id = new UUID(msb, lsb);
 		setTooltip(PacketUtil.readString(input));
 		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(PacketUtil.readString(input)));
+		animType = WidgetAnim.getAnimationFromId(input.readByte());
+		animAxis = Orientation.getOrientationFromId(input.readByte());
+		animValue = input.readFloat();
+		animCount = input.readByte();
+		animTicks = input.readShort();
+		animRepeat = input.readBoolean();
+		animReset = input.readBoolean();
+		animRunning = input.readBoolean();
+		animStopping = input.readBoolean();
 	}
 
 	@Override
@@ -124,6 +152,15 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		output.writeLong(getId().getLeastSignificantBits());
 		PacketUtil.writeString(output, getTooltip());
 		PacketUtil.writeString(output, plugin != null ? plugin : "Spoutcraft");
+		output.writeByte(animType.getId());
+		output.writeByte(animAxis.getId());
+		output.writeFloat(animValue);
+		output.writeByte(animCount);
+		output.writeShort(animTicks);
+		output.writeBoolean(animRepeat);
+		output.writeBoolean(animReset);
+		output.writeBoolean(animRunning);
+		output.writeBoolean(animStopping);
 	}
 
 	@Override
@@ -304,8 +341,8 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public void setContainer(Container container) {
-		if (hasContainer() && container != null && getContainer().equals(container)) {
-			this.container.removeChild(this);
+		if (hasContainer() && container != null && !getContainer().equals(container)) {
+			getContainer().removeChild(this);
 		}
 		this.container = container;
 	}
@@ -500,21 +537,22 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	public Widget copy() {
 		try {
 			Widget copy = getType().getWidgetClass().newInstance();
-			copy	.setX(getX())
-					.setY(getY())
-					.setWidth(getWidth())
-					.setHeight(getHeight())
-					.setVisible(isVisible())
-					.setPriority(getPriority())
-					.setTooltip(getTooltip())
-					.setAnchor(getAnchor())
-					.setMargin(getMarginTop(), getMarginRight(), getMarginBottom(), getMarginLeft())
-					.setMinWidth(getMinWidth())
-					.setMaxWidth(getMaxWidth())
-					.setMinHeight(getMinHeight())
-					.setMaxHeight(getMaxHeight())
-					.setFixed(isFixed())
-					.setAutoDirty(isAutoDirty());
+			copy	.setX(getX()) // Easier reading
+					.setY(getY()) //
+					.setWidth(getWidth()) //
+					.setHeight(getHeight()) //
+					.setVisible(isVisible()) //
+					.setPriority(getPriority()) //
+					.setTooltip(getTooltip()) //
+					.setAnchor(getAnchor()) //
+					.setMargin(getMarginTop(), getMarginRight(), getMarginBottom(), getMarginLeft()) //
+					.setMinWidth(getMinWidth()) //
+					.setMaxWidth(getMaxWidth()) //
+					.setMinHeight(getMinHeight()) //
+					.setMaxHeight(getMaxHeight()) //
+					.setFixed(isFixed()) //
+					.setAutoDirty(isAutoDirty()) //
+					.animate(animType, animAxis, animValue, animCount, animTicks, animRepeat, animReset);
 			return copy;
 		} catch (Exception e) {
 			throw new IllegalStateException("Unable to create a copy of " + getClass() + ". Does it have a valid widget type?");
@@ -544,5 +582,44 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		if (isAutoDirty()) {
 			setDirty(true);
 		}
+	}
+
+	@Override
+	public Widget animate(WidgetAnim type, Orientation axis, float value, byte count, short ticks, boolean repeat, boolean reset) {
+		if (!type.check(this)) {
+			throw new TypeConstraintException("Cannot use Animation." + type.name() + " on " + getType().toString());
+		}
+		animType = type;
+		animAxis = axis;
+		animValue = value;
+		animCount = count;
+		animTicks = ticks;
+		animRepeat = repeat;
+		animReset = reset;
+		animRunning = false;
+		animStopping = false;
+		autoDirty();
+		return this;
+	}
+
+	@Override
+	public Widget animateStart() {
+		if (animType != WidgetAnim.NONE) {
+			animRunning = true;
+			autoDirty();
+		}
+		return this;
+	}
+
+	@Override
+	public Widget animateStop(boolean finish) {
+		if (animRunning && finish) {
+			animStopping = true;
+			autoDirty();
+		} else {
+			animRunning = false;
+			autoDirty();
+		}
+		return this;
 	}
 }

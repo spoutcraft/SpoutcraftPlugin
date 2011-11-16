@@ -158,8 +158,8 @@ public class GenericContainer extends GenericWidget implements Container {
 		children.remove(child);
 		child.setContainer(null);
 		child.restorePos();
-		if (this.screen != null) {
-			this.screen.removeWidget(child);
+		if (child.getScreen() != null) {
+			child.getScreen().removeWidget(child);
 		}
 		updateSize();
 		deferLayout();
@@ -168,14 +168,14 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setScreen(Screen screen) {
+		super.setScreen(screen);
 		for (Widget child : children) {
 			if (screen != null) {
 				screen.attachWidget(getPlugin(), child);
-			} else if (this.screen != null) {
-				this.screen.removeWidget(child);
+			} else if (child.getScreen() != null) {
+				child.getScreen().removeWidget(child);
 			}
 		}
-		super.setScreen(screen);
 		return this;
 	}
 

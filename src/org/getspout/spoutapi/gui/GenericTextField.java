@@ -30,6 +30,7 @@ public class GenericTextField extends GenericControl implements TextField {
 	private static final char FLAG_PASSWORD = 0x4000; // bit 15
 	private static final char FLAG_FOCUS = 0x8000; // bit 16
 	protected String text = "";
+	protected String placeholder = "";
 	protected int cursor = 0;
 	protected int maxChars = 16;
 	protected int maxLines = 1;
@@ -44,12 +45,12 @@ public class GenericTextField extends GenericControl implements TextField {
 
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 2;
+		return super.getVersion() + 3;
 	}
 
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + 16 + PacketUtil.getNumBytes(text);
+		return super.getNumBytes() + 16 + PacketUtil.getNumBytes(text) + PacketUtil.getNumBytes(placeholder);
 	}
 
 	@Override
@@ -65,6 +66,7 @@ public class GenericTextField extends GenericControl implements TextField {
 		setCursorPosition(input.readChar());
 		setMaximumCharacters(input.readChar());
 		setText(PacketUtil.readString(input));
+		setPlaceholder(PacketUtil.readString(input));
 	}
 
 	@Override
@@ -76,6 +78,7 @@ public class GenericTextField extends GenericControl implements TextField {
 		output.writeChar(getCursorPosition());
 		output.writeChar(getMaximumCharacters());
 		PacketUtil.writeString(output, getText());
+		PacketUtil.writeString(output, getPlaceholder());
 	}
 
 	@Override
@@ -220,11 +223,30 @@ public class GenericTextField extends GenericControl implements TextField {
 				.setBorderColor(getBorderColor())
 				.setMaximumLines(getMaximumLines())
 				.setTabIndex(getTabIndex())
-				.setPasswordField(isPasswordField());
+				.setPasswordField(isPasswordField())
+				.setPlaceholder(getPlaceholder());
 	}
 
 	@Override
 	public void onTextFieldChange(TextFieldChangeEvent event) {
 		this.callEvent(event);
+	}
+
+	@Override
+	public void onTypingFinished() {
+	}
+
+	@Override
+	public TextField setPlaceholder(String text) {
+		if (text != null && !getPlaceholder().equals(text)) {
+			placeholder = text;
+			autoDirty();
+		}
+		return this;
+	}
+
+	@Override
+	public String getPlaceholder() {
+		return placeholder;
 	}
 }

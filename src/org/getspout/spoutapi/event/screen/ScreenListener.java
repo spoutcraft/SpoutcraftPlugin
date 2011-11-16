@@ -36,9 +36,13 @@ public class ScreenListener extends CustomEventListener implements Listener{
 	}
 	
 	public void onTextFieldChange(TextFieldChangeEvent event) {
-		
+
 	}
-	
+
+	public void onTypingFinished(TextFieldChangeEvent event) {
+
+	}
+
 	public void onScreenClose(ScreenCloseEvent event) {
 		
 	}

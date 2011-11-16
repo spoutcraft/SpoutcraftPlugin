@@ -23,7 +23,8 @@ import java.io.IOException;
 import org.bukkit.ChatColor;
 import org.getspout.spoutapi.packet.PacketUtil;
 
-public class GenericLabel extends GenericWidget implements Label{
+public class GenericLabel extends GenericWidget implements Label {
+
 	protected String text = "Your Text Here";
 	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
 	protected Color color = new Color(1F, 1F, 1F);
@@ -31,48 +32,47 @@ public class GenericLabel extends GenericWidget implements Label{
 	protected boolean resize = false;
 	protected int textWidth = -1, textHeight = -1;
 	protected float scale = 1.0F;
-	
-	public GenericLabel(){
-		
+
+	public GenericLabel() {
 	}
 
 	public GenericLabel(String text) {
 		this.text = text;
 	}
-	
+
 	@Override
 	public WidgetType getType() {
 		return WidgetType.Label;
 	}
-	
+
 	@Override
 	public int getNumBytes() {
 		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 11;
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 5;
 	}
-	
+
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
-		this.setText(PacketUtil.readString(input));
-		this.setAlign(WidgetAnchor.getAnchorFromId(input.readByte()));
-		this.setAuto(input.readBoolean());
-		this.setTextColor(PacketUtil.readColor(input));
-		this.setScale(input.readFloat());
+		setText(PacketUtil.readString(input));
+		setAlign(WidgetAnchor.getAnchorFromId(input.readByte()));
+		setAuto(input.readBoolean());
+		setTextColor(PacketUtil.readColor(input));
+		setScale(input.readFloat());
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		PacketUtil.writeString(output, getText());
-		output.writeByte(align.getId());
+		output.writeByte(getAlign().getId());
 		output.writeBoolean(isAuto());
 		PacketUtil.writeColor(output, getTextColor());
-		output.writeFloat(scale);
+		output.writeFloat(getScale());
 	}
 
 	@Override
@@ -95,10 +95,13 @@ public class GenericLabel extends GenericWidget implements Label{
 	public boolean isAuto() {
 		return auto;
 	}
-	
+
 	@Override
 	public Label setAuto(boolean auto) {
-		this.auto = auto;
+		if (isAuto() != auto) {
+			this.auto = auto;
+			autoDirty();
+		}
 		return this;
 	}
 
@@ -135,7 +138,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		this.scale = scale;
 		return this;
 	}
-	
+
 	@Override
 	public float getScale() {
 		return scale;
@@ -143,14 +146,13 @@ public class GenericLabel extends GenericWidget implements Label{
 
 	@Override
 	public Label copy() {
-		return ((Label)super.copy())
-				.setText(getText())
-				.setScale(getScale())
-				.setAuto(isAuto())
-				.setTextColor(getTextColor())
+		return ((Label) super.copy()) //
+				.setText(getText()) //
+				.setScale(getScale()) //
+				.setAuto(isAuto()) //
+				.setTextColor(getTextColor()) //
 				.setResize(isResize());
 	}
-
 
 	@Override
 	public boolean isResize() {
@@ -163,7 +165,7 @@ public class GenericLabel extends GenericWidget implements Label{
 		doResize();
 		return this;
 	}
-	
+
 	@Override
 	public Label doResize() {
 		if (resize) {
@@ -198,7 +200,7 @@ public class GenericLabel extends GenericWidget implements Label{
 	public static int getStringHeight(String text) {
 		return getStringHeight(text, 1.0F);
 	}
-	
+
 	/**
 	 * Gets the height of the text, at the given scale
 	 * @param text
@@ -206,9 +208,9 @@ public class GenericLabel extends GenericWidget implements Label{
 	 * @return height in pixels
 	 */
 	public static int getStringHeight(String text, float scale) {
-		return (int)(text.split("\n").length * 10 * scale);
+		return (int) (text.split("\n").length * 10 * scale);
 	}
-	
+
 	/**
 	 * Gets the width of the text
 	 * @param text
@@ -259,6 +261,6 @@ public class GenericLabel extends GenericWidget implements Label{
 			}
 			length = Math.max(length, lineLength);
 		}
-		return (int)(length * scale);
+		return (int) (length * scale);
 	}
 }

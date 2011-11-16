@@ -19,46 +19,58 @@ package org.getspout.spoutapi.gui;
 import java.util.HashMap;
 
 /**
- * This is used to define the orientation for Scrollable widgets.
+ * Types of animation, only one animation is permitted at a time, and note that
+ * some types are limited to certain widget types...
  */
-public enum Orientation {
+public enum WidgetAnim {
+
 	/**
-	 * Horizontal axis (left-right)
+	 * No animation (default).
 	 */
-	HORIZONTAL(0),
+	NONE(0),
 	/**
-	 * Vertical axis (top-bottom)
+	 * Change the X or Y by "value" pixels (any Widget).
 	 */
-	VERTICAL(1);
-	
+	POSITION(1),
+	/**
+	 * Change the Width or Height by "value" pixels (any Widget).
+	 */
+	SIZE(2),
+	/**
+	 * Change the Top or Left offset by "value" pixels (Texture only).
+	 */
+	OFFSET(3);
 	private final int id;
-	Orientation(int id) {
+
+	WidgetAnim(int id) {
 		this.id = id;
 	}
 
 	public int getId() {
 		return id;
 	}
-
-	private static final HashMap<Integer, Orientation> lookupId = new HashMap<Integer, Orientation>();
+	private static final HashMap<Integer, WidgetAnim> lookupId = new HashMap<Integer, WidgetAnim>();
 
 	static {
-		for (Orientation t : values()) {
+		for (WidgetAnim t : values()) {
 			lookupId.put(t.getId(), t);
 		}
 	}
 
-	public static Orientation getOrientationFromId(int id) {
+	public static WidgetAnim getAnimationFromId(int id) {
 		return lookupId.get(id);
 	}
 
-	public Orientation getOther() {
-		switch(this) {
-		case HORIZONTAL:
-			return VERTICAL;
-		case VERTICAL:
-			return HORIZONTAL;
+	public boolean check(Widget widget) {
+		switch (this) {
+			case POSITION:
+			case SIZE:
+				return true;
+			case OFFSET:
+				if (widget instanceof Texture) {
+					return true;
+				}
 		}
-		return null;
+		return false;
 	}
 }
