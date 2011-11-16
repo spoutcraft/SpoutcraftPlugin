@@ -112,6 +112,17 @@ public interface CustomBlock extends Block {
 	public void onBlockDestroyed(World world, int x, int y, int z);
 	
 	/**
+	 * Fires when the block is destroyed
+	 * 
+	 * @param world the block was in
+	 * @param x location of the block
+	 * @param y location of the block
+	 * @param z location of the block
+	 * @param living entity who destroyed the block
+	 */
+	public void onBlockDestroyed(World world, int x, int y, int z, LivingEntity living);
+	
+	/**
 	 * Called when the block is interacted with
 	 * 
 	 * @param world the block is in

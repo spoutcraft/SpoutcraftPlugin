@@ -165,6 +165,10 @@ public class SpoutManager {
 		}
 	}
 	
+	/**
+	 * Gets the cache manager
+	 * @return cache manager
+	 */
 	public static CacheManager getCacheManager() {
 		return getInstance().cacheManager;
 	}
@@ -302,6 +306,10 @@ public class SpoutManager {
 		return getInstance().playerManager.getOnlinePlayers();
 	}
 	
+	/**
+	 * Gets the player manager
+	 * @return player manager
+	 */
 	public static PlayerManager getPlayerManager() {
 		return getInstance().playerManager;
 	}

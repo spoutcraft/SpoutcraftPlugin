@@ -16,6 +16,9 @@ public class PacketCustomMaterial implements SpoutPacket {
 	private byte type;
 	private boolean isItem = false;
 	private boolean isOpaque = false;
+	private float hardness;
+	private float friction;
+	private int lightLevel;
 
 	public PacketCustomMaterial() {
 
@@ -27,6 +30,9 @@ public class PacketCustomMaterial implements SpoutPacket {
 		this.id = block.getCustomId();
 		this.isItem = false;
 		this.isOpaque = block.isOpaque();
+		this.hardness = block.getHardness();
+		this.friction = block.getFriction();
+		this.lightLevel = block.getLightLevel();
 	}
 	
 	public PacketCustomMaterial(CustomItem item) {
@@ -35,10 +41,13 @@ public class PacketCustomMaterial implements SpoutPacket {
 		this.id = item.getCustomId();
 		this.isItem = true;
 		this.isOpaque = false;
+		hardness = 0F;
+		friction = 0F;
+		lightLevel = 0;
 	}
 
 	public int getNumBytes() {
-		return PacketUtil.getNumBytes(plugin.getDescription().getName()) + PacketUtil.getNumBytes(name) + 4 + 1 + 1 + 1;
+		return PacketUtil.getNumBytes(plugin.getDescription().getName()) + PacketUtil.getNumBytes(name) + 4 + 1 + 1 + 1 + 4 + 4 + 4;
 	}
 
 	public void readData(DataInputStream input) throws IOException {
@@ -48,6 +57,9 @@ public class PacketCustomMaterial implements SpoutPacket {
 		type = input.readByte();
 		isItem = type == 2 ? true : false;
 		isOpaque = type == 1 ? true : false;
+		hardness = input.readFloat();
+		friction = input.readFloat();
+		lightLevel = input.readInt();
 	}
 
 	public void writeData(DataOutputStream output) throws IOException {
@@ -55,6 +67,9 @@ public class PacketCustomMaterial implements SpoutPacket {
 		PacketUtil.writeString(output, name);
 		output.writeInt(id);
 		output.writeByte(isItem ? 2 : isOpaque ? 1 : 0);
+		output.writeFloat(hardness);
+		output.writeFloat(friction);
+		output.writeInt(lightLevel);
 	}
 
 	public void run(int playerId) {
@@ -68,6 +83,6 @@ public class PacketCustomMaterial implements SpoutPacket {
 	}
 
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 }
