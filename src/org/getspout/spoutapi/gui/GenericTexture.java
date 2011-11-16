@@ -26,13 +26,16 @@ public class GenericTexture extends GenericWidget implements Texture {
 
 	protected String url = null;
 	protected boolean drawAlpha = false;
+	protected WidgetAnchor align = WidgetAnchor.SCALE;
+	protected int top;
+	protected int left;
 
 	public GenericTexture() {
 	}
 
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 1;
+		return super.getVersion() + 2;
 	}
 
 	public GenericTexture(String url) {
@@ -46,7 +49,7 @@ public class GenericTexture extends GenericWidget implements Texture {
 
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl()) + 1;
+		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl()) + 6;
 	}
 
 	@Override
@@ -54,6 +57,9 @@ public class GenericTexture extends GenericWidget implements Texture {
 		super.readData(input);
 		this.setUrl(PacketUtil.readString(input));
 		this.setDrawAlphaChannel(input.readBoolean());
+		setAlign(WidgetAnchor.getAnchorFromId(input.readByte()));
+		setTop(input.readShort());
+		setLeft(input.readShort());
 	}
 
 	@Override
@@ -61,6 +67,9 @@ public class GenericTexture extends GenericWidget implements Texture {
 		super.writeData(output);
 		PacketUtil.writeString(output, getUrl());
 		output.writeBoolean(isDrawingAlphaChannel());
+		output.writeByte(align.getId());
+		output.writeShort(top);
+		output.writeShort(left);
 	}
 
 	@Override
@@ -94,5 +103,47 @@ public class GenericTexture extends GenericWidget implements Texture {
 			autoDirty();
 		}
 		return this;
+	}
+
+	@Override
+	public Texture setAlign(WidgetAnchor align) {
+		if (align != null && getAlign() != align) {
+			this.align = align;
+			autoDirty();
+		}
+		return this;
+	}
+
+	@Override
+	public WidgetAnchor getAlign() {
+		return align;
+	}
+
+	@Override
+	public Texture setTop(int top) {
+		if (getTop() != top) {
+			this.top = top;
+			autoDirty();
+		}
+		return this;
+	}
+
+	@Override
+	public int getTop() {
+		return top;
+	}
+
+	@Override
+	public Texture setLeft(int left) {
+		if (getLeft() != left) {
+			this.left = left;
+			autoDirty();
+		}
+		return this;
+	}
+
+	@Override
+	public int getLeft() {
+		return left;
 	}
 }
