@@ -1,4 +1,4 @@
-[![Spout][Project Logo]][Website]
+[![SpoutAPI][Project Logo]][Website]
 What is SpoutAPI?
 -----------------
 SpoutAPI is the server-side framework for Spout, a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize, in an attempt to bring the Minecraft multiplayer experience to parity with the single-player modding experience.
@@ -48,7 +48,7 @@ Coding and Pull Request Formatting
 
 **Please follow the above conventions if you want your pull request(s) accepted.**
 
-[Project Logo]: http://assets.craftfire.com/img/logo/spout_327x150.png
+[Project Logo]: http://cdn.getspout.org/img/logo/spout_327x150.png
 [License]: http://www.gnu.org/licenses/lgpl.html
 [Website]: http://www.getspout.org
 [Forums]: http://forums.getspout.org
@@ -60,5 +60,5 @@ Coding and Pull Request Formatting
 [Twitter Logo]: http://cdn.getspout.org/img/button/twitter_follow_us.png
 [Facebook]: http://spout.in/facebook
 [Facebook Logo]: http://cdn.getspout.org/img/button/facebook_like_us.png
-[Donate]: https://www.paypal.com/cgi-bin/webscr?hosted_button_id=QNJH72R72TZ64&item_name=SpoutAPI+Donation+%28from+github.com%29&cmd=_s-xclick
+[Donate]: https://www.paypal.com/cgi-bin/webscr?hosted_button_id=QNJH72R72TZ64&item_name=SpoutAPI+donation+%28from+github.com%29&cmd=_s-xclick
 [Donate Logo]: http://cdn.getspout.org/img/button/donate_paypal_96x96.png
