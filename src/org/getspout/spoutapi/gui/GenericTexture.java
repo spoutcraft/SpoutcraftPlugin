@@ -26,16 +26,15 @@ public class GenericTexture extends GenericWidget implements Texture {
 
 	protected String url = null;
 	protected boolean drawAlpha = false;
-	protected WidgetAnchor align = WidgetAnchor.SCALE;
-	protected int top;
-	protected int left;
+	protected int top = -1;
+	protected int left = -1;
 
 	public GenericTexture() {
 	}
 
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 2;
+		return super.getVersion() + 3;
 	}
 
 	public GenericTexture(String url) {
@@ -49,27 +48,25 @@ public class GenericTexture extends GenericWidget implements Texture {
 
 	@Override
 	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl()) + 6;
+		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl()) + 5;
 	}
 
 	@Override
 	public void readData(DataInputStream input) throws IOException {
 		super.readData(input);
-		this.setUrl(PacketUtil.readString(input));
-		this.setDrawAlphaChannel(input.readBoolean());
-		setAlign(WidgetAnchor.getAnchorFromId(input.readByte()));
-		setTop(input.readShort());
-		setLeft(input.readShort());
+		this.setUrl(PacketUtil.readString(input)); // String
+		this.setDrawAlphaChannel(input.readBoolean()); // 0 + 1 = 1
+		setTop(input.readShort()); // 1 + 2 = 3
+		setLeft(input.readShort()); // 3 + 2 = 5
 	}
 
 	@Override
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
-		PacketUtil.writeString(output, getUrl());
-		output.writeBoolean(isDrawingAlphaChannel());
-		output.writeByte(align.getId());
-		output.writeShort(top);
-		output.writeShort(left);
+		PacketUtil.writeString(output, getUrl()); // String
+		output.writeBoolean(isDrawingAlphaChannel()); // 0 + 1 = 1
+		output.writeShort(top); // 1 + 2 = 3
+		output.writeShort(left); // 3 + 2 = 5
 	}
 
 	@Override
@@ -103,20 +100,6 @@ public class GenericTexture extends GenericWidget implements Texture {
 			autoDirty();
 		}
 		return this;
-	}
-
-	@Override
-	public Texture setAlign(WidgetAnchor align) {
-		if (align != null && getAlign() != align) {
-			this.align = align;
-			autoDirty();
-		}
-		return this;
-	}
-
-	@Override
-	public WidgetAnchor getAlign() {
-		return align;
 	}
 
 	@Override

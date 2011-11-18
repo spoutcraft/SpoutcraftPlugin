@@ -145,6 +145,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				widget.onAnimate();
 				if (widget.isDirty()) {
 					if (!widget.getType().isServerOnly()) {
 						player.sendPacket(new PacketWidget(widget, getId()));
