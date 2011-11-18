@@ -91,7 +91,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget setAnchor(WidgetAnchor anchor) {
-		if (anchor != null && getAnchor().equals(anchor)) {
+		if (anchor != null && !getAnchor().equals(anchor)) {
 			this.anchor = anchor;
 			autoDirty();
 		}
