@@ -18,6 +18,10 @@ package org.getspout.spoutapi.packet;
 
 import java.util.HashMap;
 
+import org.getspout.spoutapi.material.block.GenericCustomBlock;
+import org.getspout.spoutapi.material.item.GenericCustomItem;
+import org.getspout.spoutapi.material.item.GenericCustomTool;
+
 public enum PacketType {
 	PacketKeyPress(0, PacketKeyPress.class),
 	PacketAirTime(1, PacketAirTime.class),
@@ -53,7 +57,7 @@ public enum PacketType {
 	PacketMovementModifiers(31, PacketMovementModifiers.class),
 	PacketSetVelocity(32, PacketSetVelocity.class),
 	PacketFullVersion(33, PacketFullVersion.class),
-	PacketCustomItem(34, PacketCustomItem.class),
+	PacketCustomId(34, PacketCustomId.class),
 	PacketItemTexture(35, PacketItemTexture.class),
 	//PacketBlockHardness(36, PacketBlockHardness.class), 
 	PacketOpenSignGUI(37, PacketOpenSignGUI.class),
@@ -65,8 +69,13 @@ public enum PacketType {
 	PacketCustomMultiBlockOverride(43, PacketCustomMultiBlockOverride.class),
 	PacketServerPlugins(44, PacketServerPlugins.class),
 	PacketAddonData(45, PacketAddonData.class),
-	PacketCustomMaterial(46, PacketCustomMaterial.class),
-    PacketScreenshot(47, PacketScreenshot.class),
+	//PacketCustomMaterial(46, PacketCustomMaterial.class),
+	PacketScreenshot(47, PacketScreenshot.class),
+	PacketCustomItem(48, GenericCustomItem.class),
+	PacketCustomTool(49, GenericCustomTool.class),
+	PacketCustomBlock(50, GenericCustomBlock.class),
+	PacketCustomBlockChunkOverride(51, PacketCustomBlockChunkOverride.class),
+	
 	;
 	
 	private final int id;

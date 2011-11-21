@@ -20,12 +20,17 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.getspout.spoutapi.ClientOnly;
 
+/**
+ * @deprecated see {@link SpoutPlayer} methods instead.
+ */
 public interface AppearanceManager {
 	
 	/**
 	 * Sets the skin for the target human that is visible to all players
 	 * @param target to change the skin for
 	 * @param Url for the new skin
+	 * 
+	 * @deprecated see {@link SpoutPlayer#setSkin(String)} instead.
 	 */
 	@ClientOnly
 	public void setGlobalSkin(HumanEntity target, String Url);
@@ -35,6 +40,9 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that will see the new skin
 	 * @param target to change the skin for
 	 * @param Url for the new skin
+	 * 
+	 * 
+	 * @deprecated see {@link SpoutPlayer#setSkinFor(SpoutPlayer, String)} instead.
 	 */
 	@ClientOnly
 	public void setPlayerSkin(SpoutPlayer viewingPlayer, HumanEntity target, String Url);
@@ -43,6 +51,8 @@ public interface AppearanceManager {
 	 * Sets the cloak for the target human that is visible to all players
 	 * @param target to change the cloak for
 	 * @param Url for the new cloak
+	 * 
+	 * @deprecated see {@link SpoutPlayer#setCape(String)} instead.
 	 */
 	@ClientOnly
 	public void setGlobalCloak(HumanEntity target, String Url);
@@ -52,6 +62,8 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that will see the new cloak
 	 * @param target to change the cloak for
 	 * @param Url for the new cloak
+	 * 
+	 * @deprecated see {@link SpoutPlayer#setCapeFor(SpoutPlayer, String)} instead.
 	 */
 	@ClientOnly
 	public void setPlayerCloak(SpoutPlayer viewingPlayer, HumanEntity target, String Url);
@@ -62,6 +74,8 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that will see the new title
 	 * @param target to change the title for
 	 * @param title to set to the target
+	 * 
+	 * @deprecated see {@link SpoutPlayer#setTitleFor(SpoutPlayer, String)} instead.
 	 */
 	@ClientOnly
 	public void setPlayerTitle(SpoutPlayer viewingPlayer, LivingEntity target, String title);
@@ -71,6 +85,8 @@ public interface AppearanceManager {
 	 * Note: if the title has newline characters ('\n') in it, it will be rendered over multiple lines
 	 * @param target to change the title for
 	 * @param title to set to the target
+	 * 
+	 * @deprecated see {@link SpoutPlayer#setTitle(String)} instead.
 	 */
 	@ClientOnly
 	public void setGlobalTitle(LivingEntity target, String title);
@@ -79,6 +95,8 @@ public interface AppearanceManager {
 	 * Hides title for the target living entity that is only visible to the viewingPlayer
 	 * @param viewingPlayer that will not see the title
 	 * @param target to hide the title for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#hideTitleFrom(SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public void hidePlayerTitle(SpoutPlayer viewingPlayer, LivingEntity target);
@@ -86,6 +104,8 @@ public interface AppearanceManager {
 	/**
 	 * Hides the title for the target living entity that is visible to all players
 	 * @param target to hide the title for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#hideTitle()} instead.
 	 */
 	@ClientOnly
 	public void hideGlobalTitle(LivingEntity target);
@@ -95,6 +115,8 @@ public interface AppearanceManager {
 	 * @param viewingPlayer viewing the target
 	 * @param target to get the skin Url for
 	 * @return skin Url
+	 * 
+	 * @deprecated see {@link SpoutPlayer#getSkin(SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public String getSkinUrl(SpoutPlayer viewingPlayer, HumanEntity target);
@@ -102,6 +124,8 @@ public interface AppearanceManager {
 	/**
 	 * Reset's the skin for the target for all players
 	 * @param target to reset the skin for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#resetSkin()} instead.
 	 */
 	@ClientOnly
 	public void resetGlobalSkin(HumanEntity target);
@@ -110,6 +134,8 @@ public interface AppearanceManager {
 	 * Reset's the skin for the target for only the viewingPlayer
 	 * @param viewingPlayer that will see the reset skin
 	 * @param target to reset the skin for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#resetSkinFor(SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public void resetPlayerSkin(SpoutPlayer viewingPlayer, HumanEntity target);
@@ -117,6 +143,8 @@ public interface AppearanceManager {
 	/**
 	 * Resets the cloak for the target for all players
 	 * @param target to reset the cloak for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#resetCape()} instead.
 	 */
 	@ClientOnly
 	public void resetGlobalCloak(HumanEntity target);
@@ -125,6 +153,8 @@ public interface AppearanceManager {
 	 * Resets the cloak for the target for only the viewingPlayer
 	 * @param viewingPlayer that will see the reset cloak
 	 * @param target to reset the cloak for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#resetCapeFor(SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public void resetPlayerCloak(SpoutPlayer viewingPlayer, HumanEntity target);
@@ -133,6 +163,8 @@ public interface AppearanceManager {
 	 * Resets the title for the target for only the viewingPlayer
 	 * @param viewingPlayer that will see the reset title
 	 * @param target to reset the title for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#resetTitleFor(SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public void resetPlayerTitle(SpoutPlayer viewingPlayer, LivingEntity target);	
@@ -140,6 +172,8 @@ public interface AppearanceManager {
 	/**
 	 * Resets the tite for the target for all players
 	 * @param target to reset the title for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#resetTitle()} instead.
 	 */
 	@ClientOnly
 	public void resetGlobalTitle(LivingEntity target);
@@ -149,6 +183,8 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that sees the target
 	 * @param target that has the cloak
 	 * @return cloak Url
+	 * 
+	 * @deprecated see {@link SpoutPlayer#getCape()} instead.
 	 */
 	@ClientOnly
 	public String getCloakUrl(SpoutPlayer viewingPlayer, HumanEntity target);
@@ -158,6 +194,8 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that sees the target
 	 * @param target that has the title
 	 * @return title
+	 * 
+	 * @deprecated see {@link SpoutPlayer#getTitle()} instead.
 	 */
 	@ClientOnly
 	public String getTitle(SpoutPlayer viewingPlayer, LivingEntity target);
@@ -166,24 +204,28 @@ public interface AppearanceManager {
 	 * Resets the skins of all humans and players back to their defaults
 	 */
 	@ClientOnly
+	@Deprecated
 	public void resetAllSkins();
 	
 	/**
 	 * Resets the cloaks of all humans and players back to their defaults
 	 */
 	@ClientOnly
+	@Deprecated
 	public void resetAllCloaks();
 	
 	/**
 	 * Resets the titles of all living entities back to their defaults
 	 */
 	@ClientOnly
+	@Deprecated
 	public void resetAllTitles();
 	
 	/**
 	 * Resets all skins, cloaks, and titles back to their defaults
 	 */
 	@ClientOnly
+	@Deprecated
 	public void resetAll();
 
 	/**
@@ -191,6 +233,8 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that sees the target
 	 * @param target to change the skin for
 	 * @param url of the texture
+	 * 
+	 * @deprecated see {@link SpoutPlayer#setEntitySkin(LivingEntity, String, EntitySkinType)} instead.
 	 */
 	@ClientOnly
 	public void setEntitySkin(SpoutPlayer viewingPlayer, LivingEntity target, String url, EntitySkinType type);
@@ -202,11 +246,14 @@ public interface AppearanceManager {
 	 * @param url of the texture
 	 */
 	@ClientOnly
+	@Deprecated
 	public void setGlobalEntitySkin(LivingEntity entity, String url, EntitySkinType type);
 	
 	/**
 	 * Resets the skin for the given entity back to the users default texture pack skin
 	 * @param entity to reset the skin for
+	 * 
+	 * @deprecated see {@link SpoutPlayer#resetEntitySkin(LivingEntity)} instead.
 	 */
 	@ClientOnly
 	void resetEntitySkin(LivingEntity entity);

@@ -1,25 +1,36 @@
 package org.getspout.spoutapi.material.block;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.block.design.GenericBlockDesign;
-import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
+import org.getspout.spoutapi.packet.PacketType;
+import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.packet.SpoutPacket;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
-public abstract class GenericCustomBlock extends GenericBlock implements CustomBlock {
+public class GenericCustomBlock extends GenericBlock implements CustomBlock, SpoutPacket {
 	public BlockDesign design = new GenericBlockDesign();
-	public static MaterialManager mm = SpoutManager.getMaterialManager();
-	private final String fullName;
-	private final int customID;
-	private final Plugin plugin;
-	private final CustomItem item;
-	private final int blockId;
+	private String fullName;
+	private int customId;
+	private Plugin plugin;
+	private CustomItem item;
+	private int blockId;
 	private boolean opaque;
 	private float hardness = 1.5F;
 	private float friction = 0.6F;
@@ -32,14 +43,14 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	 * @param name of the block
 	 * @param isOpaque true if you want the block solid
 	 */
-	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
+	protected GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
 		super(name, isOpaque ? 1 : 20);
 		this.opaque = isOpaque;
 		item = new GenericCustomItem(plugin, name);
 		this.blockId = isOpaque ? 1 : 20;
 		this.plugin = plugin;
 		this.fullName = item.getFullName();
-		this.customID = item.getCustomId();
+		this.customId = item.getCustomId();
 		MaterialData.addCustomBlock(this);
 		this.setItemDrop(new SpoutItemStack(this, 1));
 	}
@@ -87,16 +98,16 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
 		this.design = design;
-		mm.setCustomBlockDesign(this, design);
-		mm.setCustomBlockDesign(this.getBlockItem(), design);
-		mm.setCustomItemBlock(item, this);
+		SpoutManager.getMaterialManager().setCustomBlockDesign(this, design);
+		SpoutManager.getMaterialManager().setCustomBlockDesign(this.getBlockItem(), design);
+		SpoutManager.getMaterialManager().setCustomItemBlock(item, this);
 
 		return this;
 	}
 
 	@Override
 	public int getCustomId() {
-		return customID;
+		return customId;
 	}
 
 	@Override
@@ -131,7 +142,7 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	
 	@Override
 	public CustomBlock setItemDrop(ItemStack item) {
-		mm.registerItemDrop(this, item);
+		SpoutManager.getMaterialManager().registerItemDrop(this, item);
 		return this;
 	}
 	
@@ -166,5 +177,91 @@ public abstract class GenericCustomBlock extends GenericBlock implements CustomB
 	public CustomBlock setLightLevel(int level) {
 		lightLevel = level;
 		return this;
+	}
+
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, int changedId) {
+	}
+
+	@Override
+	public void onBlockPlace(World world, int x, int y, int z) {
+	}
+
+	@Override
+	public void onBlockPlace(World world, int x, int y, int z, LivingEntity living) {
+	}
+
+	@Override
+	public void onBlockDestroyed(World world, int x, int y, int z) {
+	}
+
+	@Override
+	public void onBlockDestroyed(World world, int x, int y, int z, LivingEntity living) {
+	}
+
+	@Override
+	public boolean onBlockInteract(World world, int x, int y, int z, SpoutPlayer player) {
+		return false;
+	}
+
+	@Override
+	public void onEntityMoveAt(World world, int x, int y, int z, Entity entity) {
+	}
+
+	@Override
+	public void onBlockClicked(World world, int x, int y, int z, SpoutPlayer player) {		
+	}
+
+	@Override
+	public boolean isProvidingPowerTo(World world, int x, int y, int z,	BlockFace face) {
+		return false;
+	}
+
+	@Override
+	public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face) {
+		return false;
+	}
+
+	@Override
+	public int getNumBytes() {
+		return 4 + PacketUtil.getNumBytes(getName()) + PacketUtil.getNumBytes(getPlugin().getDescription().getName()) + 1 + 4 + 4 + 4;
+	}
+
+	@Override
+	public void readData(DataInputStream input) throws IOException {
+		customId = input.readInt();
+		setName(PacketUtil.readString(input));
+		plugin = Bukkit.getServer().getPluginManager().getPlugin(PacketUtil.readString(input));
+		opaque = input.readBoolean();
+		setFriction(input.readFloat());
+		setHardness(input.readFloat());
+		setLightLevel(input.readInt());
+	}
+
+	@Override
+	public void writeData(DataOutputStream output) throws IOException {
+		output.writeInt(customId);
+		PacketUtil.writeString(output, getName());
+		PacketUtil.writeString(output, getPlugin().getDescription().getName());
+		output.writeBoolean(isOpaque());
+		output.writeFloat(getFriction());
+		output.writeFloat(getHardness());
+		output.writeInt(getLightLevel());
+	}
+
+	@Override
+	public void run(int playerId) {}
+
+	@Override
+	public void failure(int playerId) {}
+
+	@Override
+	public PacketType getPacketType() {
+		return PacketType.PacketCustomBlock;
+	}
+
+	@Override
+	public int getVersion() {
+		return 0;
 	}
 }

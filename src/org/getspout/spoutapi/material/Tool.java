@@ -1,9 +1,14 @@
 package org.getspout.spoutapi.material;
 
 public interface Tool extends Item {
-	
-	public int getToolPower();
-	
-	public void setToolPower();
 
+	public short getDurability();
+	
+	public Tool setDurability(short durability);
+	
+	public float getStrengthModifier(Block block);
+	
+	public Tool setStrengthModifier(Block block, float modifier);
+	
+	public Block[] getStrengthModifiedBlocks();
 }

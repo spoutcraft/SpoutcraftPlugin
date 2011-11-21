@@ -19,6 +19,7 @@ package org.getspout.spoutapi.player;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.ClientOnly;
@@ -73,7 +74,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * @return true if a workbench window was opened
 	 */
 	public boolean openWorkbenchWindow(Location location);
-	
+
 	/**
 	 * Gets a copy of the in game HUD to attach widget and launch popups from
 	 * @return In game HUD
@@ -485,11 +486,155 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	@ClientOnly
 	public void openScreen(ScreenType type);
 
-    /**
-     * Sends a request to the client to send a screenshot to the server.
-     */
-    @ClientOnly
-    public void sendScreenshotRequest();
+	/**
+	 * Sends a request to the client to send a screenshot to the server.
+	 */
+	@ClientOnly
+	public void sendScreenshotRequest();
+	
+	/**
+	 * Sets the skin of this player
+	 * @param url to set to
+	 */
+	public void setSkin(String url);
+	
+	/**
+	 * Sets the skin of this player, only visibile to the viewingPlayer
+	 * @param viewingPlayer that this skin will be visible to
+	 * @param url to set to
+	 */
+	public void setSkinFor(SpoutPlayer viewingPlayer, String url);
+	
+	/**
+	 * Gets the skin url that this player is using
+	 * @return skin
+	 */
+	public String getSkin();
+	
+	/**
+	 * Gets the skin url that is visible to the viewingPlayer
+	 * @param viewingPlayer that this skin is visible to
+	 * @return skin
+	 */
+	public String getSkin(SpoutPlayer viewingPlayer);
+	
+	/**
+	 * Resets the skin to the default
+	 */
+	public void resetSkin();
+	
+	/**
+	 * Resets the skin to the default for the viewing player
+	 * @param viewingPlayer to reset the skin for
+	 */
+	public void resetSkinFor(SpoutPlayer viewingPlayer);
+	
+	/**
+	 * Sets the cape url of this player
+	 * @param url to set to
+	 */
+	public void setCape(String url);
+	
+	/**
+	 * Sets the cape url of this player, that is only visible to the viewingPlayer
+	 * @param viewingPlayer that this cape is visible for
+	 * @param url to set to
+	 */
+	public void setCapeFor(SpoutPlayer viewingPlayer, String url);
+	
+	/**
+	 * Gets the cape that this player is wearing
+	 * @return cape url
+	 */
+	public String getCape();
+	
+	/**
+	 * Gets the cape that is visible to the viewingPlayer
+	 * @param viewingPlayer that this cape is visible for
+	 * @return cape url
+	 */
+	public String getCape(SpoutPlayer viewingPlayer);
+	
+	/**
+	 * Resets the cape that this player is wearing
+	 */
+	public void resetCape();
+	
+	/**
+	 * Resets the cape that is visible for the viewingPlayer
+	 * @param viewingPlayer to reset the cape for
+	 */
+	public void resetCapeFor(SpoutPlayer viewingPlayer);
+	
+	/**
+	 * Sets the overhead title for the player.
+	 * 
+	 * Note: '/n' or "/n" in the title will create a new line. You may use as many lines in a title as you desire.
+	 * 
+	 * Note: You can color titles with the {@link org.bukkit#ChatColor} colors.
+	 * @param title to set overhead.
+	 */
+	public void setTitle(String title);
+	
+	/**
+	 * Sets the overhead title for the player, only visible to the viewingPlayer.
+	 * 
+	 * Note: '/n' or "/n" in the title will create a new line. You may use as many lines in a title as you desire.
+	 * 
+	 * Note: You can color titles with the {@link org.bukkit#ChatColor} colors.
+	 * @param viewingPlayer that this title is visible to
+	 * @param title to set overhead.
+	 */
+	public void setTitleFor(SpoutPlayer viewingPlayer, String title);
+	
+	/**
+	 * Gets the overhead title for the player.
+	 * @return overhead title
+	 */
+	public String getTitle();
+	
+	/**
+	 * Gets the overhead title that is visible to the viewingPlayer
+	 * @param viewingPlayer that this title is visible for
+	 * @return overhead title
+	 */
+	public String getTitleFor(SpoutPlayer viewingPlayer);
+	
+	/**
+	 * Completely hides the title from view of all players.
+	 */
+	public void hideTitle();
+	
+	/**
+	 * Completely hides the title from the view of the viewingPlayer
+	 * @param viewingPlayer to hide the title from.
+	 */
+	public void hideTitleFrom(SpoutPlayer viewingPlayer);
+	
+	/**
+	 * Resets the title back to it's default state.
+	 */
+	public void resetTitle();
+	
+	/**
+	 * Resets the title back to it's default state for the viewingPlayer.
+	 * @param viewingPlayer
+	 */
+	public void resetTitleFor(SpoutPlayer viewingPlayer);
+	
+	/**
+	 * Sets the entity skin for the target entity to the url. The Skin Type is used when an entity has more than one skin type.
+	 * @param target to set the skin on
+	 * @param url of the skin
+	 * @param type of skin to set
+	 */
+	public void setEntitySkin(LivingEntity target, String url, EntitySkinType type);
+	
+	/**
+	 * Resets the entity skin for the target entity.
+	 * @param target to reset the skin for
+	 */
+	public void resetEntitySkin(LivingEntity target);
 	
 	/**
 	 * Internal use only
