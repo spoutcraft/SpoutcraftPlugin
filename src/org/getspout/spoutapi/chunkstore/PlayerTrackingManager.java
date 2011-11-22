@@ -38,6 +38,9 @@ public class PlayerTrackingManager{
 	}
 	
 	public void onPlayerQuit(Player player) {
-		playerThreads.remove(player.getName()).onPlayerQuit();
+		PlayerTrackingThread thread = playerThreads.remove(player.getName());
+		if (thread != null) {
+			thread.onPlayerQuit();
+		}
 	}
 }
