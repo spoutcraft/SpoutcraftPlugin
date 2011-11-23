@@ -65,7 +65,7 @@ public class ChunkStore {
 			throw new RuntimeException("Unable to process chunk meta data for " + x + ", " + z, e);
 		} catch (ClassNotFoundException e) {
 			//Assume the format changed
-			System.out.println("[Spout] is Unable to find serialized class for " + x + ", " + z + ", " + e.getMessage());
+			//System.out.println("[Spout] is Unable to find serialized class for " + x + ", " + z + ", " + e.getMessage());
 			return null;
 			//throw new RuntimeException("Unable to find serialized class for " + x + ", " + z, e);
 		}
