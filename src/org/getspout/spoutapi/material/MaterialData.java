@@ -328,7 +328,7 @@ public class MaterialData {
 	public static final Item blackMusicDisc = new GenericItem("Music Disc", 2263);
 	public static final Item whiteMusicDisc = new GenericItem("Music Disc", 2264);
 	public static final Item forestGreenMusicDisc = new GenericItem("Music Disc", 2265);
-	public static final Item brokenMusicDisc = new GenericItem("Music Disc", 2265);
+	public static final Item brokenMusicDisc = new GenericItem("Music Disc", 2266);
 	
 	static {
 		Field[] fields = MaterialData.class.getFields();
