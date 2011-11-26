@@ -207,12 +207,7 @@ public class SpoutServer implements Server{
 
 	@Override
 	public SpoutPlayer[] getOnlinePlayers() {
-		Player[] players = server.getOnlinePlayers();
-		SpoutPlayer[] sPlayers = new SpoutPlayer[players.length];
-		for (int i = 0; i < players.length; i++) {
-			sPlayers[i] = (SpoutPlayer)sPlayers[i];
-		}
-		return sPlayers;
+		return SpoutManager.getOnlinePlayers();
 	}
 
 	@Override
