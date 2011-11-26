@@ -178,6 +178,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	}
 
 	@Override
+	@Deprecated
 	public Widget setScreen(Screen screen) {
 		return setScreen(null, screen);
 	}
@@ -185,7 +186,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public Widget setScreen(Plugin plugin, Screen screen) {
 		if (getScreen() != null && screen != null && !getScreen().equals(screen)) {
-			this.screen.removeWidget(this);
+			getScreen().removeWidget(this);
 		}
 		this.screen = screen;
 		if (plugin != null) {
@@ -253,7 +254,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public Widget setX(int pos) {
 		if (getX() != pos) {
-			this.X = pos;
+			X = pos;
 			autoDirty();
 		}
 		return this;
@@ -262,7 +263,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public Widget setY(int pos) {
 		if (getY() != pos) {
-			this.Y = pos;
+			Y = pos;
 			autoDirty();
 		}
 		return this;
