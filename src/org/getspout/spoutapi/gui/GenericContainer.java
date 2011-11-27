@@ -107,7 +107,6 @@ public class GenericContainer extends GenericWidget implements Container {
 			for (Widget widget : children) {
 				widget.setVisible(enable);
 			}
-			deferLayout();
 		}
 		return this;
 	}

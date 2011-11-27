@@ -291,6 +291,9 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		if (isVisible() != enable) {
 			visible = enable;
 			updateSize();
+			if (hasContainer()) {
+				getContainer().deferLayout();
+			}
 			autoDirty();
 		}
 		return this;
