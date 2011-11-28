@@ -25,7 +25,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	public String texture;
 
 	public GenericCustomItem(Plugin plugin, String name) {
-		super(name, 318, mm.registerCustomItemName(plugin, plugin.getDescription().getName() + name));
+		super(name, 318, mm.registerCustomItemName(plugin, plugin.getDescription().getName() + "." + name));
 		this.fullName = plugin.getDescription().getName() + "." + name;
 		this.customId = mm.registerCustomItemName(plugin, fullName);
 		this.plugin = plugin;
