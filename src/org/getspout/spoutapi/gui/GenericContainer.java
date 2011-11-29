@@ -63,7 +63,6 @@ public class GenericContainer extends GenericWidget implements Container {
 		child.shiftXPos(super.getX());
 		child.shiftYPos(super.getY());
 		child.setAnchor(super.getAnchor());
-		// Relayout if we are already using layout - otherwise this will return immediately
 		if (getScreen() != null) {
 			Plugin p = child.getPlugin();
 			getScreen().attachWidget(p == Bukkit.getServer().getPluginManager().getPlugin("Spout") ? getPlugin() : p, child);
@@ -103,9 +102,11 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setVisible(boolean enable) {
-		super.setVisible(enable);
-		for (Widget widget : children) {
-			widget.setVisible(enable);
+		if (enable != isVisible()) {
+			super.setVisible(enable);
+			for (Widget widget : children) {
+				widget.setVisible(enable);
+			}
 		}
 		return this;
 	}
