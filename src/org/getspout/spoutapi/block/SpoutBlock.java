@@ -171,11 +171,11 @@ public interface SpoutBlock extends Block{
 	public SpoutChunk getChunk();
 	
 	/**
-	 * Gets the custom block ID associated with this SpoutBlock if it exists
+	 * Gets the custom block ID associated with this SpoutBlock if it exists, or 0 if not
 	 * 
 	 * @return blockId
 	 */
-	public Integer getCustomBlockId();
+	public short getCustomBlockId();
 	
 	/**
 	 * Checks if the SpoutBlock has a custom material data or not
