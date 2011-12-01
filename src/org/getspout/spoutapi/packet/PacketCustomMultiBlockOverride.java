@@ -35,12 +35,12 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket{
 	private byte[] data;
 	public PacketCustomMultiBlockOverride(TIntArrayList xCoords, TIntArrayList yCoords, TIntArrayList zCoords, TIntArrayList blockTypeIds) {
 		short size = (short) xCoords.size();
-		ByteBuffer rawData = ByteBuffer.allocate(size * 7);
+		ByteBuffer rawData = ByteBuffer.allocate(size * 6);
 		chunkX = xCoords.get(0) >> 4;
 		chunkZ = zCoords.get(0) >> 4;
 		for (int i = 0; i < size; i++) {
 			rawData.put((byte) (xCoords.get(i) - chunkX * 16));
-			rawData.put((byte) yCoords.get(i));
+			rawData.putShort((short) yCoords.get(i));
 			rawData.put((byte) (zCoords.get(i) - chunkZ * 16));
 			rawData.putShort((short)blockTypeIds.get(i));
 		}
@@ -72,16 +72,6 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket{
 
 	@Override
 	public void run(int playerId) {
-		/*ByteBuffer result = ByteBuffer.allocate(data.length).put(data);
-		for (int i = 0; i < data.length / 7; i++) {
-			int index = i * 7;
-			int x = result.get(index) + chunkX * 16;
-			int y = result.get(index+1);
-			int z = result.get(index+2) + chunkZ * 16;
-			int id = result.get(index+3);
-			int data = result.get(index+5);
-			SpoutItemBlock.overrideBlock(x, y, z, id, data);
-		}*/
 	}
 
 	@Override
@@ -96,7 +86,7 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket{
 
 	@Override
 	public int getVersion() {
-		return 2;
+		return 3;
 	}
 
 	@Override
