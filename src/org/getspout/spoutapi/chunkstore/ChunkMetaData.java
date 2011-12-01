@@ -54,6 +54,7 @@ public class ChunkMetaData implements Serializable {
 	transient private boolean dirty = false;
 	
 	transient private final int worldHeight;
+	transient private final int worldHeightMinusOne;
 	transient private final int xBitShifts;
 	transient private final int zBitShifts;
 
@@ -67,6 +68,7 @@ public class ChunkMetaData implements Serializable {
 		this.worldHeight = world.getMaxHeight();
 		this.xBitShifts = world.getXBitShifts();
 		this.zBitShifts = world.getZBitShifts();
+		worldHeightMinusOne = worldHeight - 1;
 	}
 
 	/**
@@ -169,7 +171,7 @@ public class ChunkMetaData implements Serializable {
 		
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds != null) {
-				int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & 0xFFFF);
+				int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
 				short old = customBlockIds[key];
 				if (old != 0) {
 					dirty = true;
@@ -197,7 +199,7 @@ public class ChunkMetaData implements Serializable {
 	public Serializable getBlockData(String id, int x, int y, int z) {
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds != null) {
-				int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & 0xFFFF);
+				int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
 				return customBlockIds[key];
 			}
 		}
@@ -227,7 +229,7 @@ public class ChunkMetaData implements Serializable {
 			if (customBlockIds == null) {
 				customBlockIds = new short[16*16*worldHeight];
 			}
-			int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & 0xFFFF);
+			int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
 			customBlockIds[key] = ((Integer)o).shortValue();
 			dirty = true;
 		}
@@ -285,7 +287,7 @@ public class ChunkMetaData implements Serializable {
 		int size = in.readInt();
 		for (int i = 0; i < size; i++) {
 			int x = ((i >> xBitShifts) & 0xF) + cx * 16;
-			int y = i & 0xFFFF;
+			int y = i & worldHeightMinusOne;
 			int z = ((i >> zBitShifts) & 0xF) + cz * 16;
 			blockData.put(x, y, z, readMap(in));
 		}
