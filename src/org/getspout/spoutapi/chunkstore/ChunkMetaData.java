@@ -278,6 +278,15 @@ public class ChunkMetaData implements Serializable {
 		cx = in.readInt();
 		cz = in.readInt();
 		boolean customBlockIdsExist = in.readBoolean();
+		
+		//Constructor is not invoked, need to set these fields
+		SpoutWorld world = Spout.getServer().getWorld(this.worldUid);
+
+		this.worldHeight = world.getMaxHeight();
+		this.xBitShifts = world.getXBitShifts();
+		this.zBitShifts = world.getZBitShifts();
+		worldHeightMinusOne = worldHeight - 1;
+	
 		if (customBlockIdsExist) {
 			customBlockIds = new short[16 * 16 * worldHeight];
 			for (int i = 0; i < (16* 16 * worldHeight); i++) {
