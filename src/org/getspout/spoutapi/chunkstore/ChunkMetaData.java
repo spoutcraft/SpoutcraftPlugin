@@ -53,10 +53,11 @@ public class ChunkMetaData implements Serializable {
 	
 	transient private boolean dirty = false;
 	
-	transient private final int worldHeight;
-	transient private final int worldHeightMinusOne;
-	transient private final int xBitShifts;
-	transient private final int zBitShifts;
+	//quais-final, need to be set in serialization
+	transient private int worldHeight;
+	transient private int worldHeightMinusOne;
+	transient private int xBitShifts;
+	transient private int zBitShifts;
 
 	ChunkMetaData(UUID worldId, int cx, int cz) {
 		this.cx = cx;
