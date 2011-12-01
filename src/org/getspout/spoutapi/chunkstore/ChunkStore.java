@@ -25,8 +25,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.getspout.spoutapi.SpoutManager;
 
 public class ChunkStore {
 
@@ -90,7 +90,7 @@ public class ChunkStore {
 
 	private SimpleRegionFile getSimpleRegionFile(World world, int x, int z) {
 
-		File directory = new File(SpoutManager.getMaterialManager().getWorldDirectory(world), "spout_meta");
+		File directory = new File(Bukkit.getServer().getWorldContainer(), "spout_meta");
 
 		directory.mkdirs();
 

@@ -1,6 +1,5 @@
 package org.getspout.spoutapi.inventory;
 
-import java.io.File;
 import java.util.Set;
 
 import org.bukkit.World;
@@ -50,8 +49,6 @@ public interface MaterialManager {
 	public Set<org.getspout.spoutapi.material.Block> getModifiedBlocks();
 	
 	public void onCustomMaterialRegistered(Material mat);
-	
-	public File getWorldDirectory(World world);
 	
 	/**
 	 * Sets the name of the item

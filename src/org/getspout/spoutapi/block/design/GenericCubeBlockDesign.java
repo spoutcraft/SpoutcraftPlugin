@@ -1,8 +1,6 @@
 package org.getspout.spoutapi.block.design;
 
 import org.bukkit.plugin.Plugin;
-import org.getspout.spoutapi.block.design.GenericBlockDesign;
-import org.getspout.spoutapi.block.design.Quad;
 import org.getspout.spoutapi.block.design.Texture;
 
 public class GenericCubeBlockDesign extends GenericCuboidBlockDesign {

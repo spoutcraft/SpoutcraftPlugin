@@ -169,7 +169,7 @@ public class GenericContainer extends GenericWidget implements Container {
 
 	@Override
 	public Container setScreen(Screen screen) {
-		super.setScreen(screen);
+		super.setScreen(getPlugin(), screen);
 		for (Widget child : children) {
 			if (screen != null) {
 				screen.attachWidget(getPlugin(), child);

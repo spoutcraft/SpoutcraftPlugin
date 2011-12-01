@@ -53,6 +53,7 @@ public class SpoutManager {
 	private FileManager fileManager = null;
 	private KeyBindingManager keyBindingManager = null;
 	private MaterialManager materialManager = null;
+	private WorldManager worldManager = null;
 	
 	protected SpoutManager(){
 
@@ -251,6 +252,16 @@ public class SpoutManager {
 	
 	public static ChunkDataManager getChunkDataManager() {
 		return getInstance().chunkDataManager;
+	}
+	
+	public void setWorldManager(WorldManager manager) {
+		if(worldManager == null) {
+			worldManager = manager;
+		}
+	}
+	
+	public static WorldManager getWorldManager() {
+		return getInstance().worldManager;
 	}
 	
 	/**

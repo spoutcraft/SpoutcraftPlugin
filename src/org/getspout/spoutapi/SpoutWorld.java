@@ -16,6 +16,7 @@
  */
 package org.getspout.spoutapi;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -234,6 +235,14 @@ public class SpoutWorld implements World{
 	@Override
 	public int getMaxHeight() {
 		return world.getMaxHeight();
+	}
+
+	public int getXBitShifts() {
+		return SpoutManager.getWorldManager().getWorldXShiftBits(world);
+	}
+
+	public int getZBitShifts() {
+		return SpoutManager.getWorldManager().getWorldZShiftBits(world);
 	}
 
 	@Override
@@ -479,5 +488,10 @@ public class SpoutWorld implements World{
 	 @Override
 	public int hashCode() {
 		 return getUID().hashCode();
+	}
+
+	@Override
+	public File getWorldFolder() {
+		return world.getWorldFolder();
 	}
 }

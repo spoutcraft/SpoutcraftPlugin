@@ -379,4 +379,9 @@ public class SpoutServer implements Server{
 		return server.unloadWorld(world, save);
 	}
 
+	@Override
+	public File getWorldContainer() {
+		return server.getWorldContainer();
+	}
+
 }

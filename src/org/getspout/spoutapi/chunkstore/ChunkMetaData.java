@@ -25,6 +25,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.getspout.spoutapi.Spout;
+import org.getspout.spoutapi.SpoutWorld;
 import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.util.map.TByteTripleObjectHashMap;
@@ -50,11 +52,21 @@ public class ChunkMetaData implements Serializable {
 	private TByteTripleObjectHashMap<HashMap<String, Serializable>> blockData = new TByteTripleObjectHashMap<HashMap<String, Serializable>>(100);
 	
 	transient private boolean dirty = false;
+	
+	transient private final int worldHeight;
+	transient private final int xBitShifts;
+	transient private final int zBitShifts;
 
 	ChunkMetaData(UUID worldId, int cx, int cz) {
 		this.cx = cx;
 		this.cz = cz;
 		this.worldUid = worldId;
+		
+		SpoutWorld world = Spout.getServer().getWorld(this.worldUid);
+		
+		this.worldHeight = world.getMaxHeight();
+		this.xBitShifts = world.getXBitShifts();
+		this.zBitShifts = world.getZBitShifts();
 	}
 
 	/**
@@ -157,7 +169,7 @@ public class ChunkMetaData implements Serializable {
 		
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds != null) {
-				int key = ((x & 0xF) << 11) | ((z & 0xF) << 7) | (y & 0x7F);
+				int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & 0xFFFF);
 				short old = customBlockIds[key];
 				if (old != 0) {
 					dirty = true;
@@ -185,7 +197,7 @@ public class ChunkMetaData implements Serializable {
 	public Serializable getBlockData(String id, int x, int y, int z) {
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds != null) {
-				int key = ((x & 0xF) << 11) | ((z & 0xF) << 7) | (y & 0x7F);
+				int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & 0xFFFF);
 				return customBlockIds[key];
 			}
 		}
@@ -213,9 +225,9 @@ public class ChunkMetaData implements Serializable {
 	
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds == null) {
-				customBlockIds = new short[16*16*128];
+				customBlockIds = new short[16*16*worldHeight];
 			}
-			int key = ((x & 0xF) << 11) | ((z & 0xF) << 7) | (y & 0x7F);
+			int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & 0xFFFF);
 			customBlockIds[key] = ((Integer)o).shortValue();
 			dirty = true;
 		}
@@ -239,7 +251,7 @@ public class ChunkMetaData implements Serializable {
 		out.writeInt(cz);
 		if (customBlockIds != null) {
 			out.writeBoolean(true);
-			for (int i = 0; i < (16* 16 * 128); i++) {
+			for (int i = 0; i < (16* 16 * worldHeight); i++) {
 				out.writeShort(customBlockIds[i]);
 			}
 		}
@@ -265,16 +277,16 @@ public class ChunkMetaData implements Serializable {
 		cz = in.readInt();
 		boolean customBlockIdsExist = in.readBoolean();
 		if (customBlockIdsExist) {
-			customBlockIds = new short[16 * 16 * 128];
-			for (int i = 0; i < (16* 16 * 128); i++) {
+			customBlockIds = new short[16 * 16 * worldHeight];
+			for (int i = 0; i < (16* 16 * worldHeight); i++) {
 				customBlockIds[i] = in.readShort();
 			}
 		}
 		int size = in.readInt();
 		for (int i = 0; i < size; i++) {
-			int x = ((i >> 11) & 0xF) + cx * 16;
-			int y = i & 0x7F;
-			int z = ((i >> 7) & 0xF) + cz * 16;
+			int x = ((i >> xBitShifts) & 0xF) + cx * 16;
+			int y = i & 0xFFFF;
+			int z = ((i >> zBitShifts) & 0xF) + cz * 16;
 			blockData.put(x, y, z, readMap(in));
 		}
 	}
@@ -304,12 +316,10 @@ public class ChunkMetaData implements Serializable {
 		try {
 			map = (HashMap<String, Serializable>) in.readObject();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return map;
 
 	}
-
 }

@@ -19,6 +19,7 @@ package org.getspout.spoutapi.block;
 import java.io.Serializable;
 
 import org.bukkit.Chunk;
+import org.getspout.spoutapi.material.CustomBlock;
 
 public interface SpoutChunk extends Chunk{
 	
@@ -77,5 +78,39 @@ public interface SpoutChunk extends Chunk{
 	 * @param ids the custom block ids
 	 */
 	public void setCustomBlockIds(short[] ids);
+	
+	/**
+	 * Gets the custom block id at this x, y, z location.
+	 * 
+	 * If no custom block exists, it will return zero,
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return custom block id
+	 */
+	public short getCustomBlockId(int x, int y, int z);
+	
+	/**
+	 * Sets the custom block id at this x, y, z location
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param id to set
+	 * @return the previous id at the location
+	 */
+	public short setCustomBlockId(int x, int y, int z, short id);
+	
+	/**
+	 * Sets the custom block at this x, y, z location
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param custom block to set
+	 * @return the previous custom block at the location, or null if none existed.
+	 */
+	public CustomBlock setCustomBlock(int x, int y, int z, CustomBlock block);
 
 }
