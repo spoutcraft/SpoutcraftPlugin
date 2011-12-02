@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.packet.PacketWidget;
@@ -53,12 +55,6 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 		Widget[] list = new Widget[widgets.size()];
 		widgets.keySet().toArray(list);
 		return list;
-	}
-
-	@Override
-	@Deprecated
-	public Screen attachWidget(Widget widget) {
-		return attachWidget(null, widget);
 	}
 
 	@Override
@@ -147,6 +143,16 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 				}
 				widget.onAnimate();
 				if (widget.isDirty()) {
+					if (!widget.hasSize()/* || !widget.hasPosition()*/) {
+						Logger.getLogger("Minecraft").log(Level.WARNING,
+								widget.getType().toString()
+								+ " belonging to " + widget.getPlugin().getDescription().getName()
+								+ " does not have a default "
+								+ (!widget.hasSize() ? "size" : "") + (!widget.hasSize() && !widget.hasPosition() ? " or " : "") + (!widget.hasPosition() ? "position" : "")
+								+ "!");
+						widget.setX(widget.getX());
+						widget.setHeight(widget.getHeight());
+					}
 					if (!widget.getType().isServerOnly()) {
 						player.sendPacket(new PacketWidget(widget, getId()));
 					}

@@ -71,11 +71,6 @@ public class InGameScreen extends GenericScreen implements InGameHUD {
 	}
 
 	@Override
-	public InGameScreen attachWidget(Widget widget) {
-		return attachWidget(null, widget);
-	}
-
-	@Override
 	public InGameScreen attachWidget(Plugin plugin, Widget widget) {
 		if (canAttachWidget(widget)) {
 			super.attachWidget(plugin, widget);

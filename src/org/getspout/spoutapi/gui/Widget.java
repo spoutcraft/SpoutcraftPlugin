@@ -545,4 +545,16 @@ public interface Widget {
 	 * to change them!
 	 */
 	public void onAnimateStop();
+
+	/**
+	 * Returns true if the widget has had it's position set.
+	 * @return true if it has a position
+	 */
+	public boolean hasPosition();
+
+	/**
+	 * Returns true if a widget has had it's size set.
+	 * @return if it has a size
+	 */
+	public boolean hasSize();
 }

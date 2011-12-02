@@ -35,14 +35,6 @@ public interface Screen extends Widget {
 
 	/**
 	 * Attaches a widget to this screen
-	 * @param widget to attach
-	 * @return screen
-	 */
-	@Deprecated
-	public Screen attachWidget(Widget widget);
-
-	/**
-	 * Attaches a widget to this screen
 	 * @param plugin that owns this widget
 	 * @param widget to attach
 	 * @return screen

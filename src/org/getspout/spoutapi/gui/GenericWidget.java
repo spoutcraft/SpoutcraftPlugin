@@ -32,8 +32,8 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	 * Set if this is Spoutcraft (client), cleared if it is Spout (server)...
 	 */
 	static final protected transient boolean isSpoutcraft = false;
-	protected int X = 100;
-	protected int Y = 100;
+	protected int X = 0;
+	protected int Y = 0;
 	protected int width = 50;
 	protected int height = 50;
 	protected boolean visible = true;
@@ -51,6 +51,8 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	protected int minWidth = 0, maxWidth = 427, minHeight = 0, maxHeight = 240;
 	protected int orig_x = 0, orig_y = 0;
 	protected boolean autoDirty = true;
+	protected transient boolean hasPosition = false;
+	protected transient boolean hasSize = false;
 	// Animation
 	protected WidgetAnim animType = WidgetAnim.NONE;
 	protected float animValue = 1f;
@@ -216,6 +218,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget setWidth(int width) {
+		hasSize = true;
 		width = Math.max(getMinWidth(), Math.min(width, getMaxWidth()));
 		if (getWidth() != width) {
 			this.width = width;
@@ -232,6 +235,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget setHeight(int height) {
+		hasSize = true;
 		height = Math.max(getMinHeight(), Math.min(height, getMaxHeight()));
 		if (getHeight() != height) {
 			this.height = height;
@@ -253,6 +257,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget setX(int pos) {
+		hasPosition = true;
 		if (getX() != pos) {
 			X = pos;
 			autoDirty();
@@ -262,6 +267,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public Widget setY(int pos) {
+		hasPosition = true;
 		if (getY() != pos) {
 			Y = pos;
 			autoDirty();
@@ -647,5 +653,15 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 
 	@Override
 	public void onAnimateStop() {
+	}
+
+	@Override
+	public boolean hasPosition() {
+		return hasPosition;
+	}
+
+	@Override
+	public boolean hasSize() {
+		return hasSize;
 	}
 }
