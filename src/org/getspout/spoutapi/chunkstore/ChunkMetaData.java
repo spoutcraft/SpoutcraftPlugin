@@ -66,9 +66,9 @@ public class ChunkMetaData implements Serializable {
 		
 		SpoutWorld world = Spout.getServer().getWorld(this.worldUid);
 		
-		this.worldHeight = world.getMaxHeight();
-		this.xBitShifts = world.getXBitShifts();
-		this.zBitShifts = world.getZBitShifts();
+		this.worldHeight = world != null ? world.getMaxHeight() : 128;
+		this.xBitShifts = world != null ? world.getXBitShifts() : 11;
+		this.zBitShifts = world != null ? world.getZBitShifts() : 7;
 		worldHeightMinusOne = worldHeight - 1;
 	}
 
