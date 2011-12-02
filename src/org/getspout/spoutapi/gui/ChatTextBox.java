@@ -33,6 +33,7 @@ public class ChatTextBox extends GenericWidget implements Widget {
 	protected int fadeoutTicks = 250;
 
 	public ChatTextBox() {
+		setWidth(getWidth()); // Don't know the default - ignored, but prevents warnings...
 		setDirty(false);
 	}
 

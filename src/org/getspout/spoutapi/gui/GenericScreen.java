@@ -144,8 +144,13 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 				widget.onAnimate();
 				if (widget.isDirty()) {
 					if (!widget.hasSize()/* || !widget.hasPosition()*/) {
+						String type = "Unknown";
+						try {
+							type = widget.getType().getClass().getSimpleName();
+						} catch (Exception e) {
+						}
 						Logger.getLogger("Minecraft").log(Level.WARNING,
-								widget.getType().toString()
+								type
 								+ " belonging to " + widget.getPlugin().getDescription().getName()
 								+ " does not have a default "
 								+ (!widget.hasSize() ? "size" : "") + (!widget.hasSize() && !widget.hasPosition() ? " or " : "") + (!widget.hasPosition() ? "position" : "")

@@ -34,6 +34,7 @@ public class ArmorBar extends GenericWidget {
 		setDirty(false);
 		setX(427 / 2 - 91); //122
 		setY(191);
+		setWidth(getWidth()); // Don't know the default - ignored, but prevents warnings...
 		setAnchor(WidgetAnchor.BOTTOM_CENTER);
 	}
 
