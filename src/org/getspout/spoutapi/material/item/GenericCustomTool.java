@@ -63,7 +63,12 @@ public class GenericCustomTool extends GenericCustomItem implements Tool{
 
 	@Override
 	public Block[] getStrengthModifiedBlocks() {
-		return (Block[]) strengthMods.keys();
+		Object[] keys = strengthMods.keys();
+		Block[] modified = new Block[keys.length];
+		for (int i = 0; i < keys.length; i++) {
+			modified[i] = (Block)keys[i];
+		}
+		return modified;
 	}
 	
 	@Override
