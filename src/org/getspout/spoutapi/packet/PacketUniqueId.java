@@ -25,6 +25,13 @@ public class PacketUniqueId implements CompressablePacket{
 	public PacketUniqueId(List<Entity> entities, boolean alive) {
 		tempData = entities;
 		this.alive = alive;
+		ByteBuffer tempbuffer = ByteBuffer.allocate(tempData.size() * 20); //4 bytes for entity id, 16 for uuid
+		for (Entity e : tempData) {
+			tempbuffer.putLong(e.getUniqueId().getLeastSignificantBits());
+			tempbuffer.putLong(e.getUniqueId().getMostSignificantBits());
+			tempbuffer.putInt(e.getEntityId());
+		}
+		data = tempbuffer.array();
 	}
 
 	@Override
@@ -79,14 +86,7 @@ public class PacketUniqueId implements CompressablePacket{
 	@Override
 	public void compress() {
 		if (!compressed) {
-			ByteBuffer tempbuffer = ByteBuffer.allocate(tempData.size() * 20); //4 bytes for entity id, 16 for uuid
-			for (Entity e : tempData) {
-				tempbuffer.putLong(e.getUniqueId().getLeastSignificantBits());
-				tempbuffer.putLong(e.getUniqueId().getMostSignificantBits());
-				tempbuffer.putInt(e.getEntityId());
-			}
-			data = tempbuffer.array();
-			
+					
 			if (data != null) {
 				Deflater deflater = new Deflater();
 				deflater.setInput(data);
