@@ -18,7 +18,6 @@ package org.getspout.spoutapi.chunkstore;
 
 import java.util.concurrent.LinkedBlockingDeque;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.util.map.TIntPairHashSet;
 
@@ -103,11 +102,6 @@ class PlayerUpdateChunksTask extends PlayerTask{
 
 	@Override
 	public void run() {
-		int viewDistance = Bukkit.getServer().getViewDistance();
-		Chunk chunk = player.getLocation().getBlock().getChunk();
-		int chunkX = chunk.getX();
-		int chunkZ = chunk.getZ();
-		
 		for (int dx = -(viewDistance); dx < viewDistance; dx++) {
 			for (int dz = -(viewDistance); dz < viewDistance; dz++) {
 				int cx = chunkX + dx;
