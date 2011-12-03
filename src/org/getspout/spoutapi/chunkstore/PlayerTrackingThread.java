@@ -31,8 +31,8 @@ public class PlayerTrackingThread extends Thread{
 	public PlayerTrackingThread(SpoutPlayer player) {
 		super("Chunk Tracking Thread For " + player.getName());
 		this.player = player;
-		viewDistance = Bukkit.getServer().getViewDistance();
-		managedChunks = new TIntPairHashSet(viewDistance * viewDistance);
+		viewDistance = Bukkit.getServer().getViewDistance() + 1;
+		managedChunks = new TIntPairHashSet((viewDistance + viewDistance) * (viewDistance + viewDistance));
 		instance = this;
 		this.start();
 	}
