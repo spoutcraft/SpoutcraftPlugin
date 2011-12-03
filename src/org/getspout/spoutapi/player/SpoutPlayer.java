@@ -641,7 +641,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * @param url to test
 	 * @throws UnsupportedOperationException
 	 */
-	public void checkURL(String url);
+	public void checkUrl(String url);
 	
 	/**
 	 * Internal use only
