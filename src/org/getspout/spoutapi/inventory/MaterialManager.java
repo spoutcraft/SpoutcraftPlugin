@@ -4,13 +4,9 @@ import java.util.Set;
 
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
-import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.material.CustomBlock;
-import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Material;
 
 public interface MaterialManager {
@@ -63,35 +59,6 @@ public interface MaterialManager {
 	 */
 	public void resetName(Material item);
 	
-	 /**
-	 * Sets the texture of the item, for use with pre-caching
-	 * @param item to texture
-	 * @param plugin the plugin to associate with the texture
-	 * @param texture to set
-	 */
-	public void setItemTexture(Material item, Plugin plugin, String texture);
-	
-	/**
-	 * Gets the custom texture of the item, or null if none exists, for use with pre-caching
-	 * @param item to get the texture of
-	 * @return texture
-	 */
-
-	public String getCustomItemTexture(Material item);
-	
-	/**
-	 * Gets the plugin associated with the custom texture of the item, or null if none exists
-	 * @param item to get the texture of
-	 * @return texture
-	 */
-	public String getCustomItemTexturePlugin(Material item);
-
-	/**
-	 * Resets the texture of the item back to the notchian default
-	 * @param item to reset
-	 */
-	public void resetTexture(Material item);
-	
 	/**
 	 * Resets the names and textures of all items to the notchian defaults. Use with care.
 	 */
@@ -106,26 +73,6 @@ public interface MaterialManager {
 	 * @return the unique id or null on error
 	 */
 	public int registerCustomItemName(Plugin plugin, String key);
-	
-	/**
-	 * Registers the CustomBlock to be placed by the specified CustomItem
-	 * 
-	 * @param item to use
-	 * @param block to place
-	 */
-	public void setCustomItemBlock(CustomItem item, CustomBlock block);
-	
-	/**
-	 * Use new SpoutItemStack(block, size) instead.
-	 */
-	@Deprecated
-	public ItemStack getCustomItemStack(CustomBlock block, int size);
-	
-	/**
-	 * Use new SpoutItemStack(item, size) instead.
-	 */
-	@Deprecated
-	public ItemStack getCustomItemStack(CustomItem item, int size);
 	
 	/**
 	 * Removes the custom block override from this block
@@ -159,68 +106,10 @@ public interface MaterialManager {
 	public boolean overrideBlock(World world, int x, int y, int z, CustomBlock customBlock);
 	
 	/**
-	 * Sets the custom design for a blockId and meta data combination
-	 * 
-	 * @param blockId the blockId to override
-	 * @param metaData the meta data to override
-	 * @param design the design to use instead of the block
-	 */
-	public void setCustomBlockDesign(Material material, BlockDesign design);
-	
-	/**
-	 * Use ((SpoutBlock)block).isCustomBlock() instead
-	 */
-	@Deprecated
-	public boolean isCustomBlock(Block block);
-
-	/**
-	 * Use  ((SpoutBlock)block) instead
-	 */
-	@Deprecated
-	public SpoutBlock getSpoutBlock(Block block);
-	
-	/**
 	 * Registers a SpoutRecipe to the server
 	 * 
 	 * @param recipe to register
 	 * @return true if successful
 	 */
 	public boolean registerSpoutRecipe(Recipe recipe);
-	
-	/**
-	 * Use SpoutItemStack.isCustomItem() instead
-	 */
-	@Deprecated
-	public boolean isCustomItem(ItemStack item);
-	
-	/**
-	 * Use (CustomItem)SpoutItemStack.getMaterial() instead
-	 */
-	@Deprecated
-	public CustomItem getCustomItem(ItemStack item);
-	
-	/**
-	 * Registers an ItemStack to drop from the specified block
-	 * 
-	 * @param block that breaks
-	 * @param item to drop
-	 * @return the block that breaks
-	 */
-	public CustomBlock registerItemDrop(CustomBlock block, ItemStack item);
-	
-	/**
-	 * Checks if the block has an item drop registered to it
-	 * 
-	 * @param block to check
-	 * @return true if it has an item drop
-	 */
-	public boolean hasItemDrop(CustomBlock block);
-	
-	/**
-	 * Gets the ItemStack that drops from the specified block, if it has one
-	 * 
-	 * @param block to get the drop from
-	 * @return item stack of the drop
-	 */
-	public ItemStack getItemDrop(CustomBlock block);
 }

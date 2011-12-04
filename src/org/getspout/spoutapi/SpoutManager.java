@@ -23,7 +23,6 @@ import org.bukkit.entity.Player;
 import org.getspout.spoutapi.chunkcache.CacheManager;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
-import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.keyboard.KeyBindingManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
@@ -43,7 +42,6 @@ public class SpoutManager {
 	private AppearanceManager appearanceManager = null;
 	private SoundManager soundManager = null;
 	private SkyManager skyManager = null;
-	private ItemManager itemManager = null;
 	private BiomeManager biomeManager = null;
 	private InventoryBuilder inventoryBuilder = null;
 	private PacketManager packetManager = null;
@@ -123,21 +121,7 @@ public class SpoutManager {
 			packetManager = manager;
 		}
 	}
-	
-	/**
-	 * Gets the item manager
-	 * @return item manager
-	 */
-	public static ItemManager getItemManager() {
-		return getInstance().itemManager;
-	}
-	
-	public void setItemManager(ItemManager manager){
-		if (itemManager == null) {
-			itemManager = manager;
-		}
-	}
-	
+
 	/**
 	 * Gets the sky manager
 	 * @return sky manager

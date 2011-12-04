@@ -11,7 +11,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -26,6 +25,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class GenericCustomBlock extends GenericBlock implements CustomBlock, SpoutPacket {
 	public BlockDesign design = new GenericBlockDesign();
+	private SpoutItemStack drop = null;
 	private String fullName;
 	private int customId;
 	private Plugin plugin;
@@ -98,10 +98,6 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
 		this.design = design;
-		SpoutManager.getMaterialManager().setCustomBlockDesign(this, design);
-		SpoutManager.getMaterialManager().setCustomBlockDesign(this.getBlockItem(), design);
-		SpoutManager.getMaterialManager().setCustomItemBlock(item, this);
-
 		return this;
 	}
 
@@ -142,8 +138,16 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	
 	@Override
 	public CustomBlock setItemDrop(ItemStack item) {
-		SpoutManager.getMaterialManager().registerItemDrop(this, item);
+		if (item instanceof SpoutItemStack)
+			drop = (SpoutItemStack) item;
+		else
+			drop = new SpoutItemStack(drop);
 		return this;
+	}
+	
+	@Override
+	public SpoutItemStack getItemDrop() {
+		return drop;
 	}
 	
 	@Override
