@@ -90,7 +90,7 @@ public class ChunkStore {
 
 	private SimpleRegionFile getSimpleRegionFile(World world, int x, int z) {
 
-		File directory = new File(Bukkit.getServer().getWorldContainer(), "spout_meta");
+		File directory = new File(world.getWorldFolder(), "spout_meta");
 
 		directory.mkdirs();
 

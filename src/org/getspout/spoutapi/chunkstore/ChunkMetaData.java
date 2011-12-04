@@ -21,15 +21,19 @@ import gnu.trove.iterator.TIntObjectIterator;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutWorld;
 import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
 import org.getspout.spoutapi.inventory.MaterialManager;
-import org.getspout.spoutapi.util.map.TByteTripleObjectHashMap;
+import org.getspout.spoutapi.util.map.TByteShortByteKeyedMap;
+import org.getspout.spoutapi.util.map.TByteShortByteKeyedObjectHashMap;
 
 public class ChunkMetaData implements Serializable {
 
@@ -43,13 +47,13 @@ public class ChunkMetaData implements Serializable {
 	private UUID worldUid;
 
 	//Storage for objects saved to this chunk
-	private HashMap<String, Serializable> chunkData = new HashMap<String, Serializable>();
+	private HashMap<String, Serializable> chunkData;
 	
 	//storage for custom block id's
 	private short[] customBlockIds = null;
 	
 	//storage for local block data
-	private TByteTripleObjectHashMap<HashMap<String, Serializable>> blockData = new TByteTripleObjectHashMap<HashMap<String, Serializable>>(100);
+	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
 	
 	transient private boolean dirty = false;
 	
@@ -60,6 +64,9 @@ public class ChunkMetaData implements Serializable {
 	transient private int zBitShifts;
 
 	ChunkMetaData(UUID worldId, int cx, int cz) {
+		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
+		chunkData = new HashMap<String, Serializable>();
+		
 		this.cx = cx;
 		this.cz = cz;
 		this.worldUid = worldId;
@@ -265,14 +272,23 @@ public class ChunkMetaData implements Serializable {
 		if (blockData != null) {
 			TIntObjectIterator<HashMap<String, Serializable>> i = blockData.iterator();
 			while (i.hasNext()) {
-				out.writeInt(i.key());
-				writeMap(out, i.value());
 				i.advance();
+				int key = i.key();
+				byte x = TByteShortByteKeyedMap.getXFromKey(key);
+				short y = TByteShortByteKeyedMap.getYFromKey(key);
+				byte z = TByteShortByteKeyedMap.getZFromKey(key);
+				out.writeByte(x);
+				out.writeShort(y);
+				out.writeByte(z);
+				writeMap(out, i.value());
 			}
 		}
 	}
 
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
+		chunkData = new HashMap<String, Serializable>();
+
 		long lsb = in.readLong();
 		long msb = in.readLong();
 		worldUid = new UUID(msb, lsb);
@@ -296,10 +312,11 @@ public class ChunkMetaData implements Serializable {
 		}
 		int size = in.readInt();
 		for (int i = 0; i < size; i++) {
-			int x = ((i >> xBitShifts) & 0xF) + cx * 16;
-			int y = i & worldHeightMinusOne;
-			int z = ((i >> zBitShifts) & 0xF) + cz * 16;
-			blockData.put(x, y, z, readMap(in));
+			int x = in.readByte();
+			int y = in.readShort();
+			int z = in.readByte();
+			HashMap<String, Serializable> map = readMap(in);
+			blockData.put(x, y, z, map);
 		}
 	}
 
@@ -329,6 +346,12 @@ public class ChunkMetaData implements Serializable {
 			map = (HashMap<String, Serializable>) in.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (OptionalDataException ode) {
+			if (ode.eof) {
+				throw new RuntimeException("EOF reached", ode);
+			} else {
+				throw new RuntimeException("Primitive data in object stream of length " + ode.length, ode);
+			}
 		}
 
 		return map;

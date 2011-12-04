@@ -5,18 +5,18 @@ import gnu.trove.map.hash.TIntLongHashMap;
 import gnu.trove.set.TIntSet;
 
 /**
- * A simplistic map that supports a 3 bytes for keys, using a trove int long hashmap in the backend.
+ * A simplistic map that supports (byte, short, byte) keys, using a trove int long hashmap in the backend.
  * @author Afforess
  *
  */
-public class TByteTripleLongHashMap{
+public class TByteShortByteKeyedLongHashMap extends TByteShortByteKeyedMap{
 	private TIntLongHashMap map;
 	
-	public TByteTripleLongHashMap() {
+	public TByteShortByteKeyedLongHashMap() {
 		map = new TIntLongHashMap(100);
 	}
 	
-	public TByteTripleLongHashMap(int capacity){
+	public TByteShortByteKeyedLongHashMap(int capacity){
 		map = new TIntLongHashMap(capacity);
 	}
 	
@@ -81,7 +81,4 @@ public class TByteTripleLongHashMap{
 		return map.values();
 	}
 	
-	private static final int key(int x, int y, int z) {
-		return ((x & 0xF) << 11) | ((z & 0xF) << 7) | (y & 0x7F);
-	}
 }
