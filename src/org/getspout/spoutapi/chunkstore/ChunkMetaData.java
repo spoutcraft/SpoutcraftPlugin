@@ -23,11 +23,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutWorld;
 import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
@@ -54,6 +52,9 @@ public class ChunkMetaData implements Serializable {
 	
 	//storage for local block data
 	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
+	
+	private static final int CURRENT_VERSION = 1;
+	private static final int MAGIC_NUMBER = 0xEA5EDEBB;
 	
 	transient private boolean dirty = false;
 	
@@ -255,6 +256,9 @@ public class ChunkMetaData implements Serializable {
 	}
 
 	private void writeObject(ObjectOutputStream out) throws IOException {
+		out.writeInt(MAGIC_NUMBER);
+		out.writeInt(CURRENT_VERSION);
+		
 		out.writeLong(worldUid.getLeastSignificantBits());
 		out.writeLong(worldUid.getMostSignificantBits());
 		out.writeInt(cx);
@@ -288,8 +292,17 @@ public class ChunkMetaData implements Serializable {
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
 		chunkData = new HashMap<String, Serializable>();
+		
+		int fileVersionNumber; // can be used to determine the format of the file
 
 		long lsb = in.readLong();
+		if (((int)(lsb >> 32)) == MAGIC_NUMBER) {
+			fileVersionNumber = (int)lsb;
+			lsb = in.readLong();
+		} else {
+			fileVersionNumber = 0;
+		}
+		
 		long msb = in.readLong();
 		worldUid = new UUID(msb, lsb);
 		cx = in.readInt();
