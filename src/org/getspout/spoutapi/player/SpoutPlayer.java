@@ -637,6 +637,13 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	public void resetEntitySkin(LivingEntity target);
 	
 	/**
+	 * Tests the skin/cape url for correctness. Will throw an {@link UnsupportedOperationException} if it fails.
+	 * @param url to test
+	 * @throws UnsupportedOperationException
+	 */
+	public void checkUrl(String url);
+	
+	/**
 	 * Internal use only
 	 * @param type
 	 * @param packet

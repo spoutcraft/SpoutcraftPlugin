@@ -16,6 +16,7 @@
  */
 package org.getspout.spoutapi.chunkstore;
 
+import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.packet.PacketCustomBlockChunkOverride;
@@ -30,6 +31,9 @@ public abstract class PlayerTask implements Runnable {
 		this.player = player;
 		this.world = world;
 		this.viewDistance = viewDistance;
+		Chunk chunk = player.getLocation().getBlock().getChunk();
+		chunkX = chunk.getX();
+		chunkZ = chunk.getZ();
 	}
 	
 	public void updateChunk(int chunkX, int chunkZ) {
