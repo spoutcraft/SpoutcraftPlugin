@@ -19,11 +19,10 @@ package org.getspout.spoutapi.gui;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
@@ -34,7 +33,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public abstract class GenericScreen extends GenericWidget implements Screen {
 
-	protected HashMap<Widget, Plugin> widgets = new HashMap<Widget, Plugin>();
+	protected ConcurrentHashMap<Widget, Plugin> widgets = new ConcurrentHashMap<Widget, Plugin>();
 	protected int playerId;
 	protected boolean bg = true;
 
@@ -141,7 +140,15 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				widget.onAnimate();
+			}
+			for (Widget widget : widgets.keySet()) {
+				try {
+					widget.onAnimate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			for (Widget widget : widgets.keySet()) {
 				if (widget.isDirty()) {
 					if (!widget.hasSize()/* || !widget.hasPosition()*/) {
 						String type = "Unknown";
