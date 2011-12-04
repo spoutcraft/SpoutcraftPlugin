@@ -293,6 +293,7 @@ public class ChunkMetaData implements Serializable {
 		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
 		chunkData = new HashMap<String, Serializable>();
 		
+		@SuppressWarnings("unused")
 		int fileVersionNumber; // can be used to determine the format of the file
 
 		long lsb = in.readLong();

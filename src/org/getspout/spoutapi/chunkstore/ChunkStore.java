@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class ChunkStore {

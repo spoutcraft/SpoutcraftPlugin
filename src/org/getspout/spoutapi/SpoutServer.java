@@ -384,4 +384,9 @@ public class SpoutServer implements Server{
 		return server.getWorldContainer();
 	}
 
+	@Override
+	public OfflinePlayer[] getOfflinePlayers() {
+		return server.getOfflinePlayers();
+	}
+
 }
