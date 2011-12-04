@@ -17,13 +17,13 @@ package org.getspout.spoutapi.util;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.bukkit.util.config.Configuration;
-@SuppressWarnings("deprecation")
+import org.getspout.spoutapi.io.FlatFileStore;
+
 public class UniqueItemStringMap {
 
 	private static final ConcurrentHashMap<Integer,String> reverse = new ConcurrentHashMap<Integer,String>();
@@ -33,32 +33,38 @@ public class UniqueItemStringMap {
 	private static final AtomicInteger idCounter = new AtomicInteger(1024);
 
 	
-	private static Configuration config;
+	private static FlatFileStore config;
 
-	public static void setConfigFile(Configuration config) {
+	public static boolean setConfigFile(FlatFileStore config) {
 		UniqueItemStringMap.config = config;
-		List<String> keys = config.getKeys();
+		
+		if (!config.load()) {
+			return false;
+		}
+		
+		Collection<String> keys = config.getKeys();
 
 		for (String key : keys) {
-			Integer id = getIdFromFile(decodeKey(key));
+			Integer id = getIdFromFile(key);
 			if (id != null) {
 				forward.put(key, id);
 				reverse.put(id, key);
 				reverseStable.put(id, key);
 			}
 		}
+		
+		return true;
 	}
 
 	private static Integer getIdFromFile(String key) {
 
 		synchronized(config) {
-			key = encodeKey(key);
-			if (config.getProperty(key) == null) {
+			if (config.get(key) == null) {
 				return null;
 			} else {
-				int id = config.getInt(key, -1);
+				int id = config.get(key, -1);
 				if (id == -1) {
-					config.removeProperty(key);
+					config.remove(key);
 					return null;
 				} else {
 					return id;
@@ -71,21 +77,10 @@ public class UniqueItemStringMap {
 	private static void setIdInFile(String key, int id) {
 
 		synchronized(config) {
-			key = encodeKey(key);
-			config.setProperty(key, id);
+			config.set(key, id);
 			config.save();
 		}
 
-	}
-	
-	private static String encodeKey(String key) {
-		key = key.replace("*", "-*-");
-		return key.replace(".", "**");
-	}
-	
-	private static String decodeKey(String key) {
-		key = key.replace("**", ".");
-		return key.replace("-*-", "*");
 	}
 	
 	public static Set<Integer> getIds() {
@@ -103,8 +98,6 @@ public class UniqueItemStringMap {
 
 	public static int getId(String string) {
 		
-		string = encodeKey(string);
-
 		Integer id = null;
 
 		boolean success = false;
@@ -140,7 +133,7 @@ public class UniqueItemStringMap {
 			
 			reverseStable.put(testId, string);
 
-			setIdInFile(decodeKey(string), id);
+			setIdInFile(string, id);
 
 			success = true;
 
@@ -162,7 +155,7 @@ public class UniqueItemStringMap {
 	 */
 
 	public static String getString(int id) {
-		return decodeKey(reverseStable.get(id));
+		return reverseStable.get(id);
 	}
 
 }

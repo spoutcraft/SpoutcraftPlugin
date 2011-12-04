@@ -16,14 +16,21 @@
  */
 package org.getspout.spoutapi.io;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class FileUtil {
 	private static final HashMap<String, String> fileNameCache = new HashMap<String, String>();
@@ -105,6 +112,83 @@ public class FileUtil {
 		String result = url.substring(slash + 1, end).replaceAll("%20", " ");
 		fileNameCache.put(url, result);
 		return result;
+	}
+	
+	public static boolean stringToFile(Collection<String> strings, File file) {
+		BufferedWriter bw;
+
+		try {
+			bw = new BufferedWriter(new FileWriter(file));
+		} catch (FileNotFoundException fnfe ) {
+			return false;
+		} catch (IOException ioe) {
+			return false;
+		}
+
+		try {
+			for( String line : strings ) {
+				bw.write(line);
+				bw.newLine();
+			}
+			return true;
+		} catch (IOException ioe) {
+			return false;
+		} finally {
+			try {
+				bw.close();
+			} catch (IOException ioe2) {}
+		}
+
+	}
+	
+	public static Collection<String> fileToString(File file) {
+		
+		BufferedReader br;
+
+		try {
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException fnfe ) {
+			return null;
+		} 
+
+		String line;
+
+		try {
+			Collection<String> strings = new LinkedList<String>();
+			while( (line=br.readLine()) != null ) {
+				strings.add(line);
+			}
+			return strings;
+		} catch (IOException ioe) {
+			return null;
+		} catch (NumberFormatException nfe) {
+			return null;
+		} finally {
+			try {
+				br.close();
+			} catch (IOException ioe) {}
+		}
+	}
+	
+	private static final Collection<String> emptyCollection = new ArrayList<String>();
+	
+	public static boolean createFile(File file) {
+		if (file == null) {
+			return false;
+		}
+		File dir = file.getParentFile();
+		if (dir != null) {
+			if (!dir.exists()) {
+				if (!dir.mkdirs()) {
+					return false;
+				}
+			} else {
+				if (!dir.isDirectory()) {
+					return false;
+				}
+			}
+		}
+		return FileUtil.stringToFile(emptyCollection, file);
 	}
 	
 }
