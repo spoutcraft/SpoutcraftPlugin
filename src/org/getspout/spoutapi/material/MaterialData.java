@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.getspout.spoutapi.material.block.*;
 import org.getspout.spoutapi.material.item.*;
-import org.spoutcraft.spoutcraftapi.material.Material;
 
 public class MaterialData {
 	private final static Object[] idLookup = new Object[3200];
