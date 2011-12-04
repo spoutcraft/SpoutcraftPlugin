@@ -63,7 +63,6 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	@Override
 	public CustomItem setTexture(String texture) {
 		this.texture = texture;
-		mm.setItemTexture(this, plugin, texture);
 		return this;
 	}
 

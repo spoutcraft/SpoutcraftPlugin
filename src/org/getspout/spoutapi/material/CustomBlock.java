@@ -7,6 +7,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.block.design.BlockDesign;
+import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public interface CustomBlock extends Block {
@@ -68,6 +69,13 @@ public interface CustomBlock extends Block {
 	 * @return this
 	 */
 	public CustomBlock setItemDrop(ItemStack item);
+	
+	/**
+	 * Gets the ItemStack that drops when breaking this custom block. Null if no drop.
+	 * 
+	 * @return dropped itemstack
+	 */
+	public SpoutItemStack getItemDrop();
 	
 	/**
 	 * Fires when a neighboring block changes
