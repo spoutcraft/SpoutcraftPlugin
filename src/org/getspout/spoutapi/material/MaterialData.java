@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.getspout.spoutapi.material.block.*;
 import org.getspout.spoutapi.material.item.*;
+import org.spoutcraft.spoutcraftapi.material.Material;
 
 public class MaterialData {
 	private final static Object[] idLookup = new Object[3200];
@@ -459,9 +460,10 @@ public class MaterialData {
 			return (Material)o;
 		}
 		Material[] materials = (Material[])o;
-		if (data < materials.length && data > -1)
+		Material m = materials[0];
+		if (m.hasSubtypes() && data < materials.length && data > -1)
 			return materials[data];
-		return materials[0];
+		return m;
 	}
 	
 	/**
