@@ -19,10 +19,10 @@ package org.getspout.spoutapi.gui;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
@@ -33,7 +33,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public abstract class GenericScreen extends GenericWidget implements Screen {
 
-	protected ConcurrentHashMap<Widget, Plugin> widgets = new ConcurrentHashMap<Widget, Plugin>();
+	protected HashMap<Widget, Plugin> widgets = new HashMap<Widget, Plugin>();
 	protected int playerId;
 	protected boolean bg = true;
 
