@@ -445,6 +445,35 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * 
 	 * Players without the client mod will be given a kick message instructing them to join the other server
 	 * 
+	 * @param message the message to include in the kick message for vanilla clients
+	 * @param hostname the hostname of the other server
+	 * @param port the port of the other server
+	 */
+	
+	@ClientOnly
+	public void reconnect(String message, String hostname, int port);
+	
+	/**
+	 * Orders the client to reconnect to another server.
+	 * 
+	 * This method is also supported by some server to server teleporting mods.
+	 * 
+	 * Players without the client mod will be given a kick message instructing them to join the other server
+	 * 
+	 * @param message the message to include in the kick message for vanilla clients
+	 * @param hostname the hostname of the other server
+	 */
+	
+	@ClientOnly	
+	public void reconnect(String message, String hostname);
+	
+	/**
+	 * Orders the client to reconnect to another server
+	 * 
+	 * This method is also supported by some server to server teleporting mods.
+	 * 
+	 * Players without the client mod will be given a kick message instructing them to join the other server
+	 * 
 	 * @param hostname the hostname of the other server
 	 * @param port the port of the other server
 	 */
