@@ -134,7 +134,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 	public void onTick() {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		if (player != null) {
-			for (Widget widget : widgets.keySet()) {
+			for (Widget widget : new HashSet<Widget>(widgets.keySet())) {
 				try {
 					widget.onTick();
 				} catch (Exception e) {
