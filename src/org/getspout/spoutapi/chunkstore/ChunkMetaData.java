@@ -30,6 +30,7 @@ import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutWorld;
 import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
 import org.getspout.spoutapi.inventory.MaterialManager;
+import org.getspout.spoutapi.io.FlatFileStore;
 import org.getspout.spoutapi.util.map.TByteShortByteKeyedMap;
 import org.getspout.spoutapi.util.map.TByteShortByteKeyedObjectHashMap;
 
@@ -53,7 +54,7 @@ public class ChunkMetaData implements Serializable {
 	//storage for local block data
 	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
 	
-	private static final int CURRENT_VERSION = 1;
+	private static final int CURRENT_VERSION = 2;
 	private static final int MAGIC_NUMBER = 0xEA5EDEBB;
 	
 	transient private boolean dirty = false;
@@ -63,8 +64,12 @@ public class ChunkMetaData implements Serializable {
 	transient private int worldHeightMinusOne;
 	transient private int xBitShifts;
 	transient private int zBitShifts;
+	
+	transient private WorldGlobalItemMapConverter worldItemIdConverter;
+	
+	transient private boolean conversionNeeded;
 
-	ChunkMetaData(UUID worldId, int cx, int cz) {
+	ChunkMetaData(UUID worldId, WorldGlobalItemMapConverter worldItemMap, int cx, int cz) {
 		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
 		chunkData = new HashMap<String, Serializable>();
 		
@@ -78,6 +83,9 @@ public class ChunkMetaData implements Serializable {
 		this.xBitShifts = world != null ? world.getXBitShifts() : 11;
 		this.zBitShifts = world != null ? world.getZBitShifts() : 7;
 		worldHeightMinusOne = worldHeight - 1;
+		
+		this.worldItemIdConverter = worldItemMap;
+		conversionNeeded = false;
 	}
 
 	/**
@@ -266,8 +274,13 @@ public class ChunkMetaData implements Serializable {
 		if (customBlockIds != null) {
 			out.writeBoolean(true);
 			for (int i = 0; i < (16* 16 * worldHeight); i++) {
-				out.writeShort(customBlockIds[i]);
+				Integer worldId = worldItemIdConverter.getWorldItemId(customBlockIds[i]);
+				if (worldId == null) {
+					worldId = 0;
+				}
+				out.writeShort(worldId);
 			}
+			worldItemIdConverter.save();
 		}
 		else {
 			out.writeBoolean(false);
@@ -293,7 +306,6 @@ public class ChunkMetaData implements Serializable {
 		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
 		chunkData = new HashMap<String, Serializable>();
 		
-		@SuppressWarnings("unused")
 		int fileVersionNumber; // can be used to determine the format of the file
 
 		long lsb = in.readLong();
@@ -322,6 +334,9 @@ public class ChunkMetaData implements Serializable {
 			customBlockIds = new short[16 * 16 * worldHeight];
 			for (int i = 0; i < (16* 16 * worldHeight); i++) {
 				customBlockIds[i] = in.readShort();
+				if (fileVersionNumber >= 2) {
+					conversionNeeded = true;
+				}
 			}
 		}
 		int size = in.readInt();
@@ -332,6 +347,30 @@ public class ChunkMetaData implements Serializable {
 			HashMap<String, Serializable> map = readMap(in);
 			blockData.put(x, y, z, map);
 		}
+		
+		if (fileVersionNumber < CURRENT_VERSION) {
+			dirty = true;
+		}
+	}
+	
+	public void setWorldItemMapConverter(WorldGlobalItemMapConverter worldItemIdConverter) {
+		this.worldItemIdConverter = worldItemIdConverter;
+		if (conversionNeeded) {
+			convertIds(worldItemIdConverter);
+		}
+	}
+	
+	private void convertIds(WorldGlobalItemMapConverter worldItemIdConverter) {
+		int length = customBlockIds.length;
+		for (int i = 0; i < length; i++) {
+			Integer globalId = worldItemIdConverter.getGlobalItemId(customBlockIds[i]);
+			if (globalId == null) {
+				System.out.println("Custom id " + customBlockIds[i] + " does not exist in custom item map, replacing with 0");
+				globalId = 0;
+			}
+			customBlockIds[i] = (short)(int)globalId;
+		}
+		conversionNeeded = false;
 	}
 
 	private void writeMap(ObjectOutputStream out, HashMap<String, Serializable> map) throws IOException {

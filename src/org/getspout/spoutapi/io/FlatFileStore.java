@@ -12,9 +12,12 @@ public class FlatFileStore {
 	
 	private final File file;
 	private final Map<String, Integer> map;
+	private final Map<Integer, String> reverseMap;
+	private boolean dirty = false;
 	
 	public FlatFileStore(File file) {
-		map  = new HashMap<String, Integer>();
+		map = new HashMap<String, Integer>();
+		reverseMap = new HashMap<Integer, String>();
 		this.file = file;
 		if (file != null) {
 			if (!file.exists()) {
@@ -26,8 +29,16 @@ public class FlatFileStore {
 	}
 	
 	public boolean save() {
-		Collection<String> strings = getStrings();
-		return FileUtil.stringToFile(strings, file);
+		if (dirty) {
+			Collection<String> strings = getStrings();
+			boolean saved = FileUtil.stringToFile(strings, file);
+			if (saved) {
+				dirty = false;
+			}
+			return saved;
+		} else {
+			return true;
+		}
 	}
 	
 	public boolean load() {
@@ -35,7 +46,11 @@ public class FlatFileStore {
 		if (strings == null) {
 			return false;
 		}
-		return processStrings(strings);
+		boolean loaded = processStrings(strings);
+		if (loaded) {
+			dirty = false;
+		}
+		return loaded;
 	}
 	
 	public Collection<String> getKeys() {
@@ -44,6 +59,10 @@ public class FlatFileStore {
 	
 	public Integer get(String key) {
 		return map.get(key);
+	}
+	
+	public String reverseGet(Integer value) {
+		return reverseMap.get(value);
 	}
 	
 	public Integer get(String key, Integer def) {
@@ -56,11 +75,22 @@ public class FlatFileStore {
 	}
 	
 	public Integer remove(String key) {
-		return map.remove(key);
+		Integer value = map.remove(key);
+		if (value != null) {
+			reverseMap.remove(value);
+			dirty = true;
+		}
+		return value;
 	}
 	
 	public Integer set(String key, Integer value) {
-		return map.put(key, value);
+		dirty = true;
+		Integer oldValue = map.put(key, value);
+		if (oldValue != null) {
+			reverseMap.remove(oldValue);
+		}
+		reverseMap.put(value, key);
+		return oldValue;
 	}
 	
 	private Collection<String> getStrings() {
@@ -70,7 +100,7 @@ public class FlatFileStore {
 			Entry<String, Integer> entry = itr.next();
 			String encodedKey = encode(entry.getKey());
 			Integer value = entry.getValue();
-			strings.add(value + "=" + encodedKey);
+			strings.add(value + ":" + encodedKey);
 		}
 		return strings;
 	}

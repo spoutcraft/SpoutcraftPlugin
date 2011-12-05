@@ -18,6 +18,7 @@ package org.getspout.spoutapi.chunkstore;
 
 import gnu.trove.map.hash.TLongObjectHashMap;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
@@ -29,6 +30,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
+import org.getspout.spoutapi.io.FlatFileStore;
 import org.getspout.spoutapi.util.UniqueItemStringMap;
 
 public class SimpleChunkDataManager implements ChunkDataManager {
@@ -36,6 +38,8 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 	private ChunkStore chunkStore = new ChunkStore();
 	
 	private HashMap<UUID, TLongObjectHashMap<ChunkMetaData>> chunkMetaDataLoaded = new HashMap<UUID,TLongObjectHashMap<ChunkMetaData>>();
+	
+	private HashMap<UUID, WorldGlobalItemMapConverter> worldItemMapConverters = new HashMap<UUID, WorldGlobalItemMapConverter>();
 	
 	public void closeAllFiles() {
 		chunkStore.closeAll();
@@ -245,6 +249,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 							System.out.println("Actual: " + md.getWorldUID() + " " + md.getChunkX() + " " + md.getChunkZ());
 							throw new RuntimeException("Chunk meta data stored in wrong location");
 						}
+						md.setWorldItemMapConverter(getWorldItemMapConverter(world));
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -252,7 +257,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 				}
 				
 				if (md == null && loadOrCreate) {
-					md = new ChunkMetaData(world.getUID(), x, z);
+					md = new ChunkMetaData(world.getUID(), getWorldItemMapConverter(world), x, z);
 				}
 				
 				if (md != null) {
@@ -262,6 +267,21 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		}
 		
 		return md;
+	}
+	
+	private WorldGlobalItemMapConverter getWorldItemMapConverter(World world) {
+		UUID uid = world.getUID();
+		WorldGlobalItemMapConverter worldItemMap = worldItemMapConverters.get(uid);
+		if (worldItemMap == null) {
+			File dir = new File(world.getWorldFolder(), "spout_meta");
+			dir.mkdirs();
+			
+			FlatFileStore fs = new FlatFileStore(new File(dir, "worldItemMap.txt"));
+			fs.load();
+			worldItemMap = new WorldGlobalItemMapConverter(fs);
+		}
+		worldItemMapConverters.put(uid, worldItemMap);
+		return worldItemMap;
 	}
 }
 
