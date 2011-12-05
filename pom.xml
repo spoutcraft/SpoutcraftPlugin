@@ -50,6 +50,14 @@
 		</repository>
 	</repositories>
 
+	<!-- Artifact distribution -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>spout-snapshots</id>
+			<url>http://repo.getspout.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<!-- Dependencies -->
 	<dependencies>
 		<dependency>
