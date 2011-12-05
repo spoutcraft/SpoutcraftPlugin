@@ -135,7 +135,10 @@ public class GenericLabel extends GenericWidget implements Label {
 
 	@Override
 	public Label setScale(float scale) {
-		this.scale = scale;
+		if (this.scale != scale) {
+			this.scale = scale;
+			autoDirty();
+		}
 		return this;
 	}
 

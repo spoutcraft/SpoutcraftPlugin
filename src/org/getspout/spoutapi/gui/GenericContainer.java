@@ -330,7 +330,7 @@ public class GenericContainer extends GenericWidget implements Container {
 						realwidth = widget.getMinWidth() == 0 ? newwidth - widget.getMarginLeft() - widget.getMarginRight() : widget.getMinWidth();
 					}
 					if (widget.getHeight() != realheight || widget.getWidth() != realwidth) {
-						widget.setHeight(realheight).setWidth(realwidth).setDirty(true);
+						widget.setHeight(realheight).setWidth(realwidth);
 					}
 				}
 				if (type == ContainerType.VERTICAL) {
@@ -362,7 +362,7 @@ public class GenericContainer extends GenericWidget implements Container {
 				int realtop = top + widget.getMarginTop();
 				int realleft = left + widget.getMarginLeft();
 				if (widget.getY() != realtop || widget.getX() != realleft) {
-					widget.setY(realtop).setX(realleft).setDirty(true);
+					widget.setY(realtop).setX(realleft);
 				}
 				if (type == ContainerType.VERTICAL) {
 					top += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
