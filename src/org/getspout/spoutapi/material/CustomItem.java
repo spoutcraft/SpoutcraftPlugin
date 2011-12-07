@@ -8,14 +8,14 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public interface CustomItem extends Item {
 	
 	/**
-	 * Gets the Custom ID number associated with this CustomBlock
+	 * Gets the Custom ID number associated with this CustomItem
 	 * 
 	 * @return customId
 	 */
 	public int getCustomId();
 	
 	/**
-	 * Gets the full name of this CustomBlock, which is plugin name + block name
+	 * Gets the full name of this CustomItem, which is plugin name + item name
 	 * 
 	 * @return fullName
 	 */
@@ -23,21 +23,21 @@ public interface CustomItem extends Item {
 	
 	
 	/**
-	 * Gets the plugin associated with this CustomBlock.
+	 * Gets the plugin associated with this CustomItem.
 	 * 
 	 * @return plugin
 	 */
 	public Plugin getPlugin();
 	
 	/**
-	 * Sets the URI of the texture on the item
+	 * Sets the URL of the texture on the item
 	 * @param texture
 	 * @return this
 	 */
 	public CustomItem setTexture(String texture);
 	
 	/**
-	 * Gets the URI for the texture
+	 * Gets the URL for the texture
 	 * @return texture
 	 */
 	public String getTexture();
