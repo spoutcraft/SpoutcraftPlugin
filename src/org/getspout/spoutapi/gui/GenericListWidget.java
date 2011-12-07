@@ -61,6 +61,14 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		autoDirty();
 		return this;
 	}
+	
+	@Override
+	public ListWidget addItems(ListWidgetItem... items) {
+		for (ListWidgetItem item : items) {
+			this.addItem(item);
+		}
+		return this;
+	}
 
 	@Override
 	public boolean removeItem(ListWidgetItem item) {
