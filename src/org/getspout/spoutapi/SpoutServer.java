@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi;
 
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +38,7 @@ import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.Recipe;
@@ -43,6 +46,7 @@ import org.bukkit.map.MapView;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.avaje.ebean.config.ServerConfig;
@@ -53,6 +57,7 @@ import com.avaje.ebean.config.ServerConfig;
 public class SpoutServer implements Server{
 	private Server server = Bukkit.getServer();
 	private HashMap<UUID, SpoutWorld> worlds = new HashMap<UUID, SpoutWorld>();
+	private TIntObjectHashMap<String> titles = new TIntObjectHashMap<String>(250);
 	
 	private SpoutWorld getSpoutWorld(World world) {
 		if (world == null) {
@@ -68,6 +73,50 @@ public class SpoutServer implements Server{
 		SpoutWorld world = new SpoutWorld(server.getWorld(id));
 		worlds.put(id, world);
 		return world;
+	}
+
+	/**
+	 * Sets the entity skin for the target entity to the url. The Skin Type is used when an entity has more than one skin type.
+	 * @param target to set the skin on
+	 * @param url of the skin
+	 * @param type of skin to set
+	 */
+	public void setEntitySkin(LivingEntity target, String url, EntitySkinType type) {
+		SpoutManager.getPlayerManager().getGlobalInfo().setEntitySkin(target, url, type);
+	}
+
+	/**
+	 * Gets the entity skin for the target entity. The Skin Type is used when an entity has more than one skin type.
+	 * @param target to get the skin for
+	 * @param type of skin to set
+	 */
+	public String getEntitySkin(LivingEntity target, EntitySkinType type) {
+		return SpoutManager.getPlayerManager().getGlobalInfo().getEntitySkin(target, type);
+	}
+
+	/**
+	 * Resets the entity skin for the target entity.
+	 * @param target to reset the skin for
+	 */
+	public void resetEntitySkin(LivingEntity target) {
+		SpoutManager.getPlayerManager().getGlobalInfo().setEntitySkin(target, null);
+	}
+	
+	public String getTitle(LivingEntity entity) {
+		if (entity instanceof SpoutPlayer) {
+			return ((SpoutPlayer)entity).getTitle();
+		}
+		if (titles.contains(entity.getEntityId())) {
+			return titles.get(entity.getEntityId());
+		}
+		return null;
+	}
+	
+	public void setTitle(LivingEntity entity, String title) {
+		if (entity instanceof SpoutPlayer) {
+			((SpoutPlayer)entity).setTitle(title);
+		}
+		titles.put(entity.getEntityId(), title);
 	}
 
 	@Override

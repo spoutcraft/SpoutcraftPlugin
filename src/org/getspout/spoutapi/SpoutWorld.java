@@ -49,7 +49,7 @@ import org.getspout.spoutapi.block.SpoutChunk;
  * <br/><br/>
  * Not meant for long term storage. If you need to store this, store the UUID to the world.
  * <br/><br/>
- * Note: {@link #equals} will NOT work. Compare World UUID's instead!
+ * Note: {@link #equals(Object)} will NOT work. Compare World UUID's instead!
  */
 public class SpoutWorld implements World{
 	private World world;
