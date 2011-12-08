@@ -46,17 +46,9 @@
 	<repositories>
 		<repository>
 			<id>spout-repo</id>
-			<url>http://repo.getspout.org/content/repositories/snapshots</url>
+			<url>http://repo.getspout.org</url>
 		</repository>
 	</repositories>
-
-	<!-- Artifact distribution -->
-	<distributionManagement>
-		<snapshotRepository>
-			<id>spout-snapshots</id>
-			<url>http://repo.getspout.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<!-- Dependencies -->
 	<dependencies>
