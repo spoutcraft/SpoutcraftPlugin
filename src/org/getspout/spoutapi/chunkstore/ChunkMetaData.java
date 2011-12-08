@@ -30,7 +30,6 @@ import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutWorld;
 import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
 import org.getspout.spoutapi.inventory.MaterialManager;
-import org.getspout.spoutapi.io.FlatFileStore;
 import org.getspout.spoutapi.util.map.TByteShortByteKeyedMap;
 import org.getspout.spoutapi.util.map.TByteShortByteKeyedObjectHashMap;
 
