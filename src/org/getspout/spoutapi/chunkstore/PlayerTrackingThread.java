@@ -18,8 +18,8 @@ package org.getspout.spoutapi.chunkstore;
 
 import java.util.concurrent.LinkedBlockingDeque;
 import org.bukkit.Bukkit;
+import org.getspout.commons.util.map.TIntPairHashSet;
 import org.getspout.spoutapi.player.SpoutPlayer;
-import org.getspout.spoutapi.util.map.TIntPairHashSet;
 
 public class PlayerTrackingThread extends Thread{
 	private final Thread instance;
