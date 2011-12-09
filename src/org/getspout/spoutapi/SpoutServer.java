@@ -191,7 +191,7 @@ public class SpoutServer implements Server{
 		
 	@Override
 	public boolean getAllowEnd() {
-		return server.getAllowedEnd();
+		return server.getAllowEnd();
 	}
 
 	@Override
