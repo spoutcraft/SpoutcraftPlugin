@@ -19,6 +19,7 @@ package org.getspout.spoutapi.packet;
 import java.util.HashMap;
 
 import org.getspout.spoutapi.material.block.GenericCustomBlock;
+import org.getspout.spoutapi.material.item.GenericCustomFood;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
 import org.getspout.spoutapi.material.item.GenericCustomTool;
 
@@ -75,6 +76,7 @@ public enum PacketType {
 	PacketCustomTool(49, GenericCustomTool.class),
 	PacketCustomBlock(50, GenericCustomBlock.class),
 	PacketCustomBlockChunkOverride(51, PacketCustomBlockChunkOverride.class),
+	PacketCustomFood(52, GenericCustomFood.class),
 	
 	;
 	
