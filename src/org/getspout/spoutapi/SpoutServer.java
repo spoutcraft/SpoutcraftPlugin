@@ -188,6 +188,11 @@ public class SpoutServer implements Server{
 	public boolean getAllowNether() {
 		return server.getAllowNether();
 	}
+		
+	@Override
+	public boolean getAllowEnd() {
+		return server.getAllowedEnd();
+	}
 
 	@Override
 	public Set<OfflinePlayer> getBannedPlayers() {
