@@ -38,6 +38,8 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.util.FileUtil;
 import org.bukkit.util.config.Configuration;
+import org.getspout.commons.io.CRCStore;
+import org.getspout.commons.io.FlatFileStore;
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.block.mcblock.CustomBlock;
 import org.getspout.spout.chunkcache.SimpleCacheManager;
@@ -63,8 +65,6 @@ import org.getspout.spout.sound.SimpleSoundManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.PlayerTrackingManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
-import org.getspout.spoutapi.io.CRCStore;
-import org.getspout.spoutapi.io.FlatFileStore;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.plugin.SpoutPlugin;
@@ -82,8 +82,8 @@ public class Spout extends SpoutPlugin{
 	protected final PluginListener pluginListener;
 	protected final SpoutCustomBlockMonitor blockMonitor;
 	protected static Spout instance;
-	protected Configuration CRCConfig;
-	protected FlatFileStore itemMapConfig;
+	protected FlatFileStore<String> CRCConfig;
+	protected FlatFileStore<Integer> itemMapConfig;
 	protected List<SpoutPlayer> playersOnline = new ArrayList<SpoutPlayer>();
 	protected Thread shutdownThread = null;
 	
@@ -256,12 +256,12 @@ public class Spout extends SpoutPlugin{
 		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 		dm.loadAllChunks();
 		
-		CRCConfig = new Configuration(new File(this.getDataFolder(), "CRCCache.yml"));
+		CRCConfig = new FlatFileStore<String>(new File(this.getDataFolder(), "CRCCache.txt"), String.class);
 		CRCConfig.load();
 		
 		CRCStore.setConfigFile(CRCConfig);
 		
-		itemMapConfig = new FlatFileStore(new File(this.getDataFolder(), "itemMap.txt"));
+		itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
 		if (!itemMapConfig.load()) {
 			this.log("Unable to load global item map");
 		}
