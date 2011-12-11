@@ -29,9 +29,9 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.getspout.commons.io.FlatFileStore;
+import org.getspout.commons.inventory.ItemMap;
+import org.getspout.commons.io.store.FlatFileStore;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
-import org.getspout.spoutapi.util.UniqueItemStringMap;
 
 public class SimpleChunkDataManager implements ChunkDataManager {
 	
@@ -39,7 +39,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 	
 	private HashMap<UUID, TLongObjectHashMap<ChunkMetaData>> chunkMetaDataLoaded = new HashMap<UUID,TLongObjectHashMap<ChunkMetaData>>();
 	
-	private HashMap<UUID, WorldGlobalItemMapConverter> worldItemMapConverters = new HashMap<UUID, WorldGlobalItemMapConverter>();
+	private HashMap<UUID, ItemMap> worldItemMaps = new HashMap<UUID, ItemMap>();
 	
 	public void closeAllFiles() {
 		chunkStore.closeAll();
@@ -137,11 +137,6 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		}
 		
 		return unloaded;
-	}
-
-	@Override
-	public int getStringId(String string) {
-		return UniqueItemStringMap.getId(string);
 	}
 
 	@Override
@@ -249,7 +244,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 							System.out.println("Actual: " + md.getWorldUID() + " " + md.getChunkX() + " " + md.getChunkZ());
 							throw new RuntimeException("Chunk meta data stored in wrong location");
 						}
-						md.setWorldItemMapConverter(getWorldItemMapConverter(world));
+						md.setWorldItemMap(getWorldItemMap(world));
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -257,7 +252,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 				}
 				
 				if (md == null && loadOrCreate) {
-					md = new ChunkMetaData(world.getUID(), getWorldItemMapConverter(world), x, z);
+					md = new ChunkMetaData(world.getUID(), getWorldItemMap(world), x, z);
 				}
 				
 				if (md != null) {
@@ -269,19 +264,23 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		return md;
 	}
 	
-	private WorldGlobalItemMapConverter getWorldItemMapConverter(World world) {
+	private ItemMap getWorldItemMap(World world) {
 		UUID uid = world.getUID();
-		WorldGlobalItemMapConverter worldItemMap = worldItemMapConverters.get(uid);
+		ItemMap worldItemMap = worldItemMaps.get(uid);
 		if (worldItemMap == null) {
 			File dir = new File(world.getWorldFolder(), "spout_meta");
 			dir.mkdirs();
 			
 			FlatFileStore<Integer> fs = new FlatFileStore<Integer>(new File(dir, "worldItemMap.txt"), Integer.class);
 			fs.load();
-			worldItemMap = new WorldGlobalItemMapConverter(fs);
+			worldItemMap = new ItemMap(ItemMap.getRootMap(), fs, null);
 		}
-		worldItemMapConverters.put(uid, worldItemMap);
+		worldItemMaps.put(uid, worldItemMap);
 		return worldItemMap;
+	}
+
+	public int getStringId(String string) {
+		return ItemMap.getRootMap().register(string);
 	}
 }
 

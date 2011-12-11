@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.util.map.TByteShortByteKeyedMap;
 import org.getspout.commons.util.map.TByteShortByteKeyedObjectHashMap;
 import org.getspout.spoutapi.Spout;
@@ -64,11 +65,12 @@ public class ChunkMetaData implements Serializable {
 	transient private int xBitShifts;
 	transient private int zBitShifts;
 	
-	transient private WorldGlobalItemMapConverter worldItemIdConverter;
+	transient private ItemMap worldItemMap;
+	transient private ItemMap serverItemMap;
 	
 	transient private boolean conversionNeeded;
 
-	ChunkMetaData(UUID worldId, WorldGlobalItemMapConverter worldItemMap, int cx, int cz) {
+	ChunkMetaData(UUID worldId, ItemMap worldItemMap, int cx, int cz) {
 		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
 		chunkData = new HashMap<String, Serializable>();
 		
@@ -83,7 +85,8 @@ public class ChunkMetaData implements Serializable {
 		this.zBitShifts = world != null ? world.getZBitShifts() : 7;
 		worldHeightMinusOne = worldHeight - 1;
 		
-		this.worldItemIdConverter = worldItemMap;
+		this.worldItemMap = worldItemMap;
+		this.serverItemMap = ItemMap.getRootMap();
 		conversionNeeded = false;
 	}
 
@@ -273,13 +276,14 @@ public class ChunkMetaData implements Serializable {
 		if (customBlockIds != null) {
 			out.writeBoolean(true);
 			for (int i = 0; i < (16* 16 * worldHeight); i++) {
-				Integer worldId = worldItemIdConverter.getWorldItemId(customBlockIds[i]);
+				Integer worldId = worldItemMap.convertFrom(this.serverItemMap, customBlockIds[i]);
 				if (worldId == null) {
 					worldId = 0;
 				}
 				out.writeShort(worldId);
 			}
-			worldItemIdConverter.save();
+			worldItemMap.save();
+			serverItemMap.save();
 		}
 		else {
 			out.writeBoolean(false);
@@ -352,17 +356,20 @@ public class ChunkMetaData implements Serializable {
 		}
 	}
 	
-	public void setWorldItemMapConverter(WorldGlobalItemMapConverter worldItemIdConverter) {
-		this.worldItemIdConverter = worldItemIdConverter;
+	public void setWorldItemMap(ItemMap worldItemMap) {
+		this.serverItemMap = ItemMap.getRootMap();
+		this.worldItemMap = worldItemMap;
 		if (conversionNeeded) {
-			convertIds(worldItemIdConverter);
+			convertIds(worldItemMap);
 		}
 	}
 	
-	private void convertIds(WorldGlobalItemMapConverter worldItemIdConverter) {
+	private void convertIds(ItemMap worldItemMap) {
 		int length = customBlockIds.length;
 		for (int i = 0; i < length; i++) {
-			Integer globalId = worldItemIdConverter.getGlobalItemId(customBlockIds[i]);
+			
+			Integer globalId = worldItemMap.convertTo(serverItemMap, customBlockIds[i]);
+
 			if (globalId == null) {
 				System.out.println("Custom id " + customBlockIds[i] + " does not exist in custom item map, replacing with 0");
 				globalId = 0;
