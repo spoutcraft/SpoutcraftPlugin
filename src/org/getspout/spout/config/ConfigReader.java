@@ -140,10 +140,10 @@ public class ConfigReader {
 			}	 					
 			
 			if (configuration.getProperty("AllowVoidFogCheat") != null) {
-				allowEntityLabelCheat = configuration.getBoolean("AllowVoidFogCheat", false);
+				allowVoidFogCheat = configuration.getBoolean("AllowVoidFogCheat", false);
 			}
 			else {
-				configuration.setProperty("AllowEntityLabelCheat", false);
+				configuration.setProperty("AllowVoidFogCheat", false);
 			}	 					
 			
 			if (configuration.getProperty("ChunkDataCache") != null) {
