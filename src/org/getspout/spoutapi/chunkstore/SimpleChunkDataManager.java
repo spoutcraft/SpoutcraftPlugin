@@ -29,8 +29,8 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
+import org.getspout.commons.io.FlatFileStore;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
-import org.getspout.spoutapi.io.FlatFileStore;
 import org.getspout.spoutapi.util.UniqueItemStringMap;
 
 public class SimpleChunkDataManager implements ChunkDataManager {
@@ -276,7 +276,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 			File dir = new File(world.getWorldFolder(), "spout_meta");
 			dir.mkdirs();
 			
-			FlatFileStore fs = new FlatFileStore(new File(dir, "worldItemMap.txt"));
+			FlatFileStore<Integer> fs = new FlatFileStore<Integer>(new File(dir, "worldItemMap.txt"), Integer.class);
 			fs.load();
 			worldItemMap = new WorldGlobalItemMapConverter(fs);
 		}

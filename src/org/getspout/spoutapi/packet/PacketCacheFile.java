@@ -26,7 +26,7 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.getspout.spoutapi.io.FileUtil;
+import org.getspout.commons.io.FileUtil;
 
 public class PacketCacheFile implements CompressablePacket {
 	private String plugin;

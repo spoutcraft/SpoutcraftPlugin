@@ -1,6 +1,6 @@
 package org.getspout.spoutapi.chunkstore;
 
-import org.getspout.spoutapi.io.FlatFileStore;
+import org.getspout.commons.io.FlatFileStore;
 import org.getspout.spoutapi.util.UniqueItemStringMap;
 
 public class WorldGlobalItemMapConverter {
@@ -8,11 +8,11 @@ public class WorldGlobalItemMapConverter {
 	private final int[] worldToGlobalMap;
 	private final int[] globalToWorldMap;
 	
-	private final FlatFileStore worldItemMap;
+	private final FlatFileStore<Integer> worldItemMap;
 	
 	private int nextFree = 1024;
 	
-	WorldGlobalItemMapConverter(FlatFileStore worldItemMap) {
+	WorldGlobalItemMapConverter(FlatFileStore<Integer> worldItemMap) {
 		worldToGlobalMap = new int[65536];
 		globalToWorldMap = new int[65536];
 		for (int x = 0; x < 65536; x++) {

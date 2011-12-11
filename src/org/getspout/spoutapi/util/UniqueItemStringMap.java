@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.getspout.spoutapi.io.FlatFileStore;
+import org.getspout.commons.io.FlatFileStore;
 
 public class UniqueItemStringMap {
 
@@ -33,9 +33,9 @@ public class UniqueItemStringMap {
 	private static final AtomicInteger idCounter = new AtomicInteger(1024);
 
 	
-	private static FlatFileStore config;
+	private static FlatFileStore<Integer> config;
 
-	public static boolean setConfigFile(FlatFileStore config) {
+	public static boolean setConfigFile(FlatFileStore<Integer> config) {
 		UniqueItemStringMap.config = config;
 		
 		if (!config.load()) {
