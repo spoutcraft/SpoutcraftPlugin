@@ -6,6 +6,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
+
 import net.minecraft.server.Item;
 
 import org.bukkit.Bukkit;
@@ -14,9 +15,11 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.util.map.TIntPairObjectHashMap;
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -30,7 +33,6 @@ import org.getspout.spoutapi.packet.PacketCustomBlockOverride;
 import org.getspout.spoutapi.packet.PacketCustomMultiBlockOverride;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
-import org.getspout.spoutapi.util.UniqueItemStringMap;
 
 public class SimpleMaterialManager extends AbstractBlockManager implements MaterialManager {
 	private final TIntObjectHashMap<String> itemPlugin = new TIntObjectHashMap<String>();
@@ -73,7 +75,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 
 	@Override
 	public int registerCustomItemName(Plugin plugin, String key) {
-		int id = UniqueItemStringMap.getId(key);
+		int id = ItemMap.getRootMap().register(key);
 
 		itemPlugin.put(id, plugin.getDescription().getName());
 

@@ -37,9 +37,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.util.FileUtil;
-import org.bukkit.util.config.Configuration;
+import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.io.CRCStore;
-import org.getspout.commons.io.FlatFileStore;
+import org.getspout.commons.io.store.FlatFileStore;
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.block.mcblock.CustomBlock;
 import org.getspout.spout.chunkcache.SimpleCacheManager;
@@ -68,7 +68,6 @@ import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.plugin.SpoutPlugin;
-import org.getspout.spoutapi.util.UniqueItemStringMap;
 
 @SuppressWarnings("deprecation")
 public class Spout extends SpoutPlugin{
@@ -84,6 +83,7 @@ public class Spout extends SpoutPlugin{
 	protected static Spout instance;
 	protected FlatFileStore<String> CRCConfig;
 	protected FlatFileStore<Integer> itemMapConfig;
+	protected ItemMap serverItemMap;
 	protected List<SpoutPlayer> playersOnline = new ArrayList<SpoutPlayer>();
 	protected Thread shutdownThread = null;
 	
@@ -264,9 +264,10 @@ public class Spout extends SpoutPlugin{
 		itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
 		if (!itemMapConfig.load()) {
 			this.log("Unable to load global item map");
+		} else {
+			serverItemMap = new ItemMap(null, itemMapConfig, null);
 		}
-		
-		UniqueItemStringMap.setConfigFile(itemMapConfig);
+		ItemMap.setRootMap(serverItemMap);
 		
 		SimpleMaterialManager.disableFlintStackMix();
 		
@@ -437,6 +438,7 @@ public class Spout extends SpoutPlugin{
 		}
 		catch (Exception e) {}
 	}
+	
 }
 
 class ShutdownThread extends Thread {
