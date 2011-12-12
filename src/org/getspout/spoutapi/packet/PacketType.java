@@ -64,7 +64,7 @@ public enum PacketType {
 	PacketOpenSignGUI(37, PacketOpenSignGUI.class),
 	PacketCustomBlockOverride(38, PacketCustomBlockOverride.class),
 	PacketCustomBlockDesign(39, PacketCustomBlockDesign.class),
-	PacketUniqueId(40, PacketUniqueId.class),
+	//PacketUniqueId(40, PacketUniqueId.class),
 	PacketKeyBinding(41, PacketKeyBinding.class),
 	PacketBlockData(42, PacketBlockData.class),
 	PacketCustomMultiBlockOverride(43, PacketCustomMultiBlockOverride.class),
@@ -77,6 +77,7 @@ public enum PacketType {
 	PacketCustomBlock(50, GenericCustomBlock.class),
 	PacketCustomBlockChunkOverride(51, PacketCustomBlockChunkOverride.class),
 	PacketCustomFood(52, GenericCustomFood.class),
+	PacketEntityInformation(53, PacketEntityInformation.class),
 	
 	;
 	

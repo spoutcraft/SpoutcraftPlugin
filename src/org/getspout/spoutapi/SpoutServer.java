@@ -189,9 +189,10 @@ public class SpoutServer implements Server{
 		return server.getAllowNether();
 	}
 		
-	@Override
+	//@Override
 	public boolean getAllowEnd() {
-		return server.getAllowEnd();
+		return true;
+		//return server.getAllowEnd();
 	}
 
 	@Override

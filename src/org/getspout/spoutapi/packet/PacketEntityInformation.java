@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -11,22 +12,21 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class PacketUniqueId implements CompressablePacket{
-	private boolean alive = false;
+public class PacketEntityInformation implements CompressablePacket{
 	private boolean compressed = false;
 	private byte[] data = null;
-	private List<Entity> tempData;
 	
-	public PacketUniqueId() {
+	public PacketEntityInformation() {
 		
 	}
 	
-	public PacketUniqueId(List<Entity> entities, boolean alive) {
-		tempData = entities;
-		this.alive = alive;
-		ByteBuffer tempbuffer = ByteBuffer.allocate(tempData.size() * 20); //4 bytes for entity id, 16 for uuid
-		for (Entity e : tempData) {
+	public PacketEntityInformation(List<LivingEntity> entities) {
+		ByteBuffer tempbuffer = ByteBuffer.allocate(entities.size() * 20); //4 bytes for entity id, 16 for uuid
+		for (Entity e : entities) {
 			tempbuffer.putLong(e.getUniqueId().getLeastSignificantBits());
 			tempbuffer.putLong(e.getUniqueId().getMostSignificantBits());
 			tempbuffer.putInt(e.getEntityId());
@@ -46,7 +46,6 @@ public class PacketUniqueId implements CompressablePacket{
 			data = new byte[size];
 			input.readFully(data);
 		}
-		alive = input.readBoolean();
 		compressed = input.readBoolean();
 	}
 
@@ -59,13 +58,29 @@ public class PacketUniqueId implements CompressablePacket{
 		else {
 			output.writeInt(0);
 		}
-		output.writeBoolean(alive);
 		output.writeBoolean(compressed);
 	}
 
 	@Override
 	public void run(int playerId) {
-		
+		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
+		if (player != null) {
+			ByteBuffer rawData = ByteBuffer.allocate(data.length);
+			rawData.put(data);
+			ArrayList<LivingEntity> entities = new ArrayList<LivingEntity>(data.length / 4 + 1);
+			for (int i = 0; i < data.length / 4; i++) {
+				int index = i * 4;
+				int id = rawData.getInt(index);
+				Entity entity = SpoutManager.getEntityFromId(id);
+				if (entity != null && entity instanceof LivingEntity) {
+					entities.add((LivingEntity)entity);
+				}
+			}
+			if (entities.size() > 0) {
+				player.sendPacket(new PacketEntityInformation(entities));
+				player.updateEntitySkins(entities);
+			}
+		}
 	}
 
 	@Override
@@ -75,12 +90,12 @@ public class PacketUniqueId implements CompressablePacket{
 
 	@Override
 	public PacketType getPacketType() {
-		return PacketType.PacketUniqueId;
+		return PacketType.PacketEntityInformation;
 	}
 
 	@Override
 	public int getVersion() {
-		return 2;
+		return 0;
 	}
 
 	@Override

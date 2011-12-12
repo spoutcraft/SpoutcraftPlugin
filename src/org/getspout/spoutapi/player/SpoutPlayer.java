@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.player;
 
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -742,5 +744,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player{
 	 * @param update
 	 */
 	public void setClipboardText(String text, boolean update);
+	
+	/**
+	 * Internal use only
+	 * @param entities to update skins for
+	 */
+	public void updateEntitySkins(List<LivingEntity> entities);
 	
 }
