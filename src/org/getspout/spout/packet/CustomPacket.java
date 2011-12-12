@@ -128,7 +128,7 @@ public class CustomPacket extends Packet{
 				if (success) {
 					packet.run(player.getEntityId());
 				}
-				else {
+				else if (packet != null) {
 					packet.failure(player.getEntityId());
 				}
 			}
