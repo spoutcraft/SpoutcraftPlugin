@@ -59,7 +59,6 @@ public class SpoutPlayerListener extends PlayerListener{
 		}
 		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(event.getPlayer());
 		manager.onPlayerJoin(event.getPlayer());
-		Spout.getInstance().getEntityTrackingManager().onEntityJoin(event.getPlayer());
 		synchronized(Spout.getInstance().playersOnline) {
 			Spout.getInstance().playersOnline.add((SpoutPlayer) event.getPlayer());
 		}
@@ -235,7 +234,6 @@ public class SpoutPlayerListener extends PlayerListener{
 			}
 		}
 		Spout.getInstance().getPlayerTrackingManager().onPlayerQuit(player);
-		Spout.getInstance().getEntityTrackingManager().untrack(player);
 		synchronized(Spout.getInstance().playersOnline) {
 			Spout.getInstance().playersOnline.remove((SpoutPlayer) player);
 		}

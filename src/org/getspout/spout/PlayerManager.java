@@ -73,8 +73,6 @@ public class PlayerManager {
 	
 	public void onSpoutcraftEnable(SpoutPlayer player) {
 		timer.remove(player.getName());
-		Spout.getInstance().getEntityTrackingManager().track(player);
-		Spout.getInstance().getEntityTrackingManager().onPostWorldChange(player); //force tracking of all existing entities
 		player.sendPacket(new PacketServerPlugins(Bukkit.getServer().getPluginManager().getPlugins()));
 		
 		((SpoutCraftPlayer)player).updateAppearance();

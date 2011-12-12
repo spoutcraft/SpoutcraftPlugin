@@ -16,6 +16,8 @@
  */
 package org.getspout.spout.item.mcitem;
 
+import org.bukkit.Bukkit;
+import org.getspout.spout.Spout;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Food;
 import org.getspout.spoutapi.material.MaterialData;
@@ -50,17 +52,15 @@ public class CustomItemFlint extends Item{
 			return EnumAnimation.b;
 		}
 		return super.d(itemstack);
-    }
+	}
 	
 	@Override
 	public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
-			if (entityhuman.b(false)) {
-				entityhuman.a(itemstack, 32);
-			}
+			Bukkit.getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new FoodUpdate(entityhuman, itemstack), 2);
 		}
-	
+		
 		return itemstack;
 	}
 	
@@ -69,4 +69,18 @@ public class CustomItemFlint extends Item{
 		Item.byId[MaterialData.flint.getRawId()] = new CustomItemFlint();
 	}
 
+}
+	
+class FoodUpdate implements Runnable {
+	EntityHuman human;
+	ItemStack item;
+	public FoodUpdate(EntityHuman human, ItemStack item) {
+		this.human = human;
+		this.item = item;
+	}
+	public void run() {
+		if (human.b(false)) {
+			human.a(item, 32);
+		}
+	}
 }

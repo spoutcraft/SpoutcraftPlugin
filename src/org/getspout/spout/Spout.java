@@ -45,7 +45,6 @@ import org.getspout.spout.block.mcblock.CustomBlock;
 import org.getspout.spout.chunkcache.SimpleCacheManager;
 import org.getspout.spout.command.SpoutCommand;
 import org.getspout.spout.config.ConfigReader;
-import org.getspout.spout.entity.tracker.EntityTrackerManager;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.inventory.SpoutInventoryBuilder;
 import org.getspout.spout.item.mcitem.CustomItemFlint;
@@ -72,7 +71,6 @@ import org.getspout.spoutapi.plugin.SpoutPlugin;
 @SuppressWarnings("deprecation")
 public class Spout extends SpoutPlugin{
 	public final SpoutPlayerListener playerListener;
-	protected final EntityTrackerManager entityTrackingManager;
 	protected final PlayerTrackingManager playerTrackingManager;
 	protected final SpoutWorldListener chunkListener;
 	protected final SpoutWorldMonitorListener chunkMonitorListener;
@@ -111,7 +109,6 @@ public class Spout extends SpoutPlugin{
 		SpoutManager.getInstance().setMaterialManager(new SimpleMaterialManager());
 		SpoutManager.getInstance().setWorldManager(new SimpleWorldManager());
 		blockListener = new SpoutBlockListener();
-		entityTrackingManager = new EntityTrackerManager();
 		playerTrackingManager = new PlayerTrackingManager();
 		shutdownThread = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(shutdownThread);
@@ -214,9 +211,6 @@ public class Spout extends SpoutPlugin{
 		registerEvent(Type.BLOCK_CANBUILD, blockListener, Priority.Lowest);
 		registerEvent(Type.ENTITY_TARGET, entityListener, Priority.Lowest);
 		registerEvent(Type.ENTITY_DAMAGE, entityListener, Priority.Lowest);
-		registerEvent(Type.ENTITY_DEATH, entityListener, Priority.Monitor);
-		registerEvent(Type.CREATURE_SPAWN, entityListener, Priority.Monitor);
-		registerEvent(Type.ITEM_SPAWN, entityListener, Priority.Monitor);
 
 		getCommand("spout").setExecutor(new SpoutCommand(this));
 
@@ -311,10 +305,6 @@ public class Spout extends SpoutPlugin{
 	 */
 	public static Spout getInstance() {
 		return instance;
-	}
-	
-	public EntityTrackerManager getEntityTrackingManager() {
-		return entityTrackingManager;
 	}
 	
 	public PlayerTrackingManager getPlayerTrackingManager() {

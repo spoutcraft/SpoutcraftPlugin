@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import net.minecraft.server.ChunkCoordIntPair;
@@ -904,13 +905,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private String title = getName();
 	private HashMap<String, String> titlesFor = new HashMap<String, String>();
 	
-	public void updateAppearance() {
-		if (!isSpoutCraftEnabled()) {
-			return;
-		}
+	public void updateEntitySkins(List<LivingEntity> entities) {
 		PlayerInformation info = getInformation();
 		PlayerInformation global = SpoutManager.getPlayerManager().getGlobalInfo();
-		for (LivingEntity le : getWorld().getLivingEntities()) {
+		for (LivingEntity le : entities) {
 			for (EntitySkinType type : EntitySkinType.values()) {
 				String skin = null;
 				if (info != null) {
@@ -928,7 +926,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 				sendDelayedPacket(new PacketEntityTitle(le.getEntityId(), title));
 			}
 		}
-
+	}
+	
+	public void updateAppearance() {
+		if (!isSpoutCraftEnabled()) {
+			return;
+		}
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer && p != this) {
 				SpoutPlayer player = (SpoutPlayer)p;
@@ -1206,7 +1209,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		SpoutCraftPlayer.updateBukkitEntity(this);
 		if (isSpoutCraftEnabled()) {
 			updateMovement();
-			Spout.getInstance().getEntityTrackingManager().onPostWorldChange(this);
 			Spout.getInstance().getPlayerTrackingManager().onWorldChange(this);
 		}
 		updateAppearance();
