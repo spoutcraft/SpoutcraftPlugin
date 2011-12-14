@@ -18,6 +18,7 @@ package org.getspout.spoutapi.io;
 
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
