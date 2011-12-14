@@ -40,11 +40,10 @@ public class SpoutInputStream extends InputStream{
 		int x = readInt();
 		int y = readInt();
 		int z = readInt();
-		long lsb = readLong();
-		long msb = readLong();
-		World world = Bukkit.getServer().getWorld(new UUID(msb, lsb));
-		if (world != null)
+		World world = Bukkit.getServer().getWorld(readUUID());
+		if (world != null) {
 			return world.getBlockAt(x,y,z);
+		}
 		return null;
 	}
 
@@ -54,11 +53,10 @@ public class SpoutInputStream extends InputStream{
 		double z = readDouble();
 		float pitch = readFloat();
 		float yaw = readFloat();
-		long lsb = readLong();
-		long msb = readLong();
-		World world = Bukkit.getServer().getWorld(new UUID(msb, lsb));
-		if (world != null)
+		World world = Bukkit.getServer().getWorld(readUUID());
+		if (world != null) {
 			return new Location(world, x, y, z, yaw, pitch);
+		}
 		return null;
 	}
 
@@ -80,6 +78,12 @@ public class SpoutInputStream extends InputStream{
 		int id = readInt();
 		short dura = readShort();
 		return MaterialData.getMaterial(id, dura);
+	}
+	
+	public UUID readUUID() {
+		long lsb = readLong();
+		long msb = readLong();
+		return new UUID(msb, lsb);
 	}
 	
 	@Override
