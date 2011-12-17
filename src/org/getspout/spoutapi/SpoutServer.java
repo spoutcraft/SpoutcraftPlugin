@@ -84,7 +84,7 @@ public class SpoutServer implements Server{
 	public void setEntitySkin(LivingEntity target, String url, EntitySkinType type) {
 		SpoutManager.getPlayerManager().getGlobalInfo().setEntitySkin(target, url, type);
 		ArrayList<LivingEntity> entities = new ArrayList<LivingEntity>(1);
-		entities.add(entity);
+		entities.add(target);
 		for (SpoutPlayer player : getOnlinePlayers()) {
 			player.updateEntitySkins(entities);
 		}
@@ -106,7 +106,7 @@ public class SpoutServer implements Server{
 	public void resetEntitySkin(LivingEntity target) {
 		SpoutManager.getPlayerManager().getGlobalInfo().setEntitySkin(target, null);
 		ArrayList<LivingEntity> entities = new ArrayList<LivingEntity>(1);
-		entities.add(entity);
+		entities.add(target);
 		for (SpoutPlayer player : getOnlinePlayers()) {
 			player.updateEntitySkins(entities);
 		}
