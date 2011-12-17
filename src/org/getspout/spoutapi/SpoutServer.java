@@ -83,6 +83,11 @@ public class SpoutServer implements Server{
 	 */
 	public void setEntitySkin(LivingEntity target, String url, EntitySkinType type) {
 		SpoutManager.getPlayerManager().getGlobalInfo().setEntitySkin(target, url, type);
+		ArrayList<LivingEntity> entities = new ArrayList<LivingEntity>(1);
+		entities.add(entity);
+		for (SpoutPlayer player : getOnlinePlayers()) {
+			player.updateEntitySkins(entities);
+		}
 	}
 
 	/**
@@ -100,6 +105,11 @@ public class SpoutServer implements Server{
 	 */
 	public void resetEntitySkin(LivingEntity target) {
 		SpoutManager.getPlayerManager().getGlobalInfo().setEntitySkin(target, null);
+		ArrayList<LivingEntity> entities = new ArrayList<LivingEntity>(1);
+		entities.add(entity);
+		for (SpoutPlayer player : getOnlinePlayers()) {
+			player.updateEntitySkins(entities);
+		}
 	}
 	
 	public String getTitle(LivingEntity entity) {
@@ -117,6 +127,11 @@ public class SpoutServer implements Server{
 			((SpoutPlayer)entity).setTitle(title);
 		}
 		titles.put(entity.getEntityId(), title);
+		ArrayList<LivingEntity> entities = new ArrayList<LivingEntity>(1);
+		entities.add(entity);
+		for (SpoutPlayer player : getOnlinePlayers()) {
+			player.updateEntitySkins(entities);
+		}
 	}
 
 	@Override
