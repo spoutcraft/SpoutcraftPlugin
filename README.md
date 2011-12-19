@@ -1,14 +1,14 @@
 [![Spout][Project Logo]][Website]
-What is Spout?
---------------
-Spout is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize, in an attempt to bring the Minecraft multiplayer experience to parity with the single-player modding experience.
+What is SpoutPlugin?
+--------------------
+SpoutPlugin is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize, in an attempt to bring the Minecraft multiplayer experience to parity with the single-player modding experience.
 
 Copyright &copy; 2011, SpoutDev <[Website]>  
-Spout is licensed under [GNU LESSER GENERAL PUBLIC LICENSE Version 3][License]
+SpoutPlugin is licensed under [GNU LESSER GENERAL PUBLIC LICENSE Version 3][License]
 
 Who is SpoutDev?
 ----------------
-SpoutDev is the team behind Spout, SpoutAPI, Spoutcraft, SpoutcraftAPI, and Spoutcraft Launcher.  
+SpoutDev is the team behind Spout, SpoutAPI, Spoutcraft, SpoutcraftAPI, Spoutcraft Launcher, SpoutPlugin, and SpoutPluginAPI.  
 [![Afforess](https://secure.gravatar.com/avatar/ea0be49e1e4deac42ed9204ffd95b56c?d=mm&r=pg&s=48)](http://forums.getspout.org/members/afforess.2/) 
 [![alta189](https://secure.gravatar.com/avatar/7a087430b2bf9456b8879c5469aadb95?d=mm&r=pg&s=48)](http://forums.getspout.org/members/alta189.3/) 
 [![Wulfspider](https://secure.gravatar.com/avatar/6f2a0dcb60cd1ebee57875f9326bc98c?d=mm&r=pg&s=48)](http://forums.getspout.org/members/wulfspider.1/) 
@@ -30,9 +30,8 @@ Download the latest builds from [Jenkins].
 
 Compiling
 ---------
-Spout uses Maven to handle its dependencies.
+SpoutPlugin uses Maven to handle its dependencies.
 
-Spout requires SpoutAPI, Bukkit, and other libraries (preferrably the latest versions or source).  
 * Install [Maven 2 or 3](http://maven.apache.org/download.html)  
 * Checkout this repo and run: `mvn clean package`
 
@@ -51,13 +50,13 @@ Coding and Pull Request Formatting
 [License]: http://www.gnu.org/licenses/lgpl.html
 [Website]: http://www.getspout.org
 [Forums]: http://forums.getspout.org
-[GitHub]: https://github.com/SpoutDev/Spout
+[GitHub]: https://github.com/SpoutDev/SpoutPlugin
 [Jenkins]: http://spout.in/ci
 [Issues]: http://spout.in/issues
 [Twitter]: http://spout.in/twitter
 [Twitter Logo]: http://cdn.getspout.org/img/button/twitter_follow_us.png
 [Facebook]: http://spout.in/facebook
 [Facebook Logo]: http://cdn.getspout.org/img/button/facebook_like_us.png
-[Donate]: https://www.paypal.com/cgi-bin/webscr?hosted_button_id=QNJH72R72TZ64&item_name=Spout+donation+%28from+github.com%29&cmd=_s-xclick
+[Donate]: https://www.paypal.com/cgi-bin/webscr?hosted_button_id=QNJH72R72TZ64&item_name=SpoutPlugin+donation+%28from+github.com%29&cmd=_s-xclick
 [Donate Logo]: http://cdn.getspout.org/img/button/donate_paypal_96x96.png
 [MCP]: http://mcp.ocean-labs.de/index.php/MCP_Releases

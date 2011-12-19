@@ -1,8 +1,8 @@
 <!--
-	Maven build file for Spout
+	Maven build file for SpoutPlugin
 
 	Copyright (c) 2011 SpoutDev <http://www.getspout.org>
-	Spout is licensed under GNU LESSER GENERAL PUBLIC LICENSE Version 3
+	SpoutPlugin is licensed under GNU LESSER GENERAL PUBLIC LICENSE Version 3
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -10,15 +10,15 @@
 
 	<!-- Project information -->
 	<groupId>org.getspout</groupId>
-	<artifactId>spout</artifactId>
+	<artifactId>spoutplugin</artifactId>
 	<version>dev-SNAPSHOT</version>
-	<name>Spout</name>
+	<name>SpoutPlugin</name>
 	<url>http://www.getspout.org</url>
-	<description>Spout is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize, in an attempt to bring the Minecraft multiplayer experience to parity with the single-player modding experience.</description>
+	<description>SpoutPlugin is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize, in an attempt to bring the Minecraft multiplayer experience to parity with the single-player modding experience.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<build.number>0</build.number>
+		<build.number>Unknown</build.number>
 	</properties>
 
 	<!-- License -->
@@ -56,13 +56,13 @@
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1-R2-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.getspout</groupId>
-			<artifactId>spoutapi</artifactId>
+			<artifactId>spoutpluginapi</artifactId>
 			<version>dev-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
@@ -84,7 +84,7 @@
 		<dependency>
 			<groupId>net.sf.trove4j</groupId>
 			<artifactId>trove4j</artifactId>
-			<version>3.0.1</version>
+			<version>3.0.2</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
