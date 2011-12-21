@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import net.minecraft.server.Packet;
 
+import net.minecraft.server.Packet50PreChunk;
 import org.bukkit.entity.Player;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.packet.standard.MCCraftPacketUnknown;
@@ -62,6 +63,7 @@ public class PacketListeners {
 	}
 
 	public static boolean canSend(Player player, Packet packet, MCCraftPacket[] packetWrappers, int packetId) {
+		if ((packet instanceof Packet50PreChunk) && packetId != 50) packetId = 50;
 		AtomicReference<PacketListener[]> listenerReference = (AtomicReference<PacketListener[]>) listeners[packetId];
 		PacketListener[] listenerArray = listenerReference.get();
 		if (listenerArray != null) {
