@@ -41,6 +41,7 @@ public class ConfigReader {
 	private static boolean chunkDataCache = true;
 	private static boolean teleportSmoothing = true;
 	private static boolean authenticateSpoutcraft = true;
+	private static boolean runDeadlockMonitor = false;
 	
 	public void read() {
 		try {
@@ -164,6 +165,12 @@ public class ConfigReader {
 				configuration.setProperty("AuthenticateSpoutcraft", true);
 			}
 			
+			if (configuration.getProperty("DeadlockMonitor") != null) {
+				runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
+			} else {
+				configuration.setProperty("DeadlockMonitor", false);
+			}
+			
 			if (!configuration.save()) {
 				throw new IOException();
 			}
@@ -230,5 +237,9 @@ public class ConfigReader {
 	
 	public static boolean authenticateSpoutcraft() {
 		return authenticateSpoutcraft;
+	}
+	
+	public static boolean runDeadlockMonitor() {
+		return runDeadlockMonitor;
 	}
 }

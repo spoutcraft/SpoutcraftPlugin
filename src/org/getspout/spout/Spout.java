@@ -61,6 +61,7 @@ import org.getspout.spout.player.SimplePlayerManager;
 import org.getspout.spout.player.SimpleSkyManager;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spout.sound.SimpleSoundManager;
+import org.getspout.spout.util.DeadlockMonitor;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.PlayerTrackingManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
@@ -264,6 +265,10 @@ public class Spout extends SpoutPlugin{
 		ItemMap.setRootMap(serverItemMap);
 		
 		SimpleMaterialManager.disableFlintStackMix();
+		
+		if (ConfigReader.runDeadlockMonitor()) {
+			new DeadlockMonitor().start();
+		}
 		
 		this.log("Spout %s has been initialized", getVersion());
 		
