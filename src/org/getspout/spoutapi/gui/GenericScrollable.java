@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public abstract class GenericScrollable extends GenericControl implements Scrollable {

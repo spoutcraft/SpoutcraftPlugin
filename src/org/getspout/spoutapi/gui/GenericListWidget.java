@@ -25,44 +25,38 @@ import java.util.List;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericListWidget extends GenericScrollable implements ListWidget {
-
 	private List<ListWidgetItem> items = new ArrayList<ListWidgetItem>();
 	private int selected = -1;
-	private int cachedTotalHeight = -1;
+	protected int cachedTotalHeight = -1;
+	
 
-	@Override
 	public WidgetType getType() {
 		return WidgetType.ListWidget;
 	}
 
-	@Override
 	public ListWidgetItem[] getItems() {
 		ListWidgetItem[] sample = {};
 		return items.toArray(sample);
 	}
 
-	@Override
 	public ListWidgetItem getItem(int i) {
-		if (i == -1) {
+		if(i == -1) {
 			return null;
 		}
-		ListWidgetItem items[] = getItems();
-		if (i >= items.length) {
+		ListWidgetItem items [] = getItems();
+		if(i>=items.length) {
 			return null;
 		}
 		return items[i];
 	}
 
-	@Override
 	public ListWidget addItem(ListWidgetItem item) {
 		items.add(item);
 		item.setListWidget(this);
 		cachedTotalHeight = -1;
-		autoDirty();
 		return this;
 	}
 	
-	@Override
 	public ListWidget addItems(ListWidgetItem... items) {
 		for (ListWidgetItem item : items) {
 			this.addItem(item);
@@ -70,43 +64,42 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return this;
 	}
 
-	@Override
 	public boolean removeItem(ListWidgetItem item) {
-		if (items.contains(item)) {
+		if(items.contains(item)){
 			items.remove(item);
 			item.setListWidget(null);
 			cachedTotalHeight = -1;
-			autoDirty();
 			return true;
 		}
 		return false;
 	}
 
-	@Override
 	public ListWidgetItem getSelectedItem() {
 		return getItem(selected);
 	}
-
-	@Override
+	
 	public int getSelectedRow() {
 		return selected;
 	}
 
-	@Override
 	public ListWidget setSelection(int n) {
-		int sel = Math.max(-1, Math.min(n, items.size() - 1));
-		if (getSelectedRow() != sel) {
-			selected = sel;
-			ensureVisible(getItemRect(selected)); // Check if selection is visible
-			autoDirty();
+		selected = n;
+		if(selected < -1) {
+			selected = -1;
 		}
+		if(selected > items.size()-1) {
+			selected = items.size()-1;
+		}
+		
+		//Check if selection is visible
+		ensureVisible(getItemRect(selected));
 		return this;
 	}
-
-	private Rectangle getItemRect(int n) {
+	
+	protected Rectangle getItemRect(int n) {
 		ListWidgetItem item = getItem(n);
-		Rectangle result = new Rectangle(0, 0, 0, 0);
-		if (item == null) {
+		Rectangle result = new Rectangle(0,0,0,0);
+		if(item == null) {
 			return result;
 		}
 		result.setX(0);
@@ -116,17 +109,19 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return result;
 	}
 
-	private int getItemYOnScreen(int n) {
-		return items.size() * 24;
+	protected int getItemYOnScreen(int n) {
+		return n * 24;
 	}
 
-	@Override
+	public int getSize() {
+		return items.size();
+	}
+
 	public ListWidget clearSelection() {
 		setSelection(-1);
 		return this;
 	}
 
-	@Override
 	public boolean isSelected(int n) {
 		return selected == n;
 	}
@@ -136,17 +131,19 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return this;
 	}
 
+	public int getScrollPosition() {
+		return getScrollPosition(Orientation.VERTICAL);
+	}
+	
 	@Override
 	public int getInnerSize(Orientation axis) {
-		if (axis == Orientation.HORIZONTAL) {
-			return getViewportSize(Orientation.HORIZONTAL);
-		}
-		if (cachedTotalHeight == -1) {
-			cachedTotalHeight = items.size() * 24;
+		if(axis == Orientation.HORIZONTAL) return getViewportSize(Orientation.HORIZONTAL);
+		if(cachedTotalHeight == -1) {
+			cachedTotalHeight = getItems().length * 24;
 		}
 		return cachedTotalHeight + 10;
 	}
-
+	
 	public int getTotalHeight() {
 		return getInnerSize(Orientation.VERTICAL);
 	}
@@ -155,25 +152,24 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		return getMaximumScrollPosition(Orientation.VERTICAL);
 	}
 
-	@Override
 	public boolean isSelected(ListWidgetItem item) {
-		if (getSelectedItem() == null) {
+		if(getSelectedItem() == null)
 			return false;
-		}
 		return getSelectedItem().equals(item);
 	}
 
-	@Override
 	public ListWidget shiftSelection(int n) {
-		setSelection(Math.max(0, selected + n));
+		if(selected + n < 0){
+			setSelection(0);
+		} else {
+			setSelection(selected + n);
+		}
 		return this;
 	}
 
-	@Override
 	public void onSelected(int item, boolean doubleClick) {
 	}
 
-	@Override
 	public void clear() {
 		items.clear();
 		cachedTotalHeight = -1;
@@ -184,7 +180,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	@Override
 	public int getNumBytes() {
 		int bytes = 0;
-		for (ListWidgetItem item : items) {
+		for (ListWidgetItem item : getItems()) {
 			bytes += PacketUtil.getNumBytes(item.getTitle());
 			bytes += PacketUtil.getNumBytes(item.getText());
 			bytes += PacketUtil.getNumBytes(item.getIconUrl());
@@ -207,8 +203,8 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	public void writeData(DataOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(selected); // Write which item is selected.
-		output.writeInt(items.size()); // Write number of items first!
-		for (ListWidgetItem item : items) {
+		output.writeInt(getItems().length); // Write number of items first!
+		for (ListWidgetItem item : getItems()) {
 			PacketUtil.writeString(output, item.getTitle());
 			PacketUtil.writeString(output, item.getText());
 			PacketUtil.writeString(output, item.getIconUrl());
