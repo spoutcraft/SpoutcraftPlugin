@@ -23,6 +23,10 @@ public class Texture {
 	 * In order to use it to get multiple SubTextures, you must specify the total width, total height,
 	 * and the spriteSize which is the length of the sides of the squares inside it.
 	 * 
+	 * The image itself used for this Texture MUST be a power of 2 on each side.
+	 * 16, 32, 64, 128, 256, 512, etc.
+	 * For example, a png that is 18x20 will get loaded by OpenGL as 32x32, thus skewing your SubTextures
+	 * 
 	 * The layout for textureId's in order to get SubTextures from this goes from
 	 * Left -> Right, then Top -> Bottom, like so:
 	 * [0, 1, 2,  3
