@@ -50,6 +50,9 @@ public class WidgetType {
 	public static WidgetType ListWidget = new WidgetType(GenericListWidget.class, 21);
 	//public static WidgetType DirtBackground = new WidgetType(DirtBackground.class, 22); Only on the client :P
 	//public static WidgetType ScrollArea = new WidgetType(GenericScrollArea.class, 23); Not yet :P
+	public static WidgetType ComboBox = new WidgetType(GenericComboBox.class, 25);
+	
+	
 	private final int id;
 	private final boolean server;
 	private final Class<? extends Widget> widgetClass;

@@ -25,6 +25,9 @@ public class ListWidgetItem {
 	String text;
 	String iconUrl = "";
 	ListWidget listWidget = null;
+	
+	public ListWidgetItem() {
+	}
 
 	public ListWidgetItem(String title, String text) {
 		this.title = title;
@@ -66,5 +69,9 @@ public class ListWidgetItem {
 			listWidget.removeItem(this);
 		}
 		listWidget = list;
+	}
+	
+	public int getHeight() {
+		return 24;
 	}
 }
