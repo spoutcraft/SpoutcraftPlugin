@@ -43,6 +43,10 @@ public class InventoryListener extends CustomEventListener implements Listener{
 
 	}
 
+	public void onPlayerEnchant(InventoryPlayerEnchantEvent event) {
+	        
+	}
+	
 	@Override
 	public void onCustomEvent(Event event) {
 		if (event instanceof SpoutEvent) {
@@ -58,7 +62,10 @@ public class InventoryListener extends CustomEventListener implements Listener{
 					break;
 				case Inventory_Craft:
 					onInventoryCraft((InventoryCraftEvent)event);
-					break;					
+					break;	
+	            case Player_Enchant:
+	                onPlayerEnchant((InventoryPlayerEnchantEvent)event);
+	                break;
 			}
 		}
 	}
