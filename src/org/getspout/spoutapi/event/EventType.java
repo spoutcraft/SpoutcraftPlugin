@@ -12,7 +12,8 @@ public enum EventType {
 	Inventory_Click,
 	Inventory_Close,
 	Inventory_Craft,
-	Inventory_Open,
+	Inventory_Open, 
+	Player_Enchant,
 
 	// Permission Events - Left out because there is only one event \\
 
