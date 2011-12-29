@@ -337,10 +337,10 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	                
 	                if (event.isCancelled()) {
 	                    player.setLevel(level);
-	                    table.a.setItem(0, ((SpoutCraftItemStack) event.getBefore()).getHandle());
+	                    table.a.setItem(0, initial);
 	                } else {
 	                    player.setLevel(event.getLevelAfter());
-	                    table.a.setItem(0, ((SpoutCraftItemStack) event.getResult()).getHandle());
+	                    table.a.setItem(0, SpoutCraftItemStack.createNMSItemStack(event.getResult()));
 	                }
 	            }
 	            this.player.activeContainer.a();
