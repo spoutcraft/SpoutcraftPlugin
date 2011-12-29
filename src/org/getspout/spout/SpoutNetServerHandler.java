@@ -43,6 +43,7 @@ import net.minecraft.server.ContainerFurnace;
 import net.minecraft.server.ContainerPlayer;
 import net.minecraft.server.ContainerWorkbench;
 import net.minecraft.server.CraftingManager;
+import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IInventory;
 import net.minecraft.server.IntHashMap;
@@ -57,6 +58,7 @@ import net.minecraft.server.Packet100OpenWindow;
 import net.minecraft.server.Packet101CloseWindow;
 import net.minecraft.server.Packet102WindowClick;
 import net.minecraft.server.Packet106Transaction;
+import net.minecraft.server.Packet108ButtonClick;
 import net.minecraft.server.Packet10Flying;
 import net.minecraft.server.Packet11PlayerPosition;
 import net.minecraft.server.Packet13PlayerLookMove;
@@ -99,6 +101,7 @@ import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCraftEvent;
 import org.getspout.spoutapi.event.inventory.InventoryOpenEvent;
 import org.getspout.spoutapi.event.inventory.InventoryPlayerClickEvent;
+import org.getspout.spoutapi.event.inventory.InventoryEnchantEvent;
 import org.getspout.spoutapi.event.inventory.InventorySlotType;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.Label;
@@ -313,6 +316,39 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	}
 
 	@Override
+    public void a(Packet108ButtonClick packet) {
+	    if (this.player.activeContainer instanceof ContainerEnchantTable) 
+	        if (this.player.activeContainer.windowId == packet.a && this.player.activeContainer.c(this.player)) {
+	            // Store our pre-event values
+	            CraftPlayer player = (CraftPlayer) this.player.getBukkitEntity();
+	            Inventory inventory = getActiveInventory();
+	            ContainerEnchantTable table = (ContainerEnchantTable) this.player.activeContainer;
+	            ItemStack initial = table.a.getItem(0).cloneItemStack();
+	            int level = this.player.expLevel;
+
+	            if (table.a((EntityHuman) this.player, packet.b)) {
+	                ItemStack after = ((ContainerEnchantTable) this.player.activeContainer).a.getItem(0);
+	                int afterLevel = this.player.expLevel;
+            
+	                SpoutCraftItemStack before = SpoutCraftItemStack.fromItemStack(initial);
+	                SpoutCraftItemStack result = SpoutCraftItemStack.fromItemStack(after);
+	                InventoryEnchantEvent event = new InventoryEnchantEvent(player, inventory, before, result, level, afterLevel);
+	                Bukkit.getServer().getPluginManager().callEvent(event);
+	                
+	                if (event.isCancelled()) {
+	                    player.setLevel(level);
+	                    table.a.setItem(0, ((SpoutCraftItemStack) event.getBefore()).getHandle());
+	                } else {
+	                    player.setLevel(event.getLevelAfter());
+	                    table.a.setItem(0, ((SpoutCraftItemStack) event.getResult()).getHandle());
+	                }
+	            }
+	            this.player.activeContainer.a();
+        } else
+            super.a(packet);
+    }
+
+    @Override
 	public void a(Packet102WindowClick packet) {
 		if (this.player.dead) return;
 		
