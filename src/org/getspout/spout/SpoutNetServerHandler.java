@@ -101,7 +101,7 @@ import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCraftEvent;
 import org.getspout.spoutapi.event.inventory.InventoryOpenEvent;
 import org.getspout.spoutapi.event.inventory.InventoryPlayerClickEvent;
-import org.getspout.spoutapi.event.inventory.InventoryPlayerEnchantEvent;
+import org.getspout.spoutapi.event.inventory.InventoryEnchantEvent;
 import org.getspout.spoutapi.event.inventory.InventorySlotType;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.Label;
@@ -332,7 +332,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
             
 	                SpoutCraftItemStack before = SpoutCraftItemStack.fromItemStack(initial);
 	                SpoutCraftItemStack result = SpoutCraftItemStack.fromItemStack(after);
-	                InventoryPlayerEnchantEvent event = new InventoryPlayerEnchantEvent(player, inventory, before, result, level, afterLevel);
+	                InventoryEnchantEvent event = new InventoryEnchantEvent(player, inventory, before, result, level, afterLevel);
 	                Bukkit.getServer().getPluginManager().callEvent(event);
 	                
 	                if (event.isCancelled()) {
