@@ -1,6 +1,6 @@
 /*
  * This file is part of Spout API (http://wiki.getspout.org/).
- * 
+ *
  * Spout API is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -320,28 +320,26 @@ public class GenericContainer extends GenericWidget implements Container {
 			totalheight = totalwidth = 0;
 			// Resize any non-fixed widgets
 			for (Widget widget : visibleChildren) {
+				int vMargin = widget.getMarginTop() + widget.getMarginBottom();
+				int hMargin = widget.getMarginLeft() + widget.getMarginRight();
 				if (!widget.isFixed()) {
-					int realheight, realwidth;
 					if (auto) {
-						realheight = Math.max(widget.getMinHeight(), Math.min(newheight - widget.getMarginTop() - widget.getMarginBottom(), widget.getMaxHeight()));
-						realwidth = Math.max(widget.getMinWidth(), Math.min(newwidth - widget.getMarginLeft() - widget.getMarginRight(), widget.getMaxWidth()));
+						widget.setHeight(Math.max(widget.getMinHeight(), Math.min(newheight - (this.type == ContainerType.VERTICAL ? 0 : vMargin), widget.getMaxHeight())));
+						widget.setWidth(Math.max(widget.getMinWidth(), Math.min(newwidth - (this.type == ContainerType.HORIZONTAL ? 0 : hMargin), widget.getMaxWidth())));
 					} else {
-						realheight = widget.getMinHeight() == 0 ? newheight - widget.getMarginTop() - widget.getMarginBottom() : widget.getMinHeight();
-						realwidth = widget.getMinWidth() == 0 ? newwidth - widget.getMarginLeft() - widget.getMarginRight() : widget.getMinWidth();
-					}
-					if (widget.getHeight() != realheight || widget.getWidth() != realwidth) {
-						widget.setHeight(realheight).setWidth(realwidth);
+						widget.setHeight(widget.getMinHeight() == 0 ? newheight - vMargin : widget.getMinHeight());
+						widget.setWidth(widget.getMinWidth() == 0 ? newwidth - hMargin : widget.getMinWidth());
 					}
 				}
 				if (type == ContainerType.VERTICAL) {
-					totalheight += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
+					totalheight += widget.getHeight() + vMargin;
 				} else {
-					totalheight = Math.max(totalheight, widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom());
+					totalheight = Math.max(totalheight, widget.getHeight() + vMargin);
 				}
 				if (type == ContainerType.HORIZONTAL) {
-					totalwidth += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
+					totalwidth += widget.getWidth() + hMargin;
 				} else {
-					totalwidth = Math.max(totalwidth, widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight());
+					totalwidth = Math.max(totalwidth, widget.getWidth() + hMargin);
 				}
 			}
 			// Work out the new top-left position taking into account Align
@@ -407,7 +405,7 @@ public class GenericContainer extends GenericWidget implements Container {
 	public Container updateSize() {
 		if (!recalculating && !isFixed()) {
 			recalculating = true; // Prevent us from getting into a loop due to both trickle down and push up
-			int minwidth = 0, maxwidth = 0, minheight = 0, maxheight = 0,  minhoriz, maxhoriz, minvert, maxvert;
+			int minwidth = 0, maxwidth = 0, minheight = 0, maxheight = 0, minhoriz, maxhoriz, minvert, maxvert;
 			// Work out the minimum and maximum dimensions for the contents of this container
 			for (Widget widget : children) {
 				if (widget.isVisible()) {
