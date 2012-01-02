@@ -210,6 +210,9 @@ public class SimpleFileManager implements FileManager {
 			throw new NullPointerException("The url list may not be null");
 		}
 		for (String file: fileUrls) {
+			if (file == null) {
+				throw new NullPointerException("Null filename in fileUrls list");
+			}
 			if (!canCache(file)) {
 				return false;
 			}
