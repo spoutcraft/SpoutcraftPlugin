@@ -52,7 +52,9 @@ public class SpoutCraftItemStack extends CraftItemStack{
 			}
 		}
 		
-		return new SpoutCraftItemStack(item.getTypeId(), item.getAmount(), item.getDurability());
+		SpoutCraftItemStack scis = SpoutCraftItemStack(item.getTypeId(), item.getAmount(), item.getDurability());
+		scis.addUnsafeEnchantments(item.getEnchantments());
+		return scis;
 	}
 	
 	public NBTTagCompound getTag() {
