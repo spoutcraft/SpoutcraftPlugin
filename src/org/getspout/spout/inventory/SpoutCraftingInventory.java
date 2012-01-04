@@ -98,10 +98,10 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			item = null;
 		}
 		if (index == 0) {
-			this.result.setItem(index, (item == null ? null : new net.minecraft.server.ItemStack( item.getTypeId(), item.getAmount(), item.getDurability())));
+			this.result.setItem(index, (item == null ? null : SpoutCraftItemStack.getCraftItemStack(item).getHandle()));
 		}
 		else {
-			this.inventory.setItem((index - this.result.getSize()), (item == null ? null : new net.minecraft.server.ItemStack( item.getTypeId(), item.getAmount(), item.getDurability())));
+			this.inventory.setItem((index - this.result.getSize()), (item == null ? null : SpoutCraftItemStack.getCraftItemStack(item).getHandle()));
 		}
 	}
 
@@ -136,7 +136,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			if (item == null || item.getTypeId() <= 0) {
 				mcItems[i] = null;
 			} else {
-				mcItems[i] = new net.minecraft.server.ItemStack( item.getTypeId(), item.getAmount(), item.getDurability());
+				mcItems[i] = SpoutCraftItemStack.getCraftItemStack(item).getHandle();
 			}
 		}
 	}
@@ -148,7 +148,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			contents[0] = null;
 		}
 		else {
-			contents[0] = new net.minecraft.server.ItemStack( item.getTypeId(), item.getAmount(), item.getDurability());
+			contents[0] = SpoutCraftItemStack.getCraftItemStack(item).getHandle();
 		}
 	}
 
