@@ -52,7 +52,7 @@ public class SpoutCraftItemStack extends CraftItemStack{
 			}
 		}
 		
-		SpoutCraftItemStack scis = SpoutCraftItemStack(item.getTypeId(), item.getAmount(), item.getDurability());
+		SpoutCraftItemStack scis = new SpoutCraftItemStack(item.getTypeId(), item.getAmount(), item.getDurability());
 		scis.addUnsafeEnchantments(item.getEnchantments());
 		return scis;
 	}
