@@ -199,10 +199,7 @@ public class GenericTextField extends GenericControl implements TextField {
 
 	@Override
 	public TextField setFocus(boolean focus) {
-		if (isFocused() != focus) {
-			this.focus = focus;
-			autoDirty();
-		}
+		super.setFocus(focus);
 		return this;
 	}
 

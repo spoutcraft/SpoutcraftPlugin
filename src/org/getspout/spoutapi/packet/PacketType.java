@@ -79,6 +79,7 @@ public enum PacketType {
 	PacketCustomFood(52, GenericCustomFood.class),
 	PacketEntityInformation(53, PacketEntityInformation.class),
 	PacketComboBox(54, PacketComboBox.class),
+	PacketFocusUpdate(55, PacketFocusUpdate.class),
 	
 	;
 	

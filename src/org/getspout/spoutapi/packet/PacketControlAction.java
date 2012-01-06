@@ -143,6 +143,7 @@ public class PacketControlAction implements SpoutPacket{
 						else {
 							((TextField)control).setText(event.getNewText());
 							((TextField)control).setCursorPosition((int)state);
+							control.setDirty(false);
 						}
 					}
 					else if (control instanceof Scrollable) {
