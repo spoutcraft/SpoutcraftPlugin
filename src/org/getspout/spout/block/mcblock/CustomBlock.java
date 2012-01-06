@@ -49,6 +49,7 @@ import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
@@ -258,31 +259,35 @@ public class CustomBlock extends Block implements CustomMCBlock{
 			if (player.getLastClickedLocation() != null) {
 				
 				org.getspout.spoutapi.material.Block block = ((SpoutBlock)player.getLastClickedLocation().getBlock()).getBlockType();
-				SpoutItemStack inHand = player.getItemInHand() == null ? null : new SpoutItemStack(player.getItemInHand());
-				org.getspout.spoutapi.material.Material item = inHand.getMaterial();
 				
-				float hardness = block.getHardness();
-				if (hardness <= 0F) {
-					return def;
+				if (block instanceof CustomBlock) {
+				
+					SpoutItemStack inHand = player.getItemInHand() == null ? null : new SpoutItemStack(player.getItemInHand());
+					org.getspout.spoutapi.material.Material item = inHand.getMaterial();
+					
+					float hardness = block.getHardness();
+					if (hardness <= 0F) {
+						return def;
+					}
+	
+					def = (!entityhuman.b(parent) ? 1.0F / hardness / 100.0F : entityhuman.a(parent) / hardness / 30.0F);
+	
+					if (!(item instanceof CustomItem)) {
+						return def;
+					}
+					
+					if (!(item instanceof Tool)) {
+						return def;
+					}
+					
+					Tool tool = (Tool)item;
+					
+					
+					
+					float modifier = tool.getStrengthModifier(block);
+					
+					return modifier / hardness / (modifier > 1F ? 30F : 100F);
 				}
-
-				def = (!entityhuman.b(parent) ? 1.0F / hardness / 100.0F : entityhuman.a(parent) / hardness / 30.0F);
-
-				if (!(item instanceof CustomItem)) {
-					return def;
-				}
-				
-				if (!(item instanceof Tool)) {
-					return def;
-				}
-				
-				Tool tool = (Tool)item;
-				
-				
-				
-				float modifier = tool.getStrengthModifier(block);
-				
-				return modifier / hardness / (modifier > 1F ? 30F : 100F);
 			}
 		}
 		
