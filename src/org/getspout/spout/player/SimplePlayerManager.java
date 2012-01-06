@@ -67,10 +67,10 @@ public class SimplePlayerManager implements PlayerManager{
 	public PlayerInformation getPlayerInfo(Player player) {
 		PlayerInformation info = infoMap.get(player.getName());
 		if (info == null) {
-			info = new SimplePlayerInformation()
+			info = new SimplePlayerInformation();
 			infoMap.put(player.getName(), info);	
 		}
-		return info
+		return info;
 	}
 	
 	public void onPlayerJoin(Player player) {
