@@ -65,7 +65,12 @@ public class SimplePlayerManager implements PlayerManager{
 
 	@Override
 	public PlayerInformation getPlayerInfo(Player player) {
-		return infoMap.get(player.getName());
+		PlayerInformation info = infoMap.get(player.getName());
+		if (info == null) {
+			info = new SimplePlayerInformation()
+			infoMap.put(player.getName(), info);	
+		}
+		return info
 	}
 	
 	public void onPlayerJoin(Player player) {
