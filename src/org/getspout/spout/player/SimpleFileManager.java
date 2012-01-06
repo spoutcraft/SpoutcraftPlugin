@@ -210,9 +210,6 @@ public class SimpleFileManager implements FileManager {
 			throw new NullPointerException("The url list may not be null");
 		}
 		for (String file: fileUrls) {
-			if (file == null) {
-				throw new NullPointerException("Null filename in fileUrls list");
-			}
 			if (!canCache(file)) {
 				return false;
 			}
@@ -390,6 +387,7 @@ public class SimpleFileManager implements FileManager {
 	public boolean canCache(File file) {
 		String filename = FileUtil.getFileName(file.getPath());
 		return FilenameUtils.isExtension(filename, validExtensions);
+		
 	}
 
 	@Override
@@ -407,14 +405,29 @@ public class SimpleFileManager implements FileManager {
 	}
 	
 	private static File addToTempDirectory(InputStream input, String fileName) {
+		BufferedOutputStream output = null;
 		try {
 			File temp = new File(getTempDirectory(), fileName);
-			BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(temp));
+			output = new BufferedOutputStream(new FileOutputStream(temp));
 			IOUtils.copy(input, output);
 			return temp;
 		}
 		catch (IOException e) {
 			return null;
+		}
+		finally {
+			try {
+				if (output != null) {
+					output.close();
+				}
+			}
+			catch (IOException ignore) { }
+			try {
+				if (input != null) {
+					input.close();
+				}
+			}
+			catch (IOException ignore) { }
 		}
 	}
 	
