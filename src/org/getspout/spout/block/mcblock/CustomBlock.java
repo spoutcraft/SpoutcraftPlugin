@@ -49,7 +49,6 @@ import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
@@ -260,7 +259,7 @@ public class CustomBlock extends Block implements CustomMCBlock{
 				
 				org.getspout.spoutapi.material.Block block = ((SpoutBlock)player.getLastClickedLocation().getBlock()).getBlockType();
 				
-				if (block instanceof CustomBlock) {
+				if (block instanceof org.getspout.spoutapi.material.CustomBlock) {
 				
 					SpoutItemStack inHand = player.getItemInHand() == null ? null : new SpoutItemStack(player.getItemInHand());
 					org.getspout.spoutapi.material.Material item = inHand.getMaterial();
