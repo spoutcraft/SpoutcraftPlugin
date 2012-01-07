@@ -615,9 +615,16 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	
 	// Called from the main thread only
 	private void syncedSendPacket(Packet packet, MCCraftPacket[] packetWrappers) {
+		int packetId = -1;
+		try {
+			packetId = packet.b();
+		}
+		catch (Exception e) {
+			return;
+		}
 
 		try {
-			if (!PacketListeners.canSend(getPlayer(), packet, packetWrappers, packet.b())) {
+			if (!PacketListeners.canSend(getPlayer(), packet, packetWrappers, packetId)) {
 				return;
 			} else {
 				if (packet instanceof Packet51MapChunk) {
