@@ -197,6 +197,7 @@ public class Spout extends SpoutPlugin{
 		registerEvent(Type.PLAYER_KICK, playerListener, Priority.Normal);
 		registerEvent(Type.PLAYER_QUIT, playerListener, Priority.Lowest);
 		registerEvent(Type.PLAYER_TELEPORT, playerListener, Priority.Monitor);
+		registerEvent(Type.PLAYER_RESPAWN, playerListener, Priority.Monitor);
 		registerEvent(Type.PLAYER_INTERACT, playerListener, Priority.Monitor);
 		registerEvent(Type.PLAYER_INTERACT, blockMonitor, Priority.High);
 		registerEvent(Type.PLAYER_MOVE, playerListener, Priority.Monitor);
