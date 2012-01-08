@@ -34,6 +34,7 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spout.chunkcache.ChunkCache;
@@ -238,8 +239,33 @@ public class SpoutPlayerListener extends PlayerListener{
 			Spout.getInstance().playersOnline.remove((SpoutPlayer) player);
 		}
 	}
+	
+	@Override
+	public void onPlayerRespawn(PlayerRespawnEvent event) {
+		Player player = event.getPlayer();
+		if (player instanceof SpoutCraftPlayer) {
+			SpoutCraftPlayer scp = (SpoutCraftPlayer)player;
+			if (scp.isSpoutCraftEnabled()) {
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new PostRespawn(scp), 2);
+			}
+		}
+	}
 
 }
+
+class PostRespawn implements Runnable {
+	SpoutCraftPlayer player;
+	public PostRespawn(SpoutCraftPlayer player){
+		this.player = player;
+	}
+	
+	@Override
+	public void run() {
+		Spout.getInstance().getPlayerTrackingManager().onPlayerQuit(player);
+		Spout.getInstance().getPlayerTrackingManager().onPlayerJoin(player);
+	}
+}
+
 
 class PostTeleport implements Runnable {
 	SpoutCraftPlayer player;
