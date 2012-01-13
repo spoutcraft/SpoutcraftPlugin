@@ -22,60 +22,74 @@ import org.getspout.spoutapi.packet.standard.MCPacket51MapChunk;
 
 public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51MapChunk {
 
+	@Override
 	public Packet51MapChunk getPacket() {
-		return (Packet51MapChunk)packet;
+		return (Packet51MapChunk) packet;
 	}
-	
+
+	@Override
 	public int getX() {
 		return getPacket().a;
 	}
 
+	@Override
 	public int getY() {
 		return getPacket().b;
 	}
 
+	@Override
 	public int getZ() {
 		return getPacket().c;
 	}
 
+	@Override
 	public void setX(int x) {
 		getPacket().a = x;
 	}
 
+	@Override
 	public void setY(int y) {
 		getPacket().b = y;
 	}
 
+	@Override
 	public void setZ(int z) {
 		getPacket().c = z;
 	}
 
+	@Override
 	public byte[] getCompressedChunkData() {
-		return getPacket().g;
+		return getPacket().buffer;
 	}
 
+	@Override
 	public int getSizeX() {
 		return getPacket().d;
 	}
 
+	@Override
 	public int getSizeY() {
 		return getPacket().e;
 	}
 
+	@Override
 	public int getSizeZ() {
 		return getPacket().f;
 	}
 
+	@Override
 	public void setSizeX(int x) {
 		getPacket().d = x;
 	}
 
+	@Override
 	public void setSizeY(int y) {
 		getPacket().e = y;
 	}
 
+	@Override
 	public void setSizeZ(int z) {
 		getPacket().f = z;
 	}
-	
+
 }

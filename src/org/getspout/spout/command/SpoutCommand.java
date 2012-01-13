@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
+
 import org.getspout.spout.Spout;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -23,17 +24,17 @@ public class SpoutCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		
+
 		if (args.length == 0) {
 			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
 			return true;
 		}
-		
+
 		if (!sender.isOp()) {
 			sender.sendMessage("[Spout] This command is Op only");
 			return true;
 		}
-		
+
 		String c = args[0];
 
 		if (c.equals("reload")) {
@@ -43,9 +44,9 @@ public class SpoutCommand implements CommandExecutor {
 		}
 		if (c.equals("version")) {
 			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
-			
+
 			CommandSender target = sender;
-			
+
 			if (args.length > 1) {
 				target = p.getServer().getPlayer(args[1]);
 				if (target == null) {
@@ -56,10 +57,11 @@ public class SpoutCommand implements CommandExecutor {
 
 			if (!(target instanceof Player)) {
 				sender.sendMessage("[Spout] Client version: no client");
-			} if (!(target instanceof SpoutPlayer)) {
+			}
+			if (!(target instanceof SpoutPlayer)) {
 				sender.sendMessage("[Spout] Client version: standard client");
 			} else {
-				SpoutCraftPlayer sp = (SpoutCraftPlayer)target;
+				SpoutCraftPlayer sp = (SpoutCraftPlayer) target;
 				if (!sp.isSpoutCraftEnabled()) {
 					sender.sendMessage("[Spout] Client version: standard client");
 				} else {
@@ -72,23 +74,23 @@ public class SpoutCommand implements CommandExecutor {
 			sender.sendMessage("[Spout] Temporarily setting the motd to: " + args[1]);
 			sender.sendMessage("[Spout] It will return to its original setting in ~5 mins");
 			if (motd_temp == null) {
-				motd_temp = ((CraftServer) Bukkit.getServer()).getHandle().server.r;
+				motd_temp = ((CraftServer) Bukkit.getServer()).getHandle().server.s;
 			} else {
 				Bukkit.getServer().getScheduler().cancelTask(motd_task);
 			}
-			((CraftServer) Bukkit.getServer()).getHandle().server.r = args[1];
+			((CraftServer) Bukkit.getServer()).getHandle().server.s = args[1];
 			motd_task = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new Runnable() {
 				@Override
 				public void run() {
-					((CraftServer) Bukkit.getServer()).getHandle().server.r = motd_temp;
+					((CraftServer) Bukkit.getServer()).getHandle().server.s = motd_temp;
 					motd_temp = null;
 				}
 			}, 20 * 60 * 5);
 			return true;
 		}
-		
+
 		return false;
-		
+
 	}
 
 }

@@ -39,13 +39,14 @@ public final class ChunkCompressionThread implements Runnable {
 			activeThread.start();
 		}
 	}
-	
+
 	public static void endThread() {
 		isRunning = false;
 		activeThread.interrupt();
 		instance.sendFinalChunks();
 	}
 
+	@Override
 	public void run() {
 		while (!activeThread.isInterrupted()) {
 			try {
@@ -56,13 +57,13 @@ public final class ChunkCompressionThread implements Runnable {
 			}
 		}
 	}
-	
+
 	private void sendFinalChunks() {
 		//safely manage the chunks after interruption
 		Iterator<QueuedPacket> i = packetQueue.iterator();
-		while(i.hasNext()) {
+		while (i.hasNext()) {
 			QueuedPacket next = i.next();
-			if (next.compress){
+			if (next.compress) {
 				handleMapChunk(next);
 			}
 			next.player.netServerHandler.networkManager.queue(next.packet);
@@ -81,8 +82,8 @@ public final class ChunkCompressionThread implements Runnable {
 	private void handleMapChunk(QueuedPacket queuedPacket) {
 		Packet51MapChunk packet = (Packet51MapChunk) queuedPacket.packet;
 
-		// If 'packet.g' is set then this packet has already been compressed.
-		if (packet.g != null) {
+		// If 'packet.buffer' is set then this packet has already been compressed.
+		if (packet.buffer != null) {
 			return;
 		}
 
@@ -101,9 +102,9 @@ public final class ChunkCompressionThread implements Runnable {
 		}
 
 		// copy compressed data to packet
-		packet.g = new byte[size];
-		packet.h = size;
-		System.arraycopy(deflateBuffer, 0, packet.g, 0, size);
+		packet.buffer = new byte[size];
+		packet.size = size;
+		System.arraycopy(deflateBuffer, 0, packet.buffer, 0, size);
 	}
 
 	private void sendToNetworkQueue(QueuedPacket queuedPacket) {

@@ -19,9 +19,6 @@ package org.getspout.spout;
 import java.net.Socket;
 import java.util.Iterator;
 
-import org.getspout.spout.config.ConfigReader;
-import org.getspout.spout.player.SpoutCraftPlayer;
-
 import net.minecraft.server.ChunkCoordinates;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
@@ -34,14 +31,18 @@ import net.minecraft.server.Packet4UpdateTime;
 import net.minecraft.server.Packet6SpawnPosition;
 import net.minecraft.server.WorldServer;
 
-public class SpoutNetLoginHandler extends NetLoginHandler{
+import org.getspout.spout.config.ConfigReader;
+import org.getspout.spout.player.SpoutCraftPlayer;
+
+public class SpoutNetLoginHandler extends NetLoginHandler {
 
 	public final MinecraftServer server;
-	public SpoutNetLoginHandler(MinecraftServer minecraftserver, Socket socket,	String s) {
+
+	public SpoutNetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
 		super(minecraftserver, socket, s);
 		this.server = minecraftserver;
 	}
-	
+
 	@Override
 	public void b(Packet1Login packet1login) {
 		EntityPlayer entityplayer = this.server.serverConfigurationManager.attemptLogin(this, packet1login.name);
@@ -54,9 +55,9 @@ public class SpoutNetLoginHandler extends NetLoginHandler{
 			ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 
 			entityplayer.itemInWorldManager.b(worldserver.getWorldData().getGameType());
-			
+
 			SpoutCraftPlayer.updateBukkitEntity(entityplayer);
-			
+
 			SpoutNetServerHandler netserverhandler = new SpoutNetServerHandler(this.server, this.networkManager, entityplayer);
 
 			worldserver.getClass();
@@ -64,16 +65,16 @@ public class SpoutNetLoginHandler extends NetLoginHandler{
 			if (maxPlayers > 60) {
 				maxPlayers = 60;
 			}
-			Packet1Login packet1login1 = new Packet1Login("", entityplayer.id, worldserver.getSeed(), entityplayer.itemInWorldManager.a(), (byte) worldserver.worldProvider.dimension, (byte) worldserver.difficulty, (byte) worldserver.height, (byte) maxPlayers);
+			Packet1Login packet1login1 = new Packet1Login("", entityplayer.id, worldserver.getSeed(), worldserver.getWorldData().getType(), entityplayer.itemInWorldManager.getGameMode(), (byte) worldserver.worldProvider.dimension, (byte) worldserver.difficulty, (byte) worldserver.height, (byte) maxPlayers);
 
 			networkManager.queue(packet1login1);
-			
+
 			if (ConfigReader.authenticateSpoutcraft()) {
 				Packet18ArmAnimation packet = new Packet18ArmAnimation();
 				packet.a = -42;
 				networkManager.queue(packet);
 			}
-			
+
 			netserverhandler.sendPacket(new Packet6SpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
 			this.server.serverConfigurationManager.a(entityplayer, worldserver);
 			this.server.serverConfigurationManager.c(entityplayer);
