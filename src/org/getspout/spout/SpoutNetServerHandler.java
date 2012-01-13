@@ -123,7 +123,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		super(minecraftserver, networkmanager, entityplayer);
 		//cache the field for later use
 		try {
-			entityListField = NetServerHandler.class.getDeclaredField("q");
+			entityListField = NetServerHandler.class.getDeclaredField("r");
 			entityListField.setAccessible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -878,7 +878,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		Packet packet = new Packet51MapChunk(cx << 4, 0, cz << 4, 16, 128, 16, this.player.world);
 		try {
 			packet.l = false;
-			Field g = Packet51MapChunk.class.getDeclaredField("g");
+			Field g = Packet51MapChunk.class.getDeclaredField("buffer");
 			g.setAccessible(true);
 			byte[] compressedData = (byte[]) g.get(packet);
 			if (compressedData == null) {
@@ -891,9 +891,9 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				try {
 					rawData = Packet51MapChunk.class.getDeclaredField("rawData");
 				} catch (NoSuchFieldException e) {
-					rawData = Packet51MapChunk.class.getDeclaredField("g");
+					rawData = Packet51MapChunk.class.getDeclaredField("buffer");
 				}
-				Field h = Packet51MapChunk.class.getDeclaredField("h");
+				Field h = Packet51MapChunk.class.getDeclaredField("size");
 				rawData.setAccessible(true);
 				h.setAccessible(true);
 				byte[] rawBytes = (byte[]) rawData.get(packet);
