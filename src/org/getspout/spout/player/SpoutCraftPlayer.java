@@ -146,6 +146,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	
 	private long firstPlayed = 0;	
 	private long lastPlayed = 0;
+	private boolean hasPlayed = false;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -155,7 +156,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			perm = new SpoutPermissibleBase((Permissible) player.addAttachment(Bukkit.getServer().getPluginManager().getPlugin("Spout")).getPermissible());
 			perm.recalculatePermissions();
 			
-			setFirstPlayed(player.hasPlayedBefore());
+			hasPlayed = player.hasPlayedBefore();
 			lastPlayed = player.getLastPlayed();
 			firstPlayed = player.getFirstPlayed();
 		}
@@ -167,6 +168,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
 		fly = ((CraftServer)Bukkit.getServer()).getHandle().server.allowFlight;
+	}
+	
+	@Override
+	public boolean hasPlayedBefore() {
+		return hasPlayed;
 	}
 	
 	@Override
