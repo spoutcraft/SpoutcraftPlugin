@@ -143,6 +143,9 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public LinkedList<SpoutPacket> queued = new LinkedList<SpoutPacket>();
 	private LinkedList<SpoutPacket> delayedPackets = new LinkedList<SpoutPacket>();
 	public long velocityAdjustmentTime = System.currentTimeMillis();
+	
+	private long firstPlayed = 0;	
+	private long lastPlayed = 0;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -151,6 +154,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			CraftPlayer player = entity.netServerHandler.getPlayer();
 			perm = new SpoutPermissibleBase((Permissible) player.addAttachment(Bukkit.getServer().getPluginManager().getPlugin("Spout")).getPermissible());
 			perm.recalculatePermissions();
+			
+			setFirstPlayed(player.hasPlayedBefore());
+			lastPlayed = player.getLastPlayed();
+			firstPlayed = player.getFirstPlayed();
 		}
 		else {
 			perm = new SpoutPermissibleBase((Permissible)new PermissibleBase(this));
@@ -160,6 +167,16 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
 		fly = ((CraftServer)Bukkit.getServer()).getHandle().server.allowFlight;
+	}
+	
+	@Override
+	public long getFirstPlayed() {
+		return firstPlayed;
+	}
+	
+	@Override
+	public long getLastPlayed() {
+		return lastPlayed;
 	}
 	
 	@Override
