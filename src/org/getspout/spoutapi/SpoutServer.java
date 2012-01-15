@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi;
 
-import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +24,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
+
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -43,9 +43,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicesManager;
+import org.bukkit.plugin.messaging.Messenger;
 import org.bukkit.scheduler.BukkitScheduler;
+
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -54,18 +57,18 @@ import com.avaje.ebean.config.ServerConfig;
 /**
  * A proxy class that provides Spout objects for the {@link Server} class
  */
-public class SpoutServer implements Server{
+public class SpoutServer implements Server {
 	private Server server = Bukkit.getServer();
 	private HashMap<UUID, SpoutWorld> worlds = new HashMap<UUID, SpoutWorld>();
 	private TIntObjectHashMap<String> titles = new TIntObjectHashMap<String>(250);
-	
+
 	private SpoutWorld getSpoutWorld(World world) {
 		if (world == null) {
 			return null;
 		}
 		return getSpoutWorld(world.getUID());
 	}
-	
+
 	private SpoutWorld getSpoutWorld(UUID id) {
 		if (worlds.containsKey(id)) {
 			return worlds.get(id);
@@ -76,7 +79,9 @@ public class SpoutServer implements Server{
 	}
 
 	/**
-	 * Sets the entity skin for the target entity to the url. The Skin Type is used when an entity has more than one skin type.
+	 * Sets the entity skin for the target entity to the url. The Skin Type is
+	 * used when an entity has more than one skin type.
+	 * 
 	 * @param target to set the skin on
 	 * @param url of the skin
 	 * @param type of skin to set
@@ -91,7 +96,9 @@ public class SpoutServer implements Server{
 	}
 
 	/**
-	 * Gets the entity skin for the target entity. The Skin Type is used when an entity has more than one skin type.
+	 * Gets the entity skin for the target entity. The Skin Type is used when an
+	 * entity has more than one skin type.
+	 * 
 	 * @param target to get the skin for
 	 * @param type of skin to set
 	 */
@@ -101,6 +108,7 @@ public class SpoutServer implements Server{
 
 	/**
 	 * Resets the entity skin for the target entity.
+	 * 
 	 * @param target to reset the skin for
 	 */
 	public void resetEntitySkin(LivingEntity target) {
@@ -111,20 +119,20 @@ public class SpoutServer implements Server{
 			player.updateEntitySkins(entities);
 		}
 	}
-	
+
 	public String getTitle(LivingEntity entity) {
 		if (entity instanceof SpoutPlayer) {
-			return ((SpoutPlayer)entity).getTitle();
+			return ((SpoutPlayer) entity).getTitle();
 		}
 		if (titles.contains(entity.getEntityId())) {
 			return titles.get(entity.getEntityId());
 		}
 		return null;
 	}
-	
+
 	public void setTitle(LivingEntity entity, String title) {
 		if (entity instanceof SpoutPlayer) {
-			((SpoutPlayer)entity).setTitle(title);
+			((SpoutPlayer) entity).setTitle(title);
 		}
 		titles.put(entity.getEntityId(), title);
 		ArrayList<LivingEntity> entities = new ArrayList<LivingEntity>(1);
@@ -203,8 +211,9 @@ public class SpoutServer implements Server{
 	public boolean getAllowNether() {
 		return server.getAllowNether();
 	}
-		
+
 	//@Override
+	@Override
 	public boolean getAllowEnd() {
 		return true;
 		//return server.getAllowEnd();
@@ -287,12 +296,12 @@ public class SpoutServer implements Server{
 
 	@Override
 	public SpoutPlayer getPlayer(String name) {
-		return (SpoutPlayer)server.getPlayer(name);
+		return (SpoutPlayer) server.getPlayer(name);
 	}
 
 	@Override
 	public SpoutPlayer getPlayerExact(String name) {
-		return (SpoutPlayer)server.getPlayerExact(name);
+		return (SpoutPlayer) server.getPlayerExact(name);
 	}
 
 	@Override
@@ -379,7 +388,7 @@ public class SpoutServer implements Server{
 		}
 		return list;
 	}
-	
+
 	public List<SpoutWorld> getSpoutWorlds() {
 		List<World> worlds = server.getWorlds();
 		ArrayList<SpoutWorld> list = new ArrayList<SpoutWorld>(worlds.size());
@@ -457,6 +466,21 @@ public class SpoutServer implements Server{
 	@Override
 	public OfflinePlayer[] getOfflinePlayers() {
 		return server.getOfflinePlayers();
+	}
+
+	@Override
+	public Set<String> getListeningPluginChannels() {
+		return server.getListeningPluginChannels();
+	}
+
+	@Override
+	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2) {
+		server.sendPluginMessage(arg0, arg1, arg2);
+	}
+
+	@Override
+	public Messenger getMessenger() {
+		return server.getMessenger();
 	}
 
 }

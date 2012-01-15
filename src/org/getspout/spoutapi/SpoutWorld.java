@@ -18,6 +18,7 @@ package org.getspout.spoutapi;
 
 import java.io.File;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.BlockChangeDelegate;
@@ -40,19 +41,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
+
 import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.block.SpoutChunk;
 
 /**
- * A proxy class providing easy to use Spout objects from the {@link World} interface.
- * <br/><br/>
- * Not meant for long term storage. If you need to store this, store the UUID to the world.
- * <br/><br/>
+ * A proxy class providing easy to use Spout objects from the {@link World}
+ * interface. <br/>
+ * <br/>
+ * Not meant for long term storage. If you need to store this, store the UUID to
+ * the world. <br/>
+ * <br/>
  * Note: {@link #equals(Object)} will NOT work. Compare World UUID's instead!
  */
-public class SpoutWorld implements World{
+public class SpoutWorld implements World {
 	private World world;
+
 	public SpoutWorld(World world) {
 		this.world = world;
 	}
@@ -119,7 +125,7 @@ public class SpoutWorld implements World{
 
 	@Override
 	public SpoutBlock getBlockAt(int x, int y, int z) {
-		return (SpoutBlock)world.getBlockAt(x, y, z);
+		return (SpoutBlock) world.getBlockAt(x, y, z);
 	}
 
 	@Override
@@ -141,7 +147,7 @@ public class SpoutWorld implements World{
 	public SpoutChunk getChunkAt(Block block) {
 		return (SpoutChunk) world.getChunkAt(block);
 	}
-	
+
 	public SpoutChunk getChunkAt(int x, int y, int z) {
 		return getChunkAt(x >> 4, z >> 4);
 	}
@@ -484,14 +490,24 @@ public class SpoutWorld implements World{
 	public boolean unloadChunkRequest(int x, int z, boolean safe) {
 		return world.unloadChunkRequest(x, z, safe);
 	}
-	
-	 @Override
+
+	@Override
 	public int hashCode() {
-		 return getUID().hashCode();
+		return getUID().hashCode();
 	}
 
 	@Override
 	public File getWorldFolder() {
 		return world.getWorldFolder();
+	}
+
+	@Override
+	public Set<String> getListeningPluginChannels() {
+		return world.getListeningPluginChannels();
+	}
+
+	@Override
+	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2) {
+		world.sendPluginMessage(arg0, arg1, arg2);
 	}
 }
