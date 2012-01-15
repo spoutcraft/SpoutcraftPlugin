@@ -60,8 +60,9 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
-import org.getspout.commons.io.CRCStoreRunnable;
+
 import org.getspout.commons.io.CRCStore.URLCheck;
+import org.getspout.commons.io.CRCStoreRunnable;
 import org.getspout.spout.PacketCompressionThread;
 import org.getspout.spout.Spout;
 import org.getspout.spout.SpoutNetServerHandler;
@@ -76,8 +77,8 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
 import org.getspout.spoutapi.event.inventory.InventoryOpenEvent;
 import org.getspout.spoutapi.event.permission.PlayerPermissionEvent;
-import org.getspout.spoutapi.gui.InGameScreen;
 import org.getspout.spoutapi.gui.GenericOverlayScreen;
+import org.getspout.spoutapi.gui.InGameScreen;
 import org.getspout.spoutapi.gui.OverlayScreen;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
@@ -138,13 +139,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private GenericOverlayScreen currentScreen = null;
 	private Location lastTickLocation = null;
 	public SpoutCraftChunk lastTickChunk = null;
-	public Set<SpoutCraftChunk> lastTickAdjacentChunks = new HashSet<SpoutCraftChunk>(); 
+	public Set<SpoutCraftChunk> lastTickAdjacentChunks = new HashSet<SpoutCraftChunk>();
 	private boolean screenOpenThisTick = false;
 	public LinkedList<SpoutPacket> queued = new LinkedList<SpoutPacket>();
 	private LinkedList<SpoutPacket> delayedPackets = new LinkedList<SpoutPacket>();
 	public long velocityAdjustmentTime = System.currentTimeMillis();
-	
-	private long firstPlayed = 0;	
+
+	private long firstPlayed = 0;
 	private long lastPlayed = 0;
 	private boolean hasPlayed = false;
 
@@ -153,38 +154,37 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		createInventory(null);
 		if (entity.netServerHandler != null) {
 			CraftPlayer player = entity.netServerHandler.getPlayer();
-			perm = new SpoutPermissibleBase((Permissible) player.addAttachment(Bukkit.getServer().getPluginManager().getPlugin("Spout")).getPermissible());
+			perm = new SpoutPermissibleBase(player.addAttachment(Bukkit.getServer().getPluginManager().getPlugin("Spout")).getPermissible());
 			perm.recalculatePermissions();
-			
+
 			hasPlayed = player.hasPlayedBefore();
 			lastPlayed = player.getLastPlayed();
 			firstPlayed = player.getFirstPlayed();
-		}
-		else {
-			perm = new SpoutPermissibleBase((Permissible)new PermissibleBase(this));
+		} else {
+			perm = new SpoutPermissibleBase(new PermissibleBase(this));
 			perm.recalculatePermissions();
 		}
 		mainScreen = new InGameScreen(this.getEntityId());
 
 		mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
-		fly = ((CraftServer)Bukkit.getServer()).getHandle().server.allowFlight;
+		fly = ((CraftServer) Bukkit.getServer()).getHandle().server.allowFlight;
 	}
-	
+
 	@Override
 	public boolean hasPlayedBefore() {
 		return hasPlayed;
 	}
-	
+
 	@Override
 	public long getFirstPlayed() {
 		return firstPlayed;
 	}
-	
+
 	@Override
 	public long getLastPlayed() {
 		return lastPlayed;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -206,6 +206,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		hash = 97 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
 		return hash;
 	}
+
 	/* Interace Overriden Public Methods */
 
 	@Override
@@ -268,16 +269,15 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public Set<PermissionAttachmentInfo> getEffectivePermissions() {
 		return perm.getEffectivePermissions();
 	}
-	
+
 	@Override
 	public SpoutPlayerInventory getInventory() {
 		if (this.inventory == null) {
 			createInventory(null);
-		}
-		else if (!((SpoutCraftInventoryPlayer)this.inventory).getHandle().equals(this.getHandle().inventory)) {
+		} else if (!(this.inventory).getHandle().equals(this.getHandle().inventory)) {
 			createInventory(this.inventory.getName());
 		}
-		return (SpoutPlayerInventory)this.inventory;
+		return this.inventory;
 	}
 
 	@Override
@@ -301,34 +301,35 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 		super.setRemainingAir(time);
 	}
-	
+
 	@Override
 	public void setVelocity(Vector velocity) {
 		super.setVelocity(velocity);
 		if (isSpoutCraftEnabled()) {
 			PlayerVelocityEvent event = new PlayerVelocityEvent(this, velocity);
 			Bukkit.getServer().getPluginManager().callEvent(event);
-			if(!event.isCancelled()) {
+			if (!event.isCancelled()) {
 				sendPacket(new PacketSetVelocity(getEntityId(), event.getVelocity().getX(), event.getVelocity().getY(), event.getVelocity().getZ()));
 			}
 			double speedX = Math.abs(event.getVelocity().getX() * event.getVelocity().getX());
 			double speedY = Math.abs(event.getVelocity().getY() * event.getVelocity().getY());
 			double speedZ = Math.abs(event.getVelocity().getZ() * event.getVelocity().getZ());
 			double speed = speedX + speedY + speedZ;
-			
-			velocityAdjustmentTime = System.currentTimeMillis() + (long)(speed * 5);
+
+			velocityAdjustmentTime = System.currentTimeMillis() + (long) (speed * 5);
 			getHandle().velocityChanged = false; //prevents nms from sending an override packet later, but still tells the server about the new velocity
 		}
 	}
 
 	/* Inteface New Public Methods */
+	@Override
 	public boolean closeActiveWindow() {
 		InventoryCloseEvent event = new InventoryCloseEvent(this, getActiveInventory(), getDefaultInventory());
 		Bukkit.getServer().getPluginManager().callEvent(event);
 		if (event.isCancelled()) {
 			return false;
 		}
-		
+
 		getHandle().closeInventory();
 
 		getNetServerHandler().setActiveInventory(false);
@@ -336,14 +337,17 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		return true;
 	}
 
+	@Override
 	public boolean openInventoryWindow(Inventory inventory) {
 		return openInventoryWindow(inventory, null, false);
 	}
 
+	@Override
 	public boolean openInventoryWindow(Inventory inventory, Location location) {
 		return openInventoryWindow(inventory, location, false);
 	}
 
+	@Override
 	public boolean openInventoryWindow(Inventory inventory, Location location, boolean ignoreDistance) {
 		InventoryOpenEvent event = new InventoryOpenEvent(this, inventory, this.inventory, location);
 		Bukkit.getServer().getPluginManager().callEvent(event);
@@ -352,14 +356,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 		getNetServerHandler().setActiveInventory(true);
 		getNetServerHandler().setActiveInventoryLocation(location);
-		IInventory dialog = ((CraftInventory)event.getInventory()).getInventory();
+		IInventory dialog = ((CraftInventory) event.getInventory()).getInventory();
 		if (dialog instanceof TileEntityDispenser) {
-			getHandle().a((TileEntityDispenser)dialog);
-		}
-		else if (dialog instanceof TileEntityFurnace) {
-			getHandle().a((TileEntityFurnace)dialog);
-		}
-		else {
+			getHandle().a((TileEntityDispenser) dialog);
+		} else if (dialog instanceof TileEntityFurnace) {
+			getHandle().a((TileEntityFurnace) dialog);
+		} else {
 			getHandle().a(dialog);
 		}
 		return true;
@@ -390,9 +392,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public boolean openWorkbenchWindow(Location location) {
 		if (location.getBlock().getType() != Material.WORKBENCH) {
 			throw new UnsupportedOperationException("Must be a valid workbench!");
-		}
-		else {
-			ContainerWorkbench temp = new ContainerWorkbench(getHandle().inventory, ((CraftWorld)location.getWorld()).getHandle(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+		} else {
+			ContainerWorkbench temp = new ContainerWorkbench(getHandle().inventory, ((CraftWorld) location.getWorld()).getHandle(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
 			IInventory inventory = temp.resultInventory;
 			InventoryOpenEvent event = new InventoryOpenEvent(this, new SpoutCraftInventory(inventory), this.inventory, location);
 			Bukkit.getServer().getPluginManager().callEvent(event);
@@ -413,7 +414,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public Screen getCurrentScreen() {
-		if(getActiveScreen() == ScreenType.GAME_SCREEN){
+		if (getActiveScreen() == ScreenType.GAME_SCREEN) {
 			return getMainScreen();
 		} else {
 			return currentScreen;
@@ -492,8 +493,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setRenderDistance(RenderDistance distance, boolean update) {
 		if (update) {
 			setRenderDistance(distance);
-		}
-		else {
+		} else {
 			currentRender = distance;
 		}
 	}
@@ -565,7 +565,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			sendPacket(new PacketNotification(title, message, toRender.getId(), data, time));
 		}
 	}
-	
+
 	@Override
 	public void sendNotification(String title, String message, ItemStack item, int time) {
 		if (isSpoutCraftEnabled()) {
@@ -600,17 +600,19 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			}
 			final String finalURL = url;
 			URLCheck urlCheck = new URLCheck(url, new byte[16384], new CRCStoreRunnable() {
-				
+
 				Long CRC;
-				
+
+				@Override
 				public void setCRC(Long CRC) {
 					this.CRC = CRC;
 				}
-				
+
+				@Override
 				public void run() {
 					sendPacket(new PacketTexturePack(finalURL, CRC));
 				}
-				
+
 			});
 			urlCheck.start();
 		}
@@ -627,12 +629,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setClipboardText(String text, boolean updateClient) {
 		if (isSpoutCraftEnabled()) {
 			clipboard = text;
-			if (updateClient){
+			if (updateClient) {
 				sendPacket(new PacketClipboardText(text));
 			}
 		}
 	}
-	
 
 	@Override
 	public Location getActiveInventoryLocation() {
@@ -643,12 +644,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setActiveInventoryLocation(Location loc) {
 		getNetServerHandler().setActiveInventoryLocation(loc);
 	}
-	
+
 	@Override
 	public void reconnect(String hostname) {
 		reconnect(null, hostname);
 	}
-	
+
 	@Override
 	public void reconnect(String hostname, int port) {
 		reconnect(null, hostname, port);
@@ -694,12 +695,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public PlayerInformation getInformation() {
 		return SpoutManager.getPlayerManager().getPlayerInfo(this);
 	}
-	
+
 	@Override
 	public ScreenType getActiveScreen() {
 		return activeScreen;
 	}
-	
+
 	@Override
 	public void openScreen(ScreenType type) {
 		openScreen(type, true);
@@ -713,7 +714,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void openScreen(ScreenType type, boolean packet) {
-		if(type == activeScreen || screenOpenThisTick) {
+		if (type == activeScreen || screenOpenThisTick) {
 			return;
 		}
 		screenOpenThisTick = packet;
@@ -721,7 +722,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		if (packet) {
 			sendPacket(new PacketOpenScreen(type));
 		}
-		if(activeScreen != ScreenType.GAME_SCREEN && activeScreen != ScreenType.CUSTOM_SCREEN) {
+		if (activeScreen != ScreenType.GAME_SCREEN && activeScreen != ScreenType.CUSTOM_SCREEN) {
 			currentScreen = (GenericOverlayScreen) new GenericOverlayScreen(getEntityId(), getActiveScreen()).setX(0).setY(0);
 			PacketWidget packetw = new PacketWidget(currentScreen, currentScreen.getId());
 			sendPacket(packetw);
@@ -784,7 +785,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setAirSpeedMultiplier(double multiplier) {
 		airspeedMod = multiplier;
 		updateMovement();
-		
+
 	}
 
 	@Override
@@ -826,14 +827,14 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void setPreCachingComplete(boolean complete) {
-		if(!precachingComplete) {
+		if (!precachingComplete) {
 			precachingComplete = complete;
 		}
 	}
 
 	@Override
 	public boolean isPreCachingComplete() {
-		if(isSpoutCraftEnabled()){
+		if (isSpoutCraftEnabled()) {
 			return precachingComplete;
 		} else {
 			return true;
@@ -842,13 +843,14 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void openSignEditGUI(Sign sign) {
-		if(sign != null && isSpoutCraftEnabled()) {
+		if (sign != null && isSpoutCraftEnabled()) {
 			sendPacket(new PacketOpenSignGUI(sign.getX(), sign.getY(), sign.getZ()));
-			TileEntitySign tes = (TileEntitySign) ((CraftWorld)((CraftBlock)sign.getBlock()).getWorld()).getTileEntityAt(sign.getX(), sign.getY(), sign.getZ()); // Found a hidden trace to The Elder Scrolls. Bethesdas Lawyers are right!
+			TileEntitySign tes = (TileEntitySign) ((CraftWorld) ((CraftBlock) sign.getBlock()).getWorld()).getTileEntityAt(sign.getX(), sign.getY(), sign.getZ()); // Found a hidden trace to The Elder Scrolls. Bethesdas Lawyers are right!
 			tes.isEditable = true;
 		}
 	}
 
+	@Override
 	public void updateKeys(byte[] keys) {
 		this.forward = Keyboard.getKey(keys[0]);
 		this.back = Keyboard.getKey(keys[2]);
@@ -861,21 +863,22 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		this.togglefog = Keyboard.getKey(keys[8]);
 		this.sneak = Keyboard.getKey(keys[9]);
 	}
-	
+
 	//Sends a packet delayed by 1 tick
+	@Override
 	public void sendDelayedPacket(SpoutPacket packet) {
 		delayedPackets.add(packet);
 	}
 
+	@Override
 	public void sendPacket(SpoutPacket packet) {
 		if (!isSpoutCraftEnabled()) {
 			if (queued != null) {
 				queued.add(packet);
 			}
-		}
-		else {
+		} else {
 			if (packet instanceof CompressablePacket) {
-				CompressablePacket compressable = ((CompressablePacket)packet);
+				CompressablePacket compressable = ((CompressablePacket) packet);
 				//uncompressed, send it to the compression thread
 				if (!compressable.isCompressed()) {
 					PacketCompressionThread.add(compressable, this);
@@ -886,27 +889,29 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 	}
 
+	@Override
 	public void sendPacket(MCPacket packet) {
-		if(!(packet instanceof MCCraftPacket)) {
+		if (!(packet instanceof MCCraftPacket)) {
 			throw new IllegalArgumentException("Packet not of type MCCraftPacket");
 		}
-		MCCraftPacket p = (MCCraftPacket)packet;
+		MCCraftPacket p = (MCCraftPacket) packet;
 		getHandle().netServerHandler.sendPacket(p.getPacket());
 	}
 
+	@Override
 	public void sendImmediatePacket(MCPacket packet) {
-		if(!(packet instanceof MCCraftPacket)) {
+		if (!(packet instanceof MCCraftPacket)) {
 			throw new IllegalArgumentException("Packet not of type MCCraftPacket");
 		}
-		MCCraftPacket p = (MCCraftPacket)packet;
+		MCCraftPacket p = (MCCraftPacket) packet;
 		if (getHandle().netServerHandler.getClass().equals(SpoutNetServerHandler.class)) {
 			getNetServerHandler().sendImmediatePacket(p.getPacket());
-		}
-		else {
+		} else {
 			sendPacket(packet);
 		}
 	}
-	
+
+	@Override
 	public void checkUrl(String url) {
 		if (url == null || url.length() < 5) {
 			throw new UnsupportedOperationException("Invalid URL");
@@ -918,16 +923,17 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			throw new UnsupportedOperationException("All URL's must be shorter than 256 characters");
 		}
 	}
-	
+
 	private String skin = "http://s3.amazonaws.com/MinecraftSkins/" + getName() + ".png";
 	private HashMap<String, String> skinsFor = new HashMap<String, String>();
-	
+
 	private String cape = "http://s3.amazonaws.com/MinecraftCloaks/" + getName() + ".png";
 	private HashMap<String, String> capesFor = new HashMap<String, String>();
-	
+
 	private String title = getName();
 	private HashMap<String, String> titlesFor = new HashMap<String, String>();
-	
+
+	@Override
 	public void updateEntitySkins(List<LivingEntity> entities) {
 		PlayerInformation info = getInformation();
 		PlayerInformation global = SpoutManager.getPlayerManager().getGlobalInfo();
@@ -950,28 +956,28 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			}
 		}
 	}
-	
+
 	public void updateAppearance() {
 		if (!isSpoutCraftEnabled()) {
 			return;
 		}
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer && p != this) {
-				SpoutPlayer player = (SpoutPlayer)p;
+				SpoutPlayer player = (SpoutPlayer) p;
 				sendDelayedPacket(new PacketSkinURL(player.getEntityId(), player.getSkin(this), player.getCape(this)));
 				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor(this)));
 			}
 		}
 	}
-	
+
 	@Override
 	public void setSkin(String url) {
 		checkUrl(url);
 		skin = url;
-		
+
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer)
-				((SpoutPlayer)p).sendPacket(new PacketSkinURL(getEntityId(), getSkin((SpoutPlayer)p)));
+				((SpoutPlayer) p).sendPacket(new PacketSkinURL(getEntityId(), getSkin((SpoutPlayer) p)));
 		}
 	}
 
@@ -1009,10 +1015,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setCape(String url) {
 		checkUrl(url);
 		cape = url;
-		
+
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer)
-				((SpoutPlayer)p).sendPacket(new PacketSkinURL(getCape((SpoutPlayer)p), getEntityId()));
+				((SpoutPlayer) p).sendPacket(new PacketSkinURL(getCape((SpoutPlayer) p), getEntityId()));
 		}
 	}
 
@@ -1049,10 +1055,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public void setTitle(String title) {
 		this.title = title;
-		
+
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer)
-				((SpoutPlayer)p).sendPacket(new PacketEntityTitle(getEntityId(), getTitleFor((SpoutPlayer)p)));
+				((SpoutPlayer) p).sendPacket(new PacketEntityTitle(getEntityId(), getTitleFor((SpoutPlayer) p)));
 		}
 	}
 
@@ -1106,13 +1112,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		getInformation().setEntitySkin(target, null);
 		sendPacket(new PacketEntitySkin(target, "[reset]", (byte) 0));
 	}
-	
+
 	/*Non Inteface public methods */
-	
+
 	public Location getLastTickLocation() {
 		return lastTickLocation;
 	}
-	
+
 	public void setLastTickLocation(Location loc) {
 		lastTickLocation = loc;
 	}
@@ -1120,22 +1126,19 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public Location getRawLastClickedLocation() {
 		return lastClicked;
 	}
-	
+
 	public void setLastClickedLocation(Location location) {
 		lastClicked = location;
 	}
 
 	public void createInventory(String name) {
 		if (this.getHandle().activeContainer instanceof ContainerPlayer) {
-			this.inventory = new SpoutCraftInventoryPlayer(this.getHandle().inventory, 
-					new SpoutCraftingInventory(((ContainerPlayer)this.getHandle().activeContainer).craftInventory, ((ContainerPlayer)this.getHandle().activeContainer).resultInventory));
+			this.inventory = new SpoutCraftInventoryPlayer(this.getHandle().inventory, new SpoutCraftingInventory(((ContainerPlayer) this.getHandle().activeContainer).craftInventory, ((ContainerPlayer) this.getHandle().activeContainer).resultInventory));
 			if (name != null) {
 				this.inventory.setName(name);
 			}
-		}
-		else {
-			this.inventory = new SpoutCraftInventoryPlayer(this.getHandle().inventory, 
-					new SpoutCraftingInventory(((ContainerPlayer)this.getHandle().defaultContainer).craftInventory, ((ContainerPlayer)this.getHandle().defaultContainer).resultInventory));
+		} else {
+			this.inventory = new SpoutCraftInventoryPlayer(this.getHandle().inventory, new SpoutCraftingInventory(((ContainerPlayer) this.getHandle().defaultContainer).craftInventory, ((ContainerPlayer) this.getHandle().defaultContainer).resultInventory));
 			if (name != null) {
 				this.inventory.setName(name);
 			}
@@ -1147,7 +1150,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		try {
 			id = EntityPlayer.class.getDeclaredField("bX");
 			id.setAccessible(true);
-			return (Integer)id.get(getHandle());
+			return (Integer) id.get(getHandle());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1205,11 +1208,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void onTick() {
 		mainScreen.onTick();
 		Screen currentScreen = getCurrentScreen();
-		if(currentScreen != null && currentScreen instanceof OverlayScreen){
+		if (currentScreen != null && currentScreen instanceof OverlayScreen) {
 			currentScreen.onTick();
 		}
 		screenOpenThisTick = false;
-		
+
 		//Because the player teleport event doesn't always fire :(
 		Location current = getLocation();
 		if (lastTickLocation != null) {
@@ -1218,16 +1221,16 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			}
 		}
 		lastTickLocation = current;
-		
+
 		for (SpoutPacket packet : delayedPackets) {
 			sendPacket(packet);
 		}
 		delayedPackets.clear();
-		
+
 		//Do this last!
 		getNetServerHandler().syncFlushPacketQueue();
-	} 
-	
+	}
+
 	public void doPostPlayerChangeWorld(World oldWorld, World newWorld) {
 		SpoutCraftPlayer.updateBukkitEntity(this);
 		if (isSpoutCraftEnabled()) {
@@ -1265,16 +1268,16 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@SuppressWarnings("unchecked")
 	public static boolean resetNetServerHandler(Player player) {
-		CraftPlayer cp = (CraftPlayer)player;
-		CraftServer server = (CraftServer)Bukkit.getServer();
+		CraftPlayer cp = (CraftPlayer) player;
+		CraftServer server = (CraftServer) Bukkit.getServer();
 
 		if (cp.getHandle().netServerHandler instanceof SpoutNetServerHandler) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
-			Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler)cp.getHandle().netServerHandler).getChunkUpdateQueue();
-			for(ChunkCoordIntPair c : chunkUpdateQueue) {
+			Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
+			for (ChunkCoordIntPair c : chunkUpdateQueue) {
 				cp.getHandle().chunkCoordIntPairQueue.add(c);
 			}
-			((SpoutNetServerHandler)cp.getHandle().netServerHandler).flushUnloadQueue();
+			((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();
 			cp.getHandle().netServerHandler.a();
 			Location loc = player.getLocation();
 			NetServerHandler handler = new NetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
@@ -1283,20 +1286,20 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			NetworkManager nm = cp.getHandle().netServerHandler.networkManager;
 			setNetServerHandler(nm, cp.getHandle().netServerHandler);
 			oldHandler.disconnected = true;
-			((CraftServer)Spout.getInstance().getServer()).getServer().networkListenThread.a(handler);
+			((CraftServer) Spout.getInstance().getServer()).getServer().networkListenThread.a(handler);
 			return true;
 		}
 		return false;
 	}
 
 	public static boolean updateNetServerHandler(Player player) {
-		CraftPlayer cp = (CraftPlayer)player;
-		CraftServer server = (CraftServer)Bukkit.getServer();
+		CraftPlayer cp = (CraftPlayer) player;
+		CraftServer server = (CraftServer) Bukkit.getServer();
 		if (!(cp.getHandle().netServerHandler.getClass().equals(SpoutNetServerHandler.class))) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
 			Location loc = player.getLocation();
 			SpoutNetServerHandler handler = new SpoutNetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
-			for(Object o : cp.getHandle().playerChunkCoordIntPairs) {
+			for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
 				ChunkCoordIntPair c = (ChunkCoordIntPair) o;
 				handler.addActiveChunk(c);
 			}
@@ -1305,7 +1308,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			NetworkManager nm = cp.getHandle().netServerHandler.networkManager;
 			setNetServerHandler(nm, cp.getHandle().netServerHandler);
 			oldHandler.disconnected = true;
-			((CraftServer)Spout.getInstance().getServer()).getServer().networkListenThread.a(handler);
+			((CraftServer) Spout.getInstance().getServer()).getServer().networkListenThread.a(handler);
 			return true;
 		}
 		return false;
@@ -1313,13 +1316,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	public static boolean updateBukkitEntity(Player player) {
 		if (!(player instanceof SpoutCraftPlayer)) {
-			CraftPlayer cp = (CraftPlayer)player;
+			CraftPlayer cp = (CraftPlayer) player;
 			EntityPlayer ep = cp.getHandle();
 			return updateBukkitEntity(ep);
 		}
 		return false;
 	}
-	
+
 	public static boolean updateBukkitEntity(EntityPlayer ep) {
 		Field bukkitEntity;
 		try {
@@ -1327,7 +1330,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			bukkitEntity.setAccessible(true);
 			org.bukkit.entity.Entity e = (org.bukkit.entity.Entity) bukkitEntity.get(ep);
 			if (e == null || !e.getClass().equals(SpoutCraftPlayer.class)) {
-				bukkitEntity.set(ep, new SpoutCraftPlayer((CraftServer)Bukkit.getServer(), ep));
+				bukkitEntity.set(ep, new SpoutCraftPlayer((CraftServer) Bukkit.getServer(), ep));
 			}
 			return true;
 		} catch (Exception e) {
@@ -1338,14 +1341,14 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	public static SpoutPlayer getPlayer(Player player) {
 		if (player instanceof SpoutCraftPlayer) {
-			return (SpoutCraftPlayer)player;
+			return (SpoutCraftPlayer) player;
 		}
-		if ((((CraftPlayer)player).getHandle()).getBukkitEntity() instanceof SpoutCraftPlayer) {
-			return (SpoutCraftPlayer)((((CraftPlayer)player).getHandle()).getBukkitEntity());
+		if ((((CraftPlayer) player).getHandle()).getBukkitEntity() instanceof SpoutCraftPlayer) {
+			return (SpoutCraftPlayer) ((((CraftPlayer) player).getHandle()).getBukkitEntity());
 		}
 		//We should never get here
 		//Logger.getLogger("Minecraft").warning("Player: " + player.getName() + " was not properly updated during login!");
 		updateBukkitEntity(player);
-		return (SpoutCraftPlayer)((((CraftPlayer)player).getHandle()).getBukkitEntity());
+		return (SpoutCraftPlayer) ((((CraftPlayer) player).getHandle()).getBukkitEntity());
 	}
 }
