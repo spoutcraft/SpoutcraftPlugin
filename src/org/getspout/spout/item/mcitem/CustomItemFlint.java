@@ -16,68 +16,72 @@
  */
 package org.getspout.spout.item.mcitem;
 
-import org.bukkit.Bukkit;
-import org.getspout.spout.Spout;
-import org.getspout.spoutapi.material.CustomItem;
-import org.getspout.spoutapi.material.Food;
-import org.getspout.spoutapi.material.MaterialData;
-
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EnumAnimation;
 import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.World;
 
-public class CustomItemFlint extends Item{
+import org.bukkit.Bukkit;
+
+import org.getspout.spout.Spout;
+import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.Food;
+import org.getspout.spoutapi.material.MaterialData;
+
+public class CustomItemFlint extends Item {
 
 	protected CustomItemFlint() {
 		super(62);
 		a(6, 0).a("flint");
 	}
-	
+
 	@Override
 	public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			--itemstack.count;
-			entityhuman.getFoodData().a(((Food)item).getHungerRestored(), 0.6F);
+			entityhuman.getFoodData().eat(((Food) item).getHungerRestored(), 0.6F);
 		}
 		return itemstack;
 	}
-	
+
 	@Override
-    public EnumAnimation d(ItemStack itemstack) {
+	public EnumAnimation d(ItemStack itemstack) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			return EnumAnimation.b;
 		}
 		return super.d(itemstack);
 	}
-	
+
 	@Override
 	public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new FoodUpdate(entityhuman, itemstack), 2);
 		}
-		
+
 		return itemstack;
 	}
-	
+
 	public static void replaceFlint() {
 		Item.byId[MaterialData.flint.getRawId()] = null;
 		Item.byId[MaterialData.flint.getRawId()] = new CustomItemFlint();
 	}
 
 }
-	
+
 class FoodUpdate implements Runnable {
 	EntityHuman human;
 	ItemStack item;
+
 	public FoodUpdate(EntityHuman human, ItemStack item) {
 		this.human = human;
 		this.item = item;
 	}
+
+	@Override
 	public void run() {
 		if (human.b(false)) {
 			human.a(item, 32);

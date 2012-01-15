@@ -16,6 +16,9 @@
  */
 package org.getspout.spout.inventory;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import gnu.trove.iterator.TIntByteIterator;
 import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.iterator.TLongFloatIterator;
@@ -23,11 +26,9 @@ import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
 import org.getspout.commons.util.map.TIntPairFloatHashMap;
 import org.getspout.commons.util.map.TIntPairHashSet;
 import org.getspout.commons.util.map.TIntPairObjectHashMap;
@@ -43,15 +44,15 @@ import org.getspout.spoutapi.packet.PacketItemName;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public abstract class AbstractBlockManager implements MaterialManager{
+public abstract class AbstractBlockManager implements MaterialManager {
 	protected final TIntPairObjectHashMap<String> customNames = new TIntPairObjectHashMap<String>(100);
-	
+
 	protected final TIntPairFloatHashMap originalHardness = new TIntPairFloatHashMap();
 	protected final TIntPairFloatHashMap originalFriction = new TIntPairFloatHashMap();
 	protected final TIntByteHashMap originalOpacity = new TIntByteHashMap();
 	protected final TIntIntHashMap originalLight = new TIntIntHashMap();
 	protected Set<org.getspout.spoutapi.material.Block> cachedBlockData = null;
-	
+
 	@Override
 	public void reset() {
 		customNames.clear();
@@ -63,17 +64,16 @@ public abstract class AbstractBlockManager implements MaterialManager{
 			}
 		}
 	}
-	
 
 	public void onPlayerJoin(SpoutPlayer player) {
-		if (((SpoutPlayer) player).isSpoutCraftEnabled()) {
+		if ((player).isSpoutCraftEnabled()) {
 			for (TLongObjectIterator<String> it = customNames.iterator(); it.hasNext();) {
 				it.advance();
-				((SpoutPlayer) player).sendPacket(new PacketItemName(TIntPairHashSet.longToKey1(it.key()), (short) TIntPairHashSet.longToKey2(it.key()), it.value()));
+				(player).sendPacket(new PacketItemName(TIntPairHashSet.longToKey1(it.key()), (short) TIntPairHashSet.longToKey2(it.key()), it.value()));
 			}
 		}
 	}
-	
+
 	@Override
 	public void setItemName(Material item, String name) {
 		customNames.put(item.getRawId(), item.getRawData(), name);
@@ -123,7 +123,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public float getFriction(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		return net.minecraft.server.Block.byId[id].frictionFactor;
@@ -132,7 +132,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public void setFriction(org.getspout.spoutapi.material.Block block, float friction) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
@@ -146,7 +146,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public void resetFriction(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
@@ -160,7 +160,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public float getHardness(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		return net.minecraft.server.Block.byId[id].l();
@@ -169,7 +169,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public void setHardness(org.getspout.spoutapi.material.Block block, float hardness) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
@@ -186,7 +186,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public void resetHardness(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
@@ -206,7 +206,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public void setOpaque(org.getspout.spoutapi.material.Block block, boolean opacity) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
@@ -220,7 +220,7 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public void resetOpacity(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
@@ -234,30 +234,30 @@ public abstract class AbstractBlockManager implements MaterialManager{
 	@Override
 	public int getLightLevel(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
-		return net.minecraft.server.Block.s[id];
+		return net.minecraft.server.Block.lightEmission[id];
 	}
 
 	@Override
 	public void setLightLevel(org.getspout.spoutapi.material.Block block, int level) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
 		if (!originalLight.containsKey(id)) {
 			originalLight.put(id, getLightLevel(block));
 		}
-		net.minecraft.server.Block.s[id] = level;
+		net.minecraft.server.Block.lightEmission[id] = level;
 		updateBlockAttributes(id, (short) data); // invalidate cache
 	}
 
 	@Override
 	public void resetLightLevel(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		if(block instanceof CustomBlock) {
+		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
 		int data = block.getRawData();
@@ -332,5 +332,5 @@ public abstract class AbstractBlockManager implements MaterialManager{
 			}
 		}
 	}
-	
+
 }

@@ -25,6 +25,7 @@ import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
 
 import org.bukkit.craftbukkit.entity.CraftPlayer;
+
 import org.getspout.spout.MapChunkThread;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.packet.CustomPacket;
@@ -36,29 +37,29 @@ public class ChunkCache {
 
 	private final static int FULL_CHUNK_SIZE = 81920;
 
-	private static HashMap<Integer,HashSet<Long>> activeHashes = new HashMap<Integer,HashSet<Long>>();
+	private static HashMap<Integer, HashSet<Long>> activeHashes = new HashMap<Integer, HashSet<Long>>();
 	private static ConcurrentLinkedQueue<Integer> quittingPlayers = new ConcurrentLinkedQueue<Integer>();
 	private static ConcurrentLinkedQueue<HashUpdate> hashUpdateSync = new ConcurrentLinkedQueue<HashUpdate>();
-	private static HashMap<Integer,LinkedList<HashUpdate>> pendingHashUpdates = new HashMap<Integer,LinkedList<HashUpdate>>();
+	private static HashMap<Integer, LinkedList<HashUpdate>> pendingHashUpdates = new HashMap<Integer, LinkedList<HashUpdate>>();
 
 	private static byte[] cachedData = new byte[0];
 	private static byte[] partition = new byte[2048];
 
 	public static byte[] cacheChunk(EntityPlayer[] players, byte[] uncompressedData) {
 
-		while(!quittingPlayers.isEmpty()) {
+		while (!quittingPlayers.isEmpty()) {
 			Integer id = quittingPlayers.poll();
-			if(id != null) {
+			if (id != null) {
 				activeHashes.remove(id);
 				pendingHashUpdates.remove(id);
 			}
 		}
 
-		if(!ConfigReader.isChunkDataCache()) {
+		if (!ConfigReader.isChunkDataCache()) {
 			return uncompressedData;
 		}
-		
-		if(uncompressedData.length % FULL_CHUNK_SIZE != 0 || players.length != 1) {
+
+		if (uncompressedData.length % FULL_CHUNK_SIZE != 0 || players.length != 1) {
 			return uncompressedData;
 		}
 
@@ -67,11 +68,11 @@ public class ChunkCache {
 		int id = player.id;
 
 		CraftPlayer cp = player.netServerHandler.getPlayer();
-		if(!(cp instanceof SpoutCraftPlayer)) {
+		if (!(cp instanceof SpoutCraftPlayer)) {
 			return uncompressedData;
 		} else {
-			SpoutCraftPlayer spc = (SpoutCraftPlayer)cp;
-			if(!spc.isSpoutCraftEnabled()) { 
+			SpoutCraftPlayer spc = (SpoutCraftPlayer) cp;
+			if (!spc.isSpoutCraftEnabled()) {
 				return uncompressedData;
 			}
 		}
@@ -80,21 +81,21 @@ public class ChunkCache {
 
 		LinkedList<HashUpdate> pending = pendingHashUpdates.get(id);
 		if (pending != null) {
-			while(!pending.isEmpty()) {
+			while (!pending.isEmpty()) {
 				HashUpdate update = pending.removeFirst();
-				if(update.hashes.length != 0) {
+				if (update.hashes.length != 0) {
 					Packet p = new CustomPacket(new PacketCacheHashUpdate(update.add, update.hashes));
-					p.l = true;
+					p.lowPriority = true;
 					MapChunkThread.sendPacketSkipQueue(player, p);
 				}
 			}
 		}
-		
+
 		int segments = uncompressedData.length >> 11;
 		int height = uncompressedData.length / 640;
 		int heightBits = 31 - Integer.numberOfLeadingZeros(height);
 		int cachedSize = segments * (2048 + 8) + 8;
-		
+
 		if (cachedData.length < cachedSize) {
 			cachedData = new byte[cachedSize];
 		}
@@ -102,59 +103,59 @@ public class ChunkCache {
 		System.arraycopy(uncompressedData, 0, cachedData, 0, uncompressedData.length);
 
 		HashSet<Long> playerHashes = activeHashes.get(id);
-		if(playerHashes == null) {
+		if (playerHashes == null) {
 			playerHashes = new HashSet<Long>();
 			activeHashes.put(id, playerHashes);
 		}
-		
+
 		long CRC = ChunkHash.hash(uncompressedData);
 		PartitionChunk.setHash(cachedData, segments, CRC, heightBits);
-		
-		for(int i = 0; i < segments; i++) {
+
+		for (int i = 0; i < segments; i++) {
 			PartitionChunk.copyFromChunkData(cachedData, i, partition, heightBits);
 			long hash = ChunkHash.hash(partition);
 			PartitionChunk.setHash(cachedData, i, hash, heightBits);
-			
-			if(!playerHashes.add(hash)) {
+
+			if (!playerHashes.add(hash)) {
 				PartitionChunk.copyToChunkData(cachedData, i, null, heightBits);
 			} else {
 				PartitionChunk.setHash(cachedData, i, 0, heightBits);
 			}
 		}
-		
+
 		byte[] newData = new byte[cachedData.length];
 		System.arraycopy(cachedData, 0, newData, 0, cachedData.length);
-		
+
 		return newData;
 
 	}
 
 	public static boolean handleCustomPacket(EntityPlayer[] players, CustomPacket packet) {
 
-		if(packet.packet instanceof PacketCacheHashUpdate) {
+		if (packet.packet instanceof PacketCacheHashUpdate) {
 			EntityPlayer player = players[0];
 			int id = player.id;
 
 			HashSet<Long> hashes = activeHashes.get(id);
 
-			PacketCacheHashUpdate updatePacket = (PacketCacheHashUpdate)packet.packet;
-			
-			if(updatePacket.reset) {
-				if(hashes != null) {
+			PacketCacheHashUpdate updatePacket = (PacketCacheHashUpdate) packet.packet;
+
+			if (updatePacket.reset) {
+				if (hashes != null) {
 					hashes.clear();
 				}
 				return true;
 			}
-			
-			if(!updatePacket.add) {
-				if(hashes != null) {
+
+			if (!updatePacket.add) {
+				if (hashes != null) {
 					for (long hash : updatePacket.hashes) {
 						hashes.remove(hash);
 					}
 				}
 				return true;
 			} else {
-				if(hashes == null) {
+				if (hashes == null) {
 					hashes = new HashSet<Long>();
 					activeHashes.put(id, hashes);
 				}
@@ -181,11 +182,11 @@ public class ChunkCache {
 
 	private static void processHashUpdates() {
 
-		while(!hashUpdateSync.isEmpty()) {
+		while (!hashUpdateSync.isEmpty()) {
 			HashUpdate update = hashUpdateSync.poll();
-			if(update != null) {
+			if (update != null) {
 				LinkedList<HashUpdate> pending = pendingHashUpdates.get(update.id);
-				if(pending == null) {
+				if (pending == null) {
 					pending = new LinkedList<HashUpdate>();
 					pendingHashUpdates.put(update.id, pending);
 				}

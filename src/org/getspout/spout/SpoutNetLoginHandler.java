@@ -50,7 +50,7 @@ public class SpoutNetLoginHandler extends NetLoginHandler {
 			this.server.serverConfigurationManager.b(entityplayer);
 			entityplayer.spawnIn(this.server.getWorldServer(entityplayer.dimension));
 			entityplayer.itemInWorldManager.a((WorldServer) entityplayer.world);
-			a.info(this.b() + " logged in with entity id " + entityplayer.id + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
+			logger.info(this.getName() + " logged in with entity id " + entityplayer.id + " at (" + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
 			WorldServer worldserver = this.server.getWorldServer(entityplayer.dimension);
 			ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
 

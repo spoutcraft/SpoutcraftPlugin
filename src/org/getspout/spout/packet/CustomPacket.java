@@ -33,12 +33,12 @@ import org.getspout.spoutapi.packet.PacketType;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class CustomPacket extends Packet{
+public class CustomPacket extends Packet {
 	public SpoutPacket packet;
 	private boolean success = false;
 	private static final int[] nags;
 	private static final int NAG_MSG_AMT = 10;
-	
+
 	static {
 		nags = new int[PacketType.values().length];
 		for (int i = 0; i < PacketType.values().length; i++) {
@@ -47,16 +47,16 @@ public class CustomPacket extends Packet{
 	}
 
 	public CustomPacket() {
-		
+
 	}
-	
+
 	public CustomPacket(SpoutPacket packet) {
 		this.packet = packet;
 	}
 
 	@Override
 	public int a() {
-		if(packet == null) {
+		if (packet == null) {
 			return 8;
 		} else {
 			return packet.getNumBytes() + 8;
@@ -72,31 +72,27 @@ public class CustomPacket extends Packet{
 		if (packetId > -1 && version > -1) {
 			try {
 				this.packet = PacketType.getPacketFromId(packetId).getPacketClass().newInstance();
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Failed to identify packet id: " + packetId);
 				//e.printStackTrace();
 			}
 		}
 		try {
-			if(this.packet == null) {
+			if (this.packet == null) {
 				input.skipBytes(length);
 				System.out.println("Unknown packet " + packetId + ". Skipping contents.");
 				return;
-			}
-			else if (packet.getVersion() != version) {
-				input.skipBytes(length);				
+			} else if (packet.getVersion() != version) {
+				input.skipBytes(length);
 				//Keep server admins from going insane :p
 				if (nags[packetId]-- > 0) {
 					System.out.println("Invalid Packet Id: " + packetId + ". Current v: " + packet.getVersion() + " Receieved v: " + version + " Skipping contents.");
 				}
-			}
-			else {
+			} else {
 				packet.readData(input);
 				success = true;
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("------------------------");
 			System.out.println("Unexpected Exception: " + PacketType.getPacketFromId(packetId) + ", " + packetId);
 			e.printStackTrace();
@@ -106,7 +102,7 @@ public class CustomPacket extends Packet{
 
 	@Override
 	public void a(DataOutputStream output) throws IOException {
-		if(packet == null) {
+		if (packet == null) {
 			output.writeShort(-1);
 			output.writeShort(-1);
 			output.writeInt(0);
@@ -120,36 +116,33 @@ public class CustomPacket extends Packet{
 	}
 
 	@Override
-	public void a(NetHandler netHandler) {
+	public void handle(NetHandler netHandler) {
 		if (netHandler.getClass().hashCode() == SpoutNetServerHandler.class.hashCode()) {
-			SpoutNetServerHandler handler = (SpoutNetServerHandler)netHandler;
+			SpoutNetServerHandler handler = (SpoutNetServerHandler) netHandler;
 			SpoutPlayer player = SpoutManager.getPlayerFromId(handler.getPlayer().getEntityId());
 			if (player != null) {
 				if (success) {
 					packet.run(player.getEntityId());
-				}
-				else if (packet != null) {
+				} else if (packet != null) {
 					packet.failure(player.getEntityId());
 				}
 			}
-		}
-		else {
+		} else {
 			//System.out.println("Invalid hash!");
 		}
 	}
-	
+
 	public static void addClassMapping() {
 		try {
 			Class<?>[] params = {int.class, boolean.class, boolean.class, Class.class};
 			Method addClassMapping = Packet.class.getDeclaredMethod("a", params);
 			addClassMapping.setAccessible(true);
 			addClassMapping.invoke(null, 195, true, true, CustomPacket.class);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static void removeClassMapping() {
 		try {
@@ -161,9 +154,8 @@ public class CustomPacket extends Packet{
 			field.setAccessible(true);
 			Map temp2 = (Map) field.get(null);
 			temp2.remove(CustomPacket.class);
-		}
-		catch (Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 	}
 

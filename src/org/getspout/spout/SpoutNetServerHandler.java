@@ -550,7 +550,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	@Override
 	public void sendPacket(Packet packet) {
 		if (packet != null) {
-			if (packet.l) {
+			if (packet.lowPriority) {
 				MapChunkThread.sendPacket(this.player, packet);
 			} else {
 				queueOutputPacket(packet);
@@ -745,7 +745,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		}
 
 		int chunkCompressionThreadSize = ChunkCompressionThread.getPlayerQueueSize(this.player);
-		if (!chunkUpdateQueue.isEmpty() && (b() + chunkCompressionThreadSize + MapChunkThread.getQueueLength(this.player)) < 4) {
+		if (!chunkUpdateQueue.isEmpty() && (lowPriorityCount() + chunkCompressionThreadSize + MapChunkThread.getQueueLength(this.player)) < 4) {
 			ChunkCoordIntPair playerChunk = getPlayerChunk();
 			Iterator<ChunkCoordIntPair> i = chunkUpdateQueue.iterator();
 			ChunkCoordIntPair first = i.next();
@@ -877,7 +877,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		}
 		Packet packet = new Packet51MapChunk(cx << 4, 0, cz << 4, 16, 128, 16, this.player.world);
 		try {
-			packet.l = false;
+			packet.lowPriority = false;
 			Field g = Packet51MapChunk.class.getDeclaredField("buffer");
 			g.setAccessible(true);
 			byte[] compressedData = (byte[]) g.get(packet);

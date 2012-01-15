@@ -345,7 +345,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 	}
 
 	@Override
-	public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
+	public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
 		boolean handled = false;
 		org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, i, j, k);
 		if (block != null) {
@@ -455,9 +455,9 @@ public class CustomBlock extends Block implements CustomMCBlock {
 				boolean oldn = n[i];
 				boolean oldo = o[i];
 				boolean oldTileEntity = isTileEntity[i];
-				int oldq = q[i];
+				int oldq = lightBlock[i];
 				boolean oldr = r[i];
-				int olds = s[i];
+				int olds = lightEmission[i];
 				boolean oldt = t[i];
 
 				/* Order matters, BlockChest extends BlockContainer*/
@@ -481,9 +481,9 @@ public class CustomBlock extends Block implements CustomMCBlock {
 				n[i] = oldn;
 				o[i] = oldo;
 				isTileEntity[i] = oldTileEntity;
-				q[i] = oldq;
+				lightBlock[i] = oldq;
 				r[i] = oldr;
-				s[i] = olds;
+				lightEmission[i] = olds;
 				t[i] = oldt;
 
 			}
@@ -501,7 +501,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Block.q[Block.GLASS.id] = 0;
+		Block.lightBlock[Block.GLASS.id] = 0;
 	}
 
 	public static void resetBlocks() {
