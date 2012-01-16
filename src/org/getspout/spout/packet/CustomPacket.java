@@ -1,6 +1,6 @@
 /*
  * This file is part of Spout (http://wiki.getspout.org/).
- * 
+ *
  * Spout is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -117,7 +117,7 @@ public class CustomPacket extends Packet {
 
 	@Override
 	public void handle(NetHandler netHandler) {
-		if (netHandler.getClass().hashCode() == SpoutNetServerHandler.class.hashCode()) {
+		if (netHandler instanceof SpoutNetServerHandler) {
 			SpoutNetServerHandler handler = (SpoutNetServerHandler) netHandler;
 			SpoutPlayer player = SpoutManager.getPlayerFromId(handler.getPlayer().getEntityId());
 			if (player != null) {
