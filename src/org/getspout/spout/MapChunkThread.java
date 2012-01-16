@@ -32,7 +32,7 @@ public final class MapChunkThread implements Runnable {
 	private static MCCraftPacket51MapChunkUncompressed MCPacket = new MCCraftPacket51MapChunkUncompressed();
 
 	public static void startThread() {
-		
+
 		if (!runs) {
 			runs = true;
 			thread = new Thread(instance, "Spout Map Chunk Thread");
@@ -78,9 +78,9 @@ public final class MapChunkThread implements Runnable {
 	// utility methods
 	private void addToQueueSize(EntityPlayer[] players, int amount) {
 		for (EntityPlayer player : players) {
-			
+
 			boolean success = false;
-			
+
 			while (!success) {
 				Integer count = queueSizePerPlayer.get(player.id);
 
@@ -140,7 +140,7 @@ public final class MapChunkThread implements Runnable {
 	private void sendToNetworkQueue(QueuedPacket task) {
 		for (EntityPlayer player : task.players) {
 			if (task.coords == null || player.playerChunkCoordIntPairs.contains(task.coords)) {
-				if (player.netServerHandler.getClass().equals(SpoutNetServerHandler.class)) {
+				if (player.netServerHandler instanceof SpoutNetServerHandler) {
 					((SpoutNetServerHandler) player.netServerHandler).queueOutputPacket(task.packet);
 				}
 				else {
@@ -157,7 +157,7 @@ public final class MapChunkThread implements Runnable {
 			for (EntityPlayer player : task.players) {
 				player.netServerHandler.networkManager.queue(task.packet);
 			}
-		
+
 		}
 		addToQueueSize(task.players, +1);
 
@@ -177,7 +177,7 @@ public final class MapChunkThread implements Runnable {
 		Integer count = instance.queueSizePerPlayer.get(player.id);
 		return count == null ? 0 : count;
 	}
-	
+
 	public static void removeId(int id) {
 		instance.queueSizePerPlayer.remove(id);
 	}
