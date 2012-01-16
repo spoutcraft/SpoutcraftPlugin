@@ -1,6 +1,6 @@
 /*
  * This file is part of Spout (http://wiki.getspout.org/).
- * 
+ *
  * Spout is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -904,7 +904,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			throw new IllegalArgumentException("Packet not of type MCCraftPacket");
 		}
 		MCCraftPacket p = (MCCraftPacket) packet;
-		if (getHandle().netServerHandler.getClass().equals(SpoutNetServerHandler.class)) {
+		if (getHandle().netServerHandler instanceof  SpoutNetServerHandler) {
 			getNetServerHandler().sendImmediatePacket(p.getPacket());
 		} else {
 			sendPacket(packet);
@@ -1177,7 +1177,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	public SpoutNetServerHandler getNetServerHandler() {
-		if (!getHandle().netServerHandler.getClass().equals(SpoutNetServerHandler.class)) {
+		if (!(getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
 			updateNetServerHandler(this);
 		}
 		return (SpoutNetServerHandler) getHandle().netServerHandler;
@@ -1295,7 +1295,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public static boolean updateNetServerHandler(Player player) {
 		CraftPlayer cp = (CraftPlayer) player;
 		CraftServer server = (CraftServer) Bukkit.getServer();
-		if (!(cp.getHandle().netServerHandler.getClass().equals(SpoutNetServerHandler.class))) {
+		if (!(cp.getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
 			Location loc = player.getLocation();
 			SpoutNetServerHandler handler = new SpoutNetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
