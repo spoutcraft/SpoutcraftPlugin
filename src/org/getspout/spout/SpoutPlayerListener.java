@@ -57,6 +57,12 @@ public class SpoutPlayerListener extends PlayerListener{
 			SpoutCraftPlayer.updateBukkitEntity(event.getPlayer());
 			updatePlayerEvent(event);
 			Spout.getInstance().authenticate(event.getPlayer());
+			
+			//This forces EXISTING players to see the new player's skin, cape, and title
+			SpoutPlayer player = SpoutCraftPlayer.getPlayer(event.getPlayer());
+			player.setSkin(player.getSkin());
+			player.setCape(player.getCape());
+			player.setTitle(player.getTitle());
 		}
 		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(event.getPlayer());
 		manager.onPlayerJoin(event.getPlayer());
