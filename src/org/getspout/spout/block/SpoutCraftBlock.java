@@ -22,6 +22,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftChunk;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.block.CraftBlock;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spoutapi.SpoutManager;
@@ -167,6 +168,9 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 			powerbits = power ? ~0 : 0;
 		}
 		chunk.powerOverrides.put(index, powerbits);
+		
+		net.minecraft.server.World world = ((CraftWorld) this.getWorld()).getHandle();
+		world.applyPhysics(this.getX(), this.getY(), this.getZ(), this.getTypeId());
 	}
 
 	@Override
