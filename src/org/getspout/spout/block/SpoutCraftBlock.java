@@ -168,7 +168,6 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 			powerbits = power ? ~0 : 0;
 		}
 		chunk.powerOverrides.put(index, powerbits);
-		
 		net.minecraft.server.World world = ((CraftWorld) this.getWorld()).getHandle();
 		world.applyPhysics(this.getX(), this.getY(), this.getZ(), this.getTypeId());
 	}
@@ -176,6 +175,8 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	@Override
 	public void resetBlockPower() {
 		chunk.powerOverrides.remove(getIndex());
+		net.minecraft.server.World world = ((CraftWorld) this.getWorld()).getHandle();
+		world.applyPhysics(this.getX(), this.getY(), this.getZ(), this.getTypeId());
 	}
 
 	@Override
