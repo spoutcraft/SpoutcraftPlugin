@@ -18,6 +18,7 @@ package org.getspout.spoutapi.event.inventory;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
@@ -25,6 +26,7 @@ import org.getspout.spoutapi.event.SpoutEvent;
 public class InventoryOpenEvent extends InventoryEvent implements SpoutEvent {
 	
 	private static final long serialVersionUID = -5638814678689580398L;
+	private static final HandlerList handlers = new HandlerList();
 	private Inventory other;
 	private static final EventType type = EventType.Inventory_Open;
 
@@ -58,4 +60,13 @@ public class InventoryOpenEvent extends InventoryEvent implements SpoutEvent {
 	public EventType getEventType() {
 		return type;
 	}
+	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

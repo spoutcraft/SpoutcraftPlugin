@@ -21,6 +21,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.getspout.spoutapi.event.SpoutEvent;
 
+@Deprecated
 public class InputListener extends CustomEventListener implements Listener {
 
 	public InputListener() {

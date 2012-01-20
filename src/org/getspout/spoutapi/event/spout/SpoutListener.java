@@ -17,10 +17,12 @@
 package org.getspout.spoutapi.event.spout;
 
 import org.bukkit.event.CustomEventListener;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.getspout.spoutapi.event.SpoutEvent;
 
+@Deprecated
 public class SpoutListener extends CustomEventListener implements Listener {
 
 	public SpoutListener() {

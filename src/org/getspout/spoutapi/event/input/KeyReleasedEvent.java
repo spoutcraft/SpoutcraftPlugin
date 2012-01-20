@@ -17,6 +17,7 @@
 package org.getspout.spoutapi.event.input;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.ScreenType;
@@ -25,6 +26,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class KeyReleasedEvent extends Event implements SpoutEvent {
 	
+    private static final HandlerList handlers = new HandlerList();
 	private static final long serialVersionUID = 6700643745353278739L;
 	private SpoutPlayer player;
 	private Keyboard key;
@@ -54,4 +56,13 @@ public class KeyReleasedEvent extends Event implements SpoutEvent {
 	public EventType getEventType() {
 		return type;
 	}
+	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

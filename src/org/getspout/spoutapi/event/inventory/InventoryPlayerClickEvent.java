@@ -18,12 +18,13 @@ package org.getspout.spoutapi.event.inventory;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class InventoryPlayerClickEvent extends InventoryClickEvent{
 	private static final long serialVersionUID = 9219553850827660981L;
-
+	private static final HandlerList handlers = new HandlerList();
 	public InventoryPlayerClickEvent(Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift, Location location) {
 		super("InventoryPlayerClickEvent", player, inventory, type, item, cursor, slot, leftClick, shift, location);
 	}
@@ -32,4 +33,13 @@ public class InventoryPlayerClickEvent extends InventoryClickEvent{
 	protected int convertSlot(int slot) {
 		return slot;
 	}
+	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

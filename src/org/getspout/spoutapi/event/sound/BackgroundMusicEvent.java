@@ -18,11 +18,13 @@ package org.getspout.spoutapi.event.sound;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.Music;
 
 public class BackgroundMusicEvent extends Event implements Cancellable {
 	private static final long serialVersionUID = 1047470517247146587L;
+	private static final HandlerList handlers = new HandlerList();
 	protected Music music = null;
 	protected int volume;
 	protected SpoutPlayer target;
@@ -92,4 +94,12 @@ public class BackgroundMusicEvent extends Event implements Cancellable {
 		this.cancel = cancel;
 	}
 
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

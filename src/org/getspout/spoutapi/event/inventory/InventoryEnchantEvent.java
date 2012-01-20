@@ -1,6 +1,7 @@
 package org.getspout.spoutapi.event.inventory;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.event.EventType;
@@ -9,6 +10,7 @@ import org.getspout.spoutapi.event.SpoutEvent;
 public class InventoryEnchantEvent extends InventoryEvent implements SpoutEvent {
 
     private static final long serialVersionUID = 2644169499292008813L;
+    private static final HandlerList handlers = new HandlerList();
     private final ItemStack before;
     private ItemStack result;
     private final int levelBefore;
@@ -50,5 +52,14 @@ public class InventoryEnchantEvent extends InventoryEvent implements SpoutEvent 
     @Override
     public EventType getEventType() {
         return eventtype;
+    }
+    
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 }

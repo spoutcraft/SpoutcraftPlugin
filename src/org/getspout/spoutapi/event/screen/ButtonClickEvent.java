@@ -16,6 +16,7 @@
  */
 package org.getspout.spoutapi.event.screen;
 
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Button;
@@ -26,6 +27,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class ButtonClickEvent extends ScreenEvent implements SpoutEvent {
 	
 	private static final long serialVersionUID = -113218697573843579L;
+	private static final HandlerList handlers = new HandlerList();
 	protected Button control;
 	private static final EventType type = EventType.Button_Click;
 	
@@ -42,4 +44,13 @@ public class ButtonClickEvent extends ScreenEvent implements SpoutEvent {
 	public EventType getEventType() {
 		return type;
 	}
+	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }
