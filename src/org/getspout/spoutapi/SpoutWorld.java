@@ -510,4 +510,9 @@ public class SpoutWorld implements World {
 	public void sendPluginMessage(Plugin arg0, String arg1, byte[] arg2) {
 		world.sendPluginMessage(arg0, arg1, arg2);
 	}
+	
+	@Override
+	public WorldType getWorldType() {
+		return world.getWorldType();
+	}
 }
