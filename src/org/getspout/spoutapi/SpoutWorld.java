@@ -518,6 +518,6 @@ public class SpoutWorld implements World {
 	
 	@Override
 	public <T extends Entity> Collection<T> getEntitiesByClass(Class<T>... classes) {
-		return world.getEntitiesByClass(classes)
+		return world.getEntitiesByClass(classes);
 	}
 }
