@@ -131,7 +131,17 @@ public class SimpleFileManager implements FileManager {
 		}
 		List<String> cache = cachedFiles.get(plugin);
 		if (cache == null) {
-			return new ArrayList<String>(1);
+			cache = new ArrayList<String>(1);
+		}
+		if (preLoginCache.containsKey(plugin)) {
+			for (File f : preLoginCache.get(plugin)) {
+				cache.add(f.toString());
+			}
+		}
+		if (preLoginUrlCache.containsKey(plugin)) {
+			for (String s : preLoginUrlCache.get(plugin)) {
+				cache.add(s);
+			}
 		}
 		return cache;
 	}
