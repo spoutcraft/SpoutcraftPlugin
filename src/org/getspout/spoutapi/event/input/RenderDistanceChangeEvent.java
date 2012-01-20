@@ -18,6 +18,7 @@ package org.getspout.spoutapi.event.input;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.player.RenderDistance;
@@ -25,6 +26,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class RenderDistanceChangeEvent extends Event implements Cancellable, SpoutEvent {
 	
+    private static final HandlerList handlers = new HandlerList();
 	private static final long serialVersionUID = 3737610397521859191L;
 	protected RenderDistance newView;
 	protected SpoutPlayer player;
@@ -58,4 +60,12 @@ public class RenderDistanceChangeEvent extends Event implements Cancellable, Spo
 		return type;
 	}
 
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

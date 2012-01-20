@@ -1,5 +1,6 @@
 package org.getspout.spoutapi.event;
 
+@Deprecated
 public interface EventListener<T extends SpoutEvent> extends java.util.EventListener {
 
 	/**

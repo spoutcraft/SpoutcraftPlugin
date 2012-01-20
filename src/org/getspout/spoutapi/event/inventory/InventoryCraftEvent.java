@@ -18,6 +18,7 @@ package org.getspout.spoutapi.event.inventory;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
@@ -25,6 +26,7 @@ import org.getspout.spoutapi.inventory.CraftingInventory;
 
 public class InventoryCraftEvent extends InventoryEvent implements SpoutEvent {
 	private static final long serialVersionUID = 2252453296883258337L;
+	private static final HandlerList handlers = new HandlerList();
 	private ItemStack result, cursor;
 	private InventorySlotType slotType;
 	private int slotNum;
@@ -147,4 +149,13 @@ public class InventoryCraftEvent extends InventoryEvent implements SpoutEvent {
 	public EventType getEventType() {
 		return type;
 	}
+	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

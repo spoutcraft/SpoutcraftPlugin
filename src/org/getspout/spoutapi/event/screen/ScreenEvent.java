@@ -18,6 +18,7 @@ package org.getspout.spoutapi.event.screen;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;

@@ -20,6 +20,7 @@ import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
+@Deprecated
 public class AudioListener extends CustomEventListener implements Listener{
 	
 	public AudioListener() {

@@ -16,6 +16,7 @@
  */
 package org.getspout.spoutapi.event.screen;
 
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Screen;
@@ -26,6 +27,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class TextFieldChangeEvent extends ScreenEvent implements SpoutEvent {
 	
 	private static final long serialVersionUID = -287243193163686657L;
+	private static final HandlerList handlers = new HandlerList();
 	protected TextField field;
 	protected String oldVal;
 	protected String newVal;
@@ -60,4 +62,12 @@ public class TextFieldChangeEvent extends ScreenEvent implements SpoutEvent {
 		return type;
 	}
 
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

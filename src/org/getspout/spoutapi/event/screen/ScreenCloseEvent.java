@@ -16,6 +16,7 @@
  */
 package org.getspout.spoutapi.event.screen;
 
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Screen;
@@ -24,6 +25,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ScreenCloseEvent extends ScreenEvent implements SpoutEvent {
 	private static final long serialVersionUID = -2425613277182909109L;
+	private static final HandlerList handlers = new HandlerList();
 	private static final EventType type = EventType.Screen_Close;
 
 	public ScreenCloseEvent(SpoutPlayer player, Screen screen, ScreenType type) {
@@ -34,4 +36,13 @@ public class ScreenCloseEvent extends ScreenEvent implements SpoutEvent {
 	public EventType getEventType() {
 		return type;
 	}
+	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

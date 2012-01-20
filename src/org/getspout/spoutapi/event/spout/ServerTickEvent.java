@@ -17,12 +17,14 @@
 package org.getspout.spoutapi.event.spout;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 
 public class ServerTickEvent extends Event implements SpoutEvent {
 	
 	private static final long serialVersionUID = -3947714932775639540L;
+	private static final HandlerList handlers = new HandlerList();
 	protected long lastTick;
 	protected long createdTime = System.currentTimeMillis();
 	private static boolean first = true;
@@ -64,4 +66,12 @@ public class ServerTickEvent extends Event implements SpoutEvent {
 		return type;
 	}
 
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

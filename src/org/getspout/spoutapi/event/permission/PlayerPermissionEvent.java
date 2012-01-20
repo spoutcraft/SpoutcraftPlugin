@@ -1,12 +1,14 @@
 package org.getspout.spoutapi.event.permission;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 import org.bukkit.permissions.Permission;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PlayerPermissionEvent extends Event implements PermissionEvent{
 	
 	private static final long serialVersionUID = -5358507299674751721L;
+	private static final HandlerList handlers = new HandlerList();
 	protected SpoutPlayer player;
 	protected Permission perm;
 	protected String permission;
@@ -60,4 +62,13 @@ public class PlayerPermissionEvent extends Event implements PermissionEvent{
 	public Permission getPermission() {
 		return perm;
 	}
+	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

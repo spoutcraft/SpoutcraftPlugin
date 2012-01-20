@@ -16,6 +16,7 @@
  */
 package org.getspout.spoutapi.event.screen;
 
+import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Screen;
@@ -26,6 +27,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class SliderDragEvent extends ScreenEvent implements SpoutEvent {
 	
 	private static final long serialVersionUID = 4982214332331736926L;
+	private static final HandlerList handlers = new HandlerList();
 	protected Slider slider;
 	protected float position;
 	protected float old;
@@ -59,5 +61,12 @@ public class SliderDragEvent extends ScreenEvent implements SpoutEvent {
 		return type;
 	}
 	
-	
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

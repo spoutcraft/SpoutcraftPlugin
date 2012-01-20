@@ -4,6 +4,7 @@ import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
+@Deprecated
 public class PermissionListener extends CustomEventListener implements Listener{
 	
 	public void onPlayerPermission(PlayerPermissionEvent event) {
