@@ -359,7 +359,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		}
 
 		if (!handled) {
-			parent.b(world, i, j, k, entityhuman);
+			parent.attack(world, i, j, k, entityhuman);
 		}
 	}
 
