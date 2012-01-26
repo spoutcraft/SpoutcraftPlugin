@@ -37,7 +37,7 @@ public class SimpleAppearanceManager implements AppearanceManager {
 
 	@Override
 	public void setPlayerSkin(SpoutPlayer viewingPlayer, HumanEntity target, String Url) {
-		((SpoutPlayer)target).setSkinfor (viewingPlayer, Url);
+		((SpoutPlayer)target).setSkinFor(viewingPlayer, Url);
 	}
 
 	@Override
@@ -47,13 +47,13 @@ public class SimpleAppearanceManager implements AppearanceManager {
 
 	@Override
 	public void setPlayerCloak(SpoutPlayer viewingPlayer, HumanEntity target, String Url) {
-		((SpoutPlayer)target).setCapefor (viewingPlayer, Url);
+		((SpoutPlayer)target).setCapeFor(viewingPlayer, Url);
 	}
 
 	@Override
 	public void setPlayerTitle(SpoutPlayer viewingPlayer, LivingEntity target, String title) {
 		if (target instanceof SpoutPlayer) {
-			((SpoutPlayer)target).setTitlefor (viewingPlayer, title);
+			((SpoutPlayer)target).setTitleFor(viewingPlayer, title);
 		}
 	}
 
@@ -119,7 +119,7 @@ public class SimpleAppearanceManager implements AppearanceManager {
 	@Override
 	public String getTitle(SpoutPlayer viewingPlayer, LivingEntity target) {
 		if (target instanceof SpoutPlayer) {
-			return ((SpoutPlayer)target).getTitlefor (viewingPlayer);
+			return ((SpoutPlayer)target).getTitleFor(viewingPlayer);
 		}
 		return null;
 	}

@@ -972,7 +972,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			if (p instanceof SpoutPlayer && p != this) {
 				SpoutPlayer player = (SpoutPlayer) p;
 				sendDelayedPacket(new PacketSkinURL(player.getEntityId(), player.getSkin(this), player.getCape(this)));
-				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitlefor (this)));
+				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor (this)));
 			}
 		}
 	}
@@ -990,7 +990,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public void setSkinfor (SpoutPlayer viewingPlayer, String url) {
+	public void setSkinFor(SpoutPlayer viewingPlayer, String url) {
 		checkUrl(url);
 		skinsFor.put(viewingPlayer.getName(), url);
 		viewingPlayer.sendPacket(new PacketSkinURL(getEntityId(), url));
@@ -1015,8 +1015,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public void resetSkinfor (SpoutPlayer viewingPlayer) {
-		setSkinfor (viewingPlayer, "http://s3.amazonaws.com/MinecraftSkins/" + getName() + ".png");
+	public void resetSkinFor(SpoutPlayer viewingPlayer) {
+		setSkinFor(viewingPlayer, "http://s3.amazonaws.com/MinecraftSkins/" + getName() + ".png");
 	}
 
 	@Override
@@ -1032,7 +1032,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public void setCapefor (SpoutPlayer viewingPlayer, String url) {
+	public void setCapeFor(SpoutPlayer viewingPlayer, String url) {
 		checkUrl(url);
 		capesFor.put(viewingPlayer.getName(), url);
 		viewingPlayer.sendPacket(new PacketSkinURL(url, getEntityId()));
@@ -1057,8 +1057,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public void resetCapefor (SpoutPlayer viewingPlayer) {
-		setCapefor (viewingPlayer, "http://s3.amazonaws.com/MinecraftCloaks/" + getName() + ".png");
+	public void resetCapeFor(SpoutPlayer viewingPlayer) {
+		setCapeFor(viewingPlayer, "http://s3.amazonaws.com/MinecraftCloaks/" + getName() + ".png");
 	}
 
 	@Override
@@ -1067,13 +1067,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer) {
-				((SpoutPlayer) p).sendPacket(new PacketEntityTitle(getEntityId(), getTitlefor ((SpoutPlayer) p)));
+				((SpoutPlayer) p).sendPacket(new PacketEntityTitle(getEntityId(), getTitleFor ((SpoutPlayer) p)));
 			}
 		}
 	}
 
 	@Override
-	public void setTitlefor (SpoutPlayer viewingPlayer, String title) {
+	public void setTitleFor(SpoutPlayer viewingPlayer, String title) {
 		titlesFor.put(viewingPlayer.getName(), title);
 		viewingPlayer.sendPacket(new PacketEntityTitle(getEntityId(), title));
 	}
@@ -1084,7 +1084,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public String getTitlefor (SpoutPlayer viewingPlayer) {
+	public String getTitleFor(SpoutPlayer viewingPlayer) {
 		if (titlesFor.containsKey(viewingPlayer.getName())) {
 			return titlesFor.get(viewingPlayer.getName());
 		}
@@ -1098,7 +1098,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void hideTitleFrom(SpoutPlayer viewingPlayer) {
-		setTitlefor (viewingPlayer, "[hide]");
+		setTitleFor (viewingPlayer, "[hide]");
 	}
 
 	@Override
@@ -1107,8 +1107,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public void resetTitlefor (SpoutPlayer viewingPlayer) {
-		setTitlefor (viewingPlayer, getName());
+	public void resetTitleFor(SpoutPlayer viewingPlayer) {
+		setTitleFor (viewingPlayer, getName());
 	}
 
 	@Override
