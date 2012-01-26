@@ -32,7 +32,7 @@ import org.getspout.spout.inventory.SpoutDoubleChestInventory;
 import org.getspout.spoutapi.block.SpoutChest;
 import org.getspout.spoutapi.inventory.DoubleChestInventory;
 
-public class SpoutCraftChest extends CraftChest implements SpoutChest{
+public class SpoutCraftChest extends CraftChest implements SpoutChest {
 	protected TileEntityChest chest;
 	public SpoutCraftChest(Block block) {
 		super(block);

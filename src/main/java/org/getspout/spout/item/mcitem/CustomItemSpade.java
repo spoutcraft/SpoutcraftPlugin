@@ -24,7 +24,7 @@ import net.minecraft.server.Item;
 import net.minecraft.server.ItemSpade;
 import net.minecraft.server.ItemTool;
 
-public class CustomItemSpade extends ItemSpade{
+public class CustomItemSpade extends ItemSpade {
 	public CustomItemSpade(int i, EnumToolMaterial etm) {
 		super(i, etm);
 	}

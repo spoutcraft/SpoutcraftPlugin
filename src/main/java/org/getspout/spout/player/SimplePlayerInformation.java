@@ -39,7 +39,7 @@ import org.getspout.spoutapi.block.SpoutWeather;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.PlayerInformation;
 
-public class SimplePlayerInformation implements PlayerInformation{
+public class SimplePlayerInformation implements PlayerInformation {
 	HashMap<Biome,SpoutWeather> weatherMap = new HashMap<Biome, SpoutWeather>();
 	HashMap<LivingEntity, SpoutEntitySkin> entitySkin = new HashMap<LivingEntity, SpoutEntitySkin>();
 
@@ -70,7 +70,7 @@ public class SimplePlayerInformation implements PlayerInformation{
 	 * @throws NoSuchMethodException when the property wasn't found
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Object getProperty(String key, Object ...args) throws NoSuchMethodException{
+	public Object getProperty(String key, Object ...args) throws NoSuchMethodException {
 		//Use in this form (String)getProperty("EntitySkin", entity);
 		Object ret = null;
 		Class clazz = getClass();

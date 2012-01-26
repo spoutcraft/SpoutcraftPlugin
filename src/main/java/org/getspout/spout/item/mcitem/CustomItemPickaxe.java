@@ -25,7 +25,7 @@ import net.minecraft.server.ItemPickaxe;
 import net.minecraft.server.ItemTool;
 import net.minecraft.server.Material;
 
-public class CustomItemPickaxe extends ItemPickaxe{
+public class CustomItemPickaxe extends ItemPickaxe {
 	public CustomItemPickaxe(int i, EnumToolMaterial etm) {
 		super(i, etm);
 	}

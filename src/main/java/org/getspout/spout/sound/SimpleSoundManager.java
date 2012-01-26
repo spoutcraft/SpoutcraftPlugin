@@ -31,7 +31,7 @@ import org.getspout.spoutapi.sound.Music;
 import org.getspout.spoutapi.sound.SoundEffect;
 import org.getspout.spoutapi.sound.SoundManager;
 
-public class SimpleSoundManager implements SoundManager{
+public class SimpleSoundManager implements SoundManager {
 	@Override
 	public void playGlobalSoundEffect(SoundEffect effect) {
 		playGlobalSoundEffect(effect, null);

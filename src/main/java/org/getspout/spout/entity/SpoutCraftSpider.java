@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftSpider;
 
 import org.getspout.spoutapi.entity.SpoutSpider;
 
-public class SpoutCraftSpider extends CraftSpider implements SpoutSpider{
+public class SpoutCraftSpider extends CraftSpider implements SpoutSpider {
 	public SpoutCraftSpider(CraftServer server, EntitySpider entity) {
 		super(server, entity);
 	}

@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftMinecart;
 
 import org.getspout.spoutapi.entity.SpoutMinecart;
 
-public class SpoutCraftMinecart extends CraftMinecart implements SpoutMinecart{
+public class SpoutCraftMinecart extends CraftMinecart implements SpoutMinecart {
 	public SpoutCraftMinecart(CraftServer server, EntityMinecart entity) {
 		super(server, entity);
 	}

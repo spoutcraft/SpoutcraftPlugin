@@ -25,7 +25,7 @@ import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.inventory.CraftingInventory;
 
-public class SpoutCraftingInventory extends SpoutCraftInventory implements CraftingInventory{
+public class SpoutCraftingInventory extends SpoutCraftInventory implements CraftingInventory {
 	protected IInventory result;
 	public SpoutCraftingInventory(InventoryCrafting inventory, IInventory result) {
 		super(inventory);

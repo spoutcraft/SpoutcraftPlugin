@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftWolf;
 
 import org.getspout.spoutapi.entity.SpoutWolf;
 
-public class SpoutCraftWolf extends CraftWolf implements SpoutWolf{
+public class SpoutCraftWolf extends CraftWolf implements SpoutWolf {
 	public SpoutCraftWolf(CraftServer server, EntityWolf wolf) {
 		super(server, wolf);
 	}

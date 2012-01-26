@@ -983,8 +983,9 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		skin = url;
 
 		for (Player p : getWorld().getPlayers()) {
-			if (p instanceof SpoutPlayer)
+			if (p instanceof SpoutPlayer) {
 				((SpoutPlayer) p).sendPacket(new PacketSkinURL(getEntityId(), getSkin((SpoutPlayer) p)));
+			}
 		}
 	}
 

@@ -72,7 +72,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.plugin.SpoutPlugin;
 
 @SuppressWarnings("deprecation")
-public class Spout extends SpoutPlugin{
+public class Spout extends SpoutPlugin {
 	public final SpoutPlayerListener playerListener;
 	protected final PlayerTrackingManager playerTrackingManager;
 	protected final SpoutWorldListener chunkListener;

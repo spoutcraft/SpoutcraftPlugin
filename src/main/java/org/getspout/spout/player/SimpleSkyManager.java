@@ -26,7 +26,7 @@ import org.getspout.spoutapi.packet.PacketSky;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SimpleSkyManager implements SkyManager{
+public class SimpleSkyManager implements SkyManager {
 	private final HashMap<String, Integer> cloudHeight = new HashMap<String, Integer>();
 	private final HashMap<String, Integer> starFrequency = new HashMap<String, Integer>();
 	private final HashMap<String, Integer> sunPercent = new HashMap<String, Integer>();

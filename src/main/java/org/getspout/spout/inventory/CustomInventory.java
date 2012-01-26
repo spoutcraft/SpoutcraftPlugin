@@ -21,7 +21,7 @@ import java.util.Collection;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class CustomInventory extends SpoutCraftInventory implements Inventory{
+public class CustomInventory extends SpoutCraftInventory implements Inventory {
 	public CustomInventory(ItemStack[] items, String name) {
 		super(new CustomMCInventory(items, name));
 	}

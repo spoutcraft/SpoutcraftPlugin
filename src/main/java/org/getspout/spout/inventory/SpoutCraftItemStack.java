@@ -20,7 +20,7 @@ import net.minecraft.server.NBTTagCompound;
 
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 
-public class SpoutCraftItemStack extends CraftItemStack{
+public class SpoutCraftItemStack extends CraftItemStack {
 	public SpoutCraftItemStack(net.minecraft.server.ItemStack item) {
 		super(item);
 	}

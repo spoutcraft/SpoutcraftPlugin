@@ -27,7 +27,7 @@ import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutCustomBlockMonitor extends PlayerListener{
+public class SpoutCustomBlockMonitor extends PlayerListener {
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) {

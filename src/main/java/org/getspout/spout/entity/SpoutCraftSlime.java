@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftSlime;
 
 import org.getspout.spoutapi.entity.SpoutSlime;
 
-public class SpoutCraftSlime extends CraftSlime implements SpoutSlime{
+public class SpoutCraftSlime extends CraftSlime implements SpoutSlime {
 	public SpoutCraftSlime(CraftServer server, EntitySlime entity) {
 		super(server, entity);
 	}

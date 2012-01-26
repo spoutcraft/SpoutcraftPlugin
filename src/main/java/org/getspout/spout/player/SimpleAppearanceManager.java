@@ -25,7 +25,7 @@ import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 @SuppressWarnings("deprecation")
-public class SimpleAppearanceManager implements AppearanceManager{
+public class SimpleAppearanceManager implements AppearanceManager {
 	public SimpleAppearanceManager() {
 
 	}
@@ -64,14 +64,16 @@ public class SimpleAppearanceManager implements AppearanceManager{
 
 	@Override
 	public void hidePlayerTitle(SpoutPlayer viewingPlayer, LivingEntity target) {
-		if (target instanceof SpoutPlayer)
+		if (target instanceof SpoutPlayer) {
 			((SpoutPlayer)target).hideTitleFrom(viewingPlayer);
+		}
 	}
 
 	@Override
 	public void hideGlobalTitle(LivingEntity target) {
-		if (target instanceof SpoutPlayer)
+		if (target instanceof SpoutPlayer) {
 			((SpoutPlayer)target).hideTitle();
+		}
 	}
 
 	@Override

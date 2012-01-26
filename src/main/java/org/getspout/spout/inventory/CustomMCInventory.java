@@ -22,7 +22,7 @@ import net.minecraft.server.EntityHuman;
 import net.minecraft.server.IInventory;
 import net.minecraft.server.ItemStack;
 
-public class CustomMCInventory implements IInventory{
+public class CustomMCInventory implements IInventory {
 	protected ItemStack[] items;
 	protected String name;
 

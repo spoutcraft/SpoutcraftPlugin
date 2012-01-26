@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftZombie;
 
 import org.getspout.spoutapi.entity.SpoutZombie;
 
-public class SpoutCraftZombie extends CraftZombie implements SpoutZombie{
+public class SpoutCraftZombie extends CraftZombie implements SpoutZombie {
 	public SpoutCraftZombie(CraftServer server, EntityZombie entity) {
 		super(server, entity);
 	}

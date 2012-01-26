@@ -49,7 +49,7 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutPlayerListener extends PlayerListener{
+public class SpoutPlayerListener extends PlayerListener {
 	public PlayerManager manager = new PlayerManager();
 	@Override
 	public void onPlayerJoin(final PlayerJoinEvent event) {

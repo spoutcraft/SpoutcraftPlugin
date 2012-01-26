@@ -21,7 +21,7 @@ import org.bukkit.craftbukkit.CraftWorld;
 
 import org.getspout.spoutapi.WorldManager;
 
-public class SimpleWorldManager implements WorldManager{
+public class SimpleWorldManager implements WorldManager {
 	@Override
 	public int getWorldHeightBits(World world) {
 		if (world instanceof CraftWorld) {

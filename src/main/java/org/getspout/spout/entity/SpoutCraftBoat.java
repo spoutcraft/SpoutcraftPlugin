@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftBoat;
 
 import org.getspout.spoutapi.entity.SpoutBoat;
 
-public class SpoutCraftBoat extends CraftBoat implements SpoutBoat{
+public class SpoutCraftBoat extends CraftBoat implements SpoutBoat {
 	public SpoutCraftBoat(CraftServer server, EntityBoat entity) {
 		super(server, entity);
 	}

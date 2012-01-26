@@ -27,7 +27,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.NetLoginHandler;
 import net.minecraft.server.NetworkListenThread;
 
-public class SpoutNetworkAcceptThread extends Thread{
+public class SpoutNetworkAcceptThread extends Thread {
 	final MinecraftServer a;
 	final NetworkListenThread b;
 	Method methodA, methodA2, methodB, methodC;

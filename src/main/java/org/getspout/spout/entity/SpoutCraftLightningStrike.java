@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftLightningStrike;
 
 import org.getspout.spoutapi.entity.SpoutLightningStrike;
 
-public class SpoutCraftLightningStrike extends CraftLightningStrike implements SpoutLightningStrike{
+public class SpoutCraftLightningStrike extends CraftLightningStrike implements SpoutLightningStrike {
 	public SpoutCraftLightningStrike(CraftServer server, EntityWeatherLighting entity) {
 		super(server, entity);
 	}

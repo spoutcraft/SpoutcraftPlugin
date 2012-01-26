@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.entity.CraftGhast;
 
 import org.getspout.spoutapi.entity.SpoutGhast;
 
-public class SpoutCraftGhast extends CraftGhast implements SpoutGhast{
+public class SpoutCraftGhast extends CraftGhast implements SpoutGhast {
 	public SpoutCraftGhast(CraftServer server, EntityGhast entity) {
 		super(server, entity);
 	}

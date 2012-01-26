@@ -27,7 +27,7 @@ import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 
-public class SpoutWorldListener extends WorldListener{
+public class SpoutWorldListener extends WorldListener {
 	@Override
 	public void onChunkLoad(ChunkLoadEvent event) {
 		if (SpoutCraftChunk.replaceBukkitChunk(event.getChunk())) {
