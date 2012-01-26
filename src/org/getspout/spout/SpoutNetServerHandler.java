@@ -57,7 +57,6 @@ import net.minecraft.server.Packet100OpenWindow;
 import net.minecraft.server.Packet101CloseWindow;
 import net.minecraft.server.Packet102WindowClick;
 import net.minecraft.server.Packet106Transaction;
-import net.minecraft.server.Packet108ButtonClick;
 import net.minecraft.server.Packet10Flying;
 import net.minecraft.server.Packet11PlayerPosition;
 import net.minecraft.server.Packet13PlayerLookMove;
@@ -85,7 +84,6 @@ import org.bukkit.craftbukkit.inventory.CraftInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.inventory.Inventory;
-
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.inventory.SpoutCraftInventory;
 import org.getspout.spout.inventory.SpoutCraftInventoryPlayer;
@@ -99,7 +97,6 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.inventory.InventoryClickEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
 import org.getspout.spoutapi.event.inventory.InventoryCraftEvent;
-import org.getspout.spoutapi.event.inventory.InventoryEnchantEvent;
 import org.getspout.spoutapi.event.inventory.InventoryOpenEvent;
 import org.getspout.spoutapi.event.inventory.InventoryPlayerClickEvent;
 import org.getspout.spoutapi.event.inventory.InventorySlotType;
@@ -320,39 +317,6 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		if (oshort != null && packet.b == oshort.shortValue() && this.player.activeContainer.windowId == packet.a && !this.player.activeContainer.c(this.player)) {
 			this.player.activeContainer.a(this.player, true);
 		}
-	}
-
-	@Override
-	public void a(Packet108ButtonClick packet) {
-		if (this.player.activeContainer instanceof ContainerEnchantTable)
-			if (this.player.activeContainer.windowId == packet.a && this.player.activeContainer.c(this.player)) {
-				// Store our pre-event values
-				CraftPlayer player = (CraftPlayer) this.player.getBukkitEntity();
-				Inventory inventory = getActiveInventory();
-				ContainerEnchantTable table = (ContainerEnchantTable) this.player.activeContainer;
-				ItemStack initial = table.a.getItem(0).cloneItemStack();
-				int level = this.player.expLevel;
-
-				if (table.a(this.player, packet.b)) {
-					ItemStack after = ((ContainerEnchantTable) this.player.activeContainer).a.getItem(0);
-					int afterLevel = this.player.expLevel;
-
-					SpoutCraftItemStack before = SpoutCraftItemStack.fromItemStack(initial);
-					SpoutCraftItemStack result = SpoutCraftItemStack.fromItemStack(after);
-					InventoryEnchantEvent event = new InventoryEnchantEvent(player, inventory, before, result, level, afterLevel);
-					Bukkit.getServer().getPluginManager().callEvent(event);
-
-					if (event.isCancelled()) {
-						player.setLevel(level);
-						table.a.setItem(0, initial);
-					} else {
-						player.setLevel(event.getLevelAfter());
-						table.a.setItem(0, SpoutCraftItemStack.createNMSItemStack(event.getResult()));
-					}
-				}
-				this.player.activeContainer.a();
-			} else
-				super.a(packet);
 	}
 
 	@Override
