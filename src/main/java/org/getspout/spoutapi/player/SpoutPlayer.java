@@ -534,7 +534,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @param viewingPlayer that this skin will be visible to
 	 * @param url to set to
 	 */
-	public void setSkinfor(SpoutPlayer viewingPlayer, String url);
+	public void setSkinFor(SpoutPlayer viewingPlayer, String url);
 
 	/**
 	 * Gets the skin url that this player is using
@@ -558,7 +558,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Resets the skin to the default for the viewing player
 	 * @param viewingPlayer to reset the skin for
 	 */
-	public void resetSkinfor(SpoutPlayer viewingPlayer);
+	public void resetSkinFor(SpoutPlayer viewingPlayer);
 
 	/**
 	 * Sets the cape url of this player
@@ -571,7 +571,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @param viewingPlayer that this cape is visible for
 	 * @param url to set to
 	 */
-	public void setCapefor(SpoutPlayer viewingPlayer, String url);
+	public void setCapeFor(SpoutPlayer viewingPlayer, String url);
 
 	/**
 	 * Gets the cape that this player is wearing
@@ -595,7 +595,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Resets the cape that is visible for the viewingPlayer
 	 * @param viewingPlayer to reset the cape for
 	 */
-	public void resetCapefor(SpoutPlayer viewingPlayer);
+	public void resetCapeFor(SpoutPlayer viewingPlayer);
 
 	/**
 	 * Sets the overhead title for the player.
@@ -616,7 +616,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @param viewingPlayer that this title is visible to
 	 * @param title to set overhead.
 	 */
-	public void setTitlefor(SpoutPlayer viewingPlayer, String title);
+	public void setTitleFor(SpoutPlayer viewingPlayer, String title);
 
 	/**
 	 * Gets the overhead title for the player.
@@ -629,7 +629,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @param viewingPlayer that this title is visible for
 	 * @return overhead title
 	 */
-	public String getTitlefor(SpoutPlayer viewingPlayer);
+	public String getTitleFor(SpoutPlayer viewingPlayer);
 
 	/**
 	 * Completely hides the title from view of all players.
@@ -651,7 +651,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Resets the title back to it's default state for the viewingPlayer.
 	 * @param viewingPlayer
 	 */
-	public void resetTitlefor (SpoutPlayer viewingPlayer);
+	public void resetTitleFor (SpoutPlayer viewingPlayer);
 
 	/**
 	 * Sets the entity skin for the target entity to the url. The Skin Type is used when an entity has more than one skin type.

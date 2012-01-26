@@ -42,7 +42,7 @@ public interface AppearanceManager {
 	 * @param Url for the new skin
 	 *
 	 *
-	 * @deprecated see {@link SpoutPlayer#setSkinfor (SpoutPlayer, String)} instead.
+	 * @deprecated see {@link SpoutPlayer#setSkinFor (SpoutPlayer, String)} instead.
 	 */
 	@ClientOnly
 	public void setPlayerSkin(SpoutPlayer viewingPlayer, HumanEntity target, String Url);
@@ -63,7 +63,7 @@ public interface AppearanceManager {
 	 * @param target to change the cloak for
 	 * @param Url for the new cloak
 	 *
-	 * @deprecated see {@link SpoutPlayer#setCapefor(SpoutPlayer, String)} instead.
+	 * @deprecated see {@link SpoutPlayer#setCapeFor(SpoutPlayer, String)} instead.
 	 */
 	@ClientOnly
 	public void setPlayerCloak(SpoutPlayer viewingPlayer, HumanEntity target, String Url);
@@ -75,7 +75,7 @@ public interface AppearanceManager {
 	 * @param target to change the title for
 	 * @param title to set to the target
 	 *
-	 * @deprecated see {@link SpoutPlayer#setTitlefor (SpoutPlayer, String)} instead.
+	 * @deprecated see {@link SpoutPlayer#setTitleFor (SpoutPlayer, String)} instead.
 	 */
 	@ClientOnly
 	public void setPlayerTitle(SpoutPlayer viewingPlayer, LivingEntity target, String title);
@@ -135,7 +135,7 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that will see the reset skin
 	 * @param target to reset the skin for
 	 *
-	 * @deprecated see {@link SpoutPlayer#resetSkinfor (SpoutPlayer)} instead.
+	 * @deprecated see {@link SpoutPlayer#resetSkinFor (SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public void resetPlayerSkin(SpoutPlayer viewingPlayer, HumanEntity target);
@@ -154,7 +154,7 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that will see the reset cloak
 	 * @param target to reset the cloak for
 	 *
-	 * @deprecated see {@link SpoutPlayer#resetCapefor(SpoutPlayer)} instead.
+	 * @deprecated see {@link SpoutPlayer#resetCapeFor(SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public void resetPlayerCloak(SpoutPlayer viewingPlayer, HumanEntity target);
@@ -164,7 +164,7 @@ public interface AppearanceManager {
 	 * @param viewingPlayer that will see the reset title
 	 * @param target to reset the title for
 	 *
-	 * @deprecated see {@link SpoutPlayer#resetTitlefor (SpoutPlayer)} instead.
+	 * @deprecated see {@link SpoutPlayer#resetTitleFor (SpoutPlayer)} instead.
 	 */
 	@ClientOnly
 	public void resetPlayerTitle(SpoutPlayer viewingPlayer, LivingEntity target);
