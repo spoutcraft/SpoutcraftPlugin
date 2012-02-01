@@ -37,8 +37,11 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 	protected HashMap<Widget, Plugin> widgets = new HashMap<Widget, Plugin>();
 	protected int playerId;
 	protected boolean bg = true;
+	private int x, y;
 
 	public GenericScreen() {
+		x = 420;
+		y = 247;
 	}
 
 	@Override
@@ -233,5 +236,21 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 			}
 		}
 		return set;
+	}
+	
+	public int getScreenX() {
+		return x;
+	}
+	
+	public int getScreenY() {
+		return y;
+	}
+	
+	public void setScreenX(int x) {
+		this.x = x;
+	}
+	
+	public void setScreenY(int y) {
+		this.y = y;
 	}
 }

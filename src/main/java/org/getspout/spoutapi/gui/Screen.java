@@ -117,4 +117,28 @@ public interface Screen extends Widget {
 	public ScreenType getScreenType();
 
 	public Set<Widget> getAttachedWidgetsAsSet(boolean recursive);
+	
+	/**
+	 * Gets the actual resolution of the players screen in the x direction
+	 * @return screen x
+	 */
+	public int getScreenX();
+	
+	/**
+	 * Gets the actual resolution of the players screen in the y direction
+	 * @return screen y
+	 */
+	public int getScreenY();
+	
+	/**
+	 * Internal use only
+	 * @param x
+	 */
+	public void setScreenX(int x);
+	
+	/**
+	 * Internal use only
+	 * @param y
+	 */
+	public void setScreenY(int y);
 }

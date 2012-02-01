@@ -508,4 +508,9 @@ public class SpoutWorld implements World {
 	public <T extends Entity> Collection<T> getEntitiesByClass(Class<T>... classes) {
 		return world.getEntitiesByClass(classes);
 	}
+
+	@Override
+	public boolean canGenerateStructures() {
+		return world.canGenerateStructures();
+	}
 }
