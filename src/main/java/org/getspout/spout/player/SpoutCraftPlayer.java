@@ -148,6 +148,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private long firstPlayed = 0;
 	private long lastPlayed = 0;
 	private boolean hasPlayed = false;
+	
+	private GameMode prevMode;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -167,6 +169,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		mainScreen = new InGameScreen(this.getEntityId());
 
 		mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
+		prevMode = getGameMode();
 		fly = ((CraftServer) Bukkit.getServer()).getHandle().server.allowFlight;
 	}
 
@@ -1236,6 +1239,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			sendPacket(packet);
 		}
 		delayedPackets.clear();
+		
+		if (!getGameMode().equals(prevMode)) {
+			prevMode = getGameMode();
+			mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
+		}
 
 		//Do this last!
 		getNetServerHandler().syncFlushPacketQueue();
