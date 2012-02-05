@@ -1268,7 +1268,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	public static boolean setNetServerHandler(NetworkManager nm, NetServerHandler nsh) {
 		try {
-			Field p = nm.getClass().getDeclaredField("packetListener");
+			Field p = NetworkManager.class.getDeclaredField("packetListener");
 			p.setAccessible(true);
 			p.set(nm, nsh);
 		} catch (NoSuchFieldException e) {
