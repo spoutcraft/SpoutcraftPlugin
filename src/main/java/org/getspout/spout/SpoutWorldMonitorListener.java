@@ -25,16 +25,18 @@
  */
 package org.getspout.spout;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkUnloadEvent;
-import org.bukkit.event.world.WorldListener;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 
-public class SpoutWorldMonitorListener extends WorldListener {
-	@Override
+public class SpoutWorldMonitorListener implements Listener {
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onChunkUnload(ChunkUnloadEvent event) {
 		if (event.isCancelled()) {
 			return;
@@ -43,13 +45,13 @@ public class SpoutWorldMonitorListener extends WorldListener {
 		dm.saveChunk(event.getChunk());
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onWorldSave(WorldSaveEvent event) {
 		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 		dm.saveWorldChunks(event.getWorld());
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onWorldUnload(WorldUnloadEvent event) {
 		if (event.isCancelled()) {
 			return;

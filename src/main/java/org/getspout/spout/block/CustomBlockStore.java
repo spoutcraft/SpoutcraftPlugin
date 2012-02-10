@@ -42,7 +42,7 @@ public class CustomBlockStore implements Serializable {
 
 		CustomMaterial old;
 		if (map) {
-			old = (CustomMaterial)customBlockMap.put(key, material);
+			old = customBlockMap.put(key, material);
 		} else {
 			old = customBlockArray[key];
 			customBlockArray[key] = material;
@@ -62,7 +62,7 @@ public class CustomBlockStore implements Serializable {
 
 		CustomMaterial old;
 		if (map) {
-			old = (CustomMaterial)customBlockMap.remove(key);
+			old = customBlockMap.remove(key);
 		} else {
 			old = customBlockArray[key];
 			customBlockArray[key] = null;
@@ -82,7 +82,7 @@ public class CustomBlockStore implements Serializable {
 		customBlockArray = new CustomMaterial[arraySize];
 
 		for (int key : keys) {
-			customBlockArray[key] = (CustomMaterial)customBlockMap.get(key);
+			customBlockArray[key] = customBlockMap.get(key);
 		}
 		customBlockMap = null;
 		map = false;

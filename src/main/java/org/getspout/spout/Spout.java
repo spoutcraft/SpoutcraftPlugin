@@ -35,8 +35,6 @@ import net.minecraft.server.Packet18ArmAnimation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
 import org.bukkit.util.FileUtil;
 
 import org.getspout.commons.inventory.ItemMap;
@@ -191,26 +189,13 @@ public class Spout extends SpoutPlugin {
 			}
 		}).start();
 
-		registerEvent(Type.PLAYER_JOIN, playerListener, Priority.Lowest);
-		registerEvent(Type.PLAYER_KICK, playerListener, Priority.Normal);
-		registerEvent(Type.PLAYER_QUIT, playerListener, Priority.Lowest);
-		registerEvent(Type.PLAYER_TELEPORT, playerListener, Priority.Monitor);
-		registerEvent(Type.PLAYER_RESPAWN, playerListener, Priority.Monitor);
-		registerEvent(Type.PLAYER_INTERACT, playerListener, Priority.Monitor);
-		registerEvent(Type.PLAYER_INTERACT, blockMonitor, Priority.High);
-		registerEvent(Type.PLAYER_MOVE, playerListener, Priority.Monitor);
-		registerEvent(Type.CHUNK_LOAD, chunkListener, Priority.Lowest);
-		registerEvent(Type.WORLD_LOAD, chunkListener, Priority.Lowest);
-		registerEvent(Type.WORLD_SAVE, chunkMonitorListener, Priority.Monitor);
-		registerEvent(Type.WORLD_UNLOAD, chunkMonitorListener, Priority.Monitor);
-		registerEvent(Type.CHUNK_UNLOAD, chunkMonitorListener, Priority.Monitor);
-		registerEvent(Type.PLUGIN_DISABLE, pluginListener, Priority.Normal);
-		registerEvent(Type.BLOCK_BREAK, blockListener, Priority.Monitor);
-		registerEvent(Type.BLOCK_PISTON_EXTEND, blockListener, Priority.Monitor);
-		registerEvent(Type.BLOCK_PISTON_RETRACT, blockListener, Priority.Monitor);
-		registerEvent(Type.BLOCK_CANBUILD, blockListener, Priority.Lowest);
-		registerEvent(Type.ENTITY_TARGET, entityListener, Priority.Lowest);
-		registerEvent(Type.ENTITY_DAMAGE, entityListener, Priority.Lowest);
+        registerEvents(playerListener);
+		registerEvents(blockMonitor);
+		registerEvents(chunkListener);
+		registerEvents(chunkMonitorListener);
+		registerEvents(pluginListener);
+		registerEvents(blockListener);
+		registerEvents(entityListener);
 
 		getCommand("spout").setExecutor(new SpoutCommand(this));
 
@@ -269,7 +254,6 @@ public class Spout extends SpoutPlugin {
 			new DeadlockMonitor().start();
 		}
 
-		this.log("Spout %s has been initialized", getVersion());
 
 		/*try {
 			MinecraftServer server = ((CraftServer)getServer()).getServer();
@@ -422,8 +406,7 @@ public class Spout extends SpoutPlugin {
 			System.setProperty("http.agent", ""); //Spoofing the user agent is required to track stats
 			con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30");
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String str = "";
-			while ((str = in.readLine()) != null);
+			while (in.readLine() != null);
 			in.close();
 		} catch (Exception e) {}
 	}

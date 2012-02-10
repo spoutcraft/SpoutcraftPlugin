@@ -24,11 +24,13 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
-import org.bukkit.event.block.BlockListener;
 
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spoutapi.SpoutManager;
@@ -36,16 +38,15 @@ import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutBlockListener extends BlockListener {
+public class SpoutBlockListener implements Listener {
 	private final SimpleMaterialManager mm;
 
 	public SpoutBlockListener() {
 		mm = (SimpleMaterialManager)SpoutManager.getMaterialManager();
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockBreak(BlockBreakEvent event) {
-		super.onBlockBreak(event);
 
 		if (event.isCancelled()) {
 			return;
@@ -77,7 +78,7 @@ public class SpoutBlockListener extends BlockListener {
 	//the static final refernces in Block.
 	//Specifically, public boolean a(int i, int j, int k, int l, boolean flag, int i1)
 	//in World.java is broken otherwise.
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockCanBuild(BlockCanBuildEvent event) {
 		if (event.isBuildable()) {
 			return;
@@ -91,9 +92,8 @@ public class SpoutBlockListener extends BlockListener {
 		}
 	}
 
+        @EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
-		super.onBlockPistonExtend(event);
-
 		if (event.isCancelled()) {
 			return;
 		}
@@ -105,9 +105,8 @@ public class SpoutBlockListener extends BlockListener {
 		}
 	}
 
+        @EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockPistonRetract(BlockPistonRetractEvent event) {
-		super.onBlockPistonRetract(event);
-
 		if (event.isCancelled() || !event.isSticky()) {
 			return;
 		}

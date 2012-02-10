@@ -17,18 +17,20 @@
 package org.getspout.spout;
 
 import java.lang.reflect.Field;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
 import org.bukkit.event.world.ChunkEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
-import org.bukkit.event.world.WorldListener;
 import org.bukkit.event.world.WorldLoadEvent;
 
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 
-public class SpoutWorldListener extends WorldListener {
-	@Override
+public class SpoutWorldListener implements Listener {
+	@EventHandler(priority = EventPriority.LOW)
 	public void onChunkLoad(ChunkLoadEvent event) {
 		if (SpoutCraftChunk.replaceBukkitChunk(event.getChunk())) {
 			//update the reference to the chunk in the event
@@ -45,7 +47,7 @@ public class SpoutWorldListener extends WorldListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOW)
 	public void onWorldLoad(WorldLoadEvent event) {
 		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 		dm.loadWorldChunks(event.getWorld());
