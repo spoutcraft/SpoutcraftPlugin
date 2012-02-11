@@ -26,7 +26,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.event.AbstractEventSource;
-import org.getspout.spoutapi.event.screen.ScreenResolutionChangeEvent;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public abstract class GenericWidget extends AbstractEventSource implements Widget {
@@ -665,10 +664,5 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	@Override
 	public boolean hasSize() {
 		return hasSize;
-	}
-	
-	@Override
-	public void onResize(ScreenResolutionChangeEvent event) {
-		
 	}
 }

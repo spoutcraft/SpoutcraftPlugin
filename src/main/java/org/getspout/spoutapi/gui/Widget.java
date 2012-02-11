@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
-import org.getspout.spoutapi.event.screen.ScreenResolutionChangeEvent;
 
 /**
  * This is the base class of all other widgets, and should never be used
@@ -557,10 +556,4 @@ public interface Widget {
 	 * @return if it has a size
 	 */
 	public boolean hasSize();
-	
-	/**
-	 * Called when the screen of the player that has this widget is resized.
-	 * @param event
-	 */
-	public void onResize(ScreenResolutionChangeEvent event);
 }
