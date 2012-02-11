@@ -481,4 +481,9 @@ public class SpoutServer implements Server {
 	public Messenger getMessenger() {
 		return server.getMessenger();
 	}
+
+	@Override
+	public boolean useExactLoginLocation() {
+		return server.useExactLoginLocation();
+	}
 }
