@@ -146,11 +146,11 @@ public class CustomPacket extends Packet {
 	@SuppressWarnings("rawtypes")
 	public static void removeClassMapping() {
 		try {
-			Field field = Packet.class.getDeclaredField("a");
+			Field field = Packet.class.getDeclaredField("j");
 			field.setAccessible(true);
 			IntHashMap temp = (IntHashMap) field.get(null);
 			temp.d(195);
-			field = Packet.class.getDeclaredField("b");
+			field = Packet.class.getDeclaredField("a");
 			field.setAccessible(true);
 			Map temp2 = (Map) field.get(null);
 			temp2.remove(CustomPacket.class);
