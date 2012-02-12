@@ -215,7 +215,7 @@ public class Color {
 
 	/**
 	 *
-	 * @param a Alpha part of the color, ranging from 0.0 to 1.0
+	 * @param a Alpha part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */
 	public Color setAlpha(int a) {
