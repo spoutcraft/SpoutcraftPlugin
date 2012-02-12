@@ -16,10 +16,13 @@
  */
 package org.getspout.spout;
 
+import org.bukkit.block.Block;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityTargetEvent;
 
+import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutEntityListener extends EntityListener {
@@ -34,6 +37,15 @@ public class SpoutEntityListener extends EntityListener {
 	public void onEntityTarget(EntityTargetEvent event) {
 		if (event.getTarget() instanceof SpoutPlayer) {
 			event.setCancelled(event.isCancelled() || !((SpoutPlayer)event.getTarget()).isPreCachingComplete());
+		}
+	}
+	
+	@Override
+	public void onEntityExplode(EntityExplodeEvent event) {
+		super.onEntityExplode(event);
+		for(Block block : event.blockList()) {
+			SpoutBlock sb = (SpoutBlock)block;
+			sb.removeCustomBlockData();
 		}
 	}
 }
