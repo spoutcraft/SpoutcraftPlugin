@@ -211,6 +211,7 @@ public class Spout extends SpoutPlugin {
 		registerEvent(Type.BLOCK_CANBUILD, blockListener, Priority.Lowest);
 		registerEvent(Type.ENTITY_TARGET, entityListener, Priority.Lowest);
 		registerEvent(Type.ENTITY_DAMAGE, entityListener, Priority.Lowest);
+		registerEvent(Type.ENTITY_EXPLODE, entityListener, Priority.Lowest);
 
 		getCommand("spout").setExecutor(new SpoutCommand(this));
 
