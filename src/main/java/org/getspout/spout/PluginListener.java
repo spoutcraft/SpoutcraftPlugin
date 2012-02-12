@@ -18,14 +18,15 @@ package org.getspout.spout;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
-import org.bukkit.event.server.ServerListener;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class PluginListener extends ServerListener {
+public class PluginListener implements Listener {
 	@SuppressWarnings("deprecation")
-	@Override
+	@EventHandler
 	public void onPluginDisable(PluginDisableEvent event) {
 		SpoutManager.getKeyboardManager().removeAllKeyBindings(event.getPlugin());
 		for (Player i : Bukkit.getServer().getOnlinePlayers()) {

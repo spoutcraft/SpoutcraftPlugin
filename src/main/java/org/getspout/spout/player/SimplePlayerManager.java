@@ -140,7 +140,7 @@ loop:		for (World world : Bukkit.getServer().getWorlds()) {
 
 	@Override
 	public Entity getEntity(int entityId) {
-		WeakReference<Entity> result = (WeakReference<Entity>) entityIdMap.get(entityId);
+		WeakReference<Entity> result = entityIdMap.get(entityId);
 		Entity found = null;
 		if (result != null && result.get() != null) {
 			found = result.get();
