@@ -130,7 +130,7 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt())); // 18 + 4 = 22
 		long msb = input.readLong(); // 22 + 8 = 30
 		long lsb = input.readLong(); // 30 + 8 = 38
-		this.id = new UUID(msb, lsb);
+		//this.id = new UUID(msb, lsb);
 		setTooltip(PacketUtil.readString(input)); // String
 		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(PacketUtil.readString(input))); // String
 		animType = WidgetAnim.getAnimationFromId(input.readByte()); // 38 + 1 + 39
