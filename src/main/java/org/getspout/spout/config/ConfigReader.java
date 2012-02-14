@@ -17,11 +17,7 @@
 package org.getspout.spout.config;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Logger;
-
-import org.bukkit.util.config.Configuration;
-
+import org.bukkit.configuration.file.FileConfiguration;
 import org.getspout.spout.Spout;
 
 @SuppressWarnings("deprecation")
@@ -44,126 +40,28 @@ public class ConfigReader {
 	private static boolean authenticateSpoutcraft = true;
 	private static boolean runDeadlockMonitor = false;
 
-	public void read() {
-		try {
-			File directory = Spout.getInstance().getDataFolder();
-			if (!directory.exists()) {
-				try {
-					directory.mkdir();
-				} catch (SecurityException e1) {}
-			}
-			File config = new File(directory, "config.yml");
-			if (!config.exists()) {
-				try {
-					config.createNewFile();
-				} catch (SecurityException e1) {}
-			}
-			Configuration configuration = Spout.getInstance().getConfiguration();
-			configuration.load();
-
-			if (configuration.getProperty("ForceSinglePlayerClient") != null) {
-				forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
-			} else {
-				configuration.setProperty("ForceSinglePlayerClient", false);
-			}
-
-			if (configuration.getProperty("ForceSinglePlayerClientKickMessage") != null) {
-				kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
-			} else {
-				 configuration.setProperty("ForceSinglePlayerClientKickMessage", kickMessage);
-			}
-
-			if (configuration.getProperty("AuthenticateTicks") != null) {
-				authTicks = configuration.getInt("AuthenticateTicks", 200);
-			} else {
-				 configuration.setProperty("AuthenticateTicks", authTicks);
-			}
-
-			if (configuration.getProperty("AutoUpdate") != null) {
-				autoUpdate = configuration.getBoolean("AutoUpdate", true);
-			} else {
-				configuration.setProperty("AutoUpdate", true);
-			}
-
-			if (configuration.getProperty("AllowSkyCheat") != null) {
-				allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
-			} else {
-				configuration.setProperty("AllowSkyCheat", false);
-			}
-
-			if (configuration.getProperty("AllowClearWaterCheat") != null) {
-				allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
-			} else {
-				configuration.setProperty("AllowClearWaterCheat", false);
-			}
-
-			if (configuration.getProperty("AllowStarsCheat") != null) {
-				allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
-			} else {
-				configuration.setProperty("AllowStarsCheat", false);
-			}
-
-			if (configuration.getProperty("AllowWeatherCheat") != null) {
-				allowWeatherCheat = configuration.getBoolean("AllowWeatherCheat", false);
-			} else {
-				configuration.setProperty("AllowWeatherCheat", false);
-			}
-
-			if (configuration.getProperty("AllowTimeCheat") != null) {
-				allowTimeCheat = configuration.getBoolean("AllowTimeCheat", false);
-			} else {
-				configuration.setProperty("AllowTimeCheat", false);
-			}
-
-			if (configuration.getProperty("AllowCoordsCheat") != null) {
-				allowCoordsCheat = configuration.getBoolean("AllowCoordsCheat", false);
-			} else {
-				configuration.setProperty("AllowCoordsCheat", false);
-			}
-
-			if (configuration.getProperty("AllowEntityLabelCheat") != null) {
-				allowEntityLabelCheat = configuration.getBoolean("AllowEntityLabelCheat", false);
-			} else {
-				configuration.setProperty("AllowEntityLabelCheat", false);
-			}
-
-			if (configuration.getProperty("AllowVoidFogCheat") != null) {
-				allowVoidFogCheat = configuration.getBoolean("AllowVoidFogCheat", false);
-			} else {
-				configuration.setProperty("AllowVoidFogCheat", false);
-			}
-
-			if (configuration.getProperty("ChunkDataCache") != null) {
-				chunkDataCache = configuration.getBoolean("ChunkDataCache", true);
-			} else {
-				configuration.setProperty("ChunkDataCache", true);
-			}
-
-			if (configuration.getProperty("TeleportSmoothing") != null) {
-				teleportSmoothing = configuration.getBoolean("TeleportSmoothing", true);
-			} else {
-				configuration.setProperty("TeleportSmoothing", true);
-			}
-
-			if (configuration.getProperty("AuthenticateSpoutcraft") != null) {
-				authenticateSpoutcraft = configuration.getBoolean("AuthenticateSpoutcraft", true);
-			} else {
-				configuration.setProperty("AuthenticateSpoutcraft", true);
-			}
-
-			if (configuration.getProperty("DeadlockMonitor") != null) {
-				runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
-			} else {
-				configuration.setProperty("DeadlockMonitor", false);
-			}
-
-			if (!configuration.save()) {
-				throw new IOException();
-			}
-		} catch (Exception e) {
-			Logger.getLogger("minecraft").severe("[Spout] Failed to read configuration!");
-		}
-	}
+        public void read() {
+            if (!new File(Spout.getInstance().getDataFolder(), "config.yml").exists()) {
+                Spout.getInstance().saveDefaultConfig();
+            }
+            FileConfiguration configuration = Spout.getInstance().getConfig();
+            forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
+            kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
+            authTicks = configuration.getInt("AuthenticateTicks", 200);
+            autoUpdate = configuration.getBoolean("AutoUpdate", true);
+            allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
+            allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
+            allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
+            allowWeatherCheat = configuration.getBoolean("AllowWeatherCheat", false);
+            allowTimeCheat = configuration.getBoolean("AllowTimeCheat", false);
+            allowCoordsCheat = configuration.getBoolean("AllowCoordsCheat", false);
+            allowEntityLabelCheat = configuration.getBoolean("AllowEntityLabelCheat", false);
+            allowVoidFogCheat = configuration.getBoolean("AllowVoidFogCheat", false);
+            chunkDataCache = configuration.getBoolean("ChunkDataCache", true);
+            teleportSmoothing = configuration.getBoolean("TeleportSmoothing", true);
+            authenticateSpoutcraft = configuration.getBoolean("AuthenticateSpoutcraft", true);
+            runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
+        }
 
 	public static boolean isForceClient() {
 		return forceClient;
