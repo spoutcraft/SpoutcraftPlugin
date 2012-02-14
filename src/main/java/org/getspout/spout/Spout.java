@@ -35,8 +35,6 @@ import net.minecraft.server.Packet18ArmAnimation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
 import org.bukkit.util.FileUtil;
 
 import org.getspout.commons.inventory.ItemMap;
@@ -73,14 +71,14 @@ import org.getspout.spoutapi.plugin.SpoutPlugin;
 
 @SuppressWarnings("deprecation")
 public class Spout extends SpoutPlugin {
-	public final SpoutPlayerListener playerListener;
+	public SpoutPlayerListener playerListener;
 	protected final PlayerTrackingManager playerTrackingManager;
-	protected final SpoutWorldListener chunkListener;
-	protected final SpoutWorldMonitorListener chunkMonitorListener;
-	protected final SpoutBlockListener blockListener;
-	protected final SpoutEntityListener entityListener;
-	protected final PluginListener pluginListener;
-	protected final SpoutCustomBlockMonitor blockMonitor;
+	protected SpoutWorldListener chunkListener;
+	protected SpoutWorldMonitorListener chunkMonitorListener;
+	protected SpoutBlockListener blockListener;
+	protected SpoutEntityListener entityListener;
+	protected PluginListener pluginListener;
+	protected SpoutCustomBlockMonitor blockMonitor;
 	protected static Spout instance;
 	protected FlatFileStore<String> CRCConfig;
 	protected FlatFileStore<Integer> itemMapConfig;
@@ -91,12 +89,6 @@ public class Spout extends SpoutPlugin {
 	public Spout() {
 		super();
 		Spout.instance = this;
-		playerListener = new SpoutPlayerListener();
-		chunkListener = new SpoutWorldListener();
-		chunkMonitorListener = new SpoutWorldMonitorListener();
-		pluginListener = new PluginListener();
-		entityListener = new SpoutEntityListener();
-		blockMonitor = new SpoutCustomBlockMonitor();
 		SpoutManager.getInstance().setKeyboardManager(new SimpleKeyboardManager());
 		SpoutManager.getInstance().setAppearanceManager(new SimpleAppearanceManager());
 		SpoutManager.getInstance().setSoundManager(new SimpleSoundManager());
@@ -111,7 +103,6 @@ public class Spout extends SpoutPlugin {
 		SpoutManager.getInstance().setKeyBindingManager(new SimpleKeyBindingManager());
 		SpoutManager.getInstance().setMaterialManager(new SimpleMaterialManager());
 		SpoutManager.getInstance().setWorldManager(new SimpleWorldManager());
-		blockListener = new SpoutBlockListener();
 		playerTrackingManager = new PlayerTrackingManager();
 		shutdownThread = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(shutdownThread);
@@ -190,28 +181,14 @@ public class Spout extends SpoutPlugin {
 				update();
 			}
 		}).start();
-
-		registerEvent(Type.PLAYER_JOIN, playerListener, Priority.Lowest);
-		registerEvent(Type.PLAYER_KICK, playerListener, Priority.Normal);
-		registerEvent(Type.PLAYER_QUIT, playerListener, Priority.Lowest);
-		registerEvent(Type.PLAYER_TELEPORT, playerListener, Priority.Monitor);
-		registerEvent(Type.PLAYER_RESPAWN, playerListener, Priority.Monitor);
-		registerEvent(Type.PLAYER_INTERACT, playerListener, Priority.Monitor);
-		registerEvent(Type.PLAYER_INTERACT, blockMonitor, Priority.High);
-		registerEvent(Type.PLAYER_MOVE, playerListener, Priority.Monitor);
-		registerEvent(Type.CHUNK_LOAD, chunkListener, Priority.Lowest);
-		registerEvent(Type.WORLD_LOAD, chunkListener, Priority.Lowest);
-		registerEvent(Type.WORLD_SAVE, chunkMonitorListener, Priority.Monitor);
-		registerEvent(Type.WORLD_UNLOAD, chunkMonitorListener, Priority.Monitor);
-		registerEvent(Type.CHUNK_UNLOAD, chunkMonitorListener, Priority.Monitor);
-		registerEvent(Type.PLUGIN_DISABLE, pluginListener, Priority.Normal);
-		registerEvent(Type.BLOCK_BREAK, blockListener, Priority.Monitor);
-		registerEvent(Type.BLOCK_PISTON_EXTEND, blockListener, Priority.Monitor);
-		registerEvent(Type.BLOCK_PISTON_RETRACT, blockListener, Priority.Monitor);
-		registerEvent(Type.BLOCK_CANBUILD, blockListener, Priority.Lowest);
-		registerEvent(Type.ENTITY_TARGET, entityListener, Priority.Lowest);
-		registerEvent(Type.ENTITY_DAMAGE, entityListener, Priority.Lowest);
-		registerEvent(Type.ENTITY_EXPLODE, entityListener, Priority.Lowest);
+		
+		playerListener = new SpoutPlayerListener(this);
+		chunkListener = new SpoutWorldListener(this);
+		chunkMonitorListener = new SpoutWorldMonitorListener(this);
+		pluginListener = new PluginListener(this);
+		entityListener = new SpoutEntityListener(this);
+		blockMonitor = new SpoutCustomBlockMonitor(this);
+		blockListener = new SpoutBlockListener(this);
 
 		getCommand("spout").setExecutor(new SpoutCommand(this));
 
