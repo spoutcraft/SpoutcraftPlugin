@@ -16,9 +16,12 @@
  */
 package org.getspout.spout;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -27,8 +30,13 @@ import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutCustomBlockMonitor extends PlayerListener {
-	@Override
+public class SpoutCustomBlockMonitor implements Listener {
+	
+	public SpoutCustomBlockMonitor(Spout plugin) {
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+	
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) {
 			return;

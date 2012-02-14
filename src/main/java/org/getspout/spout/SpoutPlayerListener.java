@@ -24,13 +24,15 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -49,9 +51,15 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutPlayerListener extends PlayerListener {
-	public PlayerManager manager = new PlayerManager();
-	@Override
+public class SpoutPlayerListener implements Listener {
+	
+	public final PlayerManager manager = new PlayerManager();
+	
+	public SpoutPlayerListener(Spout plugin) {
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerJoin(final PlayerJoinEvent event) {
 		if (!event.getPlayer().getClass().equals(SpoutCraftPlayer.class)) {
 			SpoutCraftPlayer.updateNetServerHandler(event.getPlayer());
@@ -72,7 +80,7 @@ public class SpoutPlayerListener extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
 		if (event.getPlayer() instanceof SpoutCraftPlayer) {
 			SpoutCraftPlayer player = (SpoutCraftPlayer)event.getPlayer();
@@ -87,7 +95,7 @@ public class SpoutPlayerListener extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerTeleport(final PlayerTeleportEvent event) {
 		if (!(event.getPlayer() instanceof SpoutPlayer)) {
 			updatePlayerEvent(event);
@@ -107,7 +115,7 @@ public class SpoutPlayerListener extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (!(event.getPlayer() instanceof SpoutPlayer)) {
 			updatePlayerEvent(event);
@@ -204,7 +212,7 @@ public class SpoutPlayerListener extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerMove(PlayerMoveEvent event) {
 		if (!(event.getPlayer() instanceof SpoutPlayer)) {
 			updatePlayerEvent(event);
@@ -226,7 +234,7 @@ public class SpoutPlayerListener extends PlayerListener {
 		netServerHandler.setPlayerChunk(cx, cz);
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		int id = player.getEntityId();
@@ -247,7 +255,7 @@ public class SpoutPlayerListener extends PlayerListener {
 		}
 	}
 
-	@Override
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		if (player instanceof SpoutCraftPlayer) {
