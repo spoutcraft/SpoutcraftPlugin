@@ -130,11 +130,32 @@ public class SpoutPlayerListener implements Listener {
 		SpoutCraftPlayer player = (SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(event.getPlayer());
 
 		if (event.getClickedBlock() != null) {
-			Material type = event.getClickedBlock().getType();
 			boolean action = false;
-			if (type == Material.CHEST || type == Material.DISPENSER || type == Material.WORKBENCH || type == Material.FURNACE) {
-				player.getNetServerHandler().activeLocation = event.getClickedBlock().getLocation();
-				action = true;
+			
+			switch (event.getClickedBlock().getType()) {
+				case BREWING_STAND:
+				case CHEST:
+				case DISPENSER:
+				case ENCHANTMENT_TABLE:
+				case FURNACE:
+				case WORKBENCH:
+					player.getNetServerHandler().activeLocation = event.getClickedBlock().getLocation();
+					action = true;
+					break;
+				case BED_BLOCK:
+				case CAKE_BLOCK:
+				case CAULDRON:
+				case DIODE_BLOCK_OFF:
+				case DIODE_BLOCK_ON:
+				case FENCE_GATE:
+				case IRON_DOOR_BLOCK:
+				case LEVER:
+				case NOTE_BLOCK:
+				case STONE_BUTTON:
+				case TRAP_DOOR:
+				case WOODEN_DOOR:
+					action = true;
+					break;
 			}
 
 			if (event.hasItem() && !action) {
@@ -146,7 +167,7 @@ public class SpoutPlayerListener implements Listener {
 
 				ItemStack item = event.getItem();
 				int damage = item.getDurability();
-				if (item.getType() == Material.FLINT && damage != 0 && !action) {
+				if (item.getType() == Material.FLINT && damage != 0) {
 
 				SimpleMaterialManager mm = (SimpleMaterialManager)SpoutManager.getMaterialManager();
 
