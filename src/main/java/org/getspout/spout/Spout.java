@@ -69,7 +69,6 @@ import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.plugin.SpoutPlugin;
 
-@SuppressWarnings("deprecation")
 public class Spout extends SpoutPlugin {
 	public SpoutPlayerListener playerListener;
 	protected final PlayerTrackingManager playerTrackingManager;
@@ -177,6 +176,7 @@ public class Spout extends SpoutPlugin {
 	public void onEnable() {
 		(new ConfigReader()).read();
 		(new Thread() {
+			@Override
 			public void run() {
 				update();
 			}
@@ -391,7 +391,6 @@ public class Spout extends SpoutPlugin {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private void pingLink(String Url) {
 		try {
 			URL url = new URL(Url);
@@ -399,7 +398,6 @@ public class Spout extends SpoutPlugin {
 			System.setProperty("http.agent", ""); //Spoofing the user agent is required to track stats
 			con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30");
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			while (in.readLine() != null);
 			in.close();
 		} catch (Exception e) {}
 	}
@@ -407,6 +405,8 @@ public class Spout extends SpoutPlugin {
 }
 
 class ShutdownThread extends Thread {
+	
+	@Override
 	public void run() {
 		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 		dm.unloadAllChunks();
