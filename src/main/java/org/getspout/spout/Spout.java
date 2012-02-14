@@ -169,8 +169,6 @@ public class Spout extends SpoutPlugin {
 		ChunkCompressionThread.endThread();
 
 		Runtime.getRuntime().removeShutdownHook(shutdownThread);
-
-		Logger.getLogger("Minecraft").info("Spout " + getVersion() + " has been disabled");
 	}
 
 	@Override
