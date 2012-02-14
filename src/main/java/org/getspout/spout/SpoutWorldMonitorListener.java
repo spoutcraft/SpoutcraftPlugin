@@ -37,11 +37,11 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 
 public class SpoutWorldMonitorListener implements Listener {
-	
+
 	public SpoutWorldMonitorListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onChunkUnload(ChunkUnloadEvent event) {
 		if (event.isCancelled()) {

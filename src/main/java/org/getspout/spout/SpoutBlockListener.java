@@ -40,7 +40,7 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutBlockListener implements Listener {
-	
+
 	private final SimpleMaterialManager mm;
 
 	public SpoutBlockListener(Spout plugin) {
@@ -97,7 +97,6 @@ public class SpoutBlockListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
-
 		if (event.isCancelled()) {
 			return;
 		}
@@ -111,7 +110,6 @@ public class SpoutBlockListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockPistonRetract(BlockPistonRetractEvent event) {
-
 		if (event.isCancelled() || !event.isSticky()) {
 			return;
 		}

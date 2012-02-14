@@ -31,11 +31,11 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 
 public class SpoutWorldListener implements Listener {
-	
+
 	public SpoutWorldListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onChunkLoad(ChunkLoadEvent event) {
 		if (SpoutCraftChunk.replaceBukkitChunk(event.getChunk())) {

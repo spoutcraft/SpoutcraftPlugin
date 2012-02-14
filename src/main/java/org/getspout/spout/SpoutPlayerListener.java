@@ -52,13 +52,13 @@ import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutPlayerListener implements Listener {
-	
+
 	public final PlayerManager manager = new PlayerManager();
-	
+
 	public SpoutPlayerListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerJoin(final PlayerJoinEvent event) {
 		if (!event.getPlayer().getClass().equals(SpoutCraftPlayer.class)) {
