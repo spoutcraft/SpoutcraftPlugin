@@ -1,4 +1,4 @@
-ForceSinglePlayerClientKickMessage: This server requires Spoutcraft! http://bit.ly/unleashtheflow
+ForceSinglePlayerClientKickMessage: This server requires Spoutcraft! http://www.spout.org
 AuthenticateSpoutcraft: true
 AllowVoidFogCheat: false
 TeleportSmoothing: true
