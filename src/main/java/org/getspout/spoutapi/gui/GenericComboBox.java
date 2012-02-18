@@ -29,6 +29,7 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 	private List<String> items = new ArrayList<String>();
 	private boolean open = false;
 	private int selection = -1;
+	private String format = "%text%: %selected%";
 
 	@Override
 	public ComboBox setItems(List<String> items) {
@@ -128,6 +129,31 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 		output.writeInt(getItems().size());
 		for (String item:getItems()) {
 			PacketUtil.writeString(output, item);
+		}
+		PacketUtil.writeString(output, format);
+	}
+	
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 1;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public ComboBox setFormat(String format) {
+		this.format = format;
+		return this;
+	}
+	
+	@Override
+	public String getText() {
+		if(super.getText() == null || super.getText().isEmpty()) {
+			return getSelectedItem();
+		} else {
+			String text = format.replaceAll("%text%", super.getText()).replaceAll("%selected%", getSelectedItem());
+			return text;
 		}
 	}
 }
