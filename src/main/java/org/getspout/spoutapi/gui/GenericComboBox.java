@@ -114,7 +114,7 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 		for (String item:getItems()) {
 			bytes += PacketUtil.getNumBytes(item);
 		}
-		return super.getNumBytes() + 4 + 4 + bytes;
+		return super.getNumBytes() + 4 + 4 + bytes + PacketUtil.getNumBytes(format);
 	}
 
 	@Override
