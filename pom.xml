@@ -18,7 +18,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<craftbukkit.version>1.1-R4-SNAPSHOT</craftbukkit.version>
+		<craftbukkit.version>1.1-R5-SNAPSHOT</craftbukkit.version>
 		<build.number>Unknown</build.number>
 	</properties>
 
@@ -86,7 +86,7 @@
 				<filtering>true</filtering>
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
-					<include>plugin.yml</include>
+					<include>*.yml</include>
 				</includes>
 			</resource>
 		</resources>
@@ -101,12 +101,6 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>
-			<!-- JAR creation plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.2</version>
 			</plugin>
 			<!-- JAR dependency addition plugin -->
 			<plugin>
