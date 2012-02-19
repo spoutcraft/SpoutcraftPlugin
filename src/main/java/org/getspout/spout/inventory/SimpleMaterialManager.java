@@ -36,7 +36,6 @@ import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.util.map.TIntPairObjectHashMap;
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
