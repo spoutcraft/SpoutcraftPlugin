@@ -39,29 +39,29 @@ public class ConfigReader {
 	private static boolean teleportSmoothing = true;
 	private static boolean authenticateSpoutcraft = true;
 	private static boolean runDeadlockMonitor = false;
-
-        public void read() {
-            if (!new File(Spout.getInstance().getDataFolder(), "config.yml").exists()) {
-                Spout.getInstance().saveDefaultConfig();
-            }
-            FileConfiguration configuration = Spout.getInstance().getConfig();
-            forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
-            kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
-            authTicks = configuration.getInt("AuthenticateTicks", 200);
-            autoUpdate = configuration.getBoolean("AutoUpdate", true);
-            allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
-            allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
-            allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
-            allowWeatherCheat = configuration.getBoolean("AllowWeatherCheat", false);
-            allowTimeCheat = configuration.getBoolean("AllowTimeCheat", false);
-            allowCoordsCheat = configuration.getBoolean("AllowCoordsCheat", false);
-            allowEntityLabelCheat = configuration.getBoolean("AllowEntityLabelCheat", false);
-            allowVoidFogCheat = configuration.getBoolean("AllowVoidFogCheat", false);
-            chunkDataCache = configuration.getBoolean("ChunkDataCache", true);
-            teleportSmoothing = configuration.getBoolean("TeleportSmoothing", true);
-            authenticateSpoutcraft = configuration.getBoolean("AuthenticateSpoutcraft", true);
-            runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
-        }
+	
+	public void read() {
+		if (!new File(Spout.getInstance().getDataFolder(), "config.yml").exists()) {
+			Spout.getInstance().saveDefaultConfig();
+		}
+		FileConfiguration configuration = Spout.getInstance().getConfig();
+		forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
+		kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
+		authTicks = configuration.getInt("AuthenticateTicks", 200);
+		autoUpdate = configuration.getBoolean("AutoUpdate", true);
+		allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
+		allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
+		allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
+		allowWeatherCheat = configuration.getBoolean("AllowWeatherCheat", false);
+		allowTimeCheat = configuration.getBoolean("AllowTimeCheat", false);
+		allowCoordsCheat = configuration.getBoolean("AllowCoordsCheat", false);
+		allowEntityLabelCheat = configuration.getBoolean("AllowEntityLabelCheat", false);
+		allowVoidFogCheat = configuration.getBoolean("AllowVoidFogCheat", false);
+		chunkDataCache = configuration.getBoolean("ChunkDataCache", true);
+		teleportSmoothing = configuration.getBoolean("TeleportSmoothing", true);
+		authenticateSpoutcraft = configuration.getBoolean("AuthenticateSpoutcraft", true);
+		runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
+	}
 
 	public static boolean isForceClient() {
 		return forceClient;
