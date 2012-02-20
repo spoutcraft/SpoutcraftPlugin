@@ -354,6 +354,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				if (inventory instanceof CraftingInventory) {
 					CraftingInventory crafting = (CraftingInventory) inventory;
 					InventoryCrafting recipe = null;
+					int amount = 1;
 					if (inventory instanceof SpoutCraftingInventory) {
 						recipe = ((SpoutCraftingInventory) crafting).getMatrixHandle();
 					} else {
@@ -375,7 +376,15 @@ public class SpoutNetServerHandler extends NetServerHandler {
 					}
 					// Clicking to grab the crafting result
 					if (type == InventorySlotType.RESULT) {
-						InventoryCraftEvent craftEvent = new InventoryCraftEvent(this.getPlayer(), crafting, this.activeLocation, type, packet.b, matrix, craftResult, cursor, packet.c == 0, packet.f);
+						if (packet.f) {
+							amount = 64;
+							for (ItemStack i : crafting.getMatrix()) {
+								if (i != null && i.getTypeId() > 0 && i.getAmount() < amount) {
+									amount = i.getAmount();
+								}
+							}
+						}
+						InventoryCraftEvent craftEvent = new InventoryCraftEvent(this.getPlayer(), crafting, this.activeLocation, type, packet.b, matrix, craftResult, amount, cursor, packet.c == 0, packet.f);
 						Bukkit.getServer().getPluginManager().callEvent(craftEvent);
 						craftEvent.getInventory().setResult(craftEvent.getResult());
 						cursor = SpoutCraftItemStack.getCraftItemStack(craftEvent.getCursor());
