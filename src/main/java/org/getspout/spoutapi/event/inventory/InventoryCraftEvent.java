@@ -29,6 +29,7 @@ public class InventoryCraftEvent extends InventoryEvent implements SpoutEvent {
 	
 	private static final HandlerList handlers = new HandlerList();
 	private ItemStack result, cursor;
+	private final int amount;
 	private final InventorySlotType slotType;
 	private final int slotNum;
 	private final ItemStack[][] matrix;
@@ -37,12 +38,13 @@ public class InventoryCraftEvent extends InventoryEvent implements SpoutEvent {
 	private final boolean shift;
 	private static final EventType type = EventType.Inventory_Craft;
 
-	public InventoryCraftEvent(Player player, CraftingInventory inventory, Location location, InventorySlotType slotType, int slot, ItemStack[][] recipe, ItemStack result, ItemStack cursor, boolean leftClick, boolean shift) {
+	public InventoryCraftEvent(Player player, CraftingInventory inventory, Location location, InventorySlotType slotType, int slot, ItemStack[][] recipe, ItemStack result, int amount, ItemStack cursor, boolean leftClick, boolean shift) {
 		super("InventoryCraftEvent", player, inventory, location);
 		this.matrix = recipe;
 		this.width = recipe.length;
 		this.height = recipe[0].length;
 		this.result = result;
+		this.amount = amount;
 		this.slotType = slotType;
 		this.slotNum = slot;
 		this.cursor = cursor;
@@ -104,6 +106,14 @@ public class InventoryCraftEvent extends InventoryEvent implements SpoutEvent {
 	 */
 	public ItemStack getResult() {
 		return result;
+	}
+
+	/**
+	 * Get's the amount of new items when shift click was used
+	 * @return amount
+	 */
+	public int getResultAmount() {
+		return amount;
 	}
 
 	/**
