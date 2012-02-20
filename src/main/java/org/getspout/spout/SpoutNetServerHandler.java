@@ -378,7 +378,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 					if (type == InventorySlotType.RESULT) {
 						if (packet.f) {
 							amount = 64;
-							for (ItemStack i : crafting.getMatrix()) {
+							for (org.bukkit.inventory.ItemStack i : crafting.getMatrix()) {
 								if (i != null && i.getTypeId() > 0 && i.getAmount() < amount) {
 									amount = i.getAmount();
 								}
