@@ -26,11 +26,11 @@ import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class TextFieldChangeEvent extends ScreenEvent implements SpoutEvent {
-	private static final long serialVersionUID = -287243193163686657L;
+
 	private static final HandlerList handlers = new HandlerList();
-	protected TextField field;
-	protected String oldVal;
-	protected String newVal;
+	private final TextField field;
+	private final String oldVal;
+	private String newVal;
 	private static final EventType type = EventType.TextField_Change;
 
 	public TextFieldChangeEvent(SpoutPlayer player, Screen screen, TextField field, String newVal) {

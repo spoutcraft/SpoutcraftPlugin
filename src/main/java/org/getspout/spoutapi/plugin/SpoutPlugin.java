@@ -18,8 +18,6 @@ package org.getspout.spoutapi.plugin;
 
 import java.util.logging.Logger;
 
-import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,20 +34,8 @@ public abstract class SpoutPlugin extends JavaPlugin {
 		return SpoutManager.getInstance();
 	}
 
-	public void registerEvent(Event.Type type, Listener listener, Priority priority) {
-		getSpoutServer().getPluginManager().registerEvent(type, listener, priority, this);
-	}
-
-	public void registerEvent(Event.Type type, Listener listener) {
-		getSpoutServer().getPluginManager().registerEvent(type, listener, Priority.Normal, this);
-	}
-
-	public void registerCustomEvent(Listener listener, Priority priority) {
-		getSpoutServer().getPluginManager().registerEvent(Event.Type.CUSTOM_EVENT, listener, priority, this);
-	}
-
-	public void registerCustomEvent(Listener listener) {
-		getSpoutServer().getPluginManager().registerEvent(Event.Type.CUSTOM_EVENT, listener, Priority.Normal, this);
+	public void registerEvents(Listener listener) {
+		getSpoutServer().getPluginManager().registerEvents(listener, this);
 	}
 
 	public String getVersion() {

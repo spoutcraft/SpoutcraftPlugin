@@ -23,20 +23,18 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.Inventory;
 
 public abstract class InventoryEvent extends Event implements Cancellable {
-	private static final long serialVersionUID = -316124458220245924L;
-	protected Inventory inventory;
-	protected Player player;
+
+	protected final Inventory inventory;
+	protected final Player player;
 	protected boolean cancelled;
 	protected Location location = null;
 
 	public InventoryEvent(String event, Player player, Inventory inventory) {
-		super(event);
 		this.player = player;
 		this.inventory = inventory;
 	}
 
 	public InventoryEvent(String event, Player player, Inventory inventory, Location location) {
-		super(event);
 		this.player = player;
 		this.inventory = inventory;
 		this.location = location;

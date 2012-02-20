@@ -25,9 +25,9 @@ import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 
 public class InventoryCloseEvent extends InventoryEvent implements SpoutEvent {
-	private static final long serialVersionUID = 36124458220245924L;
+
 	private static final HandlerList handlers = new HandlerList();
-	private Inventory other;
+	private final Inventory other;
 	private static final EventType type = EventType.Inventory_Close;
 
 	public InventoryCloseEvent(Player player, Inventory inventory, Inventory other) {
