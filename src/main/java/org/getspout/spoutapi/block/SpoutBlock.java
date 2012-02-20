@@ -156,12 +156,6 @@ public interface SpoutBlock extends Block {
 	public SpoutItemStack toItemStack(int amount);
 
 	@Override
-	public SpoutBlock getFace(BlockFace face);
-
-	@Override
-	public SpoutBlock getFace(BlockFace face, int distance);
-
-	@Override
 	public SpoutBlock getRelative(int modX, int modY, int modZ);
 
 	@Override

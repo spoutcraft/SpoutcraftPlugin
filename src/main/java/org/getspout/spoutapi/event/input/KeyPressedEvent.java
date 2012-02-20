@@ -26,15 +26,14 @@ import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class KeyPressedEvent extends Event implements SpoutEvent {
+	
 	private static final HandlerList handlers = new HandlerList();
-	private static final long serialVersionUID = -7470686546414579569L;
-	private SpoutPlayer player;
-	private Keyboard key;
-	private ScreenType screenType;
+	private final SpoutPlayer player;
+	private final Keyboard key;
+	private final ScreenType screenType;
 	private static final EventType type = EventType.Key_Pressed;
 
 	public KeyPressedEvent(int keyPress, SpoutPlayer player, ScreenType screenType) {
-		super("KeyPressedEvent");
 		this.player = player;
 		this.key = Keyboard.getKey(keyPress);
 		this.screenType = screenType;

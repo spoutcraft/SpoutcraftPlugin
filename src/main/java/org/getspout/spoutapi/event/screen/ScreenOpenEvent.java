@@ -25,7 +25,7 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ScreenOpenEvent extends ScreenEvent implements SpoutEvent {
-	private static final long serialVersionUID = -4456360232616001720L;
+
 	private static final HandlerList handlers = new HandlerList();
 	private static final EventType type = EventType.Screen_Open;
 

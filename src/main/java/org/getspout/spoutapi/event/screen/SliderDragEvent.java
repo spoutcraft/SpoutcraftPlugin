@@ -26,11 +26,11 @@ import org.getspout.spoutapi.gui.Slider;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SliderDragEvent extends ScreenEvent implements SpoutEvent {
-	private static final long serialVersionUID = 4982214332331736926L;
+
 	private static final HandlerList handlers = new HandlerList();
-	protected Slider slider;
-	protected float position;
-	protected float old;
+	private final Slider slider;
+	private float position;
+	private final float old;
 	private static final EventType type = EventType.Slider_Drag;
 
 	public SliderDragEvent(SpoutPlayer player, Screen screen, Slider slider, float position) {

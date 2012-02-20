@@ -161,7 +161,7 @@ public class SpoutWorld implements World {
 	}
 
 	@Override
-	public Environment getEnvironment() {
+	public World.Environment getEnvironment() {
 		return world.getEnvironment();
 	}
 
@@ -198,12 +198,6 @@ public class SpoutWorld implements World {
 	@Override
 	public double getHumidity(int x, int z) {
 		return world.getHumidity(x, z);
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public long getId() {
-		return world.getId();
 	}
 
 	@Override
@@ -512,5 +506,35 @@ public class SpoutWorld implements World {
 	@Override
 	public boolean canGenerateStructures() {
 		return world.canGenerateStructures();
+	}
+
+	@Override
+	public <T extends Entity> Collection<T> getEntitiesByClass(Class<T> type) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public Collection<Entity> getEntitiesByClasses(Class<?>... types) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public long getTicksPerAnimalSpawns() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void setTicksPerAnimalSpawns(int i) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public long getTicksPerMonsterSpawns() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void setTicksPerMonsterSpawns(int i) {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }

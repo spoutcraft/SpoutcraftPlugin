@@ -26,9 +26,9 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ButtonClickEvent extends ScreenEvent implements SpoutEvent {
-	private static final long serialVersionUID = -113218697573843579L;
+
 	private static final HandlerList handlers = new HandlerList();
-	protected Button control;
+	private final Button control;
 	private static final EventType type = EventType.Button_Click;
 
 	public ButtonClickEvent(SpoutPlayer player, Screen screen, Button control) {

@@ -23,16 +23,15 @@ import org.bukkit.permissions.Permission;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PlayerPermissionEvent extends Event implements PermissionEvent {
-	private static final long serialVersionUID = -5358507299674751721L;
+
 	private static final HandlerList handlers = new HandlerList();
-	protected SpoutPlayer player;
-	protected Permission perm;
-	protected String permission;
-	protected boolean result;
-	protected final boolean defaultResult;
+	private final SpoutPlayer player;
+	private final Permission perm;
+	private final String permission;
+	private boolean result;
+	private final boolean defaultResult;
 
 	public PlayerPermissionEvent(SpoutPlayer player, String permission, Permission perm, boolean defaultResult) {
-		super("PlayerPermissionEvent");
 		this.player = player;
 		this.permission = permission;
 		this.perm = perm;

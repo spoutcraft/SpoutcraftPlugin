@@ -24,13 +24,12 @@ import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutcraftFailedEvent extends Event implements SpoutEvent {
-	private static final long serialVersionUID = -5172371431162815630L;
+
 	private static final HandlerList handlers = new HandlerList();
-	private SpoutPlayer player;
+	private final SpoutPlayer player;
 	private static final EventType type = EventType.Spoutcraft_Failed;
 
 	public SpoutcraftFailedEvent(SpoutPlayer player) {
-		super("SpoutcraftFailedEvent");
 		this.player = player;
 	}
 

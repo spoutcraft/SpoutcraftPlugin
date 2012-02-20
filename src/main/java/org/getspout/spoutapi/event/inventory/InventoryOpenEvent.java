@@ -25,9 +25,9 @@ import org.getspout.spoutapi.event.EventType;
 import org.getspout.spoutapi.event.SpoutEvent;
 
 public class InventoryOpenEvent extends InventoryEvent implements SpoutEvent {
-	private static final long serialVersionUID = -5638814678689580398L;
+
 	private static final HandlerList handlers = new HandlerList();
-	private Inventory other;
+	private final Inventory other;
 	private static final EventType type = EventType.Inventory_Open;
 
 	public InventoryOpenEvent(Player player, Inventory inventory, Inventory other) {
@@ -41,7 +41,7 @@ public class InventoryOpenEvent extends InventoryEvent implements SpoutEvent {
 	}
 
 	/**
-	 * Get's the top (or main) inventory that was opened
+	 * Gets the top (or main) inventory that was opened
 	 * @return inventory opened
 	 */
 	public Inventory getInventory() {
@@ -49,7 +49,7 @@ public class InventoryOpenEvent extends InventoryEvent implements SpoutEvent {
 	}
 
 	/**
-	 * Get's the second, bottom inventory that was opened.
+	 * Gets the second, bottom inventory that was opened.
 	 * @return bottom inventory opened or null if there was no second inventory opened
 	 */
 	public Inventory getBottomInventory() {

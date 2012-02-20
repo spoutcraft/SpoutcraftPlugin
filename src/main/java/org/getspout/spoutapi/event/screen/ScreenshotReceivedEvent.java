@@ -26,14 +26,13 @@ import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ScreenshotReceivedEvent extends Event implements SpoutEvent {
-	private static final long serialVersionUID = 117L;
+
 	private static final HandlerList handlers = new HandlerList();
 	private static final EventType type = EventType.Screenshot_Received;
-	private BufferedImage screenshot;
-	private SpoutPlayer player;
+	private final BufferedImage screenshot;
+	private final SpoutPlayer player;
 
 	public ScreenshotReceivedEvent(SpoutPlayer sp, BufferedImage image) {
-		super("ScreenshotReceivedEvent");
 		screenshot = image;
 		player = sp;
 	}

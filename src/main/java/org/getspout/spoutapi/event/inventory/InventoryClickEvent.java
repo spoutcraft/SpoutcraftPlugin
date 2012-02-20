@@ -18,6 +18,7 @@ package org.getspout.spoutapi.event.inventory;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,16 +28,16 @@ import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 
 public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
-	private static final long serialVersionUID = -5555208587016292520L;
+
 	private static final HandlerList handlers = new HandlerList();
-	protected InventorySlotType type;
-	protected ItemStack item;
-	protected ItemStack cursor;
-	protected int slot;
-	protected int convertedSlot;
-	protected Result result = Result.DEFAULT;
-	protected boolean leftClick;
-	protected boolean shift;
+	private final InventorySlotType type;
+	private ItemStack item;
+	private ItemStack cursor;
+	private final int slot;
+	private final int convertedSlot;
+	private Event.Result result = Event.Result.DEFAULT;
+	private boolean leftClick;
+	private boolean shift;
 	private static final EventType eventtype = EventType.Inventory_Click;
 
 	public InventoryClickEvent(Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift) {
@@ -74,7 +75,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 
 	@Override
 	public void setCancelled(boolean cancel) {
-		if (cancel) this.result = Result.DENY;
+		if (cancel) this.result = Event.Result.DENY;
 		super.setCancelled(cancel);
 	}
 
@@ -85,7 +86,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Deny: Block the inventory click from occuring, reset the inventory state to the pre-click state
 	 * @return result
 	 */
-	public Result getResult() {
+	public Event.Result getResult() {
 		return this.result;
 	}
 
@@ -95,9 +96,9 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Allow: Allow the inventory click to continue, regardless of the consequences
 	 * Deny: Block the inventory click from occuring, reset the inventory state to the pre-click state
 	 */
-	public void setResult(Result result) {
+	public void setResult(Event.Result result) {
 		this.result = result;
-		if (result == Result.DENY) {
+		if (result == Event.Result.DENY) {
 			setCancelled(true);
 		}
 	}
@@ -124,7 +125,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * @param item to set
 	 */
 	public void setItem(ItemStack item) {
-		if (this.result != Result.ALLOW) {
+		if (this.result != Event.Result.ALLOW) {
 			throw new UnsupportedOperationException("Can not alter stack contents without allowing any result");
 		}
 		this.item = item;
@@ -144,7 +145,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * @param cursor to set
 	 */
 	public void setCursor(ItemStack cursor) {
-		if (this.result != Result.ALLOW) {
+		if (this.result != Event.Result.ALLOW) {
 			throw new UnsupportedOperationException("Can not alter cursor stack contents without allowing any result");
 		}
 		this.cursor = cursor;

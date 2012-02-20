@@ -24,22 +24,21 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.Music;
 
 public class BackgroundMusicEvent extends Event implements Cancellable {
-	private static final long serialVersionUID = 1047470517247146587L;
+
 	private static final HandlerList handlers = new HandlerList();
-	protected Music music = null;
-	protected int volume;
-	protected SpoutPlayer target;
-	protected String url = null;
-	protected boolean cancel = false;
+	private Music music = null;
+	private int volume;
+	private final SpoutPlayer target;
+	private String url = null;
+	private boolean cancel = false;
+	
 	public BackgroundMusicEvent(Music music, int volume, SpoutPlayer target) {
-		super("BackgroundMusicEvent");
 		this.music = music;
 		this.volume = volume;
 		this.target = target;
 	}
 
 	public BackgroundMusicEvent(String url, int volume, SpoutPlayer target) {
-		super("BackgroundMusicEvent");
 		this.url = url;
 		this.volume = volume;
 		this.target = target;

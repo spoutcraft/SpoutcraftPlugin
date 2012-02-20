@@ -33,7 +33,6 @@ import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.World.Environment;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
@@ -41,7 +40,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
@@ -174,26 +172,6 @@ public class SpoutServer implements Server {
 	@Override
 	public SpoutWorld createWorld(WorldCreator creator) {
 		return getSpoutWorld(server.createWorld(creator));
-	}
-
-	@Override
-	public World createWorld(String name, Environment environment) {
-		throw new UnsupportedOperationException("This method is not supported");
-	}
-
-	@Override
-	public World createWorld(String name, Environment environment, long seed) {
-		throw new UnsupportedOperationException("This method is not supported");
-	}
-
-	@Override
-	public World createWorld(String name, Environment environment, ChunkGenerator generator) {
-		throw new UnsupportedOperationException("This method is not supported");
-	}
-
-	@Override
-	public World createWorld(String name, Environment environment, long seed, ChunkGenerator generator) {
-		throw new UnsupportedOperationException("This method is not supported");
 	}
 
 	@Override
@@ -485,5 +463,15 @@ public class SpoutServer implements Server {
 	@Override
 	public boolean useExactLoginLocation() {
 		return server.useExactLoginLocation();
+	}
+
+	@Override
+	public int getTicksPerAnimalSpawns() { // TODO
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public int getTicksPerMonsterSpawns() { // TODO
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }
