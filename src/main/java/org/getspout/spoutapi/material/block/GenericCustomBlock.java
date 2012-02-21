@@ -58,13 +58,13 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 *
 	 * @param plugin creating the block
 	 * @param name of the block
-	 * @param isOpaque true if you want the block solid
+	 * @param underlying vanilla ID of the block
 	 */
-	protected GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
-		super(name, isOpaque ? 1 : 20);
-		this.opaque = isOpaque;
+	protected GenericCustomBlock(Plugin plugin, String name, int blockId) {
+		super(name, blockId);
 		item = new GenericCustomItem(plugin, name);
-		this.blockId = isOpaque ? 1 : 20;
+		this.blockId = blockId;
+		this.opaque = MaterialData.getBlock(blockId).isOpaque();
 		this.plugin = plugin;
 		this.fullName = item.getFullName();
 		this.customId = item.getCustomId();
@@ -73,13 +73,36 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	}
 
 	/**
-	 * Creates a GenericCustomBlock with a specified Design and metadata
+	 * Creates a GenericCustomBlock with no model yet.
+	 *
+	 * @param plugin creating the block
+	 * @param name of the block
+	 * @param isOpaque true if you want the block solid
+	 */
+	protected GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
+		this(plugin, name, isOpaque ? 1 : 20);
+	}
+
+	/**
+	 * Creates a GenericCustomBlock with a specified design
+	 *
+	 * @param plugin creating the block
+	 * @param name of the block
+	 * @param underlying vanilla ID of the block
+	 * @param design to use for the block
+	 */
+	public GenericCustomBlock(Plugin plugin, String name, int blockId, BlockDesign design) {
+		this(plugin, name, blockId);
+		setBlockDesign(design);
+	}
+
+	/**
+	 * Creates a GenericCustomBlock with a specified design and underlying block ID
 	 *
 	 * @param plugin creating the block
 	 * @param name of the block
 	 * @param isOpaque true if you want the block solid
 	 * @param design to use for the block
-	 * @param customMetaData for the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design) {
 		this(plugin, name, isOpaque);
