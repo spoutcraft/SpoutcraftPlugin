@@ -58,7 +58,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 *
 	 * @param plugin creating the block
 	 * @param name of the block
-	 * @param underlying vanilla ID of the block
+	 * @param blockID of the underlying vanilla block
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, int blockId) {
 		super(name, blockId);
@@ -88,7 +88,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 *
 	 * @param plugin creating the block
 	 * @param name of the block
-	 * @param underlying vanilla ID of the block
+	 * @param blockID of the underlying vanilla block
 	 * @param design to use for the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, int blockId, BlockDesign design) {

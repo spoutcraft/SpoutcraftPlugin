@@ -80,7 +80,7 @@ public class GenericCuboidCustomBlock extends GenericCustomBlock {
 	 *
 	 * @param plugin creating the block
 	 * @param name of the block
-	 * @param underlying vanilla ID of the block
+	 * @param blockID of the underlying vanilla block
 	 */
 	public GenericCuboidCustomBlock(Plugin plugin, String name, int blockId) {
 		super(plugin, name, blockId);
@@ -90,7 +90,7 @@ public class GenericCuboidCustomBlock extends GenericCustomBlock {
 	 *
 	 * @param plugin making the block
 	 * @param name of the block
-	 * @param underlying vanilla ID of the block
+	 * @param blockID of the underlying vanilla block
 	 * @param design to use for the block
 	 * @param customMetaData of the block
 	 */
@@ -103,7 +103,7 @@ public class GenericCuboidCustomBlock extends GenericCustomBlock {
 	 *
 	 * @param plugin making the block
 	 * @param name of the block
-	 * @param underlying vanilla ID of the block
+	 * @param blockID of the underlying vanilla block
 	 * @param texture url to use for the block - must be a square PNG
 	 * @param textureSize width and height of the texture in pixels
 	 * @param xMin minimum x coordinate of the cuboid
