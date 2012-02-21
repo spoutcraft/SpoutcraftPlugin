@@ -63,6 +63,7 @@ public class GenericContainer extends GenericWidget implements Container {
 		child.shiftXPos(super.getX());
 		child.shiftYPos(super.getY());
 		child.setAnchor(super.getAnchor());
+		child.setVisible(super.isVisible());
 		if (getScreen() != null) {
 			Plugin p = child.getPlugin();
 			getScreen().attachWidget(p == Bukkit.getServer().getPluginManager().getPlugin("Spout") ? getPlugin() : p, child);
