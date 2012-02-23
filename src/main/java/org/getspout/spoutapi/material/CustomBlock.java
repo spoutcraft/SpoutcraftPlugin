@@ -74,9 +74,16 @@ public interface CustomBlock extends Block {
 	/**
 	 * Gets the Id of the underlying block
 	 *
-	 * @return 1 for Stone if opaque, 20 for glass if not opaque
+	 * @return blockId
 	 */
 	public int getBlockId();
+
+	/**
+	 * Gets the metadata of the underlying block
+	 *
+	 * @return metadata
+	 */
+	public int getBlockData();
 
 	/**
 	 * Sets the ItemStack that drops when breaking this CustomBlock, set to null for no drop
