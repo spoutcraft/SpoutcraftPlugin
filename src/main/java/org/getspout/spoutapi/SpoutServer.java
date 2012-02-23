@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 
 import com.avaje.ebean.config.ServerConfig;
 import gnu.trove.map.hash.TIntObjectHashMap;
+import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -40,6 +41,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
@@ -466,12 +468,32 @@ public class SpoutServer implements Server {
 	}
 
 	@Override
-	public int getTicksPerAnimalSpawns() { // TODO
-		throw new UnsupportedOperationException("Not supported yet.");
+	public int getTicksPerAnimalSpawns() { 
+		return server.getTicksPerAnimalSpawns();
 	}
 
 	@Override
-	public int getTicksPerMonsterSpawns() { // TODO
-		throw new UnsupportedOperationException("Not supported yet.");
+	public int getTicksPerMonsterSpawns() { 
+		return server.getTicksPerMonsterSpawns();
+	}
+
+	@Override
+	public List<Recipe> getRecipesFor(ItemStack is) {
+		return server.getRecipesFor(is);
+	}
+
+	@Override
+	public Iterator<Recipe> recipeIterator() {
+		return server.recipeIterator();
+	}
+
+	@Override
+	public void clearRecipes() {
+		server.clearRecipes();
+	}
+
+	@Override
+	public void resetRecipes() {
+		server.resetRecipes();
 	}
 }
