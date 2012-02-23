@@ -48,6 +48,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	private Plugin plugin;
 	private CustomItem item;
 	private int blockId;
+	private int metadata;
 	private boolean opaque;
 	private float hardness = 1.5F;
 	private float friction = 0.6F;
@@ -65,6 +66,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 		super(name, blockId, metadata);
 		item = new GenericCustomItem(plugin, name);
 		this.blockId = blockId;
+		this.metadata = metadata;
 		this.opaque = MaterialData.getBlock(blockId).isOpaque();
 		this.plugin = plugin;
 		this.fullName = item.getFullName();
@@ -200,6 +202,11 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public int getBlockId() {
 		return this.blockId;
+	}
+
+	@Override
+	public int getBlockData() {
+		return this.metadata;
 	}
 
 	@Override
