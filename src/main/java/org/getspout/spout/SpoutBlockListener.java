@@ -56,9 +56,6 @@ public class SpoutBlockListener implements Listener {
 		}
 
 		SpoutBlock block = (SpoutBlock) event.getBlock();
-		if (block.getType() != Material.STONE && block.getType() != Material.GLASS) {
-			return;
-		}
 
 		SpoutPlayer player = (SpoutPlayer)event.getPlayer();
 
