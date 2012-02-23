@@ -21,13 +21,11 @@ import net.minecraft.server.*;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftMinecart;
+import org.bukkit.entity.EntityType;
 
 import org.getspout.spout.player.SpoutCraftPlayer;
 
-public class SpoutCraftEntity extends CraftEntity {
-	public SpoutCraftEntity(CraftServer server, Entity entity) {
-		super(server, entity);
-	}
+public class SpoutCraftEntity {
 
 	public static CraftEntity getEntity(CraftServer server, Entity entity, CraftEntity previous) {
 		//Order is important
