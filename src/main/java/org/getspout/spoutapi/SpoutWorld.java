@@ -510,31 +510,36 @@ public class SpoutWorld implements World {
 
 	@Override
 	public <T extends Entity> Collection<T> getEntitiesByClass(Class<T> type) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return getEntitiesByClass(type);
 	}
 
 	@Override
 	public Collection<Entity> getEntitiesByClasses(Class<?>... types) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return getEntitiesByClasses(types);
 	}
 
 	@Override
 	public long getTicksPerAnimalSpawns() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return getTicksPerAnimalSpawns();
 	}
 
 	@Override
 	public void setTicksPerAnimalSpawns(int i) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		setTicksPerAnimalSpawns(i);
 	}
 
 	@Override
 	public long getTicksPerMonsterSpawns() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return world.getTicksPerMonsterSpawns();
 	}
 
 	@Override
 	public void setTicksPerMonsterSpawns(int i) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		world.setTicksPerMonsterSpawns(i);
+	}
+
+	@Override
+	public LivingEntity spawnCreature(Location arg0, EntityType arg1) {
+		return world.spawnCreature(arg0, arg1);
 	}
 }
