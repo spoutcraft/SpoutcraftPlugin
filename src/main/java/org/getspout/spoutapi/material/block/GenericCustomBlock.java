@@ -59,9 +59,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * @param plugin creating the block
 	 * @param name of the block
 	 * @param blockID of the underlying vanilla block
+	 * @param metadata of the underlying vanilla block
 	 */
-	protected GenericCustomBlock(Plugin plugin, String name, int blockId) {
-		super(name, blockId);
+	protected GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata) {
+		super(name, blockId, metadata);
 		item = new GenericCustomItem(plugin, name);
 		this.blockId = blockId;
 		this.opaque = MaterialData.getBlock(blockId).isOpaque();
@@ -80,11 +81,22 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * @param isOpaque true if you want the block solid
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
-		this(plugin, name, isOpaque ? 1 : 20);
+		this(plugin, name, isOpaque ? 1 : 20, 0);
 	}
 
 	/**
-	 * Creates a GenericCustomBlock with a specified design
+	 * Creates a GenericCustomBlock with no model yet and underlying vanilla block
+	 *
+	 * @param plugin creating the block
+	 * @param name of the block
+	 * @param blockID of the underlying vanilla block
+	 */
+	protected GenericCustomBlock(Plugin plugin, String name, int blockId) {
+		this(plugin, name, blockId, 0);
+	}
+
+	/**
+	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block
 	 *
 	 * @param plugin creating the block
 	 * @param name of the block
@@ -92,7 +104,21 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * @param design to use for the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, int blockId, BlockDesign design) {
-		this(plugin, name, blockId);
+		this(plugin, name, blockId, 0);
+		setBlockDesign(design);
+	}
+
+	/**
+	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block + metadata
+	 *
+	 * @param plugin creating the block
+	 * @param name of the block
+	 * @param blockID of the underlying vanilla block
+	 * @param metadata of the underlying vanilla block
+	 * @param design to use for the block
+	 */
+	public GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata, BlockDesign design) {
+		this(plugin, name, blockId, metadata);
 		setBlockDesign(design);
 	}
 

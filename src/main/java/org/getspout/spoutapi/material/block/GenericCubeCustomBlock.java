@@ -71,6 +71,19 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, GenericCubeBlockDesign design) {
 		super(plugin, name, blockId, design);
 	}
+	
+	/**
+	 * Creates a new cube block material with underlying block ID.
+	 *
+	 * @param plugin making the block
+	 * @param name of the block
+	 * @param blockID of the underlying vanilla block
+	 * @param metadata of the underlying vanilla block
+	 * @param design to use for the block
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, int metadata, GenericCubeBlockDesign design) {
+		super(plugin, name, blockId, metadata, design);
+	}
 
 	/**
 	 * Creates a new basic opaque/solid cube block material with underlying block ID.
@@ -83,6 +96,21 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	 */
 	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, String texture, int textureSize) {
 		super(plugin, name, blockId);
+		this.setBlockDesign(new GenericCubeBlockDesign(plugin, texture, textureSize));
+	}
+
+	/**
+	 * Creates a new basic opaque/solid cube block material with underlying block ID + metadata.
+	 *
+	 * @param plugin making the block
+	 * @param name of the block
+	 * @param blockID of the underlying vanilla block
+	 * @param metadata of the underlying vanilla block
+	 * @param texture url to use for the block - must be a square PNG
+	 * @param textureSize width and height of the texture in pixels
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, int metadata, String texture, int textureSize) {
+		super(plugin, name, blockId, metadata);
 		this.setBlockDesign(new GenericCubeBlockDesign(plugin, texture, textureSize));
 	}
 }
