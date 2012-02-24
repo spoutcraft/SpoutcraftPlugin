@@ -31,6 +31,7 @@ import net.minecraft.server.BlockFlower;
 import net.minecraft.server.BlockMinecartTrack;
 import net.minecraft.server.BlockMushroom;
 import net.minecraft.server.BlockStem;
+import net.minecraft.server.BlockTrapdoor;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
@@ -471,6 +472,8 @@ public class CustomBlock extends Block implements CustomMCBlock {
 					Block.byId[i] = new CustomMushroom((BlockMushroom) parent);
 				} else if (parent instanceof BlockFlower) {
 					Block.byId[i] = new CustomFlower((BlockFlower) parent);
+				} else if (parent instanceof BlockTrapdoor) {
+					Block.byId[i] = new CustomTrapdoor((BlockTrapdoor) parent);
 				} else {
 					Block.byId[i] = new CustomBlock(parent);
 				}
