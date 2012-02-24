@@ -162,7 +162,7 @@ public class SpoutPlayerListener implements Listener {
 			if (event.hasItem() && !action) {
 				SpoutBlock block = (SpoutBlock)event.getClickedBlock().getRelative(event.getBlockFace());
 
-				if (block.getType() == Material.SNOW) {
+				if (event.getClickedBlock().getType() == Material.SNOW) {
 					block = block.getRelative(0, -1, 0);
 				}
 
