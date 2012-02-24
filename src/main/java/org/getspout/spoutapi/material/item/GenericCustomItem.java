@@ -24,6 +24,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.Plugin;
 
+import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.inventory.MaterialManager;
@@ -48,6 +49,9 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		this.plugin = plugin;
 		this.setName(name);
 		MaterialData.addCustomItem(this);
+		for(SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
+			player.sendPacket(this);
+		}
 	}
 
 	public GenericCustomItem(Plugin plugin, String name, String texture) {

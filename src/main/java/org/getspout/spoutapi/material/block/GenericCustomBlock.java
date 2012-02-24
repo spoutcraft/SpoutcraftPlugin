@@ -75,6 +75,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 		this.customId = item.getCustomId();
 		MaterialData.addCustomBlock(this);
 		this.setItemDrop(new SpoutItemStack(this, 1));
+		
+		for(SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
+			player.sendPacket(this);
+		}
 	}
 
 	/**
