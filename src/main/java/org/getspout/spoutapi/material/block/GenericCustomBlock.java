@@ -28,6 +28,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -35,6 +36,7 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
+import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
 import org.getspout.spoutapi.packet.PacketType;
 import org.getspout.spoutapi.packet.PacketUtil;
 import org.getspout.spoutapi.packet.SpoutPacket;
@@ -166,6 +168,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
 		this.design = design;
+		
+		for(SpoutPlayer sp : Spout.getServer().getOnlinePlayers()) {
+			sp.sendPacket(new PacketCustomBlockDesign((short) customId, design));
+		}
 		return this;
 	}
 
