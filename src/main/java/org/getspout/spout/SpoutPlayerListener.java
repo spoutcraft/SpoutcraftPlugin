@@ -177,7 +177,7 @@ public class SpoutPlayerListener implements Listener {
 						CustomBlock cb = MaterialData.getCustomBlock(damage);
 						if (cb != null) {
 							BlockState oldState = block.getState();
-							block.setTypeIdAndData(cb.getBlockId(), (byte)(0), true);
+							block.setTypeIdAndData(cb.getBlockId(), (byte)(cb.getBlockData()), true);
 							cb.onBlockPlace(block.getWorld(), block.getX(), block.getY(), block.getZ(), player);
 							mm.overrideBlock(block, cb);
 
