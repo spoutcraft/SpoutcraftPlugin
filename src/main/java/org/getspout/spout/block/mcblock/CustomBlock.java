@@ -251,6 +251,11 @@ public class CustomBlock extends Block implements CustomMCBlock {
 	public int getDropCount(int i, Random random) {
 		return parent.getDropCount(i, random);
 	}
+	
+	@Override
+	protected int getDropData(int i) {
+		return Block.getDropData(parent, i);
+	}
 
 	@Override
 	public float getDamage(EntityHuman entityhuman) {
