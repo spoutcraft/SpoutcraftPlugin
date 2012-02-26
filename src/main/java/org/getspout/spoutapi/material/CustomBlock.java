@@ -154,7 +154,11 @@ public interface CustomBlock extends Block {
 	public void onBlockDestroyed(World world, int x, int y, int z, LivingEntity living);
 
 	/**
-	 * Called when the block is interacted with
+	 * Called when the block is interacted with.
+	 * 
+	 * Return TRUE if you do not want to allow vanilla interactions like placement to happen when you interact with it.
+	 * 
+	 * Return FALSE if you wish to allow placement of vanilla blocks and usage of items while targetting it.
 	 *
 	 * @param world the block is in
 	 * @param x location of the block
