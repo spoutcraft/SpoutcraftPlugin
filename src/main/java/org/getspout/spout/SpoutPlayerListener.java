@@ -130,7 +130,6 @@ public class SpoutPlayerListener implements Listener {
 		SpoutCraftPlayer player = (SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(event.getPlayer());
 
 		if (event.getClickedBlock() != null) {
-			Material type = event.getClickedBlock().getType();
 			boolean action = false;
 			
 			switch (event.getClickedBlock().getType()) {

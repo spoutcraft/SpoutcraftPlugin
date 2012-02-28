@@ -20,7 +20,6 @@ import java.io.File;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.getspout.spout.Spout;
 
-@SuppressWarnings("deprecation")
 public class ConfigReader {
 	private static boolean forceClient = false;
 	private static boolean autoUpdate = false;

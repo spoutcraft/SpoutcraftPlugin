@@ -27,11 +27,10 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-
-import org.apache.commons.io.FileUtils;
 
 import net.minecraft.server.Packet18ArmAnimation;
+
+import org.apache.commons.io.FileUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -69,7 +68,6 @@ import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.plugin.SpoutPlugin;
 
-@SuppressWarnings("deprecation")
 public class Spout extends SpoutPlugin {
 	public SpoutPlayerListener playerListener;
 	protected final PlayerTrackingManager playerTrackingManager;
@@ -389,7 +387,6 @@ public class Spout extends SpoutPlugin {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private void pingLink(String Url) {
 		try {
 			URL url = new URL(Url);

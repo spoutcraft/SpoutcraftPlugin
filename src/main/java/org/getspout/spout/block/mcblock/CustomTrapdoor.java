@@ -6,20 +6,28 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockTrapdoor;
-import net.minecraft.server.Material;
 import net.minecraft.server.World;
 
 public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
-
 	protected BlockTrapdoor parent;
 
-	protected CustomTrapdoor(int i, Material material) {
-		super(i, material);
-	}
-
 	protected CustomTrapdoor(BlockTrapdoor parent) {
-		this(parent.id, parent.material);
+		super(parent.id, parent.material);
 		this.parent = parent;
+		updateField(parent, this, "strength");
+		updateField(parent, this, "durability");
+		updateField(parent, this, "bR");
+		updateField(parent, this, "bS");
+		this.minX = parent.minX;
+		this.minY = parent.minY;
+		this.minZ = parent.minZ;
+		this.maxX = parent.maxX;
+		this.maxY = parent.maxY;
+		this.maxZ = parent.maxZ;
+		this.stepSound = parent.stepSound;
+		this.ca = parent.ca;
+		this.frictionFactor = parent.frictionFactor;
+		updateField(parent, this, "name");		
 	}
 
 	@Override
@@ -30,7 +38,7 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 	@Override
 	public void setHardness(float hardness) {
 		this.strength = hardness;
-		updateField(this, parent, "strength");
+		updateField(parent, this, "strength");
 	}
 
 	@Override

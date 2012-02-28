@@ -611,11 +611,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				super.sendPacket(packet);
 			}
 		} catch (NullPointerException npe) {
-			if (packet != null) {
-				throw new RuntimeException("Null pointer exception thrown when trying to process packet of type " + packet.getClass().getName(), npe);
-			} else {
-				throw npe;
-			}
+			throw new RuntimeException("Null pointer exception thrown when trying to process packet of type " + packet.getClass().getName(), npe);
 		}
 	}
 
