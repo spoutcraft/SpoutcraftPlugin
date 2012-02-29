@@ -17,6 +17,12 @@
 package org.getspout.spout.inventory;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bukkit.craftbukkit.entity.CraftHumanEntity;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.InventoryHolder;
 
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.IInventory;
@@ -70,6 +76,26 @@ public class CustomMCInventory implements IInventory {
 	@Override
 	public ItemStack[] getContents() {
 		return this.items;
+	}
+	
+	@Override
+	public void onOpen(CraftHumanEntity who) {
+		
+	}
+	
+	@Override
+	public void onClose(CraftHumanEntity who) {
+		
+	}
+	
+	@Override
+	public List<HumanEntity> getViewers() {
+		return new LinkedList<HumanEntity>();
+	}
+	
+	@Override
+	public InventoryHolder getOwner() {
+		return null;
 	}
 
 	@Override
