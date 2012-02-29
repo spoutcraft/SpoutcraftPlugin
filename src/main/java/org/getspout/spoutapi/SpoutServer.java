@@ -496,4 +496,19 @@ public class SpoutServer implements Server {
 	public void resetRecipes() {
 		server.resetRecipes();
 	}
+	
+	@Override
+	public Inventory createInventory(InventoryHolder owner, InventoryType type) {
+		return server.createInventory(owner, type);
+	}
+
+	@Override
+	Inventory createInventory(InventoryHolder owner, int size) {
+		return server.createInventory(owner, size);
+	}
+	
+	@Override
+	Inventory createInventory(InventoryHolder owner, int size, String title) {
+		return server.createInventory(owner, size, title);
+	}
 }
