@@ -506,12 +506,12 @@ public class SpoutServer implements Server {
 	}
 
 	@Override
-	Inventory createInventory(InventoryHolder owner, int size) {
+	public Inventory createInventory(InventoryHolder owner, int size) {
 		return server.createInventory(owner, size);
 	}
 	
 	@Override
-	Inventory createInventory(InventoryHolder owner, int size, String title) {
+	public Inventory createInventory(InventoryHolder owner, int size, String title) {
 		return server.createInventory(owner, size, title);
 	}
 }
