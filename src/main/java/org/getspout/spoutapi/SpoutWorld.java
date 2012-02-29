@@ -26,6 +26,7 @@ import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
+import org.bukkit.metadata.*;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
@@ -552,4 +553,25 @@ public class SpoutWorld implements World {
 	public LivingEntity spawnCreature(Location arg0, EntityType arg1) {
 		return world.spawnCreature(arg0, arg1);
 	}
+	
+	@Override
+	public void setMetadata(String metadataKey, MetadataValue newMetadataValue) {
+		world.setMetadata(metadataKey, newMetadataValue);
+	}
+	
+	@Override
+	public List<MetadataValue> getMetadata(String metadataKey) {
+		return world.getMetadata(metadataKey);
+	}
+	
+	@Override
+	public boolean hasMetadata(String metadataKey) {
+		return world.hasMetadata(metadataKey);
+	}
+	
+	@Override
+	public void removeMetadata(String metadataKey, Plugin owningPlugin) {
+		world.removeMetadata(metadataKey, owningPlugin);
+	}
+	
 }
