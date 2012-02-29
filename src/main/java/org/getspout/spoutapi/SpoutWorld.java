@@ -342,6 +342,16 @@ public class SpoutWorld implements World {
 	public void playEffect(Location location, Effect effect, int data, int radius) {
 		world.playEffect(location, effect, data, radius);
 	}
+	
+	@Override
+	public <T> void playEffect(Location location, Effect effect, T data) {
+		world.playEffect(location, effect, data);
+	}
+	
+	@Override
+	public <T> void playEffect(Location location, Effect effect, T data, int radius) {
+		world.playEffect(location, effect, data, radius);
+	}
 
 	@Override
 	public boolean refreshChunk(int x, int z) {
