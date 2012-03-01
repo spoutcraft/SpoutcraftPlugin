@@ -44,6 +44,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.help.HelpMap;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.map.MapView;
@@ -513,5 +514,10 @@ public class SpoutServer implements Server {
 	@Override
 	public Inventory createInventory(InventoryHolder owner, int size, String title) {
 		return server.createInventory(owner, size, title);
+	}
+	
+	@Override
+	public HelpMap getHelpMap() {
+		return server.getHelpMap();
 	}
 }
