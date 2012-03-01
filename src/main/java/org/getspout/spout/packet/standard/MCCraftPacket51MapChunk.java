@@ -80,4 +80,14 @@ public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51
 	@Deprecated
 	public void setSizeZ(int z) {
 	}
+
+	@Override
+	public int getY() {
+		return 0;
+	}
+
+	@Override
+	@Deprecated
+	public void setY(int y) {
+	}
 }
