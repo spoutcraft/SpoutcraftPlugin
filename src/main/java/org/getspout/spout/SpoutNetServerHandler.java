@@ -524,11 +524,11 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	@Override
 	public void sendPacket(Packet packet) {
 		if (packet != null) {
-			if (packet.lowPriority) {
-				MapChunkThread.sendPacket(this.player, packet);
-			} else {
+			//if (packet.lowPriority) {
+			//	MapChunkThread.sendPacket(this.player, packet);
+			//} else {
 				queueOutputPacket(packet);
-			}
+			//}
 		}
 	}
 
@@ -536,7 +536,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 
 	// MapChunkThread sends packets to the method. All packets should pass through this method before being sent to the client
 	public void queueOutputPacket(Packet packet) {
-		packet = updateActiveChunks(packet);
+	//	packet = updateActiveChunks(packet);
 		if (packet == null) {
 			return;
 		}
@@ -547,7 +547,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	}
 
 	public void sendImmediatePacket(Packet packet) {
-		packet = updateActiveChunks(packet);
+		//packet = updateActiveChunks(packet);
 		if (packet == null) {
 			return;
 		}
