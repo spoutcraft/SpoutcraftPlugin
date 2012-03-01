@@ -101,7 +101,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 	}
 
 	protected static int getIndex(World world, int x, int y, int z) {
-		return (x & 0xF) << world.heightBitsPlusFour | (z & 0xF) << world.heightBits | (y & world.heightMinusOne);
+		return (x & 0xF) << 0xC | (z & 0xF) << 0x8 | (y & 0xFF);
 	}
 
 	public float getExplosionResistance() {

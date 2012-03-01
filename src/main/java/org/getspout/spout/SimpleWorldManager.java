@@ -25,7 +25,7 @@ public class SimpleWorldManager implements WorldManager {
 	@Override
 	public int getWorldHeightBits(World world) {
 		if (world instanceof CraftWorld) {
-			return ((CraftWorld)world).getHandle().heightBits;
+			return 0x8;
 		}
 		return 7;
 	}
@@ -33,7 +33,7 @@ public class SimpleWorldManager implements WorldManager {
 	@Override
 	public int getWorldXShiftBits(World world) {
 		if (world instanceof CraftWorld) {
-			return ((CraftWorld)world).getHandle().heightBitsPlusFour;
+			return 0xC;
 		}
 		return 11;
 	}
