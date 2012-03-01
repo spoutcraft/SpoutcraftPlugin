@@ -32,13 +32,8 @@ public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51
 	}
 
 	@Override
-	public int getY() {
-		return getPacket().b;
-	}
-
-	@Override
 	public int getZ() {
-		return getPacket().c;
+		return getPacket().b;
 	}
 
 	@Override
@@ -47,13 +42,8 @@ public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51
 	}
 
 	@Override
-	public void setY(int y) {
-		getPacket().b = y;
-	}
-
-	@Override
 	public void setZ(int z) {
-		getPacket().c = z;
+		getPacket().b = z;
 	}
 
 	@Override
