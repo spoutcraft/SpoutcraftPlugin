@@ -121,7 +121,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		super(minecraftserver, networkmanager, entityplayer);
 		//cache the field for later use
 		try {
-			entityListField = NetServerHandler.class.getDeclaredField("r");
+			entityListField = NetServerHandler.class.getDeclaredField("s");
 			entityListField.setAccessible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
