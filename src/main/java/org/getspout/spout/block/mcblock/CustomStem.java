@@ -50,7 +50,7 @@ public class CustomStem extends BlockStem implements CustomMCBlock {
 		super(parent.id, null /*the block they grow from - we set it a bit later in the constructor*/);
 		this.parent = parent;
 
-		updateStemField(parent, this, "a");
+		updateStemField(parent, this, "blockFruit");
 		updateField(parent, this, "strength");
 		updateField(parent, this, "durability");
 		updateField(parent, this, "bR");
