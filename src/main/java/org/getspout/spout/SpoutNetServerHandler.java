@@ -477,33 +477,6 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				if (packet.slot == -999) { // Clicked outside, just defer to default
 					itemstack = this.player.activeContainer.clickItem(packet.slot, packet.button, packet.shift, this.player);
 				} else {
-					if (click == LEFT_CLICK && (itemstack != null && cursorstack != null && itemstack.doMaterialsMatch(cursorstack))) {
-						// Left-click full slot with full cursor of same item; merge stacks
-						itemstack.count += cursorstack.count;
-						cursorstack = null;
-					} else if (click == LEFT_CLICK || (itemstack != null && cursorstack != null && !itemstack.doMaterialsMatch(cursorstack))) {
-						// Either left-click, or right-click full slot with full cursor of different item; just swap contents
-						ItemStack temp = itemstack;
-						itemstack = cursorstack;
-						cursorstack = temp;
-					} else if (click == RIGHT_CLICK) { // Right-click with either slot or cursor empty
-						if (itemstack == null) { // Slot empty; drop one
-							if (cursorstack != null) {
-								itemstack = cursorstack.a(1);
-								if (cursorstack.count == 0) {
-									cursorstack = null;
-								}
-							}
-						} else if (cursorstack == null) { // Cursor empty; take half
-							cursorstack = itemstack.a((itemstack.count + 1) / 2);
-						} else { // Neither empty, but same item; drop one
-							ItemStack drop = cursorstack.a(1);
-							itemstack.count += drop.count;
-							if (cursorstack.count == 0) {
-								cursorstack = null;
-							}
-						}
-					}
 					// update the stacks
 					setActiveSlot(packet.slot, itemstack);
 					setCursorSlot(cursorstack);
