@@ -195,16 +195,17 @@ public final class MapChunkThread implements Runnable {
 	}
 
 	public static void sendPacketMapChunk(ChunkCoordIntPair coords, EntityPlayer player, World world) {
-		sendPacketMapChunk(coords, new EntityPlayer[] { player }, coords.x * 16, 0, coords.z * 16, 16, 128, 16, world);
+		sendPacketMapChunk(coords, new EntityPlayer[] { player }, coords.x * 16, coords.z * 16, world);
 	}
 
-	public static void sendPacketMapChunk(ChunkCoordIntPair coords, List<EntityPlayer> players, int x, int y, int z, int dx, int dy, int dz, World world) {
-		sendPacketMapChunk(coords, players.toArray(new EntityPlayer[0]), x, y, z, dx, dy, dz, world);
+	public static void sendPacketMapChunk(ChunkCoordIntPair coords, List<EntityPlayer> players, int x, int z, World world) {
+		sendPacketMapChunk(coords, players.toArray(new EntityPlayer[0]), x, z, world);
 	}
 
-	public static void sendPacketMapChunk(ChunkCoordIntPair coords, EntityPlayer[] players, int x, int y, int z, int dx, int dy, int dz, World world) {
+	public static void sendPacketMapChunk(ChunkCoordIntPair coords, EntityPlayer[] players, int x, int z, World world) {
 		// create packet with uncompressed data to be compressed by worker thread
-		Packet51MapChunk mapChunk = new Packet51MapChunk(x, y, z, dx, dy, dz, world);
+		//Packet51MapChunk mapChunk = new Packet51MapChunk(x, y, z, dx, dy, dz, world);
+		Packet51MapChunk mapChunk = new Packet51MapChunk(world.getChunkAt(x, z), true, 0);
 
 		instance.putTask(new QueuedPacket(coords, players, mapChunk, true), false);
 	}

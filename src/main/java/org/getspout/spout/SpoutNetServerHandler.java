@@ -845,7 +845,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		if (!world.isChunkLoaded(cx, cz)) {
 			world.loadChunk(cx, cz);
 		}
-		Packet packet = new Packet51MapChunk(cx << 4, 0, cz << 4, 16, 128, 16, this.player.world);
+		Packet packet = new Packet51MapChunk(this.player.world.getChunkAt(cx << 4, cz << 4), true, 0);
 		try {
 			packet.lowPriority = false;
 			Field g = Packet51MapChunk.class.getDeclaredField("buffer");

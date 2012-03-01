@@ -44,7 +44,7 @@ public class SimpleCacheManager implements CacheManager {
 	public void refreshChunkRequest(int id, int cx, int cz) {
 		SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutManager.getPlayerFromId(id);
 		World world = player.getHandle().world;
-		Packet packet51 = new Packet51MapChunk(cx << 4, 0, cz << 4, 16, 128, 16, world);
+		Packet packet51 = new Packet51MapChunk(world.getChunkAt(cx << 4, cz << 4), true, 0);
 		player.getNetServerHandler().sendPacket(packet51);
 		SpoutNetServerHandler.sendChunkTiles(cx, cz, player.getHandle());
 	}

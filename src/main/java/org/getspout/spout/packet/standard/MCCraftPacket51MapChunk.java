@@ -63,31 +63,31 @@ public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51
 
 	@Override
 	public int getSizeX() {
-		return getPacket().d;
+		return 16;
 	}
 
 	@Override
 	public int getSizeY() {
-		return getPacket().e;
+		return 256;
 	}
 
 	@Override
 	public int getSizeZ() {
-		return getPacket().f;
+		return 16;
 	}
 
 	@Override
+	@Deprecated
 	public void setSizeX(int x) {
-		getPacket().d = x;
 	}
 
 	@Override
+	@Deprecated
 	public void setSizeY(int y) {
-		getPacket().e = y;
 	}
 
 	@Override
+	@Deprecated
 	public void setSizeZ(int z) {
-		getPacket().f = z;
 	}
 }
