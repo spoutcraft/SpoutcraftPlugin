@@ -74,7 +74,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		this.maxY = parent.maxY;
 		this.maxZ = parent.maxZ;
 		this.stepSound = parent.stepSound;
-		this.ca = parent.ca;
+		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
 	}
@@ -192,8 +192,8 @@ public class CustomBlock extends Block implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean x_() {
-		return parent.x_();
+	public boolean F_() {
+		return parent.F_();
 	}
 
 	@Override
@@ -457,12 +457,10 @@ public class CustomBlock extends Block implements CustomMCBlock {
 				Block.byId[i] = null;
 
 				boolean oldn = n[i];
-				boolean oldo = o[i];
-				boolean oldTileEntity = isTileEntity[i];
 				int oldq = lightBlock[i];
-				boolean oldr = r[i];
+				boolean oldp = p[i];
 				int olds = lightEmission[i];
-				boolean oldt = t[i];
+				boolean oldr = r[i];
 
 				/* Order matters, BlockChest extends BlockContainer*/
 				if (parent instanceof BlockChest) {
@@ -483,12 +481,10 @@ public class CustomBlock extends Block implements CustomMCBlock {
 					Block.byId[i] = new CustomBlock(parent);
 				}
 				n[i] = oldn;
-				o[i] = oldo;
-				isTileEntity[i] = oldTileEntity;
+				p[i] = oldp;
 				lightBlock[i] = oldq;
 				r[i] = oldr;
 				lightEmission[i] = olds;
-				t[i] = oldt;
 			}
 		}
 	}

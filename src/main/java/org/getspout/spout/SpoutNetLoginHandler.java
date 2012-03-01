@@ -64,7 +64,7 @@ public class SpoutNetLoginHandler extends NetLoginHandler {
 			if (maxPlayers > 60) {
 				maxPlayers = 60;
 			}
-			Packet1Login packet1login1 = new Packet1Login("", entityplayer.id, worldserver.getSeed(), worldserver.getWorldData().getType(), entityplayer.itemInWorldManager.getGameMode(), (byte) worldserver.worldProvider.dimension, (byte) worldserver.difficulty, (byte) worldserver.height, (byte) maxPlayers);
+			Packet1Login packet1login1 = new Packet1Login("", entityplayer.id, worldserver.getWorldData().getType(), entityplayer.itemInWorldManager.getGameMode(), (byte) worldserver.worldProvider.dimension, (byte) worldserver.difficulty, (byte) worldserver.getHeight(), (byte) maxPlayers);
 
 			networkManager.queue(packet1login1);
 

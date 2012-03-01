@@ -103,6 +103,17 @@ public class CustomMCInventory implements IInventory {
 		return this.items[i];
 	}
 
+    public ItemStack splitWithoutUpdate(int i) {
+        if (this.items[i] != null) {
+            ItemStack itemstack = this.items[i];
+
+            this.items[i] = null;
+            return itemstack;
+        } else {
+            return null;
+        }
+    }
+	
 	@Override
 	public int getMaxStackSize() {
 		return 64;

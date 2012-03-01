@@ -41,7 +41,7 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 		this.maxY = parent.maxY;
 		this.maxZ = parent.maxZ;
 		this.stepSound = parent.stepSound;
-		this.ca = parent.ca;
+		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");		
 	}
@@ -80,7 +80,7 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 				--i;
 			}
 
-			return f(world.getTypeId(i, j, k));
+			return h(world.getTypeId(i, j, k));
 		}
 	}
 
@@ -107,7 +107,7 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 				--j1;
 			}
 
-			if (!f(world.getTypeId(j1, j, k1))) {
+			if (!h(world.getTypeId(j1, j, k1))) {
 				world.setTypeId(i, j, k, 0);
 				this.b(world, i, j, k, i1, 0);
 			}
@@ -131,7 +131,7 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 		}
 	}
 
-	private static boolean f(int i) {
+	private static boolean h(int i) {
 		if (i <= 0) {
 			return false;
 		} else {

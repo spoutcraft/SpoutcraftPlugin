@@ -42,11 +42,11 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 		this.maxY = parent.maxY;
 		this.maxZ = parent.maxZ;
 		this.stepSound = parent.stepSound;
-		this.ca = parent.ca;
+		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
 		
-		Block.isTileEntity[id] = true;
+		isTileEntity = true;
 	}
 
 	@Override

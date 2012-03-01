@@ -785,7 +785,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		for (Object tileEntityObject : tileEntities) {
 			if (tileEntityObject != null && tileEntityObject instanceof TileEntity) {
 				TileEntity tileEntity = (TileEntity) tileEntityObject;
-				Packet tilePacket = tileEntity.k();
+				Packet tilePacket = tileEntity.d();
 				if (tilePacket != null) {
 					MapChunkThread.sendPacket(player, tilePacket);
 				}

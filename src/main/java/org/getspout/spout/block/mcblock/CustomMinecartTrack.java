@@ -61,7 +61,7 @@ public class CustomMinecartTrack extends BlockMinecartTrack implements CustomMCB
 		this.maxY = parent.maxY;
 		this.maxZ = parent.maxZ;
 		this.stepSound = parent.stepSound;
-		this.ca = parent.ca;
+		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
 	}
@@ -160,8 +160,8 @@ public class CustomMinecartTrack extends BlockMinecartTrack implements CustomMCB
 	}
 
 	@Override
-	public boolean x_() {
-		return parent.x_();
+	public boolean F_() {
+		return parent.F_();
 	}
 
 	@Override

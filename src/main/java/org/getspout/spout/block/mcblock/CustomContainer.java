@@ -62,11 +62,11 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 		this.maxY = parent.maxY;
 		this.maxZ = parent.maxZ;
 		this.stepSound = parent.stepSound;
-		this.ca = parent.ca;
+		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
 
-		Block.isTileEntity[id] = true;
+		isTileEntity = true;
 	}
 
 	@Override
@@ -175,8 +175,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean x_() {
-		return parent.x_();
+	public boolean F_() {
+		return parent.F_();
 	}
 
 	@Override

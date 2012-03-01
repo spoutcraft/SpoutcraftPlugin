@@ -198,7 +198,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 	@Override
 	public boolean isOpaque(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		return net.minecraft.server.Block.o[id];
+		return net.minecraft.server.Block.n[id];
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (!originalOpacity.containsKey(id)) {
 			originalOpacity.put(id, (byte) (isOpaque(block) ? 1 : 0));
 		}
-		net.minecraft.server.Block.o[id] = opacity;
+		net.minecraft.server.Block.n[id] = opacity;
 		updateBlockAttributes(id, (short) data); // invalidate cache
 	}
 
