@@ -30,7 +30,7 @@ public class CustomItemSpade extends ItemSpade {
 	}
 
 	@Override
-	public boolean a(Block paramBlock) {
+	public boolean canDestroySpecialBlock(Block paramBlock) {
 		if (paramBlock.id == Block.SNOW.id) return true;
 		return paramBlock.id == Block.SNOW_BLOCK.id;
 	}

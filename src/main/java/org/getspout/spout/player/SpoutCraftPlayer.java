@@ -361,11 +361,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		getNetServerHandler().setActiveInventoryLocation(location);
 		IInventory dialog = ((CraftInventory) event.getInventory()).getInventory();
 		if (dialog instanceof TileEntityDispenser) {
-			getHandle().a((TileEntityDispenser) dialog);
+			getHandle().openContainer((TileEntityDispenser) dialog);
 		} else if (dialog instanceof TileEntityFurnace) {
-			getHandle().a((TileEntityFurnace) dialog);
+			getHandle().openContainer((TileEntityFurnace) dialog);
 		} else {
-			getHandle().a(dialog);
+			getHandle().openContainer(dialog);
 		}
 		return true;
 		/*int id;
@@ -405,7 +405,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			}
 			getNetServerHandler().setActiveInventory(true);
 			getNetServerHandler().setActiveInventoryLocation(location);
-			getHandle().b(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+			getHandle().startEnchanting(location.getBlockX(), location.getBlockY(), location.getBlockZ());
 			return true;
 		}
 	}

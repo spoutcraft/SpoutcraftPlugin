@@ -281,7 +281,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	}
 
 	@Override
-	public void a(Packet101CloseWindow packet) {
+	public void handleContainerClose(Packet101CloseWindow packet) {
 		Inventory inventory = getActiveInventory();
 
 		InventoryCloseEvent event = new InventoryCloseEvent((Player) this.player.getBukkitEntity(), inventory, getDefaultInventory(), activeLocation);
@@ -290,21 +290,21 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		if (event.isCancelled()) {
 			IInventory inv = ((CraftInventory) event.getInventory()).getInventory();
 			if (inventory instanceof TileEntityFurnace) {
-				this.player.a((TileEntityFurnace) inventory);
+				this.player.openFurnace((TileEntityFurnace) inventory);
 			} else if (inventory instanceof TileEntityDispenser) {
-				this.player.a((TileEntityDispenser) inventory);
+				this.player.openDispenser((TileEntityDispenser) inventory);
 			} else if (inventory instanceof InventoryCraftResult && this.player.activeContainer instanceof ContainerWorkbench) {
 				sendPacket(new Packet100OpenWindow(packet.a, 1, "Crafting", 9));
 				this.player.syncInventory();
 			} else if (inventory instanceof InventoryCraftResult) {
 				// There is no way to force a player's own inventory back open.
 			} else {
-				this.player.a(inv);
+				this.player.openContainer(inv);
 			}
 		} else {
 			activeInventory = false;
 			activeLocation = null;
-			super.a(packet);
+			super.handleContainerClose(packet);
 		}
 	}
 
@@ -313,7 +313,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		if (this.player.dead) {
 			return;
 		}
-		Short oshort = (Short) this.getEntityList().a(Integer.valueOf(this.player.activeContainer.windowId));
+		Short oshort = (Short) this.getEntityList().get(Integer.valueOf(this.player.activeContainer.windowId));
 
 		if (oshort != null && packet.b == oshort.shortValue() && this.player.activeContainer.windowId == packet.a && !this.player.activeContainer.c(this.player)) {
 			this.player.activeContainer.a(this.player, true);
@@ -328,11 +328,11 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		if (this.player.activeContainer.windowId == packet.a && this.player.activeContainer.c(this.player)) {
 			Inventory inventory = getActiveInventory();
 			CraftPlayer player = (CraftPlayer) this.player.getBukkitEntity();
-			ItemStack before = ItemStack.b(packet.e);
-			ItemStack cursorBefore = this.player.inventory.l();
+			ItemStack before = ItemStack.b(packet.item);
+			ItemStack cursorBefore = this.player.inventory.getCarried();
 			SpoutCraftItemStack slot = SpoutCraftItemStack.fromItemStack(before);
 			SpoutCraftItemStack cursor = SpoutCraftItemStack.fromItemStack(cursorBefore);
-			InventorySlotType type = getActiveInventorySlotType(packet.b);
+			InventorySlotType type = getActiveInventorySlotType(packet.slot);
 			boolean clickSuccessful = true;
 			final int windowId = packet.a;
 
@@ -342,7 +342,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				InventoryOpenEvent event = new InventoryOpenEvent(player, inventory, getDefaultInventory(), activeLocation);
 				Bukkit.getServer().getPluginManager().callEvent(event);
 				if (event.isCancelled()) {
-					this.player.D();
+					this.player.broadcastCarriedItem();
 					activeInventory = false;
 					activeLocation = null;
 					return;
@@ -350,7 +350,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 			}
 
 			// Fire InventoryChange or InventoryCraft event
-			if (packet.b != -999) {
+			if (packet.slot != -999) {
 				if (inventory instanceof CraftingInventory) {
 					CraftingInventory crafting = (CraftingInventory) inventory;
 					InventoryCrafting recipe = null;
@@ -376,7 +376,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 					}
 					// Clicking to grab the crafting result
 					if (type == InventorySlotType.RESULT) {
-						if (packet.f) {
+						if (packet.shift) {
 							amount = 64;
 							for (org.bukkit.inventory.ItemStack i : crafting.getMatrix()) {
 								if (i != null && i.getTypeId() > 0 && i.getAmount() < amount) {
@@ -384,7 +384,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 								}
 							}
 						}
-						InventoryCraftEvent craftEvent = new InventoryCraftEvent(this.getPlayer(), crafting, this.activeLocation, type, packet.b, matrix, craftResult, amount, cursor, packet.c == 0, packet.f);
+						InventoryCraftEvent craftEvent = new InventoryCraftEvent(this.getPlayer(), crafting, this.activeLocation, type, packet.slot, matrix, craftResult, amount, cursor, packet.button == 0, packet.shift);
 						Bukkit.getServer().getPluginManager().callEvent(craftEvent);
 						craftEvent.getInventory().setResult(craftEvent.getResult());
 						cursor = SpoutCraftItemStack.getCraftItemStack(craftEvent.getCursor());
@@ -405,7 +405,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				this.player.netServerHandler.sendPacket(new Packet106Transaction(windowId, packet.d, true));
 				this.player.h = true;
 				this.player.activeContainer.a();
-				this.player.D();
+				this.player.broadcastCarriedItem();
 				this.player.h = false;
 			} else {
 				this.getEntityList().a(Integer.valueOf(this.player.activeContainer.windowId), Short.valueOf(packet.d));
@@ -428,18 +428,18 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		boolean success = false;
 		final int LEFT_CLICK = 0;
 		final int RIGHT_CLICK = 1;
-		int click = packet.c;
+		int click = packet.button;
 
 		// clicked on bottom player inventory
-		if (!(this.player.activeContainer instanceof ContainerPlayer) && this.player.defaultContainer instanceof ContainerPlayer && packet.b >= inventory.getSize()) {
-			int activeSlot = packet.b - inventory.getSize() + 9;
+		if (!(this.player.activeContainer instanceof ContainerPlayer) && this.player.defaultContainer instanceof ContainerPlayer && packet.slot >= inventory.getSize()) {
+			int activeSlot = packet.slot - inventory.getSize() + 9;
 			if (activeSlot >= this.getPlayer().getInventory().getSize()) {
 				activeSlot -= this.getPlayer().getInventory().getSize();
 			}
 			type = getInventorySlotType(activeSlot);
-			event = new InventoryPlayerClickEvent(this.getPlayer(), this.getPlayer().getInventory(), type, slot, cursor, activeSlot, click == LEFT_CLICK, packet.f, activeLocation);
+			event = new InventoryPlayerClickEvent(this.getPlayer(), this.getPlayer().getInventory(), type, slot, cursor, activeSlot, click == LEFT_CLICK, packet.shift, activeLocation);
 		} else {
-			event = new InventoryClickEvent(this.getPlayer(), inventory, type, slot, cursor, packet.b, click == LEFT_CLICK, packet.f, activeLocation);
+			event = new InventoryClickEvent(this.getPlayer(), inventory, type, slot, cursor, packet.slot, click == LEFT_CLICK, packet.shift, activeLocation);
 		}
 
 		if (event != null) {
@@ -457,25 +457,25 @@ public class SpoutNetServerHandler extends NetServerHandler {
 
 		switch (result) {
 			case DEFAULT:
-				itemstack = this.player.activeContainer.a(packet.b, packet.c, packet.f, this.player);
-				success = ItemStack.equals(packet.e, itemstack);
+				itemstack = this.player.activeContainer.clickItem(packet.slot, packet.button, packet.shift, this.player);
+				success = ItemStack.equals(packet.item, itemstack);
 				break;
 			case DENY:
-				if (packet.b != -999) { // Only swap if target is not OUTSIDE
+				if (packet.slot != -999) { // Only swap if target is not OUTSIDE
 					if (itemstack != null) {
-						setActiveSlot(packet.b, itemstack);
+						setActiveSlot(packet.slot, itemstack);
 						setCursorSlot((ItemStack) null);
 					}
 					if (event.getCursor() != null) {
-						setActiveSlot(packet.b, itemstack);
+						setActiveSlot(packet.slot, itemstack);
 						setCursorSlot(cursorstack);
 					}
 				}
 
 				break;
 			case ALLOW: // Allow the placement unconditionally
-				if (packet.b == -999) { // Clicked outside, just defer to default
-					itemstack = this.player.activeContainer.a(packet.b, packet.c, packet.f, this.player);
+				if (packet.slot == -999) { // Clicked outside, just defer to default
+					itemstack = this.player.activeContainer.clickItem(packet.slot, packet.button, packet.shift, this.player);
 				} else {
 					if (click == LEFT_CLICK && (itemstack != null && cursorstack != null && itemstack.doMaterialsMatch(cursorstack))) {
 						// Left-click full slot with full cursor of same item; merge stacks
@@ -505,7 +505,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 						}
 					}
 					// update the stacks
-					setActiveSlot(packet.b, itemstack);
+					setActiveSlot(packet.slot, itemstack);
 					setCursorSlot(cursorstack);
 				}
 				break;
@@ -514,11 +514,11 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	}
 
 	public void setActiveSlot(int slot, ItemStack item) {
-		this.player.activeContainer.b(slot).c(item);
+		this.player.activeContainer.getSlot(slot).set(item);
 	}
 
 	public void setCursorSlot(ItemStack item) {
-		this.player.inventory.b(item);
+		this.player.inventory.setCarried(item);
 	}
 
 	@Override
@@ -920,7 +920,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				return new SpoutCraftInventory((TileEntityBrewingStand) a.get(container));
 			}
 			if (container instanceof ContainerEnchantTable) {
-				return new SpoutCraftInventory(((ContainerEnchantTable) container).a);
+				return new SpoutCraftInventory(((ContainerEnchantTable) container).enchantSlots);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
