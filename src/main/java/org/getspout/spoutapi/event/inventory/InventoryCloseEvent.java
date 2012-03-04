@@ -21,14 +21,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
-
-public class InventoryCloseEvent extends InventoryEvent implements SpoutEvent {
+@Deprecated
+public class InventoryCloseEvent extends InventoryEvent{
 
 	private static final HandlerList handlers = new HandlerList();
 	private final Inventory other;
-	private static final EventType type = EventType.Inventory_Close;
 
 	public InventoryCloseEvent(Player player, Inventory inventory, Inventory other) {
 		super("InventoryCloseEvent", player, inventory);
@@ -54,11 +51,6 @@ public class InventoryCloseEvent extends InventoryEvent implements SpoutEvent {
 	 */
 	public Inventory getBottomInventory() {
 		return this.other;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	@Override

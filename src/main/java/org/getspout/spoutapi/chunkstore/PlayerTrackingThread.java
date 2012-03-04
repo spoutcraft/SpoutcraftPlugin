@@ -31,7 +31,7 @@ public class PlayerTrackingThread extends Thread {
 	private final LinkedBlockingDeque<PlayerTask> queue = new LinkedBlockingDeque<PlayerTask>(1024);
 	private volatile boolean shutdown = false;
 	public PlayerTrackingThread(SpoutPlayer player) {
-		super("Chunk Tracking Thread For " + player.getName());
+		super("Spout Tracking Thread For " + player.getName());
 		this.player = player;
 		viewDistance = Bukkit.getServer().getViewDistance() + 1;
 		managedChunks = new TIntPairHashSet((viewDistance + viewDistance) * (viewDistance + viewDistance));

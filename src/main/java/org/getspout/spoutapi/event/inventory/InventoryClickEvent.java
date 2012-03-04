@@ -23,11 +23,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 
-public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
+@Deprecated
+public class InventoryClickEvent extends InventoryEvent{
 
 	private static final HandlerList handlers = new HandlerList();
 	private final InventorySlotType type;
@@ -38,8 +37,8 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	private Event.Result result = Event.Result.DEFAULT;
 	private boolean leftClick;
 	private boolean shift;
-	private static final EventType eventtype = EventType.Inventory_Click;
 
+	@Deprecated
 	public InventoryClickEvent(Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift) {
 		super("InventoryClickEvent", player, inventory);
 		this.type = type;
@@ -51,6 +50,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 		this.shift = shift;
 	}
 
+	@Deprecated
 	public InventoryClickEvent(Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift, Location location) {
 		super("InventoryClickEvent", player, inventory, location);
 		this.type = type;
@@ -62,6 +62,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 		this.shift = shift;
 	}
 
+	@Deprecated
 	protected InventoryClickEvent(String name, Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift, Location location) {
 		super(name, player, inventory, location);
 		this.type = type;
@@ -74,6 +75,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	}
 
 	@Override
+	@Deprecated
 	public void setCancelled(boolean cancel) {
 		if (cancel) this.result = Event.Result.DENY;
 		super.setCancelled(cancel);
@@ -86,6 +88,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Deny: Block the inventory click from occuring, reset the inventory state to the pre-click state
 	 * @return result
 	 */
+	@Deprecated
 	public Event.Result getResult() {
 		return this.result;
 	}
@@ -96,6 +99,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Allow: Allow the inventory click to continue, regardless of the consequences
 	 * Deny: Block the inventory click from occuring, reset the inventory state to the pre-click state
 	 */
+	@Deprecated
 	public void setResult(Event.Result result) {
 		this.result = result;
 		if (result == Event.Result.DENY) {
@@ -107,6 +111,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Get's the type of slot that is being interacted with
 	 * @return slot type
 	 */
+	@Deprecated
 	public InventorySlotType getSlotType() {
 		return this.type;
 	}
@@ -115,6 +120,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Get's the item at the slow being interacted with, or null if empty
 	 * @return item
 	 */
+	@Deprecated
 	public ItemStack getItem() {
 		return this.item;
 	}
@@ -124,6 +130,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Note: The inventory slot can not be changed unless the result has been set to Allow.
 	 * @param item to set
 	 */
+	@Deprecated
 	public void setItem(ItemStack item) {
 		if (this.result != Event.Result.ALLOW) {
 			throw new UnsupportedOperationException("Can not alter stack contents without allowing any result");
@@ -135,6 +142,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Get's the cursor being interacted with, or null if empty.
 	 * @return cursor
 	 */
+	@Deprecated
 	public ItemStack getCursor() {
 		return this.cursor;
 	}
@@ -144,6 +152,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Note: The cursor can not be changed unless the result has been set to Allow.
 	 * @param cursor to set
 	 */
+	@Deprecated
 	public void setCursor(ItemStack cursor) {
 		if (this.result != Event.Result.ALLOW) {
 			throw new UnsupportedOperationException("Can not alter cursor stack contents without allowing any result");
@@ -156,6 +165,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * If the slot is -999, the clicked region is outside of the inventory
 	 * @return slot index
 	 */
+	@Deprecated
 	public int getSlot() {
 		return this.convertedSlot;
 	}
@@ -165,6 +175,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * If the slot is -999, the clicked region is outside of the inventory
 	 * @return raw slot
 	 */
+	@Deprecated
 	public int getRawSlot() {
 		return this.slot;
 	}
@@ -173,6 +184,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Return's true if the click on the inventory window was a left click. If false, it was a right click.
 	 * @return true if left click
 	 */
+	@Deprecated
 	public boolean isLeftClick() {
 		return leftClick;
 	}
@@ -181,6 +193,7 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 	 * Return's true if the click on the inventory crafting slow was a shift click.
 	 * @return true if shift click
 	 */
+	@Deprecated
 	public boolean isShiftClick() {
 		return shift;
 	}
@@ -203,11 +216,6 @@ public class InventoryClickEvent extends InventoryEvent implements SpoutEvent {
 			return slot;
 		}
 		return slot;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return eventtype;
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+@Deprecated
 public class InventoryPlayerClickEvent extends InventoryClickEvent {
 	
 	private static final HandlerList handlers = new HandlerList();
