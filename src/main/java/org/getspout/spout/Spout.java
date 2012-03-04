@@ -16,24 +16,15 @@
  */
 package org.getspout.spout;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.server.Packet18ArmAnimation;
 
-import org.apache.commons.io.FileUtils;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.FileUtil;
 
 import org.getspout.commons.inventory.ItemMap;
@@ -66,9 +57,8 @@ import org.getspout.spoutapi.chunkstore.PlayerTrackingManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
-import org.getspout.spoutapi.plugin.SpoutPlugin;
 
-public class Spout extends SpoutPlugin {
+public class Spout extends JavaPlugin {
 	public SpoutPlayerListener playerListener;
 	protected final PlayerTrackingManager playerTrackingManager;
 	protected SpoutWorldListener chunkListener;
@@ -83,6 +73,7 @@ public class Spout extends SpoutPlugin {
 	protected ItemMap serverItemMap;
 	protected List<SpoutPlayer> playersOnline = new ArrayList<SpoutPlayer>();
 	protected Thread shutdownThread = null;
+	protected InventoryListener invListener;
 
 	public Spout() {
 		super();
@@ -162,21 +153,15 @@ public class Spout extends SpoutPlugin {
 		SimpleFileManager.clearTempDirectory();
 
 		//end the thread
-		MapChunkThread.endThread();
 		PacketCompressionThread.endThread();
-		ChunkCompressionThread.endThread();
 
 		Runtime.getRuntime().removeShutdownHook(shutdownThread);
+		super.onDisable();
 	}
 
 	@Override
 	public void onEnable() {
 		(new ConfigReader()).read();
-		(new Thread() {
-			public void run() {
-				update();
-			}
-		}).start();
 
 		playerListener = new SpoutPlayerListener(this);
 		chunkListener = new SpoutWorldListener(this);
@@ -185,10 +170,11 @@ public class Spout extends SpoutPlugin {
 		entityListener = new SpoutEntityListener(this);
 		blockMonitor = new SpoutCustomBlockMonitor(this);
 		blockListener = new SpoutBlockListener(this);
+		invListener = new InventoryListener(this);
 
 		getCommand("spout").setExecutor(new SpoutCommand(this));
 
-		for (SpoutPlayer player : getSpoutServer().getOnlinePlayers()) {
+		for (SpoutPlayer player : org.getspout.spoutapi.Spout.getServer().getOnlinePlayers()) {
 			SpoutCraftPlayer.resetNetServerHandler(player);
 			SpoutCraftPlayer.updateNetServerHandler(player);
 			SpoutCraftPlayer.updateBukkitEntity(player);
@@ -209,8 +195,6 @@ public class Spout extends SpoutPlugin {
 		CustomItemFlint.replaceFlint();
 		CustomBlock.replaceBlocks();
 
-		ChunkCompressionThread.startThread();
-		MapChunkThread.startThread();
 		PacketCompressionThread.startThread();
 
 		//Start counting ticks
@@ -231,7 +215,7 @@ public class Spout extends SpoutPlugin {
 
 		itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
 		if (!itemMapConfig.load()) {
-			this.log("Unable to load global item map");
+			System.out.println("[Spout] Unable to load global item map");
 		} else {
 			serverItemMap = new ItemMap(null, itemMapConfig, null);
 		}
@@ -242,38 +226,8 @@ public class Spout extends SpoutPlugin {
 		if (ConfigReader.runDeadlockMonitor()) {
 			new DeadlockMonitor().start();
 		}
-
-
-		/*try {
-			MinecraftServer server = ((CraftServer)getServer()).getServer();
-			NetworkListenThread thread = server.networkListenThread;
-			SpoutNetworkAcceptThread acceptThread = new SpoutNetworkAcceptThread(thread, "Spout Network Accept Thread", server);
-			acceptThread.start();
-
-			Field e = NetworkListenThread.class.getDeclaredField("e");
-			e.setAccessible(true);
-			Thread old = (Thread) e.get(thread);
-			e.set(thread, acceptThread);
-
-			old.interrupt();
-			old.join(100);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}*/
-
-	}
-
-	@Override
-	public String getVersion() {
-		return getVersion(true);
-	}
-
-	public String getVersion(boolean verbose) {
-		if (this.getDescription().getVersion().contains("${build.number}")) {
-			return "-1" + (verbose ? " [Custom Build]" : "");
-		}
-		return this.getDescription().getVersion();
+		
+		super.onEnable();
 	}
 
 	/**
@@ -295,110 +249,6 @@ public class Spout extends SpoutPlugin {
 			((SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(player)).getNetServerHandler().sendImmediatePacket(packet);
 		}
 	}
-
-	protected boolean isUpdateAvailable() {
-		File runOnce = new File(getDataFolder(), "runonce");
-		runOnce.delete();
-		if (!ConfigReader.isAutoUpdate()) {
-			return false;
-		}
-		String latest = getRBVersion();
-
-		if (latest != null) {
-			try {
-				int current = Integer.parseInt(getVersion());
-				if (current != -1) { // -1 == custom build
-					int newest = Integer.parseInt(latest);
-					return current < newest;
-				}
-			} catch (NumberFormatException e) {
-				return false;
-			}
-
-		}
-		return false;
-	}
-
-	public String getRBVersion() {
-		try {
-			String version = "-1";
-			URL url = new URL("http://ci.spout.org/job/Spout/Recommended/buildNumber");
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-			String str;
-			while ((str = in.readLine()) != null) {
-				 version = str;
-				 return version;
-			}
-			in.close();
-		} catch (Exception e) {}
-		return null;
-	 }
-
-	protected void update() {
-		//test install once
-		File runOnce = new File(getDataFolder(), "spout_runonce");
-		if (!runOnce.exists()) {
-			try {
-				runOnce.createNewFile();
-				pingLink("http://bit.ly/spoutserverinstalls");
-			}
-			catch (Exception e) {}
-		}
-		if (!isUpdateAvailable()) {
-			return;
-		}
-		pingLink("http://bit.ly/spoutserverupdated");
-		FileOutputStream fos = null;
-		try {
-			File directory = new File(Bukkit.getServer().getUpdateFolder());
-			if (!directory.exists()) {
-				try {
-					directory.mkdir();
-				} catch (SecurityException e1) {}
-			}
-			File tempDirectory = new File(directory, "temp");
-			if (!tempDirectory.exists()) {
-				try {
-					tempDirectory.mkdir();
-				} catch (SecurityException e1) {}
-			}
-			File plugin = new File(directory.getPath(), "Spout.jar");
-			File temp = new File(tempDirectory.getPath(), "Spout.jar");
-			if (!plugin.exists()) {
-				URL spout = new URL("http://ci.spout.org/job/Spout/promotion/latest/Recommended/artifact/target/spout-dev-SNAPSHOT.jar");
-				HttpURLConnection con = (HttpURLConnection)(spout.openConnection());
-				System.setProperty("http.agent", ""); //Spoofing the user agent is required to track stats
-				con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30");
-				ReadableByteChannel rbc = Channels.newChannel(con.getInputStream());
-				fos = new FileOutputStream(temp);
-				fos.getChannel().transferFrom(rbc, 0, 1 << 24);
-			}
-			if (temp.exists()) {
-				FileUtils.moveFile(temp, plugin);
-			}
-		} catch (Exception e) {}
-		finally {
-			if (fos != null) {
-				try {
-					fos.close();
-				} catch (IOException e) {}
-			}
-		}
-	}
-
-	private void pingLink(String Url) {
-		try {
-			URL url = new URL(Url);
-			HttpURLConnection con = (HttpURLConnection)(url.openConnection());
-			System.setProperty("http.agent", ""); //Spoofing the user agent is required to track stats
-			con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30");
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			while (in.readLine() != null);
-			in.close();
-		} catch (Exception e) {}
-	}
-
 }
 
 class ShutdownThread extends Thread {

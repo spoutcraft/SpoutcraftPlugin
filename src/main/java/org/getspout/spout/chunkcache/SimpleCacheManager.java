@@ -25,27 +25,20 @@
  */
 package org.getspout.spout.chunkcache;
 
-import net.minecraft.server.Packet;
-import net.minecraft.server.Packet51MapChunk;
-import net.minecraft.server.World;
-
-import org.getspout.spout.SpoutNetServerHandler;
-import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkcache.CacheManager;
 
 public class SimpleCacheManager implements CacheManager {
 	@Override
 	public void handle(int id, boolean add, long[] hashes) {
-		ChunkCache.addToHashUpdateQueue(id, add, hashes);
+		//ChunkCache.addToHashUpdateQueue(id, add, hashes);
 	}
 
 	@Override
 	public void refreshChunkRequest(int id, int cx, int cz) {
-		SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutManager.getPlayerFromId(id);
-		World world = player.getHandle().world;
-		Packet packet51 = new Packet51MapChunk(world.getChunkAt(cx << 4, cz << 4), true, 0);
-		player.getNetServerHandler().sendPacket(packet51);
-		SpoutNetServerHandler.sendChunkTiles(cx, cz, player.getHandle());
+		//SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutManager.getPlayerFromId(id);
+		//World world = player.getHandle().world;
+		//Packet packet51 = new Packet51MapChunk(world.getChunkAt(cx << 4, cz << 4), true, 0);
+		//player.getNetServerHandler().sendPacket(packet51);
+		//SpoutNetServerHandler.sendChunkTiles(cx, cz, player.getHandle());
 	}
 }

@@ -26,7 +26,6 @@ import net.minecraft.server.Packet;
 
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 
-import org.getspout.spout.MapChunkThread;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.packet.CustomPacket;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -84,7 +83,7 @@ public class ChunkCache {
 				if (update.hashes.length != 0) {
 					Packet p = new CustomPacket(new PacketCacheHashUpdate(update.add, update.hashes));
 					p.lowPriority = true;
-					MapChunkThread.sendPacketSkipQueue(player, p);
+					//MapChunkThread.sendPacketSkipQueue(player, p);
 				}
 			}
 		}

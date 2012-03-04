@@ -24,9 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import net.minecraft.server.ChunkCoordIntPair;
 import net.minecraft.server.ContainerPlayer;
-import net.minecraft.server.ContainerWorkbench;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IInventory;
@@ -68,14 +66,11 @@ import org.getspout.spout.Spout;
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spout.SpoutPermissibleBase;
 import org.getspout.spout.block.SpoutCraftChunk;
-import org.getspout.spout.inventory.SpoutCraftInventory;
 import org.getspout.spout.inventory.SpoutCraftInventoryPlayer;
 import org.getspout.spout.inventory.SpoutCraftingInventory;
 import org.getspout.spout.packet.CustomPacket;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
-import org.getspout.spoutapi.event.inventory.InventoryOpenEvent;
 import org.getspout.spoutapi.event.permission.PlayerPermissionEvent;
 import org.getspout.spoutapi.gui.GenericOverlayScreen;
 import org.getspout.spoutapi.gui.InGameScreen;
@@ -327,16 +322,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	/* Inteface New Public Methods */
 	@Override
 	public boolean closeActiveWindow() {
-		InventoryCloseEvent event = new InventoryCloseEvent(this, getActiveInventory(), getDefaultInventory());
-		Bukkit.getServer().getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
-			return false;
-		}
-
-		getHandle().closeInventory();
-
-		getNetServerHandler().setActiveInventory(false);
-		getNetServerHandler().setActiveInventoryLocation(null);
+		this.closeInventory();
 		return true;
 	}
 
@@ -352,14 +338,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public boolean openInventoryWindow(Inventory inventory, Location location, boolean ignoreDistance) {
-		InventoryOpenEvent event = new InventoryOpenEvent(this, inventory, this.inventory, location);
-		Bukkit.getServer().getPluginManager().callEvent(event);
-		if (event.isCancelled()) {
-			return false;
-		}
-		getNetServerHandler().setActiveInventory(true);
-		getNetServerHandler().setActiveInventoryLocation(location);
-		IInventory dialog = ((CraftInventory) event.getInventory()).getInventory();
+		IInventory dialog = ((CraftInventory) inventory).getInventory();
 		if (dialog instanceof TileEntityDispenser) {
 			getHandle().openContainer((TileEntityDispenser) dialog);
 		} else if (dialog instanceof TileEntityFurnace) {
@@ -368,46 +347,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			getHandle().openContainer(dialog);
 		}
 		return true;
-		/*int id;
-		if (dialog instanceof TileEntityDispenser) {
-			id = 3;
-		}
-		else if (dialog instanceof TileEntityFurnace) {
-			id = 2;
-		}
-		else {
-			id = 0;
-		}
-		String title = dialog.getName();
-		if (inventory instanceof SpoutInventory) {
-			title = ((SpoutInventory)inventory).getTitle();
-		}
-
-		updateWindowId();
-		getNetServerHandler().sendPacket(new Packet100OpenWindow(getActiveWindowId(), id, title, dialog.getSize()));
-		getHandle().activeContainer = new ContainerChest(getHandle().inventory, dialog);
-		getHandle().activeContainer.f = getActiveWindowId();
-		getHandle().activeContainer.a((ICrafting) this);
-		return true;*/
 	}
 
 	@Override
 	public boolean openWorkbenchWindow(Location location) {
-		if (location.getBlock().getType() != Material.WORKBENCH) {
-			throw new UnsupportedOperationException("Must be a valid workbench!");
-		} else {
-			ContainerWorkbench temp = new ContainerWorkbench(getHandle().inventory, ((CraftWorld) location.getWorld()).getHandle(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
-			IInventory inventory = temp.resultInventory;
-			InventoryOpenEvent event = new InventoryOpenEvent(this, new SpoutCraftInventory(inventory), this.inventory, location);
-			Bukkit.getServer().getPluginManager().callEvent(event);
-			if (event.isCancelled()) {
-				return false;
-			}
-			getNetServerHandler().setActiveInventory(true);
-			getNetServerHandler().setActiveInventoryLocation(location);
-			getHandle().startEnchanting(location.getBlockX(), location.getBlockY(), location.getBlockZ());
-			return true;
-		}
+		this.openEnchanting(location, true);
+		return true;
 	}
 
 	@Override
@@ -647,12 +592,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public Location getActiveInventoryLocation() {
-		return getNetServerHandler().getActiveInventoryLocation();
+		return null;
 	}
 
 	@Override
 	public void setActiveInventoryLocation(Location loc) {
-		getNetServerHandler().setActiveInventoryLocation(loc);
 	}
 
 	@Override
@@ -820,11 +764,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public boolean sendInventoryEvent() {
-		SpoutNetServerHandler snsh = (SpoutNetServerHandler) this.getHandle().netServerHandler;
-		snsh.activeInventory = true;
-		InventoryOpenEvent event = new InventoryOpenEvent(this, snsh.getActiveInventory(), snsh.getDefaultInventory(), snsh.getActiveInventoryLocation());
-		Bukkit.getServer().getPluginManager().callEvent(event);
-		return event.isCancelled();
+		return true;
 	}
 
 	@Override
@@ -1181,14 +1121,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 	}
 
-	public Inventory getActiveInventory() {
-		return getNetServerHandler().getActiveInventory();
-	}
-
-	public Inventory getDefaultInventory() {
-		return getNetServerHandler().getDefaultInventory();
-	}
-
 	public SpoutNetServerHandler getNetServerHandler() {
 		if (!(getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
 			updateNetServerHandler(this);
@@ -1291,11 +1223,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		if (cp.getHandle().netServerHandler instanceof SpoutNetServerHandler) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
-			Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
-			for (ChunkCoordIntPair c : chunkUpdateQueue) {
-				cp.getHandle().chunkCoordIntPairQueue.add(c);
-			}
-			((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();
+			//Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
+			//for (ChunkCoordIntPair c : chunkUpdateQueue) {
+			//	cp.getHandle().chunkCoordIntPairQueue.add(c);
+			//}
+			//((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();
 			cp.getHandle().netServerHandler.a();
 			Location loc = player.getLocation();
 			NetServerHandler handler = new NetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
@@ -1315,13 +1247,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		CraftServer server = (CraftServer) Bukkit.getServer();
 		if (!(cp.getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
-			Location loc = player.getLocation();
+			//Location loc = player.getLocation();
 			SpoutNetServerHandler handler = new SpoutNetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
-			for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
-				ChunkCoordIntPair c = (ChunkCoordIntPair) o;
-				handler.addActiveChunk(c);
-			}
-			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+			//for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
+			//	ChunkCoordIntPair c = (ChunkCoordIntPair) o;
+			//	handler.addActiveChunk(c);
+			//}
+			//handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 			cp.getHandle().netServerHandler = handler;
 			NetworkManager nm = cp.getHandle().netServerHandler.networkManager;
 			setNetServerHandler(nm, cp.getHandle().netServerHandler);

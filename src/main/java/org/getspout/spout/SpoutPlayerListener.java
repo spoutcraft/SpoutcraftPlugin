@@ -33,11 +33,9 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spout.chunkcache.ChunkCache;
@@ -46,7 +44,6 @@ import org.getspout.spout.player.SimplePlayerManager;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -139,9 +136,6 @@ public class SpoutPlayerListener implements Listener {
 				case ENCHANTMENT_TABLE:
 				case FURNACE:
 				case WORKBENCH:
-				player.getNetServerHandler().activeLocation = event.getClickedBlock().getLocation();
-				action = true;
-				break;
 				case BED_BLOCK:
 				case CAKE_BLOCK:
 				case CAULDRON:
@@ -233,43 +227,11 @@ public class SpoutPlayerListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onPlayerMove(PlayerMoveEvent event) {
-		if (!(event.getPlayer() instanceof SpoutPlayer)) {
-			updatePlayerEvent(event);
-		} else {
-			event.setCancelled(event.isCancelled()||!((SpoutPlayer)event.getPlayer()).isPreCachingComplete());
-		}
-		if (event.isCancelled()) {
-			return;
-		}
-
-		SpoutCraftPlayer player = (SpoutCraftPlayer)event.getPlayer();
-		SpoutNetServerHandler netServerHandler = player.getNetServerHandler();
-
-		Location loc = event.getTo();
-
-		int cx = ((int)loc.getX()) >> 4;
-		int cz = ((int)loc.getZ()) >> 4;
-
-		netServerHandler.setPlayerChunk(cx, cz);
-	}
-
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		int id = player.getEntityId();
 		ChunkCache.playerQuit(id);
-		MapChunkThread.removeId(id);
-		if (player instanceof SpoutCraftPlayer) {
-			SpoutCraftPlayer scp = (SpoutCraftPlayer)player;
-			SpoutNetServerHandler netServerHandler = scp.getNetServerHandler();
-			if (netServerHandler.activeInventory) {
-				Inventory inventory = netServerHandler.getActiveInventory();
-				InventoryCloseEvent closeEvent = new InventoryCloseEvent(scp, inventory, netServerHandler.getDefaultInventory(), netServerHandler.activeLocation);
-				Bukkit.getServer().getPluginManager().callEvent(closeEvent);
-			}
-		}
 		Spout.getInstance().getPlayerTrackingManager().onPlayerQuit(player);
 		synchronized(Spout.getInstance().playersOnline) {
 			Spout.getInstance().playersOnline.remove((SpoutPlayer) player);
