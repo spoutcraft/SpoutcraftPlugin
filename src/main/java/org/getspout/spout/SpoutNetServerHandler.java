@@ -26,18 +26,13 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.NetServerHandler;
 import net.minecraft.server.NetworkManager;
 import net.minecraft.server.Packet;
-import net.minecraft.server.Packet10Flying;
 import net.minecraft.server.Packet14BlockDig;
 import net.minecraft.server.Packet18ArmAnimation;
 import net.minecraft.server.Packet3Chat;
-import net.minecraft.server.Packet51MapChunk;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.CraftServer;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.Label;
 import org.getspout.spoutapi.gui.RenderPriority;
@@ -219,15 +214,6 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		} catch (NullPointerException npe) {
 			throw new RuntimeException("Null pointer exception thrown when trying to process packet of type " + packet.getClass().getName(), npe);
 		}
-	}
-
-	@Override
-	public void a(Packet10Flying packet) {
-		SpoutPlayer player = SpoutManager.getPlayer(this.getPlayer());
-		boolean old = ((CraftServer) Bukkit.getServer()).getHandle().server.allowFlight;
-		((CraftServer) Bukkit.getServer()).getHandle().server.allowFlight = player.canFly();
-		super.a(packet);
-		((CraftServer) Bukkit.getServer()).getHandle().server.allowFlight = old;
 	}
 }
 
