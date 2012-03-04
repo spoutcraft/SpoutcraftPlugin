@@ -18,7 +18,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<craftbukkit.version>1.2.2-R0-SNAPSHOT</craftbukkit.version>
+		<craftbukkit.version>1.2.3-R0.2-SNAPSHOT</craftbukkit.version>
 		<build.number>Unknown</build.number>
 	</properties>
 
@@ -69,7 +69,7 @@
 	</dependencies>
    
 	<build>
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean package install</defaultGoal>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 		<!-- Resources -->
 		<resources>
@@ -86,7 +86,8 @@
 				<filtering>true</filtering>
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
-					<include>*.yml</include>
+					<include>plugin.yml</include>
+					<include>config.yml</include>
 				</includes>
 			</resource>
 		</resources>
@@ -116,7 +117,7 @@
 						<configuration>
 							<artifactSet>
 								<includes>
-									<include>org.getspout:*</include>
+									<include>org.getspout:spoutpluginapi</include>
 								</includes>
 							</artifactSet>
 						</configuration>
