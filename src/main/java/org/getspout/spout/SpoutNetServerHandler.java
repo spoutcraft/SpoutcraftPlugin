@@ -143,7 +143,6 @@ public class SpoutNetServerHandler extends NetServerHandler {
 			//if (packet.lowPriority) {
 			//	MapChunkThread.sendPacket(this.player, packet);
 			//} else {
-				System.out.println("Sending: " + packet);
 				queueOutputPacket(packet);
 			//}
 		}
@@ -154,10 +153,6 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	public void queueOutputPacket(Packet packet) {
 		if (packet == null) {
 			return;
-		}
-		if (packet instanceof Packet51MapChunk) {
-			Packet51MapChunk chunk = (Packet51MapChunk)packet;
-			System.out.println("Sending map chunk for " + chunk.a + ", " + chunk.b);
 		}
 		resyncQueue.addLast(packet);
 		if (processingKick.get()) {
