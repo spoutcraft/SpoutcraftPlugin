@@ -18,11 +18,14 @@ package org.getspout.spout;
 
 import java.lang.reflect.Field;
 
+import net.minecraft.server.Packet51MapChunk;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
+import org.bukkit.craftbukkit.CraftChunk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -63,9 +66,13 @@ public class SpoutPlayerListener implements Listener {
 			SpoutCraftPlayer.updateBukkitEntity(event.getPlayer());
 			updatePlayerEvent(event);
 			Spout.getInstance().authenticate(event.getPlayer());
+			SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer());
+			
+			//Hacky work-around to login chunk whole at player's location
+			//TODO: find actual cause
+			player.getNetServerHandler().sendPacket(new Packet51MapChunk(((CraftChunk)player.getLocation().getChunk()).getHandle(), true, 0));
 
 			//This forces EXISTING players to see the new player's skin, cape, and title
-			SpoutPlayer player = SpoutCraftPlayer.getPlayer(event.getPlayer());
 			player.setSkin(player.getSkin());
 			player.setCape(player.getCape());
 			player.setTitle(player.getTitle());
