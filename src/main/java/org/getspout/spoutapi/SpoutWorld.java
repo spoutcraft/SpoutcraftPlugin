@@ -106,6 +106,11 @@ public class SpoutWorld implements World {
 	public Biome getBiome(int x, int z) {
 		return world.getBiome(x, z);
 	}
+	
+	@Override
+	public void setBiome(int x, int z, Biome biome) {
+		world.setBiome(x, z, biome);
+	}
 
 	@Override
 	public SpoutBlock getBlockAt(Location location) {
