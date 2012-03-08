@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import net.minecraft.server.ChunkCoordIntPair;
 import net.minecraft.server.ContainerPlayer;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
@@ -1247,13 +1248,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		CraftServer server = (CraftServer) Bukkit.getServer();
 		if (!(cp.getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
-			//Location loc = player.getLocation();
+			Location loc = player.getLocation();
 			SpoutNetServerHandler handler = new SpoutNetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
 			//for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
 			//	ChunkCoordIntPair c = (ChunkCoordIntPair) o;
 			//	handler.addActiveChunk(c);
 			//}
-			//handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 			cp.getHandle().netServerHandler = handler;
 			NetworkManager nm = cp.getHandle().netServerHandler.networkManager;
 			setNetServerHandler(nm, cp.getHandle().netServerHandler);
