@@ -200,6 +200,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 				org.getspout.spout.block.mcblock.CustomBlock.updateGlass();
 				glassUpdated = true;
 			}
+			org.getspout.spout.block.mcblock.CustomBlock.replaceBlock(((CustomBlock)mat).getBlockId());
 		}
 	}
 
