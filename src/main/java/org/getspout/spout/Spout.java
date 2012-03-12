@@ -160,7 +160,7 @@ public class Spout extends JavaPlugin {
 			YamlConfiguration temp = YamlConfiguration.loadConfiguration(is);
 			String cbBuild = temp.getString("cbversion");
 			if (!getServer().getBukkitVersion().equals(cbBuild)) {
-				getServer().getLogger().log(Level.SEVERE, "Spout has detected that you are attemping to run an incompatible build of SpoutPlugin with Craftbukkit. Spout will shut itself off to prevent possible damage to your server. If you believe this is mistaken or you know what you are doing, then you can turn this feature off within Spout's config.");
+				getServer().getLogger().log(Level.SEVERE, "Spout has detected that you are attemping to run an incompatible build of SpoutPlugin with CraftBukkit. Spout will shut itself off to prevent possible damage to your server. If you believe this is mistaken or you know what you are doing, then you can turn this feature off within Spout's config.");
 				getServer().getPluginManager().disablePlugin(this);
 				return;
 			}
