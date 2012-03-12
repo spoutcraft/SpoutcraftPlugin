@@ -44,7 +44,7 @@ public class ConfigReader {
 			Spout.getInstance().saveDefaultConfig();
 		}
 		FileConfiguration configuration = Spout.getInstance().getConfig();
-		buildCheck = configuration.getBoolean("ForceCraftbukkitBuildCheck", true);
+		buildCheck = configuration.getBoolean("ForceCraftBukkitBuildCheck", true);
 		forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
 		kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
 		authTicks = configuration.getInt("AuthenticateTicks", 200);
