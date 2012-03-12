@@ -17,12 +17,15 @@
 package org.getspout.spout;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import net.minecraft.server.Packet18ArmAnimation;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.FileUtil;
@@ -128,27 +131,17 @@ public class Spout extends JavaPlugin {
 		dm.unloadAllChunks();
 		dm.closeAllFiles();
 
-		CRCConfig.save();
+		try {
+			CRCConfig.save();
+		} catch (Exception e) {
+			getServer().getLogger().info("Exception caught from saving CRCConfig. This may be ignored if you had a warning the line before regarding improper build of SpoutPlugin with Craftbukkit. If otherwise, please report it to spout.in/issues");
+		}
 
 		if (itemMapConfig != null) {
 			synchronized(itemMapConfig) {
 				itemMapConfig.save();
 			}
 		}
-
-		//Attempt to auto update if file is available
-		try {
-			File directory = new File(Bukkit.getServer().getUpdateFolder());
-			if (directory.exists()) {
-				File plugin = new File(directory.getPath(), "Spout.jar");
-				if (plugin.exists()) {
-					FileUtil.copy(plugin, this.getFile());
-					try {
-						plugin.delete();
-					} catch (SecurityException e1) {}
-				}
-			}
-		} catch (Exception e) {}
 
 		SimpleFileManager.clearTempDirectory();
 
@@ -162,7 +155,16 @@ public class Spout extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		(new ConfigReader()).read();
-
+		if (ConfigReader.isBuildCheck()) {
+			InputStream is = getResource("plugin.yml");
+			YamlConfiguration temp = YamlConfiguration.loadConfiguration(is);
+			String cbBuild = temp.getString("cbversion");
+			if (!getServer().getBukkitVersion().equals(cbBuild)) {
+				getServer().getLogger().log(Level.SEVERE, "Spout has detected that you are attemping to run an incompatible build of SpoutPlugin with Craftbukkit. Spout will shut itself off to prevent possible damage to your server. If you believe this is mistaken or you know what you are doing, then you can turn this feature off within Spout's config.");
+				this.onDisable();
+				return;
+			}
+		}
 		playerListener = new SpoutPlayerListener(this);
 		chunkListener = new SpoutWorldListener(this);
 		chunkMonitorListener = new SpoutWorldMonitorListener(this);

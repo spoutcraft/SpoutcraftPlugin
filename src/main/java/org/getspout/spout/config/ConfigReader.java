@@ -21,8 +21,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.getspout.spout.Spout;
 
 public class ConfigReader {
+	private static boolean buildCheck = true;
 	private static boolean forceClient = false;
-	private static boolean autoUpdate = false;
 	private static int authTicks = 200;
 	private static String kickMessage = "This server requires Spoutcraft! http://bit.ly/unleashtheflow";
 
@@ -44,10 +44,10 @@ public class ConfigReader {
 			Spout.getInstance().saveDefaultConfig();
 		}
 		FileConfiguration configuration = Spout.getInstance().getConfig();
+		buildCheck = configuration.getBoolean("ForceCraftbukkitBuildCheck", true);
 		forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
 		kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
 		authTicks = configuration.getInt("AuthenticateTicks", 200);
-		autoUpdate = configuration.getBoolean("AutoUpdate", true);
 		allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
 		allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
 		allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
@@ -62,12 +62,12 @@ public class ConfigReader {
 		runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
 	}
 
-	public static boolean isForceClient() {
-		return forceClient;
+	public static boolean isBuildCheck() {
+		return buildCheck;
 	}
 
-	public static boolean isAutoUpdate() {
-		return autoUpdate;
+	public static boolean isForceClient() {
+		return forceClient;
 	}
 
 	public static String getKickMessage() {

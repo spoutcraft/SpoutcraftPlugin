@@ -7,6 +7,8 @@ website: http://www.spout.org
 main: org.getspout.spout.Spout
 load: startup
 
+cbversion: ${craftbukkit.version}
+
 commands:
     spout:
         aliases: [spoutcommand, spoutcmd, spcmd]

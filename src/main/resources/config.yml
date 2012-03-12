@@ -1,16 +1,16 @@
+ForceCraftbukkitBuildCheck: true
+ForceSinglePlayerClient: false
 ForceSinglePlayerClientKickMessage: This server requires Spoutcraft! http://www.spout.org
 AuthenticateSpoutcraft: true
-AllowVoidFogCheat: false
-TeleportSmoothing: true
-AllowCoordsCheat: false
 AuthenticateTicks: 200
+ChunkDataCache: true
+DeadlockMonitor: false
+TeleportSmoothing: true
+AllowEntityLabelCheat: false
 AllowClearWaterCheat: false
+AllowCoordsCheat: false
+AllowSkyCheat: false
 AllowStarsCheat: false
 AllowTimeCheat: false
-ForceSinglePlayerClient: false
-AllowEntityLabelCheat: false
-DeadlockMonitor: false
-ChunkDataCache: true
-AllowSkyCheat: false
-AutoUpdate: true
+AllowVoidFogCheat: false
 AllowWeatherCheat: false
