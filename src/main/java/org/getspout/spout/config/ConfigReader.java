@@ -43,7 +43,6 @@ public class ConfigReader {
 		Spout.getInstance().reloadConfig();
 		FileConfiguration configuration = Spout.getInstance().getConfig();
 		configuration.options().copyDefaults(true);
-		Spout.getInstance().saveDefaultConfig();
 
 		buildCheck = configuration.getBoolean("ForceCraftBukkitBuildCheck", true);
 		forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
@@ -61,6 +60,8 @@ public class ConfigReader {
 		teleportSmoothing = configuration.getBoolean("TeleportSmoothing", true);
 		authenticateSpoutcraft = configuration.getBoolean("AuthenticateSpoutcraft", true);
 		runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
+		
+		Spout.getInstance().saveConfig();
 	}
 
 	public static boolean isBuildCheck() {
