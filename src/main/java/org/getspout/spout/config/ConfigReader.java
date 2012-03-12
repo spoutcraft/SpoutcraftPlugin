@@ -16,7 +16,6 @@
  */
 package org.getspout.spout.config;
 
-import java.io.File;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.getspout.spout.Spout;
 
@@ -38,7 +37,7 @@ public class ConfigReader {
 	private static boolean teleportSmoothing = true;
 	private static boolean authenticateSpoutcraft = true;
 	private static boolean runDeadlockMonitor = false;
-	
+
 	public void read() {
 		Spout.getInstance().reloadConfig();
 		FileConfiguration configuration = Spout.getInstance().getConfig();

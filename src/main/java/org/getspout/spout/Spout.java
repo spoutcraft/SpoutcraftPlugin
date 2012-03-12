@@ -77,6 +77,7 @@ public class Spout extends JavaPlugin {
 	protected List<SpoutPlayer> playersOnline = new ArrayList<SpoutPlayer>();
 	protected Thread shutdownThread = null;
 	protected InventoryListener invListener;
+	private boolean hardDisable = false;
 
 	public Spout() {
 		super();
@@ -102,6 +103,10 @@ public class Spout extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		if (hardDisable) {
+			Runtime.getRuntime().removeShutdownHook(shutdownThread);
+			return;
+		}
 		//order matters
 		CustomBlock.resetBlocks();
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).reset();
@@ -131,11 +136,7 @@ public class Spout extends JavaPlugin {
 		dm.unloadAllChunks();
 		dm.closeAllFiles();
 
-		try {
-			CRCConfig.save();
-		} catch (Exception e) {
-			getServer().getLogger().info("Exception caught from saving CRCConfig. This may be ignored if you had a warning the line before regarding improper build of SpoutPlugin with Craftbukkit. If otherwise, please report it to spout.in/issues");
-		}
+		CRCConfig.save();
 
 		if (itemMapConfig != null) {
 			synchronized(itemMapConfig) {
@@ -161,6 +162,7 @@ public class Spout extends JavaPlugin {
 			String cbBuild = temp.getString("cbversion");
 			if (!getServer().getBukkitVersion().equals(cbBuild)) {
 				getServer().getLogger().log(Level.SEVERE, "Spout has detected that you are attemping to run an incompatible build of SpoutPlugin with CraftBukkit. Spout will shut itself off to prevent possible damage to your server. If you believe this is mistaken or you know what you are doing, then you can turn this feature off within Spout's config.");
+				hardDisable = true;
 				getServer().getPluginManager().disablePlugin(this);
 				return;
 			}
