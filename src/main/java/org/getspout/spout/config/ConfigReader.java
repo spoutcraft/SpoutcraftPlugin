@@ -40,10 +40,11 @@ public class ConfigReader {
 	private static boolean runDeadlockMonitor = false;
 	
 	public void read() {
-		if (!new File(Spout.getInstance().getDataFolder(), "config.yml").exists()) {
-			Spout.getInstance().saveDefaultConfig();
-		}
+		Spout.getInstance().reloadConfig();
 		FileConfiguration configuration = Spout.getInstance().getConfig();
+		configuration.options().copyDefaults(true);
+		Spout.getInstance().saveDefaultConfig();
+
 		buildCheck = configuration.getBoolean("ForceCraftBukkitBuildCheck", true);
 		forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
 		kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
