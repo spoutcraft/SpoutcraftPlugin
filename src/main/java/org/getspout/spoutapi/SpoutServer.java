@@ -313,6 +313,16 @@ public class SpoutServer implements Server {
 	}
 
 	@Override
+	public String getWorldType() {
+		return server.getWorldType();
+	}
+
+	@Override
+	public boolean getGenerateStructures() {
+		return server.getGenerateStructures();
+	}
+
+	@Override
 	public String getServerName() {
 		return server.getServerName();
 	}
