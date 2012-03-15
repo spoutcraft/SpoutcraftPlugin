@@ -91,18 +91,6 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	}
 
 	@Override
-	public BlockState getState() {
-		Material material = getType();
-
-		switch (material) {
-			case CHEST:
-				return new SpoutCraftChest(this);
-			default:
-				return super.getState();
-		}
-	}
-
-	@Override
 	public SpoutBlock getFace(BlockFace face) {
 		return getFace(face, 1);
 	}
