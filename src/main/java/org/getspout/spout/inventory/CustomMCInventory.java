@@ -19,23 +19,23 @@ package org.getspout.spout.inventory;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
+import net.minecraft.server.EntityHuman;
+import net.minecraft.server.IInventory;
+import net.minecraft.server.ItemStack;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.InventoryHolder;
 
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.IInventory;
-import net.minecraft.server.ItemStack;
-
 public class CustomMCInventory implements IInventory {
+
 	protected ItemStack[] items;
 	protected String name;
+	protected int stackSize;
 
 	public CustomMCInventory(org.bukkit.inventory.ItemStack items[], String name) {
 		this.items = new ItemStack[items.length];
 		for (int i = 0; i < items.length; i++) {
-			if (items[i] == null|| items[i].getTypeId() == 0) {
+			if (items[i] == null || items[i].getTypeId() == 0) {
 				this.items[i] = null;
 			} else {
 				SpoutCraftItemStack item = SpoutCraftItemStack.getCraftItemStack(items[i]);
@@ -49,7 +49,7 @@ public class CustomMCInventory implements IInventory {
 		this.items = new ItemStack[items.size()];
 		int pos = 0;
 		for (org.bukkit.inventory.ItemStack item : items) {
-			if (item == null|| item.getTypeId() == 0) {
+			if (item == null || item.getTypeId() == 0) {
 				this.items[pos] = null;
 			} else {
 				SpoutCraftItemStack temp = SpoutCraftItemStack.getCraftItemStack(item);
@@ -77,22 +77,20 @@ public class CustomMCInventory implements IInventory {
 	public ItemStack[] getContents() {
 		return this.items;
 	}
-	
+
 	@Override
 	public void onOpen(CraftHumanEntity who) {
-		
 	}
-	
+
 	@Override
 	public void onClose(CraftHumanEntity who) {
-		
 	}
-	
+
 	@Override
 	public List<HumanEntity> getViewers() {
 		return new LinkedList<HumanEntity>();
 	}
-	
+
 	@Override
 	public InventoryHolder getOwner() {
 		return null;
@@ -103,20 +101,21 @@ public class CustomMCInventory implements IInventory {
 		return this.items[i];
 	}
 
-    public ItemStack splitWithoutUpdate(int i) {
-        if (this.items[i] != null) {
-            ItemStack itemstack = this.items[i];
+	@Override
+	public ItemStack splitWithoutUpdate(int i) {
+		if (this.items[i] != null) {
+			ItemStack itemstack = this.items[i];
 
-            this.items[i] = null;
-            return itemstack;
-        } else {
-            return null;
-        }
-    }
-	
+			this.items[i] = null;
+			return itemstack;
+		} else {
+			return null;
+		}
+	}
+
 	@Override
 	public int getMaxStackSize() {
-		return 64;
+		return stackSize;
 	}
 
 	@Override
@@ -161,16 +160,18 @@ public class CustomMCInventory implements IInventory {
 
 	@Override
 	public void update() {
-
 	}
 
 	@Override
 	public void f() {
-
 	}
 
 	@Override
 	public void g() {
-
+	}
+	
+	@Override
+	public void setMaxStackSize(int newSize) {
+		stackSize = newSize;
 	}
 }
