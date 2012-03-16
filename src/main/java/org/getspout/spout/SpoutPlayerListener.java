@@ -121,6 +121,10 @@ public class SpoutPlayerListener implements Listener {
 			return;
 		}
 		if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+			if(event.getAction() == Action.LEFT_CLICK_BLOCK) {
+				SpoutBlock block = (SpoutBlock)event.getClickedBlock();
+				if(block.isCustomBlock()) block.getCustomBlock().onBlockClicked(block.getWorld(), block.getX(), block.getY(), block.getZ(), (SpoutPlayer) event.getPlayer());
+			}
 			return;
 		}
 
@@ -153,7 +157,9 @@ public class SpoutPlayerListener implements Listener {
 			}
 
 			if (event.hasItem() && !action) {
-				SpoutBlock block = (SpoutBlock)event.getClickedBlock().getRelative(event.getBlockFace());
+				SpoutBlock block = (SpoutBlock)event.getClickedBlock();
+				if(block.isCustomBlock()) if(block.getCustomBlock().onBlockInteract(block.getWorld(), block.getX(), block.getY(), block.getZ(), (SpoutPlayer) event.getPlayer())) return;
+				else block = block.getRelative(event.getBlockFace());
 
 				if (event.getClickedBlock().getType() == Material.SNOW) {
 					block = block.getRelative(0, -1, 0);
