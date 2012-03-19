@@ -55,6 +55,7 @@ public class CustomStem extends BlockStem implements CustomMCBlock {
 		updateField(parent, this, "durability");
 		updateField(parent, this, "bR");
 		updateField(parent, this, "bS");
+		updateField(parent, this, "bT");
 		this.minX = parent.minX;
 		this.minY = parent.minY;
 		this.minZ = parent.minZ;
