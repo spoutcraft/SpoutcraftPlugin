@@ -35,7 +35,7 @@ import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
 import org.getspout.spoutapi.inventory.MaterialManager;
 
 public class ChunkMetaData implements Serializable {
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 
 	// This data is saved. This means data can handle different map heights
 	// Changes may be needed to the positionToKey method
@@ -53,7 +53,7 @@ public class ChunkMetaData implements Serializable {
 	//storage for local block data
 	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
 
-	private static final int CURRENT_VERSION = 2;
+	private static final int CURRENT_VERSION = 3;
 	private static final int MAGIC_NUMBER = 0xEA5EDEBB;
 
 	transient private boolean dirty = false;
@@ -325,11 +325,25 @@ public class ChunkMetaData implements Serializable {
 		worldHeightMinusOne = worldHeight - 1;
 
 		if (customBlockIdsExist) {
+			if (fileVersionNumber >= 2) {
+				conversionNeeded = true;
+			}
+			
 			customBlockIds = new short[16 * 16 * worldHeight];
-			for (int i = 0; i < (16* 16 * worldHeight); i++) {
-				customBlockIds[i] = in.readShort();
-				if (fileVersionNumber >= 2) {
-					conversionNeeded = true;
+			int size = (16* 16 * worldHeight);
+			if (fileVersionNumber < 3) {
+				size = 16 *16 * 128;
+			}
+			for (int i = 0; i < size; i++) {
+				if (fileVersionNumber > 2) {
+					customBlockIds[i] = in.readShort();
+				}
+				else {
+					int oldX = (i >> 11) & 0xF;
+					int oldY = i & 0x7F;
+					int oldZ = (i >> 7) & 0xF;
+					int newKey = ((oldX & 0xF) << 12) | ((oldZ & 0xF) << 8) | (oldY & 0xFF);
+					customBlockIds[newKey] = in.readShort();
 				}
 			}
 		}
