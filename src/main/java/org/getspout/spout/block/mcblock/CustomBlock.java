@@ -452,42 +452,44 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		parent.a(world, i, j, k, l, i1);
 	}
 
-	public static void replaceBlock(int id) {
-		if (Block.byId[id] != null && !(Block.byId[id] instanceof CustomMCBlock)) {
-			Block parent = Block.byId[id];
-			Block.byId[id] = null;
+	public static void replaceBlocks() {
+		for (int i = 0; i < Block.byId.length; i++) {
+			if (Block.byId[i] != null) {
+				Block parent = Block.byId[i];
+				Block.byId[i] = null;
 
-			boolean oldn = n[id];
-			int oldq = lightBlock[id];
-			boolean oldp = p[id];
-			int olds = lightEmission[id];
-			boolean oldr = r[id];
+				boolean oldn = n[i];
+				int oldq = lightBlock[i];
+				boolean oldp = p[i];
+				int olds = lightEmission[i];
+				boolean oldr = r[i];
 
-			/* Order matters, BlockChest extends BlockContainer*/
-			if (parent instanceof BlockChest) {
-				Block.byId[id] = new CustomChest((BlockChest) parent);
-			} else if (parent instanceof BlockContainer) {
-				Block.byId[id] = new CustomContainer((BlockContainer) parent);
-			} else if (parent instanceof BlockMinecartTrack) {
-				Block.byId[id] = new CustomMinecartTrack((BlockMinecartTrack) parent);
-			} else if (parent instanceof BlockStem) { /* Order matters, BlockStem extends BlockFlower*/
-				Block.byId[id] = new CustomStem((BlockStem) parent);
-			} else if (parent instanceof BlockMushroom) {
-				Block.byId[id] = new CustomMushroom((BlockMushroom) parent);
-			} else if (parent instanceof BlockFlower) {
-				Block.byId[id] = new CustomFlower((BlockFlower) parent);
-			} else if (parent instanceof BlockTrapdoor) {
-				Block.byId[id] = new CustomTrapdoor((BlockTrapdoor) parent);
-			} else if (parent instanceof BlockDoor) {
-				Block.byId[id] = new CustomDoor((BlockDoor) parent);
-			} else {
-				Block.byId[id] = new CustomBlock(parent);
+				/* Order matters, BlockChest extends BlockContainer*/
+				if (parent instanceof BlockChest) {
+					Block.byId[i] = new CustomChest((BlockChest) parent);
+				} else if (parent instanceof BlockContainer) {
+					Block.byId[i] = new CustomContainer((BlockContainer) parent);
+				} else if (parent instanceof BlockMinecartTrack) {
+					Block.byId[i] = new CustomMinecartTrack((BlockMinecartTrack) parent);
+				} else if (parent instanceof BlockStem) { /* Order matters, BlockStem extends BlockFlower*/
+					Block.byId[i] = new CustomStem((BlockStem) parent);
+				} else if (parent instanceof BlockMushroom) {
+					Block.byId[i] = new CustomMushroom((BlockMushroom) parent);
+				} else if (parent instanceof BlockFlower) {
+					Block.byId[i] = new CustomFlower((BlockFlower) parent);
+				} else if (parent instanceof BlockTrapdoor) {
+					Block.byId[i] = new CustomTrapdoor((BlockTrapdoor) parent);
+				} else if (parent instanceof BlockDoor) {
+					Block.byId[i] = new CustomDoor((BlockDoor) parent);
+				} else {
+					Block.byId[i] = new CustomBlock(parent);
+				}
+				n[i] = oldn;
+				p[i] = oldp;
+				lightBlock[i] = oldq;
+				r[i] = oldr;
+				lightEmission[i] = olds;
 			}
-			n[id] = oldn;
-			p[id] = oldp;
-			lightBlock[id] = oldq;
-			r[id] = oldr;
-			lightEmission[id] = olds;
 		}
 	}
 
