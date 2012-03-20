@@ -61,7 +61,6 @@ public class SpoutBlockListener implements Listener {
 
 		if (block.isCustomBlock()) {
 			CustomBlock material = block.getCustomBlock();
-			material.onBlockDestroyed(block.getWorld(), block.getX(), block.getY(), block.getZ(), player);
 			if (material.getItemDrop() != null) {
 				if (player.getGameMode() == GameMode.SURVIVAL) {
 					block.getWorld().dropItem(block.getLocation(), material.getItemDrop());
