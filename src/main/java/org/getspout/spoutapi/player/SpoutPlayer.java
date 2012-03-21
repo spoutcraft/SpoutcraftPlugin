@@ -17,6 +17,7 @@
 package org.getspout.spoutapi.player;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -768,4 +769,18 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @param entities to update skins for
 	 */
 	public void updateEntitySkins(List<LivingEntity> entities);
+	
+	/**
+	 * Gets a list of the addons the player is running.
+	 * @return a Map of the players addons to their corresponding
+	 * versions.
+	 */
+	public Map<String,String> getAddons();
+
+	/**
+	 * Internal use only
+	 * @param addons the addons the player is using
+	 * @param versions the corresponding versions for the addon list
+	 */
+	public void setAddons(String[] addons, String[] versions);
 }
