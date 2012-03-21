@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.minecraft.server.ChunkCoordIntPair;
@@ -146,6 +147,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private boolean hasPlayed = false;
 	
 	private GameMode prevMode;
+	
+	private Map<String,String> addons;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -1301,5 +1304,16 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		//Logger.getLogger("Minecraft").warning("Player: " + player.getName() + " was not properly updated during login!");
 		updateBukkitEntity(player);
 		return (SpoutCraftPlayer) ((((CraftPlayer) player).getHandle()).getBukkitEntity());
+	}
+
+	@Override
+	public Map<String,String> getAddons() {
+		return addons;
+	}
+
+	@Override
+	public void setAddons(String[] addons, String[] versions) {
+		this.addons = new HashMap<String, String>();
+		for(int i = 0; i < addons.length; i++) this.addons.put(addons[i], versions[i]);
 	}
 }
