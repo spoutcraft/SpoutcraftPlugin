@@ -38,6 +38,7 @@ import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IBlockAccess;
+import net.minecraft.server.ItemStack;
 import net.minecraft.server.MovingObjectPosition;
 import net.minecraft.server.Vec3D;
 import net.minecraft.server.World;
@@ -62,7 +63,8 @@ public class CustomDoor extends BlockDoor implements CustomMCBlock {
 		this.stepSound = parent.stepSound;
 		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
-		updateField(parent, this, "name");		
+		updateField(parent, this, "name");
+		this.dropList = new ArrayList<ItemStack>();
 	}
 
 	@Override

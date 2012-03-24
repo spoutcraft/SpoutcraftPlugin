@@ -17,10 +17,12 @@
 package org.getspout.spout.block.mcblock;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockNote;
 import net.minecraft.server.EntityHuman;
+import net.minecraft.server.ItemStack;
 import net.minecraft.server.TileEntity;
 import net.minecraft.server.World;
 
@@ -46,6 +48,7 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
+		this.dropList = new ArrayList<ItemStack>();
 		
 		isTileEntity = true;
 	}

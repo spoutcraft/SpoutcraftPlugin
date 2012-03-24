@@ -17,11 +17,13 @@
 package org.getspout.spout.block.mcblock;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import org.bukkit.event.block.BlockRedstoneEvent;
 
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockTrapdoor;
+import net.minecraft.server.ItemStack;
 import net.minecraft.server.World;
 
 public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
@@ -44,7 +46,8 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 		this.stepSound = parent.stepSound;
 		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
-		updateField(parent, this, "name");		
+		updateField(parent, this, "name");
+		this.dropList = new ArrayList<ItemStack>();
 	}
 
 	@Override
