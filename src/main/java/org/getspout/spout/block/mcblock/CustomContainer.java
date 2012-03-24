@@ -102,11 +102,11 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	protected void j() {
+	protected void k() {
 		try {
-			Method j = Block.class.getDeclaredMethod("j", (Class[]) null);
-			j.setAccessible(true);
-			j.invoke(parent, (Object[]) null);
+			Method k = Block.class.getDeclaredMethod("k", (Class[]) null);
+			k.setAccessible(true);
+			k.invoke(parent, (Object[]) null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -118,8 +118,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public float l() {
-		return parent.l();
+	public float m() {
+		return parent.m();
 	}
 
 	@Override
@@ -176,8 +176,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean F_() {
-		return parent.F_();
+	public boolean E_() {
+		return parent.E_();
 	}
 
 	@Override
