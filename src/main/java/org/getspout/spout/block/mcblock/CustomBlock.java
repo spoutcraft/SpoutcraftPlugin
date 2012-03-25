@@ -38,7 +38,6 @@ import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IBlockAccess;
-import net.minecraft.server.ItemStack;
 import net.minecraft.server.Material;
 import net.minecraft.server.MovingObjectPosition;
 import net.minecraft.server.Vec3D;
@@ -80,7 +79,6 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
-		this.dropList = new ArrayList<ItemStack>();
 	}
 
 	private org.getspout.spoutapi.material.CustomBlock getCustomBlock(World world, int x, int y, int z) {

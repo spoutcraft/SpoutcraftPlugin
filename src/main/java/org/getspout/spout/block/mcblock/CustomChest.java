@@ -32,7 +32,6 @@ import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IBlockAccess;
-import net.minecraft.server.ItemStack;
 import net.minecraft.server.MovingObjectPosition;
 import net.minecraft.server.TileEntity;
 import net.minecraft.server.Vec3D;
@@ -68,8 +67,8 @@ public class CustomChest extends BlockChest implements CustomMCBlock {
 		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
+		
 		isTileEntity = true;
-		this.dropList = new ArrayList<ItemStack>();
 	}
 
 	@Override
