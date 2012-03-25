@@ -179,11 +179,6 @@ public class CustomBlock extends Block implements CustomMCBlock {
 
 	@Override
 	public boolean a() {
-		//Spout
-		if (this.id == Block.GLASS.id) {
-			return true;
-		}
-		//Spout end
 		if (parent != null) {
 			return parent.a();
 		}
