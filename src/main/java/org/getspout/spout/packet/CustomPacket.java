@@ -91,7 +91,9 @@ public class CustomPacket extends Packet {
 				packet.readData(input);
 				success = true;
 			}
-		} catch (Exception e) {
+		}
+		catch (IOException ignore) { }
+		catch (Exception e) {
 			System.out.println("------------------------");
 			System.out.println("Unexpected Exception: " + PacketType.getPacketFromId(packetId) + ", " + packetId);
 			e.printStackTrace();
