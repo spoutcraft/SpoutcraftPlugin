@@ -138,7 +138,7 @@ public class GenericBlockDesign implements BlockDesign {
 
 	private final static String resetString = "[reset]";
 
-	public void writeReset(DataOutputStream output) {
+	public void writeReset(DataOutputStream output) throws IOException{
 		PacketUtil.writeString(output, resetString);
 	}
 
