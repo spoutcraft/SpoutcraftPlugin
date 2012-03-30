@@ -65,7 +65,7 @@ public interface BlockDesign {
 
 	public void read(DataInputStream input) throws IOException;
 
-	public void writeReset(DataOutputStream output);
+	public void writeReset(DataOutputStream output) throws IOException;
 
 	public int getResetNumBytes();
 
