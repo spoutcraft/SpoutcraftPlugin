@@ -348,6 +348,11 @@ public class SpoutServer implements Server {
 	}
 
 	@Override
+	public long getConnectionThrottle() {
+		return server.getConnectionThrottle();
+	}
+
+	@Override
 	public String getVersion() {
 		return server.getVersion();
 	}
