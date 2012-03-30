@@ -188,6 +188,7 @@ public class Spout extends JavaPlugin {
 					}
 				}, 1200L, 1200L);
 			}
+		}
 		if (!hardDisable) {
 			playerListener = new SpoutPlayerListener(this);
 			chunkListener = new SpoutWorldListener(this);
