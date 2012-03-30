@@ -188,7 +188,7 @@ public class Spout extends JavaPlugin {
 					}
 				}, 1200L, 1200L);
 			}
-		} else {
+		if (!hardDisable) {
 			playerListener = new SpoutPlayerListener(this);
 			chunkListener = new SpoutWorldListener(this);
 			chunkMonitorListener = new SpoutWorldMonitorListener(this);
@@ -197,8 +197,6 @@ public class Spout extends JavaPlugin {
 			blockMonitor = new SpoutCustomBlockMonitor(this);
 			blockListener = new SpoutBlockListener(this);
 			invListener = new InventoryListener(this);
-
-			getCommand("spout").setExecutor(new SpoutCommand(this));
 
 			for (SpoutPlayer player : org.getspout.spoutapi.Spout.getServer().getOnlinePlayers()) {
 				SpoutCraftPlayer.resetNetServerHandler(player);
@@ -234,27 +232,29 @@ public class Spout extends JavaPlugin {
 			SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 			dm.loadAllChunks();
 
-			CRCConfig = new FlatFileStore<String>(new File(this.getDataFolder(), "CRCCache.txt"), String.class);
-			CRCConfig.load();
-
-			CRCStore.setConfigFile(CRCConfig);
-
-			itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
-			if (!itemMapConfig.load()) {
-				System.out.println("[Spout] Unable to load global item map");
-			} else {
-				serverItemMap = new ItemMap(null, itemMapConfig, null);
-			}
-			ItemMap.setRootMap(serverItemMap);
-
 			SimpleMaterialManager.disableFlintStackMix();
-
-			if (ConfigReader.runDeadlockMonitor()) {
-				new DeadlockMonitor().start();
-			}
-
-			super.onEnable();
 		}
+		//These are safe even if the build check fails
+		getCommand("spout").setExecutor(new SpoutCommand(this));
+		
+		CRCConfig = new FlatFileStore<String>(new File(this.getDataFolder(), "CRCCache.txt"), String.class);
+		CRCConfig.load();
+
+		CRCStore.setConfigFile(CRCConfig);
+
+		itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
+		if (!itemMapConfig.load()) {
+			System.out.println("[Spout] Unable to load global item map");
+		} else {
+			serverItemMap = new ItemMap(null, itemMapConfig, null);
+		}
+		ItemMap.setRootMap(serverItemMap);
+		
+		if (ConfigReader.runDeadlockMonitor()) {
+			new DeadlockMonitor().start();
+		}
+		
+		super.onEnable();
 	}
 
 	/**
