@@ -27,7 +27,7 @@ public abstract class PacketUtil {
 	public static final byte FLAG_COLORINVALID = 1;
 	public static final byte FLAG_COLOROVERRIDE = 2;
 
-	public static void writeString(DataOutputStream output, String s) throws IOException{
+	public static void writeString(DataOutputStream output, String s) throws IOException {
 		if (s == null) {
 			s = "";
 		}
@@ -35,7 +35,7 @@ public abstract class PacketUtil {
 		output.writeChars(s);
 	}
 
-	public static String readString(DataInputStream input) {
+	public static String readString(DataInputStream input) throws IOException {
 		return readString(input, maxString);
 	}
 
