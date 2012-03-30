@@ -6,8 +6,7 @@ website: http://www.spout.org
 
 main: org.getspout.spout.Spout
 load: startup
-
-cbversion: ${craftbukkit.version}
+mcversion: ${minecraft.version}
 
 commands:
     spout:

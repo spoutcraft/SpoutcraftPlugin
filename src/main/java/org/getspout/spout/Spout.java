@@ -20,15 +20,14 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import net.minecraft.server.Packet18ArmAnimation;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.FileUtil;
 
 import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.io.CRCStore;
@@ -156,82 +155,106 @@ public class Spout extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		(new ConfigReader()).read();
+
+		//The infamous SpoutPlugin build check
 		if (ConfigReader.isBuildCheck()) {
 			InputStream is = getResource("plugin.yml");
-			YamlConfiguration temp = YamlConfiguration.loadConfiguration(is);
-			String cbBuild = temp.getString("cbversion");
-			if (!getServer().getBukkitVersion().equals(cbBuild)) {
-				getServer().getLogger().log(Level.SEVERE, "Spout has detected that you are attemping to run an incompatible build of SpoutPlugin with CraftBukkit. Spout will shut itself off to prevent possible damage to your server. If you believe this is mistaken or you know what you are doing, then you can turn this feature off within Spout's config.");
+			final YamlConfiguration config = YamlConfiguration.loadConfiguration(is);
+			
+			// Format the output from Bukkit.getVersion()
+			String output = "";
+			if (Bukkit.getServer().getVersion().contains("(MC: ")) {
+				String[] temp = Bukkit.getServer().getVersion().split("\\(MC: ");
+				output = temp[1].trim().substring(0, 5);
+			}
+
+			final String bukkitVersion = output;
+			final String minecraftVersion = config.getString("mcversion");
+
+			if (!minecraftVersion.equals(bukkitVersion)) {
+				warnMessage(minecraftVersion, bukkitVersion);
 				hardDisable = true;
-				getServer().getPluginManager().disablePlugin(this);
-				return;
+				Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {					
+					@Override
+					public void run() {
+						warnMessage(minecraftVersion, bukkitVersion);
+						for (Player player : Bukkit.getOnlinePlayers()) {
+							if (player.isOp()) {
+						 		player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] " + ChatColor.RED + "SpoutPlugin is not working correctly, please check the console.");
+							} else {
+								player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] Dear " + player.getName() + ", please let your admin know to check the console.");
+							}
+						}						
+					}
+				}, 1200L, 1200L);
 			}
-		}
-		playerListener = new SpoutPlayerListener(this);
-		chunkListener = new SpoutWorldListener(this);
-		chunkMonitorListener = new SpoutWorldMonitorListener(this);
-		pluginListener = new PluginListener(this);
-		entityListener = new SpoutEntityListener(this);
-		blockMonitor = new SpoutCustomBlockMonitor(this);
-		blockListener = new SpoutBlockListener(this);
-		invListener = new InventoryListener(this);
-
-		getCommand("spout").setExecutor(new SpoutCommand(this));
-
-		for (SpoutPlayer player : org.getspout.spoutapi.Spout.getServer().getOnlinePlayers()) {
-			SpoutCraftPlayer.resetNetServerHandler(player);
-			SpoutCraftPlayer.updateNetServerHandler(player);
-			SpoutCraftPlayer.updateBukkitEntity(player);
-			authenticate(player);
-			playerListener.manager.onPlayerJoin(player);
-			((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(player);
-			player.setPreCachingComplete(true); //already done if we are already online!
-			synchronized(playersOnline) {
-				playersOnline.add(player);
-			}
-		}
-
-		SpoutCraftChunk.replaceAllBukkitChunks();
-		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPluginEnable();
-
-		CustomItemSpade.replaceSpades();
-		CustomItemPickaxe.replacePickaxes();
-		CustomItemFlint.replaceFlint();
-		CustomBlock.replaceBlocks();
-
-		PacketCompressionThread.startThread();
-
-		//Start counting ticks
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new ServerTickTask(), 0, 1);
-
-		//Remove mappings from previous loads
-		//Can not remove them on disable because the packets will still be in the send queue
-		CustomPacket.removeClassMapping();
-		CustomPacket.addClassMapping();
-
-		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
-		dm.loadAllChunks();
-
-		CRCConfig = new FlatFileStore<String>(new File(this.getDataFolder(), "CRCCache.txt"), String.class);
-		CRCConfig.load();
-
-		CRCStore.setConfigFile(CRCConfig);
-
-		itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
-		if (!itemMapConfig.load()) {
-			System.out.println("[Spout] Unable to load global item map");
 		} else {
-			serverItemMap = new ItemMap(null, itemMapConfig, null);
-		}
-		ItemMap.setRootMap(serverItemMap);
+			playerListener = new SpoutPlayerListener(this);
+			chunkListener = new SpoutWorldListener(this);
+			chunkMonitorListener = new SpoutWorldMonitorListener(this);
+			pluginListener = new PluginListener(this);
+			entityListener = new SpoutEntityListener(this);
+			blockMonitor = new SpoutCustomBlockMonitor(this);
+			blockListener = new SpoutBlockListener(this);
+			invListener = new InventoryListener(this);
 
-		SimpleMaterialManager.disableFlintStackMix();
+			getCommand("spout").setExecutor(new SpoutCommand(this));
 
-		if (ConfigReader.runDeadlockMonitor()) {
-			new DeadlockMonitor().start();
+			for (SpoutPlayer player : org.getspout.spoutapi.Spout.getServer().getOnlinePlayers()) {
+				SpoutCraftPlayer.resetNetServerHandler(player);
+				SpoutCraftPlayer.updateNetServerHandler(player);
+				SpoutCraftPlayer.updateBukkitEntity(player);
+				authenticate(player);
+				playerListener.manager.onPlayerJoin(player);
+				((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(player);
+				player.setPreCachingComplete(true); //already done if we are already online!
+				synchronized(playersOnline) {
+					playersOnline.add(player);
+				}
+			}
+
+			SpoutCraftChunk.replaceAllBukkitChunks();
+			((SimplePlayerManager)SpoutManager.getPlayerManager()).onPluginEnable();
+
+			CustomItemSpade.replaceSpades();
+			CustomItemPickaxe.replacePickaxes();
+			CustomItemFlint.replaceFlint();
+			CustomBlock.replaceBlocks();
+
+			PacketCompressionThread.startThread();
+
+			//Start counting ticks
+			Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new ServerTickTask(), 0, 1);
+
+			//Remove mappings from previous loads
+			//Can not remove them on disable because the packets will still be in the send queue
+			CustomPacket.removeClassMapping();
+			CustomPacket.addClassMapping();
+
+			SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+			dm.loadAllChunks();
+
+			CRCConfig = new FlatFileStore<String>(new File(this.getDataFolder(), "CRCCache.txt"), String.class);
+			CRCConfig.load();
+
+			CRCStore.setConfigFile(CRCConfig);
+
+			itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
+			if (!itemMapConfig.load()) {
+				System.out.println("[Spout] Unable to load global item map");
+			} else {
+				serverItemMap = new ItemMap(null, itemMapConfig, null);
+			}
+			ItemMap.setRootMap(serverItemMap);
+
+			SimpleMaterialManager.disableFlintStackMix();
+
+			if (ConfigReader.runDeadlockMonitor()) {
+				new DeadlockMonitor().start();
+			}
+
+			super.onEnable();
 		}
-		
-		super.onEnable();
 	}
 
 	/**
@@ -252,6 +275,17 @@ public class Spout extends JavaPlugin {
 			packet.a = -42;
 			((SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(player)).getNetServerHandler().sendImmediatePacket(packet);
 		}
+	}
+	
+	public void warnMessage(String minecraftVersion, String bukkitVersion) {
+		Bukkit.getServer().getLogger().info(
+			"\n-----------------------------------------------------\n" +
+			"|| SpoutPlugin is not working correctly due to version mismatch.\n" +
+			"|| Expected Minecraft Server version: " + minecraftVersion + "\n" +
+			"|| Current Minecraft Server version: " + bukkitVersion + "\n" +
+			"|| Either disable ForceMinecraftVersionCheck in /plugins/Spout/config.yml or update CraftBukkit.\n" +
+			"-------------------------------------------------------"
+		);		
 	}
 }
 
