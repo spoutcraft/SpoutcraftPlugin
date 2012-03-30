@@ -27,15 +27,12 @@ public abstract class PacketUtil {
 	public static final byte FLAG_COLORINVALID = 1;
 	public static final byte FLAG_COLOROVERRIDE = 2;
 
-	public static void writeString(DataOutputStream output, String s) {
-		if (s == null)
+	public static void writeString(DataOutputStream output, String s) throws IOException{
+		if (s == null) {
 			s = "";
-		try {
-			output.writeShort(s.length());
-			output.writeChars(s);
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		output.writeShort(s.length());
+		output.writeChars(s);
 	}
 
 	public static String readString(DataInputStream input) {
@@ -49,27 +46,21 @@ public abstract class PacketUtil {
 		return 2;
 	}
 
-	public static String readString(DataInputStream input, int maxSize) {
-		try {
-			short size = input.readShort();
+	public static String readString(DataInputStream input, int maxSize) throws IOException {
+		short size = input.readShort();
+		if (size > maxSize) {
+			throw new IOException("Received string length longer than maximum allowed (" + size + " > " + maxSize + ")");
+		} else if (size < 0) {
+			throw new IOException("Received string length is less than zero! Weird string!");
+		} else {
+			StringBuilder stringbuilder = new StringBuilder();
 
-			if (size > maxSize) {
-				throw new IOException("Received string length longer than maximum allowed (" + size + " > " + maxSize + ")");
-			} else if (size < 0) {
-				throw new IOException("Received string length is less than zero! Weird string!");
-			} else {
-				StringBuilder stringbuilder = new StringBuilder();
-
-				for (int j = 0; j < size; ++j) {
-					stringbuilder.append(input.readChar());
-				}
-
-				return stringbuilder.toString();
+			for (int j = 0; j < size; ++j) {
+				stringbuilder.append(input.readChar());
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+
+			return stringbuilder.toString();
 		}
-		return null;
 	}
 
 	public static void writeColor(DataOutputStream output, Color color) {
