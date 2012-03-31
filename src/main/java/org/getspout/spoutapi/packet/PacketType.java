@@ -80,7 +80,8 @@ public enum PacketType {
 	PacketEntityInformation(53, PacketEntityInformation.class),
 	PacketComboBox(54, PacketComboBox.class),
 	PacketFocusUpdate(55, PacketFocusUpdate.class),
-	PacketClientAddons(56, org.getspout.spoutapi.packet.PacketClientAddons.class),
+	PacketClientAddons(56, org.getspout.spoutapi.packet.PacketClientAddons.class), 
+	PacketPermissionUpdate(57, PacketPermissionUpdate.class),
 
 	;
 

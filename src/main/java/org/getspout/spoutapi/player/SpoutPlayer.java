@@ -783,4 +783,21 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @param versions the corresponding versions for the addon list
 	 */
 	public void setAddons(String[] addons, String[] versions);
+	
+	/**
+	 * Sends the current value of the node to the client.
+	 * @param node the node to update
+	 */
+	public void updatePermission(String node);
+	
+	/**
+	 * Sends the current value of all given nodes to the client.
+	 * @param nodes the nodes to update
+	 */
+	public void updatePermissions(String ...nodes);
+	
+	/**
+	 * Sends the current value of all permissions that the player has to the client
+	 */
+	public void updatePermissions();
 }
