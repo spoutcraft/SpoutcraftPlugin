@@ -27,6 +27,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.getspout.commons.inventory.ItemMap;
@@ -255,7 +258,26 @@ public class Spout extends JavaPlugin {
 			new DeadlockMonitor().start();
 		}
 		
+		setupPermissions();
+		
 		super.onEnable();
+	}
+
+	/**
+	 * Initializes Spouts permissions
+	 */
+	private void setupPermissions() {
+		String defaults[] = {
+				"spout.client.minimap",
+				"spout.client.overviewmap",
+				"spout.client.sortinventory",
+				"spout.client.signcolors",
+				"spout.client.chatcolors",
+		};
+		PluginManager pm = Bukkit.getPluginManager();
+		for(String d : defaults) {
+			pm.addPermission(new Permission(d, PermissionDefault.TRUE));
+		}
 	}
 
 	/**

@@ -91,6 +91,7 @@ import org.getspout.spoutapi.packet.PacketMovementModifiers;
 import org.getspout.spoutapi.packet.PacketNotification;
 import org.getspout.spoutapi.packet.PacketOpenScreen;
 import org.getspout.spoutapi.packet.PacketOpenSignGUI;
+import org.getspout.spoutapi.packet.PacketPermissionUpdate;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.packet.PacketScreenshot;
 import org.getspout.spoutapi.packet.PacketSetVelocity;
@@ -1139,6 +1140,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setBuildVersion(int build) {
 		buildVersion = build;
 		if (isSpoutCraftEnabled() && queued != null) {
+			updatePermissions();
+			
 			for (SpoutPacket packet : queued) {
 				sendPacket(packet);
 			}
@@ -1315,5 +1318,48 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setAddons(String[] addons, String[] versions) {
 		this.addons = new HashMap<String, String>();
 		for(int i = 0; i < addons.length; i++) this.addons.put(addons[i], versions[i]);
+	}
+
+	@Override
+	public void updatePermission(String node) {
+		updatePermissions(node);
+	}
+
+	@Override
+	public void updatePermissions(String... nodes) {
+		HashMap<String, Boolean> values = new HashMap<String, Boolean>();
+		for(String node:nodes) {
+			boolean allow = hasPermission(node);
+			values.put(node, allow);
+		}
+		sendPacket(new PacketPermissionUpdate(values));
+	}
+
+	@Override
+	public void updatePermissions() {
+		recalculatePermissions();
+		HashMap<String, Boolean> values = new HashMap<String, Boolean>();
+		HashSet<String> allPerms = new HashSet<String>();
+		
+		//Hackish workaround for bukkit not giving us all the permissions
+		Set<Permission> defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(false);
+		for(Permission permission:defaults) {
+			allPerms.add(permission.getName());
+		}
+		defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(true);
+		for(Permission permission:defaults) {
+			allPerms.add(permission.getName());
+		}
+		
+		//Overwrite with actual permissions, if applicable
+		for(PermissionAttachmentInfo info:perm.getEffectivePermissions()) {
+			allPerms.add(info.getPermission());
+		}
+		
+		for(String p:allPerms) {
+			values.put(p, hasPermission(p));
+		}
+		
+		sendPacket(new PacketPermissionUpdate(values));
 	}
 }
