@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.server.ChunkCoordIntPair;
 import net.minecraft.server.ContainerPlayer;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;

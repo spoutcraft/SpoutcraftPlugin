@@ -31,12 +31,14 @@ public class InventoryListener implements Listener{
 
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent event) {
+		@SuppressWarnings("deprecation")
 		org.getspout.spoutapi.event.inventory.InventoryCloseEvent spoutEvent = new org.getspout.spoutapi.event.inventory.InventoryCloseEvent((Player) event.getPlayer(), event.getView().getTopInventory(), event.getView().getBottomInventory());
 		Bukkit.getServer().getPluginManager().callEvent(spoutEvent);
 	}
 	
 	@EventHandler
 	public void onInventoryOpen(InventoryOpenEvent event) {
+		@SuppressWarnings("deprecation")
 		org.getspout.spoutapi.event.inventory.InventoryOpenEvent spoutEvent = new org.getspout.spoutapi.event.inventory.InventoryOpenEvent((Player) event.getPlayer(), event.getView().getTopInventory(), event.getView().getBottomInventory());
 		spoutEvent.setCancelled(event.isCancelled());
 		Bukkit.getServer().getPluginManager().callEvent(spoutEvent);
