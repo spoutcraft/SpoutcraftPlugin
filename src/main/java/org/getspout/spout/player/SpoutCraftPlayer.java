@@ -47,6 +47,7 @@ import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.block.CraftBlock;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftInventory;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerVelocityEvent;
@@ -93,6 +94,7 @@ import org.getspout.spoutapi.packet.PacketOpenSignGUI;
 import org.getspout.spoutapi.packet.PacketPermissionUpdate;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.packet.PacketScreenshot;
+import org.getspout.spoutapi.packet.PacketSetItemOnCursor;
 import org.getspout.spoutapi.packet.PacketSetVelocity;
 import org.getspout.spoutapi.packet.PacketSkinURL;
 import org.getspout.spoutapi.packet.PacketTexturePack;
@@ -1360,5 +1362,16 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 		
 		sendPacket(new PacketPermissionUpdate(values));
+	}
+
+	@Override
+	public ItemStack getItemStackOnCursor() {
+		return getHandle().inventory.getCarried() == null ? null : new CraftItemStack(getHandle().inventory.getCarried());
+	}
+
+	@Override
+	public void setItemStackOnCursor(ItemStack is) {
+		getHandle().inventory.setCarried(is == null ? null : new net.minecraft.server.ItemStack(is.getTypeId(),is.getAmount(),is.getDurability()));
+		sendPacket(new PacketSetItemOnCursor(is));
 	}
 }
