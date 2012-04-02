@@ -82,6 +82,7 @@ public enum PacketType {
 	PacketFocusUpdate(55, PacketFocusUpdate.class),
 	PacketClientAddons(56, org.getspout.spoutapi.packet.PacketClientAddons.class), 
 	PacketPermissionUpdate(57, PacketPermissionUpdate.class),
+	PacketSpawnTextEntity(58, PacketSpawnTextEntity.class),
 
 	;
 

@@ -25,6 +25,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.gui.InGameHUD;
@@ -800,4 +801,15 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Sends the current value of all permissions that the player has to the client
 	 */
 	public void updatePermissions();
+	
+	/**
+	 * Sends a packet to the client to spawn a text entity
+	 * @param text the text that should be displayed
+	 * @param location the location of the entity
+	 * @param scale the scale of the entity, where 1.0f is one block high
+	 * @param duration if not 0, this will despawn the entity after the given duration (in ticks)
+	 * @param movement the entity will move by the given vector each tick
+	 * @returns if the packet for the entity could be send
+	 */
+	public boolean spawnTextEntity(String text, Location location, float scale, int duration, Vector movement);
 }
