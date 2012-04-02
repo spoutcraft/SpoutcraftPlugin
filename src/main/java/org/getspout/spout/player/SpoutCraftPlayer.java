@@ -95,6 +95,7 @@ import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.packet.PacketScreenshot;
 import org.getspout.spoutapi.packet.PacketSetVelocity;
 import org.getspout.spoutapi.packet.PacketSkinURL;
+import org.getspout.spoutapi.packet.PacketSpawnTextEntity;
 import org.getspout.spoutapi.packet.PacketTexturePack;
 import org.getspout.spoutapi.packet.PacketWidget;
 import org.getspout.spoutapi.packet.SpoutPacket;
@@ -1360,5 +1361,15 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 		
 		sendPacket(new PacketPermissionUpdate(values));
+	}
+
+	@Override
+	public boolean spawnTextEntity(String text, Location location, float scale, int duration, Vector movement) {
+		if(isSpoutCraftEnabled()) {
+			sendPacket(new PacketSpawnTextEntity(text, location, scale, duration, movement));
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
