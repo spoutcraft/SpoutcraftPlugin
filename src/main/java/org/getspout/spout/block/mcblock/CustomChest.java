@@ -272,7 +272,7 @@ public class CustomChest extends BlockChest implements CustomMCBlock {
 			SpoutCraftPlayer player = (SpoutCraftPlayer) SpoutManager.getPlayer((Player) ((EntityPlayer) entityhuman).getBukkitEntity());
 			player.setLastClickedLocation(new Location(player.getWorld(), i, j, k));
 		}
-		parent.b(world, i, j, k, entityhuman);
+		parent.attack(world, i, j, k, entityhuman);
 	}
 
 	@Override
