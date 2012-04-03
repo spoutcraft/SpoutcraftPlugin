@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 public class GenericPopup extends GenericScreen implements PopupScreen {
@@ -85,5 +86,10 @@ public class GenericPopup extends GenericScreen implements PopupScreen {
 	@Override
 	public ScreenType getScreenType() {
 		return ScreenType.CUSTOM_SCREEN;
+	}
+
+	@Override
+	public void handleItemOnCursor(ItemStack itemOnCursor) {
+		//do nothign with the item by default.
 	}
 }

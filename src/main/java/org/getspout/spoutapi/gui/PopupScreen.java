@@ -16,6 +16,8 @@
  */
 package org.getspout.spoutapi.gui;
 
+import org.bukkit.inventory.ItemStack;
+
 /**
  * The GenericPopup class creates an mouseable area where you can put multiple
  * Widgets.
@@ -42,4 +44,11 @@ public interface PopupScreen extends Screen {
 	 * @return true if the screen was closed
 	 */
 	public boolean close();
+
+	/**
+	 * When the screen is closed, this method is called to handle the
+	 * ItemStack that the player is dragging.
+	 * @param itemOnCursor ItemStack on the cursor.
+	 */
+	public void handleItemOnCursor(ItemStack itemOnCursor);
 }

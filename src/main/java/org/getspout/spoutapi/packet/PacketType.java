@@ -83,7 +83,7 @@ public enum PacketType {
 	PacketClientAddons(56, org.getspout.spoutapi.packet.PacketClientAddons.class), 
 	PacketPermissionUpdate(57, PacketPermissionUpdate.class),
 	PacketSpawnTextEntity(58, PacketSpawnTextEntity.class),
-
+	PacketSlotClick(59, PacketSlotClick.class),
 	;
 
 	private final int id;

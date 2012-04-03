@@ -38,11 +38,12 @@ public class GenericSlot extends GenericControl implements Slot {
 	}
 
 	public Slot setItem(ItemStack item) {
-		if(item == null) {
+		if(item == null || item.getAmount() == 0) {
 			stack = new ItemStack(0);
 			return this;
 		}
 		stack = item.clone();
+		setDirty(true);
 		return this;
 	}
 
@@ -67,6 +68,7 @@ public class GenericSlot extends GenericControl implements Slot {
 
 	public Slot setDepth(int depth) {
 		this.depth = depth;
+		setDirty(true);
 		return this;
 	}
 

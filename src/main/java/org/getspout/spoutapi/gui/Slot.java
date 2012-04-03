@@ -38,7 +38,7 @@ public interface Slot extends Control {
 	
 	/**
 	 * Called when the user puts an item into the slot.
-	 * @param item the stack that the user wants to put in. \
+	 * @param item the stack that the user wants to put in.
 	 * The amount property in the stack will be calculated correctly, for example when the user right-clicks on the slot, it will only give one item.
 	 * @return false if you want to cancel that.
 	 */
@@ -46,7 +46,7 @@ public interface Slot extends Control {
 	
 	/**
 	 * Called when the user takes the item out of the slot
-	 * @param item the stack that the user will get. \
+	 * @param item the stack that the user will get.
 	 * The amount property in the stack will be calculated correctly,for example when the user right-clicks on the slot, it would split the amount.
 	 * @return false if you want to cancel that.
 	 */
