@@ -117,7 +117,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	}
 
 	private int getIndex() {
-		return (x & 0xF) << 11 | (z & 0xF) << 7 | (y & 0x7F);
+		return (x & 0xF) << 12 | (z & 0xF) << 8 | (y & 0xFF);
 	}
 
 	@Override
