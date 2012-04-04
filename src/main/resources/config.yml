@@ -1,4 +1,4 @@
-ForceCraftBukkitBuildCheck: true
+ForceMinecraftVersionCheck: true
 ForceSinglePlayerClient: false
 ForceSinglePlayerClientKickMessage: This server requires Spoutcraft! http://www.spout.org
 AuthenticateSpoutcraft: true
