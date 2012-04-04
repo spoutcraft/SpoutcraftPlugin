@@ -74,9 +74,9 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 
 		SpoutWorld world = Spout.getServer().getWorld(getWorld().getUID());
 
-		this.worldHeight = world != null ? world.getMaxHeight() : 128;
-		this.xBitShifts = world != null ? world.getXBitShifts() : 11;
-		this.zBitShifts = world != null ? world.getZBitShifts() : 7;
+		this.worldHeight = world != null ? world.getMaxHeight() : 256;
+		this.xBitShifts = world != null ? world.getXBitShifts() : 12;
+		this.zBitShifts = world != null ? world.getZBitShifts() : 8;
 		worldHeightMinusOne = worldHeight - 1;
 	}
 
