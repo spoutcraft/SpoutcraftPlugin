@@ -76,7 +76,7 @@ public class PacketScreenAction implements SpoutPacket {
 				} else if (ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
 					PopupScreen p = player.getMainScreen().getActivePopup();
 					player.getMainScreen().closePopup();
-					if(player.getItemOnCursor() != null) {
+					if(player.getItemOnCursor() != null && p != null) {
 						p.handleItemOnCursor(player.getItemOnCursor());
 						player.setItemOnCursor(null);
 					}
