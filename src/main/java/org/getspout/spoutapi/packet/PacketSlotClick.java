@@ -107,7 +107,7 @@ public class PacketSlotClick implements SpoutPacket {
 				if(amountSlot == 0) {
 					stackInSlot = new ItemStack(0);
 				}
-				SlotEvent s = new SlotTakeEvent(p, slot, stackInSlot, slot.onItemTake(stackOnCursor));
+				SlotEvent s = new SlotTakeEvent(p, slot, stackInSlot, !slot.onItemTake(stackOnCursor));
 				Bukkit.getPluginManager().callEvent(s);
 				if(!s.isCancelled()) {
 					slot.setItem(stackInSlot);
@@ -135,7 +135,7 @@ public class PacketSlotClick implements SpoutPacket {
 					return;
 				}
 				toPut.setAmount(putAmount);
-				SlotEvent s = new SlotPutEvent(p, slot, stackInSlot, slot.onItemPut(toPut));
+				SlotEvent s = new SlotPutEvent(p, slot, stackInSlot, !slot.onItemPut(toPut));
 				Bukkit.getPluginManager().callEvent(s);
 				if(!s.isCancelled()) {
 					stackOnCursor.setAmount(stackOnCursor.getAmount() - putAmount);
@@ -154,7 +154,7 @@ public class PacketSlotClick implements SpoutPacket {
 					SlotEvent s = new SlotShiftClickEvent(p, slot);
 					Bukkit.getPluginManager().callEvent(s);
 				} else { //Take item
-					SlotEvent s = new SlotTakeEvent(p, slot, stackInSlot, slot.onItemTake(stackInSlot));
+					SlotEvent s = new SlotTakeEvent(p, slot, stackInSlot, !slot.onItemTake(stackInSlot));
 					Bukkit.getPluginManager().callEvent(s);
 					if(!s.isCancelled()) {
 						stackOnCursor = stackInSlot;
@@ -164,7 +164,7 @@ public class PacketSlotClick implements SpoutPacket {
 					}
 				}
 			} else if (stackOnCursor.getTypeId() != stackInSlot.getTypeId() || stackOnCursor.getDurability() != stackInSlot.getDurability()) { //Exchange slot stack and cursor stack
-				SlotEvent s = new SlotExchangeEvent(p, slot, stackInSlot, stackOnCursor.clone(), slot.onItemExchange(stackInSlot, stackOnCursor.clone()));
+				SlotEvent s = new SlotExchangeEvent(p, slot, stackInSlot, stackOnCursor.clone(), !slot.onItemExchange(stackInSlot, stackOnCursor.clone()));
 				Bukkit.getPluginManager().callEvent(s);
 				if(!s.isCancelled()) {
 					slot.setItem(stackOnCursor.clone());
