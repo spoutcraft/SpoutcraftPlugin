@@ -35,7 +35,7 @@ public class GenericButton extends GenericControl implements Button {
 
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 3;
+		return super.getVersion() + 4;
 	}
 
 	public GenericButton(String text) {
@@ -183,5 +183,14 @@ public class GenericButton extends GenericControl implements Button {
 	@Override
 	public float getScale() {
 		return scale;
+	}
+	
+	public Label setShadow(boolean shadow) {
+		label.setShadow(shadow);
+		return this;
+	}
+	
+	public boolean hasShadow() {
+		return label.hasShadow();
 	}
 }
