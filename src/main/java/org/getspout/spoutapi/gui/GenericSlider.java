@@ -31,7 +31,7 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public int getVersion() {
-		return super.getVersion() + 1;
+		return super.getVersion() + 2;
 	}
 
 	@Override
@@ -160,5 +160,14 @@ public class GenericSlider extends GenericControl implements Slider {
 	public Slider doResize() {
 		label.doResize();
 		return this;
+	}
+	
+	public Label setShadow(boolean shadow) {
+		label.setShadow(shadow);
+		return this;
+	}
+	
+	public boolean hasShadow() {
+		return label.hasShadow();
 	}
 }
