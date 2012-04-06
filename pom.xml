@@ -18,8 +18,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <minecraft.version>1.2.4</minecraft.version>
-		<craftbukkit.version>1.2.4-R1.1-SNAPSHOT</craftbukkit.version>
+		<craftbukkit.version>1.2.5-R1.1-SNAPSHOT</craftbukkit.version>
+		<minecraft.version>1.2.5</minecraft.version>
+		<api.version>dev-SNAPSHOT</api.version>
 		<build.number>Unknown</build.number>
 	</properties>
 
@@ -64,7 +65,7 @@
 		<dependency>
 			<groupId>org.getspout</groupId>
 			<artifactId>spoutpluginapi</artifactId>
-			<version>dev-SNAPSHOT</version>
+			<version>${api.version}</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -108,7 +109,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>1.5</version>
+				<version>1.6</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
