@@ -51,7 +51,7 @@ public class PacketCustomBlockOverride implements SpoutPacket {
 
 	@Override
 	public int getNumBytes() {
-		return 4 + 4 + 2 + 4;
+		return 4 + 4 + 2 + 2;
 	}
 
 	@Override
