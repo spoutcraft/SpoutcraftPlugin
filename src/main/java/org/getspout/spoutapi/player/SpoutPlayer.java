@@ -812,4 +812,14 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @returns if the packet for the entity could be send
 	 */
 	public boolean spawnTextEntity(String text, Location location, float scale, int duration, Vector movement);
+
+	/**
+	 * Gets the Player's SC version as an int.
+	 */
+	public int getBuildVersion();
+
+	/**
+	 * Gets the Player's SC version as a String.
+	 */
+	public String getVersionString();
 }
