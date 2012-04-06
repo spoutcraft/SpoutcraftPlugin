@@ -271,6 +271,7 @@ class PostTeleport implements Runnable {
 
 	@Override
 	public void run() {
-		player.updateAppearance();
+		Spout.getInstance().getPlayerTrackingManager().onPlayerQuit(player);
+		Spout.getInstance().getPlayerTrackingManager().onPlayerJoin(player);
 	}
 }
