@@ -18,7 +18,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<craftbukkit.version>1.2.5-R1.1-SNAPSHOT</craftbukkit.version>
+		<craftbukkit.version>1.2.5-R1.2-SNAPSHOT</craftbukkit.version>
 		<minecraft.version>1.2.5</minecraft.version>
 		<api.version>dev-SNAPSHOT</api.version>
 		<build.number>Unknown</build.number>
