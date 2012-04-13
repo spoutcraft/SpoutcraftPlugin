@@ -1192,7 +1192,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		SpoutCraftPlayer.updateBukkitEntity(this);
 		if (isSpoutCraftEnabled()) {
 			updateMovement();
-			Spout.getInstance().getPlayerTrackingManager().onWorldChange(this);
 		}
 		updateAppearance();
 	}

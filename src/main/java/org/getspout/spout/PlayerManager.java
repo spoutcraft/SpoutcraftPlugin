@@ -85,8 +85,6 @@ public class PlayerManager {
 			player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign()));
 		}
 
-		Spout.getInstance().getPlayerTrackingManager().onPlayerJoin(player);
-
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));
 		Bukkit.getServer().getPluginManager().callEvent(new SpoutCraftEnableEvent(player));
 	}

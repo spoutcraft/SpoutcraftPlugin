@@ -55,14 +55,12 @@ import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spout.sound.SimpleSoundManager;
 import org.getspout.spout.util.DeadlockMonitor;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.chunkstore.PlayerTrackingManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class Spout extends JavaPlugin {
 	public SpoutPlayerListener playerListener;
-	protected final PlayerTrackingManager playerTrackingManager;
 	protected SpoutWorldListener chunkListener;
 	protected SpoutWorldMonitorListener chunkMonitorListener;
 	protected SpoutBlockListener blockListener;
@@ -92,7 +90,6 @@ public class Spout extends JavaPlugin {
 		SpoutManager.getInstance().setKeyBindingManager(new SimpleKeyBindingManager());
 		SpoutManager.getInstance().setMaterialManager(new SimpleMaterialManager());
 		SpoutManager.getInstance().setWorldManager(new SimpleWorldManager());
-		playerTrackingManager = new PlayerTrackingManager();
 		shutdownThread = new ShutdownThread();
 		Runtime.getRuntime().addShutdownHook(shutdownThread);
 	}
@@ -120,10 +117,7 @@ public class Spout extends JavaPlugin {
 				e.printStackTrace();
 			}
 		}
-		//for (Player player : online) {
-		//	SpoutCraftPlayer.removeBukkitEntity(player);
-		//	SpoutCraftPlayer.resetNetServerHandler(player);
-		//}
+
 		SpoutCraftChunk.resetAllBukkitChunks();
 
 		getServer().getScheduler().cancelTasks(this);
@@ -280,10 +274,6 @@ public class Spout extends JavaPlugin {
 	 */
 	public static Spout getInstance() {
 		return instance;
-	}
-
-	public PlayerTrackingManager getPlayerTrackingManager() {
-		return playerTrackingManager;
 	}
 
 	public void authenticate(Player player) {

@@ -35,7 +35,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spout.inventory.SimpleMaterialManager;
@@ -235,34 +234,9 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		Spout.getInstance().getPlayerTrackingManager().onPlayerQuit(player);
 		synchronized(Spout.getInstance().playersOnline) {
 			Spout.getInstance().playersOnline.remove((SpoutPlayer) player);
 		}
-	}
-
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onPlayerRespawn(PlayerRespawnEvent event) {
-		Player player = event.getPlayer();
-		if (player instanceof SpoutCraftPlayer) {
-			SpoutCraftPlayer scp = (SpoutCraftPlayer)player;
-			if (scp.isSpoutCraftEnabled()) {
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new PostRespawn(scp), 2);
-			}
-		}
-	}
-}
-
-class PostRespawn implements Runnable {
-	SpoutCraftPlayer player;
-	public PostRespawn(SpoutCraftPlayer player) {
-		this.player = player;
-	}
-
-	@Override
-	public void run() {
-		Spout.getInstance().getPlayerTrackingManager().onPlayerQuit(player);
-		Spout.getInstance().getPlayerTrackingManager().onPlayerJoin(player);
 	}
 }
 
