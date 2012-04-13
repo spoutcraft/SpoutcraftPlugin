@@ -16,14 +16,14 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.input.RenderDistanceChangeEvent;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -54,20 +54,16 @@ public class PacketRenderDistance implements SpoutPacket {
 		}
 	}
 
+
 	@Override
-	public int getNumBytes() {
-		return 3;
+	public void readData(SpoutInputStream input) throws IOException {
+		view = (byte) input.read();
+		max = (byte) input.read();
+		min = (byte) input.read();
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		view = input.readByte();
-		max = input.readByte();
-		min = input.readByte();
-	}
-
-	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.write(view);
 		output.write(max);
 		output.write(min);

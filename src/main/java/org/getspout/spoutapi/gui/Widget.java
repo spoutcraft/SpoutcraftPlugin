@@ -16,12 +16,12 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 /**
  * This is the base class of all other widgets, and should never be used
@@ -32,11 +32,6 @@ import org.bukkit.plugin.Plugin;
  * to the client and will cause an exception to be thrown.
  */
 public interface Widget {
-	/**
-	 * The number of bytes of data serialized when sending or receiving data.
-	 * @return
-	 */
-	public int getNumBytes();
 
 	/**
 	 * Is this running on Spoutcraft (ie, not on the server) - declared final in GenericWidget!
@@ -67,7 +62,7 @@ public interface Widget {
 	 * @param input
 	 * @throws IOException
 	 */
-	public void readData(DataInputStream input) throws IOException;
+	public void readData(SpoutInputStream input) throws IOException;
 
 	/**
 	 * Called when this widget is serialized to the client.
@@ -76,7 +71,7 @@ public interface Widget {
 	 * @param output
 	 * @throws IOException
 	 */
-	public void writeData(DataOutputStream output) throws IOException;
+	public void writeData(SpoutOutputStream output) throws IOException;
 
 	/**
 	 * Get's the plugin that attached this widget to the screen, or null if this screen is unattached.

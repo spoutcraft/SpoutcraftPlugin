@@ -27,6 +27,7 @@ import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import org.getspout.spoutapi.gui.Color;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
@@ -126,6 +127,10 @@ public class SpoutInputStream extends InputStream {
 	public char readChar() {
 		return buffer.getChar();
 	}
+	
+	public boolean readBoolean() {
+		return buffer.get() != 0;
+	}
 
 	public String readString() {
 		short size =  buffer.getShort();
@@ -134,6 +139,20 @@ public class SpoutInputStream extends InputStream {
 			builder.append(buffer.getChar());
 		}
 		return builder.toString();
+	}
+	
+	public static final byte FLAG_COLORINVALID = 1;
+	public static final byte FLAG_COLOROVERRIDE = 2;
+	public Color readColor() {
+		int flags = read();
+		int argb = readInt();
+		if ((flags & FLAG_COLORINVALID) > 0) {
+			return Color.ignore();
+		}
+		if ((flags & FLAG_COLOROVERRIDE) > 0) {
+			return Color.remove();
+		}
+		return new Color(argb);
 	}
 
 	public ByteBuffer getRawBuffer() {

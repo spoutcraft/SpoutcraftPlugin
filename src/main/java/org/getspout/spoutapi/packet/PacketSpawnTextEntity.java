@@ -1,11 +1,11 @@
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketSpawnTextEntity implements SpoutPacket {
 
@@ -22,15 +22,10 @@ public class PacketSpawnTextEntity implements SpoutPacket {
 		this.movement = movement;
 		this.scale = scale;
 	}
-	
-	@Override
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(text) + 3 * 8 + 4 + 4 + 3 * 8;
-	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		text = PacketUtil.readString(input);
+	public void readData(SpoutInputStream input) throws IOException {
+		text = input.readString();
 		double x, y, z;
 		x = input.readDouble();
 		y = input.readDouble();
@@ -45,8 +40,8 @@ public class PacketSpawnTextEntity implements SpoutPacket {
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		PacketUtil.writeString(output, text);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(text);
 		output.writeDouble(location.getX());
 		output.writeDouble(location.getY());
 		output.writeDouble(location.getZ());

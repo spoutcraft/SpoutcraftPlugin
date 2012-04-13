@@ -16,11 +16,10 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public abstract class GenericControl extends GenericWidget implements Control {
 	protected boolean focus = false;
@@ -37,25 +36,20 @@ public abstract class GenericControl extends GenericWidget implements Control {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 12;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		setEnabled(input.readBoolean());
-		setColor(PacketUtil.readColor(input));
-		setDisabledColor(PacketUtil.readColor(input));
+		setColor(input.readColor());
+		setDisabledColor(input.readColor());
 		setFocus(input.readBoolean());
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeBoolean(isEnabled());
-		PacketUtil.writeColor(output, getColor());
-		PacketUtil.writeColor(output, getDisabledColor());
+		output.writeColor(getColor());
+		output.writeColor(getDisabledColor());
 		output.writeBoolean(isFocus());
 	}
 

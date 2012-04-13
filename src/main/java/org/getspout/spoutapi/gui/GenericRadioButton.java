@@ -16,11 +16,12 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericRadioButton extends GenericButton implements RadioButton {
 	boolean selected = false;
@@ -34,19 +35,14 @@ public class GenericRadioButton extends GenericButton implements RadioButton {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 2;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		selected = input.readBoolean();
 		group = input.readInt();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeBoolean(isSelected());
 		output.writeInt(getGroup());

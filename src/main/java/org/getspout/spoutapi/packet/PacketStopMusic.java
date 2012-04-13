@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketStopMusic implements SpoutPacket {
 	private boolean resetTimer = false;
@@ -33,18 +34,13 @@ public class PacketStopMusic implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 5;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		resetTimer = input.readBoolean();
 		fadeTime = input.readInt();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeBoolean(resetTimer);
 		output.writeInt(fadeTime);
 	}

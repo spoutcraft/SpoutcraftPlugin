@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketItemName implements SpoutPacket {
 	private int id;
@@ -35,22 +36,17 @@ public class PacketItemName implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 6 + PacketUtil.getNumBytes(name);
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		id = input.readInt();
 		data = input.readShort();
-		name = PacketUtil.readString(input);
+		name = input.readString();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(id);
 		output.writeShort(data);
-		PacketUtil.writeString(output, name);
+		output.writeString(name);
 	}
 
 	@Override

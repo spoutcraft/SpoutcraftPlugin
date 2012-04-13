@@ -16,13 +16,12 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericListWidget extends GenericScrollable implements ListWidget {
 	private List<ListWidgetItem> items = new ArrayList<ListWidgetItem>();
@@ -178,36 +177,25 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	}
 
 	@Override
-	public int getNumBytes() {
-		int bytes = 0;
-		for (ListWidgetItem item : getItems()) {
-			bytes += PacketUtil.getNumBytes(item.getTitle());
-			bytes += PacketUtil.getNumBytes(item.getText());
-			bytes += PacketUtil.getNumBytes(item.getIconUrl());
-		}
-		return super.getNumBytes() + 4 + 4 + bytes;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		selected = input.readInt();
 		int count = input.readInt();
 		for (int i = 0; i < count; i++) {
-			ListWidgetItem item = new ListWidgetItem(PacketUtil.readString(input), PacketUtil.readString(input), PacketUtil.readString(input));
+			ListWidgetItem item = new ListWidgetItem(input.readString(), input.readString(), input.readString());
 			addItem(item);
 		}
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(selected); // Write which item is selected.
 		output.writeInt(getItems().length); // Write number of items first!
 		for (ListWidgetItem item : getItems()) {
-			PacketUtil.writeString(output, item.getTitle());
-			PacketUtil.writeString(output, item.getText());
-			PacketUtil.writeString(output, item.getIconUrl());
+			output.writeString(item.getTitle());
+			output.writeString(item.getText());
+			output.writeString(item.getIconUrl());
 		}
 	}
 

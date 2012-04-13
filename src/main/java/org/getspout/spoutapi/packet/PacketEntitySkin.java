@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.entity.Entity;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketEntitySkin implements SpoutPacket {
 	protected String texture = "";
@@ -34,22 +34,17 @@ public class PacketEntitySkin implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(texture) + 4 + 1;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		entityId = input.readInt();
-		textureId = input.readByte();
-		texture = PacketUtil.readString(input);
+		textureId = (byte) input.read();
+		texture = input.readString();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(entityId);
-		output.writeByte(textureId);
-		PacketUtil.writeString(output, texture);
+		output.write(textureId);
+		output.writeString(texture);
 	}
 
 	@Override

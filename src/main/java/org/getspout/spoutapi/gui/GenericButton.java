@@ -16,12 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericButton extends GenericControl implements Button {
 	protected GenericLabel label = (GenericLabel) new GenericLabel().setAlign(WidgetAnchor.TOP_CENTER);
@@ -43,25 +42,20 @@ public class GenericButton extends GenericControl implements Button {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + label.getNumBytes() + PacketUtil.getNumBytes(getDisabledText()) + 9;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		label.readData(input);
-		setDisabledText(PacketUtil.readString(input));
-		setHoverColor(PacketUtil.readColor(input));
+		setDisabledText(input.readString());
+		setHoverColor(input.readColor());
 		scale = input.readFloat();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		label.writeData(output);
-		PacketUtil.writeString(output, getDisabledText());
-		PacketUtil.writeColor(output, getHoverColor());
+		output.writeString(getDisabledText());
+		output.writeColor(getHoverColor());
 		output.writeFloat(scale);
 	}
 
@@ -156,7 +150,7 @@ public class GenericButton extends GenericControl implements Button {
 
 	@Override
 	public void onButtonClick(ButtonClickEvent event) {
-		this.callEvent(event);
+		
 	}
 
 	@Override

@@ -16,11 +16,10 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericGradient extends GenericWidget implements Gradient {
 	protected Color color1 = new Color(0, 0, 0, 0), color2 = new Color(0, 0, 0, 0);
@@ -84,24 +83,19 @@ public class GenericGradient extends GenericWidget implements Gradient {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 11;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
-		this.setTopColor(PacketUtil.readColor(input));
-		this.setBottomColor(PacketUtil.readColor(input));
-		this.setOrientation(Orientation.getOrientationFromId(input.readByte()));
+		this.setTopColor(input.readColor());
+		this.setBottomColor(input.readColor());
+		this.setOrientation(Orientation.getOrientationFromId(input.read()));
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
-		PacketUtil.writeColor(output, getTopColor());
-		PacketUtil.writeColor(output, getBottomColor());
-		output.writeByte(getOrientation().getId());
+		output.writeColor(getTopColor());
+		output.writeColor(getBottomColor());
+		output.write(getOrientation().getId());
 	}
 
 	@Override

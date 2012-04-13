@@ -25,6 +25,8 @@ import org.bukkit.Material;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.screen.ScreenshotReceivedEvent;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketScreenshot implements SpoutPacket {
@@ -50,16 +52,16 @@ public class PacketScreenshot implements SpoutPacket {
 		return ssAsPng.length + 5;
 	}
 
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		isRequest = input.readBoolean();
 		if (!isRequest) {
 			int ssLen = input.readInt();
 			ssAsPng = new byte[ssLen];
-			input.readFully(ssAsPng);
+			input.read(ssAsPng);
 		}
 	}
 
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		if (ssAsPng == null) {
 			output.writeBoolean(true);
 		} else {

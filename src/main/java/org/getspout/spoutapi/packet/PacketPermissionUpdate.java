@@ -1,10 +1,11 @@
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketPermissionUpdate implements SpoutPacket {
 	private Map<String, Boolean> permissions;
@@ -14,20 +15,10 @@ public class PacketPermissionUpdate implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		int num = 0;
-		num += 4; //Number of permissions as int
-		for(String perm:permissions.keySet()) {
-			num += PacketUtil.getNumBytes(perm) + 1; //Size of the string + 1 byte for the bool
-		}
-		return num;
-	}
-
-	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(permissions.size());
 		for(Entry<String, Boolean> perm:permissions.entrySet()) {
-			PacketUtil.writeString(output, perm.getKey());
+			output.writeString(perm.getKey());
 			output.writeBoolean(perm.getValue());
 		}
 	}
@@ -43,7 +34,7 @@ public class PacketPermissionUpdate implements SpoutPacket {
 	}
 	
 	@Override
-	public void readData(DataInputStream input) throws IOException {}
+	public void readData(SpoutInputStream input) throws IOException {}
 	
 	@Override
 	public void run(int playerId) {}

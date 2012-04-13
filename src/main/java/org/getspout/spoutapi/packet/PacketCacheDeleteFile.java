@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketCacheDeleteFile implements SpoutPacket {
 	private String plugin;
@@ -33,20 +34,15 @@ public class PacketCacheDeleteFile implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(fileName) + PacketUtil.getNumBytes(plugin);
+	public void readData(SpoutInputStream input) throws IOException {
+		fileName = input.readString();
+		plugin = input.readString();
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		fileName = PacketUtil.readString(input);
-		plugin = PacketUtil.readString(input);
-	}
-
-	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		PacketUtil.writeString(output, fileName);
-		PacketUtil.writeString(output, plugin);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(fileName);
+		output.writeString(plugin);
 	}
 
 	@Override

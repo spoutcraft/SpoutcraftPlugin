@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.material.block;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
@@ -32,13 +30,14 @@ import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
 import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
 import org.getspout.spoutapi.packet.PacketType;
-import org.getspout.spoutapi.packet.PacketUtil;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -310,15 +309,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 4 + PacketUtil.getNumBytes(getName()) + PacketUtil.getNumBytes(getPlugin().getDescription().getName()) + 1 + 4 + 4 + 4;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		customId = input.readInt();
-		setName(PacketUtil.readString(input));
-		plugin = Bukkit.getServer().getPluginManager().getPlugin(PacketUtil.readString(input));
+		setName(input.readString());
+		plugin = Bukkit.getServer().getPluginManager().getPlugin(input.readString());
 		opaque = input.readBoolean();
 		setFriction(input.readFloat());
 		setHardness(input.readFloat());
@@ -326,10 +320,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(customId);
-		PacketUtil.writeString(output, getName());
-		PacketUtil.writeString(output, getPlugin().getDescription().getName());
+		output.writeString(getName());
+		output.writeString(getPlugin().getDescription().getName());
 		output.writeBoolean(isOpaque());
 		output.writeFloat(getFriction());
 		output.writeFloat(getHardness());

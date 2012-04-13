@@ -19,15 +19,12 @@ package org.getspout.spoutapi.event.spout;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutCraftEnableEvent extends Event implements SpoutEvent {
+public class SpoutCraftEnableEvent extends Event{
 
 	private static final HandlerList handlers = new HandlerList();
 	private final SpoutPlayer player;
-	private static final EventType type = EventType.Spoutcraft_Enable;
 
 	public SpoutCraftEnableEvent(SpoutPlayer player) {
 		this.player = player;
@@ -39,11 +36,6 @@ public class SpoutCraftEnableEvent extends Event implements SpoutEvent {
 	 */
 	public SpoutPlayer getPlayer() {
 		return player;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	@Override

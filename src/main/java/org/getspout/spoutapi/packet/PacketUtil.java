@@ -16,90 +16,14 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.getspout.spoutapi.gui.Color;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public abstract class PacketUtil {
-	public static final int maxString = 32767;
-	public static final byte FLAG_COLORINVALID = 1;
-	public static final byte FLAG_COLOROVERRIDE = 2;
 
-	public static void writeString(DataOutputStream output, String s) throws IOException {
-		if (s == null) {
-			s = "";
-		}
-		output.writeShort(s.length());
-		output.writeChars(s);
-	}
-
-	public static String readString(DataInputStream input) throws IOException {
-		return readString(input, maxString);
-	}
-
-	public static int getNumBytes(String str) {
-		if (str != null) {
-			return 2 + str.length() * 2;
-		}
-		return 2;
-	}
-
-	public static String readString(DataInputStream input, int maxSize) throws IOException {
-		short size = input.readShort();
-		if (size > maxSize) {
-			throw new IOException("Received string length longer than maximum allowed (" + size + " > " + maxSize + ")");
-		} else if (size < 0) {
-			throw new IOException("Received string length is less than zero! Weird string!");
-		} else {
-			StringBuilder stringbuilder = new StringBuilder();
-
-			for (int j = 0; j < size; ++j) {
-				stringbuilder.append(input.readChar());
-			}
-
-			return stringbuilder.toString();
-		}
-	}
-
-	public static void writeColor(DataOutputStream output, Color color) {
-		try {
-			byte flags = 0x0;
-
-			if (color.getRedF() == -1F) {
-				flags |= FLAG_COLORINVALID;
-			} else if (color.getRedF() == -2F) {
-				flags |= FLAG_COLOROVERRIDE;
-			}
-
-			output.writeByte(flags);
-			output.writeInt(color.toInt());
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static Color readColor(DataInputStream input) {
-		try {
-			byte flags = input.readByte();
-
-			int argb = input.readInt();
-			if ((flags & FLAG_COLORINVALID) > 0) {
-				return Color.ignore();
-			}
-			if ((flags & FLAG_COLOROVERRIDE) > 0) {
-				return Color.remove();
-			}
-
-			return new Color(argb);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public static int[] readIntArray(DataInputStream input) throws IOException {
+	public static int[] readIntArray(SpoutInputStream input) throws IOException {
 		int length = input.readInt();
 		if (length > 256) {
 			throw new IllegalArgumentException("Int array exceeded max length (" + length + ")");
@@ -111,7 +35,7 @@ public abstract class PacketUtil {
 		return newArray;
 	}
 
-	public static float[] readQuadFloat(DataInputStream input) throws IOException {
+	public static float[] readQuadFloat(SpoutInputStream input) throws IOException {
 		float[] newArray = new float[4];
 		for (int i = 0; i < 4; i++) {
 			newArray[i] = input.readFloat();
@@ -123,7 +47,7 @@ public abstract class PacketUtil {
 		return doubleArray.length * 16;
 	}
 
-	public static float[][] readDoubleArray(DataInputStream input) throws IOException {
+	public static float[][] readDoubleArray(SpoutInputStream input) throws IOException {
 		int length = input.readShort();
 		if (length > 256) {
 			throw new IllegalArgumentException("Double array exceeded max length (" + length + ")");
@@ -135,7 +59,7 @@ public abstract class PacketUtil {
 		return newDoubleArray;
 	}
 
-	public static void writeIntArray(DataOutputStream output, int[] ints) throws IOException {
+	public static void writeIntArray(SpoutOutputStream output, int[] ints) throws IOException {
 		if (ints.length > 256) {
 			throw new IllegalArgumentException("Array containing " + ints.length + " ints passed to writeQuadFloat");
 		}
@@ -145,7 +69,7 @@ public abstract class PacketUtil {
 		}
 	}
 
-	public static void writeQuadFloat(DataOutputStream output, float[] floats) throws IOException {
+	public static void writeQuadFloat(SpoutOutputStream output, float[] floats) throws IOException {
 		if (floats.length != 4) {
 			throw new IllegalArgumentException("Array containing " + floats.length + " floats passed to writeQuadFloat");
 		}
@@ -154,12 +78,12 @@ public abstract class PacketUtil {
 		}
 	}
 
-	public static void writeDoubleArray(DataOutputStream output, float[][] floats) throws IOException {
+	public static void writeDoubleArray(SpoutOutputStream output, float[][] floats) throws IOException {
 		if (floats.length > 256) {
 			throw new IllegalArgumentException("Double array exceeded max length (" + floats.length + ")");
 		}
 
-		output.writeShort(floats.length);
+		output.writeShort((short) floats.length);
 		for (int i = 0; i < floats.length; i++) {
 			writeQuadFloat(output, floats[i]);
 		}

@@ -18,9 +18,9 @@ package org.getspout.spoutapi.packet;
 
 import gnu.trove.list.array.TIntArrayList;
 import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.zip.DataFormatException;
@@ -47,21 +47,16 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 12 + data.length;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		chunkX = input.readInt();
 		chunkZ = input.readInt();
 		int size = input.readInt();
 		data = new byte[size];
-		input.readFully(data);
+		input.read(data);
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(chunkX);
 		output.writeInt(chunkZ);
 		output.writeInt(data.length);

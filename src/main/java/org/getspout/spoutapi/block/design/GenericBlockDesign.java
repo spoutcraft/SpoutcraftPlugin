@@ -16,12 +16,12 @@
  */
 package org.getspout.spoutapi.block.design;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.BlockVector;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericBlockDesign implements BlockDesign {
@@ -101,22 +101,18 @@ public class GenericBlockDesign implements BlockDesign {
 		return renderPass;
 	}
 
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(textureURL) + PacketUtil.getNumBytes(texturePlugin) + PacketUtil.getDoubleArrayLength(xPos) + PacketUtil.getDoubleArrayLength(yPos) + PacketUtil.getDoubleArrayLength(zPos) + PacketUtil.getDoubleArrayLength(textXPos) + PacketUtil.getDoubleArrayLength(textYPos) + 9 * 4 + (3 + lightSourceXOffset.length + lightSourceXOffset.length + lightSourceXOffset.length) * 4;
-	}
-
 	public int getVersion() {
 		return 3;
 	}
 
-	public void read(DataInputStream input) throws IOException {
-		textureURL = PacketUtil.readString(input);
+	public void read(SpoutInputStream input) throws IOException {
+		textureURL = input.readString();
 		if (textureURL.equals(resetString)) {
 			reset = true;
 			return;
 		}
 		reset = false;
-		texturePlugin = PacketUtil.readString(input);
+		texturePlugin = input.readString();
 		xPos = PacketUtil.readDoubleArray(input);
 		yPos = PacketUtil.readDoubleArray(input);
 		zPos = PacketUtil.readDoubleArray(input);
@@ -138,21 +134,17 @@ public class GenericBlockDesign implements BlockDesign {
 
 	private final static String resetString = "[reset]";
 
-	public void writeReset(DataOutputStream output) throws IOException{
-		PacketUtil.writeString(output, resetString);
+	public void writeReset(SpoutOutputStream output) throws IOException{
+		output.writeString(resetString);
 	}
 
-	public int getResetNumBytes() {
-		return PacketUtil.getNumBytes(resetString);
-	}
-
-	public void write(DataOutputStream output) throws IOException {
+	public void write(SpoutOutputStream output) throws IOException {
 		if (reset) {
-			PacketUtil.writeString(output, resetString);
+			output.writeString(resetString);
 			return;
 		}
-		PacketUtil.writeString(output, textureURL);
-		PacketUtil.writeString(output, texturePlugin);
+		output.writeString(textureURL);
+		output.writeString(texturePlugin);
 		PacketUtil.writeDoubleArray(output, xPos);
 		PacketUtil.writeDoubleArray(output, yPos);
 		PacketUtil.writeDoubleArray(output, zPos);

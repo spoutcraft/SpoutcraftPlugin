@@ -19,6 +19,7 @@ package org.getspout.spoutapi.block;
 /**
  * Types of possible Weather
  */
+@Deprecated
 public enum SpoutWeather {
 	NONE,
 	RAIN,

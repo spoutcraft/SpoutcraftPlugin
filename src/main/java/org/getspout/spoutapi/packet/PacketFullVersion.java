@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketFullVersion implements SpoutPacket {
 	private String versionString;
@@ -33,19 +33,13 @@ public class PacketFullVersion implements SpoutPacket {
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		System.out.println("Reading data");
-		versionString = PacketUtil.readString(input);
+	public void readData(SpoutInputStream input) throws IOException {
+		versionString = input.readString();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		PacketUtil.writeString(output, versionString);
-	}
-
-	@Override
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(versionString);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(versionString);
 	}
 
 	@Override

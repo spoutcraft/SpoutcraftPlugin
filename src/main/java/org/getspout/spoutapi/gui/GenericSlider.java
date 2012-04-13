@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.event.screen.SliderDragEvent;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericSlider extends GenericControl implements Slider {
 	protected Label label = new GenericLabel();
@@ -35,19 +35,14 @@ public class GenericSlider extends GenericControl implements Slider {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 4 + label.getNumBytes();
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		setSliderPosition(input.readFloat());
 		label.readData(input);
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeFloat(getSliderPosition());
 		label.writeData(output);
@@ -87,7 +82,7 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public void onSliderDrag(SliderDragEvent event) {
-		this.callEvent(event);
+		
 	}
 
 	@Override

@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketAllowVisualCheats implements SpoutPacket {
 	private boolean sky = false;
@@ -46,12 +47,7 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 8;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		sky = input.readBoolean();
 		clearwater = input.readBoolean();
 		stars = input.readBoolean();
@@ -63,7 +59,7 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeBoolean(sky);
 		output.writeBoolean(clearwater);
 		output.writeBoolean(stars);

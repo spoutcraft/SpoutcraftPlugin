@@ -16,12 +16,12 @@
  */
 package org.getspout.spoutapi.material.item;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.plugin.Plugin;
 
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.material.Food;
 import org.getspout.spoutapi.packet.PacketType;
 
@@ -38,20 +38,15 @@ public class GenericCustomFood extends GenericCustomItem implements Food {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 1;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
-		hunger = input.readByte();
+		hunger = input.read();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
-		output.writeByte(getHungerRestored());
+		output.write(getHungerRestored());
 	}
 
 	@Override

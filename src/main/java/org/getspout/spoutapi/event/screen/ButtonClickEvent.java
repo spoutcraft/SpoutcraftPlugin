@@ -18,18 +18,15 @@ package org.getspout.spoutapi.event.screen;
 
 import org.bukkit.event.HandlerList;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Button;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class ButtonClickEvent extends ScreenEvent implements SpoutEvent {
+public class ButtonClickEvent extends ScreenEvent{
 
 	private static final HandlerList handlers = new HandlerList();
 	private final Button control;
-	private static final EventType type = EventType.Button_Click;
 
 	public ButtonClickEvent(SpoutPlayer player, Screen screen, Button control) {
 		super("ButtonClickEvent", player, screen, ScreenType.CUSTOM_SCREEN);
@@ -38,11 +35,6 @@ public class ButtonClickEvent extends ScreenEvent implements SpoutEvent {
 
 	public Button getButton() {
 		return control;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	@Override

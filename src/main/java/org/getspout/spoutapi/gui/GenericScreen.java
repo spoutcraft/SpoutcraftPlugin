@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +27,8 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.packet.PacketWidget;
 import org.getspout.spoutapi.packet.PacketWidgetRemove;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -192,18 +192,13 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 1;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		setBgVisible(input.readBoolean());
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeBoolean(isBgVisible());
 	}

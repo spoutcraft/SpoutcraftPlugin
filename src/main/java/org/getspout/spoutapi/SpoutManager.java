@@ -21,14 +21,11 @@ import java.util.UUID;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import org.getspout.spoutapi.chunkcache.CacheManager;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.keyboard.KeyBindingManager;
-import org.getspout.spoutapi.keyboard.KeyboardManager;
 import org.getspout.spoutapi.packet.PacketManager;
-import org.getspout.spoutapi.player.AppearanceManager;
 import org.getspout.spoutapi.player.BiomeManager;
 import org.getspout.spoutapi.player.FileManager;
 import org.getspout.spoutapi.player.PlayerManager;
@@ -39,15 +36,12 @@ import org.getspout.spoutapi.sound.SoundManager;
 @SuppressWarnings("deprecation")
 public class SpoutManager {
 	private static SpoutManager instance = new SpoutManager();
-	private KeyboardManager keyManager = null;
-	private AppearanceManager appearanceManager = null;
 	private SoundManager soundManager = null;
 	private SkyManager skyManager = null;
 	private BiomeManager biomeManager = null;
 	private InventoryBuilder inventoryBuilder = null;
 	private PacketManager packetManager = null;
 	private PlayerManager playerManager = null;
-	private CacheManager cacheManager = null;
 	private ChunkDataManager chunkDataManager = null;
 	private FileManager fileManager = null;
 	private KeyBindingManager keyBindingManager = null;
@@ -64,34 +58,6 @@ public class SpoutManager {
 	 */
 	public static SpoutManager getInstance() {
 		return instance;
-	}
-
-	/**
-	 * Gets the keyboard manager
-	 * @return keyboard manager
-	 */
-	public static KeyboardManager getKeyboardManager() {
-		return getInstance().keyManager;
-	}
-
-	public void setKeyboardManager(KeyboardManager manager) {
-		if (keyManager == null) {
-			keyManager = manager;
-		}
-	}
-
-	/**
-	 * Gets the appearance manager
-	 * @return appearance manager
-	 */
-	public static AppearanceManager getAppearanceManager() {
-		return getInstance().appearanceManager;
-	}
-
-	public void setAppearanceManager(AppearanceManager manager) {
-		if (appearanceManager == null) {
-			appearanceManager = manager;
-		}
 	}
 
 	/**
@@ -151,25 +117,12 @@ public class SpoutManager {
 	}
 
 	/**
-	 * Gets the cache manager
-	 * @return cache manager
-	 */
-	public static CacheManager getCacheManager() {
-		return getInstance().cacheManager;
-	}
-
-	public void setCacheManager(CacheManager manager) {
-		if (cacheManager == null) {
-			cacheManager = manager;
-		}
-	}
-
-	/**
 	 * Gets the inventory builder
 	 *
 	 * The inventory builder can construct Bukkit inventories from itemstacks or an initialization size.
 	 * @return inventory builder
 	 */
+	@Deprecated
 	public static InventoryBuilder getInventoryBuilder() {
 		return getInstance().inventoryBuilder;
 	}

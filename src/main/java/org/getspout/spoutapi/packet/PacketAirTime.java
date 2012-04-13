@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketAirTime implements SpoutPacket {
 	public int airTime;
@@ -34,18 +35,13 @@ public class PacketAirTime implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 8;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		this.airTime = input.readInt();
 		this.air = input.readInt();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(this.airTime);
 		output.writeInt(this.air);
 	}

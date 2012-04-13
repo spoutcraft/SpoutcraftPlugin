@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
@@ -28,6 +26,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import org.getspout.commons.io.FileUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketCacheFile implements CompressablePacket {
 	private String plugin;
@@ -103,24 +103,19 @@ public class PacketCacheFile implements CompressablePacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(fileName) + PacketUtil.getNumBytes(plugin) + fileData.length + 4;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
-		this.fileName = PacketUtil.readString(input);
-		this.plugin = PacketUtil.readString(input);
+	public void readData(SpoutInputStream input) throws IOException {
+		this.fileName = input.readString();
+		this.plugin = input.readString();
 		compressed = input.readBoolean();
 		int size = input.readInt();
 		this.fileData = new byte[size];
-		input.readFully(fileData);
+		input.read(fileData);
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		PacketUtil.writeString(output, fileName);
-		PacketUtil.writeString(output, plugin);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(fileName);
+		output.writeString(plugin);
 		output.writeBoolean(compressed);
 		output.writeInt(fileData.length);
 		output.write(fileData);

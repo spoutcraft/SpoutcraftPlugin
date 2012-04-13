@@ -16,14 +16,13 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.packet.PacketComboBox;
-import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericComboBox extends GenericButton implements ComboBox {
 	private List<String> items = new ArrayList<String>();
@@ -109,28 +108,19 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 	}
 
 	@Override
-	public int getNumBytes() {
-		int bytes = 0;
-		for (String item:getItems()) {
-			bytes += PacketUtil.getNumBytes(item);
-		}
-		return super.getNumBytes() + 4 + 4 + bytes + PacketUtil.getNumBytes(format);
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(selection);
 		output.writeInt(getItems().size());
 		for (String item:getItems()) {
-			PacketUtil.writeString(output, item);
+			output.writeString(item);
 		}
-		PacketUtil.writeString(output, format);
+		output.writeString(format);
 	}
 	
 	@Override

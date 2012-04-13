@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
@@ -26,11 +24,10 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;
 import org.getspout.spoutapi.event.input.KeyReleasedEvent;
 import org.getspout.spoutapi.gui.ScreenType;
-import org.getspout.spoutapi.keyboard.Keyboard;
-import org.getspout.spoutapi.keyboard.KeyboardManager;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-@SuppressWarnings("deprecation")
 public class PacketKeyPress implements SpoutPacket {
 	public boolean pressDown;
 	public byte key;
@@ -44,21 +41,21 @@ public class PacketKeyPress implements SpoutPacket {
 		this.pressDown = pressDown;
 	}
 
-	public void readData(DataInputStream datainputstream) throws IOException {
-		this.key = datainputstream.readByte();
+	public void readData(SpoutInputStream datainputstream) throws IOException {
+		this.key = (byte) datainputstream.read();
 		this.pressDown = datainputstream.readBoolean();
 		this.screenType = datainputstream.readInt();
 		for (int i = 0; i < 10; i++) {
-			this.settingKeys[i] = datainputstream.readByte();
+			this.settingKeys[i] = (byte) datainputstream.read();
 		}
 	}
 
-	public void writeData(DataOutputStream dataoutputstream) throws IOException {
-		dataoutputstream.writeByte(this.key);
+	public void writeData(SpoutOutputStream dataoutputstream) throws IOException {
+		dataoutputstream.write(this.key);
 		dataoutputstream.writeBoolean(this.pressDown);
 		dataoutputstream.writeInt(this.screenType);
 		for (int i = 0; i < 10; i++) {
-			dataoutputstream.writeByte(this.settingKeys[i]);
+			dataoutputstream.write(this.settingKeys[i]);
 		}
 	}
 
@@ -66,16 +63,10 @@ public class PacketKeyPress implements SpoutPacket {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(id);
 		if (player != null) {
 			player.updateKeys(settingKeys);
-			Keyboard pressed = Keyboard.getKey(this.key);
-			KeyboardManager manager = SpoutManager.getKeyboardManager();
 			if (pressDown) {
-				manager.onPreKeyPress(pressed, player);
 				Bukkit.getServer().getPluginManager().callEvent(new KeyPressedEvent(this.key, player, ScreenType.getType(screenType)));
-				manager.onPostKeyPress(pressed, player);
 			} else {
-				manager.onPreKeyRelease(pressed, player);
 				Bukkit.getServer().getPluginManager().callEvent(new KeyReleasedEvent(this.key, player, ScreenType.getType(screenType)));
-				manager.onPostKeyRelease(pressed, player);
 			}
 		}
 	}
@@ -83,10 +74,6 @@ public class PacketKeyPress implements SpoutPacket {
 	@Override
 	public void failure(int id) {
 
-	}
-
-	public int getNumBytes() {
-		return 1 + 1 + 4 + 10;
 	}
 
 	@Override

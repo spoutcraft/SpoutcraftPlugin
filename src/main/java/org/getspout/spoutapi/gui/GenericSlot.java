@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericSlot extends GenericControl implements Slot {
 	private ItemStack stack = new ItemStack(0);
@@ -73,7 +73,7 @@ public class GenericSlot extends GenericControl implements Slot {
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		stack.setTypeId(input.readInt());
 		stack.setAmount((int)input.readShort());
@@ -82,7 +82,7 @@ public class GenericSlot extends GenericControl implements Slot {
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(stack.getTypeId());
 		output.writeShort((short)stack.getAmount());

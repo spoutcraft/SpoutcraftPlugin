@@ -16,36 +16,25 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public interface SpoutPacket {
 	/**
-	 * The number of bytes of data contained inside of the packet.
+	 * Reads the incoming data from the client.
 	 *
-	 * Packet version and other meta-data are excluded, only count bytes read by {@link #readData(DataInputStream)}.
-	 * @return Number of bytes
+	 * Note: Data should be read in exactly the same order as it was written.
+	 * @param input stream to read data from
 	 */
-	public int getNumBytes();
+	public void readData(SpoutInputStream input) throws IOException;
 
 	/**
-	 * Reads the data from an input stream into member variables.
-	 *
-	 * The number of bytes read must be equal to the result of {@link #getNumBytes()}.
-	 * @param input stream to read from
-	 * @throws IOException
+	 * Writes the outgoing data to the output stream.
+	 * @param output to write data to
 	 */
-	public void readData(DataInputStream input) throws IOException;
-
-	/**
-	 * Writes the data from the packet to the output stream, to be serialized and sent to a player.
-	 *
-	 * The number of bytes written must be equal to the result of {@link #getNumBytes()}.
-	 * @param output stream to write to
-	 * @throws IOException
-	 */
-	public void writeData(DataOutputStream output) throws IOException;
+	public void writeData(SpoutOutputStream output) throws IOException;
 
 	/**
 	 * Performs any tasks for the packet after data has been successfully read into the packet.

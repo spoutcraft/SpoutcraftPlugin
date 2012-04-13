@@ -20,7 +20,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.block.SpoutWeather;
-
+@Deprecated
 public interface BiomeManager {
 	/**
 	 * Sets a players weather in a specific Biome to render as the specified SpoutWeather

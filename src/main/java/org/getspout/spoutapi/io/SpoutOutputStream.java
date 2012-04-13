@@ -25,10 +25,11 @@ import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import org.getspout.spoutapi.gui.Color;
 import org.getspout.spoutapi.material.Material;
 
 public class SpoutOutputStream extends OutputStream {
-	ByteBuffer buffer = ByteBuffer.allocate(1024);
+	ByteBuffer buffer = ByteBuffer.allocate(256);
 	public SpoutOutputStream() {
 
 	}
@@ -138,6 +139,10 @@ public class SpoutOutputStream extends OutputStream {
 		}
 		buffer.putChar(ch);
 	}
+	
+	public void writeBoolean(boolean b) {
+		write(b ? 1 : 0);
+	}
 
 	public void writeString(String s) {
 		while (buffer.remaining() < (2 + s.length() * 2)) {
@@ -147,6 +152,21 @@ public class SpoutOutputStream extends OutputStream {
 		for (int i = 0; i < s.length(); i++) {
 			buffer.putChar(s.charAt(i));
 		}
+	}
+	
+	public static final byte FLAG_COLORINVALID = 1;
+	public static final byte FLAG_COLOROVERRIDE = 2;
+	public void writeColor(Color c) {
+		byte flags = 0x0;
+
+		if (c.getRedF() == -1F) {
+			flags |= FLAG_COLORINVALID;
+		} else if (c.getRedF() == -2F) {
+			flags |= FLAG_COLOROVERRIDE;
+		}
+
+		write(flags);
+		writeInt(c.toInt());
 	}
 
 	public ByteBuffer getRawBuffer() {

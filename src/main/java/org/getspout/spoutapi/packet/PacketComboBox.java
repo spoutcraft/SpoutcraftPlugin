@@ -16,14 +16,14 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.GenericComboBox;
 import org.getspout.spoutapi.gui.Widget;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketComboBox implements SpoutPacket {
@@ -44,19 +44,14 @@ public class PacketComboBox implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 8 + 8 + 1 + 4;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		uuid = new UUID(input.readLong(), input.readLong());
 		open = input.readBoolean();
 		selection = input.readInt();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeLong(uuid.getMostSignificantBits());
 		output.writeLong(uuid.getLeastSignificantBits());
 		output.writeBoolean(open);

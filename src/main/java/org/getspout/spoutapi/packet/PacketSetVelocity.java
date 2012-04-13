@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketSetVelocity implements SpoutPacket {
 	private double motX = 0;
@@ -38,12 +39,7 @@ public class PacketSetVelocity implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 28;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		entityId = input.readInt();
 		motX = input.readDouble();
 		motY = input.readDouble();
@@ -51,7 +47,7 @@ public class PacketSetVelocity implements SpoutPacket {
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(entityId);
 		output.writeDouble(motX);
 		output.writeDouble(motY);

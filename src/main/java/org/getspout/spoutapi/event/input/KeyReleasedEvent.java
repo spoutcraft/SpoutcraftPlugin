@@ -19,19 +19,16 @@ package org.getspout.spoutapi.event.input;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class KeyReleasedEvent extends Event implements SpoutEvent {
+public class KeyReleasedEvent extends Event{
 	
 	private static final HandlerList handlers = new HandlerList();
 	private final SpoutPlayer player;
 	private final Keyboard key;
 	private final ScreenType screenType;
-	private static final EventType type = EventType.Key_Released;
 
 	public KeyReleasedEvent(int keyPress, SpoutPlayer player, ScreenType screenType) {
 		this.player = player;
@@ -49,11 +46,6 @@ public class KeyReleasedEvent extends Event implements SpoutEvent {
 
 	public ScreenType getScreenType() {
 		return screenType;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	@Override

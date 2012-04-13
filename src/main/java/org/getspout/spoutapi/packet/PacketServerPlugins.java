@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.plugin.Plugin;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketServerPlugins implements SpoutPacket {
 	private String[] plugins;
@@ -39,32 +39,22 @@ public class PacketServerPlugins implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		int size = 2;
-		for (int i = 0; i < plugins.length; i++) {
-			size += PacketUtil.getNumBytes(plugins[i]);
-			size += PacketUtil.getNumBytes(versions[i]);
-		}
-		return size;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		int size = input.readShort();
 		plugins = new String[size];
 		versions = new String[size];
 		for (int i = 0; i < size; i++) {
-			plugins[i] = PacketUtil.readString(input);
-			versions[i] = PacketUtil.readString(input);
+			plugins[i] = input.readString();
+			versions[i] = input.readString();
 		}
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		output.writeShort(plugins.length);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeShort((short) plugins.length);
 		for (int i = 0; i < plugins.length; i++) {
-			PacketUtil.writeString(output, plugins[i]);
-			PacketUtil.writeString(output, versions[i]);
+			output.writeString(plugins[i]);
+			output.writeString(versions[i]);
 		}
 	}
 

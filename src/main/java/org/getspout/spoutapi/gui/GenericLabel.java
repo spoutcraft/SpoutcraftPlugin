@@ -16,13 +16,12 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.ChatColor;
 
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericLabel extends GenericWidget implements Label {
 	protected String text = "Your Text Here";
@@ -47,33 +46,28 @@ public class GenericLabel extends GenericWidget implements Label {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getText()) + 12;
-	}
-
-	@Override
 	public int getVersion() {
 		return super.getVersion() + 6;
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
-		setText(PacketUtil.readString(input));
-		setAlign(WidgetAnchor.getAnchorFromId(input.readByte()));
+		setText(input.readString());
+		setAlign(WidgetAnchor.getAnchorFromId(input.read()));
 		setAuto(input.readBoolean());
-		setTextColor(PacketUtil.readColor(input));
+		setTextColor(input.readColor());
 		setScale(input.readFloat());
 		setShadow(input.readBoolean());
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
-		PacketUtil.writeString(output, getText());
-		output.writeByte(getAlign().getId());
+		output.writeString(getText());
+		output.write(getAlign().getId());
 		output.writeBoolean(isAuto());
-		PacketUtil.writeColor(output, getTextColor());
+		output.writeColor(getTextColor());
 		output.writeFloat(getScale());
 		output.writeBoolean(hasShadow());
 	}

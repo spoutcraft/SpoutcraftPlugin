@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -32,6 +30,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketEntityInformation implements CompressablePacket {
@@ -53,22 +53,17 @@ public class PacketEntityInformation implements CompressablePacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 2 + (data != null ? data.length : 0) + 4;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		int size = input.readInt();
 		if (size > 0) {
 			data = new byte[size];
-			input.readFully(data);
+			input.read(data);
 		}
 		compressed = input.readBoolean();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		if (data != null) {
 			output.writeInt(data.length);
 			output.write(data);

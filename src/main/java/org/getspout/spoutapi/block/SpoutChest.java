@@ -20,7 +20,7 @@ import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 
 import org.getspout.spoutapi.inventory.DoubleChestInventory;
-
+@Deprecated
 public interface SpoutChest extends Chest {
 	/**
 	 * Is true if the chest is part of a larger double chest

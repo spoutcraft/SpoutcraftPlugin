@@ -18,24 +18,16 @@ package org.getspout.spoutapi.event.screen;
 
 import org.bukkit.event.HandlerList;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class ScreenCloseEvent extends ScreenEvent implements SpoutEvent {
+public class ScreenCloseEvent extends ScreenEvent{
 
 	private static final HandlerList handlers = new HandlerList();
-	private static final EventType type = EventType.Screen_Close;
 
 	public ScreenCloseEvent(SpoutPlayer player, Screen screen, ScreenType type) {
 		super("ScreenCloseEvent", player, screen, type);
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	@Override

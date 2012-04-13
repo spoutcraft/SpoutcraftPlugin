@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
 
 import org.getspout.spoutapi.packet.standard.MCPacket;
 
-public class FakeListener implements PacketListener {
+class FakeListener implements PacketListener {
 	public Listener listener;
 
 	FakeListener(Listener listener) {

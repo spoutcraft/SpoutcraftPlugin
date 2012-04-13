@@ -22,15 +22,12 @@ import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.KeyBinding;
 import org.getspout.spoutapi.player.SpoutPlayer;
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 
-public class KeyBindingEvent extends Event implements SpoutEvent {
+public class KeyBindingEvent extends Event{
 	
 	private static final HandlerList handlers = new HandlerList();
 	private final KeyBinding binding;
 	private final SpoutPlayer player;
-	private static final EventType type = EventType.Key_Binding;
 
 	public KeyBindingEvent(SpoutPlayer player, KeyBinding binding) {
 		this.binding = binding;
@@ -57,10 +54,5 @@ public class KeyBindingEvent extends Event implements SpoutEvent {
 
 	public static HandlerList getHandlerList() {
 		return handlers;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 }

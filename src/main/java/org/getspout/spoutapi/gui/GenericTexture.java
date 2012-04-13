@@ -16,11 +16,10 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericTexture extends GenericWidget implements Texture {
 	protected String url = null;
@@ -46,26 +45,21 @@ public class GenericTexture extends GenericWidget implements Texture {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + PacketUtil.getNumBytes(getUrl()) + 5;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
-		this.setUrl(PacketUtil.readString(input)); // String
-		this.setDrawAlphaChannel(input.readBoolean()); // 0 + 1 = 1
-		setTop(input.readShort()); // 1 + 2 = 3
-		setLeft(input.readShort()); // 3 + 2 = 5
+		this.setUrl(input.readString());
+		this.setDrawAlphaChannel(input.readBoolean());
+		setTop(input.readShort());
+		setLeft(input.readShort());
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
-		PacketUtil.writeString(output, getUrl()); // String
-		output.writeBoolean(isDrawingAlphaChannel()); // 0 + 1 = 1
-		output.writeShort(top); // 1 + 2 = 3
-		output.writeShort(left); // 3 + 2 = 5
+		output.writeString(getUrl());
+		output.writeBoolean(isDrawingAlphaChannel());
+		output.writeShort((short) top); 
+		output.writeShort((short) left);
 	}
 
 	@Override

@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 import javax.xml.bind.TypeConstraintException;
@@ -25,10 +23,10 @@ import javax.xml.bind.TypeConstraintException;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
-import org.getspout.spoutapi.event.AbstractEventSource;
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
-public abstract class GenericWidget extends AbstractEventSource implements Widget {
+public abstract class GenericWidget implements Widget {
 	/**
 	 * Set if this is Spoutcraft (client), cleared if it is Spout (server)...
 	 */
@@ -76,11 +74,6 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 48 + PacketUtil.getNumBytes(tooltip) + PacketUtil.getNumBytes(plugin != null ? plugin : "Spoutcraft");
-	}
-
-	@Override
 	public int getVersion() {
 		return 5;
 	}
@@ -120,44 +113,44 @@ public abstract class GenericWidget extends AbstractEventSource implements Widge
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		setX(input.readInt()); // 0 + 4 = 4
-		setY(input.readInt()); // 4 + 4 = 8
-		setWidth(input.readInt()); // 8 + 4 = 12
-		setHeight(input.readInt()); // 12 + 4 = 16
-		setAnchor(WidgetAnchor.getAnchorFromId(input.readByte())); // 6 + 1 = 17
-		setVisible(input.readBoolean()); // 17 + 1 = 18
-		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt())); // 18 + 4 = 22
-		long msb = input.readLong(); // 22 + 8 = 30
-		long lsb = input.readLong(); // 30 + 8 = 38
-		//this.id = new UUID(msb, lsb);
-		setTooltip(PacketUtil.readString(input)); // String
-		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(PacketUtil.readString(input))); // String
-		animType = WidgetAnim.getAnimationFromId(input.readByte()); // 38 + 1 + 39
-		animFlags = input.readByte(); // 39 + 1 = 40
-		animValue = input.readFloat(); // 40 + 4 = 44
-		animTicks = input.readShort(); // 44 + 2 = 46
-		animCount = input.readShort(); // 46 + 2 = 48
+	public void readData(SpoutInputStream input) throws IOException {
+		setX(input.readInt());
+		setY(input.readInt());
+		setWidth(input.readInt());
+		setHeight(input.readInt());
+		setAnchor(WidgetAnchor.getAnchorFromId(input.read()));
+		setVisible(input.readBoolean());
+		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt()));
+		long msb = input.readLong();
+		long lsb = input.readLong(); 
+		this.id = new UUID(msb, lsb);
+		setTooltip(input.readString());
+		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(input.readString()));
+		animType = WidgetAnim.getAnimationFromId(input.read());
+		animFlags = (byte) input.read();
+		animValue = input.readFloat();
+		animTicks = input.readShort();
+		animCount = input.readShort();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		output.writeInt(getX()); // 0 + 4 = 4
-		output.writeInt(getY()); // 4 + 4 = 8
-		output.writeInt(getWidth()); // 8 + 4 = 12
-		output.writeInt(getHeight()); // 12 + 4 = 16
-		output.writeByte(getAnchor().getId()); // 16 + 1 = 17
-		output.writeBoolean(isVisible()); // 17 + 1 = 18
-		output.writeInt(priority.getId()); // 18 + 4 = 22
-		output.writeLong(getId().getMostSignificantBits()); // 22 + 8 = 30
-		output.writeLong(getId().getLeastSignificantBits()); // 30 + 8 = 38
-		PacketUtil.writeString(output, getTooltip()); // String
-		PacketUtil.writeString(output, plugin != null ? plugin : "Spoutcraft"); // String
-		output.writeByte(animType.getId()); // 38 + 1 = 39
-		output.writeByte(animFlags); // 39 + 1 = 40
-		output.writeFloat(animValue); // 40 + 4 = 44
-		output.writeShort(animTicks); // 44 + 2 = 46
-		output.writeShort(animCount); // 46 + 2 = 48
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeInt(getX());
+		output.writeInt(getY());
+		output.writeInt(getWidth());
+		output.writeInt(getHeight());
+		output.write(getAnchor().getId());
+		output.writeBoolean(isVisible());
+		output.writeInt(priority.getId());
+		output.writeLong(getId().getMostSignificantBits());
+		output.writeLong(getId().getLeastSignificantBits());
+		output.writeString(getTooltip());
+		output.writeString(plugin != null ? plugin : "Spoutcraft");
+		output.write(animType.getId());
+		output.write(animFlags);
+		output.writeFloat(animValue);
+		output.writeShort(animTicks);
+		output.writeShort(animCount);
 	}
 
 	@Override

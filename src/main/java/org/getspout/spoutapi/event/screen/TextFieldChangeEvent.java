@@ -18,20 +18,17 @@ package org.getspout.spoutapi.event.screen;
 
 import org.bukkit.event.HandlerList;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class TextFieldChangeEvent extends ScreenEvent implements SpoutEvent {
+public class TextFieldChangeEvent extends ScreenEvent{
 
 	private static final HandlerList handlers = new HandlerList();
 	private final TextField field;
 	private final String oldVal;
 	private String newVal;
-	private static final EventType type = EventType.TextField_Change;
 
 	public TextFieldChangeEvent(SpoutPlayer player, Screen screen, TextField field, String newVal) {
 		super("TextFieldChangeEvent", player, screen, ScreenType.CUSTOM_SCREEN);
@@ -55,11 +52,6 @@ public class TextFieldChangeEvent extends ScreenEvent implements SpoutEvent {
 	public void setNewText(String newVal) {
 		if (newVal == null) newVal = "";
 		this.newVal = newVal;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	@Override

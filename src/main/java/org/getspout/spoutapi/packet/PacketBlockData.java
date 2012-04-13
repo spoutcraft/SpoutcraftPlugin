@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Iterator;
@@ -28,6 +26,8 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.material.Block;
 
 public class PacketBlockData implements CompressablePacket {
@@ -112,22 +112,17 @@ public class PacketBlockData implements CompressablePacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return data != null ? data.length : 0 + 5;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		int size = input.readInt();
 		compressed = input.readBoolean();
 		if (size > 0) {
 			data = new byte[size];
-			input.readFully(data);
+			input.read(data);
 		}
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(data == null ? 0 : data.length);
 		output.writeBoolean(compressed);
 		if (data != null) {

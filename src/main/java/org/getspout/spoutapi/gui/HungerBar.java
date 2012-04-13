@@ -16,10 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class HungerBar extends GenericWidget {
 	private int icons = 10;
@@ -34,19 +35,14 @@ public class HungerBar extends GenericWidget {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 8;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		setNumOfIcons(input.readInt());
 		setIconOffset(input.readInt());
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(getNumOfIcons());
 		output.writeInt(getIconOffset());

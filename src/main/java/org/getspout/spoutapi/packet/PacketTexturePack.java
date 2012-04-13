@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketTexturePack implements SpoutPacket {
 	private String url;
@@ -34,19 +35,14 @@ public class PacketTexturePack implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(url) + 8;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
-		url = PacketUtil.readString(input, 256);
+	public void readData(SpoutInputStream input) throws IOException {
+		url = input.readString();
 		expectedCRC = input.readLong();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		PacketUtil.writeString(output, url);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(url);
 		output.writeLong(expectedCRC);
 	}
 

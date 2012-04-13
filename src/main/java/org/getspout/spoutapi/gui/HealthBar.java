@@ -16,10 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 /**
  * The Spout implementation of the default Health Bar.
@@ -39,12 +40,7 @@ public class HealthBar extends GenericWidget {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 12;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		setMaxNumHearts(input.readInt());
 		setIconOffset(input.readInt());
@@ -52,7 +48,7 @@ public class HealthBar extends GenericWidget {
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(getMaxNumHearts());
 		output.writeInt(getIconOffset());

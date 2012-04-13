@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.Location;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketDownloadMusic implements SpoutPacket {
 	int x, y, z;
@@ -48,14 +48,9 @@ public class PacketDownloadMusic implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 22 + PacketUtil.getNumBytes(URL) + PacketUtil.getNumBytes(plugin);
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
-		URL = PacketUtil.readString(input, 255);
-		plugin = PacketUtil.readString(input, 255);
+	public void readData(SpoutInputStream input) throws IOException {
+		URL = input.readString();
+		plugin = input.readString();
 		distance = input.readInt();
 		x = input.readInt();
 		y = input.readInt();
@@ -66,9 +61,9 @@ public class PacketDownloadMusic implements SpoutPacket {
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		PacketUtil.writeString(output, URL);
-		PacketUtil.writeString(output, plugin);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(URL);
+		output.writeString(plugin);
 		output.writeInt(distance);
 		output.writeInt(x);
 		output.writeInt(y);

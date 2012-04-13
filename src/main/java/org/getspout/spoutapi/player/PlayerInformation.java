@@ -24,6 +24,7 @@ import org.bukkit.entity.LivingEntity;
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.block.SpoutWeather;
 
+@SuppressWarnings("deprecation")
 public interface PlayerInformation {
 	@ClientOnly
 	public SpoutWeather getBiomeWeather(Biome biome);

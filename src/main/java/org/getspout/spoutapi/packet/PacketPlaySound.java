@@ -16,12 +16,12 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.Location;
 
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.sound.Music;
 import org.getspout.spoutapi.sound.SoundEffect;
 
@@ -57,12 +57,7 @@ public class PacketPlaySound implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 23;
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		soundId = input.readShort();
 		location = input.readBoolean();
 		x = input.readInt();
@@ -73,7 +68,7 @@ public class PacketPlaySound implements SpoutPacket {
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeShort(soundId);
 		output.writeBoolean(location);
 		if (!location) {

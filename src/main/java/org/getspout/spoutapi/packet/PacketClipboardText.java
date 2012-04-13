@@ -16,14 +16,15 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketClipboardText implements SpoutPacket {
+	protected String text;
 	public PacketClipboardText() {
 
 	}
@@ -31,23 +32,19 @@ public class PacketClipboardText implements SpoutPacket {
 	public PacketClipboardText(String text) {
 		this.text = text;
 	}
-	protected String text;
+	
+
 	@Override
-	public int getNumBytes() {
-		return PacketUtil.getNumBytes(text);
+	public void readData(SpoutInputStream input) throws IOException {
+		text = input.readString();
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		text = PacketUtil.readString(input);
-	}
-
-	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		if (text.length() > PacketUtil.maxString) {
-			text = text.substring(0, PacketUtil.maxString - 1);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		if (text.length() > Short.MAX_VALUE) {
+			text = text.substring(0, Short.MAX_VALUE - 1);
 		}
-		PacketUtil.writeString(output, text);
+		output.writeString(text);
 	}
 
 	@Override

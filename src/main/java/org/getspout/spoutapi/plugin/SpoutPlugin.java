@@ -24,7 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.SpoutServer;
-
+@Deprecated
 public abstract class SpoutPlugin extends JavaPlugin {
 	public SpoutServer getSpoutServer() {
 		return Spout.getServer();

@@ -45,6 +45,7 @@ import org.getspout.spoutapi.block.SpoutChunk;
  * <br/>
  * Note: {@link #equals(Object)} will NOT work. Compare World UUID's instead!
  */
+@SuppressWarnings("deprecation")
 public class SpoutWorld implements World {
 	private World world;
 
@@ -444,7 +445,6 @@ public class SpoutWorld implements World {
 		return world.spawnArrow(location, velocity, speed, spread);
 	}
 
-	@Override
 	public LivingEntity spawnCreature(Location loc, CreatureType type) {
 		return world.spawnCreature(loc, type);
 	}
@@ -514,7 +514,6 @@ public class SpoutWorld implements World {
 		return world.getWorldType();
 	}
 
-	@Override
 	public <T extends Entity> Collection<T> getEntitiesByClass(Class<T>... classes) {
 		return world.getEntitiesByClass(classes);
 	}

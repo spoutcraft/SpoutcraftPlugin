@@ -20,18 +20,15 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class RenderDistanceChangeEvent extends Event implements Cancellable, SpoutEvent {
+public class RenderDistanceChangeEvent extends Event implements Cancellable{
 	
 	private static final HandlerList handlers = new HandlerList();
 	private final RenderDistance newView;
 	private final SpoutPlayer player;
 	private boolean cancel = false;
-	private static final EventType type = EventType.Render_Distance_Changed;
 
 	public RenderDistanceChangeEvent(SpoutPlayer player, RenderDistance newView) {
 		this.player = player;
@@ -52,11 +49,6 @@ public class RenderDistanceChangeEvent extends Event implements Cancellable, Spo
 
 	public void setCancelled(boolean cancel) {
 		this.cancel = cancel;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	@Override

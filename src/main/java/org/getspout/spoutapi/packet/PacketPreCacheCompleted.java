@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketPreCacheCompleted implements SpoutPacket {
@@ -28,16 +28,11 @@ public class PacketPreCacheCompleted implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 0;
+	public void readData(SpoutInputStream input) throws IOException {
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-	}
-
-	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 	}
 
 	@Override

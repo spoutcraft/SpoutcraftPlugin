@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
@@ -28,16 +26,13 @@ import org.getspout.spoutapi.event.screen.ScreenEvent;
 import org.getspout.spoutapi.event.screen.ScreenOpenEvent;
 import org.getspout.spoutapi.gui.PopupScreen;
 import org.getspout.spoutapi.gui.ScreenType;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketScreenAction implements SpoutPacket {
 	protected byte action = -1;
 	protected byte screen = -1; // UnknownScreen
-
-	@Override
-	public int getNumBytes() {
-		return 2;
-	}
 
 	public PacketScreenAction() { }
 
@@ -47,15 +42,15 @@ public class PacketScreenAction implements SpoutPacket {
 	}
 
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		action = input.readByte();
-		screen = input.readByte();
+	public void readData(SpoutInputStream input) throws IOException {
+		action = (byte) input.read();
+		screen = (byte) input.read();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		output.writeByte(action);
-		output.writeByte(screen);
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.write(action);
+		output.write(screen);
 	}
 
 	@Override

@@ -16,12 +16,11 @@
  */
 package org.getspout.spoutapi.gui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.event.screen.TextFieldChangeEvent;
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericTextField extends GenericControl implements TextField {
 	private static final char MASK_MAXLINES = 0x7F; // bits 1–7
@@ -48,35 +47,30 @@ public class GenericTextField extends GenericControl implements TextField {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return super.getNumBytes() + 16 + PacketUtil.getNumBytes(text) + PacketUtil.getNumBytes(placeholder);
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
-		setFieldColor(PacketUtil.readColor(input));
-		setBorderColor(PacketUtil.readColor(input));
+		setFieldColor(input.readColor());
+		setBorderColor(input.readColor());
 		char c = input.readChar();
 		setPasswordField((c & FLAG_PASSWORD) > 0);
 		setMaximumLines(c & MASK_MAXLINES);
 		setTabIndex((c & MASK_TABINDEX) >>> 7);
 		setCursorPosition(input.readChar());
 		setMaximumCharacters(input.readChar());
-		setText(PacketUtil.readString(input));
-		setPlaceholder(PacketUtil.readString(input));
+		setText(input.readString());
+		setPlaceholder(input.readString());
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
-		PacketUtil.writeColor(output, getFieldColor());
-		PacketUtil.writeColor(output, getBorderColor());
+		output.writeColor(getFieldColor());
+		output.writeColor(getBorderColor());
 		output.writeChar((char) (getMaximumLines() & MASK_MAXLINES | (getTabIndex() << 7) & MASK_TABINDEX | (isPasswordField() ? FLAG_PASSWORD : 0)));
-		output.writeChar(getCursorPosition());
-		output.writeChar(getMaximumCharacters());
-		PacketUtil.writeString(output, getText());
-		PacketUtil.writeString(output, getPlaceholder());
+		output.writeChar((char) getCursorPosition());
+		output.writeChar((char) getMaximumCharacters());
+		output.writeString(getText());
+		output.writeString(getPlaceholder());
 	}
 
 	@Override
@@ -224,7 +218,7 @@ public class GenericTextField extends GenericControl implements TextField {
 
 	@Override
 	public void onTextFieldChange(TextFieldChangeEvent event) {
-		this.callEvent(event);
+
 	}
 
 	@Override

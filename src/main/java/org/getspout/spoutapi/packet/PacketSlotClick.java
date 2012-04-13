@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -33,6 +31,8 @@ import org.getspout.spoutapi.gui.InGameHUD;
 import org.getspout.spoutapi.gui.PopupScreen;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.Slot;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketSlotClick implements SpoutPacket {
@@ -51,23 +51,23 @@ public class PacketSlotClick implements SpoutPacket {
 		this.holdingShift = holdingShift;
 	}
 
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		long msb = input.readLong();
 		long lsb = input.readLong();
 		screen = new UUID(msb,lsb);
 		msb = input.readLong();
 		lsb = input.readLong();
 		slot = new UUID(msb,lsb);
-		button = input.readByte();
+		button = input.read();
 		holdingShift = input.readBoolean();
 	}
 
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeLong(screen.getMostSignificantBits());
 		output.writeLong(screen.getLeastSignificantBits());//16
 		output.writeLong(slot.getMostSignificantBits());
 		output.writeLong(slot.getLeastSignificantBits());//32
-		output.writeByte(button);//mouseClick will usually be 0 (left) or 1 (right) - so this is safe unless the mouse has... 257 buttons :P
+		output.write(button);//mouseClick will usually be 0 (left) or 1 (right) - so this is safe unless the mouse has... 257 buttons :P
 		output.writeBoolean(holdingShift);//34
 	}
 

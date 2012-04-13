@@ -16,9 +16,10 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketSkinURL implements SpoutPacket {
 	public PacketSkinURL() {
@@ -48,23 +49,18 @@ public class PacketSkinURL implements SpoutPacket {
 	public boolean release = true;
 
 	@Override
-	public int getNumBytes() {
-		return 5 + PacketUtil.getNumBytes(skinURL) + PacketUtil.getNumBytes(cloakURL);
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		entityId = input.readInt();
-		skinURL = PacketUtil.readString(input, 256);
-		cloakURL = PacketUtil.readString(input, 256);
+		skinURL = input.readString();
+		cloakURL = input.readString();
 		release = input.readBoolean();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(entityId);
-		PacketUtil.writeString(output, skinURL);
-		PacketUtil.writeString(output, cloakURL);
+		output.writeString(skinURL);
+		output.writeString(cloakURL);
 		output.writeBoolean(release);
 	}
 

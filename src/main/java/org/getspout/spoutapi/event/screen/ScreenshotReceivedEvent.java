@@ -21,25 +21,17 @@ import java.awt.image.BufferedImage;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import org.getspout.spoutapi.event.EventType;
-import org.getspout.spoutapi.event.SpoutEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class ScreenshotReceivedEvent extends Event implements SpoutEvent {
+public class ScreenshotReceivedEvent extends Event{
 
 	private static final HandlerList handlers = new HandlerList();
-	private static final EventType type = EventType.Screenshot_Received;
 	private final BufferedImage screenshot;
 	private final SpoutPlayer player;
 
 	public ScreenshotReceivedEvent(SpoutPlayer sp, BufferedImage image) {
 		screenshot = image;
 		player = sp;
-	}
-
-	@Override
-	public EventType getEventType() {
-		return type;
 	}
 
 	public BufferedImage getScreenshot() {

@@ -16,11 +16,11 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.getspout.spoutapi.gui.Color;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketSky implements SpoutPacket {
 	private int cloudY = 0, stars = 0, sunPercent = 0, moonPercent = 0;
@@ -78,34 +78,29 @@ public class PacketSky implements SpoutPacket {
 	}
 
 	@Override
-	public int getNumBytes() {
-		return 31 + PacketUtil.getNumBytes(sun) + PacketUtil.getNumBytes(moon);
-	}
-
-	@Override
-	public void readData(DataInputStream input) throws IOException {
+	public void readData(SpoutInputStream input) throws IOException {
 		cloudY = input.readInt();
 		stars = input.readInt();
 		sunPercent = input.readInt();
 		moonPercent = input.readInt();
-		sun = PacketUtil.readString(input, 256);
-		moon = PacketUtil.readString(input, 256);
-		skyColor = PacketUtil.readColor(input);
-		fogColor = PacketUtil.readColor(input);
-		cloudColor = PacketUtil.readColor(input);
+		sun = input.readString();
+		moon = input.readString();
+		skyColor = input.readColor();
+		fogColor = input.readColor();
+		cloudColor = input.readColor();
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
+	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(cloudY);
 		output.writeInt(stars);
 		output.writeInt(sunPercent);
 		output.writeInt(moonPercent);
-		PacketUtil.writeString(output, sun);
-		PacketUtil.writeString(output, moon);
-		PacketUtil.writeColor(output, skyColor);
-		PacketUtil.writeColor(output, fogColor);
-		PacketUtil.writeColor(output, cloudColor);
+		output.writeString(sun);
+		output.writeString(moon);
+		output.writeColor(skyColor);
+		output.writeColor(fogColor);
+		output.writeColor(cloudColor);
 	}
 
 	@Override

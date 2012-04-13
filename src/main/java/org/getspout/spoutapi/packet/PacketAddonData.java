@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.nio.ByteBuffer;
@@ -51,23 +49,16 @@ public class PacketAddonData implements CompressablePacket {
 
 		}
 		ByteBuffer buffer = stream.getRawBuffer();
-		byte[] raw = new byte[buffer.capacity() - buffer.remaining()];
-		for (int i = 0; i < raw.length; i++) {
-			raw[i] = buffer.get(i);
-		}
-		data = raw;
+		data = new byte[buffer.capacity() - buffer.remaining()];
+		System.arraycopy(buffer.array(), 0, data, 0, data.length);
 		needsCompression = data.length > 512;
 	}
 
-	@Override
-	public int getNumBytes() {
-		return data.length + 4 + 1 + PacketUtil.getNumBytes(AddonPacket.getPacketId(packet.getClass()));
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void readData(DataInputStream input) throws IOException {
-		String packetName = PacketUtil.readString(input);
+	public void readData(SpoutInputStream input) throws IOException {
+		String packetName = input.readString();
 		try {
 			Class<? extends AddonPacket> packetClass = AddonPacket.getPacketFromId(packetName);
 			Constructor<? extends AddonPacket> constructor = null;
@@ -86,12 +77,12 @@ public class PacketAddonData implements CompressablePacket {
 		int size = input.readInt();
 		compressed = input.readBoolean();
 		data = new byte[size];
-		input.readFully(data);
+		input.read(data);
 	}
 
 	@Override
-	public void writeData(DataOutputStream output) throws IOException {
-		PacketUtil.writeString(output, AddonPacket.getPacketId(packet.getClass()));
+	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(AddonPacket.getPacketId(packet.getClass()));
 		output.writeInt(data.length);
 		output.writeBoolean(compressed);
 		output.write(data);

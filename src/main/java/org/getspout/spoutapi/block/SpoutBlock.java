@@ -31,6 +31,7 @@ public interface SpoutBlock extends Block {
 	 * Can be used on main thread, but recommended for async threads
 	 * @param type to set the block to
 	 */
+	@Deprecated
 	public void setTypeAsync(Material type);
 
 	/**
@@ -38,6 +39,7 @@ public interface SpoutBlock extends Block {
 	 * Can be used on main thread, but recommended for async threads
 	 * @param type id to set the block to
 	 */
+	@Deprecated
 	public void setTypeIdAsync(int type);
 
 	/**
@@ -45,6 +47,7 @@ public interface SpoutBlock extends Block {
 	 * Can be used on main thread, but recommended for async threads
 	 * @param data to set the block to
 	 */
+	@Deprecated
 	public void setDataAsync(byte data);
 
 	/**
@@ -53,6 +56,7 @@ public interface SpoutBlock extends Block {
 	 * @param type to set the block to
 	 * @param data to set the block to
 	 */
+	@Deprecated
 	public void setTypeIdAndDataAsync(int type, byte data);
 
 	/**
@@ -60,7 +64,7 @@ public interface SpoutBlock extends Block {
 	 *
 	 * This can be used to set custom blocks at the location.
 	 *
-	 * @param customBlock the custom block to use instead of the block
+	 * @param customBlock the custom block to use instead of the block, or removes it if null
 	 */
 	public void setCustomBlock(CustomBlock block);
 
@@ -104,6 +108,7 @@ public interface SpoutBlock extends Block {
 	 * Ex dirt block returns "Dirt".
 	 * @return block name
 	 */
+	@Deprecated
 	public String getName();
 
 	/**
@@ -115,6 +120,7 @@ public interface SpoutBlock extends Block {
 	 * Note: The new power state will remain even if the underlying block type changes!
 	 * @param power to set
 	 */
+	@Deprecated
 	public void setBlockPowered(boolean power);
 
 	/**
@@ -129,11 +135,13 @@ public interface SpoutBlock extends Block {
 	 * @param power to set
 	 * @param face to affect
 	 */
+	@Deprecated
 	public void setBlockPowered(boolean power, BlockFace face);
 
 	/**
 	 * Resets the block back to the minecraft standard rules for power.
 	 */
+	@Deprecated
 	public void resetBlockPower();
 
 	/**
@@ -146,6 +154,7 @@ public interface SpoutBlock extends Block {
 	 * Returns an item stack with 1 of this block inside of it.
 	 * @return itemstack
 	 */
+	@Deprecated
 	public SpoutItemStack toItemStack();
 
 	/**
@@ -153,6 +162,7 @@ public interface SpoutBlock extends Block {
 	 * @param amount to create
 	 * @return itemstack
 	 */
+	@Deprecated
 	public SpoutItemStack toItemStack(int amount);
 
 	@Override
@@ -169,6 +179,7 @@ public interface SpoutBlock extends Block {
 	 *
 	 * @return blockId
 	 */
+	@Deprecated
 	public short getCustomBlockId();
 
 	/**
@@ -176,11 +187,15 @@ public interface SpoutBlock extends Block {
 	 *
 	 * @return true if block is custom
 	 */
+	@Deprecated
 	public boolean isCustomBlock();
 
 	/**
 	 * Removes the custom material data associated with this SpoutBlock
+	 * 
+	 * @Deprecated use {@link #setCustomBlock(CustomBlock)} with null instead
 	 */
+	@Deprecated
 	public void removeCustomBlockData();
 
 	/**
