@@ -52,7 +52,7 @@ public class SpoutEntityListener implements Listener {
 	public void onEntityExplode(EntityExplodeEvent event) {
 		for(Block block : event.blockList()) {
 			SpoutBlock sb = (SpoutBlock)block;
-			sb.removeCustomBlockData();
+			sb.setCustomBlock(null);
 		}
 	}
 }

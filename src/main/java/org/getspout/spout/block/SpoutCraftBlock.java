@@ -228,6 +228,11 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 
 	@Override
 	public void setCustomBlock(CustomBlock block) {
-		SpoutManager.getMaterialManager().overrideBlock(this, block);
+		if (block != null) {
+			SpoutManager.getMaterialManager().overrideBlock(this, block);
+		}
+		else {
+			SpoutManager.getMaterialManager().removeBlockOverride(this);
+		}
 	}
 }

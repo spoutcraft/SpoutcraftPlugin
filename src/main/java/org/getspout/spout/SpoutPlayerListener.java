@@ -38,7 +38,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
-import org.getspout.spout.chunkcache.ChunkCache;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.player.SimplePlayerManager;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -230,8 +229,6 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		int id = player.getEntityId();
-		ChunkCache.playerQuit(id);
 		Spout.getInstance().getPlayerTrackingManager().onPlayerQuit(player);
 		synchronized(Spout.getInstance().playersOnline) {
 			Spout.getInstance().playersOnline.remove((SpoutPlayer) player);

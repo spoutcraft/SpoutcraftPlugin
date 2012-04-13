@@ -30,10 +30,8 @@ public class PluginListener implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPluginDisable(PluginDisableEvent event) {
-		SpoutManager.getKeyboardManager().removeAllKeyBindings(event.getPlugin());
 		for (Player i : Bukkit.getServer().getOnlinePlayers()) {
 			SpoutPlayer p = SpoutManager.getPlayer(i);
 			p.getMainScreen().removeWidgets(event.getPlugin());

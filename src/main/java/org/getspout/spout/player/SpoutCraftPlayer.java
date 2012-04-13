@@ -1223,7 +1223,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static boolean resetNetServerHandler(Player player) {
 		CraftPlayer cp = (CraftPlayer) player;
 		CraftServer server = (CraftServer) Bukkit.getServer();

@@ -21,6 +21,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
 import java.util.Map;
 
 import net.minecraft.server.NetHandler;
@@ -28,6 +29,8 @@ import net.minecraft.server.Packet;
 
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.packet.PacketType;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -36,11 +39,11 @@ public class CustomPacket extends Packet {
 	public SpoutPacket packet;
 	private boolean success = false;
 	private static final int[] nags;
-	private static final int NAG_MSG_AMT = 10;
+	private static final int NAG_MSG_AMT = 1;
 
 	static {
-		nags = new int[PacketType.values().length];
-		for (int i = 0; i < PacketType.values().length; i++) {
+		nags = new int[256];
+		for (int i = 0; i < 256; i++) {
 			nags[i] = NAG_MSG_AMT;
 		}
 	}
@@ -55,11 +58,7 @@ public class CustomPacket extends Packet {
 
 	@Override
 	public int a() {
-		if (packet == null) {
-			return 8;
-		} else {
-			return packet.getNumBytes() + 8;
-		}
+		return 8;
 	}
 
 	@Override
@@ -88,7 +87,12 @@ public class CustomPacket extends Packet {
 					System.out.println("Invalid Packet Id: " + packetId + ". Current v: " + packet.getVersion() + " Receieved v: " + version + " Skipping contents.");
 				}
 			} else {
-				packet.readData(input);
+				byte[] data = new byte[length];
+				input.readFully(data);
+				
+				SpoutInputStream stream = new SpoutInputStream(ByteBuffer.wrap(data));
+				packet.readData(stream);
+
 				success = true;
 			}
 		}
@@ -112,8 +116,16 @@ public class CustomPacket extends Packet {
 		//System.out.println("Writing Packet Data for " + packet.getPacketType());
 		output.writeShort(packet.getPacketType().getId());
 		output.writeShort(packet.getVersion());
-		output.writeInt(a() - 8);
-		packet.writeData(output);
+		
+		SpoutOutputStream stream = new SpoutOutputStream();
+		packet.writeData(stream);
+		
+		ByteBuffer buffer = stream.getRawBuffer();
+		byte[] data = new byte[buffer.capacity() - buffer.remaining()];
+		System.arraycopy(buffer.array(), 0, data, 0, data.length);
+
+		output.writeInt(data.length);
+		output.write(data);
 	}
 
 	@Override

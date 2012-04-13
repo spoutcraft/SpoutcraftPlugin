@@ -38,7 +38,7 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutWeather;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.PlayerInformation;
-
+@SuppressWarnings("deprecation")
 public class SimplePlayerInformation implements PlayerInformation {
 	HashMap<Biome,SpoutWeather> weatherMap = new HashMap<Biome, SpoutWeather>();
 	HashMap<LivingEntity, SpoutEntitySkin> entitySkin = new HashMap<LivingEntity, SpoutEntitySkin>();

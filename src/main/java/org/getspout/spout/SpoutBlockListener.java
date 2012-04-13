@@ -59,7 +59,7 @@ public class SpoutBlockListener implements Listener {
 
 		SpoutPlayer player = (SpoutPlayer)event.getPlayer();
 
-		if (block.isCustomBlock()) {
+		if (block.getCustomBlock() != null) {
 			CustomBlock material = block.getCustomBlock();
 			if (material.getItemDrop() != null) {
 				if (player.getGameMode() == GameMode.SURVIVAL) {
@@ -118,7 +118,7 @@ public class SpoutBlockListener implements Listener {
 			return;
 		}
 
-		if (block.isCustomBlock()) {
+		if (block.getCustomBlock() != null) {
 			SpoutBlock targetBlock = block.getRelative(blockFace);
 			CustomBlock material = block.getCustomBlock();
 			mm.removeBlockOverride(block);

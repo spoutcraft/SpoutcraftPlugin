@@ -23,9 +23,6 @@ import java.lang.management.ThreadMXBean;
 public class DeadlockMonitor extends Thread {
 	@Override
 	public void run() {
-
-		System.out.println("Starting deadlock monitor");
-
 		boolean dead = false;
 		while (!dead && !interrupted()) {
 			try {
@@ -34,7 +31,6 @@ public class DeadlockMonitor extends Thread {
 				Thread.currentThread().interrupt();
 				dead = true;
 			}
-			System.out.println("Checking for deadlocks");
 			ThreadMXBean tmx = ManagementFactory.getThreadMXBean();
 			long[] ids = tmx.findDeadlockedThreads();
 			if (ids != null) {

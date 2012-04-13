@@ -24,7 +24,6 @@ import org.bukkit.entity.Player;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.keyboard.SimpleKeyBindingManager;
-import org.getspout.spout.packet.CustomPacket;
 import org.getspout.spout.player.SimpleBiomeManager;
 import org.getspout.spout.player.SimpleFileManager;
 import org.getspout.spout.player.SimpleSkyManager;
@@ -36,7 +35,6 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.packet.PacketAllowVisualCheats;
 import org.getspout.spoutapi.packet.PacketBlockData;
-import org.getspout.spoutapi.packet.PacketCacheHashUpdate;
 import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
 import org.getspout.spoutapi.packet.PacketServerPlugins;
 import org.getspout.spoutapi.player.PlayerInformation;
@@ -86,10 +84,6 @@ public class PlayerManager {
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
 			player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign()));
 		}
-
-		PacketCacheHashUpdate p = new PacketCacheHashUpdate();
-		p.reset = true;
-		((SpoutCraftPlayer)player).getNetServerHandler().sendPacket(new CustomPacket(p));
 
 		Spout.getInstance().getPlayerTrackingManager().onPlayerJoin(player);
 
