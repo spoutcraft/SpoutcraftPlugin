@@ -167,7 +167,9 @@ public class SpoutPlayerListener implements Listener {
 					if (!player.getEyeLocation().getBlock().equals(block) && !player.getLocation().getBlock().equals(block)) {
 
 						CustomBlock cb = MaterialData.getCustomBlock(damage);
-						if (cb != null) {
+						
+						
+						if (cb != null && isReplaceable(block.getType())) {
 							BlockState oldState = block.getState();
 							block.setTypeIdAndData(cb.getBlockId(), (byte)(cb.getBlockData()), true);
 							cb.onBlockPlace(block.getWorld(), block.getX(), block.getY(), block.getZ(), player);
@@ -193,6 +195,10 @@ public class SpoutPlayerListener implements Listener {
 				}
 			}
 		}
+	}
+	
+	private boolean isReplaceable(Material type) {
+		return type == Material.FIRE || type == Material.SNOW || type == Material.AIR || type == Material.VINE;
 	}
 
 	//TODO: canBuild should be set properly, CraftEventFactory.canBuild() would do this...
