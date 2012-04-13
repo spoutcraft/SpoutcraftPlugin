@@ -114,10 +114,6 @@ public class SpoutBlockListener implements Listener {
 	}
 
 	private void pistonBlockMove(SpoutBlock block, BlockFace blockFace) {
-		if (block.getType() != Material.STONE && block.getType() != Material.GLASS) {
-			return;
-		}
-
 		if (block.getCustomBlock() != null) {
 			SpoutBlock targetBlock = block.getRelative(blockFace);
 			CustomBlock material = block.getCustomBlock();
