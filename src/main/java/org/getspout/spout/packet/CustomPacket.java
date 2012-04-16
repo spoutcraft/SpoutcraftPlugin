@@ -39,7 +39,7 @@ public class CustomPacket extends Packet {
 	public SpoutPacket packet;
 	private boolean success = false;
 	private static final int[] nags;
-	private static final int NAG_MSG_AMT = 1;
+	private static final int NAG_MSG_AMT = 0;
 
 	static {
 		nags = new int[256];
@@ -71,20 +71,20 @@ public class CustomPacket extends Packet {
 			try {
 				this.packet = PacketType.getPacketFromId(packetId).getPacketClass().newInstance();
 			} catch (Exception e) {
-				System.out.println("Failed to identify packet id: " + packetId);
+				//System.out.println("Failed to identify packet id: " + packetId);
 				//e.printStackTrace();
 			}
 		}
 		try {
 			if (this.packet == null) {
 				input.skipBytes(length);
-				System.out.println("Unknown packet " + packetId + ". Skipping contents.");
+				//System.out.println("Unknown packet " + packetId + ". Skipping contents.");
 				return;
 			} else if (packet.getVersion() != version) {
 				input.skipBytes(length);
 				//Keep server admins from going insane :p
 				if (nags[packetId]-- > 0) {
-					System.out.println("Invalid Packet Id: " + packetId + ". Current v: " + packet.getVersion() + " Receieved v: " + version + " Skipping contents.");
+					//System.out.println("Invalid Packet Id: " + packetId + ". Current v: " + packet.getVersion() + " Receieved v: " + version + " Skipping contents.");
 				}
 			} else {
 				byte[] data = new byte[length];
@@ -105,6 +105,7 @@ public class CustomPacket extends Packet {
 		}
 	}
 
+	SpoutOutputStream stream = new SpoutOutputStream();
 	@Override
 	public void a(DataOutputStream output) throws IOException {
 		if (packet == null) {
@@ -117,15 +118,14 @@ public class CustomPacket extends Packet {
 		output.writeShort(packet.getPacketType().getId());
 		output.writeShort(packet.getVersion());
 		
-		SpoutOutputStream stream = new SpoutOutputStream();
+		stream.getRawBuffer().clear();
 		packet.writeData(stream);
-		
 		ByteBuffer buffer = stream.getRawBuffer();
 		byte[] data = new byte[buffer.capacity() - buffer.remaining()];
 		System.arraycopy(buffer.array(), 0, data, 0, data.length);
 
 		output.writeInt(data.length);
-		output.write(data);
+		output.write(data, 0, data.length);
 	}
 
 	@Override
@@ -140,8 +140,6 @@ public class CustomPacket extends Packet {
 					packet.failure(player.getEntityId());
 				}
 			}
-		} else {
-			//System.out.println("Invalid hash!");
 		}
 	}
 

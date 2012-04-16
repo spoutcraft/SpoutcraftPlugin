@@ -14,3 +14,15 @@ AllowStarsCheat: false
 AllowTimeCheat: false
 AllowVoidFogCheat: false
 AllowWeatherCheat: false
+
+waypoints:
+    world:
+        Spawn:
+             x: 0
+             y: 0
+             z: 0
+    world_nether:
+        Spawn:
+             x: 0
+             y: 0
+             z: 0

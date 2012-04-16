@@ -73,7 +73,6 @@ public class PlayerManager {
 		timer.remove(player.getName());
 		player.sendPacket(new PacketServerPlugins(Bukkit.getServer().getPluginManager().getPlugins()));
 
-		((SpoutCraftPlayer)player).updateAppearance();
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);
 		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
 		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
@@ -84,8 +83,10 @@ public class PlayerManager {
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
 			player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign()));
 		}
+		player.updatePermissions();
 
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));
 		Bukkit.getServer().getPluginManager().callEvent(new SpoutCraftEnableEvent(player));
+		((SpoutCraftPlayer)player).updateAppearance();
 	}
 }

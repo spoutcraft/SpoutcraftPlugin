@@ -97,6 +97,7 @@ import org.getspout.spoutapi.packet.PacketSetVelocity;
 import org.getspout.spoutapi.packet.PacketSkinURL;
 import org.getspout.spoutapi.packet.PacketSpawnTextEntity;
 import org.getspout.spoutapi.packet.PacketTexturePack;
+import org.getspout.spoutapi.packet.PacketWaypoint;
 import org.getspout.spoutapi.packet.PacketWidget;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket;
@@ -1140,8 +1141,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setBuildVersion(int build) {
 		buildVersion = build;
 		if (isSpoutCraftEnabled() && queued != null) {
-			updatePermissions();
-			
 			for (SpoutPacket packet : queued) {
 				sendPacket(packet);
 			}
@@ -1363,11 +1362,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public boolean spawnTextEntity(String text, Location location, float scale, int duration, Vector movement) {
-		if(isSpoutCraftEnabled()) {
-			sendPacket(new PacketSpawnTextEntity(text, location, scale, duration, movement));
-			return true;
-		} else {
-			return false;
-		}
+		sendPacket(new PacketSpawnTextEntity(text, location, scale, duration, movement));
+		return isSpoutCraftEnabled();
+	}
+
+	@Override
+	public void addWaypoint(String name, double x, double y, double z) {
+		sendPacket(new PacketWaypoint(x, y, z, name));
 	}
 }

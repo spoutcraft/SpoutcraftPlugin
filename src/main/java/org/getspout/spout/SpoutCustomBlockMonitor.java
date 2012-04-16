@@ -48,7 +48,7 @@ public class SpoutCustomBlockMonitor implements Listener {
 		Material mat = MaterialData.getMaterial(inHand.getTypeId(), inHand.getDurability());
 		if (mat instanceof CustomItem) {
 			CustomItem item = (CustomItem)mat;
-			event.setCancelled(!item.onItemInteract((SpoutPlayer)event.getPlayer(), (SpoutBlock)event.getClickedBlock(), event.getBlockFace()));
+			event.setCancelled(!item.onItemInteract((SpoutPlayer)event.getPlayer(), (SpoutBlock)event.getClickedBlock(), event.getBlockFace()) || event.isCancelled());
 		}
 	}
 }

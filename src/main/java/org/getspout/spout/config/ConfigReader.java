@@ -16,6 +16,9 @@
  */
 package org.getspout.spout.config;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.getspout.spout.Spout;
 
@@ -37,6 +40,8 @@ public class ConfigReader {
 	private static boolean teleportSmoothing = true;
 	private static boolean authenticateSpoutcraft = true;
 	private static boolean runDeadlockMonitor = false;
+	
+	private static HashMap<String, List<Waypoint> > waypoints = new HashMap<String, List<Waypoint>>();
 
 	public void read() {
 		Spout.getInstance().reloadConfig();
