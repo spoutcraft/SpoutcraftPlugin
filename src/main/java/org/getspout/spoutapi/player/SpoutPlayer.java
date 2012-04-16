@@ -812,6 +812,18 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @returns if the packet for the entity could be send
 	 */
 	public boolean spawnTextEntity(String text, Location location, float scale, int duration, Vector movement);
+	
+	/**
+	 * Adds a waypoint to the minimap of the client, with the given loation and given name.
+	 *  <br/> <br/>
+	 * Note: This waypoint will be cleared when the user logs off or changes worlds.
+	 * 
+	 * @param name iof the waypoint
+	 * @param x coordinate
+	 * @param y coordinate
+	 * @param z coordinate
+	 */
+	public void addWaypoint(String name, double x, double y, double z);
 
 	/**
 	 * Gets the Player's SC version as an int.

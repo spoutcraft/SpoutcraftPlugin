@@ -41,10 +41,6 @@ public class PacketFocusUpdate implements SpoutPacket {
 		this.focus = focus;
 	}
 
-	public int getNumBytes() {
-		return 16 + 1;
-	}
-
 	public void readData(SpoutInputStream input) throws IOException {
 		widgetId = new UUID(input.readLong(), input.readLong());
 		focus = input.readBoolean();

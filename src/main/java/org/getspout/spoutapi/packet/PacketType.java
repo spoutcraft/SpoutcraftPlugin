@@ -84,6 +84,7 @@ public enum PacketType {
 	PacketPermissionUpdate(57, PacketPermissionUpdate.class),
 	PacketSpawnTextEntity(58, PacketSpawnTextEntity.class),
 	PacketSlotClick(59, PacketSlotClick.class),
+	PacketWaypoint(60, PacketWaypoint.class),
 	;
 
 	private final int id;

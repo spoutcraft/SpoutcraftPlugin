@@ -23,45 +23,65 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketCustomBlockChunkOverride implements CompressablePacket {
 	private int chunkX;
 	private int chunkZ;
+	private boolean hasData = false;
 	private byte[] data;
 	private boolean compressed = false;
+	
+	public PacketCustomBlockChunkOverride() { }
 
 	public PacketCustomBlockChunkOverride(short[] customIds, int x, int z) {
 		chunkX = x;
 		chunkZ = z;
-		ByteBuffer buffer = ByteBuffer.allocate(customIds.length * 2);
-		for (int i = 0; i < customIds.length; i++) {
-			buffer.putShort(customIds[i]);
+		if (customIds != null) {
+			ByteBuffer buffer = ByteBuffer.allocate(customIds.length * 2);
+			for (int i = 0; i < customIds.length; i++) {
+				buffer.putShort(customIds[i]);
+			}
+			data = buffer.array();
+			hasData = true;
 		}
-		data = buffer.array();
 	}
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
 		chunkX = input.readInt();
 		chunkZ = input.readInt();
-		int size = input.readInt();
-		data = new byte[size];
-		input.read(data);
+		hasData = input.readBoolean();
+		if (hasData) {
+			int size = input.readInt();
+			data = new byte[size];
+			input.read(data);
+		}
 	}
 
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(chunkX);
 		output.writeInt(chunkZ);
-		output.writeInt(data.length);
-		output.write(data);
+		output.writeBoolean(hasData);
+		if (hasData) {
+			output.writeInt(data.length);
+			output.write(data);
+		}
 	}
 
 	@Override
 	public void run(int playerId) {
-
+		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
+		if (player != null) {
+			SpoutChunk chunk = (SpoutChunk) player.getWorld().getChunkAt(chunkX, chunkZ);
+			
+			player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunkX, chunkZ));
+		}
 	}
 
 	@Override
@@ -76,13 +96,13 @@ public class PacketCustomBlockChunkOverride implements CompressablePacket {
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public void compress() {
 		if (!compressed) {
-			if (data != null) {
+			if (data != null && hasData) {
 				Deflater deflater = new Deflater();
 				deflater.setInput(data);
 				deflater.setLevel(Deflater.BEST_COMPRESSION);
@@ -106,7 +126,7 @@ public class PacketCustomBlockChunkOverride implements CompressablePacket {
 
 	@Override
 	public void decompress() {
-		if (compressed) {
+		if (compressed && hasData) {
 			Inflater decompressor = new Inflater();
 			decompressor.setInput(data);
 
