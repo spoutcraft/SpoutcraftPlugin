@@ -43,24 +43,13 @@ public class SpoutCommand implements CommandExecutor {
 			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
 			return true;
 		}
-
-		if (!sender.isOp()) {
-			sender.sendMessage("[Spout] This command is Op only");
-			return true;
-		}
-
+		
 		String c = args[0];
-
-		if (c.equals("reload")) {
-			(new ConfigReader()).read();
-			sender.sendMessage("Configuration for Spout has been reloaded.");
-			return true;
-		}
 		if (c.equals("version")) {
 			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
 
 			CommandSender target = sender;
-
+			
 			if (args.length > 1) {
 				target = p.getServer().getPlayer(args[1]);
 				if (target == null) {
@@ -82,6 +71,33 @@ public class SpoutCommand implements CommandExecutor {
 					sender.sendMessage("[Spout] Client version: " + sp.getVersionString());
 				}
 			}
+			return true;
+		}
+
+		if (!sender.isOp()) {
+			sender.sendMessage("[Spout] This command is Op only");
+			return true;
+		}
+
+		if (c.equals("waypoint")) {
+			if (!(sender instanceof Player)) {
+				sender.sendMessage("Only players can add waypoints.");
+				return true;
+			}
+			if (args.length > 1) {
+				String name = args[1];
+				(new ConfigReader()).addWaypoint(name, ((Player)sender).getLocation());
+				sender.sendMessage("Waypoint [" + name + "] created successfully");
+				return true;
+			}
+			else {
+				sender.sendMessage("You must give a name to the waypoint.");
+				return true;
+			}
+		}
+		if (c.equals("reload")) {
+			(new ConfigReader()).read();
+			sender.sendMessage("Configuration for Spout has been reloaded.");
 			return true;
 		}
 		if (c.equals("verify") && args.length > 1) {

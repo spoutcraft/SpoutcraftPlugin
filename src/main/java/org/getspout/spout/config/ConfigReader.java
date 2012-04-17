@@ -25,9 +25,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.getspout.spout.Spout;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ConfigReader {
 	private static boolean buildCheck = true;
@@ -111,6 +114,20 @@ public class ConfigReader {
 		catch (Exception e) {
 			System.out.println("[Spout] Error while loading waypoints: ");
 			e.printStackTrace();
+		}
+	}
+	
+	public void addWaypoint(String name, Location location) {
+		Spout.getInstance().reloadConfig();
+		FileConfiguration configuration = Spout.getInstance().getConfig();
+		configuration.set("waypoints." + location.getWorld().getName().toLowerCase() + "." + name + ".x", location.getX());
+		configuration.set("waypoints." + location.getWorld().getName().toLowerCase() + "." + name + ".y", location.getY());
+		configuration.set("waypoints." + location.getWorld().getName().toLowerCase() + "." + name + ".z", location.getZ());
+		Spout.getInstance().saveConfig();
+		for (Player p : location.getWorld().getPlayers()) {
+			if (p instanceof SpoutPlayer) {
+				((SpoutPlayer)p).addWaypoint(name, location.getX(), location.getY(), location.getZ());
+			}
 		}
 	}
 	
