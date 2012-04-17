@@ -24,6 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketWaypoint implements SpoutPacket{
 	private double x, y, z;
 	private String name;
+	private boolean death = false;
 	
 	public PacketWaypoint() { }
 	
@@ -33,6 +34,14 @@ public class PacketWaypoint implements SpoutPacket{
 		this.z = z;
 		this.name = name;
 	}
+	
+	public PacketWaypoint(double x, double y, double z, String name, boolean death) { 
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.name = name;
+		this.death = death;
+	}
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException { 
@@ -40,6 +49,7 @@ public class PacketWaypoint implements SpoutPacket{
 		y = input.readDouble();
 		z = input.readDouble();
 		name = input.readString();
+		death = input.readBoolean();
 	}
 
 	@Override
@@ -48,6 +58,7 @@ public class PacketWaypoint implements SpoutPacket{
 		output.writeDouble(y);
 		output.writeDouble(z);
 		output.writeString(name);
+		output.writeBoolean(death);
 	}
 
 	@Override
