@@ -19,10 +19,10 @@ waypoints:
     world:
         Spawn:
              x: 0
-             y: 0
+             y: 64
              z: 0
     world_nether:
         Spawn:
              x: 0
-             y: 0
+             y: 64.5
              z: 0

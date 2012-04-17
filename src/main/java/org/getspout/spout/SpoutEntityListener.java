@@ -17,15 +17,19 @@
 package org.getspout.spout;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 
+import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.packet.PacketWaypoint;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutEntityListener implements Listener {
@@ -54,5 +58,27 @@ public class SpoutEntityListener implements Listener {
 			SpoutBlock sb = (SpoutBlock)block;
 			sb.setCustomBlock(null);
 		}
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onEntityDeath(EntityDeathEvent event) {
+		if (event.getEntity() instanceof SpoutPlayer) {
+			Location l = event.getEntity().getLocation();
+			((SpoutPlayer)event.getEntity()).sendPacket(new PacketWaypoint(l.getX(), l.getY(), l.getZ(), "", true));
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new PostDeath((SpoutCraftPlayer)event.getEntity()), 200);
+		}
+	}
+}
+
+class PostDeath implements Runnable {
+	SpoutCraftPlayer player;
+	public PostDeath(SpoutCraftPlayer player) {
+		this.player = player;
+	}
+
+	@Override
+	public void run() {
+		player.updateAppearance();
+		player.updateWaypoints();
 	}
 }

@@ -16,9 +16,16 @@
  */
 package org.getspout.spout.config;
 
+import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.getspout.spout.Spout;
 
@@ -65,7 +72,68 @@ public class ConfigReader {
 		authenticateSpoutcraft = configuration.getBoolean("AuthenticateSpoutcraft", true);
 		runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
 		
+		loadWaypoints(configuration);
+		
 		Spout.getInstance().saveConfig();
+	}
+
+	private void loadWaypoints(FileConfiguration config) {
+		try {
+			Object o = config.get("waypoints");
+			if (o != null) {
+				MemorySection mem = (MemorySection)o;
+				Map<String, Object> worlds = getMemorySectionMap(mem);
+				Iterator<Entry<String, Object>> i = worlds.entrySet().iterator();
+				while(i.hasNext()) {
+					Entry<String, Object> e = i.next();
+					final String world = e.getKey().toLowerCase();
+					if (e.getValue() instanceof MemorySection) {
+						Map<String, Object> waypoints = getMemorySectionMap((MemorySection) e.getValue());
+						Iterator<Entry<String, Object>> j = waypoints.entrySet().iterator();
+						while(j.hasNext()) {
+							Entry<String, Object> waypoint = j.next();
+							MemorySection values = (MemorySection) waypoint.getValue();
+							double x = values.getDouble("x");
+							double y = values.getDouble("y");
+							double z = values.getDouble("z");
+							
+							List<Waypoint> existing = ConfigReader.waypoints.get(world);
+							if (existing == null) {
+								existing = new LinkedList<Waypoint>();
+								ConfigReader.waypoints.put(world, existing);
+							}
+							existing.add(new Waypoint(x, y, z, waypoint.getKey()));
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e) {
+			System.out.println("[Spout] Error while loading waypoints: ");
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Map<String, Object> getMemorySectionMap(MemorySection section) {
+		Field f;
+		try {
+			f = MemorySection.class.getDeclaredField("map");
+			f.setAccessible(true);
+			return (Map<String, Object>) f.get(section);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Waypoint> getWaypoints(String world) {
+		List<Waypoint> l = waypoints.get(world);
+		if (l == null) {
+			return Collections.EMPTY_LIST;
+		}
+		return l;
 	}
 
 	public static boolean isBuildCheck() {

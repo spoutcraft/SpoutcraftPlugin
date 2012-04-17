@@ -105,6 +105,9 @@ public class SpoutPlayerListener implements Listener {
 		if (event.getFrom().getWorld().equals(event.getTo().getWorld())) {
 			update = new PostTeleport(scp);
 		}
+		else {
+			update = new PostWorldTeleport(scp);
+		}
 		if (update != null) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), update, 2);
 		}
@@ -251,3 +254,17 @@ class PostTeleport implements Runnable {
 		player.updateAppearance();
 	}
 }
+
+class PostWorldTeleport implements Runnable {
+	SpoutCraftPlayer player;
+	public PostWorldTeleport(SpoutCraftPlayer player) {
+		this.player = player;
+	}
+
+	@Override
+	public void run() {
+		player.updateAppearance();
+		player.updateWaypoints();
+	}
+}
+

@@ -67,6 +67,8 @@ import org.getspout.spout.Spout;
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spout.SpoutPermissibleBase;
 import org.getspout.spout.block.SpoutCraftChunk;
+import org.getspout.spout.config.ConfigReader;
+import org.getspout.spout.config.Waypoint;
 import org.getspout.spout.inventory.SpoutCraftInventoryPlayer;
 import org.getspout.spout.inventory.SpoutCraftingInventory;
 import org.getspout.spout.packet.CustomPacket;
@@ -1369,5 +1371,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public void addWaypoint(String name, double x, double y, double z) {
 		sendPacket(new PacketWaypoint(x, y, z, name));
+	}
+	
+	public void updateWaypoints() {
+		List<Waypoint> waypoints = ConfigReader.getWaypoints(getWorld().getName().toLowerCase());
+		for (Waypoint p : waypoints) {
+			addWaypoint(p.getName(), p.getX(), p.getY(), p.getZ());
+		}
 	}
 }
