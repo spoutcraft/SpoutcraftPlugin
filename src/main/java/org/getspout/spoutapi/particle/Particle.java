@@ -21,6 +21,7 @@ import java.util.Random;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.getspout.spoutapi.packet.PacketParticle;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class Particle {
@@ -33,6 +34,7 @@ public class Particle {
 	private float particleRed = -1F;
 	private float particleBlue = -1F;
 	private float particleGreen = -1F;
+	private int amount = 10;
 	
 	public Particle(ParticleType particle, Location location, Vector motion) {
 		this(particle.name, location, motion);
@@ -96,8 +98,9 @@ public class Particle {
 	 * 
 	 * @param motion to set
 	 */
-	public void setMotion(Vector motion) {
+	public Particle setMotion(Vector motion) {
 		this.motion = motion;
+		return this;
 	}
 
 	/**
@@ -113,8 +116,9 @@ public class Particle {
 	 * Sets the maximum age (in ticks) that the particle will last
 	 * @param maxAge
 	 */
-	public void setMaxAge(int maxAge) {
+	public Particle setMaxAge(int maxAge) {
 		this.maxAge = maxAge;
+		return this;
 	}
 
 	/**
@@ -131,8 +135,9 @@ public class Particle {
 	 * 
 	 * @param color
 	 */
-	public void setParticleRed(float particleRed) {
+	public Particle setParticleRed(float particleRed) {
 		this.particleRed = particleRed;
+		return this;
 	}
 
 	/**
@@ -149,8 +154,9 @@ public class Particle {
 	 * 
 	 * @return color
 	 */
-	public void setParticleBlue(float particleBlue) {
+	public Particle setParticleBlue(float particleBlue) {
 		this.particleBlue = particleBlue;
+		return this;
 	}
 
 	/**
@@ -167,8 +173,9 @@ public class Particle {
 	 * 
 	 * @return color
 	 */
-	public void setParticleGreen(float particleGreen) {
+	public Particle setParticleGreen(float particleGreen) {
 		this.particleGreen = particleGreen;
+		return this;
 	}
 
 	/**
@@ -185,8 +192,9 @@ public class Particle {
 	 * 
 	 * @param scale
 	 */
-	public void setScale(float scale) {
+	public Particle setScale(float scale) {
 		this.scale = scale;
+		return this;
 	}
 
 	/**
@@ -203,8 +211,9 @@ public class Particle {
 	 *
 	 * @param gravity
 	 */
-	public void setGravity(float gravity) {
+	public Particle setGravity(float gravity) {
 		this.gravity = gravity;
+		return this;
 	}
 	
 	/**
@@ -213,7 +222,9 @@ public class Particle {
 	 * @param player to spawn the particle for
 	 */
 	public void spawn(SpoutPlayer player) {
-		
+		if (player.isSpoutCraftEnabled()) {
+			player.sendPacket(new PacketParticle(this));
+		}
 	}
 	
 	/**
@@ -227,6 +238,15 @@ public class Particle {
 				}
 			}
 		}
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public Particle setAmount(int amount) {
+		this.amount = amount;
+		return this;
 	}
 
 	enum ParticleType {
