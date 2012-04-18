@@ -249,7 +249,7 @@ public class Particle {
 		return this;
 	}
 
-	enum ParticleType {
+	public enum ParticleType {
 		BUBBLE("bubble"),
 		SUSPENDED("suspended"),
 		DEPTHSUSPEND("depthsuspend"),
