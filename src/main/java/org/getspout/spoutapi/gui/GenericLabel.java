@@ -265,7 +265,10 @@ public class GenericLabel extends GenericWidget implements Label {
 	}
 	
 	public Label setShadow(boolean shadow) {
-		this.shadow = shadow;
+		if (hasShadow() != shadow) {
+			this.shadow = shadow;
+			autoDirty();
+		}
 		return this;
 	}
 	
