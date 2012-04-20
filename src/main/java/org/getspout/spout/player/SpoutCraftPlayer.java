@@ -40,6 +40,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
 import org.bukkit.craftbukkit.CraftServer;
@@ -196,14 +197,14 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof CraftPlayer)) {
+		if (!(obj instanceof OfflinePlayer)) {
 			return false;
 		}
-		final CraftPlayer other = (CraftPlayer) obj;
-		if ((this.getName() == null) ? (other.getName() != null) : !this.getName().equals(other.getName())) {
+		OfflinePlayer other = (OfflinePlayer) obj;
+		if ((this.getName() == null) || (other.getName() == null)) {
 			return false;
 		}
-		return true;
+		return this.getName().equalsIgnoreCase(other.getName());
 	}
 
 	@Override
