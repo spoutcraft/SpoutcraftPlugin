@@ -1,6 +1,6 @@
 /*
  * This file is part of Spout (http://wiki.getspout.org/).
- * 
+ *
  * Spout is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +24,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 public class InventoryListener implements Listener{
-	
 	public InventoryListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
@@ -35,7 +34,7 @@ public class InventoryListener implements Listener{
 		org.getspout.spoutapi.event.inventory.InventoryCloseEvent spoutEvent = new org.getspout.spoutapi.event.inventory.InventoryCloseEvent((Player) event.getPlayer(), event.getView().getTopInventory(), event.getView().getBottomInventory());
 		Bukkit.getServer().getPluginManager().callEvent(spoutEvent);
 	}
-	
+
 	@EventHandler
 	public void onInventoryOpen(InventoryOpenEvent event) {
 		@SuppressWarnings("deprecation")

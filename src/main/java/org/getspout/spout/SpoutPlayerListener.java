@@ -47,7 +47,6 @@ import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutPlayerListener implements Listener {
-
 	public final PlayerManager manager = new PlayerManager();
 
 	public SpoutPlayerListener(Spout plugin) {
@@ -129,7 +128,7 @@ public class SpoutPlayerListener implements Listener {
 
 		if (event.getClickedBlock() != null) {
 			boolean action = false;
-			
+
 			switch (event.getClickedBlock().getType()) {
 				case BREWING_STAND:
 				case CHEST:
@@ -169,8 +168,8 @@ public class SpoutPlayerListener implements Listener {
 					if (!player.getEyeLocation().getBlock().equals(block) && !player.getLocation().getBlock().equals(block)) {
 
 						CustomBlock cb = MaterialData.getCustomBlock(damage);
-						
-						
+
+
 						if (cb != null && isReplaceable(block.getType())) {
 							BlockState oldState = block.getState();
 							block.setTypeIdAndData(cb.getBlockId(), (byte)(cb.getBlockData()), true);
@@ -198,7 +197,7 @@ public class SpoutPlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	private boolean isReplaceable(Material type) {
 		return type == Material.FIRE || type == Material.SNOW || type == Material.AIR || type == Material.VINE;
 	}

@@ -40,7 +40,6 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutBlockListener implements Listener {
-
 	private final SimpleMaterialManager mm;
 
 	public SpoutBlockListener(Spout plugin) {

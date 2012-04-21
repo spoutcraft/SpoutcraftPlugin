@@ -33,11 +33,10 @@ import org.getspout.spoutapi.packet.PacketWaypoint;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutEntityListener implements Listener {
-	
 	public SpoutEntityListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDamage(EntityDamageEvent event) {
 		if (event.getEntity() instanceof SpoutPlayer) {
@@ -51,7 +50,7 @@ public class SpoutEntityListener implements Listener {
 			event.setCancelled(event.isCancelled() || !((SpoutPlayer)event.getTarget()).isPreCachingComplete());
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityExplode(EntityExplodeEvent event) {
 		for(Block block : event.blockList()) {
@@ -59,7 +58,7 @@ public class SpoutEntityListener implements Listener {
 			sb.setCustomBlock(null);
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onEntityDeath(EntityDeathEvent event) {
 		if (event.getEntity() instanceof SpoutPlayer) {

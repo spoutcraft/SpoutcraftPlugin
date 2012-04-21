@@ -25,11 +25,10 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PluginListener implements Listener {
-	
 	public PluginListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler
 	public void onPluginDisable(PluginDisableEvent event) {
 		for (Player i : Bukkit.getServer().getOnlinePlayers()) {

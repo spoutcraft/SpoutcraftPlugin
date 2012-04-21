@@ -89,8 +89,7 @@ public class SpoutCommand implements CommandExecutor {
 				(new ConfigReader()).addWaypoint(name, ((Player)sender).getLocation());
 				sender.sendMessage("Waypoint [" + name + "] created successfully");
 				return true;
-			}
-			else {
+			} else {
 				sender.sendMessage("You must give a name to the waypoint.");
 				return true;
 			}

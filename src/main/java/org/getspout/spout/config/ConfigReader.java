@@ -36,7 +36,7 @@ public class ConfigReader {
 	private static boolean buildCheck = true;
 	private static boolean forceClient = false;
 	private static int authTicks = 200;
-	private static String kickMessage = "This server requires Spoutcraft! http://bit.ly/unleashtheflow";
+	private static String kickMessage = "This server requires Spoutcraft! http://www.spout.org";
 
 	private static boolean allowSkyCheat = false;
 	private static boolean allowClearWaterCheat = false;
@@ -50,7 +50,7 @@ public class ConfigReader {
 	private static boolean teleportSmoothing = true;
 	private static boolean authenticateSpoutcraft = true;
 	private static boolean runDeadlockMonitor = false;
-	
+
 	private static HashMap<String, List<Waypoint> > waypoints = new HashMap<String, List<Waypoint>>();
 
 	public void read() {
@@ -74,9 +74,9 @@ public class ConfigReader {
 		teleportSmoothing = configuration.getBoolean("TeleportSmoothing", true);
 		authenticateSpoutcraft = configuration.getBoolean("AuthenticateSpoutcraft", true);
 		runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
-		
+
 		loadWaypoints(configuration);
-		
+
 		Spout.getInstance().saveConfig();
 	}
 
@@ -99,7 +99,7 @@ public class ConfigReader {
 							double x = values.getDouble("x");
 							double y = values.getDouble("y");
 							double z = values.getDouble("z");
-							
+
 							List<Waypoint> existing = ConfigReader.waypoints.get(world);
 							if (existing == null) {
 								existing = new LinkedList<Waypoint>();
@@ -116,7 +116,7 @@ public class ConfigReader {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void addWaypoint(String name, Location location) {
 		Spout.getInstance().reloadConfig();
 		FileConfiguration configuration = Spout.getInstance().getConfig();
@@ -130,7 +130,7 @@ public class ConfigReader {
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> getMemorySectionMap(MemorySection section) {
 		Field f;
@@ -143,7 +143,7 @@ public class ConfigReader {
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static List<Waypoint> getWaypoints(String world) {
 		List<Waypoint> l = waypoints.get(world);

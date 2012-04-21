@@ -151,7 +151,7 @@ public class Spout extends JavaPlugin {
 		if (ConfigReader.isBuildCheck()) {
 			InputStream is = getResource("plugin.yml");
 			final YamlConfiguration config = YamlConfiguration.loadConfiguration(is);
-			
+
 			// Format the output from Bukkit.getVersion()
 			String output = "";
 			if (Bukkit.getServer().getVersion().contains("(MC: ")) {
@@ -165,7 +165,7 @@ public class Spout extends JavaPlugin {
 			if (!minecraftVersion.equals(bukkitVersion)) {
 				warnMessage(minecraftVersion, bukkitVersion);
 				hardDisable = true;
-				Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {					
+				Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
 					@Override
 					public void run() {
 						warnMessage(minecraftVersion, bukkitVersion);
@@ -175,7 +175,7 @@ public class Spout extends JavaPlugin {
 							} else {
 							//	player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] Dear " + player.getName() + ", please let your admin know to check the console.");
 							}
-						}						
+						}
 					}
 				}, 1200L, 1200L);
 			}
@@ -228,7 +228,7 @@ public class Spout extends JavaPlugin {
 		}
 		//These are safe even if the build check fails
 		getCommand("spout").setExecutor(new SpoutCommand(this));
-		
+
 		CRCConfig = new FlatFileStore<String>(new File(this.getDataFolder(), "CRCCache.txt"), String.class);
 		CRCConfig.load();
 
@@ -241,13 +241,13 @@ public class Spout extends JavaPlugin {
 			serverItemMap = new ItemMap(null, itemMapConfig, null);
 		}
 		ItemMap.setRootMap(serverItemMap);
-		
+
 		if (ConfigReader.runDeadlockMonitor()) {
 			new DeadlockMonitor().start();
 		}
-		
+
 		setupPermissions();
-		
+
 		super.onEnable();
 	}
 
@@ -283,7 +283,7 @@ public class Spout extends JavaPlugin {
 			((SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(player)).getNetServerHandler().sendImmediatePacket(packet);
 		}
 	}
-	
+
 	public void warnMessage(String minecraftVersion, String bukkitVersion) {
 		Bukkit.getServer().getLogger().info(
 			"\n-----------------------------------------------------\n" +
@@ -292,7 +292,7 @@ public class Spout extends JavaPlugin {
 			"|| Current Minecraft Server version: " + bukkitVersion + "\n" +
 			"|| Either disable ForceMinecraftVersionCheck in /plugins/Spout/config.yml or update CraftBukkit.\n" +
 			"-------------------------------------------------------"
-		);		
+		);
 	}
 }
 

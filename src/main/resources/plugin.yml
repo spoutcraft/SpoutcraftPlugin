@@ -1,17 +1,50 @@
 name: Spout
-version: ${build.number}
+version: ${project.version} build ${buildNumber}
 description: SpoutPlugin is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize.
 author: SpoutDev
 website: http://www.spout.org
 
 main: org.getspout.spout.Spout
 load: startup
-mcversion: ${minecraft.version}
+mcversion: ${minecraftVersion}
 
 commands:
     spout:
         aliases: [spoutcommand, spoutcmd, spcmd]
-        description: Spout commands
+        description: Various Spout commands.
         usage: |
             Usage: /<command> version [player]
             Usage: /<command> verify [motd]
+
+permissions:
+    spout.*:
+        description: Give player permission to ALL permissions.
+        children:
+            spout.client.minimap: true
+            spout.client.overviewmap: true
+            spout.client.signcolors: true
+            spout.client.chatcolors: true
+            spout.client.sortinventory: true
+    spout.client.*:
+        description: Give player permission to client permissions.
+        children:
+            spout.client.minimap: true
+            spout.client.overviewmap: true
+            spout.client.signcolors: true
+            spout.client.chatcolors: true
+            spout.client.sortinventory: true
+    spout.client.minimap:
+        description: Allows usage of the minimap.
+        default: true
+    spout.client.overviewmap:
+        description: Allows usage of the overview map.
+        default: true
+    spout.client.signcolors:
+        description: Allows the player to add colors to signs.
+        default: true
+    spout.client.chatcolors:
+        description:  Allows the player to add colors to chat messages.
+        default: true
+    spout.client.sortinventory:
+        description: Allows the player to sort his inventory using handy buttons.
+        default: true
