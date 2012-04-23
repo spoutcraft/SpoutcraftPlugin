@@ -217,9 +217,6 @@ public class InGameScreen extends GenericScreen implements InGameHUD {
 		if (widget instanceof Screen) {
 			return false;
 		}
-		if (widget instanceof Control) {
-			return false;
-		}
 		return true;
 	}
 
