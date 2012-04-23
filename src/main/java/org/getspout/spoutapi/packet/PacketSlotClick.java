@@ -79,10 +79,13 @@ public class PacketSlotClick implements SpoutPacket {
 		SpoutPlayer p = SpoutManager.getPlayerFromId(playerId);
 		InGameHUD mainScreen = p.getMainScreen();
 		PopupScreen popup = mainScreen.getActivePopup();
+		Screen current = p.getCurrentScreen();
 		
 		Screen in = null;
-		if(screen.equals(mainScreen.getId())) in = mainScreen;
-		if(screen.equals(popup.getId())) in = popup;
+		if(mainScreen != null && screen.equals(mainScreen.getId())) in = mainScreen;
+		if(popup != null && screen.equals(popup.getId())) in = popup;
+		if(current != null && screen.equals(current.getId())) in = current;
+		if(in == null) return;
 		if(!in.containsWidget(slot)) return;
 
 		//Slot Handling code goes here.
