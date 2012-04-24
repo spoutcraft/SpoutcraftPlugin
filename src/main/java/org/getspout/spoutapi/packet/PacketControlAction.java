@@ -95,6 +95,9 @@ public class PacketControlAction implements SpoutPacket {
 			if (player.getMainScreen().getActivePopup() != null && player.getMainScreen().getActivePopup().getId().equals(this.screen)) {
 				screen = player.getMainScreen().getActivePopup();
 			}
+			if (player.getCurrentScreen() != null && player.getCurrentScreen().getId().equals(this.screen)) {
+				screen = player.getCurrentScreen();
+			}
 			if (screen != null) {
 				Widget control = screen.getWidget(widget);
 				if (control != null) {
