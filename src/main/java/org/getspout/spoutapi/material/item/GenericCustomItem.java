@@ -88,6 +88,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 
 	@Override
 	public String getTexture() {
+		if (texture == null) return "";
 		return texture;
 	}
 
