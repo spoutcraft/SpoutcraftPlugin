@@ -17,6 +17,7 @@
 package org.getspout.spout;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -237,7 +238,13 @@ public class SpoutPlayerListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		synchronized(Spout.getInstance().playersOnline) {
-			Spout.getInstance().playersOnline.remove((SpoutPlayer) player);
+			Iterator<SpoutPlayer> i = Spout.getInstance().playersOnline.iterator();
+			while (i.hasNext()) {
+				String name = i.next().getName();
+				if (name.equals(player.getName())) {
+					i.remove();
+				}
+			}
 		}
 	}
 }
