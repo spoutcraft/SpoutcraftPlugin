@@ -104,7 +104,7 @@ public class ChunkStore {
 		int rx = x >> 5;
 		int rz = z >> 5;
 
-		long key2 = (((long)rx)<<32) | (((long)rz) & 0xFFFFFFFFL);
+		long key2 = (((long) rx) << 32) | (((long) rz) & 0xFFFFFFFFL);
 
 		SimpleRegionFile regionFile = worldRegions.get(key2);
 

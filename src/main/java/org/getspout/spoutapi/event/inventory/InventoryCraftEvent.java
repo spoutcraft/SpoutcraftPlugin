@@ -25,7 +25,6 @@ import org.getspout.spoutapi.inventory.CraftingInventory;
 
 @Deprecated
 public class InventoryCraftEvent extends InventoryEvent {
-	
 	private static final HandlerList handlers = new HandlerList();
 	private ItemStack result, cursor;
 	private final int amount;
@@ -55,7 +54,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	 * @return inventory
 	 */
 	public CraftingInventory getInventory() {
-		return (CraftingInventory)this.inventory;
+		return (CraftingInventory) this.inventory;
 	}
 
 	/**

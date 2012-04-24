@@ -22,14 +22,29 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import org.bukkit.*;
+import org.bukkit.BlockChangeDelegate;
+import org.bukkit.Chunk;
+import org.bukkit.ChunkSnapshot;
+import org.bukkit.Difficulty;
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.TreeType;
+import org.bukkit.World;
+import org.bukkit.WorldType;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
-import org.bukkit.entity.*;
-import org.bukkit.metadata.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.CreatureType;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.LightningStrike;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
@@ -107,7 +122,7 @@ public class SpoutWorld implements World {
 	public Biome getBiome(int x, int z) {
 		return world.getBiome(x, z);
 	}
-	
+
 	@Override
 	public void setBiome(int x, int z, Biome biome) {
 		world.setBiome(x, z, biome);
@@ -349,12 +364,12 @@ public class SpoutWorld implements World {
 	public void playEffect(Location location, Effect effect, int data, int radius) {
 		world.playEffect(location, effect, data, radius);
 	}
-	
+
 	@Override
 	public <T> void playEffect(Location location, Effect effect, T data) {
 		world.playEffect(location, effect, data);
 	}
-	
+
 	@Override
 	public <T> void playEffect(Location location, Effect effect, T data, int radius) {
 		world.playEffect(location, effect, data, radius);
@@ -554,28 +569,57 @@ public class SpoutWorld implements World {
 	}
 
 	@Override
+	public int getMonsterSpawnLimit() {
+		return world.getMonsterSpawnLimit();
+	}
+
+	@Override
+	public void setMonsterSpawnLimit(int i) {
+		world.setMonsterSpawnLimit(i);
+	}
+
+	@Override
+	public int getAnimalSpawnLimit() {
+		return world.getAnimalSpawnLimit();
+	}
+
+	@Override
+	public void setAnimalSpawnLimit(int i) {
+		world.setAnimalSpawnLimit(i);
+	}
+
+	@Override
+	public int getWaterAnimalSpawnLimit() {
+		return world.getWaterAnimalSpawnLimit();
+	}
+
+	@Override
+	public void setWaterAnimalSpawnLimit(int i) {
+		world.setWaterAnimalSpawnLimit(i);
+	}
+
+	@Override
 	public LivingEntity spawnCreature(Location arg0, EntityType arg1) {
 		return world.spawnCreature(arg0, arg1);
 	}
-	
+
 	@Override
 	public void setMetadata(String metadataKey, MetadataValue newMetadataValue) {
 		world.setMetadata(metadataKey, newMetadataValue);
 	}
-	
+
 	@Override
 	public List<MetadataValue> getMetadata(String metadataKey) {
 		return world.getMetadata(metadataKey);
 	}
-	
+
 	@Override
 	public boolean hasMetadata(String metadataKey) {
 		return world.hasMetadata(metadataKey);
 	}
-	
+
 	@Override
 	public void removeMetadata(String metadataKey, Plugin owningPlugin) {
 		world.removeMetadata(metadataKey, owningPlugin);
 	}
-	
 }

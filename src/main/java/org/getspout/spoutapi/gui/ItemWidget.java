@@ -19,7 +19,7 @@ package org.getspout.spoutapi.gui;
 /**
  * The GenericItemWidget class allows you to display a block or item as it
  * would be in the player's inventory.
- *
+ * <p/>
  * Don't forget that most items are in fact 3d, so also need a depth to draw
  * properly.
  */

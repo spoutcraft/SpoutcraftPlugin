@@ -23,8 +23,7 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class KeyPressedEvent extends Event{
-	
+public class KeyPressedEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private final SpoutPlayer player;
 	private final Keyboard key;

@@ -19,8 +19,7 @@ package org.getspout.spoutapi.event.spout;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class ServerTickEvent extends Event{
-
+public class ServerTickEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private final long lastTick;
 	private final long createdTime = System.currentTimeMillis();
@@ -52,7 +51,7 @@ public class ServerTickEvent extends Event{
 	 * @return seconds since last server tick
 	 */
 	public double getSecondsLastTick() {
-		return ((double)Math.abs(createdTime - lastTick)) / 1000;
+		return ((double) Math.abs(createdTime - lastTick)) / 1000;
 	}
 
 	@Override

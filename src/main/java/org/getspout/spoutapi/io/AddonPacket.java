@@ -42,7 +42,7 @@ public abstract class AddonPacket {
 
 	/**
 	 * Reads the incoming data from the client.
-	 *
+	 * <p/>
 	 * Note: Data should be read in exactly the same order as it was written.
 	 * @param input stream to read data from
 	 */
@@ -94,7 +94,6 @@ public abstract class AddonPacket {
 		if (!emptyConstructor) {
 			throw new IllegalArgumentException("Any AddonPacket Must Provide An Empty Constructor");
 		}
-
 
 		packets.put(uniqueId, packet);
 		packetsIds.put(packet, uniqueId);

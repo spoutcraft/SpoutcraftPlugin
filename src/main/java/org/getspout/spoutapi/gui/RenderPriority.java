@@ -18,7 +18,7 @@ package org.getspout.spoutapi.gui;
 
 /**
  * Used to define the order widgets are rendered to screen.
- *
+ * <p/>
  * Please remember that the earlier a widget is rendered, the more widgets will
  * be placed on top of it. In other words, first (Highest) is on the bottom and
  * last (Lowest) is on the top.
@@ -44,7 +44,6 @@ public enum RenderPriority {
 	 * Will render after all other textures and widgets
 	 */
 	Lowest(4);
-
 	private final int id;
 
 	RenderPriority(int id) {

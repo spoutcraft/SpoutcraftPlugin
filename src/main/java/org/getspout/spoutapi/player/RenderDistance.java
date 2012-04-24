@@ -21,8 +21,8 @@ public enum RenderDistance {
 	NORMAL(1),
 	SHORT(2),
 	TINY(3);
-
 	private final int value;
+
 	RenderDistance(final int i) {
 		value = i;
 	}

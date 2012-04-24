@@ -23,7 +23,6 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.Inventory;
 
 public abstract class InventoryEvent extends Event implements Cancellable {
-
 	protected final Inventory inventory;
 	protected final Player player;
 	protected boolean cancelled;

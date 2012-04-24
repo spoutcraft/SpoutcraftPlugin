@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
+
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketSpawnTextEntity implements SpoutPacket {
-
 	private String text;
 	private Location location;
 	private int duration;
 	private Vector movement;
-    private float scale;
+	private float scale;
 
 	public PacketSpawnTextEntity(String text, Location location, float scale, int duration, Vector movement) {
 		this.text = text;
@@ -70,5 +70,4 @@ public class PacketSpawnTextEntity implements SpoutPacket {
 	public int getVersion() {
 		return 0;
 	}
-
 }

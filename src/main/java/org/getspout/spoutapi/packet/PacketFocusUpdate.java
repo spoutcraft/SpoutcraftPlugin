@@ -31,11 +31,11 @@ public class PacketFocusUpdate implements SpoutPacket {
 	private Control control;
 	private boolean focus;
 	private UUID widgetId;
-	
+
 	public PacketFocusUpdate() {
-		
+
 	}
-	
+
 	public PacketFocusUpdate(Control control, boolean focus) {
 		this.control = control;
 		this.focus = focus;
@@ -60,14 +60,15 @@ public class PacketFocusUpdate implements SpoutPacket {
 			if (popup != null) {
 				Widget w = popup.getWidget(widgetId);
 				if (w != null && w instanceof Control) {
-					((Control)w).setFocus(focus);
+					((Control) w).setFocus(focus);
 				}
 			}
 		}
 	}
 
 	@Override
-	public void failure(int playerId) {}
+	public void failure(int playerId) {
+	}
 
 	@Override
 	public PacketType getPacketType() {

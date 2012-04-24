@@ -83,9 +83,8 @@ public interface MaterialManager {
 
 	/**
 	 * Registers the id for a custom item.  The key should be unique.
-	 *
+	 * <p/>
 	 * The returned id should be used for accessing the item and is persistent between server restarts and reloads
-	 *
 	 * @param key Key of the new item
 	 * @return the unique id or null on error
 	 */
@@ -93,7 +92,6 @@ public interface MaterialManager {
 
 	/**
 	 * Removes the custom block override from this block
-	 *
 	 * @param block to remove the override
 	 * @return true if successful
 	 */
@@ -101,30 +99,27 @@ public interface MaterialManager {
 
 	/**
 	 * Overrides the block to be the customBlock
-	 *
+	 * <p/>
 	 * This can be used to set custom blocks at the location.
-	 *
-	 * @param block the block to override
+	 * @param block       the block to override
 	 * @param customBlock the custom block to use instead of the block
 	 */
 	public boolean overrideBlock(Block block, CustomBlock customBlock);
 
 	/**
 	 * Overrides the block at x y z to be the customBlock
-	 *
+	 * <p/>
 	 * This can be used to set custom blocks at the location.
-	 *
-	 * @param world the location is in
-	 * @param x location
-	 * @param y location
-	 * @param z location
+	 * @param world       the location is in
+	 * @param x           location
+	 * @param y           location
+	 * @param z           location
 	 * @param customBlock the custom block to use at the location
 	 */
 	public boolean overrideBlock(World world, int x, int y, int z, CustomBlock customBlock);
 
 	/**
 	 * Registers a SpoutRecipe to the server
-	 *
 	 * @param recipe to register
 	 * @return true if successful
 	 */

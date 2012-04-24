@@ -37,7 +37,7 @@ public interface Scrollable extends Control {
 	/**
 	 * Sets the scroll position on the axis, in pixels.
 	 * The allowed scroll amount ranges from 0 to getMaximumScrollPosition for given axis.
-	 * @param axis the axis to scroll
+	 * @param axis     the axis to scroll
 	 * @param position the position of the viewport on given axis
 	 */
 	public void setScrollPosition(Orientation axis, int position);

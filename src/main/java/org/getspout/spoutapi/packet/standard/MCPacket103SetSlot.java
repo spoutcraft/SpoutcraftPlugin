@@ -36,7 +36,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		CHEST(3),
 		DOUBLECHEST(4),
 		DISPENSER(5);
-
 		/**
 		 * The raw value contained in the packet.
 		 */
@@ -77,19 +76,15 @@ public interface MCPacket103SetSlot extends MCPacket {
 	public enum Slot {
 		UNKNOWN(-1, 0),
 		CURSOR(-1, -1),
-
 		PLAYER_CRAFT_RESULT(0, 0),
-
 		PLAYER_CRAFT_INPUT_1(0, 1),
 		PLAYER_CRAFT_INPUT_2(0, 2),
 		PLAYER_CRAFT_INPUT_3(0, 3),
 		PLAYER_CRAFT_INPUT_4(0, 4),
-
 		PLAYER_ARMOR_HEAD(0, 5),
 		PLAYER_ARMOR_CHEST(0, 6),
 		PLAYER_ARMOR_LEGS(0, 7),
 		PLAYER_ARMOR_FEET(0, 8),
-
 		PLAYER_INVENTORY_01(0, 9),
 		PLAYER_INVENTORY_02(0, 10),
 		PLAYER_INVENTORY_03(0, 11),
@@ -117,7 +112,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		PLAYER_INVENTORY_25(0, 33),
 		PLAYER_INVENTORY_26(0, 34),
 		PLAYER_INVENTORY_27(0, 35),
-
 		PLAYER_HELD_1(0, 36),
 		PLAYER_HELD_2(0, 37),
 		PLAYER_HELD_3(0, 38),
@@ -127,9 +121,7 @@ public interface MCPacket103SetSlot extends MCPacket {
 		PLAYER_HELD_7(0, 42),
 		PLAYER_HELD_8(0, 43),
 		PLAYER_HELD_9(0, 44),
-
 		WORKBENCH_CRAFT_RESULT(1, 0),
-
 		WORKBENCH_CRAFT_INPUT_1(1, 1),
 		WORKBENCH_CRAFT_INPUT_2(1, 2),
 		WORKBENCH_CRAFT_INPUT_3(1, 3),
@@ -139,7 +131,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		WORKBENCH_CRAFT_INPUT_7(1, 7),
 		WORKBENCH_CRAFT_INPUT_8(1, 8),
 		WORKBENCH_CRAFT_INPUT_9(1, 9),
-
 		WORKBENCH_INVENTORY_01(1, 10),
 		WORKBENCH_INVENTORY_02(1, 11),
 		WORKBENCH_INVENTORY_03(1, 12),
@@ -167,7 +158,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		WORKBENCH_INVENTORY_25(1, 34),
 		WORKBENCH_INVENTORY_26(1, 35),
 		WORKBENCH_INVENTORY_27(1, 36),
-
 		WORKBENCH_HELD_1(1, 37),
 		WORKBENCH_HELD_2(1, 38),
 		WORKBENCH_HELD_3(1, 39),
@@ -177,11 +167,9 @@ public interface MCPacket103SetSlot extends MCPacket {
 		WORKBENCH_HELD_7(1, 43),
 		WORKBENCH_HELD_8(1, 44),
 		WORKBENCH_HELD_9(1, 45),
-
 		FURNACE_INPUT(2, 0),
 		FURNACE_FUEL(2, 1),
 		FURNACE_OUTPUT(2, 2),
-
 		FURNACE_INVENTORY_01(2, 3),
 		FURNACE_INVENTORY_02(2, 4),
 		FURNACE_INVENTORY_03(2, 5),
@@ -209,7 +197,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		FURNACE_INVENTORY_25(2, 27),
 		FURNACE_INVENTORY_26(2, 28),
 		FURNACE_INVENTORY_27(2, 29),
-
 		FURNACE_HELD_1(2, 30),
 		FURNACE_HELD_2(2, 31),
 		FURNACE_HELD_3(2, 32),
@@ -219,7 +206,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		FURNACE_HELD_7(2, 36),
 		FURNACE_HELD_8(2, 37),
 		FURNACE_HELD_9(2, 38),
-
 		CHEST_CONTENTS_01(3, 0),
 		CHEST_CONTENTS_02(3, 1),
 		CHEST_CONTENTS_03(3, 2),
@@ -247,7 +233,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		CHEST_CONTENTS_25(3, 24),
 		CHEST_CONTENTS_26(3, 25),
 		CHEST_CONTENTS_27(3, 26),
-
 		CHEST_INVENTORY_01(3, 27),
 		CHEST_INVENTORY_02(3, 28),
 		CHEST_INVENTORY_03(3, 29),
@@ -275,7 +260,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		CHEST_INVENTORY_25(3, 51),
 		CHEST_INVENTORY_26(3, 52),
 		CHEST_INVENTORY_27(3, 53),
-
 		CHEST_HELD_1(3, 54),
 		CHEST_HELD_2(3, 55),
 		CHEST_HELD_3(3, 56),
@@ -285,7 +269,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		CHEST_HELD_7(3, 60),
 		CHEST_HELD_8(3, 61),
 		CHEST_HELD_9(3, 62),
-
 		DOUBLECHEST_CONTENTS_01(4, 0),
 		DOUBLECHEST_CONTENTS_02(4, 1),
 		DOUBLECHEST_CONTENTS_03(4, 2),
@@ -340,7 +323,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		DOUBLECHEST_CONTENTS_52(4, 51),
 		DOUBLECHEST_CONTENTS_53(4, 52),
 		DOUBLECHEST_CONTENTS_54(4, 53),
-
 		DOUBLECHEST_INVENTORY_01(4, 54),
 		DOUBLECHEST_INVENTORY_02(4, 55),
 		DOUBLECHEST_INVENTORY_03(4, 56),
@@ -368,7 +350,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		DOUBLECHEST_INVENTORY_25(4, 78),
 		DOUBLECHEST_INVENTORY_26(4, 79),
 		DOUBLECHEST_INVENTORY_27(4, 80),
-
 		DOUBLECHEST_HELD_1(4, 81),
 		DOUBLECHEST_HELD_2(4, 82),
 		DOUBLECHEST_HELD_3(4, 83),
@@ -378,7 +359,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		DOUBLECHEST_HELD_7(4, 87),
 		DOUBLECHEST_HELD_8(4, 88),
 		DOUBLECHEST_HELD_9(4, 89),
-
 		DISPENSER_CONTENTS_1(5, 0),
 		DISPENSER_CONTENTS_2(5, 1),
 		DISPENSER_CONTENTS_3(5, 2),
@@ -388,7 +368,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		DISPENSER_CONTENTS_7(5, 6),
 		DISPENSER_CONTENTS_8(5, 7),
 		DISPENSER_CONTENTS_9(5, 8),
-
 		DISPENSER_INVENTORY_01(5, 9),
 		DISPENSER_INVENTORY_02(5, 10),
 		DISPENSER_INVENTORY_03(5, 11),
@@ -416,7 +395,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		DISPENSER_INVENTORY_25(5, 33),
 		DISPENSER_INVENTORY_26(5, 34),
 		DISPENSER_INVENTORY_27(5, 35),
-
 		DISPENSER_HELD_1(5, 36),
 		DISPENSER_HELD_2(5, 37),
 		DISPENSER_HELD_3(5, 38),
@@ -426,7 +404,6 @@ public interface MCPacket103SetSlot extends MCPacket {
 		DISPENSER_HELD_7(5, 42),
 		DISPENSER_HELD_8(5, 43),
 		DISPENSER_HELD_9(5, 44);
-
 		/**
 		 * The raw value contained in the packet.
 		 */
@@ -460,7 +437,7 @@ public interface MCPacket103SetSlot extends MCPacket {
 		/**
 		 * Gets a Slot enum value based on the raw values in the packet.
 		 * @param window the window id from the packet
-		 * @param slot the slot id from the packet
+		 * @param slot   the slot id from the packet
 		 * @return an enum value that represents the data in the packet
 		 */
 		public static Slot getSlotByRawValues(int window, int slot) {

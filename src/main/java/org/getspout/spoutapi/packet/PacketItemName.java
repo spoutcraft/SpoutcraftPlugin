@@ -25,6 +25,7 @@ public class PacketItemName implements SpoutPacket {
 	private int id;
 	private short data;
 	private String name;
+
 	public PacketItemName() {
 
 	}

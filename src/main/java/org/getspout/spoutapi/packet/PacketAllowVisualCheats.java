@@ -89,5 +89,4 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 	public int getVersion() {
 		return 3;
 	}
-
 }

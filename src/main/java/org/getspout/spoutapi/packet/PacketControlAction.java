@@ -44,6 +44,7 @@ public class PacketControlAction implements SpoutPacket {
 	protected UUID widget;
 	protected float state;
 	protected String data = "";
+
 	public PacketControlAction() {
 
 	}
@@ -99,52 +100,52 @@ public class PacketControlAction implements SpoutPacket {
 				if (control != null) {
 					if (control instanceof Button) {
 						if (control instanceof CheckBox) {
-							((CheckBox)control).setChecked(!((CheckBox)control).isChecked());
+							((CheckBox) control).setChecked(!((CheckBox) control).isChecked());
 						}
 						if (control instanceof RadioButton) {
-							((RadioButton)control).setSelected(true);
+							((RadioButton) control).setSelected(true);
 						}
-						ButtonClickEvent event = new ButtonClickEvent(player, screen, (Button)control);
-						((Button)control).onButtonClick(event);
+						ButtonClickEvent event = new ButtonClickEvent(player, screen, (Button) control);
+						((Button) control).onButtonClick(event);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 					} else if (control instanceof Slider) {
-						SliderDragEvent event = new SliderDragEvent(player, screen, (Slider)control, state);
-						((Slider)control).onSliderDrag(event);
+						SliderDragEvent event = new SliderDragEvent(player, screen, (Slider) control, state);
+						((Slider) control).onSliderDrag(event);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 						if (event.isCancelled()) {
-							((Slider)control).setSliderPosition(event.getOldPosition());
+							((Slider) control).setSliderPosition(event.getOldPosition());
 							control.setDirty(true);
 						} else if (event.getNewPosition() != state) {
-							((Slider)control).setSliderPosition(event.getNewPosition());
+							((Slider) control).setSliderPosition(event.getNewPosition());
 							control.setDirty(true);
 						} else {
-							((Slider)control).setSliderPosition(event.getNewPosition());
+							((Slider) control).setSliderPosition(event.getNewPosition());
 						}
 					} else if (control instanceof TextField) {
-						TextFieldChangeEvent event = new TextFieldChangeEvent(player, screen, (TextField)control, data);
-						((TextField)control).onTextFieldChange(event);
+						TextFieldChangeEvent event = new TextFieldChangeEvent(player, screen, (TextField) control, data);
+						((TextField) control).onTextFieldChange(event);
 						Bukkit.getServer().getPluginManager().callEvent(event);
 						if (event.isCancelled()) {
-							((TextField)control).setText(event.getOldText());
+							((TextField) control).setText(event.getOldText());
 							control.setDirty(true);
 						} else if (!event.getNewText().equals(data)) {
-							((TextField)control).setText(event.getNewText());
+							((TextField) control).setText(event.getNewText());
 							control.setDirty(true);
 						} else {
-							((TextField)control).setText(event.getNewText());
-							((TextField)control).setCursorPosition((int)state);
+							((TextField) control).setText(event.getNewText());
+							((TextField) control).setCursorPosition((int) state);
 							control.setDirty(false);
 						}
 					} else if (control instanceof Scrollable) {
 						if (data.equals("HORIZONTAL") || data.equals("VERTICAL")) {
 							Orientation axis = Orientation.valueOf(data);
-							Scrollable scroll = (Scrollable)control;
+							Scrollable scroll = (Scrollable) control;
 							scroll.setScrollPosition(axis, (int) state);
 						} else if (control instanceof ListWidget) {
-							ListWidget list = (ListWidget)control;
+							ListWidget list = (ListWidget) control;
 							boolean dblclick = false;
 							if (data.equals("click") || data.equals("doubleclick") || data.equals("selected")) {
-								int item = (int)state;
+								int item = (int) state;
 								if (data.equals("doubleclick")) {
 									dblclick = true;
 								}

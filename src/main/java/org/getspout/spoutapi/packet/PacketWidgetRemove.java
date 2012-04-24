@@ -27,6 +27,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketWidgetRemove implements SpoutPacket {
 	protected Widget widget;
 	protected UUID screen;
+
 	public PacketWidgetRemove() {
 
 	}

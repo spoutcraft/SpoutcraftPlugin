@@ -66,14 +66,15 @@ public class SpoutShapedRecipe implements Recipe {
 		for (char key : ingredientsTemp.keySet()) {
 			try {
 				setIngredient(key, ingredientsTemp.get(key));
-			} catch (IllegalArgumentException e) {}
+			} catch (IllegalArgumentException e) {
+			}
 		}
 		return this;
 	}
 
 	/**
 	 * Sets the material that a character in the recipe shape refers to.
-	 * @param key The character that represents the ingredient in the shape.
+	 * @param key        The character that represents the ingredient in the shape.
 	 * @param ingredient The ingredient.
 	 * @return The changed recipe, so you can chain calls.
 	 */

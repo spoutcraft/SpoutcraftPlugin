@@ -118,7 +118,7 @@ public class SpoutManager {
 
 	/**
 	 * Gets the inventory builder
-	 *
+	 * <p/>
 	 * The inventory builder can construct Bukkit inventories from itemstacks or an initialization size.
 	 * @return inventory builder
 	 */

@@ -29,6 +29,7 @@ public interface BindingExecutionDelegate {
 	 * @param event args
 	 */
 	public void keyPressed(KeyBindingEvent event);
+
 	/**
 	 * Called when the key bound to the delegate is released
 	 * @param event args

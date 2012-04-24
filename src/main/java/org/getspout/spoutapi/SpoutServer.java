@@ -19,6 +19,7 @@ package org.getspout.spoutapi;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,8 +27,8 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import com.avaje.ebean.config.ServerConfig;
+
 import gnu.trove.map.hash.TIntObjectHashMap;
-import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -41,12 +42,12 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.help.HelpMap;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -84,10 +85,9 @@ public class SpoutServer implements Server {
 	/**
 	 * Sets the entity skin for the target entity to the url. The Skin Type is
 	 * used when an entity has more than one skin type.
-	 *
 	 * @param target to set the skin on
-	 * @param url of the skin
-	 * @param type of skin to set
+	 * @param url    of the skin
+	 * @param type   of skin to set
 	 */
 	public void setEntitySkin(LivingEntity target, String url, EntitySkinType type) {
 		SpoutManager.getPlayerManager().getGlobalInfo().setEntitySkin(target, url, type);
@@ -101,9 +101,8 @@ public class SpoutServer implements Server {
 	/**
 	 * Gets the entity skin for the target entity. The Skin Type is used when an
 	 * entity has more than one skin type.
-	 *
 	 * @param target to get the skin for
-	 * @param type of skin to set
+	 * @param type   of skin to set
 	 */
 	public String getEntitySkin(LivingEntity target, EntitySkinType type) {
 		return SpoutManager.getPlayerManager().getGlobalInfo().getEntitySkin(target, type);
@@ -111,7 +110,6 @@ public class SpoutServer implements Server {
 
 	/**
 	 * Resets the entity skin for the target entity.
-	 *
 	 * @param target to reset the skin for
 	 */
 	public void resetEntitySkin(LivingEntity target) {
@@ -487,12 +485,12 @@ public class SpoutServer implements Server {
 	}
 
 	@Override
-	public int getTicksPerAnimalSpawns() { 
+	public int getTicksPerAnimalSpawns() {
 		return server.getTicksPerAnimalSpawns();
 	}
 
 	@Override
-	public int getTicksPerMonsterSpawns() { 
+	public int getTicksPerMonsterSpawns() {
 		return server.getTicksPerMonsterSpawns();
 	}
 
@@ -515,7 +513,7 @@ public class SpoutServer implements Server {
 	public void resetRecipes() {
 		server.resetRecipes();
 	}
-	
+
 	@Override
 	public Inventory createInventory(InventoryHolder owner, InventoryType type) {
 		return server.createInventory(owner, type);
@@ -525,12 +523,27 @@ public class SpoutServer implements Server {
 	public Inventory createInventory(InventoryHolder owner, int size) {
 		return server.createInventory(owner, size);
 	}
-	
+
 	@Override
 	public Inventory createInventory(InventoryHolder owner, int size, String title) {
 		return server.createInventory(owner, size, title);
 	}
-	
+
+	@Override
+	public int getMonsterSpawnLimit() {
+		return server.getMonsterSpawnLimit();
+	}
+
+	@Override
+	public int getAnimalSpawnLimit() {
+		return server.getAnimalSpawnLimit();
+	}
+
+	@Override
+	public int getWaterAnimalSpawnLimit() {
+		return server.getWaterAnimalSpawnLimit();
+	}
+
 	@Override
 	public HelpMap getHelpMap() {
 		return server.getHelpMap();

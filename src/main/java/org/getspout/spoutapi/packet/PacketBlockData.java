@@ -33,6 +33,7 @@ import org.getspout.spoutapi.material.Block;
 public class PacketBlockData implements CompressablePacket {
 	byte[] data;
 	boolean compressed = false;
+
 	public PacketBlockData() {
 
 	}

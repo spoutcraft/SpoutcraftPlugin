@@ -22,8 +22,7 @@ import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class ScreenCloseEvent extends ScreenEvent{
-
+public class ScreenCloseEvent extends ScreenEvent {
 	private static final HandlerList handlers = new HandlerList();
 
 	public ScreenCloseEvent(SpoutPlayer player, Screen screen, ScreenType type) {

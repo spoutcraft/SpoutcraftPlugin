@@ -19,6 +19,7 @@ package org.getspout.spoutapi.gui;
 import java.io.IOException;
 
 import org.bukkit.inventory.ItemStack;
+
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
@@ -31,14 +32,14 @@ public class GenericSlot extends GenericControl implements Slot {
 	}
 
 	public ItemStack getItem() {
-		if(stack == null) {
+		if (stack == null) {
 			stack = new ItemStack(0);
 		}
 		return stack.clone();
 	}
 
 	public Slot setItem(ItemStack item) {
-		if(item == null || item.getAmount() == 0) {
+		if (item == null || item.getAmount() == 0) {
 			stack = new ItemStack(0);
 			return this;
 		}
@@ -76,7 +77,7 @@ public class GenericSlot extends GenericControl implements Slot {
 	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		stack.setTypeId(input.readInt());
-		stack.setAmount((int)input.readShort());
+		stack.setAmount((int) input.readShort());
 		stack.setDurability(input.readShort());
 		depth = input.readInt();
 	}
@@ -85,7 +86,7 @@ public class GenericSlot extends GenericControl implements Slot {
 	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeInt(stack.getTypeId());
-		output.writeShort((short)stack.getAmount());
+		output.writeShort((short) stack.getAmount());
 		output.writeShort(stack.getDurability());
 		output.writeInt(depth);
 	}

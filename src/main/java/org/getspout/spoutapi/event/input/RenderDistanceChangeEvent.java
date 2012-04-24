@@ -23,8 +23,7 @@ import org.bukkit.event.HandlerList;
 import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class RenderDistanceChangeEvent extends Event implements Cancellable{
-	
+public class RenderDistanceChangeEvent extends Event implements Cancellable {
 	private static final HandlerList handlers = new HandlerList();
 	private final RenderDistance newView;
 	private final SpoutPlayer player;

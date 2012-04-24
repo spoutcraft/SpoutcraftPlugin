@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.chunkstore;
 
-import gnu.trove.map.hash.TLongObjectHashMap;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -25,6 +23,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
+import gnu.trove.map.hash.TLongObjectHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -36,9 +36,7 @@ import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
 
 public class SimpleChunkDataManager implements ChunkDataManager {
 	private ChunkStore chunkStore = new ChunkStore();
-
-	private HashMap<UUID, TLongObjectHashMap<ChunkMetaData>> chunkMetaDataLoaded = new HashMap<UUID,TLongObjectHashMap<ChunkMetaData>>();
-
+	private HashMap<UUID, TLongObjectHashMap<ChunkMetaData>> chunkMetaDataLoaded = new HashMap<UUID, TLongObjectHashMap<ChunkMetaData>>();
 	private HashMap<UUID, ItemMap> worldItemMaps = new HashMap<UUID, ItemMap>();
 
 	public void closeAllFiles() {
@@ -103,7 +101,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 
 	public boolean saveWorldChunks(World world, boolean unload) {
 		boolean unloaded = false;
-		synchronized(chunkMetaDataLoaded) {
+		synchronized (chunkMetaDataLoaded) {
 			TLongObjectHashMap<ChunkMetaData> worldChunks = chunkMetaDataLoaded.get(world.getUID());
 
 			if (worldChunks == null) {
@@ -138,7 +136,6 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		ChunkMetaData md = getMetaData(world, x >> 4, z >> 4, true, true);
 
 		return md.putBlockData(id, x, y, z, data);
-
 	}
 
 	@Override
@@ -151,7 +148,6 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 
 		return md.getBlockData(id, x, y, z);
 	}
-
 
 	public Serializable removeBlockData(String id, World world, int x, int y, int z) {
 		ChunkMetaData md = getMetaData(world, x >> 4, z >> 4, true, false);
@@ -172,7 +168,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 
 	@Override
 	public Serializable getChunkData(String id, World world, int x, int z) {
-		ChunkMetaData md = getMetaData(world, x, z,  true, false);
+		ChunkMetaData md = getMetaData(world, x, z, true, false);
 
 		if (md == null) {
 			return null;
@@ -211,10 +207,10 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 	}
 
 	private ChunkMetaData getMetaData(World world, int x, int z, boolean load, boolean loadOrCreate) {
-		long key = (((long)x)<<32) | (((long)z) & 0xFFFFFFFFL);
+		long key = (((long) x) << 32) | (((long) z) & 0xFFFFFFFFL);
 		UUID uid = world.getUID();
 		ChunkMetaData md = null;
-		synchronized(chunkMetaDataLoaded) {
+		synchronized (chunkMetaDataLoaded) {
 			TLongObjectHashMap<ChunkMetaData> worldChunks = chunkMetaDataLoaded.get(uid);
 			if (worldChunks == null) {
 				worldChunks = new TLongObjectHashMap<ChunkMetaData>();

@@ -24,6 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketEntityTitle implements SpoutPacket {
 	public String title;
 	public int entityId;
+
 	public PacketEntityTitle() {
 
 	}

@@ -24,14 +24,13 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.Music;
 
 public class BackgroundMusicEvent extends Event implements Cancellable {
-
 	private static final HandlerList handlers = new HandlerList();
 	private Music music = null;
 	private int volume;
 	private final SpoutPlayer target;
 	private String url = null;
 	private boolean cancel = false;
-	
+
 	public BackgroundMusicEvent(Music music, int volume, SpoutPlayer target) {
 		this.music = music;
 		this.volume = volume;

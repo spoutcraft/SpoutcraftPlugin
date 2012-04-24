@@ -53,7 +53,6 @@ public enum SoundEffect {
 	LAVA_POP(29, "liquid.lavapop"),
 	WATER_SPLASH(30, "liquid.splash"),
 	WATER(31, "liquid.water"),
-
 	/* Mob Sound Effects */
 	CHICKEN(32, "mob.chicken"),
 	CHICKEN_HURT(33, "mob.chickenhurt"),
@@ -87,7 +86,6 @@ public enum SoundEffect {
 	ZOMBIEPIG(62, "mob.zombiepig.zpig"),
 	ZOMBIEPIG_HURT(63, "mob.zombiepig.zpighurt"),
 	ZOMBIEPIG_ANGRY(64, "mob.zombiepig.zpigangry"),
-
 	/* Block Sound Effects */
 	PORTAL(65, "portal.portal"),
 	PORTAL_TRAVEL(66, "portal.travel"),
@@ -99,7 +97,6 @@ public enum SoundEffect {
 	SNOW(72, "step.snow"),
 	STONE(73, "step.stone"),
 	WOOD(74, "step.wood"),
-
 	/* Random Sound Effects */
 	BOW(75, "random.bow"),
 	BREATH(76, "random.breath"),
@@ -117,16 +114,14 @@ public enum SoundEffect {
 	POP(88, "random.pop"),
 	SPLASH(89, "random.splash"),
 	WOOD_CLICK(90, "random.wood click"),
-
-	CUSTOM_EFFECT(91, "custom"),
-	;
-
+	CUSTOM_EFFECT(91, "custom"),;
 	private final int id;
 	private final String name;
 	private final int soundId;
 	private static final Map<String, SoundEffect> lookupName = new HashMap<String, SoundEffect>();
 	private static final Map<Integer, SoundEffect> lookupId = new HashMap<Integer, SoundEffect>();
 	private static int last = 0;
+
 	SoundEffect(final int id, final String name) {
 		this.id = id;
 		this.name = name;

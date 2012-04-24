@@ -18,7 +18,7 @@ package org.getspout.spoutapi.gui;
 
 /**
  * This allow an image to be downloaded and shown to the user.
- *
+ * <p/>
  * Images must be in either png or jpg format. You may pre-cache images using
  * the FileManager, so only the filename is required afterwards.
  */

@@ -34,6 +34,7 @@ import org.getspout.spoutapi.material.MaterialData;
 
 public class SpoutInputStream extends InputStream {
 	ByteBuffer buffer;
+
 	public SpoutInputStream(ByteBuffer buffer) {
 		this.buffer = buffer;
 	}
@@ -44,7 +45,7 @@ public class SpoutInputStream extends InputStream {
 		int z = readInt();
 		World world = Bukkit.getServer().getWorld(readUUID());
 		if (world != null) {
-			return world.getBlockAt(x,y,z);
+			return world.getBlockAt(x, y, z);
 		}
 		return null;
 	}
@@ -66,7 +67,7 @@ public class SpoutInputStream extends InputStream {
 		double x = readDouble();
 		double y = readDouble();
 		double z = readDouble();
-		return new Vector(x,y,z);
+		return new Vector(x, y, z);
 	}
 
 	public ItemStack readItemStack(ItemStack item) {
@@ -127,22 +128,23 @@ public class SpoutInputStream extends InputStream {
 	public char readChar() {
 		return buffer.getChar();
 	}
-	
+
 	public boolean readBoolean() {
 		return buffer.get() != 0;
 	}
 
 	public String readString() {
-		short size =  buffer.getShort();
+		short size = buffer.getShort();
 		StringBuilder builder = new StringBuilder(size);
 		for (int i = 0; i < size; i++) {
 			builder.append(buffer.getChar());
 		}
 		return builder.toString();
 	}
-	
+
 	public static final byte FLAG_COLORINVALID = 1;
 	public static final byte FLAG_COLOROVERRIDE = 2;
+
 	public Color readColor() {
 		int flags = read();
 		int argb = readInt();

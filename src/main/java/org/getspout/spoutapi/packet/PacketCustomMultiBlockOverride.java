@@ -16,22 +16,25 @@
  */
 package org.getspout.spoutapi.packet;
 
-import gnu.trove.list.array.TIntArrayList;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.getspout.spoutapi.io.SpoutInputStream;
-import org.getspout.spoutapi.io.SpoutOutputStream;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import gnu.trove.list.array.TIntArrayList;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
+
 public class PacketCustomMultiBlockOverride implements CompressablePacket {
 	private int chunkX;
 	private int chunkZ;
 	private boolean compressed = false;
 	private byte[] data;
+
 	public PacketCustomMultiBlockOverride(TIntArrayList xCoords, TIntArrayList yCoords, TIntArrayList zCoords, TIntArrayList blockTypeIds) {
 		short size = (short) xCoords.size();
 		ByteBuffer rawData = ByteBuffer.allocate(size * 6);
@@ -41,7 +44,7 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket {
 			rawData.put((byte) (xCoords.get(i) - chunkX * 16));
 			rawData.putShort((short) yCoords.get(i));
 			rawData.put((byte) (zCoords.get(i) - chunkZ * 16));
-			rawData.putShort((short)blockTypeIds.get(i));
+			rawData.putShort((short) blockTypeIds.get(i));
 		}
 		data = rawData.array();
 	}

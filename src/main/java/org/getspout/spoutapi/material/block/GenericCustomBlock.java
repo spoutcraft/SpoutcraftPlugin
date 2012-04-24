@@ -57,10 +57,9 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	/**
 	 * Creates a GenericCustomBlock with no model yet.
-	 *
-	 * @param plugin creating the block
-	 * @param name of the block
-	 * @param blockID of the underlying vanilla block
+	 * @param plugin   creating the block
+	 * @param name     of the block
+	 * @param blockID  of the underlying vanilla block
 	 * @param metadata of the underlying vanilla block
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata) {
@@ -74,17 +73,16 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 		this.customId = item.getCustomId();
 		MaterialData.addCustomBlock(this);
 		this.setItemDrop(new SpoutItemStack(this, 1));
-		
-		for(SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
+
+		for (SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
 			player.sendPacket(this);
 		}
 	}
 
 	/**
 	 * Creates a GenericCustomBlock with no model yet.
-	 *
-	 * @param plugin creating the block
-	 * @param name of the block
+	 * @param plugin   creating the block
+	 * @param name     of the block
 	 * @param isOpaque true if you want the block solid
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, boolean isOpaque) {
@@ -93,9 +91,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	/**
 	 * Creates a GenericCustomBlock with no model yet and underlying vanilla block
-	 *
-	 * @param plugin creating the block
-	 * @param name of the block
+	 * @param plugin  creating the block
+	 * @param name    of the block
 	 * @param blockID of the underlying vanilla block
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, int blockId) {
@@ -104,11 +101,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	/**
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block
-	 *
-	 * @param plugin creating the block
-	 * @param name of the block
+	 * @param plugin  creating the block
+	 * @param name    of the block
 	 * @param blockID of the underlying vanilla block
-	 * @param design to use for the block
+	 * @param design  to use for the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, int blockId, BlockDesign design) {
 		this(plugin, name, blockId, 0);
@@ -117,12 +113,11 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	/**
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block + metadata
-	 *
-	 * @param plugin creating the block
-	 * @param name of the block
-	 * @param blockID of the underlying vanilla block
+	 * @param plugin   creating the block
+	 * @param name     of the block
+	 * @param blockID  of the underlying vanilla block
 	 * @param metadata of the underlying vanilla block
-	 * @param design to use for the block
+	 * @param design   to use for the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata, BlockDesign design) {
 		this(plugin, name, blockId, metadata);
@@ -131,11 +126,10 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	/**
 	 * Creates a GenericCustomBlock with a specified design and underlying block ID
-	 *
-	 * @param plugin creating the block
-	 * @param name of the block
+	 * @param plugin   creating the block
+	 * @param name     of the block
 	 * @param isOpaque true if you want the block solid
-	 * @param design to use for the block
+	 * @param design   to use for the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design) {
 		this(plugin, name, isOpaque);
@@ -144,9 +138,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	/**
 	 * Creates a basic GenericCustomblock with no design that is opaque/solid.
-	 *
 	 * @param plugin creating the block
-	 * @param name of the block
+	 * @param name   of the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name) {
 		this(plugin, name, true);
@@ -171,8 +164,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
 		this.design = design;
-		
-		for(SpoutPlayer sp : Spout.getServer().getOnlinePlayers()) {
+
+		for (SpoutPlayer sp : Spout.getServer().getOnlinePlayers()) {
 			sp.sendPacket(new PacketCustomBlockDesign((short) customId, design));
 		}
 		return this;
@@ -220,10 +213,11 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	@Override
 	public CustomBlock setItemDrop(ItemStack item) {
-		if (item instanceof SpoutItemStack)
+		if (item instanceof SpoutItemStack) {
 			drop = (SpoutItemStack) item;
-		else
+		} else {
 			drop = new SpoutItemStack(drop);
+		}
 		return this;
 	}
 
@@ -299,7 +293,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	}
 
 	@Override
-	public boolean isProvidingPowerTo(World world, int x, int y, int z,	BlockFace face) {
+	public boolean isProvidingPowerTo(World world, int x, int y, int z, BlockFace face) {
 		return false;
 	}
 
@@ -331,10 +325,12 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	}
 
 	@Override
-	public void run(int playerId) {}
+	public void run(int playerId) {
+	}
 
 	@Override
-	public void failure(int playerId) {}
+	public void failure(int playerId) {
+	}
 
 	@Override
 	public PacketType getPacketType() {

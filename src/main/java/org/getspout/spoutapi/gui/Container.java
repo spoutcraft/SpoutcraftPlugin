@@ -19,15 +19,15 @@ package org.getspout.spoutapi.gui;
 /**
  * Containers are a specific type of widget that are designed for easy layout
  * and control of other widgets.
- *
+ * <p/>
  * Containers make use of the various Margin methods to provide space between
  * elements. They also require both a Width and Height in order to actual
  * perform an automatic layout of child elements. This can be used to provide
  * a "group" type container that doesn't change the layout of any children.
- *
+ * <p/>
  * Most Widget methods that affect position or layout will be passed down to
  * all children when used on the container itself, that includes setDirty().
- *
+ * <p/>
  * Automatic layout is handled by updateLayout (though you should normally use
  * deferLayout() calls in subclasses). Any widgets that change dimension or
  * position at this stage will also be set as dirty.

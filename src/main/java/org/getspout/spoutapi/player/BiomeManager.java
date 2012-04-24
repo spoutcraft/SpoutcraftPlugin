@@ -18,15 +18,16 @@ package org.getspout.spoutapi.player;
 
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
+
 import org.getspout.spoutapi.ClientOnly;
 import org.getspout.spoutapi.block.SpoutWeather;
+
 @Deprecated
 public interface BiomeManager {
 	/**
 	 * Sets a players weather in a specific Biome to render as the specified SpoutWeather
-	 *
-	 * @param player to set the biomes weather for
-	 * @param biome that gets set to the weather for the player
+	 * @param player  to set the biomes weather for
+	 * @param biome   that gets set to the weather for the player
 	 * @param weather to set the biome to
 	 */
 	@ClientOnly
@@ -34,8 +35,7 @@ public interface BiomeManager {
 
 	/**
 	 * Sets a players weather in all biomes to render as the specified SpoutWeather
-	 *
-	 * @param player to set the worlds weather for
+	 * @param player  to set the worlds weather for
 	 * @param weather to set the world to
 	 */
 	@ClientOnly
@@ -43,8 +43,7 @@ public interface BiomeManager {
 
 	/**
 	 * Sets the whole servers weather in a specific Biome to render as the specified SpoutWeather
-	 *
-	 * @param biome that gets set to the weather for the world
+	 * @param biome   that gets set to the weather for the world
 	 * @param weather to set the biome to
 	 */
 	@ClientOnly
@@ -52,7 +51,6 @@ public interface BiomeManager {
 
 	/**
 	 * Sets the whole servers weather to render as the specified SpoutWeather
-	 *
 	 * @param weather to set the world to
 	 */
 	@ClientOnly
@@ -60,7 +58,6 @@ public interface BiomeManager {
 
 	/**
 	 * Gets the global weather for the specified biome.
-	 *
 	 * @param biome to get the weather for
 	 * @return the weather
 	 */
@@ -69,9 +66,8 @@ public interface BiomeManager {
 
 	/**
 	 * Gets the players weather for the specified biome.
-	 *
 	 * @param player to get the weather for
-	 * @param biome to get the weather for
+	 * @param biome  to get the weather for
 	 * @return the weather
 	 */
 	@ClientOnly

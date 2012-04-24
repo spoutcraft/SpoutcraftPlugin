@@ -16,8 +16,6 @@
  */
 package org.getspout.spoutapi.chunkstore;
 
-import gnu.trove.iterator.TIntObjectIterator;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,6 +23,8 @@ import java.io.OptionalDataException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
+
+import gnu.trove.iterator.TIntObjectIterator;
 
 import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.util.map.TByteShortByteKeyedMap;
@@ -39,34 +39,25 @@ public class ChunkMetaData implements Serializable {
 
 	// This data is saved. This means data can handle different map heights
 	// Changes may be needed to the positionToKey method
-
 	private int cx;
 	private int cz;
 	private UUID worldUid;
-
 	//Storage for objects saved to this chunk
 	private HashMap<String, Serializable> chunkData;
-
 	//storage for custom block id's
 	private short[] customBlockIds = null;
-
 	//storage for local block data
 	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
-
 	private static final int CURRENT_VERSION = 3;
 	private static final int MAGIC_NUMBER = 0xEA5EDEBB;
-
 	transient private boolean dirty = false;
-
 	//quais-final, need to be set in serialization
 	transient private int worldHeight;
 	transient private int worldHeightMinusOne;
 	transient private int xBitShifts;
 	transient private int zBitShifts;
-
 	transient private ItemMap worldItemMap;
 	transient private ItemMap serverItemMap;
-
 	transient private boolean conversionNeeded;
 
 	ChunkMetaData(UUID worldId, ItemMap worldItemMap, int cx, int cz) {
@@ -133,7 +124,7 @@ public class ChunkMetaData implements Serializable {
 
 	/**
 	 * Gets the data associated with the id at this chunk.
-	 *
+	 * <p/>
 	 * If the data is still in a serialized form, this will deserialize it.
 	 * @param id of data
 	 * @return data at the given id, or null if none found
@@ -158,12 +149,12 @@ public class ChunkMetaData implements Serializable {
 		dirty = true;
 		return serial;
 	}
+
 	/**
 	 * Returns the array that is backing the block id data for this chunk.
-	 *
+	 * <p/>
 	 * If the contents of the array are altered, setDirty(true) must be used so that the updated contents will be saved.
 	 * Alternatively, use setCustomBlockIds(array) when you are finished manipulating the array and it will set the dirty flag for you.
-	 *
 	 * @return array of block id data for this chunk
 	 */
 	public short[] getCustomBlockIds() {
@@ -172,7 +163,7 @@ public class ChunkMetaData implements Serializable {
 
 	/**
 	 * Sets the array that is used for the block id data for this chunk.
-	 *
+	 * <p/>
 	 * This array will <b>override</b> any existing data, and wipe it out, so be sure this is what you intend to do.
 	 * @param ids to set
 	 */
@@ -239,10 +230,10 @@ public class ChunkMetaData implements Serializable {
 
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds == null) {
-				customBlockIds = new short[16*16*worldHeight];
+				customBlockIds = new short[16 * 16 * worldHeight];
 			}
 			int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
-			customBlockIds[key] = ((Integer)o).shortValue();
+			customBlockIds[key] = ((Integer) o).shortValue();
 			dirty = true;
 		} else {
 			HashMap<String, Serializable> localBlockData = blockData.get(x, y, z);
@@ -267,7 +258,7 @@ public class ChunkMetaData implements Serializable {
 		out.writeInt(cz);
 		if (customBlockIds != null) {
 			out.writeBoolean(true);
-			for (int i = 0; i < (16* 16 * worldHeight); i++) {
+			for (int i = 0; i < (16 * 16 * worldHeight); i++) {
 				Integer worldId = worldItemMap.convertFrom(this.serverItemMap, customBlockIds[i]);
 				if (worldId == null) {
 					worldId = 0;
@@ -303,8 +294,8 @@ public class ChunkMetaData implements Serializable {
 		int fileVersionNumber; // can be used to determine the format of the file
 
 		long lsb = in.readLong();
-		if (((int)(lsb >> 32)) == MAGIC_NUMBER) {
-			fileVersionNumber = (int)lsb;
+		if (((int) (lsb >> 32)) == MAGIC_NUMBER) {
+			fileVersionNumber = (int) lsb;
 			lsb = in.readLong();
 		} else {
 			fileVersionNumber = 0;
@@ -328,17 +319,16 @@ public class ChunkMetaData implements Serializable {
 			if (fileVersionNumber >= 2) {
 				conversionNeeded = true;
 			}
-			
+
 			customBlockIds = new short[16 * 16 * worldHeight];
-			int size = (16* 16 * worldHeight);
+			int size = (16 * 16 * worldHeight);
 			if (fileVersionNumber < 3) {
-				size = 16 *16 * 128;
+				size = 16 * 16 * 128;
 			}
 			for (int i = 0; i < size; i++) {
 				if (fileVersionNumber > 2) {
 					customBlockIds[i] = in.readShort();
-				}
-				else {
+				} else {
 					int oldX = (i >> 11) & 0xF;
 					int oldY = i & 0x7F;
 					int oldZ = (i >> 7) & 0xF;
@@ -379,7 +369,7 @@ public class ChunkMetaData implements Serializable {
 				System.out.println("Custom id " + customBlockIds[i] + " does not exist in custom item map, replacing with 0");
 				globalId = 0;
 			}
-			customBlockIds[i] = (short)(int)globalId;
+			customBlockIds[i] = (short) (int) globalId;
 		}
 		conversionNeeded = false;
 	}
@@ -393,7 +383,6 @@ public class ChunkMetaData implements Serializable {
 		}
 
 		out.writeObject(map);
-
 	}
 
 	@SuppressWarnings("unchecked")

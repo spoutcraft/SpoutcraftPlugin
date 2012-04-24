@@ -27,6 +27,7 @@ import org.getspout.spoutapi.packet.PacketType;
 
 public class GenericCustomFood extends GenericCustomItem implements Food {
 	private int hunger;
+
 	public GenericCustomFood(Plugin plugin, String name, String texture, int hungerRestored) {
 		super(plugin, name, texture);
 		hunger = hungerRestored;

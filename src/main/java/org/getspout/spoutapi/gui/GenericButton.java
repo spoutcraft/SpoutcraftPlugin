@@ -139,18 +139,18 @@ public class GenericButton extends GenericControl implements Button {
 	@Override
 	public Button copy() {
 		return (Button) ((Button) super.copy())
-		.setDisabledText(getDisabledText())
-		.setText(getText())
-		.setAuto(isAuto())
-		.setTextColor(getTextColor())
-		.setHoverColor(getHoverColor())
-		.setAuto(isAuto())
-		.setResize(isResize());
+				.setDisabledText(getDisabledText())
+				.setText(getText())
+				.setAuto(isAuto())
+				.setTextColor(getTextColor())
+				.setHoverColor(getHoverColor())
+				.setAuto(isAuto())
+				.setResize(isResize());
 	}
 
 	@Override
 	public void onButtonClick(ButtonClickEvent event) {
-		
+
 	}
 
 	@Override
@@ -178,12 +178,12 @@ public class GenericButton extends GenericControl implements Button {
 	public float getScale() {
 		return scale;
 	}
-	
+
 	public Label setShadow(boolean shadow) {
 		label.setShadow(shadow);
 		return this;
 	}
-	
+
 	public boolean hasShadow() {
 		return label.hasShadow();
 	}

@@ -55,7 +55,6 @@ public enum ScreenType {
 	WIN_GAME(29),
 	CONFIRM_URL(30),
 	UNKNOWN(-1);
-
 	private final int code;
 	private static Map<Integer, ScreenType> lookup = new HashMap<Integer, ScreenType>();
 

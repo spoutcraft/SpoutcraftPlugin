@@ -22,14 +22,14 @@ import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.plugin.Plugin;
+
 import org.getspout.spoutapi.ClientOnly;
 
 public interface FileManager {
 	/**
 	 * Gets a list of all the names of the files pre-cached on the client for this plugin.
-	 *
+	 * <p/>
 	 * The cache may be up to 60 seconds out of date.
-	 *
 	 * @param plugin that the files are cached for
 	 * @return list of names of cached files
 	 */
@@ -38,12 +38,12 @@ public interface FileManager {
 
 	/**
 	 * Adds a file to the pre-login cache for clients. This file will only be downloaded when clients login.
-	 *
+	 * <p/>
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
-	 *
+	 * <p/>
 	 * Ideally, precached files should be set onEnable.
 	 * @param plugin caching the files.
-	 * @param file to pre-cache
+	 * @param file   to pre-cache
 	 * @return true if the file was pre-cached
 	 */
 	@ClientOnly
@@ -51,11 +51,11 @@ public interface FileManager {
 
 	/**
 	 * Adds a file to the pre-login cache for clients. This file will only be downloaded when clients login.
-	 *
+	 * <p/>
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
-	 *
+	 * <p/>
 	 * Ideally, precached files should be set onEnable.
-	 * @param plugin caching the files.
+	 * @param plugin  caching the files.
 	 * @param fileUrl to pre-cache
 	 * @return true if the file was pre-cached
 	 */
@@ -64,12 +64,12 @@ public interface FileManager {
 
 	/**
 	 * Adds a list of files to the pre-login cache for clients. These files will only be downloaded when clients login.
-	 *
+	 * <p/>
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
-	 *
+	 * <p/>
 	 * Ideally, precached files should be set onEnable.
 	 * @param plugin caching the files.
-	 * @param files to pre-cache
+	 * @param files  to pre-cache
 	 * @return true if the files were pre-cached
 	 */
 	@ClientOnly
@@ -77,11 +77,11 @@ public interface FileManager {
 
 	/**
 	 * Adds a list of files to the pre-login cache for clients. These files will only be downloaded when clients login.
-	 *
+	 * <p/>
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
-	 *
+	 * <p/>
 	 * Ideally, precached files should be set onEnable.
-	 * @param plugin caching the files.
+	 * @param plugin   caching the files.
 	 * @param fileUrls to pre-cache
 	 * @return true if the files were pre-cached
 	 */
@@ -91,13 +91,13 @@ public interface FileManager {
 	/**
 	 * Sends the contents of the input stream to clients during prelogin. The contents of the steam will only be downloaded
 	 * when clients login.
-	 *
+	 * <p/>
 	 * This is advantageous because it will not cause any latency issues for larger files or lots of media.
-	 *
+	 * <p/>
 	 * Ideally, precached files should be set onEnable.
 	 * @param plugin caching the files.
-	 * @param input stream containing the bytes to be read
-	 * @param file name of the resulting file.
+	 * @param input  stream containing the bytes to be read
+	 * @param file   name of the resulting file.
 	 * @return true if the files were pre-cached
 	 */
 	@ClientOnly
@@ -105,7 +105,7 @@ public interface FileManager {
 
 	/**
 	 * Adds a file to the cache for clients. This file will be downloaded immediately for any online players, and upon login of new clients.
-	 *
+	 * <p/>
 	 * This is not recommended for larger files, since the extra latency for large downloads may disrupt the player's experience.
 	 * @param file to pre-cache
 	 * @return true if the file was pre-cached
@@ -114,7 +114,7 @@ public interface FileManager {
 
 	/**
 	 * Adds a file to the cache for clients. This file will be downloaded immediately for any online players, and upon login of new clients.
-	 *
+	 * <p/>
 	 * This is not recommended for larger files, since the extra latency for large downloads may disrupt the player's experience.
 	 * @param fileUrl to pre-cache
 	 * @return true if the file was pre-cached
@@ -123,7 +123,7 @@ public interface FileManager {
 
 	/**
 	 * Adds a list of files to the cache for clients. These files will be downloaded immediately for any online players, and upon login of new clients.
-	 *
+	 * <p/>
 	 * This is not recommended for larger files, since the extra latency for large downloads may disrupt the player's experience.
 	 * @param files to pre-cache
 	 * @return true if the files were pre-cached
@@ -133,7 +133,7 @@ public interface FileManager {
 
 	/**
 	 * Adds a list of files to the cache for clients. These files will be downloaded immediately for any online players, and upon login of new clients.
-	 *
+	 * <p/>
 	 * This is not recommended for larger files, since the extra latency for large downloads may disrupt the player's experience.
 	 * @param fileUrls to pre-cache
 	 * @return true if the files were pre-cached
@@ -144,11 +144,11 @@ public interface FileManager {
 	/**
 	 * Sends the contents of the input stream to clients. The contents of the steam will only be downloaded
 	 * immediately.
-	 *
+	 * <p/>
 	 * This is not recommended for larger files, since the extra latency for large downloads may disrupt the player's experience.
 	 * @param plugin caching the files.
-	 * @param input stream containing the bytes to be read
-	 * @param file name of the resulting file.
+	 * @param input  stream containing the bytes to be read
+	 * @param file   name of the resulting file.
 	 * @return true if the files were pre-cached
 	 */
 	@ClientOnly
@@ -157,7 +157,7 @@ public interface FileManager {
 	/**
 	 * Removes the given filename from the cache, if it exists.
 	 * @param plugin that the file is cached for
-	 * @param file name to remove
+	 * @param file   name to remove
 	 */
 	@ClientOnly
 	public void removeFromCache(Plugin plugin, String file);
@@ -165,7 +165,7 @@ public interface FileManager {
 	/**
 	 * Removes the given filenames from the cache, if they exists.
 	 * @param plugin that the files are cached for
-	 * @param file names to remove
+	 * @param file   names to remove
 	 */
 	@ClientOnly
 	public void removeFromCache(Plugin plugin, List<String> file);
@@ -173,8 +173,6 @@ public interface FileManager {
 	/**
 	 * Checks if the file is approved for pre-caching. The file types approved for pre-caching are as follows:
 	 * .txt, .yml, .xml, .png, .jpg, .ogg, .midi, .wav, .zip
-	 *
-	 *
 	 * @param file to check
 	 * @return true if the file can be cached on the client
 	 */
@@ -184,8 +182,6 @@ public interface FileManager {
 	/**
 	 * Checks if the fileUrl is approved for pre-caching. The file types approved for pre-caching are as follows:
 	 * .txt, .yml, .xml, .png, .jpg, .ogg, .midi, .wav, .zip
-	 *
-	 *
 	 * @param fileUrl to check
 	 * @return true if the file can be cached on the client
 	 */

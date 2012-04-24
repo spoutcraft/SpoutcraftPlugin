@@ -23,8 +23,7 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.gui.TextField;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class TextFieldChangeEvent extends ScreenEvent{
-
+public class TextFieldChangeEvent extends ScreenEvent {
 	private static final HandlerList handlers = new HandlerList();
 	private final TextField field;
 	private final String oldVal;
@@ -50,7 +49,9 @@ public class TextFieldChangeEvent extends ScreenEvent{
 	}
 
 	public void setNewText(String newVal) {
-		if (newVal == null) newVal = "";
+		if (newVal == null) {
+			newVal = "";
+		}
 		this.newVal = newVal;
 	}
 

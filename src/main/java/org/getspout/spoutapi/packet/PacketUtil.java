@@ -22,7 +22,6 @@ import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public abstract class PacketUtil {
-
 	public static int[] readIntArray(SpoutInputStream input) throws IOException {
 		int length = input.readInt();
 		if (length > 256) {

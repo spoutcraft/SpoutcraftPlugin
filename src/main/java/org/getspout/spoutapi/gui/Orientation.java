@@ -30,8 +30,8 @@ public enum Orientation {
 	 * Vertical axis (top-bottom)
 	 */
 	VERTICAL(1);
-
 	private final int id;
+
 	Orientation(int id) {
 		this.id = id;
 	}
@@ -53,7 +53,7 @@ public enum Orientation {
 	}
 
 	public Orientation getOther() {
-		switch(this) {
+		switch (this) {
 			case HORIZONTAL:
 				return VERTICAL;
 			case VERTICAL:

@@ -18,7 +18,7 @@ package org.getspout.spoutapi.gui;
 
 /**
  * This defines a Color for use within other widgets.
- *
+ * <p/>
  * Colors are made up of red, green, blue and alpha (transparency). If the
  * alpha is not used then it is assumed to be opaque (solid).
  */
@@ -70,9 +70,8 @@ public class Color {
 
 	/**
 	 * Construct the color using RGBA hex string
-	 *
+	 * <p/>
 	 * Note: Alpha channel isn't supported due limitations of Integer.parseInt
-	 *
 	 * @param color Hex string encoded color in RRGGBB format (example: FF0000 - red)
 	 */
 	public Color(String color) {
@@ -80,7 +79,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Red part of the color, as float
 	 */
 	public float getRedF() {
@@ -88,7 +86,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Red part of the color, as int
 	 */
 	public int getRedI() {
@@ -96,7 +93,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Green part of the color, as float
 	 */
 	public float getGreenF() {
@@ -104,7 +100,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Green part of the color, as int
 	 */
 	public int getGreenI() {
@@ -112,7 +107,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Blue part of the color, as float
 	 */
 	public float getBlueF() {
@@ -120,7 +114,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Blue part of the color, as int
 	 */
 	public int getBlueI() {
@@ -128,7 +121,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Alpha part of the color, as float
 	 */
 	public float getAlphaF() {
@@ -136,7 +128,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @return Alpha part of the color, as int
 	 */
 	public int getAlphaI() {
@@ -144,7 +135,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param r Red part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
@@ -154,7 +144,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param r Red part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */
@@ -164,7 +153,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param g Green part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
@@ -174,7 +162,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param g Green part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */
@@ -184,7 +171,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param b Blue part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
@@ -194,7 +180,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param b Blue part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */
@@ -204,7 +189,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param a Alpha part of the color, ranging from 0.0 to 1.0
 	 * @return the object to make call chainable.
 	 */
@@ -214,7 +198,6 @@ public class Color {
 	}
 
 	/**
-	 *
 	 * @param a Alpha part of the color, ranging from 0 to 255
 	 * @return the object to make call chainable.
 	 */

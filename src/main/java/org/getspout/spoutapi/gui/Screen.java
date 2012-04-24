@@ -43,7 +43,7 @@ public interface Screen extends Widget {
 
 	/**
 	 * Attach a series of widgets to this screen in one call.
-	 * @param plugin that owns these widgets
+	 * @param plugin  that owns these widgets
 	 * @param widgets to attach
 	 * @return screen
 	 */

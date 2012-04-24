@@ -64,21 +64,18 @@ public interface MCPacket51MapChunk {
 
 	/**
 	 * The cuboid to update must be completely within 1 chunk
-	 *
 	 * @param x (Z size of cuboid) - 1
 	 */
 	public void setSizeX(int x);
 
 	/**
 	 * The cuboid to update must be completely within 1 chunk
-	 *
 	 * @param y (Y size of cuboid) - 1
 	 */
 	public void setSizeY(int y);
 
 	/**
 	 * The cuboid to update must be completely within 1 chunk
-	 *
 	 * @param z (Z size of cuboid) - 1
 	 */
 	public void setSizeZ(int z);

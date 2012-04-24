@@ -32,15 +32,14 @@ public enum Music {
 	DRY_HANDS(9, "piano", 0),
 	WET_HANDS(10, "piano", 1),
 	MICE_ON_VENUS(11, "piano", 2),
-	CUSTOM(-1, null, -1),
-	;
-
+	CUSTOM(-1, null, -1),;
 	final int id;
 	final String name;
 	private final int soundId;
 	private static final Map<String, Music> lookupName = new HashMap<String, Music>();
 	private static final Map<Integer, Music> lookupId = new HashMap<Integer, Music>();
 	private static int last = 0;
+
 	Music(final int id, final String name, final int soundId) {
 		this.id = id;
 		this.name = name;

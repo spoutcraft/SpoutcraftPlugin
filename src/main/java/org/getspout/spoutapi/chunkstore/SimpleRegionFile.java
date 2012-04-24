@@ -58,8 +58,8 @@ public class SimpleRegionFile {
 			try {
 				this.file = new RandomAccessFile(parent, "rw");
 
-				if (file.length() < 4096*3) {
-					for (int i = 0; i < 1024*3; i++) {
+				if (file.length() < 4096 * 3) {
+					for (int i = 0; i < 1024 * 3; i++) {
 						file.writeInt(0);
 					}
 					file.seek(4096 * 2);
@@ -105,8 +105,8 @@ public class SimpleRegionFile {
 			try {
 				this.file = new RandomAccessFile(parent, "rw");
 
-				if (file.length() < 4096*3) {
-					for (int i = 0; i < 1024*3; i++) {
+				if (file.length() < 4096 * 3) {
+					for (int i = 0; i < 1024 * 3; i++) {
 						file.writeInt(0);
 					}
 					file.seek(4096 * 2);
@@ -148,10 +148,10 @@ public class SimpleRegionFile {
 	}
 
 	public boolean testCloseTimeout() {
-//		if (System.currentTimeMillis() - TIMEOUT_TIME > lastAccessTime) {
-//			close();
-//			return true;
-//		}
+		//		if (System.currentTimeMillis() - TIMEOUT_TIME > lastAccessTime) {
+		//			close();
+		//			return true;
+		//		}
 		return false;
 	}
 
@@ -187,7 +187,7 @@ public class SimpleRegionFile {
 
 	public void close() {
 		try {
-			getFile().seek(4096*2);
+			getFile().seek(4096 * 2);
 			getFile().close();
 			file = null;
 		} catch (IOException ioe) {

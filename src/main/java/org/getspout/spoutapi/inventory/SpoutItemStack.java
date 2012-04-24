@@ -25,7 +25,7 @@ import org.getspout.spoutapi.material.MaterialData;
 
 public class SpoutItemStack extends ItemStack {
 	public SpoutItemStack(ItemStack item) {
-		super(item.getTypeId(), item.getAmount(), (short)item.getDurability());
+		super(item.getTypeId(), item.getAmount(), (short) item.getDurability());
 	}
 
 	public SpoutItemStack(int typeId) {
@@ -41,11 +41,11 @@ public class SpoutItemStack extends ItemStack {
 	}
 
 	public SpoutItemStack(CustomItem item) {
-		super(item.getRawId(), 1, (short)item.getRawData());
+		super(item.getRawId(), 1, (short) item.getRawData());
 	}
 
 	public SpoutItemStack(CustomItem item, int amount) {
-		super(item.getRawId(), amount, (short)item.getRawData());
+		super(item.getRawId(), amount, (short) item.getRawData());
 	}
 
 	public SpoutItemStack(CustomBlock block) {
@@ -57,11 +57,11 @@ public class SpoutItemStack extends ItemStack {
 	}
 
 	public SpoutItemStack(Material material) {
-		super(material.getRawId(), 1, (short)material.getRawData());
+		super(material.getRawId(), 1, (short) material.getRawData());
 	}
 
 	public SpoutItemStack(Material material, int amount) {
-		super(material.getRawId(), amount, (short)material.getRawData());
+		super(material.getRawId(), amount, (short) material.getRawData());
 	}
 
 	public Material getMaterial() {

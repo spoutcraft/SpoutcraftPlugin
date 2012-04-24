@@ -18,7 +18,7 @@ package org.getspout.spoutapi.gui;
 
 /**
  * The GenericLabel class represents text on the users screen.
- *
+ * <p/>
  * Normally the text will overflow the widget "box" if it is smaller than
  * the text itself, however you can force the minimum size of the widget to
  * the size of the text content with the setAuto method, and use the setFixed
@@ -107,13 +107,13 @@ public interface Label extends Widget {
 	 * @return scale of text
 	 */
 	public float getScale();
-	
+
 	/**
 	 * Sets whether or not the label has a shadow.
 	 * @param shadow
 	 */
 	public Label setShadow(boolean shadow);
-	
+
 	/**
 	 * Gets whether or not the label has a shadow.
 	 * @return

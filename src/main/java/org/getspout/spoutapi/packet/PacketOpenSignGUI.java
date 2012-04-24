@@ -22,7 +22,7 @@ import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketOpenSignGUI implements SpoutPacket {
-	int x,y,z;
+	int x, y, z;
 
 	public PacketOpenSignGUI(int x, int y, int z) {
 		this.x = x;

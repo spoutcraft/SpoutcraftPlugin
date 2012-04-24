@@ -72,7 +72,8 @@ public class PacketComboBox implements SpoutPacket {
 	}
 
 	@Override
-	public void failure(int playerId) {}
+	public void failure(int playerId) {
+	}
 
 	@Override
 	public PacketType getPacketType() {

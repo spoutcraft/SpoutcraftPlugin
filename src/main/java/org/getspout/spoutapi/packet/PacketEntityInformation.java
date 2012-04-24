@@ -67,8 +67,7 @@ public class PacketEntityInformation implements CompressablePacket {
 		if (data != null) {
 			output.writeInt(data.length);
 			output.write(data);
-		}
-		else {
+		} else {
 			output.writeInt(0);
 		}
 		output.writeBoolean(compressed);
@@ -86,7 +85,7 @@ public class PacketEntityInformation implements CompressablePacket {
 				int id = rawData.getInt(index);
 				Entity entity = SpoutManager.getEntityFromId(id);
 				if (entity != null && entity instanceof LivingEntity) {
-					entities.add((LivingEntity)entity);
+					entities.add((LivingEntity) entity);
 				}
 			}
 			if (entities.size() > 0) {

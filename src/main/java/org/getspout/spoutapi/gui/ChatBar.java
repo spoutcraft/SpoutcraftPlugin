@@ -24,7 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 
 /**
  * The Spout implementation of the default Chat Bar.
- *
+ * <p/>
  * This provides extra abilities above the default version.
  */
 public class ChatBar extends GenericWidget implements Widget {

@@ -80,17 +80,16 @@ public enum PacketType {
 	PacketEntityInformation(53, PacketEntityInformation.class),
 	PacketComboBox(54, PacketComboBox.class),
 	PacketFocusUpdate(55, PacketFocusUpdate.class),
-	PacketClientAddons(56, org.getspout.spoutapi.packet.PacketClientAddons.class), 
+	PacketClientAddons(56, org.getspout.spoutapi.packet.PacketClientAddons.class),
 	PacketPermissionUpdate(57, PacketPermissionUpdate.class),
 	PacketSpawnTextEntity(58, PacketSpawnTextEntity.class),
 	PacketSlotClick(59, PacketSlotClick.class),
 	PacketWaypoint(60, PacketWaypoint.class),
-	PacketParticle(61, PacketParticle.class),
-	;
-
+	PacketParticle(61, PacketParticle.class),;
 	private final int id;
 	private final Class<? extends SpoutPacket> packetClass;
 	private static final HashMap<Integer, PacketType> lookupId = new HashMap<Integer, PacketType>();
+
 	PacketType(final int type, final Class<? extends SpoutPacket> packetClass) {
 		this.id = type;
 		this.packetClass = packetClass;

@@ -24,6 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketStopMusic implements SpoutPacket {
 	private boolean resetTimer = false;
 	private int fadeTime = -1;
+
 	public PacketStopMusic() {
 
 	}

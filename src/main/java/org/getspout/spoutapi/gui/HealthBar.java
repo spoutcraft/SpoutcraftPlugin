@@ -67,7 +67,7 @@ public class HealthBar extends GenericWidget {
 
 	/**
 	 * Gets the maximum number of hearts displayed on the HUD.
-	 *
+	 * <p/>
 	 * Health is scaled to fit the number of hearts appropriately.
 	 * @return hearts displayed
 	 */
@@ -77,7 +77,7 @@ public class HealthBar extends GenericWidget {
 
 	/**
 	 * Sets the maximum number of hearts displayed on the HUD.
-	 *
+	 * <p/>
 	 * Health is scaled to fit the number of hearts appropriately.
 	 * @param hearts to display
 	 * @return this
@@ -107,7 +107,7 @@ public class HealthBar extends GenericWidget {
 
 	/**
 	 * Gets the percent of health a player needs to fall to or below in order for the hearts to begin blinking.
-	 *
+	 * <p/>
 	 * Valid percents are between zero and one hundred, inclusive.
 	 * @return danger percent
 	 */
@@ -117,7 +117,7 @@ public class HealthBar extends GenericWidget {
 
 	/**
 	 * Sets the percent of health a player needs to fall to or below in order for the hearts to begin blinking.
-	 *
+	 * <p/>
 	 * Valid percents are between zero and one hundred, inclusive.
 	 * @param percent
 	 * @return this

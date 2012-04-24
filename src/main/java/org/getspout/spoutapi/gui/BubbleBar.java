@@ -64,7 +64,7 @@ public class BubbleBar extends GenericWidget implements Widget {
 
 	/**
 	 * Gets the maximum number of bubbles displayed on the HUD.
-	 *
+	 * <p/>
 	 * Air is scaled to fit the number of bubbles appropriately.
 	 * @return bubbles displayed
 	 */
@@ -74,7 +74,7 @@ public class BubbleBar extends GenericWidget implements Widget {
 
 	/**
 	 * Sets the maximum number of bubbles displayed on the HUD.
-	 *
+	 * <p/>
 	 * Air is scaled to fit the number of bubbles appropriately.
 	 * @param bubbles to display
 	 * @return this

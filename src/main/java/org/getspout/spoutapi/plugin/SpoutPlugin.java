@@ -24,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.SpoutServer;
+
 @Deprecated
 public abstract class SpoutPlugin extends JavaPlugin {
 	public SpoutServer getSpoutServer() {
@@ -51,6 +52,6 @@ public abstract class SpoutPlugin extends JavaPlugin {
 	}
 
 	public void log(String s, String... args) {
-		getLogger().info(String.format("[%s] %s", getName(), String.format(s, (Object[])args)));
+		getLogger().info(String.format("[%s] %s", getName(), String.format(s, (Object[]) args)));
 	}
 }

@@ -85,13 +85,13 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 
 	/**
 	 * Sets the open status.
-	 * @param open the state
+	 * @param open       the state
 	 * @param sendPacket if true, send an update packet
 	 * @return the instance
 	 */
 	public ComboBox setOpen(boolean open, boolean sendPacket) {
 		if (sendPacket) {
-			if (open!=this.open) {
+			if (open != this.open) {
 				this.open = open;
 				PacketComboBox packet = new PacketComboBox(this);
 				getScreen().getPlayer().sendPacket(packet);
@@ -117,12 +117,12 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 		super.writeData(output);
 		output.writeInt(selection);
 		output.writeInt(getItems().size());
-		for (String item:getItems()) {
+		for (String item : getItems()) {
 			output.writeString(item);
 		}
 		output.writeString(format);
 	}
-	
+
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 1;
@@ -136,10 +136,10 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 		this.format = format;
 		return this;
 	}
-	
+
 	@Override
 	public String getText() {
-		if(super.getText() == null || super.getText().isEmpty()) {
+		if (super.getText() == null || super.getText().isEmpty()) {
 			return getSelectedItem();
 		} else {
 			String text = format.replaceAll("%text%", super.getText()).replaceAll("%selected%", getSelectedItem());

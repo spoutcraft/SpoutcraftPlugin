@@ -25,6 +25,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketClipboardText implements SpoutPacket {
 	protected String text;
+
 	public PacketClipboardText() {
 
 	}
@@ -32,7 +33,6 @@ public class PacketClipboardText implements SpoutPacket {
 	public PacketClipboardText(String text) {
 		this.text = text;
 	}
-	
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {

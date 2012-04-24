@@ -33,6 +33,7 @@ public class PacketKeyPress implements SpoutPacket {
 	public byte key;
 	public byte settingKeys[] = new byte[10];
 	public int screenType = -1;
+
 	public PacketKeyPress() {
 	}
 

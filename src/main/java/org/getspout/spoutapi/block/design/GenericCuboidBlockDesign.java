@@ -18,38 +18,30 @@ package org.getspout.spoutapi.block.design;
 
 import org.bukkit.plugin.Plugin;
 
-import org.getspout.spoutapi.block.design.GenericBlockDesign;
-import org.getspout.spoutapi.block.design.Quad;
-import org.getspout.spoutapi.block.design.Texture;
-
 public class GenericCuboidBlockDesign extends GenericBlockDesign {
 	private boolean fullCube = false;
 
 	/**
 	 * Creates a basic cuboid custom block model
-	 *
 	 * @return true if the cuboid completely covers the block's cube
-	 *
-	 * */
-
+	 */
 	public boolean isFullCube() {
 		return fullCube;
 	}
 
 	/**
 	 * Creates a basic cuboid custom block model
-	 *
-	 * @param plugin making this block
-	 * @param texture to use
+	 * @param plugin       making this block
+	 * @param texture      to use
 	 * @param textureId[6] Array of faces, give Id's for SubTexture locations
-	 * @param xMin minimum x coordinate of the cuboid
-	 * @param yMin minimum y coordinate of the cuboid
-	 * @param zMin minimum z coordinate of the cuboid
-	 * @param xMax maximum x coordinate of the cuboid
-	 * @param yMax maximum y coordinate of the cuboid
-	 * @param zMax maximum z coordinate of the cuboid
-	 *
-	 * Array is laid out as follows {bottom, face, face, face, face, top}
+	 * @param xMin         minimum x coordinate of the cuboid
+	 * @param yMin         minimum y coordinate of the cuboid
+	 * @param zMin         minimum z coordinate of the cuboid
+	 * @param xMax         maximum x coordinate of the cuboid
+	 * @param yMax         maximum y coordinate of the cuboid
+	 * @param zMax         maximum z coordinate of the cuboid
+	 *                     <p/>
+	 *                     Array is laid out as follows {bottom, face, face, face, face, top}
 	 */
 	public GenericCuboidBlockDesign(Plugin plugin, Texture texture, int[] textureId, float xMin, float yMin, float zMin, float xMax, float yMax, float zMax) {
 		if (textureId.length != 6) {
@@ -111,16 +103,15 @@ public class GenericCuboidBlockDesign extends GenericBlockDesign {
 
 	/**
 	 * Creates a basic cuboid custom block model with only one texture
-	 *
-	 * @param plugin making this block
-	 * @param texture url to use
+	 * @param plugin    making this block
+	 * @param texture   url to use
 	 * @param textureId to get the SubTexture to use
-	 * @param xMin minimum x coordinate of the cuboid
-	 * @param yMin minimum y coordinate of the cuboid
-	 * @param zMin minimum z coordinate of the cuboid
-	 * @param xMax maximum x coordinate of the cuboid
-	 * @param yMax maximum y coordinate of the cuboid
-	 * @param zMax maximum z coordinate of the cuboid
+	 * @param xMin      minimum x coordinate of the cuboid
+	 * @param yMin      minimum y coordinate of the cuboid
+	 * @param zMin      minimum z coordinate of the cuboid
+	 * @param xMax      maximum x coordinate of the cuboid
+	 * @param yMax      maximum y coordinate of the cuboid
+	 * @param zMax      maximum z coordinate of the cuboid
 	 */
 	public GenericCuboidBlockDesign(Plugin plugin, Texture texture, int textureId, float xMin, float yMin, float zMin, float xMax, float yMax, float zMax) {
 		this(plugin, texture, getIdMap(textureId), xMin, yMin, zMin, xMax, yMax, zMax);
@@ -128,16 +119,15 @@ public class GenericCuboidBlockDesign extends GenericBlockDesign {
 
 	/**
 	 * Creates a basic cuboid custom block model with only one texture
-	 *
-	 * @param plugin making this block
-	 * @param texture url to use - must be a square png
+	 * @param plugin      making this block
+	 * @param texture     url to use - must be a square png
 	 * @param textureSize size of the width/height of the texture in pixels
-	 * @param xMin minimum x coordinate of the cuboid
-	 * @param yMin minimum y coordinate of the cuboid
-	 * @param zMin minimum z coordinate of the cuboid
-	 * @param xMax maximum x coordinate of the cuboid
-	 * @param yMax maximum y coordinate of the cuboid
-	 * @param zMax maximum z coordinate of the cuboid
+	 * @param xMin        minimum x coordinate of the cuboid
+	 * @param yMin        minimum y coordinate of the cuboid
+	 * @param zMin        minimum z coordinate of the cuboid
+	 * @param xMax        maximum x coordinate of the cuboid
+	 * @param yMax        maximum y coordinate of the cuboid
+	 * @param zMax        maximum z coordinate of the cuboid
 	 */
 	public GenericCuboidBlockDesign(Plugin plugin, String texture, int textureSize, float xMin, float yMin, float zMin, float xMax, float yMax, float zMax) {
 		this(plugin, new Texture(plugin, texture, textureSize, textureSize, textureSize), 0, xMin, yMin, zMin, xMax, yMax, zMax);

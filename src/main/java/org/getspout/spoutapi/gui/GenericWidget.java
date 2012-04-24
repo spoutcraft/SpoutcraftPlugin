@@ -16,9 +16,9 @@
  */
 package org.getspout.spoutapi.gui;
 
+import javax.xml.bind.TypeConstraintException;
 import java.io.IOException;
 import java.util.UUID;
-import javax.xml.bind.TypeConstraintException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -57,10 +57,10 @@ public abstract class GenericWidget implements Widget {
 	protected float animValue = 1f;
 	protected short animCount = 0;
 	protected short animTicks = 20;
-	protected final byte ANIM_REPEAT = (1<<0);
-	protected final byte ANIM_RESET = (1<<1);
-	protected final byte ANIM_RUNNING = (1<<2);
-	protected final byte ANIM_STOPPING = (1<<3);
+	protected final byte ANIM_REPEAT = (1 << 0);
+	protected final byte ANIM_RESET = (1 << 1);
+	protected final byte ANIM_RUNNING = (1 << 2);
+	protected final byte ANIM_STOPPING = (1 << 3);
 	protected byte animFlags = 0;
 	protected transient int animTick = 0; // Current tick
 	protected transient int animFrame = 0; // Current frame
@@ -122,7 +122,7 @@ public abstract class GenericWidget implements Widget {
 		setVisible(input.readBoolean());
 		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt()));
 		long msb = input.readLong();
-		long lsb = input.readLong(); 
+		long lsb = input.readLong();
 		this.id = new UUID(msb, lsb);
 		setTooltip(input.readString());
 		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(input.readString()));
@@ -535,7 +535,7 @@ public abstract class GenericWidget implements Widget {
 	public Widget copy() {
 		try {
 			Widget copy = getType().getWidgetClass().newInstance();
-			copy	.setX(getX()) // Easier reading
+			copy.setX(getX()) // Easier reading
 					.setY(getY()) //
 					.setWidth(getWidth()) //
 					.setHeight(getHeight()) //

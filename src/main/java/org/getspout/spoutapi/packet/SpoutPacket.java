@@ -24,7 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public interface SpoutPacket {
 	/**
 	 * Reads the incoming data from the client.
-	 *
+	 * <p/>
 	 * Note: Data should be read in exactly the same order as it was written.
 	 * @param input stream to read data from
 	 */
@@ -45,9 +45,9 @@ public interface SpoutPacket {
 	/**
 	 * Performs any tasks for the packet after the data has NOT been successfully read into the packet.
 	 * All values will be at defaults (0, null, etc) and are unsafe.
-	 *
+	 * <p/>
 	 * Failure is run when the packet versions mismatch and data could not be safely read.
-	 *
+	 * <p/>
 	 * It may not be called for all cases of failure.
 	 * @param playerId
 	 */

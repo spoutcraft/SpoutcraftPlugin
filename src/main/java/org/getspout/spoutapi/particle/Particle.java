@@ -21,6 +21,7 @@ import java.util.Random;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+
 import org.getspout.spoutapi.packet.PacketParticle;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -35,22 +36,21 @@ public class Particle {
 	private float particleBlue = -1F;
 	private float particleGreen = -1F;
 	private int amount = 10;
-	
+
 	public Particle(ParticleType particle, Location location, Vector motion) {
 		this(particle.name, location, motion);
 	}
-	
+
 	public Particle(String particle, Location location, Vector motion) {
 		this.setName(particle);
-		this.setLocation(location); 
+		this.setLocation(location);
 		this.setMotion(motion);
 		setMaxAge((new Random()).nextInt(100) + 100);
 		setScale((new Random().nextFloat() * 0.5F + 0.5F) * 2.0F);
 	}
-	
+
 	/**
 	 * Gets the name of this type of particle
-	 * 
 	 * @return name
 	 */
 	public String getName() {
@@ -59,7 +59,6 @@ public class Particle {
 
 	/**
 	 * Sets the name of this type of particle
-	 * 
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -68,7 +67,6 @@ public class Particle {
 
 	/**
 	 * Gets the spawn location for this particle
-	 * 
 	 * @return particle
 	 */
 	public Location getLocation() {
@@ -77,7 +75,6 @@ public class Particle {
 
 	/**
 	 * Sets the spawn location for this particle
-	 * 
 	 * @param location
 	 */
 	public void setLocation(Location location) {
@@ -86,7 +83,6 @@ public class Particle {
 
 	/**
 	 * Gets the direction of motion for this particle
-	 * 
 	 * @return motion
 	 */
 	public Vector getMotion() {
@@ -95,7 +91,6 @@ public class Particle {
 
 	/**
 	 * Sets the direction of motion for this particle
-	 * 
 	 * @param motion to set
 	 */
 	public Particle setMotion(Vector motion) {
@@ -105,7 +100,6 @@ public class Particle {
 
 	/**
 	 * Get the maximum age (in ticks) that this particle will last
-	 * 
 	 * @return age
 	 */
 	public int getMaxAge() {
@@ -123,7 +117,6 @@ public class Particle {
 
 	/**
 	 * Gets the red color for the particle, or -1 if it uses the default color. Values should be (0-1)
-	 * 
 	 * @return color
 	 */
 	public float getParticleRed() {
@@ -132,7 +125,6 @@ public class Particle {
 
 	/**
 	 * Sets the red color for the particle, or -1 if it uses the default color. Values should be (0-1)
-	 * 
 	 * @param color
 	 */
 	public Particle setParticleRed(float particleRed) {
@@ -142,7 +134,6 @@ public class Particle {
 
 	/**
 	 * Gets the blue color for the particle, or -1 if it uses the default color. Values should be (0-1)
-	 * 
 	 * @return color
 	 */
 	public float getParticleBlue() {
@@ -151,7 +142,6 @@ public class Particle {
 
 	/**
 	 * Sets the blue color for the particle, or -1 if it uses the default color. Values should be (0-1)
-	 * 
 	 * @return color
 	 */
 	public Particle setParticleBlue(float particleBlue) {
@@ -161,7 +151,6 @@ public class Particle {
 
 	/**
 	 * Gets the gree color for the particle, or -1 if it uses the default color. Values should be (0-1)
-	 * 
 	 * @return color
 	 */
 	public float getParticleGreen() {
@@ -170,7 +159,6 @@ public class Particle {
 
 	/**
 	 * Gets the green color for the particle, or -1 if it uses the default color. Values should be (0-1)
-	 * 
 	 * @return color
 	 */
 	public Particle setParticleGreen(float particleGreen) {
@@ -180,7 +168,6 @@ public class Particle {
 
 	/**
 	 * Gets the scale of the particle
-	 * 
 	 * @return scale
 	 */
 	public float getScale() {
@@ -189,7 +176,6 @@ public class Particle {
 
 	/**
 	 * Sets the scale of the particle
-	 * 
 	 * @param scale
 	 */
 	public Particle setScale(float scale) {
@@ -199,7 +185,6 @@ public class Particle {
 
 	/**
 	 * Gets the gravity modifier for the particle (0 = no gravity)
-	 * 
 	 * @return gravity
 	 */
 	public float getGravity() {
@@ -207,18 +192,16 @@ public class Particle {
 	}
 
 	/**
-	 *Sets the gravity modifier for the particle (0 = no gravity)
-	 *
+	 * Sets the gravity modifier for the particle (0 = no gravity)
 	 * @param gravity
 	 */
 	public Particle setGravity(float gravity) {
 		this.gravity = gravity;
 		return this;
 	}
-	
+
 	/**
 	 * Spawns this particle - making it visible to the given player
-	 * 
 	 * @param player to spawn the particle for
 	 */
 	public void spawn(SpoutPlayer player) {
@@ -226,7 +209,7 @@ public class Particle {
 			player.sendPacket(new PacketParticle(this));
 		}
 	}
-	
+
 	/**
 	 * Spawns this particle in the world, making it visible to all players
 	 */
@@ -234,7 +217,7 @@ public class Particle {
 		if (location != null && name != null) {
 			for (Player p : location.getWorld().getPlayers()) {
 				if (p instanceof SpoutPlayer) {
-					spawn(((SpoutPlayer)p));
+					spawn(((SpoutPlayer) p));
 				}
 			}
 		}
@@ -276,19 +259,17 @@ public class Particle {
 		SNOWSHOVEL("snowshovel"),
 		SLIME("slime"),
 		HEART("heart"),
-		
-		UNKNOWN(null),
-		;
-		
+		UNKNOWN(null),;
 		final String name;
+
 		ParticleType(final String name) {
 			this.name = name;
 		}
-		
+
 		public String getName() {
 			return name;
 		}
-		
+
 		public static ParticleType getTypeFromName(String name) {
 			for (ParticleType type : ParticleType.values()) {
 				if (type.name != null && type.name.equals(name)) {
@@ -298,5 +279,4 @@ public class Particle {
 			return UNKNOWN;
 		}
 	}
-
 }

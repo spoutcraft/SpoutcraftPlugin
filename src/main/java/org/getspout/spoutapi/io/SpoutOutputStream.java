@@ -30,6 +30,7 @@ import org.getspout.spoutapi.material.Material;
 
 public class SpoutOutputStream extends OutputStream {
 	ByteBuffer buffer = ByteBuffer.allocate(256);
+
 	public SpoutOutputStream() {
 
 	}
@@ -61,7 +62,7 @@ public class SpoutOutputStream extends OutputStream {
 	public void writeItemStack(ItemStack item) {
 		this.writeInt(item.getTypeId());
 		this.writeShort(item.getDurability());
-		this.writeShort((short)item.getAmount());
+		this.writeShort((short) item.getAmount());
 	}
 
 	public void writeMaterial(Material material) {
@@ -95,7 +96,7 @@ public class SpoutOutputStream extends OutputStream {
 		if (buffer.remaining() < 1) {
 			expand();
 		}
-		buffer.put((byte)b);
+		buffer.put((byte) b);
 	}
 
 	public void writeShort(short s) {
@@ -139,7 +140,7 @@ public class SpoutOutputStream extends OutputStream {
 		}
 		buffer.putChar(ch);
 	}
-	
+
 	public void writeBoolean(boolean b) {
 		write(b ? 1 : 0);
 	}
@@ -153,9 +154,10 @@ public class SpoutOutputStream extends OutputStream {
 			buffer.putChar(s.charAt(i));
 		}
 	}
-	
+
 	public static final byte FLAG_COLORINVALID = 1;
 	public static final byte FLAG_COLOROVERRIDE = 2;
+
 	public void writeColor(Color c) {
 		byte flags = 0x0;
 

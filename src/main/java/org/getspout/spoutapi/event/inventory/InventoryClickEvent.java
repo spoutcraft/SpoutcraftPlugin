@@ -26,8 +26,7 @@ import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 
 @Deprecated
-public class InventoryClickEvent extends InventoryEvent{
-
+public class InventoryClickEvent extends InventoryEvent {
 	private static final HandlerList handlers = new HandlerList();
 	private final InventorySlotType type;
 	private ItemStack item;
@@ -77,7 +76,9 @@ public class InventoryClickEvent extends InventoryEvent{
 	@Override
 	@Deprecated
 	public void setCancelled(boolean cancel) {
-		if (cancel) this.result = Event.Result.DENY;
+		if (cancel) {
+			this.result = Event.Result.DENY;
+		}
 		super.setCancelled(cancel);
 	}
 
@@ -202,11 +203,15 @@ public class InventoryClickEvent extends InventoryEvent{
 		if (getInventory() instanceof SpoutPlayerInventory) {
 			int size = getInventory().getSize();
 			//Armour slot
-			switch(slot) {
-			case 5: return 39;
-			case 6: return 38;
-			case 7: return 37;
-			case 8: return 36;
+			switch (slot) {
+				case 5:
+					return 39;
+				case 6:
+					return 38;
+				case 7:
+					return 37;
+				case 8:
+					return 36;
 			}
 			//Quickslots
 			if (slot >= size) {

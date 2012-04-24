@@ -43,6 +43,7 @@ public class PacketSkinURL implements SpoutPacket {
 		this.skinURL = "none";
 		this.cloakURL = cloakURL;
 	}
+
 	public int entityId;
 	public String skinURL;
 	public String cloakURL;

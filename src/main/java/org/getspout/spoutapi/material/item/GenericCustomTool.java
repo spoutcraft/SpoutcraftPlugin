@@ -33,6 +33,7 @@ import org.getspout.spoutapi.packet.PacketType;
 public class GenericCustomTool extends GenericCustomItem implements Tool {
 	private short durability = 1;
 	private TObjectFloatHashMap<Block> strengthMods = new TObjectFloatHashMap<Block>();
+
 	public GenericCustomTool(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 	}
@@ -67,7 +68,7 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 		Object[] keys = strengthMods.keys();
 		Block[] modified = new Block[keys.length];
 		for (int i = 0; i < keys.length; i++) {
-			modified[i] = (Block)keys[i];
+			modified[i] = (Block) keys[i];
 		}
 		return modified;
 	}
@@ -96,9 +97,9 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 		Block[] mod = getStrengthModifiedBlocks();
 		output.writeShort((short) mod.length);
 		for (int i = 0; i < mod.length; i++) {
-			Block block =  mod[i];
+			Block block = mod[i];
 			if (block instanceof CustomBlock) {
-				output.writeInt(((CustomBlock)block).getCustomId());
+				output.writeInt(((CustomBlock) block).getCustomId());
 				output.writeShort((short) -1);
 			} else {
 				output.writeInt(block.getRawId());

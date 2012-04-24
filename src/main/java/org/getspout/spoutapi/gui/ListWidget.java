@@ -45,7 +45,7 @@ public interface ListWidget extends Scrollable {
 	 * @param items to add
 	 * @return instance of the ListWidget
 	 */
-	 public ListWidget addItems(ListWidgetItem... items);
+	public ListWidget addItems(ListWidgetItem... items);
 
 	/**
 	 * Removes an item from the list.
@@ -104,7 +104,7 @@ public interface ListWidget extends Scrollable {
 
 	/**
 	 * Will be called on each selection change.
-	 * @param item the number of the item that was clicked/selected by keypress. Can be -1 that means that no item is selected
+	 * @param item        the number of the item that was clicked/selected by keypress. Can be -1 that means that no item is selected
 	 * @param doubleClick if true, item has been doubleclicked.
 	 */
 	public void onSelected(int item, boolean doubleClick);

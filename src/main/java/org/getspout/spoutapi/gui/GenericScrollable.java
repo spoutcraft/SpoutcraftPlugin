@@ -33,22 +33,22 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 
 	@Override
 	public int getInnerSize(Orientation axis) {
-		switch(axis) {
-		case HORIZONTAL:
-			return innerSizeHoriz;
-		case VERTICAL:
-			return innerSizeVert;
+		switch (axis) {
+			case HORIZONTAL:
+				return innerSizeHoriz;
+			case VERTICAL:
+				return innerSizeVert;
 		}
 		return 0;
 	}
 
 	@Override
 	public int getScrollPosition(Orientation axis) {
-		switch(axis) {
-		case HORIZONTAL:
-			return scrollX;
-		case VERTICAL:
-			return scrollY;
+		switch (axis) {
+			case HORIZONTAL:
+				return scrollX;
+			case VERTICAL:
+				return scrollY;
 		}
 		return 0;
 	}
@@ -61,7 +61,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		if (position > getMaximumScrollPosition(axis)) {
 			position = getMaximumScrollPosition(axis);
 		}
-		switch(axis) {
+		switch (axis) {
 			case HORIZONTAL:
 				scrollX = position;
 				break;
@@ -90,7 +90,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		int scrollRight = scrollLeft + getViewportSize(Orientation.HORIZONTAL) - 10;
 		boolean correctHorizontal = false;
 		boolean correctVertical = false;
-		if (scrollTop <= rect.getTop() && rect.getBottom() <=scrollBottom) {
+		if (scrollTop <= rect.getTop() && rect.getBottom() <= scrollBottom) {
 			//Fits vertical
 			if (scrollLeft <= rect.getLeft() && rect.getRight() <= scrollRight) {
 				//Fits completely
@@ -130,13 +130,13 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 
 	@Override
 	public int getMaximumScrollPosition(Orientation axis) {
-		return (int) Math.max(0, getInnerSize(axis) - (axis==Orientation.HORIZONTAL?getWidth():getHeight()));
+		return (int) Math.max(0, getInnerSize(axis) - (axis == Orientation.HORIZONTAL ? getWidth() : getHeight()));
 	}
 
 	@Override
 	public boolean needsScrollBar(Orientation axis) {
 		ScrollBarPolicy policy = getScrollBarPolicy(axis);
-		switch(policy) {
+		switch (policy) {
 			case SHOW_IF_NEEDED:
 				return getMaximumScrollPosition(axis) > 0;
 			case SHOW_ALWAYS:
@@ -150,7 +150,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 
 	@Override
 	public void setScrollBarPolicy(Orientation axis, ScrollBarPolicy policy) {
-		switch(axis) {
+		switch (axis) {
 			case HORIZONTAL:
 				sbpHoriz = policy;
 				break;
@@ -162,7 +162,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 
 	@Override
 	public ScrollBarPolicy getScrollBarPolicy(Orientation axis) {
-		switch(axis) {
+		switch (axis) {
 			case HORIZONTAL:
 				return sbpHoriz;
 			case VERTICAL:
@@ -172,7 +172,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 	}
 
 	protected void setInnerSize(Orientation axis, int size) {
-		switch(axis) {
+		switch (axis) {
 			case HORIZONTAL:
 				innerSizeHoriz = size;
 				break;
@@ -185,7 +185,7 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 	@Override
 	public int getViewportSize(Orientation axis) {
 		int size = 0;
-		size = (int) (axis == Orientation.HORIZONTAL?getWidth():getHeight());
+		size = (int) (axis == Orientation.HORIZONTAL ? getWidth() : getHeight());
 		if (needsScrollBar(axis.getOther())) {
 			return size - 16;
 		}

@@ -66,7 +66,7 @@ public class ArmorBar extends GenericWidget {
 
 	/**
 	 * Gets the maximum number of shields displayed on the HUD.
-	 *
+	 * <p/>
 	 * Armor is scaled to fit the number of shields appropriately.
 	 * @return shields displayed
 	 */
@@ -76,7 +76,7 @@ public class ArmorBar extends GenericWidget {
 
 	/**
 	 * Sets the maximum number of shields displayed on the HUD.
-	 *
+	 * <p/>
 	 * Armor is scaled to fit the number of shields appropriately.
 	 * @param shields to display
 	 * @return this

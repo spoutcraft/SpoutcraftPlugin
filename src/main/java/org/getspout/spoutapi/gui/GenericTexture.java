@@ -58,7 +58,7 @@ public class GenericTexture extends GenericWidget implements Texture {
 		super.writeData(output);
 		output.writeString(getUrl());
 		output.writeBoolean(isDrawingAlphaChannel());
-		output.writeShort((short) top); 
+		output.writeShort((short) top);
 		output.writeShort((short) left);
 	}
 

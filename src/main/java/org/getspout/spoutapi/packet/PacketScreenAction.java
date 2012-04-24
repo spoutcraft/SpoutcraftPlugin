@@ -34,9 +34,10 @@ public class PacketScreenAction implements SpoutPacket {
 	protected byte action = -1;
 	protected byte screen = -1; // UnknownScreen
 
-	public PacketScreenAction() { }
+	public PacketScreenAction() {
+	}
 
-	public PacketScreenAction(ScreenAction action,ScreenType screen) {
+	public PacketScreenAction(ScreenAction action, ScreenType screen) {
 		this.action = (byte) action.getId();
 		this.screen = (byte) screen.getCode();
 	}
@@ -57,9 +58,9 @@ public class PacketScreenAction implements SpoutPacket {
 	public void run(int playerId) {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		ScreenEvent event;
-		switch(ScreenAction.getScreenActionFromId(action)) {
+		switch (ScreenAction.getScreenActionFromId(action)) {
 			case Close:
-				event = new ScreenCloseEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen) );
+				event = new ScreenCloseEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen));
 				Bukkit.getServer().getPluginManager().callEvent(event);
 				if (event.isCancelled()) {
 					this.action = (byte) ScreenAction.Close.getId();
@@ -71,7 +72,7 @@ public class PacketScreenAction implements SpoutPacket {
 				} else if (ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
 					PopupScreen p = player.getMainScreen().getActivePopup();
 					player.getMainScreen().closePopup();
-					if(player.getItemOnCursor() != null && p != null) {
+					if (player.getItemOnCursor() != null && p != null) {
 						p.handleItemOnCursor(player.getItemOnCursor());
 						player.setItemOnCursor(null);
 					}

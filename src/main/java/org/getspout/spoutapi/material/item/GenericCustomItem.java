@@ -48,13 +48,13 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		this.plugin = plugin;
 		this.setName(name);
 		MaterialData.addCustomItem(this);
-		for(SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
+		for (SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
 			player.sendPacket(this);
 		}
 	}
 
 	public GenericCustomItem(Plugin plugin, String name, String texture) {
-		this(plugin,name);
+		this(plugin, name);
 		SpoutManager.getFileManager().addToCache(plugin, texture);
 		this.setTexture(texture);
 	}
@@ -88,12 +88,14 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 
 	@Override
 	public String getTexture() {
-		if (texture == null) return "";
+		if (texture == null) {
+			return "";
+		}
 		return texture;
 	}
 
 	@Override
-	public boolean onItemInteract(SpoutPlayer player, SpoutBlock block,	BlockFace face) {
+	public boolean onItemInteract(SpoutPlayer player, SpoutBlock block, BlockFace face) {
 		return true;
 	}
 
@@ -114,10 +116,12 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	}
 
 	@Override
-	public void run(int playerId) {}
+	public void run(int playerId) {
+	}
 
 	@Override
-	public void failure(int playerId) {}
+	public void failure(int playerId) {
+	}
 
 	@Override
 	public PacketType getPacketType() {

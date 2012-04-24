@@ -19,7 +19,7 @@ package org.getspout.spoutapi.chunkstore;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class SimpleChunkBuffer extends ByteArrayOutputStream  {
+public class SimpleChunkBuffer extends ByteArrayOutputStream {
 	final SimpleRegionFile rf;
 	final int index;
 

@@ -159,10 +159,10 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 						}
 						Logger.getLogger("Minecraft").log(Level.WARNING,
 								type
-								+ " belonging to " + widget.getPlugin().getDescription().getName()
-								+ " does not have a default "
-								+ (!widget.hasSize() ? "size" : "") + (!widget.hasSize() && !widget.hasPosition() ? " or " : "") + (!widget.hasPosition() ? "position" : "")
-								+ "!");
+										+ " belonging to " + widget.getPlugin().getDescription().getName()
+										+ " does not have a default "
+										+ (!widget.hasSize() ? "size" : "") + (!widget.hasSize() && !widget.hasPosition() ? " or " : "") + (!widget.hasPosition() ? "position" : "")
+										+ "!");
 						widget.setX(widget.getX());
 						widget.setHeight(widget.getHeight());
 					}

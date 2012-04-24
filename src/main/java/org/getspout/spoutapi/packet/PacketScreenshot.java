@@ -16,9 +16,11 @@
  */
 package org.getspout.spoutapi.packet;
 
-import java.awt.image.BufferedImage;
-import java.io.*;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

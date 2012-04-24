@@ -25,7 +25,7 @@ public interface PermissionEvent {
 
 	/**
 	 * Gets the result of this event.
-	 *
+	 * <p/>
 	 * If true, the action will be allowed
 	 * @return result
 	 */

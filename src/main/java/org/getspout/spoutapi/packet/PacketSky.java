@@ -27,6 +27,7 @@ public class PacketSky implements SpoutPacket {
 	private Color skyColor = Color.ignore(), fogColor = Color.ignore(), cloudColor = Color.ignore();
 	String sun = "";
 	String moon = "";
+
 	public PacketSky() {
 
 	}
@@ -48,13 +49,13 @@ public class PacketSky implements SpoutPacket {
 	}
 
 	public PacketSky(Color sky, Color fog, Color cloud) {
-		if (sky!=null) {
+		if (sky != null) {
 			skyColor = sky.clone();
 		}
-		if (fog!=null) {
+		if (fog != null) {
 			fogColor = fog.clone();
 		}
-		if (cloud!=null) {
+		if (cloud != null) {
 			cloudColor = cloud.clone();
 		}
 	}
@@ -66,13 +67,13 @@ public class PacketSky implements SpoutPacket {
 		this.moonPercent = moonPercent;
 		this.sun = sunUrl;
 		this.moon = moonUrl;
-		if (sky!=null) {
+		if (sky != null) {
 			skyColor = sky.clone();
 		}
-		if (fog!=null) {
+		if (fog != null) {
 			fogColor = fog.clone();
 		}
-		if (cloud!=null) {
+		if (cloud != null) {
 			cloudColor = cloud.clone();
 		}
 	}

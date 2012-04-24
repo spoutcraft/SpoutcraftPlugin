@@ -22,7 +22,6 @@ import org.getspout.spoutapi.SpoutManager;
 
 /**
  * Keeps track of packet listeners
- *
  */
 public class Listeners {
 	/**
@@ -32,7 +31,7 @@ public class Listeners {
 
 	}
 
-	private static ConcurrentHashMap<Listener,PacketListener> map = new ConcurrentHashMap<Listener,PacketListener>();
+	private static ConcurrentHashMap<Listener, PacketListener> map = new ConcurrentHashMap<Listener, PacketListener>();
 
 	public static void addListenerUncompressedChunk(Listener listener) {
 		PacketListener fake = new FakeListener(listener);

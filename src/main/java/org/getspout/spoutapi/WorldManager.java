@@ -20,7 +20,7 @@ import org.bukkit.World;
 
 /**
  * Internal use only.
- *
+ * <p/>
  * Bypass Bukkit's lack of decent API.
  */
 public interface WorldManager {

@@ -51,7 +51,6 @@ public class WidgetType {
 	//public static WidgetType ScrollArea = new WidgetType(GenericScrollArea.class, 23); Not yet :P
 	public static WidgetType ComboBox = new WidgetType(GenericComboBox.class, 25);
 	public static WidgetType Slot = new WidgetType(GenericSlot.class, 27);
-
 	private final int id;
 	private final boolean server;
 	private final Class<? extends Widget> widgetClass;

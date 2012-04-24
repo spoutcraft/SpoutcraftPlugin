@@ -21,8 +21,7 @@ import org.bukkit.event.HandlerList;
 
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutCraftEnableEvent extends Event{
-
+public class SpoutCraftEnableEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private final SpoutPlayer player;
 

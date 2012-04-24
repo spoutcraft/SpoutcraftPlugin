@@ -19,6 +19,7 @@ package org.getspout.spoutapi.packet;
 import java.io.IOException;
 
 import org.bukkit.Location;
+
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
@@ -27,6 +28,7 @@ public class PacketDownloadMusic implements SpoutPacket {
 	int volume, distance;
 	boolean soundEffect, notify;
 	String URL, plugin;
+
 	public PacketDownloadMusic() {
 
 	}

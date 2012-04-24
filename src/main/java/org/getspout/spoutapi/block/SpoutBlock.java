@@ -61,50 +61,43 @@ public interface SpoutBlock extends Block {
 
 	/**
 	 * Overrides the block to be the customBlock
-	 *
+	 * <p/>
 	 * This can be used to set custom blocks at the location.
-	 *
 	 * @param customBlock the custom block to use instead of the block, or removes it if null
 	 */
 	public void setCustomBlock(CustomBlock block);
 
 	/**
 	 * Sets block data for the block at (x, y, z) and a given id.
-	 *
+	 * <p/>
 	 * Setting data for unloaded chunks has an undefined effect.
-	 *
-	 * @param id the id used to retrieve the data
+	 * @param id   the id used to retrieve the data
 	 * @param data the data to be stored
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable setData(String id, Serializable data);
 
 	/**
 	 * Returns the block data for the block at (x, y, z) and a given id.
-	 *
+	 * <p/>
 	 * Retrieving data for unloaded chunks is undefined.
-	 *
 	 * @param id the id used to retrieve the data
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable getData(String id);
 
 	/**
 	 * Removes and returns the block data for the block at (x, y, z) and a given id.
-	 *
+	 * <p/>
 	 * Deleting data for unloaded chunks has an undefined effect.
-	 *
 	 * @param id the id used to retrieve the data
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable removeData(String id);
 
 	/**
 	 * Gets the name of this block
-	 *
+	 * <p/>
 	 * Ex dirt block returns "Dirt".
 	 * @return block name
 	 */
@@ -113,10 +106,10 @@ public interface SpoutBlock extends Block {
 
 	/**
 	 * Sets the power state of this block, overriding the default power state.
-	 *
+	 * <p/>
 	 * This will override the default power state.
 	 * Unpowering this location will prevent normal redstone sources from working, powering it will allow for non-redstone sources to generate a power current.
-	 *
+	 * <p/>
 	 * Note: The new power state will remain even if the underlying block type changes!
 	 * @param power to set
 	 */
@@ -125,15 +118,15 @@ public interface SpoutBlock extends Block {
 
 	/**
 	 * Sets the power state of the block face of this block, overriding the default power state.
-	 *
+	 * <p/>
 	 * Valid block faces are null (entire block), EAST, WEST, NORTH, SOUTH, UP, DOWN. Non-valid states will throw an exception.
-	 *
+	 * <p/>
 	 * This will override the default power state of this blockface.
 	 * Unpowering this location will prevent normal redstone sources from working, powering it will allow for non-redstone sources to generate a power current.
-	 *
+	 * <p/>
 	 * Note: The new power state will remain even if the underlying block type changes!
 	 * @param power to set
-	 * @param face to affect
+	 * @param face  to affect
 	 */
 	@Deprecated
 	public void setBlockPowered(boolean power, BlockFace face);
@@ -176,7 +169,6 @@ public interface SpoutBlock extends Block {
 
 	/**
 	 * Gets the custom block ID associated with this SpoutBlock if it exists, or 0 if not
-	 *
 	 * @return blockId
 	 */
 	@Deprecated
@@ -184,7 +176,6 @@ public interface SpoutBlock extends Block {
 
 	/**
 	 * Checks if the SpoutBlock has a custom material data or not
-	 *
 	 * @return true if block is custom
 	 */
 	@Deprecated
@@ -192,7 +183,6 @@ public interface SpoutBlock extends Block {
 
 	/**
 	 * Removes the custom material data associated with this SpoutBlock
-	 * 
 	 * @Deprecated use {@link #setCustomBlock(CustomBlock)} with null instead
 	 */
 	@Deprecated
@@ -200,7 +190,6 @@ public interface SpoutBlock extends Block {
 
 	/**
 	 * Gets the custom block material associated with this SpoutBlock
-	 *
 	 * @return custom block material
 	 */
 	public CustomBlock getCustomBlock();

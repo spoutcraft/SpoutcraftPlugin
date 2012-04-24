@@ -18,7 +18,7 @@ package org.getspout.spoutapi.gui;
 
 /**
  * This is the main screen when playing Minecraft.
- *
+ * <p/>
  * There is no mouse interaction with this screen, so trying to place Controls
  * such as Buttons on it will fail.
  */
@@ -95,7 +95,6 @@ public interface InGameHUD extends Screen {
 
 	/**
 	 * Ease of use method setting all the survival mode HUD elements to setVisible(toggle);
-	 *
 	 * @param toggle true or false
 	 */
 	public void toggleSurvivalHUD(boolean toggle);

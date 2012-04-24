@@ -41,55 +41,55 @@ import org.getspout.spoutapi.packet.standard.MCPacket;
  */
 public interface SpoutPlayer extends org.bukkit.entity.Player {
 	/**
-	 * @Deprecated use {@link #closeInventory()} instead. <br/><br/>
-	 * 
-	 * Closes any dialog windows the client may have open at the time
 	 * @return true if a window was closed
+	 * @Deprecated use {@link #closeInventory()} instead. <br/><br/>
+	 * <p/>
+	 * Closes any dialog windows the client may have open at the time
 	 */
 	@Deprecated
 	public boolean closeActiveWindow();
 
 	/**
-	 * @Deprecated use {@link #openInventory(Inventory)} instead. <br/><br/>
-	 * 
-	 * Opens an inventory dialog to the player, with the given inventory displayed in the upper pane, and the player's inventory in the lower pane
 	 * @param inventory to use in the dialog GUI
 	 * @return true if an inventory window was opened
+	 * @Deprecated use {@link #openInventory(Inventory)} instead. <br/><br/>
+	 * <p/>
+	 * Opens an inventory dialog to the player, with the given inventory displayed in the upper pane, and the player's inventory in the lower pane
 	 */
 	@Deprecated
 	public boolean openInventoryWindow(Inventory inventory);
 
 	/**
+	 * @param inventory to use in the dialog GUI
+	 * @param location  that represents this inventory in the world (e.g Chest, Furnace). Use null if there is no physical location.
+	 * @return true if an inventory window was opened
 	 * @Deprecated use {@link #openInventory(Inventory)} instead. <br/><br/>
-	 * 
+	 * <p/>
 	 * Opens an inventory dialog to the player, with the given inventory displayed in the upper pane, and the player's inventory in the lower pane.
 	 * The location is not used, but is passed to other plugins when notifying them of the open window
-	 * @param inventory to use in the dialog GUI
-	 * @param location that represents this inventory in the world (e.g Chest, Furnace). Use null if there is no physical location.
-	 * @return true if an inventory window was opened
 	 */
 	@Deprecated
 	public boolean openInventoryWindow(Inventory inventory, Location location);
 
 	/**
-	 * @Deprecated use {@link #openInventory(Inventory)} instead. <br/><br/>
-	 * 
-	 * Opens an inventory dialog to the player, with the given inventory displayed in the upper pane, and the player's inventory in the lower pane.
-	 * The location is not used, but is passed to other plugins when notifying them of the open window
-	 * @param inventory to use in the dialog GUI
-	 * @param location that represents this inventory in the world (e.g Chest, Furnace). Use null if there is no physical location.
+	 * @param inventory      to use in the dialog GUI
+	 * @param location       that represents this inventory in the world (e.g Chest, Furnace). Use null if there is no physical location.
 	 * @param ignoreDistance whether the distance from the inventory should be considered (opening an inventory will fail if it's too far away, without ignoring distance)
 	 * @return true if an inventory window was opened
+	 * @Deprecated use {@link #openInventory(Inventory)} instead. <br/><br/>
+	 * <p/>
+	 * Opens an inventory dialog to the player, with the given inventory displayed in the upper pane, and the player's inventory in the lower pane.
+	 * The location is not used, but is passed to other plugins when notifying them of the open window
 	 */
 	@Deprecated
 	public boolean openInventoryWindow(Inventory inventory, Location location, boolean ignoreDistance);
 
 	/**
-	 * @Deprecated use {@link #openInventory(Inventory)} instead. <br/><br/>
-	 * 
-	 * Opens an workbench dialog to the player, using the workbench at the given location
 	 * @param location of the workbench to use. Must be a valid workbench.
 	 * @return true if a workbench window was opened
+	 * @Deprecated use {@link #openInventory(Inventory)} instead. <br/><br/>
+	 * <p/>
+	 * Opens an workbench dialog to the player, using the workbench at the given location
 	 */
 	@Deprecated
 	public boolean openWorkbenchWindow(Location location);
@@ -103,8 +103,8 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	/**
 	 * Gets a copy of the current opened screen of the player. This can be the InGameHUD, but also other screen types.
 	 * Check the screentype with Screen.getType();
-	 * @see Screen.getType()
 	 * @return the currently open screen
+	 * @see Screen.getType()
 	 */
 	public Screen getCurrentScreen();
 
@@ -241,8 +241,8 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Send's the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
 	 * The title and message may not exceed 26 characters in length
 	 * The item to render may not be null
-	 * @param title to send
-	 * @param message to send
+	 * @param title    to send
+	 * @param message  to send
 	 * @param toRender to render
 	 */
 	@ClientOnly
@@ -252,11 +252,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Send's the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
 	 * The title and message may not exceed 26 characters in length
 	 * The item to render may not be null
-	 * @param title to send
-	 * @param message to send
+	 * @param title    to send
+	 * @param message  to send
 	 * @param toRender to render
-	 * @param data for the item to render
-	 * @param time for the notification to remain in milliseconds
+	 * @param data     for the item to render
+	 * @param time     for the notification to remain in milliseconds
 	 */
 	@ClientOnly
 	public void sendNotification(String title, String message, Material toRender, short data, int time);
@@ -265,10 +265,10 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Send's the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
 	 * The title and message may not exceed 26 characters in length
 	 * The item to render may not be null
-	 * @param title to send
+	 * @param title   to send
 	 * @param message to send
-	 * @param item to render
-	 * @param time for the notification to remain in milliseconds
+	 * @param item    to render
+	 * @param time    for the notification to remain in milliseconds
 	 */
 	@ClientOnly
 	public void sendNotification(String title, String message, ItemStack item, int time);
@@ -303,7 +303,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Gets the gravity multiplier for this player
-	 *
+	 * <p/>
 	 * Default gravity modifier is 1
 	 * @return gravity multiplier
 	 */
@@ -312,11 +312,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Modifies the effects of gravity on the player's y axis movement.
-	 *
+	 * <p/>
 	 * Ex: setGravityMultiplier(10) will cause players to fall ten times faster than normal.
-	 *
+	 * <p/>
 	 * Warning, large modifiers may trigger fly-hack warnings.
-	 *
+	 * <p/>
 	 * Default gravity multiplier is 1
 	 * @param multiplier to set.
 	 */
@@ -325,7 +325,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Gets the swimming multiplier for this player
-	 *
+	 * <p/>
 	 * Default swimming modifier is 1
 	 * @return swimming multiplier
 	 */
@@ -334,11 +334,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Modifies the default swimming speed for this player
-	 *
+	 * <p/>
 	 * Ex: setSwimmingMultiplier(10) will cause players to swim ten times faster than normal.
-	 *
+	 * <p/>
 	 * Warning, large modifiers may trigger fly-hack warnings.
-	 *
+	 * <p/>
 	 * Default swimming multiplier is 1.
 	 * @param multiplier to set.
 	 */
@@ -347,7 +347,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Gets the walking multiplier for this player
-	 *
+	 * <p/>
 	 * Default walking modifier is 1
 	 * @return walking multiplier
 	 */
@@ -356,11 +356,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Modifies the default walking speed for this player
-	 *
+	 * <p/>
 	 * Ex: setWalkingMultiplier(10) will cause players to walk ten times faster than normal.
-	 *
+	 * <p/>
 	 * Warning, large modifiers may trigger fly-hack warnings.
-	 *
+	 * <p/>
 	 * Default walking multiplier is 1.
 	 * @param multiplier to set.
 	 */
@@ -369,7 +369,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Gets the jumping multiplier for this player
-	 *
+	 * <p/>
 	 * Default jumping modifier is 1
 	 * @return jumping multiplier
 	 */
@@ -378,11 +378,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Modifies the default jumping speed for this player
-	 *
+	 * <p/>
 	 * Ex: setJumpingMultiplier(10) will cause players to jump ten times higher than normal.
-	 *
+	 * <p/>
 	 * Warning, large modifiers may trigger fly-hack warnings.
-	 *
+	 * <p/>
 	 * Default jumping multiplier is 1.
 	 * @param multiplier to set.
 	 */
@@ -391,7 +391,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Gets the air speed multiplier for this player
-	 *
+	 * <p/>
 	 * Default air speed modifier is 1
 	 * @return air speed multiplier
 	 */
@@ -400,11 +400,11 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Modifies the default air speed for this player
-	 *
+	 * <p/>
 	 * Ex: setAirSpeedMultiplier(10) will cause players to move horizontally while in the air ten times faster than normal.
-	 *
+	 * <p/>
 	 * Warning, large modifiers may trigger fly-hack warnings.
-	 *
+	 * <p/>
 	 * Default air speed multiplier is 1.
 	 * @param multiplier to set.
 	 */
@@ -418,14 +418,12 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Returns either the server wide fly setting, or specific player setting if a plugin has used setCanFly()
-	 *
 	 * @return whether this player can fly.
 	 */
 	public boolean canFly();
 
 	/**
 	 * Overrides the server wide fly setting, allowing this player to fly, or not to fly.
-	 *
 	 * @param fly
 	 */
 	public void setCanFly(boolean fly);
@@ -452,64 +450,55 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Sends the packet immediately.  Packets sent using this method are placed at the start of the packet queue.
 	 * If called from within a PacketListener's canSend method, the packet will be processed immediately after the current
 	 * packet is handled.
-	 *
 	 * @param packet the packet to send
 	 */
 	public void sendImmediatePacket(MCPacket packet);
 
 	/**
 	 * Orders the client to reconnect to another server
-	 *
+	 * <p/>
 	 * This method is also supported by some server to server teleporting mods.
-	 *
+	 * <p/>
 	 * Players without the client mod will be given a kick message instructing them to join the other server
-	 *
-	 * @param message the message to include in the kick message for vanilla clients
+	 * @param message  the message to include in the kick message for vanilla clients
 	 * @param hostname the hostname of the other server
-	 * @param port the port of the other server
+	 * @param port     the port of the other server
 	 */
-
 	@ClientOnly
 	public void reconnect(String message, String hostname, int port);
 
 	/**
 	 * Orders the client to reconnect to another server.
-	 *
+	 * <p/>
 	 * This method is also supported by some server to server teleporting mods.
-	 *
+	 * <p/>
 	 * Players without the client mod will be given a kick message instructing them to join the other server
-	 *
-	 * @param message the message to include in the kick message for vanilla clients
+	 * @param message  the message to include in the kick message for vanilla clients
 	 * @param hostname the hostname of the other server
 	 */
-
 	@ClientOnly
 	public void reconnect(String message, String hostname);
 
 	/**
 	 * Orders the client to reconnect to another server
-	 *
+	 * <p/>
 	 * This method is also supported by some server to server teleporting mods.
-	 *
+	 * <p/>
 	 * Players without the client mod will be given a kick message instructing them to join the other server
-	 *
 	 * @param hostname the hostname of the other server
-	 * @param port the port of the other server
+	 * @param port     the port of the other server
 	 */
-
 	@ClientOnly
 	public void reconnect(String hostname, int port);
 
 	/**
 	 * Orders the client to reconnect to another server.
-	 *
+	 * <p/>
 	 * This method is also supported by some server to server teleporting mods.
-	 *
+	 * <p/>
 	 * Players without the client mod will be given a kick message instructing them to join the other server
-	 *
 	 * @param hostname the hostname of the other server
 	 */
-
 	@ClientOnly
 	public void reconnect(String hostname);
 
@@ -549,7 +538,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	/**
 	 * Sets the skin of this player, only visibile to the viewingPlayer
 	 * @param viewingPlayer that this skin will be visible to
-	 * @param url to set to
+	 * @param url           to set to
 	 */
 	public void setSkinFor(SpoutPlayer viewingPlayer, String url);
 
@@ -586,7 +575,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	/**
 	 * Sets the cape url of this player, that is only visible to the viewingPlayer
 	 * @param viewingPlayer that this cape is visible for
-	 * @param url to set to
+	 * @param url           to set to
 	 */
 	public void setCapeFor(SpoutPlayer viewingPlayer, String url);
 
@@ -616,9 +605,9 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Sets the overhead title for the player.
-	 *
+	 * <p/>
 	 * Note: '/n' or "/n" in the title will create a new line. You may use as many lines in a title as you desire.
-	 *
+	 * <p/>
 	 * Note: You can color titles with the {@link org.bukkit#ChatColor} colors.
 	 * @param title to set overhead.
 	 */
@@ -626,12 +615,12 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 
 	/**
 	 * Sets the overhead title for the player, only visible to the viewingPlayer.
-	 *
+	 * <p/>
 	 * Note: '/n' or "/n" in the title will create a new line. You may use as many lines in a title as you desire.
-	 *
+	 * <p/>
 	 * Note: You can color titles with the {@link org.bukkit#ChatColor} colors.
 	 * @param viewingPlayer that this title is visible to
-	 * @param title to set overhead.
+	 * @param title         to set overhead.
 	 */
 	public void setTitleFor(SpoutPlayer viewingPlayer, String title);
 
@@ -668,13 +657,13 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Resets the title back to it's default state for the viewingPlayer.
 	 * @param viewingPlayer
 	 */
-	public void resetTitleFor (SpoutPlayer viewingPlayer);
+	public void resetTitleFor(SpoutPlayer viewingPlayer);
 
 	/**
 	 * Sets the entity skin for the target entity to the url. The Skin Type is used when an entity has more than one skin type.
 	 * @param target to set the skin on
-	 * @param url of the skin
-	 * @param type of skin to set
+	 * @param url    of the skin
+	 * @param type   of skin to set
 	 */
 	public void setEntitySkin(LivingEntity target, String url, EntitySkinType type);
 
@@ -770,58 +759,57 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @param entities to update skins for
 	 */
 	public void updateEntitySkins(List<LivingEntity> entities);
-	
+
 	/**
 	 * Gets a list of the addons the player is running.
 	 * @return a Map of the players addons to their corresponding
-	 * versions.
+	 *         versions.
 	 */
-	public Map<String,String> getAddons();
+	public Map<String, String> getAddons();
 
 	/**
 	 * Internal use only
-	 * @param addons the addons the player is using
+	 * @param addons   the addons the player is using
 	 * @param versions the corresponding versions for the addon list
 	 */
 	public void setAddons(String[] addons, String[] versions);
-	
+
 	/**
 	 * Sends the current value of the node to the client.
 	 * @param node the node to update
 	 */
 	public void updatePermission(String node);
-	
+
 	/**
 	 * Sends the current value of all given nodes to the client.
 	 * @param nodes the nodes to update
 	 */
-	public void updatePermissions(String ...nodes);
-	
+	public void updatePermissions(String... nodes);
+
 	/**
 	 * Sends the current value of all permissions that the player has to the client
 	 */
 	public void updatePermissions();
-	
+
 	/**
 	 * Sends a packet to the client to spawn a text entity
-	 * @param text the text that should be displayed
+	 * @param text     the text that should be displayed
 	 * @param location the location of the entity
-	 * @param scale the scale of the entity, where 1.0f is one block high
+	 * @param scale    the scale of the entity, where 1.0f is one block high
 	 * @param duration if not 0, this will despawn the entity after the given duration (in ticks)
 	 * @param movement the entity will move by the given vector each tick
 	 * @returns if the packet for the entity could be send
 	 */
 	public boolean spawnTextEntity(String text, Location location, float scale, int duration, Vector movement);
-	
+
 	/**
 	 * Adds a waypoint to the minimap of the client, with the given loation and given name.
-	 *  <br/> <br/>
+	 * <br/> <br/>
 	 * Note: This waypoint will be cleared when the user logs off or changes worlds.
-	 * 
 	 * @param name iof the waypoint
-	 * @param x coordinate
-	 * @param y coordinate
-	 * @param z coordinate
+	 * @param x    coordinate
+	 * @param y    coordinate
+	 * @param z    coordinate
 	 */
 	public void addWaypoint(String name, double x, double y, double z);
 

@@ -24,14 +24,19 @@ import org.getspout.spoutapi.particle.Particle;
 
 public class PacketParticle implements SpoutPacket {
 	Particle p;
-	public PacketParticle() { }
+
+	public PacketParticle() {
+	}
+
 	public PacketParticle(Particle p) {
 		this.p = p;
 	}
+
 	@Override
-	public void readData(SpoutInputStream input) throws IOException {	
+	public void readData(SpoutInputStream input) throws IOException {
 
 	}
+
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeString(p.getName());
@@ -45,22 +50,24 @@ public class PacketParticle implements SpoutPacket {
 		output.writeInt(p.getMaxAge());
 		output.writeInt(p.getAmount());
 	}
-	
+
 	@Override
 	public void run(int playerId) {
-		
+
 	}
+
 	@Override
 	public void failure(int playerId) {
-		
+
 	}
+
 	@Override
 	public PacketType getPacketType() {
 		return PacketType.PacketParticle;
 	}
+
 	@Override
 	public int getVersion() {
 		return 0;
 	}
-
 }

@@ -82,7 +82,7 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public void onSliderDrag(SliderDragEvent event) {
-		
+
 	}
 
 	@Override
@@ -156,12 +156,12 @@ public class GenericSlider extends GenericControl implements Slider {
 		label.doResize();
 		return this;
 	}
-	
+
 	public Label setShadow(boolean shadow) {
 		label.setShadow(shadow);
 		return this;
 	}
-	
+
 	public boolean hasShadow() {
 		return label.hasShadow();
 	}

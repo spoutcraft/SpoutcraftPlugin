@@ -36,6 +36,7 @@ public class PacketAddonData implements CompressablePacket {
 	private boolean needsCompression;
 	private boolean compressed = false;
 	private byte[] data;
+
 	public PacketAddonData() {
 
 	}
@@ -53,7 +54,6 @@ public class PacketAddonData implements CompressablePacket {
 		System.arraycopy(buffer.array(), 0, data, 0, data.length);
 		needsCompression = data.length > 512;
 	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override

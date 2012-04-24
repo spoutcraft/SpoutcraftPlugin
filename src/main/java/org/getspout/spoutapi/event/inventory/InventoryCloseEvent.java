@@ -22,8 +22,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 
 @Deprecated
-public class InventoryCloseEvent extends InventoryEvent{
-
+public class InventoryCloseEvent extends InventoryEvent {
 	private static final HandlerList handlers = new HandlerList();
 	private final Inventory other;
 

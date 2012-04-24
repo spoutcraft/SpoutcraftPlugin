@@ -59,10 +59,9 @@ public interface Button extends Control, Label {
 
 	/**
 	 * Fires when this button is clicked on the screen.
-	 *
+	 * <p/>
 	 * If this is not overridden in a subclass then this event will be sent
 	 * to the screen listener.
-	 *
 	 * @param event
 	 */
 	public void onButtonClick(ButtonClickEvent event);

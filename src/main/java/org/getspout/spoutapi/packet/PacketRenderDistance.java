@@ -31,15 +31,18 @@ public class PacketRenderDistance implements SpoutPacket {
 	protected byte view = -1;
 	protected byte max = -1;
 	protected byte min = -1;
+
 	public PacketRenderDistance() {
 
 	}
 
 	public PacketRenderDistance(boolean resetMax, boolean resetMin) {
-		if (resetMax)
+		if (resetMax) {
 			max = -2;
-		if (resetMin)
+		}
+		if (resetMin) {
 			min = -2;
+		}
 	}
 
 	public PacketRenderDistance(RenderDistance view, RenderDistance max, RenderDistance min) {
@@ -53,7 +56,6 @@ public class PacketRenderDistance implements SpoutPacket {
 			this.min = (byte) min.getValue();
 		}
 	}
-
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {

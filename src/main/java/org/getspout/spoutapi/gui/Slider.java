@@ -20,7 +20,7 @@ import org.getspout.spoutapi.event.screen.SliderDragEvent;
 
 /**
  * The GenericSlider is a bar with which a user can set a value.
- *
+ * <p/>
  * The value is a float between 0f to 1f representing how far from the left
  * the slider is.
  */
@@ -52,9 +52,8 @@ public interface Slider extends Control, Label {
 
 	/**
 	 * Fires when this slider is dragged on the screen.
-	 *
+	 * <p/>
 	 * This event is also sent to the screen listener, afterwards.
-	 *
 	 * @param event
 	 */
 	public void onSliderDrag(SliderDragEvent event);

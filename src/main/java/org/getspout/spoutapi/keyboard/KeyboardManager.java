@@ -33,18 +33,18 @@ public interface KeyboardManager {
 
 	/**
 	 * Adds a key binding to a particular key
-	 * @param key to bind to
+	 * @param key        to bind to
 	 * @param keyBinding to bind to the key
-	 * @param plugin for this binding
+	 * @param plugin     for this binding
 	 */
 	@Deprecated
 	public void addKeyBinding(Keyboard key, KeyboardBinding keyBinding, Plugin plugin);
 
 	/**
 	 * Removes a key binding from a particular key
-	 * @param key to remove the binding from
+	 * @param key             to remove the binding from
 	 * @param keyBindingClass that the keyboardbinding is an instanceof
-	 * @param plugin for this binding
+	 * @param plugin          for this binding
 	 */
 	@Deprecated
 	public void removeKeyBinding(Keyboard key, Class<? extends KeyboardBinding> keyBindingClass, Plugin plugin);

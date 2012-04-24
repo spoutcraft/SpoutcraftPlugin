@@ -23,8 +23,7 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.KeyBinding;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class KeyBindingEvent extends Event{
-	
+public class KeyBindingEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private final KeyBinding binding;
 	private final SpoutPlayer player;
@@ -33,15 +32,15 @@ public class KeyBindingEvent extends Event{
 		this.binding = binding;
 		this.player = player;
 	}
-	
+
 	public KeyBinding getBinding() {
 		return binding;
 	}
-	
+
 	public SpoutPlayer getPlayer() {
 		return player;
 	}
-	
+
 	//Convenience method
 	public ScreenType getScreenType() {
 		return player.getActiveScreen();

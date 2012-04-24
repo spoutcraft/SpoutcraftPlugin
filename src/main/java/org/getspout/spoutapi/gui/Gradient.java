@@ -18,7 +18,7 @@ package org.getspout.spoutapi.gui;
 
 /**
  * The GenericGradient represents a vertical gradient only.
- *
+ * <p/>
  * You can specify the same colour for the top and bottom in order to get a
  * solid block of colour, and can set the alpha-level of the Color in order
  * to make it translucent.

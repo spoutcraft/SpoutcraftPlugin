@@ -9,7 +9,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketPermissionUpdate implements SpoutPacket {
 	private Map<String, Boolean> permissions;
-	
+
 	public PacketPermissionUpdate(Map<String, Boolean> permissions) {
 		this.permissions = permissions;
 	}
@@ -17,7 +17,7 @@ public class PacketPermissionUpdate implements SpoutPacket {
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(permissions.size());
-		for(Entry<String, Boolean> perm:permissions.entrySet()) {
+		for (Entry<String, Boolean> perm : permissions.entrySet()) {
 			output.writeString(perm.getKey());
 			output.writeBoolean(perm.getValue());
 		}
@@ -32,13 +32,16 @@ public class PacketPermissionUpdate implements SpoutPacket {
 	public int getVersion() {
 		return 0;
 	}
-	
+
 	@Override
-	public void readData(SpoutInputStream input) throws IOException {}
-	
+	public void readData(SpoutInputStream input) throws IOException {
+	}
+
 	@Override
-	public void run(int playerId) {}
-	
+	public void run(int playerId) {
+	}
+
 	@Override
-	public void failure(int playerId) {}
+	public void failure(int playerId) {
+	}
 }

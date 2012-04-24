@@ -43,7 +43,6 @@ public class Utils {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
 	public static Serializable deserialize(byte[] array) {
@@ -65,7 +64,7 @@ public class Utils {
 	public static Serializable deserializeRaw(byte[] array) throws IOException, ClassNotFoundException {
 		byteInput = new ByteArrayInputStream(array);
 		objectInput = new ObjectInputStream(byteInput);
-		Serializable o = (Serializable)objectInput.readObject();
+		Serializable o = (Serializable) objectInput.readObject();
 		return o;
 	}
 
@@ -80,10 +79,11 @@ public class Utils {
 		byte[] serialData;
 
 		if (data instanceof SerializedData) {
-			SerializedData dummyData = (SerializedData)data;
+			SerializedData dummyData = (SerializedData) data;
 			serialData = dummyData.serialData;
 		} else {
-			serialData = serialize(data);;
+			serialData = serialize(data);
+			;
 		}
 
 		out.writeInt(serialData.length);
@@ -105,10 +105,10 @@ public class Utils {
 		}
 
 		in.read(buffer, 0, length);
-		buffer[length] = (byte)0xFF;
-		buffer[length + 1] = (byte)0xFF;
-		buffer[length + 2] = (byte)0xFF;
-		buffer[length + 3] = (byte)0xFF;
+		buffer[length] = (byte) 0xFF;
+		buffer[length + 1] = (byte) 0xFF;
+		buffer[length + 2] = (byte) 0xFF;
+		buffer[length + 3] = (byte) 0xFF;
 
 		Serializable object;
 
@@ -125,7 +125,6 @@ public class Utils {
 
 	public static class SerializedData implements Serializable {
 		private static final long serialVersionUID = 1L;
-
 		byte[] serialData = null;
 	}
 }

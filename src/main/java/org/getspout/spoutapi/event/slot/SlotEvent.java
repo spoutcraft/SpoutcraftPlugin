@@ -22,13 +22,12 @@ import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.gui.Slot;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public abstract class SlotEvent extends Event{
-
+public abstract class SlotEvent extends Event {
 	protected final Slot slot;
 	protected final SpoutPlayer player;
 	protected final ItemStack stack;
 	protected boolean cancel = false;
-	
+
 	protected SlotEvent(SpoutPlayer player, Slot slot, ItemStack stack, boolean cancelled) {
 		this.slot = slot;
 		this.player = player;
@@ -43,7 +42,7 @@ public abstract class SlotEvent extends Event{
 	public SpoutPlayer getPlayer() {
 		return player;
 	}
-	
+
 	public ItemStack getItemStack() {
 		return stack;
 	}

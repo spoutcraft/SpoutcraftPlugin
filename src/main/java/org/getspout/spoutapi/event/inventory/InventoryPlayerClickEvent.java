@@ -24,9 +24,8 @@ import org.bukkit.inventory.ItemStack;
 
 @Deprecated
 public class InventoryPlayerClickEvent extends InventoryClickEvent {
-	
 	private static final HandlerList handlers = new HandlerList();
-	
+
 	public InventoryPlayerClickEvent(Player player, Inventory inventory, InventorySlotType type, ItemStack item, ItemStack cursor, int slot, boolean leftClick, boolean shift, Location location) {
 		super("InventoryPlayerClickEvent", player, inventory, type, item, cursor, slot, leftClick, shift, location);
 	}

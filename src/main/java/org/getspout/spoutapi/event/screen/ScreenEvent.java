@@ -24,12 +24,11 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public abstract class ScreenEvent extends Event implements Cancellable {
-
 	protected final Screen screen;
 	protected final SpoutPlayer player;
 	protected final ScreenType type;
 	protected boolean cancel = false;
-	
+
 	protected ScreenEvent(String name, SpoutPlayer player, Screen screen, ScreenType type) {
 		this.screen = screen;
 		this.player = player;

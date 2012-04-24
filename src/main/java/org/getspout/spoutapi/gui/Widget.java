@@ -20,19 +20,19 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
+
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 /**
  * This is the base class of all other widgets, and should never be used
  * directly.
- *
+ * <p/>
  * If you subclass this for a custom type of widget then you must make sure
  * that isDirty() always returns false otherwise the widget will try to be sent
  * to the client and will cause an exception to be thrown.
  */
 public interface Widget {
-
 	/**
 	 * Is this running on Spoutcraft (ie, not on the server) - declared final in GenericWidget!
 	 * @return if it's running on a client
@@ -66,7 +66,7 @@ public interface Widget {
 
 	/**
 	 * Called when this widget is serialized to the client.
-	 *
+	 * <p/>
 	 * Note: ensure that any changes here are reflected in {@link getNumBytes()} and are also present on the client.
 	 * @param output
 	 * @throws IOException
@@ -179,7 +179,7 @@ public interface Widget {
 	public Widget setX(int pos);
 
 	/**
-	 *  Sets the y coordinate of this widget. Widgets (and screens) render from the top left cornor the screen. 0,0 represents the top left corner.
+	 * Sets the y coordinate of this widget. Widgets (and screens) render from the top left cornor the screen. 0,0 represents the top left corner.
 	 * @param pos to set
 	 * @return widget
 	 */
@@ -263,6 +263,7 @@ public interface Widget {
 	public boolean isFixed();
 
 	// NOTE: Margins follow the same order as CSS
+
 	/**
 	 * Container Layout - Padding to use for automatic container layout - not included in dimensions
 	 * @param marginAll
@@ -428,11 +429,11 @@ public interface Widget {
 
 	/**
 	 * Returns a copy of this widget with a new UUID.
-	 *
+	 * <p/>
 	 * Copies will not be equal to each other, but will have the same internal data.
-	 *
+	 * <p/>
 	 * Note: the copy will not be attached to a screen, nor be part of a container even if the original was.
-	 *
+	 * <p/>
 	 * Warning: copy will not work on screens.
 	 * @return a copy of this widget
 	 */
@@ -467,7 +468,7 @@ public interface Widget {
 	 * Please note that some animation types are limited to certain types of widget.
 	 * All animation is carried out on the client, so it isn't possible to update
 	 * the server side values affected by the animation...
-	 * @param type the type of animation to use
+	 * @param type  the type of animation to use
 	 * @param value a custom value used by some types (default: 1)
 	 * @param count how many frames
 	 * @param ticks how many ticks per "frame"
@@ -480,10 +481,10 @@ public interface Widget {
 	 * Please note that some animation types are limited to certain types of widget.
 	 * All animation is carried out on the client, so it isn't possible to update
 	 * the server side values affected by the animation...
-	 * @param type the type of animation to use
-	 * @param value a custom value used by some types (default: 1)
-	 * @param count how many frames
-	 * @param ticks how many ticks per "frame"
+	 * @param type   the type of animation to use
+	 * @param value  a custom value used by some types (default: 1)
+	 * @param count  how many frames
+	 * @param ticks  how many ticks per "frame"
 	 * @param repeat should the animation be repeated
 	 * @return widget
 	 */
@@ -494,12 +495,12 @@ public interface Widget {
 	 * Please note that some animation types are limited to certain types of widget.
 	 * All animation is carried out on the client, so it isn't possible to update
 	 * the server side values affected by the animation...
-	 * @param type the type of animation to use
-	 * @param value a custom value used by some types (default: 1)
-	 * @param count how many frames
-	 * @param ticks how many ticks per "frame"
+	 * @param type   the type of animation to use
+	 * @param value  a custom value used by some types (default: 1)
+	 * @param count  how many frames
+	 * @param ticks  how many ticks per "frame"
 	 * @param repeat should the animation be repeated
-	 * @param reset should it reset back to the first frame after finishing
+	 * @param reset  should it reset back to the first frame after finishing
 	 * @return widget
 	 */
 	public Widget animate(WidgetAnim type, float value, short count, short ticks, boolean repeat, boolean reset);

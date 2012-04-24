@@ -27,10 +27,11 @@ public interface SkyManager {
 	 */
 	@ClientOnly
 	public int getCloudHeight(SpoutPlayer player);
+
 	/**
 	 * Sets the y-axis heigh that cloud tops are rendered at for the given player
 	 * @param player
-	 * @param y axis level to render the cloud top at
+	 * @param y      axis level to render the cloud top at
 	 */
 	@ClientOnly
 	public void setCloudHeight(SpoutPlayer player, int y);
@@ -62,7 +63,7 @@ public interface SkyManager {
 
 	/**
 	 * Sets the frequency of stars overhead at night for the given player
-	 * @param player to set the frequency for
+	 * @param player    to set the frequency for
 	 * @param frequency
 	 */
 	@ClientOnly
@@ -96,7 +97,7 @@ public interface SkyManager {
 	/**
 	 * Sets the percent size of the sun, relative to the default size.
 	 * 100 percent is the default size. 200 percent is double size. 50 percent is half size.
-	 * @param player to set the size for
+	 * @param player  to set the size for
 	 * @param percent to set
 	 */
 	@ClientOnly
@@ -130,7 +131,7 @@ public interface SkyManager {
 	 * Sets the texture of the sun to the picture in the given format, or if the url is null, resets the sun to the default texture
 	 * The texture must be a square png to render correctly (e.g 32x32, 64x64, etc)
 	 * @param player to set the custom texture of
-	 * @param Url of the texture
+	 * @param Url    of the texture
 	 */
 	@ClientOnly
 	public void setSunTextureUrl(SpoutPlayer player, String url);
@@ -146,7 +147,7 @@ public interface SkyManager {
 	/**
 	 * Sets the percent size of the moon, relative to the default size.
 	 * 100 percent is the default size. 200 percent is double size. 50 percent is half size.
-	 * @param player to set the size for
+	 * @param player  to set the size for
 	 * @param percent to set
 	 */
 	@ClientOnly
@@ -180,7 +181,7 @@ public interface SkyManager {
 	 * Sets the texture of the moon to the picture in the given format, or if the url is null, resets the moon to the default texture
 	 * The texture must be a square png to render correctly (e.g 32x32, 64x64, etc)
 	 * @param player to set the custom texture of
-	 * @param Url of the texture
+	 * @param Url    of the texture
 	 */
 	@ClientOnly
 	public void setMoonTextureUrl(SpoutPlayer player, String url);
@@ -194,7 +195,6 @@ public interface SkyManager {
 	public void setSkyColor(SpoutPlayer player, Color skyColor);
 
 	/**
-	 *
 	 * @param player
 	 * @return the set sky color of given player
 	 * @warning the return value can be null!
@@ -211,7 +211,6 @@ public interface SkyManager {
 	public void setFogColor(SpoutPlayer player, Color fogColor);
 
 	/**
-	 *
 	 * @param player
 	 * @return the set fog color of given player.
 	 * @warning the return value can be null!
@@ -228,7 +227,6 @@ public interface SkyManager {
 	public void setCloudColor(SpoutPlayer player, Color cloudColor);
 
 	/**
-	 *
 	 * @param player
 	 * @return the set cloud color of the player
 	 * @warning the return value can be null!

@@ -25,65 +25,56 @@ import org.getspout.spoutapi.material.CustomBlock;
 public interface SpoutChunk extends Chunk {
 	/**
 	 * Sets chunk data for the chunk at (x, z) and a given id.
-	 *
+	 * <p/>
 	 * Setting data for unloaded chunks has an undefined effect.
-	 *
-	 * @param id the id used to retrieve the data
+	 * @param id   the id used to retrieve the data
 	 * @param data the data to be stored
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable setData(String id, Serializable data);
 
 	/**
 	 * Returns the chunk data for the chunk at (x, z) and a given id.
-	 *
+	 * <p/>
 	 * Retrieving data for unloaded chunks is undefined.
-	 *
 	 * @param id the id used to retrieve the data
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable getData(String id);
 
 	/**
 	 * Removes and returns the chunk data for the chunk at (x, z) and a given id.
-	 *
+	 * <p/>
 	 * Deleting data for unloaded chunks has an undefined effect.
-	 *
 	 * @param id the id used to retrieve the data
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable removeData(String id);
 
 	/**
 	 * Gets the custom block ids that are used for the chunk at (x, z).
-	 *
+	 * <p/>
 	 * It may be null if there are no custom block ids.
-	 *
+	 * <p/>
 	 * Modifying this array <b>will</b> change the contents of this chunk.
-	 *
 	 * @return custom block ids
 	 */
 	public short[] getCustomBlockIds();
 
 	/**
 	 * Sets the custom block ids that are used for the chunk at (x, z).
-	 *
+	 * <p/>
 	 * This array should be 32768 in length.
-	 *
+	 * <p/>
 	 * Modifying this array will <b>override</b> the contents of this chunk.
-	 *
 	 * @param ids the custom block ids
 	 */
 	public void setCustomBlockIds(short[] ids);
 
 	/**
 	 * Gets the custom block id at this x, y, z location.
-	 *
+	 * <p/>
 	 * If no custom block exists, it will return zero,
-	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -93,7 +84,6 @@ public interface SpoutChunk extends Chunk {
 
 	/**
 	 * Sets the custom block id at this x, y, z location
-	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -104,7 +94,6 @@ public interface SpoutChunk extends Chunk {
 
 	/**
 	 * Sets the custom block at this x, y, z location
-	 *
 	 * @param x
 	 * @param y
 	 * @param z

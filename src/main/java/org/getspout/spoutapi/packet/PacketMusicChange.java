@@ -49,7 +49,7 @@ public class PacketMusicChange implements SpoutPacket {
 	public void readData(SpoutInputStream input) throws IOException {
 		id = input.readInt();
 		volumePercent = input.readInt();
-		cancel =  input.readBoolean();
+		cancel = input.readBoolean();
 	}
 
 	@Override

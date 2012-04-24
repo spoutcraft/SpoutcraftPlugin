@@ -23,8 +23,7 @@ import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class ButtonClickEvent extends ScreenEvent{
-
+public class ButtonClickEvent extends ScreenEvent {
 	private static final HandlerList handlers = new HandlerList();
 	private final Button control;
 

@@ -76,6 +76,7 @@ public class Vertex {
 	public int getIndex() {
 		return index;
 	}
+
 	public SubTexture getSubTexture() {
 		return texture;
 	}

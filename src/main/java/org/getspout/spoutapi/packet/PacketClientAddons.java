@@ -26,11 +26,12 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketClientAddons implements SpoutPacket {
 	private String[] addons;
 	private String[] versions;
+
 	public PacketClientAddons() {
 
 	}
 
-	public PacketClientAddons(Map<String,String> addons) {
+	public PacketClientAddons(Map<String, String> addons) {
 		this.addons = addons.keySet().toArray(new String[0]);
 		this.versions = new String[this.addons.length];
 		for (int i = 0; i < this.addons.length; i++) {

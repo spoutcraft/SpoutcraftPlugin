@@ -50,7 +50,7 @@ public class SpoutShapelessRecipe implements Recipe {
 
 	/**
 	 * Adds multiples of the specified ingredient.
-	 * @param count How many to add (can't be more than 9!)
+	 * @param count      How many to add (can't be more than 9!)
 	 * @param ingredient The ingredient to add.
 	 * @return The changed recipe, so you can chain calls.
 	 */

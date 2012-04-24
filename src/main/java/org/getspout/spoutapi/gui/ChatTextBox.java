@@ -24,7 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 
 /**
  * The Spout implementation of the default Chat Text Box.
- *
+ * <p/>
  * This provides extra abilities above the default version.
  */
 public class ChatTextBox extends GenericWidget implements Widget {

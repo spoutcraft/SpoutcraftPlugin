@@ -23,122 +23,106 @@ import org.bukkit.World;
 public interface ChunkDataManager {
 	/**
 	 * Creates/retrieves a unique id corresponding to this string
-	 *
+	 * <p/>
 	 * This id does not persist over server restarts or reloads
-	 *
 	 * @param string the String to get the id for
 	 * @return the id associated with this string
-	 *
 	 */
 	public int getStringId(String string);
 
 	/**
 	 * Sets block data for the block at (x, y, z) and a given id.
-	 *
+	 * <p/>
 	 * Setting data for unloaded chunks has an undefined effect.
-	 *
-	 * @param id the id used to retrieve the data
-	 * @param x the X block coordinate
-	 * @param y the Y block coordinate
-	 * @param z the Z block coordinate
+	 * @param id   the id used to retrieve the data
+	 * @param x    the X block coordinate
+	 * @param y    the Y block coordinate
+	 * @param z    the Z block coordinate
 	 * @param data the data to be stored
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable setBlockData(String id, World world, int x, int y, int z, Serializable data);
 
 	/**
 	 * Returns the block data for the block at (x, y, z) and a given id.
-	 *
+	 * <p/>
 	 * Retrieving data for unloaded chunks is undefined.
-	 *
 	 * @param id the id used to retrieve the data
-	 * @param x the X block coordinate
-	 * @param y the Y block coordinate
-	 * @param z the Z block coordinate
+	 * @param x  the X block coordinate
+	 * @param y  the Y block coordinate
+	 * @param z  the Z block coordinate
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable getBlockData(String id, World world, int x, int y, int z);
 
 	/**
 	 * Removes and returns the block data for the block at (x, y, z) and a given id.
-	 *
+	 * <p/>
 	 * Deleting data for unloaded chunks has an undefined effect.
-	 *
 	 * @param id the id used to retrieve the data
-	 * @param x the X block coordinate
-	 * @param y the Y block coordinate
-	 * @param z the Z block coordinate
+	 * @param x  the X block coordinate
+	 * @param y  the Y block coordinate
+	 * @param z  the Z block coordinate
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable removeBlockData(String id, World world, int x, int y, int z);
 
 	/**
 	 * Sets chunk data for the chunk at (x, z) and a given id.
-	 *
+	 * <p/>
 	 * Setting data for unloaded chunks has an undefined effect.
-	 *
-	 * @param id the id used to retrieve the data
+	 * @param id    the id used to retrieve the data
 	 * @param world the world
-	 * @param x the X chunk coordinate
-	 * @param z the Z chunk coordinate
-	 * @param data the data to be stored
+	 * @param x     the X chunk coordinate
+	 * @param z     the Z chunk coordinate
+	 * @param data  the data to be stored
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable setChunkData(String id, World world, int x, int z, Serializable data);
 
 	/**
 	 * Returns the chunk data for the chunk at (x, z) and a given id.
-	 *
+	 * <p/>
 	 * Retrieving data for unloaded chunks is undefined.
-	 *
-	 * @param id the id used to retrieve the data
+	 * @param id    the id used to retrieve the data
 	 * @param world the world
-	 * @param x the X chunk coordinate
-	 * @param z the Z chunk coordinate
+	 * @param x     the X chunk coordinate
+	 * @param z     the Z chunk coordinate
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable getChunkData(String id, World world, int x, int z);
 
 	/**
 	 * Removes and returns the chunk data for the chunk at (x, z) and a given id.
-	 *
+	 * <p/>
 	 * Deleting data for unloaded chunks has an undefined effect.
-	 *
-	 * @param id the id used to retrieve the data
+	 * @param id    the id used to retrieve the data
 	 * @param world the world
-	 * @param x the X chunk coordinate
-	 * @param z the Z chunk coordinate
+	 * @param x     the X chunk coordinate
+	 * @param z     the Z chunk coordinate
 	 * @return the old data for that block using that string
-	 *
 	 */
 	public Serializable removeChunkData(String id, World world, int x, int z);
 
 	/**
 	 * Gets the custom block ids that are used for the chunk at (x, z)
-	 *
+	 * <p/>
 	 * Modifying this array <b>will</b> change the contents of this chunk.
-	 *
 	 * @param world the world
-	 * @param x the X chunk coordinate
-	 * @param z the Z chunk coordinate
+	 * @param x     the X chunk coordinate
+	 * @param z     the Z chunk coordinate
 	 * @return custom block ids
 	 */
 	public short[] getCustomBlockIds(World world, int x, int z);
 
 	/**
 	 * Sets the custom block ids that are used for the chunk at (x, z)
-	 *
+	 * <p/>
 	 * Modifying this array will <b>override</b> the contents of this chunk.
-	 *
 	 * @param world the world
-	 * @param x the X chunk coordinate
-	 * @param z the Z chunk coordinate
-	 * @param ids the custom block ids
+	 * @param x     the X chunk coordinate
+	 * @param z     the Z chunk coordinate
+	 * @param ids   the custom block ids
 	 */
 	public void setCustomBlockIds(World world, int x, int z, short[] ids);
 }

@@ -20,6 +20,7 @@ import org.getspout.spoutapi.material.SolidBlock;
 
 public class Solid extends GenericBlock implements SolidBlock {
 	private final boolean falling;
+
 	public Solid(String name, int id, int data, boolean falling) {
 		super(name, id, data);
 		this.falling = falling;

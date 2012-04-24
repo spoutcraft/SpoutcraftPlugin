@@ -26,10 +26,12 @@ import java.lang.annotation.Target;
  * @author Afforess
  */
 @Documented
-@Target(value=ElementType.METHOD)
-@Retention(value=RetentionPolicy.SOURCE)
+@Target(value = ElementType.METHOD)
+@Retention(value = RetentionPolicy.SOURCE)
 public @interface ClientOnly {
 	public String author() default "Afforess";
+
 	public String version() default "1.1";
+
 	public String shortDescription() default "Indicates that the function requires the use of the Spout SinglePlayer client mod to have any effect";
 }

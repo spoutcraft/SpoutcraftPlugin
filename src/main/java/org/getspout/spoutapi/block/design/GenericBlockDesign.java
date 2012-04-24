@@ -20,41 +20,33 @@ import java.io.IOException;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.BlockVector;
+
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.packet.PacketUtil;
 
 public class GenericBlockDesign implements BlockDesign {
 	protected boolean reset = false;
-
 	protected float lowXBound;
 	protected float lowYBound;
 	protected float lowZBound;
 	protected float highXBound;
 	protected float highYBound;
 	protected float highZBound;
-
 	protected String textureURL;
 	protected String texturePlugin;
-
 	protected Texture texture;
-
 	protected float[][] xPos;
 	protected float[][] yPos;
 	protected float[][] zPos;
-
 	protected float[][] textXPos;
 	protected float[][] textYPos;
-
 	protected int[] lightSourceXOffset;
 	protected int[] lightSourceYOffset;
 	protected int[] lightSourceZOffset;
-
 	protected float maxBrightness = 1.0F;
 	protected float minBrightness = 0F;
-
 	protected float brightness = 0.5F;
-
 	protected int renderPass = 0;
 
 	public GenericBlockDesign() {
@@ -134,7 +126,7 @@ public class GenericBlockDesign implements BlockDesign {
 
 	private final static String resetString = "[reset]";
 
-	public void writeReset(SpoutOutputStream output) throws IOException{
+	public void writeReset(SpoutOutputStream output) throws IOException {
 		output.writeString(resetString);
 	}
 
@@ -210,7 +202,6 @@ public class GenericBlockDesign implements BlockDesign {
 		setVertex(quadNumber, 2, x3, y3, z3, tx3, ty3, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 3, x4, y4, z4, tx4, ty4, textureSizeX, textureSizeY);
 		return this;
-
 	}
 
 	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, int tx, int ty, int textureSizeX, int textureSizeY) {

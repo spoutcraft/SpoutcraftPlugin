@@ -50,9 +50,8 @@ public class HungerBar extends GenericWidget {
 
 	/**
 	 * Gets the maximum number of food icons to display on the HUD.
-	 *
+	 * <p/>
 	 * Hunger bar is scaled to fit the number of icons appropriately.
-	 *
 	 * @return icons displayed
 	 */
 	public int getNumOfIcons() {
@@ -61,9 +60,8 @@ public class HungerBar extends GenericWidget {
 
 	/**
 	 * Sets the maximum number of food icons to display on the HUD.
-	 *
+	 * <p/>
 	 * Hunger bar is scaled to fit the number of icons appropriately.
-	 *
 	 * @param icons to display
 	 * @return this
 	 */
@@ -74,7 +72,6 @@ public class HungerBar extends GenericWidget {
 
 	/**
 	 * Gets the number of pixels each icon is offset when drawing the next icon.
-	 *
 	 * @return pixel offset
 	 */
 	public int getIconOffset() {
@@ -83,7 +80,6 @@ public class HungerBar extends GenericWidget {
 
 	/**
 	 * Sets the number of pixels each icon is offset when drawing the next icon.
-	 *
 	 * @param iconOffset when drawing icons
 	 * @return this
 	 */

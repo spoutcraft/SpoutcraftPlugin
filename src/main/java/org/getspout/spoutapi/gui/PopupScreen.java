@@ -21,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * The GenericPopup class creates an mouseable area where you can put multiple
  * Widgets.
- *
+ * <p/>
  * Optionally the background of the popup can be darkened to make it more
  * obvious that it is a popup.
  */

@@ -147,11 +147,11 @@ public enum Keyboard {
 	KEY_APPS(221),
 	KEY_POWER(222),
 	KEY_SLEEP(223),
-	KEYBOARD_SIZE(256),	
+	KEYBOARD_SIZE(256),
 	KEY_UNKNOWN(-1);
-
 	private final int keyCode;
 	private static final Map<Integer, Keyboard> lookupKeyCode = new HashMap<Integer, Keyboard>();
+
 	Keyboard(final int i) {
 		this.keyCode = i;
 	}
@@ -165,8 +165,8 @@ public enum Keyboard {
 			return lookupKeyCode.get(key);
 		}
 		//Some computers report signed/unsigned values incorrectly
-		if (lookupKeyCode.containsKey(256+key)) {
-			return lookupKeyCode.get(256+key);
+		if (lookupKeyCode.containsKey(256 + key)) {
+			return lookupKeyCode.get(256 + key);
 		}
 		return KEY_UNKNOWN;
 	}

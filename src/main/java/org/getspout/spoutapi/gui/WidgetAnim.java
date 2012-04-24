@@ -60,6 +60,7 @@ public enum WidgetAnim {
 	public int getId() {
 		return id;
 	}
+
 	private static final HashMap<Integer, WidgetAnim> lookupId = new HashMap<Integer, WidgetAnim>();
 
 	static {

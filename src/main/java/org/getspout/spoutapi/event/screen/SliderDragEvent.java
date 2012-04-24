@@ -23,8 +23,7 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.gui.Slider;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SliderDragEvent extends ScreenEvent{
-
+public class SliderDragEvent extends ScreenEvent {
 	private static final HandlerList handlers = new HandlerList();
 	private final Slider slider;
 	private float position;

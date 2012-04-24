@@ -22,29 +22,25 @@ import org.getspout.spoutapi.packet.standard.MCPacket;
 public interface PacketManager {
 	/**
 	 * Returns a MCPacket instance with the default constructor.
-	 *
+	 * <p/>
 	 * An id of 256 will give an uncompressed Map Chunk packet
-	 *
 	 * @param packetId the id of the desired packet
 	 * @return an empty MCPacket of type packetId
-	 *
 	 */
 	MCPacket getInstance(int packetId);
 
 	/**
 	 * adds a packet listener for uncompressed map chunk packets
-	 *
+	 * <p/>
 	 * These listeners are NOT called from within the main thread.
-	 *
 	 * @param listener the listener instance
 	 */
 	public void addListenerUncompressedChunk(PacketListener listener);
 
 	/**
 	 * adds a packet listener for packets of the given id
-	 *
+	 * <p/>
 	 * These listeners are called from the main server thread
-	 *
 	 * @param packetId the packet id
 	 * @param listener the listener instance
 	 */
@@ -52,7 +48,6 @@ public interface PacketManager {
 
 	/**
 	 * removes a packet listener for uncompressed map chunk packets
-	 *
 	 * @param listener the listener instance
 	 * @return true if listener was removed
 	 */
@@ -60,7 +55,6 @@ public interface PacketManager {
 
 	/**
 	 * removes a packet listener for packets of the given id
-	 *
 	 * @param listener the listener instance
 	 * @return true if listener was removed
 	 */
@@ -68,7 +62,6 @@ public interface PacketManager {
 
 	/**
 	 * removes all packet listeners
-	 *
 	 * @param listener the listener instance
 	 * @return true if listener was removed
 	 */

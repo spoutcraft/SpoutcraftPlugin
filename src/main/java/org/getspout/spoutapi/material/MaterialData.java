@@ -25,8 +25,26 @@ import java.util.List;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
 
-import org.getspout.spoutapi.material.block.*;
-import org.getspout.spoutapi.material.item.*;
+import org.getspout.spoutapi.material.block.Air;
+import org.getspout.spoutapi.material.block.DoubleSlabs;
+import org.getspout.spoutapi.material.block.GenericLiquid;
+import org.getspout.spoutapi.material.block.Grass;
+import org.getspout.spoutapi.material.block.LongGrass;
+import org.getspout.spoutapi.material.block.Sapling;
+import org.getspout.spoutapi.material.block.Slab;
+import org.getspout.spoutapi.material.block.Solid;
+import org.getspout.spoutapi.material.block.StoneBricks;
+import org.getspout.spoutapi.material.block.Tree;
+import org.getspout.spoutapi.material.block.Wool;
+import org.getspout.spoutapi.material.item.Coal;
+import org.getspout.spoutapi.material.item.Dye;
+import org.getspout.spoutapi.material.item.GenericArmor;
+import org.getspout.spoutapi.material.item.GenericFood;
+import org.getspout.spoutapi.material.item.GenericItem;
+import org.getspout.spoutapi.material.item.GenericTool;
+import org.getspout.spoutapi.material.item.GenericWeapon;
+import org.getspout.spoutapi.material.item.Potion;
+import org.getspout.spoutapi.material.item.SpawnEgg;
 
 public class MaterialData {
 	private final static Object[] idLookup = new Object[3200];
@@ -39,7 +57,7 @@ public class MaterialData {
 	public static final Block air = new Air("Air");
 	public static final Block stone = new Solid("Stone", 1);
 	public static final Block grass = new Grass("Grass");
-	public static final Block dirt = new Solid("Dirt",3);
+	public static final Block dirt = new Solid("Dirt", 3);
 	public static final Block cobblestone = new Solid("Cobblestone", 4);
 	public static final Block wood = new Solid("Wooden Planks", 5);
 	public static final Block sapling = new Sapling("Sapling", 0);
@@ -62,7 +80,7 @@ public class MaterialData {
 	public static final Block jungleLog = new Tree("Jungle Wood", 17, 3);
 	public static final Block leaves = new Tree("Leaves", 18, 0);
 	public static final Block spruceLeaves = new Tree("Leaves", 18, 1);
-	public static final Block birchLeaves= new Tree("Leaves", 18, 2);
+	public static final Block birchLeaves = new Tree("Leaves", 18, 2);
 	public static final Block sponge = new Solid("Sponge", 19);
 	public static final Block glass = new Solid("Glass", 20);
 	public static final Block lapisOre = new Solid("Lapis Lazuli Ore", 21);
@@ -81,22 +99,22 @@ public class MaterialData {
 	public static final Block deadBush = new LongGrass("Dead Shrubs", 32, 0);
 	public static final Block pistonBase = new Solid("Piston", 33);
 	public static final Block pistonExtension = new Solid("Piston (Head)", 34);
-	public static final Block whiteWool = new Wool("Wool", 35,0);
-	public static final Block orangeWool = new Wool("Orange Wool", 35,1);
-	public static final Block magentaWool = new Wool("Magenta Wool", 35,2);
-	public static final Block lightBlueWool = new Wool("Light Blue Wool", 35,3);
-	public static final Block yellowWool = new Wool("Yellow Wool", 35,4);
-	public static final Block limeWool = new Wool("Light Green Wool", 35,5);
-	public static final Block pinkWool = new Wool("Pink Wool", 35,6);
-	public static final Block greyWool = new Wool("Grey Wool", 35,7);
-	public static final Block lightGreyWool = new Wool("Light Grey Wool", 35,8);
-	public static final Block cyanWool = new Wool("Cyan Wool", 35,9);
-	public static final Block purpleWool = new Wool("Purple Wool", 35,10);
-	public static final Block blueWool = new Wool("Blue Wool", 35,11);
-	public static final Block brownWool = new Wool("Brown Wool", 35,12);
-	public static final Block greenWool = new Wool("Dark Green Wool", 35,13);
-	public static final Block redWool = new Wool("Red Wool", 35,14);
-	public static final Block blackWool = new Wool("Black Wool", 35,15);
+	public static final Block whiteWool = new Wool("Wool", 35, 0);
+	public static final Block orangeWool = new Wool("Orange Wool", 35, 1);
+	public static final Block magentaWool = new Wool("Magenta Wool", 35, 2);
+	public static final Block lightBlueWool = new Wool("Light Blue Wool", 35, 3);
+	public static final Block yellowWool = new Wool("Yellow Wool", 35, 4);
+	public static final Block limeWool = new Wool("Light Green Wool", 35, 5);
+	public static final Block pinkWool = new Wool("Pink Wool", 35, 6);
+	public static final Block greyWool = new Wool("Grey Wool", 35, 7);
+	public static final Block lightGreyWool = new Wool("Light Grey Wool", 35, 8);
+	public static final Block cyanWool = new Wool("Cyan Wool", 35, 9);
+	public static final Block purpleWool = new Wool("Purple Wool", 35, 10);
+	public static final Block blueWool = new Wool("Blue Wool", 35, 11);
+	public static final Block brownWool = new Wool("Brown Wool", 35, 12);
+	public static final Block greenWool = new Wool("Dark Green Wool", 35, 13);
+	public static final Block redWool = new Wool("Red Wool", 35, 14);
+	public static final Block blackWool = new Wool("Black Wool", 35, 15);
 	public static final Block movedByPiston = new Solid("Moved By Piston", 36);
 	public static final Block dandelion = new Solid("Dandelion", 37);
 	public static final Block rose = new Solid("Rose", 38);
@@ -104,18 +122,18 @@ public class MaterialData {
 	public static final Block redMushroom = new Solid("Red Mushroom", 40);
 	public static final Block goldBlock = new Solid("Gold Block", 41);
 	public static final Block ironBlock = new Solid("Iron Block", 42);
-	public static final Block stoneDoubleSlabs = new DoubleSlabs("Stone Double Slab", 43,0);
-	public static final Block sandstoneDoubleSlabs = new DoubleSlabs("Sandstone Double Slab", 43,1);
-	public static final Block woodenDoubleSlabs = new DoubleSlabs("Wooden Double Slab", 43,2);
-	public static final Block cobblestoneDoubleSlabs = new DoubleSlabs("Stone Double Slab", 43,3);
-	public static final Block brickDoubleSlabs = new DoubleSlabs("Brick Double Slab", 43,4);
-	public static final Block stoneBrickDoubleSlabs = new DoubleSlabs("Stone Brick Double Slab", 43,5);
-	public static final Block stoneSlab = new Slab("Stone Slab", 44,0);
-	public static final Block sandstoneSlab = new Slab("Sandstone Slab", 44,1);
-	public static final Block woodenSlab = new Slab("Wooden Slab", 44,2);
-	public static final Block cobblestoneSlab = new Slab("Stone Slab", 44,3);
-	public static final Block brickSlab = new Slab("Brick Slab", 44,4);
-	public static final Block stoneBrickSlab = new Slab("Stone Brick Slab", 44,5);
+	public static final Block stoneDoubleSlabs = new DoubleSlabs("Stone Double Slab", 43, 0);
+	public static final Block sandstoneDoubleSlabs = new DoubleSlabs("Sandstone Double Slab", 43, 1);
+	public static final Block woodenDoubleSlabs = new DoubleSlabs("Wooden Double Slab", 43, 2);
+	public static final Block cobblestoneDoubleSlabs = new DoubleSlabs("Stone Double Slab", 43, 3);
+	public static final Block brickDoubleSlabs = new DoubleSlabs("Brick Double Slab", 43, 4);
+	public static final Block stoneBrickDoubleSlabs = new DoubleSlabs("Stone Brick Double Slab", 43, 5);
+	public static final Block stoneSlab = new Slab("Stone Slab", 44, 0);
+	public static final Block sandstoneSlab = new Slab("Sandstone Slab", 44, 1);
+	public static final Block woodenSlab = new Slab("Wooden Slab", 44, 2);
+	public static final Block cobblestoneSlab = new Slab("Stone Slab", 44, 3);
+	public static final Block brickSlab = new Slab("Brick Slab", 44, 4);
+	public static final Block stoneBrickSlab = new Slab("Stone Brick Slab", 44, 5);
 	public static final Block brick = new Solid("Brick Block", 45);
 	public static final Block tnt = new Solid("TNT", 46);
 	public static final Block bookshelf = new Solid("Bookshelf", 47);
@@ -199,7 +217,6 @@ public class MaterialData {
 	public static final Block dragonEgg = new Solid("Dragon Egg", 122);
 	public static final Block redstoneLampOff = new Solid("Redstone Lamp (Off)", 123);
 	public static final Block redstoneLampOn = new Solid("Redstone Lamp", 124);
-
 	public static final Item ironShovel = new GenericTool("Iron Shovel", 256);
 	public static final Item ironPickaxe = new GenericTool("Iron Pickaxe", 257);
 	public static final Item ironAxe = new GenericTool("Iron Axe", 258);
@@ -207,8 +224,8 @@ public class MaterialData {
 	public static final Item redApple = new GenericFood("Apple", 260, 4);
 	public static final Item bow = new GenericWeapon("Bow", 261);
 	public static final Item arrow = new GenericItem("Arrow", 262);
-	public static final Item coal = new Coal("Coal", 263,0);
-	public static final Item charcoal = new Coal("Charcoal", 263,1);
+	public static final Item coal = new Coal("Coal", 263, 0);
+	public static final Item charcoal = new Coal("Charcoal", 263, 1);
 	public static final Item diamond = new GenericItem("Diamond", 264);
 	public static final Item ironIngot = new GenericItem("Iron Ingot", 265);
 	public static final Item goldIngot = new GenericItem("Gold Ingot", 266);
@@ -296,22 +313,22 @@ public class MaterialData {
 	public static final Item glowstoneDust = new GenericItem("Glowstone Dust", 348);
 	public static final Item rawFish = new GenericFood("Raw Fish", 349, 2);
 	public static final Item cookedFish = new GenericFood("Cooked Fish", 350, 5);
-	public static final Item inkSac = new Dye("Ink Sac", 351,0);
-	public static final Item roseRed = new Dye("Rose Red", 351,1);
-	public static final Item cactusGreen = new Dye("Cactus Green", 351,2);
-	public static final Item cocoaBeans = new Dye("Cocoa Beans", 351,3);
-	public static final Item lapisLazuli = new Dye("Lapis Lazuli", 351,4);
-	public static final Item purpleDye = new Dye("Purple Dye", 351,5);
-	public static final Item cyanDye = new Dye("Cyan Dye", 351,6);
-	public static final Item lightGrayDye = new Dye("Light Gray Dye", 351,7);
-	public static final Item grayDye = new Dye("Gray Dye", 351,8);
-	public static final Item pinkDye = new Dye("Pink Dye", 351,9);
-	public static final Item limeDye = new Dye("Lime Dye", 351,10);
-	public static final Item dandelionYellow = new Dye("Dandelion Yellow", 351,11);
-	public static final Item lightBlueDye = new Dye("Light Blue Dye", 351,12);
-	public static final Item magentaDye = new Dye("Magenta Dye", 351,13);
-	public static final Item orangeDye = new Dye("Orange Dye", 351,14);
-	public static final Item boneMeal = new Dye("Bone Meal", 351,15);
+	public static final Item inkSac = new Dye("Ink Sac", 351, 0);
+	public static final Item roseRed = new Dye("Rose Red", 351, 1);
+	public static final Item cactusGreen = new Dye("Cactus Green", 351, 2);
+	public static final Item cocoaBeans = new Dye("Cocoa Beans", 351, 3);
+	public static final Item lapisLazuli = new Dye("Lapis Lazuli", 351, 4);
+	public static final Item purpleDye = new Dye("Purple Dye", 351, 5);
+	public static final Item cyanDye = new Dye("Cyan Dye", 351, 6);
+	public static final Item lightGrayDye = new Dye("Light Gray Dye", 351, 7);
+	public static final Item grayDye = new Dye("Gray Dye", 351, 8);
+	public static final Item pinkDye = new Dye("Pink Dye", 351, 9);
+	public static final Item limeDye = new Dye("Lime Dye", 351, 10);
+	public static final Item dandelionYellow = new Dye("Dandelion Yellow", 351, 11);
+	public static final Item lightBlueDye = new Dye("Light Blue Dye", 351, 12);
+	public static final Item magentaDye = new Dye("Magenta Dye", 351, 13);
+	public static final Item orangeDye = new Dye("Orange Dye", 351, 14);
+	public static final Item boneMeal = new Dye("Bone Meal", 351, 15);
 	public static final Item bone = new GenericItem("Bone", 352);
 	public static final Item sugar = new GenericItem("Sugar", 353);
 	public static final Item cake = new GenericItem("Cake", 354);
@@ -333,14 +350,12 @@ public class MaterialData {
 	public static final Item ghastTear = new GenericItem("Ghast Tear", 370);
 	public static final Item goldNugget = new GenericItem("Gold Nugget", 371);
 	public static final Item netherWart = new GenericItem("Nether Wart", 372);
-
 	//Potions - Base
 	public static final Item waterBottle = new Potion("Water Bottle", 373, 0);
 	public static final Item awkwardPotion = new Potion("Awkward Potion", 373, 16);
 	public static final Item thickPotion = new Potion("Thick Potion", 373, 32);
 	public static final Item mundanePotion = new Potion("Mundane Potion", 373, 64);
-	public static final Item mundanePotionExtended  = new Potion("Mundane Potion", 373, 8192);
-	
+	public static final Item mundanePotionExtended = new Potion("Mundane Potion", 373, 8192);
 	//Potions - Positive
 	public static final Item potionOfRegeneration = new Potion("Potion of Regeneration", 373, 8193);
 	public static final Item potionOfRegenerationExtended = new Potion("Potion of Regeneration", 373, 8257);
@@ -357,7 +372,6 @@ public class MaterialData {
 	public static final Item potionOfStrength = new Potion("Potion of Strength", 373, 8201);
 	public static final Item potionOfStrengthExtended = new Potion("Potion of Strength", 373, 8265);
 	public static final Item potionOfStrengthII = new Potion("Potion of Strength II", 373, 8233);
-	
 	//Potions - Negative
 	public static final Item potionOfPoison = new Potion("Potion of Poison", 373, 8196);
 	public static final Item potionOfPoisonExtended = new Potion("Potion of Poison", 373, 8260);
@@ -371,15 +385,13 @@ public class MaterialData {
 	public static final Item potionOfHarming = new Potion("Potion of Harming", 373, 8204);
 	public static final Item potionOfHarmingReverted = new Potion("Potion of Harming", 373, 8268);
 	public static final Item potionOfHarmingII = new Potion("Potion of Harming II", 373, 8236);
-	
 	//Potions - Unbrewable
 	public static final Item potionOfRegenerationIIExtended = new Potion("Potion of Regeneration II", 373, 8289);
 	public static final Item potionOfSwiftnessIIExtended = new Potion("Potion of Swiftness II", 373, 8290);
 	public static final Item potionOfStrengthIIExtended = new Potion("Potion of Strength II", 373, 8297);
 	public static final Item potionOfPoisonIIExtended = new Potion("Potion of Poison II", 373, 8292);
-		//Splash Potions - Base
+	//Splash Potions - Base
 	public static final Item splashMundanePotion = new Potion("Splash Mundane Potion", 373, 16384);
-
 	//Splash Potions - Positive
 	public static final Item splashPotionOfRegeneration = new Potion("Splash Potion of Regeneration", 373, 16385);
 	public static final Item splashPotionOfRegenerationExtended = new Potion("Splash Potion of Regeneration", 373, 16449);
@@ -396,7 +408,6 @@ public class MaterialData {
 	public static final Item splashPotionOfStrength = new Potion("Splash Potion of Strength", 373, 16393);
 	public static final Item splashPotionOfStrengthExtended = new Potion("Splash Potion of Strength", 373, 16457);
 	public static final Item splashPotionOfStrengthII = new Potion("Splash Potion of Strength II", 373, 16425);
-	
 	//Splash Potions - Negative
 	public static final Item splashPotionOfPoison = new Potion("Splash Potion of Poison", 373, 16388);
 	public static final Item splashPotionOfPoisonExtended = new Potion("Splash Potion of Poison", 373, 16452);
@@ -410,13 +421,12 @@ public class MaterialData {
 	public static final Item splashPotionOfHarming = new Potion("Splash Potion of Harming", 373, 16396);
 	public static final Item splashPotionOfHarmingReverted = new Potion("Splash Potion of Harming", 373, 16460);
 	public static final Item splashPotionOfHarmingII = new Potion("Splash Potion of Harming II", 373, 16428);
-	
+
 	//Splash Potions - Unbrewable
 	//public static final Item splashPotionOfRegenerationIIExtended = new Potion("Splash Potion of Regeneration II", 373, 16481);
 	//public static final Item splashPotionOfSwiftnessIIExtended = new Potion("Splash Potion of Swiftness II", 373, 16482);
 	//public static final Item splashPotionOfStrengthIIExtended = new Potion("Splash Potion of Strength II", 373, 16489);
 	//public static final Item splashPotionOfPoisonIIExtended = new Potion("Splash Potion of Poison II", 373, 16484);
-	
 	public static final Item glassBottle = new GenericItem("Glass Bottle", 374);
 	public static final Item spiderEye = new GenericFood("Spider Eye", 375, 2);
 	public static final Item fermentedSpiderEye = new GenericItem("Fermented Spider Eye", 376);
@@ -426,7 +436,6 @@ public class MaterialData {
 	public static final Item cauldron = new GenericItem("Cauldron", 380);
 	public static final Item eyeOfEnder = new GenericItem("Eye of Ender", 381);
 	public static final Item glisteringMelon = new GenericItem("Glistering Melon", 382);
-
 	public static final Item spawnEggMooshroom = new SpawnEgg("Spawn Mooshroom", 383, 96);
 	public static final Item spawnEggSkeleton = new SpawnEgg("Spawn Skeleton", 383, 51);
 	public static final Item spawnEggCreeper = new SpawnEgg("Spawn Creeper", 383, 50);
@@ -448,10 +457,8 @@ public class MaterialData {
 	public static final Item spawnEggSilverfish = new SpawnEgg("Spawn Silverfish", 383, 60);
 	public static final Item spawnEggPig = new SpawnEgg("Spawn Pig", 383, 90);
 	public static final Item spawnEggOcelot = new SpawnEgg("Spawn Ocelot", 383, 98);
-	
 	public static final Item bottleOEnchanting = new GenericItem("Bottle o' Enchanting", 384);
 	public static final Item fireCharge = new GenericItem("Fire Charge", 385);
-
 	public static final Item goldMusicDisc = new GenericItem("Music Disc", 2256);
 	public static final Item greenMusicDisc = new GenericItem("Music Disc", 2257);
 	public static final Item orangeMusicDisc = new GenericItem("Music Disc", 2258);
@@ -485,7 +492,7 @@ public class MaterialData {
 				try {
 					Object value = f.get(null);
 					if (value instanceof Material) {
-						Material mat = (Material)value;
+						Material mat = (Material) value;
 						mat.setName(mat.getNotchianName());
 
 						int id = mat.getRawId();
@@ -506,12 +513,12 @@ public class MaterialData {
 			if (idLookup[mat.getRawId()] == null) {
 				idLookup[mat.getRawId()] = mat;
 			} else if (idLookup[mat.getRawId()] instanceof Material[]) {
-				Material[] multiple = (Material[])idLookup[mat.getRawId()];
+				Material[] multiple = (Material[]) idLookup[mat.getRawId()];
 				int size = mat.getRawData() * 2 + 1;
 				if (multiple.length < size) {
 					multiple = adjust(multiple, size);
 				}
-				multiple[mat.getRawData()] =  mat;
+				multiple[mat.getRawData()] = mat;
 				idLookup[mat.getRawId()] = multiple;
 			} else if (idLookup[mat.getRawId()] instanceof Material) {
 				Material existing = (Material) idLookup[mat.getRawId()];
@@ -557,19 +564,18 @@ public class MaterialData {
 	}
 
 	/**
-	 *
 	 * @param Gets the material from the given id
 	 * @return material, or null if none found
 	 */
 	public static Material getMaterial(int id) {
-		return getMaterial(id, (short)0);
+		return getMaterial(id, (short) 0);
 	}
 
 	/**
 	 * Gets the material from the given id and data.
-	 *
+	 * <p/>
 	 * If a non-zero data value is given for a material with no subtypes, the material at the id and data value of zero will be returned instead.
-	 * @param id to get
+	 * @param id   to get
 	 * @param data to get
 	 * @return material or null if none found
 	 */
@@ -580,26 +586,27 @@ public class MaterialData {
 			if (o == null) {
 				o = getCustomItem(data);
 			}
-			return (Material)o;
+			return (Material) o;
 		}
 		if (o == null || o instanceof Material) {
-			return (Material)o;
+			return (Material) o;
 		}
-		Material[] materials = (Material[])o;
+		Material[] materials = (Material[]) o;
 		Material m = materials[0];
-		if (data < materials.length && data > -1)
+		if (data < materials.length && data > -1) {
 			return materials[data];
+		}
 		return m;
 	}
 
 	/**
 	 * Gets the material from the given id and data, or creates it if nessecary.
-	 *
+	 * <p/>
 	 * Creation occurs when a material exists at the given id, and zero data value, but does not have any subtypes.
 	 * A new material that is a copy of the material at the given id and zero data value is created.
 	 * If creation fails for any reason, null will be returned.
 	 * If the material has subtypes normally, null will be returned if there is no subtype at the given data value
-	 * @param id to get
+	 * @param id   to get
 	 * @param data to get
 	 * @return material found, created, or null
 	 */
@@ -608,13 +615,13 @@ public class MaterialData {
 		Material[] materials;
 		Material mat;
 		if (o == null || o instanceof Material) {
-			mat = (Material)o;
-			materials = new Material[Math.max(mat.getRawData(), data) *2 + 1];
+			mat = (Material) o;
+			materials = new Material[Math.max(mat.getRawData(), data) * 2 + 1];
 			materials[mat.getRawData()] = mat;
 		} else {
-			materials = (Material[])o;
+			materials = (Material[]) o;
 			if (data > materials.length) {
-				materials = adjust(materials, data* 2 + 1);
+				materials = adjust(materials, data * 2 + 1);
 			}
 			mat = materials[data];
 		}
@@ -645,19 +652,19 @@ public class MaterialData {
 	 * @return block, or null if none found
 	 */
 	public static Block getBlock(int id) {
-		return getBlock(id, (short)0);
+		return getBlock(id, (short) 0);
 	}
 
 	/**
 	 * Gets the block at the given id and data, or null if none found
-	 * @param id to get
+	 * @param id   to get
 	 * @param data to get
 	 * @return block, or null if none found
 	 */
 	public static Block getBlock(int id, short data) {
 		Material mat = getMaterial(id, data);
 		if (mat instanceof Block) {
-			return (Block)mat;
+			return (Block) mat;
 		}
 		return null;
 	}
@@ -710,19 +717,19 @@ public class MaterialData {
 	 * @return item or null if none found
 	 */
 	public static Item getItem(int id) {
-		return getItem(id, (short)0);
+		return getItem(id, (short) 0);
 	}
 
 	/**
 	 * Gets the item at the given id and data, or null if none found
-	 * @param id to get
+	 * @param id   to get
 	 * @param data to get
 	 * @return item or null if none found
 	 */
 	public static Item getItem(int id, short data) {
 		Material mat = getMaterial(id, data);
 		if (mat instanceof Item) {
-			return (Item)mat;
+			return (Item) mat;
 		}
 		return null;
 	}
@@ -735,9 +742,9 @@ public class MaterialData {
 		LinkedList<Material> materials = new LinkedList<Material>();
 		for (int i = 0; i < idLookup.length; i++) {
 			if (idLookup[i] instanceof Material) {
-				materials.add((Material)idLookup[i]);
+				materials.add((Material) idLookup[i]);
 			} else if (idLookup[i] instanceof Material[]) {
-				for (Material mat : ((Material[])idLookup[i])) {
+				for (Material mat : ((Material[]) idLookup[i])) {
 					if (mat != null) {
 						materials.add(mat);
 					}

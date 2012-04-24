@@ -24,6 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketNotification extends PacketAlert {
 	protected int time;
 	protected short data;
+
 	public PacketNotification() {
 
 	}

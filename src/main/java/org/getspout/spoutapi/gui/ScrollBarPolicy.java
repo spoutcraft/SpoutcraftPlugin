@@ -36,7 +36,6 @@ public enum ScrollBarPolicy {
 	 * Always show the scrollbar
 	 */
 	SHOW_ALWAYS(2);
-
 	private final int id;
 	private static HashMap<Integer, ScrollBarPolicy> ids = new HashMap<Integer, ScrollBarPolicy>();
 

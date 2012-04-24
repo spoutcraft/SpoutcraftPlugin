@@ -23,7 +23,6 @@ import org.bukkit.permissions.Permission;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PlayerPermissionEvent extends Event implements PermissionEvent {
-
 	private static final HandlerList handlers = new HandlerList();
 	private final SpoutPlayer player;
 	private final Permission perm;

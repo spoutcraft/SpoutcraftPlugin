@@ -28,7 +28,6 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	private int selected = -1;
 	protected int cachedTotalHeight = -1;
 
-
 	public WidgetType getType() {
 		return WidgetType.ListWidget;
 	}
@@ -42,8 +41,8 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		if (i == -1) {
 			return null;
 		}
-		ListWidgetItem items [] = getItems();
-		if (i>=items.length) {
+		ListWidgetItem items[] = getItems();
+		if (i >= items.length) {
 			return null;
 		}
 		return items[i];
@@ -86,8 +85,8 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 		if (selected < -1) {
 			selected = -1;
 		}
-		if (selected > items.size()-1) {
-			selected = items.size()-1;
+		if (selected > items.size() - 1) {
+			selected = items.size() - 1;
 		}
 
 		//Check if selection is visible
@@ -97,7 +96,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 
 	protected Rectangle getItemRect(int n) {
 		ListWidgetItem item = getItem(n);
-		Rectangle result = new Rectangle(0,0,0,0);
+		Rectangle result = new Rectangle(0, 0, 0, 0);
 		if (item == null) {
 			return result;
 		}
@@ -136,7 +135,9 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 
 	@Override
 	public int getInnerSize(Orientation axis) {
-		if (axis == Orientation.HORIZONTAL) return getViewportSize(Orientation.HORIZONTAL);
+		if (axis == Orientation.HORIZONTAL) {
+			return getViewportSize(Orientation.HORIZONTAL);
+		}
 		if (cachedTotalHeight == -1) {
 			cachedTotalHeight = getItems().length * 24;
 		}
@@ -152,8 +153,9 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 	}
 
 	public boolean isSelected(ListWidgetItem item) {
-		if (getSelectedItem() == null)
+		if (getSelectedItem() == null) {
 			return false;
+		}
 		return getSelectedItem().equals(item);
 	}
 

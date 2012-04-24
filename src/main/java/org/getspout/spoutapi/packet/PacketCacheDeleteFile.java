@@ -24,6 +24,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketCacheDeleteFile implements SpoutPacket {
 	private String plugin;
 	private String fileName;
+
 	public PacketCacheDeleteFile() {
 
 	}

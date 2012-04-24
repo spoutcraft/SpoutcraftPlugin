@@ -69,7 +69,6 @@ public interface TextField extends Control {
 
 	/**
 	 * Sets the maximum lines this text field can hold. If zero is passed, the text field will hold as many lines as it can depending on its size.
-	 *
 	 * @param max lines (0 – 127)
 	 * @return textfield
 	 */

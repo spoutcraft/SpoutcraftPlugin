@@ -28,6 +28,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 public class PacketWidget implements SpoutPacket {
 	protected Widget widget;
 	protected UUID screen;
+
 	public PacketWidget() {
 
 	}
@@ -42,12 +43,12 @@ public class PacketWidget implements SpoutPacket {
 		int id = input.readInt();
 		long msb = input.readLong();
 		long lsb = input.readLong();
-		
+
 		int size = input.readInt();
 		byte[] widgetData = new byte[size];
 		input.read(widgetData);
 		SpoutInputStream data = new SpoutInputStream(ByteBuffer.wrap(widgetData));
-		
+
 		int version = input.readShort();
 		screen = new UUID(msb, lsb);
 		WidgetType widgetType = WidgetType.getWidgetFromId(id);
@@ -68,13 +69,13 @@ public class PacketWidget implements SpoutPacket {
 		output.writeInt(widget.getType().getId());
 		output.writeLong(screen.getMostSignificantBits());
 		output.writeLong(screen.getLeastSignificantBits());
-		
+
 		SpoutOutputStream data = new SpoutOutputStream();
 		widget.writeData(data);
 		ByteBuffer buffer = data.getRawBuffer();
 		byte[] widgetData = new byte[buffer.capacity() - buffer.remaining()];
 		System.arraycopy(buffer.array(), 0, widgetData, 0, widgetData.length);
-		
+
 		output.writeInt(widgetData.length);
 		output.writeShort((short) widget.getVersion());
 		output.write(widgetData);

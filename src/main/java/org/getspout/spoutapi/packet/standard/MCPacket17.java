@@ -28,9 +28,7 @@ public interface MCPacket17 extends MCPacket {
 	public void setEntityId(int entityId);
 
 	/**
-	 *
 	 * 0: Player entered bed?
-	 *
 	 * @return the bed field
 	 */
 	public int getBed();

@@ -23,8 +23,7 @@ import org.bukkit.event.HandlerList;
 
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class ScreenshotReceivedEvent extends Event{
-
+public class ScreenshotReceivedEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private final BufferedImage screenshot;
 	private final SpoutPlayer player;

@@ -19,12 +19,14 @@ package org.getspout.spoutapi.packet;
 import java.io.IOException;
 
 import org.bukkit.plugin.Plugin;
+
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketServerPlugins implements SpoutPacket {
 	private String[] plugins;
 	private String[] versions;
+
 	public PacketServerPlugins() {
 
 	}

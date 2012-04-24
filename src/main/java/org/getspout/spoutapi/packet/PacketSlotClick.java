@@ -21,6 +21,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.slot.SlotEvent;
 import org.getspout.spoutapi.event.slot.SlotExchangeEvent;
@@ -54,10 +55,10 @@ public class PacketSlotClick implements SpoutPacket {
 	public void readData(SpoutInputStream input) throws IOException {
 		long msb = input.readLong();
 		long lsb = input.readLong();
-		screen = new UUID(msb,lsb);
+		screen = new UUID(msb, lsb);
 		msb = input.readLong();
 		lsb = input.readLong();
-		slot = new UUID(msb,lsb);
+		slot = new UUID(msb, lsb);
 		button = input.read();
 		holdingShift = input.readBoolean();
 	}
@@ -80,39 +81,51 @@ public class PacketSlotClick implements SpoutPacket {
 		InGameHUD mainScreen = p.getMainScreen();
 		PopupScreen popup = mainScreen.getActivePopup();
 		Screen current = p.getCurrentScreen();
-		
+
 		Screen in = null;
-		if(mainScreen != null && screen.equals(mainScreen.getId())) in = mainScreen;
-		if(popup != null && screen.equals(popup.getId())) in = popup;
-		if(current != null && screen.equals(current.getId())) in = current;
-		if(in == null) return;
-		if(!in.containsWidget(slot)) return;
+		if (mainScreen != null && screen.equals(mainScreen.getId())) {
+			in = mainScreen;
+		}
+		if (popup != null && screen.equals(popup.getId())) {
+			in = popup;
+		}
+		if (current != null && screen.equals(current.getId())) {
+			in = current;
+		}
+		if (in == null) {
+			return;
+		}
+		if (!in.containsWidget(slot)) {
+			return;
+		}
 
 		//Slot Handling code goes here.
 		Slot slot = (Slot) in.getWidget(this.slot);
 		try {
 			ItemStack stackOnCursor = p.getItemOnCursor();
-			if(stackOnCursor == null) stackOnCursor = new ItemStack(0);
+			if (stackOnCursor == null) {
+				stackOnCursor = new ItemStack(0);
+			}
 			ItemStack stackInSlot = slot.getItem();
-			if((stackOnCursor == null || stackOnCursor.getTypeId() == 0) && stackInSlot.getTypeId() == 0) {
+			if ((stackOnCursor == null || stackOnCursor.getTypeId() == 0) && stackInSlot.getTypeId() == 0) {
 				return; //Nothing to do
 			}
-			if(stackOnCursor.getTypeId() == 0 && stackInSlot.getTypeId() != 0 && button == 1) { //Split item
+			if (stackOnCursor.getTypeId() == 0 && stackInSlot.getTypeId() != 0 && button == 1) { //Split item
 				int amountSlot = stackInSlot.getAmount() / 2;
 				int amountCursor = stackInSlot.getAmount() - amountSlot;
-				if(stackInSlot.getAmount() == 1) {
+				if (stackInSlot.getAmount() == 1) {
 					amountSlot = 0;
 					amountCursor = 1;
 				}
 				stackOnCursor = stackInSlot.clone();
 				stackOnCursor.setAmount(amountCursor);
 				stackInSlot.setAmount(amountSlot);
-				if(amountSlot == 0) {
+				if (amountSlot == 0) {
 					stackInSlot = new ItemStack(0);
 				}
 				SlotEvent s = new SlotTakeEvent(p, slot, stackInSlot, !slot.onItemTake(stackOnCursor));
 				Bukkit.getPluginManager().callEvent(s);
-				if(!s.isCancelled()) {
+				if (!s.isCancelled()) {
 					slot.setItem(stackInSlot);
 				} else {
 					slot.setDirty(true);//we need to tell the client that the operation was denied.
@@ -121,28 +134,28 @@ public class PacketSlotClick implements SpoutPacket {
 			} else if (stackOnCursor != null && (stackInSlot.getTypeId() == 0 || (stackInSlot.getTypeId() == stackOnCursor.getTypeId() && stackInSlot.getDurability() == stackOnCursor.getDurability()))) { //Put item
 				ItemStack toPut = stackOnCursor.clone();
 				int putAmount = toPut.getAmount();
-				if(button == 1) {
+				if (button == 1) {
 					putAmount = 1;
 				}
 				int amount = stackInSlot.getTypeId() == 0 ? 0 : stackInSlot.getAmount();
 				amount += putAmount;
 				int maxStackSize = toPut.getMaxStackSize();
-				if(maxStackSize == -1) {
+				if (maxStackSize == -1) {
 					maxStackSize = 64;
 				}
-				if(amount > maxStackSize) {
+				if (amount > maxStackSize) {
 					putAmount -= amount - maxStackSize;
 					amount = maxStackSize;
 				}
-				if(putAmount <= 0) {
+				if (putAmount <= 0) {
 					return;
 				}
 				toPut.setAmount(putAmount);
 				SlotEvent s = new SlotPutEvent(p, slot, stackInSlot, !slot.onItemPut(toPut));
 				Bukkit.getPluginManager().callEvent(s);
-				if(!s.isCancelled()) {
+				if (!s.isCancelled()) {
 					stackOnCursor.setAmount(stackOnCursor.getAmount() - putAmount);
-					if(stackOnCursor.getAmount() == 0) {
+					if (stackOnCursor.getAmount() == 0) {
 						stackOnCursor = new ItemStack(0);
 					}
 					ItemStack put = toPut.clone();
@@ -152,14 +165,14 @@ public class PacketSlotClick implements SpoutPacket {
 					slot.setDirty(true);//we need to tell the client that the operation was denied.
 				}
 			} else if (stackOnCursor == null || stackOnCursor.getTypeId() == 0) { //Take item or shift click
-				if(holdingShift) {
+				if (holdingShift) {
 					slot.onItemShiftClicked();
 					SlotEvent s = new SlotShiftClickEvent(p, slot);
 					Bukkit.getPluginManager().callEvent(s);
 				} else { //Take item
 					SlotEvent s = new SlotTakeEvent(p, slot, stackInSlot, !slot.onItemTake(stackInSlot));
 					Bukkit.getPluginManager().callEvent(s);
-					if(!s.isCancelled()) {
+					if (!s.isCancelled()) {
 						stackOnCursor = stackInSlot;
 						slot.setItem(new ItemStack(0));
 					} else {
@@ -169,23 +182,22 @@ public class PacketSlotClick implements SpoutPacket {
 			} else if (stackOnCursor.getTypeId() != stackInSlot.getTypeId() || stackOnCursor.getDurability() != stackInSlot.getDurability()) { //Exchange slot stack and cursor stack
 				SlotEvent s = new SlotExchangeEvent(p, slot, stackInSlot, stackOnCursor.clone(), !slot.onItemExchange(stackInSlot, stackOnCursor.clone()));
 				Bukkit.getPluginManager().callEvent(s);
-				if(!s.isCancelled()) {
+				if (!s.isCancelled()) {
 					slot.setItem(stackOnCursor.clone());
 					stackOnCursor = stackInSlot;
 				} else {
 					slot.setDirty(true);//we need to tell the client that the operation was denied.
 				}
 			}
-			
-			if(stackOnCursor == null || stackOnCursor.getTypeId() == 0) {
+
+			if (stackOnCursor == null || stackOnCursor.getTypeId() == 0) {
 				p.setItemOnCursor(null);
 			} else {
 				p.setItemOnCursor(stackOnCursor);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	public void failure(int playerId) {
