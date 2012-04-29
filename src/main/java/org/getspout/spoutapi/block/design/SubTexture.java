@@ -28,14 +28,30 @@ public class SubTexture {
 	 * @param parent     texture
 	 * @param xLoc       left X location
 	 * @param yLoc       bottom Y location
-	 * @param spriteSize width and height of sprite
+	 * @param spriteLen width and height of sprite
 	 */
-	public SubTexture(Texture parent, int xLoc, int yLoc, int spriteSize) {
+	public SubTexture(Texture parent, int xLoc, int yLoc, int spriteLen) {
 		this.parent = parent;
 		this.xLoc = xLoc;
-		this.xTopLoc = xLoc + spriteSize;
+		this.xTopLoc = xLoc + spriteLen;
 		this.yLoc = yLoc;
-		this.yTopLoc = yLoc + spriteSize;
+		this.yTopLoc = yLoc + spriteLen;
+	}
+
+	/**
+	 * Creates a new SubTexture from the parent Texture
+	 * @param parent texture
+	 * @param xLoc   left X location
+	 * @param yLoc   bottom Y location
+	 * @param xLen   width of the sprite
+	 * @param yLen   height of the sprite
+	 */
+	public SubTexture(Texture parent, int xLoc, int yLoc, int xLen, int yLen) {
+		this.parent = parent;
+		this.xLoc = xLoc;
+		this.xTopLoc = xLoc + xLen;
+		this.yLoc = yLoc;
+		this.yTopLoc = yLoc + yLen;
 	}
 
 	/**
