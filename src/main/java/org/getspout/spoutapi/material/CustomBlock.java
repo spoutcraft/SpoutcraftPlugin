@@ -194,4 +194,10 @@ public interface CustomBlock extends Block {
 	 * @return true if the face is powered
 	 */
 	public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face);
+	
+	/**
+	 * True if this custom block is capable of providing redstone power to adjacent blocks
+	 * @return true if power source
+	 */
+	public boolean isPowerSource();
 }
