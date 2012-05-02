@@ -341,4 +341,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	public int getVersion() {
 		return 0;
 	}
+	
+	public boolean isPowerSource() {
+		return false;
+	}
 }
