@@ -24,6 +24,7 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
+import org.bukkit.Chunk;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.io.SpoutInputStream;
@@ -80,9 +81,12 @@ public class PacketCustomBlockChunkOverride implements CompressablePacket {
 	public void run(int playerId) {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		if (player != null) {
-			SpoutChunk chunk = (SpoutChunk) player.getWorld().getChunkAt(chunkX, chunkZ);
+			Chunk c = player.getWorld().getChunkAt(chunkX, chunkZ);
+			if (c instanceof SpoutChunk) {
+				SpoutChunk chunk = (SpoutChunk)c;
 
-			player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunkX, chunkZ));
+				player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunkX, chunkZ));
+			}
 		}
 	}
 
