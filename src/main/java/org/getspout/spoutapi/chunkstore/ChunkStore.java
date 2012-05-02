@@ -86,6 +86,13 @@ public class ChunkStore {
 			throw new RuntimeException("Unable to write chunk meta data for " + x + ", " + z, e);
 		}
 	}
+	
+	public void closeChunkMetaData(World world, int x, int z) {
+		SimpleRegionFile rf = getSimpleRegionFile(world, x, z);
+		if (rf != null) {
+			rf.close();
+		}
+	}
 
 	private SimpleRegionFile getSimpleRegionFile(World world, int x, int z) {
 		File directory = new File(world.getWorldFolder(), "spout_meta");
