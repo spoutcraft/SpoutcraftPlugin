@@ -95,7 +95,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		ChunkMetaData md = getMetaData(w, x, z, false, false);
 
 		if (md != null) {
-			chunkStore.closeChunkMetaData(w, x, z, md);
+			chunkStore.closeChunkMetaData(w, x, z);
 			return true;
 		} else {
 			return false;
