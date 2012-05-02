@@ -90,6 +90,17 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 			return false;
 		}
 	}
+	
+	public boolean closeChunk(World w, int x, int z) {
+		ChunkMetaData md = getMetaData(w, x, z, false, false);
+
+		if (md != null) {
+			chunkStore.closeChunkMetaData(w, x, z, md);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean unloadWorldChunks(World world) {
 		return saveWorldChunks(world, true);
@@ -112,6 +123,9 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 
 			for (ChunkMetaData md : chunks) {
 				unloaded |= saveChunk(world, md.getChunkX(), md.getChunkZ());
+				if (unload) {
+					closeChunk(world, md.getChunkX(), md.getChunkZ());
+				}
 			}
 
 			worldChunks.clear();
