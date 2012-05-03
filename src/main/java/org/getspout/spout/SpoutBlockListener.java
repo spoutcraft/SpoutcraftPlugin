@@ -83,7 +83,7 @@ public class SpoutBlockListener implements Listener {
 		}
 		Block block = event.getBlock();
 		Material type = block.getType();
-		if (type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW) {
+		if (type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW || type == Material.DEAD_BUSH || type == Material.LONG_GRASS) {
 			if (net.minecraft.server.Block.byId[event.getMaterialId()].canPlace(((CraftWorld)block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
 				event.setBuildable(true);
 			}
