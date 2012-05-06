@@ -22,6 +22,7 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -35,9 +36,9 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket {
 	private boolean compressed = false;
 	private byte[] data;
 
-	public PacketCustomMultiBlockOverride(TIntArrayList xCoords, TIntArrayList yCoords, TIntArrayList zCoords, TIntArrayList blockTypeIds) {
+	public PacketCustomMultiBlockOverride(TIntArrayList xCoords, TIntArrayList yCoords, TIntArrayList zCoords, TIntArrayList blockTypeIds, TByteArrayList blockRotations) {
 		short size = (short) xCoords.size();
-		ByteBuffer rawData = ByteBuffer.allocate(size * 6);
+		ByteBuffer rawData = ByteBuffer.allocate(size * 7);
 		chunkX = xCoords.get(0) >> 4;
 		chunkZ = zCoords.get(0) >> 4;
 		for (int i = 0; i < size; i++) {
@@ -45,6 +46,7 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket {
 			rawData.putShort((short) yCoords.get(i));
 			rawData.put((byte) (zCoords.get(i) - chunkZ * 16));
 			rawData.putShort((short) blockTypeIds.get(i));
+			rawData.put(blockRotations.get(i));
 		}
 		data = rawData.array();
 	}
@@ -82,7 +84,7 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket {
 
 	@Override
 	public int getVersion() {
-		return 3;
+		return 4;
 	}
 
 	@Override
