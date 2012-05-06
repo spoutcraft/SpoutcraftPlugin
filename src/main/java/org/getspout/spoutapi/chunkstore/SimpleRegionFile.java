@@ -187,8 +187,10 @@ public class SimpleRegionFile {
 
 	public void close() {
 		try {
-			getFile().seek(4096 * 2);
-			getFile().close();
+			if (file != null) {
+				file.seek(4096 * 2);
+				file.close();
+			}
 			file = null;
 		} catch (IOException ioe) {
 			throw new RuntimeException("Unable to close file", ioe);
