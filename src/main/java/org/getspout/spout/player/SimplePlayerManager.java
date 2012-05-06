@@ -111,9 +111,10 @@ public class SimplePlayerManager implements PlayerManager {
 			SpoutCraftPlayer scp = (SpoutCraftPlayer)sp;
 			scp.setVersionString(versionString);
 			System.out.println("[Spout] Successfully authenticated " + scp.getName() + "'s Spoutcraft client. Running client version: " + scp.getVersionString());
-			scp.setBuildVersion(scp.getVersionString());
+			try {
+				scp.setBuildVersion(Integer.parseInt(scp.getVersionString()));
+			} catch (Exception ignore) {}
 		}
-
 	}
 
 	@Override
