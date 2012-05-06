@@ -197,6 +197,14 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 		setData(SimpleMaterialManager.blockIdString, blockId);
 	}
 
+	public byte getCustomBlockRotation() {
+		return getChunk().getCustomBlockRotation(x, y, z);
+	}
+
+	public void setCustomBlockRotation(byte rot) {
+		getChunk().setCustomBlockRotation(x, y, z, rot);
+	}
+
 	public void removeCustomBlockData() {
 		removeData(SimpleMaterialManager.blockIdString);
 	}
