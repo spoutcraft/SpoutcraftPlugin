@@ -27,10 +27,8 @@ public class SpoutcraftBuildSetEvent extends Event implements Cancellable {
 	private final SpoutPlayer player;
 	private final int build;
 
-	private boolean isCancelled = false;
-
-	public SpoutcraftBuildSetEvent(SpoutPlayer s, int build) {
-		player = s;
+	public SpoutcraftBuildSetEvent(SpoutPlayer player, int build) {
+		this.player = player;
 		this.build = build;
 	}
 
@@ -57,15 +55,5 @@ public class SpoutcraftBuildSetEvent extends Event implements Cancellable {
 
 	public static HandlerList getHandlerList() {
 		return handlers;
-	}
-
-	@Override
-	public boolean isCancelled() {
-		return isCancelled;
-	}
-
-	@Override
-	public void setCancelled(boolean b) {
-		isCancelled = b;
 	}
 }
