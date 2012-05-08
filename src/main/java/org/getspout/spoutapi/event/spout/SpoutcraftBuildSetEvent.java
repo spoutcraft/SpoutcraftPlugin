@@ -22,7 +22,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class SpoutcraftBuildSetEvent extends Event implements Cancellable {
+public class SpoutcraftBuildSetEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private final SpoutPlayer player;
 	private final int build;
