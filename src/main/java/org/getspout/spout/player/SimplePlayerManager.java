@@ -28,6 +28,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import org.getspout.spoutapi.event.spout.SpoutcraftBuildSetEvent;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.PlayerManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -111,9 +112,12 @@ public class SimplePlayerManager implements PlayerManager {
 			SpoutCraftPlayer scp = (SpoutCraftPlayer)sp;
 			scp.setVersionString(versionString);
 			System.out.println("[Spout] Successfully authenticated " + scp.getName() + "'s Spoutcraft client. Running client version: " + scp.getVersionString());
-			try {
-				scp.setBuildVersion(Integer.parseInt(scp.getVersionString()));
-			} catch (Exception ignore) {}
+			SpoutcraftBuildSetEvent sbse = new SpoutcraftBuildSetEvent(sp, Integer.parseInt(scp.getVersionString()));
+			Bukkit.getPluginManager().callEvent(sbse);
+			if (sbse.isCancelled()) {
+				return;
+			}
+			((SpoutCraftPlayer) sp).setBuildVersion(sbse.getBuild());
 		}
 	}
 
