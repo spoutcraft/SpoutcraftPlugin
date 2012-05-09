@@ -139,7 +139,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		boolean unloaded = false;
 
 		for (World world : worlds) {
-			unloaded |= unloadWorldChunks(world);
+			unloaded |= saveWorldChunks(world);
 		}
 
 		return unloaded;
