@@ -32,6 +32,18 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	public GenericCubeCustomBlock(Plugin plugin, String name, boolean isOpaque, GenericCubeBlockDesign design) {
 		super(plugin, name, isOpaque, design);
 	}
+	/**
+	 * Creates a new cube block material
+	 * @param plugin         making the block
+	 * @param name           of the block
+	 * @param isOpaque       true if you want the block solid
+	 * @param design         to use for the block
+	 * @param customMetaData of the block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, boolean isOpaque, GenericCubeBlockDesign design, boolean rotate) {
+		super(plugin, name, isOpaque, design, rotate);
+	}
 
 	/**
 	 * Creates a new opaque/solid cube block material
@@ -42,6 +54,19 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	public GenericCubeCustomBlock(Plugin plugin, String name, GenericCubeBlockDesign design) {
 		super(plugin, name);
 		this.setBlockDesign(design);
+	}
+
+	/**
+	 * Creates a new opaque/solid cube block material
+	 * @param plugin making the block
+	 * @param name   of the block
+	 * @param design to use for the block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, GenericCubeBlockDesign design, boolean rotate) {
+		super(plugin, name);
+		this.setBlockDesign(design);
+		this.setRotate(rotate);
 	}
 
 	/**
@@ -57,6 +82,20 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	}
 
 	/**
+	 * Creates a new basic opaque/solid cube block material
+	 * @param plugin      making the block
+	 * @param name        of the block
+	 * @param texture     url to use for the block - must be a square PNG
+	 * @param textureSize width and height of the texture in pixels
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, String texture, int textureSize, boolean rotate) {
+		super(plugin, name);
+		this.setBlockDesign(new GenericCubeBlockDesign(plugin, texture, textureSize));
+		this.setRotate(rotate);
+	}
+
+	/**
 	 * Creates a new cube block material with underlying block ID.
 	 * @param plugin  making the block
 	 * @param name    of the block
@@ -69,6 +108,18 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 
 	/**
 	 * Creates a new cube block material with underlying block ID.
+	 * @param plugin  making the block
+	 * @param name    of the block
+	 * @param blockID of the underlying vanilla block
+	 * @param design  to use for the block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, GenericCubeBlockDesign design, boolean rotate) {
+		super(plugin, name, blockId, design, rotate);
+	}
+
+	/**
+	 * Creates a new cube block material with underlying block ID.
 	 * @param plugin   making the block
 	 * @param name     of the block
 	 * @param blockID  of the underlying vanilla block
@@ -77,6 +128,19 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	 */
 	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, int metadata, GenericCubeBlockDesign design) {
 		super(plugin, name, blockId, metadata, design);
+	}
+
+	/**
+	 * Creates a new cube block material with underlying block ID.
+	 * @param plugin   making the block
+	 * @param name     of the block
+	 * @param blockID  of the underlying vanilla block
+	 * @param metadata of the underlying vanilla block
+	 * @param design   to use for the block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, int metadata, GenericCubeBlockDesign design, boolean rotate) {
+		super(plugin, name, blockId, metadata, design, rotate);
 	}
 
 	/**
@@ -93,6 +157,20 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	}
 
 	/**
+	 * Creates a new basic opaque/solid cube block material with underlying block ID.
+	 * @param plugin      making the block
+	 * @param name        of the block
+	 * @param blockID     of the underlying vanilla block
+	 * @param texture     url to use for the block - must be a square PNG
+	 * @param textureSize width and height of the texture in pixels
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, String texture, int textureSize, boolean rotate) {
+		super(plugin, name, blockId, rotate);
+		this.setBlockDesign(new GenericCubeBlockDesign(plugin, texture, textureSize));
+	}
+
+	/**
 	 * Creates a new basic opaque/solid cube block material with underlying block ID + metadata.
 	 * @param plugin      making the block
 	 * @param name        of the block
@@ -103,6 +181,21 @@ public abstract class GenericCubeCustomBlock extends GenericCuboidCustomBlock {
 	 */
 	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, int metadata, String texture, int textureSize) {
 		super(plugin, name, blockId, metadata);
+		this.setBlockDesign(new GenericCubeBlockDesign(plugin, texture, textureSize));
+	}
+
+	/**
+	 * Creates a new basic opaque/solid cube block material with underlying block ID + metadata.
+	 * @param plugin      making the block
+	 * @param name        of the block
+	 * @param blockID     of the underlying vanilla block
+	 * @param metadata    of the underlying vanilla block
+	 * @param texture     url to use for the block - must be a square PNG
+	 * @param textureSize width and height of the texture in pixels
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCubeCustomBlock(Plugin plugin, String name, int blockId, int metadata, String texture, int textureSize, boolean rotate) {
+		super(plugin, name, blockId, metadata, rotate);
 		this.setBlockDesign(new GenericCubeBlockDesign(plugin, texture, textureSize));
 	}
 }
