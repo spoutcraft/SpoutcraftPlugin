@@ -35,7 +35,7 @@ import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
 import org.getspout.spoutapi.inventory.MaterialManager;
 
 public class ChunkMetaData implements Serializable {
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 
 	// This data is saved. This means data can handle different map heights
 	// Changes may be needed to the positionToKey method
@@ -46,9 +46,11 @@ public class ChunkMetaData implements Serializable {
 	private HashMap<String, Serializable> chunkData;
 	//storage for custom block id's
 	private short[] customBlockIds = null;
+	//storage for custom block rotations's
+	private byte[] customBlockRotations = null;
 	//storage for local block data
 	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
-	private static final int CURRENT_VERSION = 3;
+	private static final int CURRENT_VERSION = 4;
 	private static final int MAGIC_NUMBER = 0xEA5EDEBB;
 	transient private boolean dirty = false;
 	//quais-final, need to be set in serialization
@@ -172,6 +174,15 @@ public class ChunkMetaData implements Serializable {
 		setDirty(true);
 	}
 
+	public byte[] getCustomBlockRotations() {
+		return customBlockRotations;
+	}
+
+	public void setCustomBlockRotations(byte[] rots) {
+		customBlockRotations = rots;
+		setDirty(true);
+	}
+
 	public Serializable removeBlockData(String id, int x, int y, int z) {
 
 		if (id.equals(MaterialManager.blockIdString)) {
@@ -285,6 +296,12 @@ public class ChunkMetaData implements Serializable {
 				writeMap(out, i.value());
 			}
 		}
+		if (customBlockRotations != null) {
+			out.writeBoolean(true);
+			out.write(customBlockRotations);
+		} else {
+			out.writeBoolean(false);
+		}
 	}
 
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -344,6 +361,12 @@ public class ChunkMetaData implements Serializable {
 			int z = in.readByte();
 			HashMap<String, Serializable> map = readMap(in);
 			blockData.put(x, y, z, map);
+		}
+		
+		if (fileVersionNumber >= 4) {
+			boolean hasRotations = in.readBoolean();
+			customBlockRotations = new byte[16 * 16 * worldHeight];
+			if(hasRotations) in.readFully(customBlockRotations);
 		}
 
 		if (fileVersionNumber < CURRENT_VERSION) {

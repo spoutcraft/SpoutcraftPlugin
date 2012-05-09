@@ -193,4 +193,8 @@ public interface SpoutBlock extends Block {
 	 * @return custom block material
 	 */
 	public CustomBlock getCustomBlock();
+	
+	public byte getCustomBlockRotation();
+	
+	public void setCustomBlockRotation(byte rot);
 }

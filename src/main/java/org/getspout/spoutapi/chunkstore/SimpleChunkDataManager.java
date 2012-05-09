@@ -220,6 +220,24 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		md.setCustomBlockIds(ids);
 	}
 
+	@Override
+	public byte[] getCustomBlockRotations(World world, int x, int z) {
+		ChunkMetaData md = getMetaData(world, x, z, true, false);
+
+		if (md == null) {
+			return null;
+		}
+
+		return md.getCustomBlockRotations();
+	}
+
+	@Override
+	public void setCustomBlockRotations(World world, int x, int z, byte[] ids) {
+		ChunkMetaData md = getMetaData(world, x, z, true, true);
+
+		md.setCustomBlockRotations(ids);
+	}
+
 	private ChunkMetaData getMetaData(World world, int x, int z, boolean load, boolean loadOrCreate) {
 		long key = (((long) x) << 32) | (((long) z) & 0xFFFFFFFFL);
 		UUID uid = world.getUID();
