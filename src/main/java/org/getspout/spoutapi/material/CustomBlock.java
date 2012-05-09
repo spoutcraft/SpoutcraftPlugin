@@ -89,6 +89,19 @@ public interface CustomBlock extends Block {
 	 * @return dropped itemstack
 	 */
 	public SpoutItemStack getItemDrop();
+	
+	/**
+	 * Whether or not this CustomBlock will rotate to face the player when placed.
+	 * @return Should the block rotate
+	 */
+	public boolean canRotate();
+
+	/**
+	 * Sets whether or not this CustomBlock will rotate to face the player when placed.
+	 * @param rotate Should th eblock rotate
+	 * @return this
+	 */
+	public CustomBlock setRotate(boolean rotate);
 
 	/**
 	 * Fires when a neighboring block changes

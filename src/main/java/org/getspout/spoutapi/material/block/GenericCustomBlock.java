@@ -51,6 +51,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	private int blockId;
 	private int metadata;
 	private boolean opaque;
+	private boolean rotate = false;
 	private float hardness = 1.5F;
 	private float friction = 0.6F;
 	private int lightLevel = 0;
@@ -61,8 +62,9 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * @param name     of the block
 	 * @param blockID  of the underlying vanilla block
 	 * @param metadata of the underlying vanilla block
+	 * @param rotate   will the block rotate to face the player when placed
 	 */
-	protected GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata) {
+	protected GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata, boolean rotate) {
 		super(name, blockId, metadata);
 		item = new GenericCustomItem(plugin, name);
 		this.blockId = blockId;
@@ -71,12 +73,24 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 		this.plugin = plugin;
 		this.fullName = item.getFullName();
 		this.customId = item.getCustomId();
+		this.rotate = rotate;
 		MaterialData.addCustomBlock(this);
 		this.setItemDrop(new SpoutItemStack(this, 1));
 
 		for (SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
 			player.sendPacket(this);
 		}
+	}
+	
+	/**
+	 * Creates a GenericCustomBlock with no model yet.
+	 * @param plugin   creating the block
+	 * @param name     of the block
+	 * @param blockID  of the underlying vanilla block
+	 * @param metadata of the underlying vanilla block
+	 */
+	protected GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata) {
+		this(plugin, name, blockId, metadata, false);
 	}
 
 	/**
@@ -90,6 +104,17 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	}
 
 	/**
+	 * Creates a GenericCustomBlock with no model yet.
+	 * @param plugin   creating the block
+	 * @param name     of the block
+	 * @param isOpaque true if you want the block solid
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	protected GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, boolean rotate) {
+		this(plugin, name, isOpaque ? 1 : 20, 0, rotate);
+	}
+
+	/**
 	 * Creates a GenericCustomBlock with no model yet and underlying vanilla block
 	 * @param plugin  creating the block
 	 * @param name    of the block
@@ -97,6 +122,17 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, int blockId) {
 		this(plugin, name, blockId, 0);
+	}
+
+	/**
+	 * Creates a GenericCustomBlock with no model yet and underlying vanilla block
+	 * @param plugin  creating the block
+	 * @param name    of the block
+	 * @param blockID of the underlying vanilla block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	protected GenericCustomBlock(Plugin plugin, String name, int blockId, boolean rotate) {
+		this(plugin, name, blockId, 0, rotate);
 	}
 
 	/**
@@ -108,6 +144,19 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, int blockId, BlockDesign design) {
 		this(plugin, name, blockId, 0);
+		setBlockDesign(design);
+	}
+
+	/**
+	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block
+	 * @param plugin  creating the block
+	 * @param name    of the block
+	 * @param blockID of the underlying vanilla block
+	 * @param design  to use for the block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCustomBlock(Plugin plugin, String name, int blockId, BlockDesign design, boolean rotate) {
+		this(plugin, name, blockId, 0, rotate);
 		setBlockDesign(design);
 	}
 
@@ -125,6 +174,20 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	}
 
 	/**
+	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block + metadata
+	 * @param plugin   creating the block
+	 * @param name     of the block
+	 * @param blockID  of the underlying vanilla block
+	 * @param metadata of the underlying vanilla block
+	 * @param design   to use for the block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata, BlockDesign design, boolean rotate) {
+		this(plugin, name, blockId, metadata, rotate);
+		setBlockDesign(design);
+	}
+
+	/**
 	 * Creates a GenericCustomBlock with a specified design and underlying block ID
 	 * @param plugin   creating the block
 	 * @param name     of the block
@@ -133,6 +196,19 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design) {
 		this(plugin, name, isOpaque);
+		setBlockDesign(design);
+	}
+
+	/**
+	 * Creates a GenericCustomBlock with a specified design and underlying block ID
+	 * @param plugin   creating the block
+	 * @param name     of the block
+	 * @param isOpaque true if you want the block solid
+	 * @param design   to use for the block
+	 * @param rotate   will the block rotate to face the player when placed
+	 */
+	public GenericCustomBlock(Plugin plugin, String name, boolean isOpaque, BlockDesign design, boolean rotate) {
+		this(plugin, name, isOpaque, rotate);
 		setBlockDesign(design);
 	}
 
@@ -256,6 +332,17 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public CustomBlock setLightLevel(int level) {
 		lightLevel = level;
+		return this;
+	}
+
+	@Override
+	public boolean canRotate() {
+		return rotate;
+	}
+
+	@Override
+	public CustomBlock setRotate(boolean rotate) {
+		this.rotate = rotate;
 		return this;
 	}
 
