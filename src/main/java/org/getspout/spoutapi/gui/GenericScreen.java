@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.event.screen.ScreenCloseEvent;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.packet.PacketWidget;
@@ -228,5 +229,9 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 			}
 		}
 		return set;
+	}
+	
+	@Override
+	public void onScreenClose(ScreenCloseEvent e) {
 	}
 }

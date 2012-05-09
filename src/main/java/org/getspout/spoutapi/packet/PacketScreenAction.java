@@ -63,19 +63,9 @@ public class PacketScreenAction implements SpoutPacket {
 				event = new ScreenCloseEvent(player, player.getMainScreen().getActivePopup(), ScreenType.getType(this.screen));
 				Bukkit.getServer().getPluginManager().callEvent(event);
 				if (event.isCancelled()) {
-					this.action = (byte) ScreenAction.Close.getId();
-					PopupScreen screen = player.getMainScreen().getActivePopup();
-					if (screen != null) {
-						screen.setDirty(true);
-						player.sendPacket(new PacketWidget(screen, screen.getId()));
-					}
+					handleScreenCloseCancelled(player, (ScreenCloseEvent) event, true);
 				} else if (ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
-					PopupScreen p = player.getMainScreen().getActivePopup();
-					player.getMainScreen().closePopup();
-					if (player.getItemOnCursor() != null && p != null) {
-						p.handleItemOnCursor(player.getItemOnCursor());
-						player.setItemOnCursor(null);
-					}
+					handleScreenClose(player, (ScreenCloseEvent) event, true);
 				}
 				if (!event.isCancelled()) {
 					player.openScreen(ScreenType.GAME_SCREEN, false);
@@ -94,6 +84,34 @@ public class PacketScreenAction implements SpoutPacket {
 					player.openScreen(ScreenType.getType(this.screen), false);
 				}
 				break;
+		}
+	}
+	
+	private void handleScreenCloseCancelled(SpoutPlayer player, ScreenCloseEvent e, boolean update) {
+		this.action = (byte) ScreenAction.Close.getId();
+		PopupScreen screen = player.getMainScreen().getActivePopup();
+		if (screen != null) {
+			if(update) screen.onScreenClose(e);
+			if(!e.isCancelled() && ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
+				handleScreenClose(player, e, false);
+				return;
+			}
+			screen.setDirty(true);
+			player.sendPacket(new PacketWidget(screen, screen.getId()));
+		}
+	}
+	
+	private void handleScreenClose(SpoutPlayer player, ScreenCloseEvent e, boolean update) {
+		PopupScreen p = player.getMainScreen().getActivePopup();
+		if(update) p.onScreenClose(e);
+		if(e.isCancelled()) {
+			handleScreenCloseCancelled(player, e, false);
+			return;
+		}
+		player.getMainScreen().closePopup();
+		if (player.getItemOnCursor() != null && p != null) {
+			p.handleItemOnCursor(player.getItemOnCursor());
+			player.setItemOnCursor(null);
 		}
 	}
 

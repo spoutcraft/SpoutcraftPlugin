@@ -21,6 +21,7 @@ import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
 
+import org.getspout.spoutapi.event.screen.ScreenCloseEvent;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
@@ -115,6 +116,13 @@ public interface Screen extends Widget {
 	 * @return the screen type
 	 */
 	public ScreenType getScreenType();
+	
+	/**
+	 * Called when the screen is closed.
+	 * 
+	 * @param event
+	 */
+	public void onScreenClose(ScreenCloseEvent event);
 
 	public Set<Widget> getAttachedWidgetsAsSet(boolean recursive);
 }
