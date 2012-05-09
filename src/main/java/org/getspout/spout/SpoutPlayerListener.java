@@ -175,8 +175,8 @@ public class SpoutPlayerListener implements Listener {
 							BlockState oldState = block.getState();
 							block.setTypeIdAndData(cb.getBlockId(), (byte)(cb.getBlockData()), true);
 							cb.onBlockPlace(block.getWorld(), block.getX(), block.getY(), block.getZ(), player);
-							mm.overrideBlock(block, cb);
-
+							byte rotation = (byte) (((int) Math.floor((double)((player.getLocation().getYaw() * 4F) / 360F) + 0.5D)) & 3);
+							mm.overrideBlock(block, cb, cb.canRotate() ? rotation : 0);
 							if (canPlaceAt(block, oldState, (SpoutBlock)event.getClickedBlock(), item, player)) {
 								// Yay, take the item from inventory
 								if (player.getGameMode() == GameMode.SURVIVAL) {
