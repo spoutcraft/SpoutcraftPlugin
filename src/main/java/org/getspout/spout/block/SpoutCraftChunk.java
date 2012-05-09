@@ -286,4 +286,47 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 		short old = setCustomBlockId(x, y, z, (short) block.getCustomId());
 		return MaterialData.getCustomBlock(old);
 	}
+
+	@Override
+	public byte[] getCustomBlockRotations() {
+		return SpoutManager.getChunkDataManager().getCustomBlockRotations(getWorld(), getX(), getZ());
+	}
+
+	@Override
+	public void setCustomBlockRotations(byte[] rots) {
+		SpoutManager.getChunkDataManager().setCustomBlockRotations(getWorld(), getX(), getZ(), rots);
+	}
+
+	@Override
+	public byte getCustomBlockRotation(int x, int y, int z) {
+		byte[] rots = getCustomBlockRotations();
+		if (rots == null) {
+			return 0;
+		}
+		int index = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
+		return rots[index];
+	}
+
+	@Override
+	public byte setCustomBlockRotation(int x, int y, int z, byte rot) {
+		byte[] rots = getCustomBlockRotations();
+		if (rots == null) {
+			rots = new byte[16*16*worldHeight];
+			setCustomBlockRotations(rots);
+		}
+		int index = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
+		byte old = rots[index];
+		rots[index] = rot;
+		return old;
+	}
+
+	@Override
+	public CustomBlock setCustomBlock(int x, int y, int z, CustomBlock block, byte rotation) {
+		if (block == null) {
+			throw new NullPointerException("Custom Block can not be null!");
+		}
+		short old = setCustomBlockId(x, y, z, (short) block.getCustomId());
+		setCustomBlockRotation(x, y, z, rotation);
+		return MaterialData.getCustomBlock(old);
+	}
 }
