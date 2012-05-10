@@ -55,7 +55,6 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 
 	public GenericCustomItem(Plugin plugin, String name, String texture) {
 		this(plugin, name);
-		SpoutManager.getFileManager().addToCache(plugin, texture);
 		this.setTexture(texture);
 	}
 
@@ -82,6 +81,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 
 	@Override
 	public CustomItem setTexture(String texture) {
+		SpoutManager.getFileManager().addToCache(plugin, texture);
 		this.texture = texture;
 		return this;
 	}
