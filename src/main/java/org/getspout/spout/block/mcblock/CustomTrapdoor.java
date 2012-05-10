@@ -1,5 +1,8 @@
 /*
- * This file is part of SpoutPlugin (http://www.spout.org/).
+ * This file is part of SpoutPlugin.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -44,7 +47,7 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 		this.stepSound = parent.stepSound;
 		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
-		updateField(parent, this, "name");		
+		updateField(parent, this, "name");
 	}
 
 	@Override

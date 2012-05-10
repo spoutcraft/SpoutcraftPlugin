@@ -1,5 +1,8 @@
 /*
- * This file is part of SpoutPlugin (http://www.spout.org/).
+ * This file is part of SpoutPlugin.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -248,7 +251,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 	public int getDropCount(int i, Random random) {
 		return parent.getDropCount(i, random);
 	}
-	
+
 	@Override
 	protected int getDropData(int i) {
 		return Block.getDropData(parent, i);

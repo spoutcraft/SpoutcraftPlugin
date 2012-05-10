@@ -1,5 +1,8 @@
 /*
- * This file is part of SpoutPlugin (http://www.spout.org/).
+ * This file is part of SpoutPlugin.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,10 +29,10 @@ import net.minecraft.server.World;
 
 public class CustomNote extends BlockNote implements CustomMCBlock {
 	protected BlockNote parent;
-	
+
 	protected CustomNote(BlockNote parent) {
 		super(parent.id);
-		
+
 		this.parent = parent;
 		updateField(parent, this, "strength");
 		updateField(parent, this, "durability");
@@ -46,7 +49,7 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 		this.cc = parent.cc;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
-		
+
 		isTileEntity = true;
 	}
 
@@ -60,7 +63,7 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 		this.strength = hardness;
 		updateField(this, parent, "strength");
 	}
-	
+
 	public float getExplosionResistance() {
 		return this.durability;
 	}
@@ -68,19 +71,19 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 	public void setExplosionResistance(float resistance) {
 		this.durability = resistance;
 	}
-	
-    public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
-    	return parent.interact(world, i, j, k, entityhuman);
-    }
 
-    public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
-    	parent.attack(world, i, j, k, entityhuman);
-    }
+	public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+		return parent.interact(world, i, j, k, entityhuman);
+	}
 
-    public TileEntity a_() {
-        return parent.a_();
-    }	
-	
+	public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
+		parent.attack(world, i, j, k, entityhuman);
+	}
+
+	public TileEntity a_() {
+		return parent.a_();
+	}
+
 	private static void updateField(Block parent, Block child, String fieldName) {
 		try {
 			Field field = Block.class.getDeclaredField(fieldName);
@@ -89,5 +92,5 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}	
+	}
 }

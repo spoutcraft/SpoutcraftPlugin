@@ -1,5 +1,8 @@
 /*
- * This file is part of SpoutPlugin (http://www.spout.org/).
+ * This file is part of SpoutPlugin.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -43,13 +46,13 @@ public class SpoutCommand implements CommandExecutor {
 			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
 			return true;
 		}
-		
+
 		String c = args[0];
 		if (c.equals("version")) {
 			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
 
 			CommandSender target = sender;
-			
+	
 			if (args.length > 1) {
 				target = p.getServer().getPlayer(args[1]);
 				if (target == null) {

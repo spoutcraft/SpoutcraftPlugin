@@ -15,3 +15,11 @@ commands:
         usage: |
             Usage: /<command> version [player]
             Usage: /<command> verify [motd]
+
+permissions:
+    spout.plugin.forcespoutcraft:
+        description: Forces players to join with Spoutcraft even if the server doesn't force Spoutcraft in the config.
+        default: false
+    spout.plugin.ignorespoutcraft:
+        description: Allows players without Spoutcraft to join even if the server forces Spoutcraft in the config.
+        default: false

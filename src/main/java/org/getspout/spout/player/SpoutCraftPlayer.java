@@ -1,5 +1,8 @@
 /*
- * This file is part of SpoutPlugin (http://www.spout.org/).
+ * This file is part of SpoutPlugin.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -150,9 +153,9 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private long firstPlayed = 0;
 	private long lastPlayed = 0;
 	private boolean hasPlayed = false;
-	
+
 	private GameMode prevMode;
-	
+
 	private Map<String,String> addons;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
@@ -1180,7 +1183,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			sendPacket(packet);
 		}
 		delayedPackets.clear();
-		
+
 		if (!getGameMode().equals(prevMode)) {
 			prevMode = getGameMode();
 			mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
@@ -1340,7 +1343,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		recalculatePermissions();
 		HashMap<String, Boolean> values = new HashMap<String, Boolean>();
 		HashSet<String> allPerms = new HashSet<String>();
-		
+
 		//Hackish workaround for bukkit not giving us all the permissions
 		Set<Permission> defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(false);
 		for(Permission permission:defaults) {
@@ -1350,16 +1353,16 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		for(Permission permission:defaults) {
 			allPerms.add(permission.getName());
 		}
-		
+
 		//Overwrite with actual permissions, if applicable
 		for(PermissionAttachmentInfo info:perm.getEffectivePermissions()) {
 			allPerms.add(info.getPermission());
 		}
-		
+
 		for(String p:allPerms) {
 			values.put(p, hasPermission(p));
 		}
-		
+
 		sendPacket(new PacketPermissionUpdate(values));
 	}
 
@@ -1373,7 +1376,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void addWaypoint(String name, double x, double y, double z) {
 		sendPacket(new PacketWaypoint(x, y, z, name));
 	}
-	
+
 	public void updateWaypoints() {
 		List<Waypoint> waypoints = ConfigReader.getWaypoints(getWorld().getName().toLowerCase());
 		for (Waypoint p : waypoints) {

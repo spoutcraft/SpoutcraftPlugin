@@ -1,5 +1,8 @@
 /*
- * This file is part of SpoutPlugin (http://www.spout.org/).
+ * This file is part of SpoutPlugin.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -89,7 +92,7 @@ public class CustomPacket extends Packet {
 			} else {
 				byte[] data = new byte[length];
 				input.readFully(data);
-				
+		
 				SpoutInputStream stream = new SpoutInputStream(ByteBuffer.wrap(data));
 				packet.readData(stream);
 
@@ -117,7 +120,7 @@ public class CustomPacket extends Packet {
 		//System.out.println("Writing Packet Data for " + packet.getPacketType());
 		output.writeShort(packet.getPacketType().getId());
 		output.writeShort(packet.getVersion());
-		
+
 		stream.getRawBuffer().clear();
 		packet.writeData(stream);
 		ByteBuffer buffer = stream.getRawBuffer();
