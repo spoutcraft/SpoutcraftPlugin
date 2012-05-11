@@ -147,7 +147,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		int blockId = customBlock.getCustomId();
 
 		SpoutManager.getChunkDataManager().setBlockData(blockIdString, world, x, y, z, blockId);
-		((SpoutWorld) world).getChunkAt(x, y, z).setCustomBlockRotation(x, y, z, rotation);
+		((SpoutChunk) world.getChunkAt(x<<4, z<<4)).setCustomBlockRotation(x, y, z, rotation);
 
 		queueBlockOverrides(world, x, y, z, blockId, rotation);
 
