@@ -62,7 +62,7 @@ public class PlayerManager {
 					SpoutCraftPlayer scp = (SpoutCraftPlayer)SpoutManager.getPlayer(player);
 					Bukkit.getServer().getPluginManager().callEvent(new SpoutcraftFailedEvent(scp));
 					scp.queued = null;
-					if ((ConfigReader.isForceClient() && !player.hasPermission("spout.plugin.ignorespoutcraft")) || player.hasPermission("spout.plugin.forcespoutcraft")) {
+					if ((ConfigReader.isForceClient() && !player.hasPermission("spout.plugin.ignorespoutcraft")) || player.hasPermission("spout.plugin.forcespoutcraft") && !player.isOp()) {
 						System.out.println("[Spout] Failed to authenticate " + player.getName() + "'s Spoutcraft client in " + ConfigReader.getAuthenticateTicks() + " server ticks.");
 						System.out.println("[Spout] Kicking " + player.getName() + " for not running Spoutcraft");
 						player.kickPlayer(ConfigReader.getKickMessage());
