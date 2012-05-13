@@ -41,14 +41,14 @@ public class PacketCustomBlockChunkOverride implements CompressablePacket {
 	public PacketCustomBlockChunkOverride() {
 	}
 
-	public PacketCustomBlockChunkOverride(short[] customIds, byte[] customRots, int x, int z) {
+	public PacketCustomBlockChunkOverride(short[] customIds, byte[] customData, int x, int z) {
 		chunkX = x;
 		chunkZ = z;
 		if (customIds != null) {
 			ByteBuffer buffer = ByteBuffer.allocate(customIds.length * 3);
 			for (int i = 0; i < customIds.length; i++) {
 				buffer.putShort(customIds[i]);
-				buffer.put(customRots == null ? 0 : customRots[i]);
+				buffer.put(customData == null ? 0 : customData[i]);
 			}
 			data = buffer.array();
 			hasData = true;
@@ -86,7 +86,7 @@ public class PacketCustomBlockChunkOverride implements CompressablePacket {
 			if (c instanceof SpoutChunk) {
 				SpoutChunk chunk = (SpoutChunk)c;
 
-				player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunk.getCustomBlockRotations(), chunkX, chunkZ));
+				player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunk.getCustomBlockData(), chunkX, chunkZ));
 			}
 		}
 	}

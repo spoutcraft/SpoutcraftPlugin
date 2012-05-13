@@ -28,7 +28,6 @@ import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.block.design.BlockDesign;
-import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
@@ -42,7 +41,7 @@ import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class GenericCustomBlock extends GenericBlock implements CustomBlock, SpoutPacket {
-	public BlockDesign design = new GenericBlockDesign();
+	public BlockDesign[] design = new BlockDesign[256];
 	private SpoutItemStack drop = null;
 	private String fullName;
 	private int customId;
@@ -234,15 +233,32 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	@Override
 	public BlockDesign getBlockDesign() {
-		return design;
+		return getBlockDesign(0);
+	}
+
+	@Override
+	public BlockDesign getBlockDesign(int id) {
+		return design[id + 128];
 	}
 
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
-		this.design = design;
+		if(rotate) {
+			setBlockDesign(design, 0);
+			setBlockDesign(design.rotate(90), 1);
+			setBlockDesign(design.rotate(180), 2);
+			setBlockDesign(design.rotate(270), 3);
+			return this;
+		}
+		return setBlockDesign(design, 0);
+	}
+
+	@Override
+	public CustomBlock setBlockDesign(BlockDesign design, int id) {
+		this.design[id + 128] = design;
 
 		for (SpoutPlayer sp : Spout.getServer().getOnlinePlayers()) {
-			sp.sendPacket(new PacketCustomBlockDesign((short) customId, design));
+			sp.sendPacket(new PacketCustomBlockDesign((short) customId, design, (byte) id));
 		}
 		return this;
 	}

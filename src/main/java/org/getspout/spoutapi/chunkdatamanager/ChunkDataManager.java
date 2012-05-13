@@ -126,7 +126,7 @@ public interface ChunkDataManager {
 	 */
 	public void setCustomBlockIds(World world, int x, int z, short[] ids);
 
-	public byte[] getCustomBlockRotations(World world, int x, int z);
+	public byte[] getCustomBlockData(World world, int x, int z);
 
-	public void setCustomBlockRotations(World world, int x, int z, byte[] rots);
+	public void setCustomBlockData(World world, int x, int z, byte[] rots);
 }

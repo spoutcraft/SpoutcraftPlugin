@@ -36,7 +36,7 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket {
 	private boolean compressed = false;
 	private byte[] data;
 
-	public PacketCustomMultiBlockOverride(TIntArrayList xCoords, TIntArrayList yCoords, TIntArrayList zCoords, TIntArrayList blockTypeIds, TByteArrayList blockRotations) {
+	public PacketCustomMultiBlockOverride(TIntArrayList xCoords, TIntArrayList yCoords, TIntArrayList zCoords, TIntArrayList blockTypeIds, TByteArrayList blockData) {
 		short size = (short) xCoords.size();
 		ByteBuffer rawData = ByteBuffer.allocate(size * 7);
 		chunkX = xCoords.get(0) >> 4;
@@ -46,7 +46,7 @@ public class PacketCustomMultiBlockOverride implements CompressablePacket {
 			rawData.putShort((short) yCoords.get(i));
 			rawData.put((byte) (zCoords.get(i) - chunkZ * 16));
 			rawData.putShort((short) blockTypeIds.get(i));
-			rawData.put(blockRotations.get(i));
+			rawData.put(blockData.get(i));
 		}
 		data = rawData.array();
 	}

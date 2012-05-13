@@ -193,4 +193,6 @@ public interface BlockDesign {
 	 * @return the texture
 	 */
 	public Texture getTexture();
+	
+	public BlockDesign rotate(int degrees);
 }
