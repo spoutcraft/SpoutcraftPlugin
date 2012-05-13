@@ -81,7 +81,11 @@ public class PlayerManager {
 		player.sendPacket(new PacketAllowVisualCheats(ConfigReader.isAllowSkyCheat(),ConfigReader.isAllowClearWaterCheat(),ConfigReader.isAllowStarsCheat(),ConfigReader.isAllowWeatherCheat(),ConfigReader.isAllowTimeCheat(),ConfigReader.isAllowCoordsCheat(),ConfigReader.isAllowEntityLabelCheat(),ConfigReader.isAllowVoidFogCheat()));
 
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
-			player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign()));
+			byte i = -128;
+			do {
+				if(block.getBlockDesign(i) != null) player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign(i), i));
+				i++;
+			} while(i != 127);
 		}
 		player.updatePermissions();
 
