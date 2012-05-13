@@ -17,7 +17,9 @@
 package org.getspout.spoutapi.block.design;
 
 import java.io.IOException;
+import java.util.Arrays;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.BlockVector;
 
@@ -256,5 +258,51 @@ public class GenericBlockDesign implements BlockDesign {
 	@Override
 	public BlockDesign setVertex(Vertex vertex) {
 		return setVertex(vertex.getQuadNum(), vertex.getIndex(), vertex.getX(), vertex.getY(), vertex.getZ(), vertex.getTextureX(), vertex.getTextureY(), vertex.getTextureWidth(), vertex.getTextureHeight());
+	}
+	
+	@Override
+	public BlockDesign rotate(int degrees) {
+		double angle = Math.toRadians(degrees);
+		float[][] rotmatrix = {
+				{ (float) Math.cos(angle),	0f,	(float) Math.sin(angle) },
+				{ 0f,						1f,	0f						},
+				{ (float) -Math.sin(angle),	0f, (float) Math.cos(angle) }
+		};
+		
+		float[][] xx = new float[xPos.length][xPos[0].length];
+		float[][] yy = new float[yPos.length][yPos[0].length];
+		float[][] zz = new float[zPos.length][zPos[0].length];
+		int[] lightx = new int[lightSourceXOffset.length];
+		int[] lighty = new int[lightSourceYOffset.length];
+		int[] lightz = new int[lightSourceZOffset.length];
+		for(int i = 0; i < xx.length; i++) {
+			for (int j = 0; j < 4; j++) {
+				float x1 = xPos[i][j] - 0.5f;//shift 0.5 to center around origin.
+				float y1 = yPos[i][j] - 0.5f;
+				float z1 = zPos[i][j] - 0.5f;
+				float x2 = (x1*rotmatrix[0][0]) + (y1*rotmatrix[0][1]) + (z1*rotmatrix[0][2]);
+				float y2 = (x1*rotmatrix[1][0]) + (y1*rotmatrix[1][1]) + (z1*rotmatrix[1][2]);
+				float z2 = (x1*rotmatrix[2][0]) + (y1*rotmatrix[2][1]) + (z1*rotmatrix[2][2]);
+				xx[i][j] = x2 + 0.5f;
+				yy[i][j] = y2 + 0.5f;
+				zz[i][j] = z2 + 0.5f;
+				int side = i;
+				if(side > 0 && side < 5 && angle != 0) {
+					side--;
+					side+=(4-(degrees/90));
+					side = (side % 4) + 1;
+				}
+				lightx[side] = lightSourceXOffset[i];
+				lighty[side] = lightSourceYOffset[i];
+				lightz[side] = lightSourceZOffset[i];
+				       
+			}
+		}
+		
+		GenericBlockDesign des = new GenericBlockDesign(lowXBound, lowYBound, lowZBound, highXBound, highYBound, highZBound, textureURL, Bukkit.getPluginManager().getPlugin(texturePlugin), xx, yy, zz, textXPos, textYPos, renderPass);
+		des.lightSourceXOffset = lightx;
+		des.lightSourceYOffset = lighty;
+		des.lightSourceZOffset = lightz;
+		return des;
 	}
 }

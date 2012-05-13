@@ -47,7 +47,7 @@ public class ChunkMetaData implements Serializable {
 	//storage for custom block id's
 	private short[] customBlockIds = null;
 	//storage for custom block rotations's
-	private byte[] customBlockRotations = null;
+	private byte[] customBlockData = null;
 	//storage for local block data
 	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
 	private static final int CURRENT_VERSION = 4;
@@ -174,12 +174,12 @@ public class ChunkMetaData implements Serializable {
 		setDirty(true);
 	}
 
-	public byte[] getCustomBlockRotations() {
-		return customBlockRotations;
+	public byte[] getCustomBlockData() {
+		return customBlockData;
 	}
 
-	public void setCustomBlockRotations(byte[] rots) {
-		customBlockRotations = rots;
+	public void setCustomBlockData(byte[] rots) {
+		customBlockData = rots;
 		setDirty(true);
 	}
 
@@ -296,9 +296,9 @@ public class ChunkMetaData implements Serializable {
 				writeMap(out, i.value());
 			}
 		}
-		if (customBlockRotations != null) {
+		if (customBlockData != null) {
 			out.writeBoolean(true);
-			out.write(customBlockRotations);
+			out.write(customBlockData);
 		} else {
 			out.writeBoolean(false);
 		}
@@ -365,8 +365,8 @@ public class ChunkMetaData implements Serializable {
 		
 		if (fileVersionNumber >= 4) {
 			boolean hasRotations = in.readBoolean();
-			customBlockRotations = new byte[16 * 16 * worldHeight];
-			if(hasRotations) in.readFully(customBlockRotations);
+			customBlockData = new byte[16 * 16 * worldHeight];
+			if(hasRotations) in.readFully(customBlockData);
 		}
 
 		if (fileVersionNumber < CURRENT_VERSION) {

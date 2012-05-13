@@ -221,21 +221,21 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 	}
 
 	@Override
-	public byte[] getCustomBlockRotations(World world, int x, int z) {
+	public byte[] getCustomBlockData(World world, int x, int z) {
 		ChunkMetaData md = getMetaData(world, x, z, true, false);
 
 		if (md == null) {
 			return null;
 		}
 
-		return md.getCustomBlockRotations();
+		return md.getCustomBlockData();
 	}
 
 	@Override
-	public void setCustomBlockRotations(World world, int x, int z, byte[] ids) {
+	public void setCustomBlockData(World world, int x, int z, byte[] ids) {
 		ChunkMetaData md = getMetaData(world, x, z, true, true);
 
-		md.setCustomBlockRotations(ids);
+		md.setCustomBlockData(ids);
 	}
 
 	private ChunkMetaData getMetaData(World world, int x, int z, boolean load, boolean loadOrCreate) {

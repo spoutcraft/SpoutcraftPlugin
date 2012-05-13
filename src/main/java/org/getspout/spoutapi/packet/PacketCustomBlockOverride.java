@@ -26,18 +26,18 @@ public class PacketCustomBlockOverride implements SpoutPacket {
 	private short y;
 	private int z;
 	private short blockId;
-	private byte rotation;
+	private byte data;
 
 	public PacketCustomBlockOverride() {
 
 	}
 
-	public PacketCustomBlockOverride(int x, int y, int z, Integer blockId, Byte rotation) {
+	public PacketCustomBlockOverride(int x, int y, int z, Integer blockId, Byte data) {
 		this.x = x;
 		this.y = (short) (y & 0xFFFF);
 		this.z = z;
 		setBlockId(blockId);
-		setBlockRotation(rotation);
+		setBlockData(data);
 	}
 
 	private void setBlockId(Integer blockId) {
@@ -52,16 +52,16 @@ public class PacketCustomBlockOverride implements SpoutPacket {
 		return blockId == -1 ? null : blockId;
 	}
 
-	private void setBlockRotation(Byte rot) {
+	private void setBlockData(Byte rot) {
 		if (rot == null) {
-			this.rotation = -1;
+			this.data = -1;
 		} else {
-			this.rotation = rot.byteValue();
+			this.data = rot.byteValue();
 		}
 	}
 
-	protected Byte getBlockRotation() {
-		return rotation == -1 ? null : rotation;
+	protected Byte getBlockData() {
+		return data == -1 ? null : data;
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class PacketCustomBlockOverride implements SpoutPacket {
 		y = input.readShort();
 		z = input.readInt();
 		setBlockId((int) input.readShort());
-		setBlockRotation((byte)input.read());
+		setBlockData((byte)input.read());
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class PacketCustomBlockOverride implements SpoutPacket {
 		output.writeShort(y);
 		output.writeInt(z);
 		output.writeShort(blockId);
-		output.write(rotation);
+		output.write(data);
 	}
 
 	@Override

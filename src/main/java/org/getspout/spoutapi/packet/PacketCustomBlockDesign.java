@@ -25,18 +25,21 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketCustomBlockDesign implements SpoutPacket {
 	private short customId;
+	private byte data;
 	private BlockDesign design;
 
 	public PacketCustomBlockDesign() {
 	}
 
-	public PacketCustomBlockDesign(short customId, BlockDesign design) {
+	public PacketCustomBlockDesign(short customId, BlockDesign design, byte data) {
 		this.design = design;
 		this.customId = customId;
+		this.data = data;
 	}
 
 	public void readData(SpoutInputStream input) throws IOException {
 		customId = input.readShort();
+		data = (byte) input.read();
 		design = new GenericBlockDesign();
 		design.read(input);
 		if (design.getReset()) {
@@ -46,6 +49,7 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeShort(customId);
+		output.write(data);
 		if (design != null) {
 			design.write(output);
 		} else {
@@ -67,6 +71,6 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return design.getVersion() + 2;
+		return design.getVersion() + 3;
 	}
 }

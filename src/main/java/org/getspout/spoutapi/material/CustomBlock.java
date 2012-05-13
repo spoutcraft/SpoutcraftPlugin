@@ -40,6 +40,11 @@ public interface CustomBlock extends Block {
 	 * @return this
 	 */
 	public CustomBlock setBlockDesign(BlockDesign design);
+	
+	public BlockDesign getBlockDesign(int id);
+
+	public CustomBlock setBlockDesign(BlockDesign design, int id);
+
 
 	/**
 	 * Gets the Custom ID number associated with this CustomBlock

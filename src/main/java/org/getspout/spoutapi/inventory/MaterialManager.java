@@ -118,9 +118,9 @@ public interface MaterialManager {
 	 */
 	public boolean overrideBlock(World world, int x, int y, int z, CustomBlock customBlock);
 
-	public boolean overrideBlock(Block block, CustomBlock customBlock, byte rotation);
+	public boolean overrideBlock(Block block, CustomBlock customBlock, byte data);
 
-	public boolean overrideBlock(World world, int x, int y, int z, CustomBlock customBlock, byte rotation);
+	public boolean overrideBlock(World world, int x, int y, int z, CustomBlock customBlock, byte data);
 
 	/**
 	 * Registers a SpoutRecipe to the server
