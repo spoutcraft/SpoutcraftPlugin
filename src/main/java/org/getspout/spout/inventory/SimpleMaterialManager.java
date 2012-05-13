@@ -40,7 +40,9 @@ import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.util.map.TIntPairObjectHashMap;
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -122,7 +124,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 	}
 
 	@Override
-	public boolean overrideBlock(Block block, CustomBlock customBlock, byte rotation) {
+	public boolean overrideBlock(Block block, CustomBlock customBlock, byte data) {
 		block.setTypeId(customBlock.getBlockId());
 		int blockId = customBlock.getCustomId();
 
@@ -131,8 +133,8 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		customBlock.onBlockPlace(scb.getWorld(), scb.getX(), scb.getY(), scb.getZ());
 
 		scb.setCustomBlockId(blockId);
-		scb.setCustomBlockRotation(rotation);
-		queueBlockOverrides(scb, blockId, rotation);
+		scb.setCustomBlockData(data);
+		queueBlockOverrides(scb, blockId, data);
 
 		return true;
 	}
@@ -143,24 +145,24 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 	}
 
 	@Override
-	public boolean overrideBlock(World world, int x, int y, int z, CustomBlock customBlock, byte rotation) {
+	public boolean overrideBlock(World world, int x, int y, int z, CustomBlock customBlock, byte data) {
 		int blockId = customBlock.getCustomId();
 
 		SpoutManager.getChunkDataManager().setBlockData(blockIdString, world, x, y, z, blockId);
-		((SpoutChunk) world.getChunkAt(x<<4, z<<4)).setCustomBlockRotation(x, y, z, rotation);
+		((SpoutChunk) world.getChunkAt(x<<4, z<<4)).setCustomBlockData(x, y, z, data);
 
-		queueBlockOverrides(world, x, y, z, blockId, rotation);
+		queueBlockOverrides(world, x, y, z, blockId, data);
 
 		return true;
 	}
 
-	public void queueBlockOverrides(SpoutCraftBlock block, Integer blockId, byte rotation) {
+	public void queueBlockOverrides(SpoutCraftBlock block, Integer blockId, byte data) {
 		if (block != null) {
-			queueBlockOverrides(block.getWorld(), block.getX(), block.getY(), block.getZ(), blockId, rotation);
+			queueBlockOverrides(block.getWorld(), block.getX(), block.getY(), block.getZ(), blockId, data);
 		}
 	}
 
-	public void queueBlockOverrides(World world, int x, int y, int z, Integer blockId, byte rotation) {
+	public void queueBlockOverrides(World world, int x, int y, int z, Integer blockId, byte data) {
 		if (world != null) {
 			TIntPairObjectHashMap<BlockOverrides> chunkOverrides = queuedChunkBlockOverrides.get(world);
 			if (chunkOverrides == null) {
@@ -172,7 +174,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 				overrides = new BlockOverrides(world);
 				chunkOverrides.put(x >> 4, z >> 4, overrides);
 			}
-			overrides.putOverride(x, y, z, blockId != null ? blockId.intValue() : -1, rotation);
+			overrides.putOverride(x, y, z, blockId != null ? blockId.intValue() : -1, data);
 		}
 	}
 
@@ -226,17 +228,17 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		private TIntArrayList yCoords = new TIntArrayList();
 		private TIntArrayList zCoords = new TIntArrayList();
 		private TIntArrayList typeIds = new TIntArrayList();
-		private TByteArrayList rotations = new TByteArrayList();
+		private TByteArrayList data = new TByteArrayList();
 		BlockOverrides(World world) {
 			this.world = world;
 		}
 
-		protected void putOverride(int x, int y, int z, int id, byte rot) {
+		protected void putOverride(int x, int y, int z, int id, byte data) {
 			xCoords.add(x);
 			yCoords.add(y);
 			zCoords.add(z);
 			typeIds.add(id);
-			rotations.add(rot);
+			this.data.add(data);
 		}
 
 		protected void sendPacket() {
@@ -246,9 +248,9 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 				if (xCoords.size() > 128) {
 					int chunkX = xCoords.get(0) >> 4;
 					int chunkZ = zCoords.get(0) >> 4;
-					packet = new PacketCustomBlockChunkOverride(SpoutManager.getChunkDataManager().getCustomBlockIds(world, chunkX, chunkZ), SpoutManager.getChunkDataManager().getCustomBlockRotations(world, chunkX, chunkZ),chunkX, chunkZ);
+					packet = new PacketCustomBlockChunkOverride(SpoutManager.getChunkDataManager().getCustomBlockIds(world, chunkX, chunkZ), SpoutManager.getChunkDataManager().getCustomBlockData(world, chunkX, chunkZ),chunkX, chunkZ);
 				} else {
-					packet = new PacketCustomMultiBlockOverride(xCoords, yCoords, zCoords, typeIds, rotations);
+					packet = new PacketCustomMultiBlockOverride(xCoords, yCoords, zCoords, typeIds, data);
 				}
 
 				for (Player player : players) {
@@ -261,7 +263,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 				}
 			} else {
 				for (int i = 0; i < xCoords.size(); i++) {
-					SpoutPacket packet = new PacketCustomBlockOverride(xCoords.get(i), yCoords.get(i), zCoords.get(i), typeIds.get(i), rotations.get(i));
+					SpoutPacket packet = new PacketCustomBlockOverride(xCoords.get(i), yCoords.get(i), zCoords.get(i), typeIds.get(i), data.get(i));
 					for (Player player : players) {
 						if (player instanceof SpoutCraftPlayer) {
 							SpoutCraftPlayer spc = (SpoutCraftPlayer) player;

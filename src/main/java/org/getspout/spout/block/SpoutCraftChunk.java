@@ -291,45 +291,45 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 	}
 
 	@Override
-	public byte[] getCustomBlockRotations() {
-		return SpoutManager.getChunkDataManager().getCustomBlockRotations(getWorld(), getX(), getZ());
+	public byte[] getCustomBlockData() {
+		return SpoutManager.getChunkDataManager().getCustomBlockData(getWorld(), getX(), getZ());
 	}
 
 	@Override
-	public void setCustomBlockRotations(byte[] rots) {
-		SpoutManager.getChunkDataManager().setCustomBlockRotations(getWorld(), getX(), getZ(), rots);
+	public void setCustomBlockData(byte[] data) {
+		SpoutManager.getChunkDataManager().setCustomBlockData(getWorld(), getX(), getZ(), data);
 	}
 
 	@Override
-	public byte getCustomBlockRotation(int x, int y, int z) {
-		byte[] rots = getCustomBlockRotations();
-		if (rots == null) {
+	public byte getCustomBlockData(int x, int y, int z) {
+		byte[] data = getCustomBlockData();
+		if (data == null) {
 			return 0;
 		}
 		int index = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
-		return rots[index];
+		return data[index];
 	}
 
 	@Override
-	public byte setCustomBlockRotation(int x, int y, int z, byte rot) {
-		byte[] rots = getCustomBlockRotations();
-		if (rots == null) {
-			rots = new byte[16*16*worldHeight];
-			setCustomBlockRotations(rots);
+	public byte setCustomBlockData(int x, int y, int z, byte data) {
+		byte[] dats = getCustomBlockData();
+		if (dats == null) {
+			dats = new byte[16*16*worldHeight];
+			setCustomBlockData(dats);
 		}
 		int index = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
-		byte old = rots[index];
-		rots[index] = rot;
+		byte old = dats[index];
+		dats[index] = data;
 		return old;
 	}
 
 	@Override
-	public CustomBlock setCustomBlock(int x, int y, int z, CustomBlock block, byte rotation) {
+	public CustomBlock setCustomBlock(int x, int y, int z, CustomBlock block, byte data) {
 		if (block == null) {
 			throw new NullPointerException("Custom Block can not be null!");
 		}
 		short old = setCustomBlockId(x, y, z, (short) block.getCustomId());
-		setCustomBlockRotation(x, y, z, rotation);
+		setCustomBlockData(x, y, z, data);
 		return MaterialData.getCustomBlock(old);
 	}
 }
