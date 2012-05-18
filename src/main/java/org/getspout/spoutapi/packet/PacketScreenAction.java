@@ -103,7 +103,7 @@ public class PacketScreenAction implements SpoutPacket {
 	
 	private void handleScreenClose(SpoutPlayer player, ScreenCloseEvent e, boolean update) {
 		PopupScreen p = player.getMainScreen().getActivePopup();
-		if(update) p.onScreenClose(e);
+		if(update && p != null) p.onScreenClose(e);
 		if(e.isCancelled()) {
 			handleScreenCloseCancelled(player, e, false);
 			return;
