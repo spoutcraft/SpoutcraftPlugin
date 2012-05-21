@@ -1,24 +1,18 @@
-<!--
-	Maven build file for SpoutPlugin
-
-	Copyright (c) 2011-2012 SpoutDev <http://www.spout.org>
-	SpoutPlugin is licensed under GNU Lesser General Public License Version 3
--->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Project information -->
+	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
 	<version>dev-SNAPSHOT</version>
-	<name>SpoutPlugin</name>
 	<url>http://www.spout.org</url>
+	<inceptionYear>2011</inceptionYear>
 	<description>SpoutPlugin is a plugin for Bukkit-based servers that exposes new API for other plugins to utilize.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<craftbukkitVersion>1.2.5-R1.4-SNAPSHOT</craftbukkitVersion>
+		<craftbukkitVersion>1.2.5-R2.1-SNAPSHOT</craftbukkitVersion>
 		<minecraftVersion>1.2.5</minecraftVersion>
 		<spoutVersion>${project.version}</spoutVersion>
 		<buildNumber>0</buildNumber>
@@ -46,6 +40,12 @@
 		<url>http://build.spout.org</url>
 	</ciManagement>
 
+	<!-- Issue management -->
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.spout.org</url>
+	</issueManagement>
+
 	<!-- Repository locations -->
 	<repositories>
 		<repository>
@@ -53,6 +53,12 @@
 			<url>http://repo.spout.org</url>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spout-plugins</id>
+			<url>http://repo.spout.org</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<!-- Dependencies -->
 	<dependencies>
@@ -81,7 +87,8 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-   
+
+	<!-- Build settings -->
 	<build>
 		<defaultGoal>clean package install</defaultGoal>
 		<!-- Resources -->
@@ -99,8 +106,7 @@
 				<filtering>true</filtering>
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
-					<include>plugin.yml</include>
-					<include>config.yml</include>
+					<include>*.yml</include>
 				</includes>
 			</resource>
 		</resources>
@@ -136,7 +142,7 @@
 						<url>${project.url}</url>
 						<license>GNU Lesser General Public License</license>
 						<licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
-						<copyright>Copyright (c) 2011-2012, SpoutDev</copyright>
+						<copyright>Copyright (c) ${project.inceptionYear}-2012, SpoutDev</copyright>
 					</properties>
 					<includes>
 						<include>src/main/java/**</include>

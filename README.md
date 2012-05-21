@@ -5,7 +5,7 @@ SpoutPlugin is a plugin for Bukkit-based servers and a Minecraft client mod syst
 
 Copyright (c) 2011-2012, SpoutDev <http://www.spout.org>
 
-SpoutPlugin is licensed under [GNU LESSER GENERAL PUBLIC LICENSE Version 3][License].
+SpoutPlugin is licensed under [GNU Lesser General Public License Version 3][License].
 
 Who is SpoutDev?
 ----------------
@@ -47,9 +47,10 @@ Coding and Pull Request Formatting
 * No 80 column limit or midstatement newlines.
 * Pull requests must compile and work.
 * Pull requests must be formatted properly.
+* Sign-off on your ALL commits - this indicates you agree to the terms of our license.
 * No merges should be included in pull requests unless the pull request's purpose is a merge.
-* Number of commits in a pull request should be kept to *one commit* and all additional commits must be *squashed and signed off*.
-* For clarification, see the full pull request guidelines [here](http://forums.spout.org/threads/643/)
+* Number of commits in a pull request should be kept to *one commit* and all additional commits must be *squashed*.
+* For clarification, see the full pull request guidelines [here](http://spout.in/prguide).
 
 **Please follow the above conventions if you want your pull request(s) accepted.**
 
