@@ -8,7 +8,7 @@ DeadlockMonitor: false
 TeleportSmoothing: true
 AllowEntityLabelCheat: false
 AllowClearWaterCheat: false
-AllowCoordsCheat: false
+AllowCoordsCheat: true
 AllowSkyCheat: false
 AllowStarsCheat: false
 AllowTimeCheat: false
