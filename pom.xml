@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<craftbukkitVersion>1.2.5-R2.1-SNAPSHOT</craftbukkitVersion>
+		<craftbukkitVersion>1.2.5-R3.1-SNAPSHOT</craftbukkitVersion>
 		<minecraftVersion>1.2.5</minecraftVersion>
 		<spoutVersion>${project.version}</spoutVersion>
 		<buildNumber>0</buildNumber>
