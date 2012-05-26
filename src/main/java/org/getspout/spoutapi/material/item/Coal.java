@@ -1,5 +1,8 @@
 /*
- * This file is part of SpoutPluginAPI (http://www.spout.org/).
+ * This file is part of SpoutPluginAPI.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPluginAPI is licensed under the GNU Lesser General Public License.
  *
  * SpoutPluginAPI is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
