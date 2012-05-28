@@ -19,17 +19,17 @@
  */
 package org.getspout.spout.command;
 
+import org.getspout.spout.Spout;
+import org.getspout.spout.config.ConfigReader;
+import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
-
-import org.getspout.spout.Spout;
-import org.getspout.spout.config.ConfigReader;
-import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutCommand implements CommandExecutor {
 	private final Spout p;

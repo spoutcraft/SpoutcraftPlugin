@@ -28,12 +28,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.getspout.spout.Spout;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.getspout.spout.Spout;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ConfigReader {
 	private static boolean buildCheck = true;

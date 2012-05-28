@@ -21,6 +21,10 @@ package org.getspout.spout;
 
 import java.lang.reflect.Field;
 
+import org.getspout.spout.block.SpoutCraftChunk;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -28,10 +32,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
-
-import org.getspout.spout.block.SpoutCraftChunk;
-import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
 
 public class SpoutWorldListener implements Listener {
 	public SpoutWorldListener(Spout plugin) {

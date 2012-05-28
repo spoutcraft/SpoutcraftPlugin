@@ -19,22 +19,22 @@
  */
 package org.getspout.spout.player;
 
-import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import org.getspout.spoutapi.event.spout.SpoutcraftBuildSetEvent;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.PlayerManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
 public class SimplePlayerManager implements PlayerManager {
 	HashMap<String, PlayerInformation> infoMap = new HashMap<String, PlayerInformation>();

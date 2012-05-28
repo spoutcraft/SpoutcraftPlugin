@@ -22,6 +22,15 @@ package org.getspout.spout;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 
+import org.getspout.spout.inventory.SimpleMaterialManager;
+import org.getspout.spout.player.SimplePlayerManager;
+import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -40,15 +49,6 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
-
-import org.getspout.spout.inventory.SimpleMaterialManager;
-import org.getspout.spout.player.SimplePlayerManager;
-import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.material.CustomBlock;
-import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutPlayerListener implements Listener {
 	public final PlayerManager manager = new PlayerManager();

@@ -20,7 +20,6 @@
 package org.getspout.spout.packet.standard;
 
 import net.minecraft.server.Packet17EntityLocationAction;
-
 import org.getspout.spoutapi.packet.standard.MCPacket17;
 
 public class MCCraftPacket17EntityLocationAction extends MCCraftPacket implements MCPacket17 {

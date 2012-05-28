@@ -22,9 +22,11 @@ package org.getspout.spout.inventory;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.IInventory;
 import net.minecraft.server.ItemStack;
+
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.InventoryHolder;

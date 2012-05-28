@@ -22,6 +22,12 @@ package org.getspout.spout;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.getspout.spout.inventory.SimpleMaterialManager;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -35,12 +41,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
-
-import org.getspout.spout.inventory.SimpleMaterialManager;
-import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.material.CustomBlock;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutBlockListener implements Listener {
 	private final SimpleMaterialManager mm;

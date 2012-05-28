@@ -22,10 +22,6 @@ package org.getspout.spout.keyboard;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
 import org.getspout.spoutapi.event.input.KeyBindingEvent;
 import org.getspout.spoutapi.keyboard.BindingExecutionDelegate;
 import org.getspout.spoutapi.keyboard.KeyBinding;
@@ -33,6 +29,10 @@ import org.getspout.spoutapi.keyboard.KeyBindingManager;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.PacketKeyBinding;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 public class SimpleKeyBindingManager implements KeyBindingManager {
 	private HashMap<UUID, KeyBinding> bindings = new HashMap<UUID, KeyBinding>();

@@ -28,21 +28,11 @@ import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import net.minecraft.server.Item;
-
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Recipe;
-import org.bukkit.plugin.Plugin;
-
 import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.util.map.TIntPairObjectHashMap;
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -56,6 +46,13 @@ import org.getspout.spoutapi.packet.PacketCustomBlockOverride;
 import org.getspout.spoutapi.packet.PacketCustomMultiBlockOverride;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.plugin.Plugin;
 
 public class SimpleMaterialManager extends AbstractBlockManager implements MaterialManager {
 	private final TIntObjectHashMap<String> itemPlugin = new TIntObjectHashMap<String>();

@@ -21,13 +21,13 @@ package org.getspout.spout.player;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import org.getspout.spoutapi.gui.Color;
 import org.getspout.spoutapi.packet.PacketSky;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class SimpleSkyManager implements SkyManager {
 	private final HashMap<String, Integer> cloudHeight = new HashMap<String, Integer>();

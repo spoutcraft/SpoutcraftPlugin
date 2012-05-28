@@ -29,7 +29,6 @@ import java.util.Map;
 
 import net.minecraft.server.NetHandler;
 import net.minecraft.server.Packet;
-
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.io.SpoutInputStream;

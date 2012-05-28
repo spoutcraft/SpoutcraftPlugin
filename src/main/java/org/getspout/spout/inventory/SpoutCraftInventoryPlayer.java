@@ -21,10 +21,10 @@ package org.getspout.spout.inventory;
 
 import net.minecraft.server.IInventory;
 import net.minecraft.server.PlayerInventory;
+import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 
 import org.bukkit.craftbukkit.inventory.CraftInventoryPlayer;
 import org.bukkit.inventory.ItemStack;
-import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 
 public class SpoutCraftInventoryPlayer extends CraftInventoryPlayer implements SpoutPlayerInventory {
 	protected SpoutCraftingInventory crafting;

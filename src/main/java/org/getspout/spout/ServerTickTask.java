@@ -19,16 +19,17 @@
  */
 package org.getspout.spout;
 
-import org.bukkit.Bukkit;
-//import org.bukkit.Chunk;
-//import org.bukkit.World;
-import org.bukkit.entity.Player;
-
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.ServerTickEvent;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+//import org.bukkit.Chunk;
+//import org.bukkit.World;
 
 public class ServerTickTask implements Runnable {
 	//private int counter = 0;

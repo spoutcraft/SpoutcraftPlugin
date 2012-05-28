@@ -21,9 +21,6 @@ package org.getspout.spout;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.keyboard.SimpleKeyBindingManager;
@@ -42,6 +39,9 @@ import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
 import org.getspout.spoutapi.packet.PacketServerPlugins;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class PlayerManager {
 	private HashMap<String, Integer> timer = new HashMap<String, Integer>();

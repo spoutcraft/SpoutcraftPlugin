@@ -23,7 +23,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import net.minecraft.server.Packet;
-
 import org.getspout.spoutapi.packet.standard.MCPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket51MapChunkUncompressed;
 

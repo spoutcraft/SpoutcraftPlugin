@@ -19,12 +19,12 @@
  */
 package org.getspout.spout.player;
 
-import org.bukkit.block.Biome;
-import org.bukkit.entity.Player;
-
 import org.getspout.spoutapi.block.SpoutWeather;
 import org.getspout.spoutapi.player.BiomeManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.block.Biome;
+import org.bukkit.entity.Player;
 
 @SuppressWarnings("deprecation")
 public class SimpleBiomeManager implements BiomeManager {

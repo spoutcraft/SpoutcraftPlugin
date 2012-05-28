@@ -20,10 +20,10 @@
 package org.getspout.spout.inventory;
 
 import net.minecraft.server.IInventory;
+import org.getspout.spoutapi.inventory.DoubleChestInventory;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.getspout.spoutapi.inventory.DoubleChestInventory;
 
 public class SpoutDoubleChestInventory extends SpoutCraftInventory implements DoubleChestInventory {
 	protected Block top;

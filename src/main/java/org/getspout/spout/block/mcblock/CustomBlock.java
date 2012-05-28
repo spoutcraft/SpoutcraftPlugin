@@ -45,12 +45,6 @@ import net.minecraft.server.Material;
 import net.minecraft.server.MovingObjectPosition;
 import net.minecraft.server.Vec3D;
 import net.minecraft.server.World;
-
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.craftbukkit.block.CraftBlock;
-import org.bukkit.entity.Player;
-
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
@@ -60,6 +54,11 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.block.CraftBlock;
+import org.bukkit.entity.Player;
 
 public class CustomBlock extends Block implements CustomMCBlock {
 	protected Block parent;

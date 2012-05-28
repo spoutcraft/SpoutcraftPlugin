@@ -19,19 +19,12 @@
  */
 package org.getspout.spout.block.mcblock;
 
-import gnu.trove.map.hash.TIntIntHashMap;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.getspout.spout.block.SpoutCraftChunk;
-import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.SpoutManager;
+import gnu.trove.map.hash.TIntIntHashMap;
 
 import net.minecraft.server.AxisAlignedBB;
 import net.minecraft.server.Block;
@@ -44,6 +37,13 @@ import net.minecraft.server.IBlockAccess;
 import net.minecraft.server.MovingObjectPosition;
 import net.minecraft.server.Vec3D;
 import net.minecraft.server.World;
+import org.getspout.spout.block.SpoutCraftChunk;
+import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.SpoutManager;
+
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class CustomDoor extends BlockDoor implements CustomMCBlock {
 	protected BlockDoor parent;

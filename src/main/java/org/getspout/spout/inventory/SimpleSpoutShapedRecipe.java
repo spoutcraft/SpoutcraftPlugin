@@ -22,11 +22,10 @@ package org.getspout.spout.inventory;
 import java.util.HashMap;
 
 import net.minecraft.server.CraftingManager;
-
-import org.bukkit.inventory.ItemStack;
-
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
 import org.getspout.spoutapi.material.Material;
+
+import org.bukkit.inventory.ItemStack;
 
 public class SimpleSpoutShapedRecipe extends SpoutShapedRecipe implements SpoutRecipe {
 	public SimpleSpoutShapedRecipe(ItemStack result) {

@@ -25,13 +25,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.block.Biome;
-import org.bukkit.entity.LivingEntity;
-
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutWeather;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.PlayerInformation;
+
+import org.bukkit.block.Biome;
+import org.bukkit.entity.LivingEntity;
 @SuppressWarnings("deprecation")
 public class SimplePlayerInformation implements PlayerInformation {
 	HashMap<Biome,SpoutWeather> weatherMap = new HashMap<Biome, SpoutWeather>();

@@ -23,10 +23,9 @@ import java.util.Arrays;
 
 import net.minecraft.server.IInventory;
 import net.minecraft.server.InventoryCrafting;
+import org.getspout.spoutapi.inventory.CraftingInventory;
 
 import org.bukkit.inventory.ItemStack;
-
-import org.getspout.spoutapi.inventory.CraftingInventory;
 
 public class SpoutCraftingInventory extends SpoutCraftInventory implements CraftingInventory {
 	protected IInventory result;

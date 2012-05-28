@@ -24,13 +24,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet50PreChunk;
-
-import org.bukkit.entity.Player;
-
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.packet.standard.MCCraftPacketUnknown;
 import org.getspout.spoutapi.packet.listener.PacketListener;
 import org.getspout.spoutapi.packet.standard.MCPacket;
+
+import org.bukkit.entity.Player;
 
 /**
  * Keeps track of packet listeners

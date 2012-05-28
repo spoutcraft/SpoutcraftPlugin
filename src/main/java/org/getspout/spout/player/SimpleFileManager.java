@@ -36,13 +36,10 @@ import java.util.Map.Entry;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-
-import org.bukkit.plugin.Plugin;
-
 import org.getspout.commons.io.CRCStore;
+import org.getspout.commons.io.CRCStore.URLCheck;
 import org.getspout.commons.io.CRCStoreRunnable;
 import org.getspout.commons.io.FileUtil;
-import org.getspout.commons.io.CRCStore.URLCheck;
 import org.getspout.spout.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.packet.PacketCacheDeleteFile;
@@ -50,6 +47,8 @@ import org.getspout.spoutapi.packet.PacketPreCacheCompleted;
 import org.getspout.spoutapi.packet.PacketPreCacheFile;
 import org.getspout.spoutapi.player.FileManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.plugin.Plugin;
 
 public class SimpleFileManager implements FileManager {
 	private Map<Plugin,  List<File>> preLoginCache = new HashMap<Plugin,  List<File>>();
