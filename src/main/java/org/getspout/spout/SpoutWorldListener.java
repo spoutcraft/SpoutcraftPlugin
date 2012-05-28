@@ -50,14 +50,14 @@ public class SpoutWorldListener implements Listener {
 				e.printStackTrace();
 			}
 
-			SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+			SimpleChunkDataManager dm = (SimpleChunkDataManager) SpoutManager.getChunkDataManager();
 			dm.loadChunk(event.getChunk());
 		}
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onWorldLoad(WorldLoadEvent event) {
-		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+		SimpleChunkDataManager dm = (SimpleChunkDataManager) SpoutManager.getChunkDataManager();
 		dm.loadWorldChunks(event.getWorld());
 	}
 }

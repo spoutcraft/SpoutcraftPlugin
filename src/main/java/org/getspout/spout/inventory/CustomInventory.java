@@ -38,7 +38,7 @@ public class CustomInventory extends SpoutCraftInventory implements Inventory {
 	}
 
 	public CustomMCInventory getHandle() {
-		return (CustomMCInventory)getInventory();
+		return (CustomMCInventory) getInventory();
 	}
 
 	public String getName() {

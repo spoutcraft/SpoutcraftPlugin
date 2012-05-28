@@ -59,7 +59,7 @@ public class PlayerManager {
 					timer.put(player.getName(), ticksLeft);
 				} else {
 					timer.remove(player.getName());
-					SpoutCraftPlayer scp = (SpoutCraftPlayer)SpoutManager.getPlayer(player);
+					SpoutCraftPlayer scp = (SpoutCraftPlayer) SpoutManager.getPlayer(player);
 					Bukkit.getServer().getPluginManager().callEvent(new SpoutcraftFailedEvent(scp));
 					scp.queued = null;
 					if ((ConfigReader.isForceClient() && !player.hasPermission("spout.plugin.ignorespoutcraft")) || player.hasPermission("spout.plugin.forcespoutcraft") && !player.isOp()) {
@@ -76,25 +76,27 @@ public class PlayerManager {
 		timer.remove(player.getName());
 		player.sendPacket(new PacketServerPlugins(Bukkit.getServer().getPluginManager().getPlugins()));
 
-		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);
-		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
-		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
-		((SimpleFileManager)SpoutManager.getFileManager()).onPlayerJoin(player);
-		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
-		player.sendPacket(new PacketAllowVisualCheats(ConfigReader.isAllowSkyCheat(),ConfigReader.isAllowClearWaterCheat(),ConfigReader.isAllowStarsCheat(),ConfigReader.isAllowWeatherCheat(),ConfigReader.isAllowTimeCheat(),ConfigReader.isAllowCoordsCheat(),ConfigReader.isAllowEntityLabelCheat(),ConfigReader.isAllowVoidFogCheat()));
+		((SimpleMaterialManager) SpoutManager.getMaterialManager()).onPlayerJoin(player);
+		((SimpleSkyManager) SpoutManager.getSkyManager()).onPlayerJoin(player);
+		((SimpleBiomeManager) SpoutManager.getBiomeManager()).onPlayerJoin(player);
+		((SimpleFileManager) SpoutManager.getFileManager()).onPlayerJoin(player);
+		((SimpleKeyBindingManager) SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
+		player.sendPacket(new PacketAllowVisualCheats(ConfigReader.isAllowSkyCheat(), ConfigReader.isAllowClearWaterCheat(), ConfigReader.isAllowStarsCheat(), ConfigReader.isAllowWeatherCheat(), ConfigReader.isAllowTimeCheat(), ConfigReader.isAllowCoordsCheat(), ConfigReader.isAllowEntityLabelCheat(), ConfigReader.isAllowVoidFogCheat()));
 
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
 			byte i = -128;
 			do {
-				if(block.getBlockDesign(i) != null) player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign(i), i));
+				if (block.getBlockDesign(i) != null) {
+					player.sendPacket(new PacketCustomBlockDesign((short) block.getCustomId(), block.getBlockDesign(i), i));
+				}
 				i++;
-			} while(i != 127);
+			} while (i != 127);
 		}
 		player.updatePermissions();
 
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));
 		Bukkit.getServer().getPluginManager().callEvent(new SpoutCraftEnableEvent(player));
-		((SpoutCraftPlayer)player).updateAppearance();
-		((SpoutCraftPlayer)player).updateWaypoints();
+		((SpoutCraftPlayer) player).updateAppearance();
+		((SpoutCraftPlayer) player).updateWaypoints();
 	}
 }

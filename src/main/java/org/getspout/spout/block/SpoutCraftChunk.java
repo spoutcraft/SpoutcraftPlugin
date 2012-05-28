@@ -53,13 +53,9 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 	protected final ConcurrentHashMap<Integer, Integer> queuedId = new ConcurrentHashMap<Integer, Integer>();
 	protected final ConcurrentHashMap<Integer, Byte> queuedData = new ConcurrentHashMap<Integer, Byte>();
 	protected static final Set<SpoutCraftChunk> queuedChunks = Collections.newSetFromMap(new ConcurrentHashMap<SpoutCraftChunk, Boolean>());
-
 	public final TIntIntHashMap powerOverrides = new TIntIntHashMap();
-
 	public final Map<Integer, Block> blockCache = new MapMaker().weakValues().makeMap();
-
 	protected Field cache;
-
 	transient private final int worldHeight;
 	transient private final int worldHeightMinusOne;
 	transient private final int xBitShifts;
@@ -124,7 +120,6 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 		int z = (pos >> zBitShifts) & 0xF;
 
 		return getBlock(x, y, z);
-
 	}
 
 	public void onTick() {
@@ -217,7 +212,7 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 			if (handle.getClass().hashCode() != SpoutCraftChunk.class.hashCode()) {
 				replace = true;
 			}
-			org.bukkit.Chunk loopbackChunk = ((CraftChunk)chunk).getHandle().bukkitChunk;
+			org.bukkit.Chunk loopbackChunk = ((CraftChunk) chunk).getHandle().bukkitChunk;
 			if (loopbackChunk != chunk) {
 				replace = true;
 			}
@@ -272,7 +267,7 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 	public short setCustomBlockId(int x, int y, int z, short id) {
 		short[] ids = getCustomBlockIds();
 		if (ids == null) {
-			ids = new short[16*16*worldHeight];
+			ids = new short[16 * 16 * worldHeight];
 			setCustomBlockIds(ids);
 		}
 		int index = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
@@ -314,7 +309,7 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 	public byte setCustomBlockData(int x, int y, int z, byte data) {
 		byte[] dats = getCustomBlockData();
 		if (dats == null) {
-			dats = new byte[16*16*worldHeight];
+			dats = new byte[16 * 16 * worldHeight];
 			setCustomBlockData(dats);
 		}
 		int index = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);

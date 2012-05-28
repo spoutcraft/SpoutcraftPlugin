@@ -60,7 +60,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 
 	public static void disableFlintStackMix() {
 		try {
-			Method a = Item.class.getDeclaredMethod("a", new Class[] { boolean.class });
+			Method a = Item.class.getDeclaredMethod("a", new Class[]{boolean.class});
 			a.setAccessible(true);
 			a.invoke(Item.byId[318], Boolean.TRUE);
 		} catch (Exception e) {
@@ -79,13 +79,13 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		if (player.isSpoutCraftEnabled()) {
 			for (CustomBlock block : MaterialData.getCustomBlocks()) {
 				if (block instanceof SpoutPacket) {
-					player.sendPacket((SpoutPacket)block);
+					player.sendPacket((SpoutPacket) block);
 				}
 			}
 			for (CustomItem item : MaterialData.getCustomItems()) {
 				CustomBlock owner = MaterialData.getCustomBlock(item.getCustomId());
 				if (item instanceof SpoutPacket && owner == null) {
-					player.sendPacket((SpoutPacket)item);
+					player.sendPacket((SpoutPacket) item);
 				}
 			}
 		}
@@ -146,7 +146,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		int blockId = customBlock.getCustomId();
 
 		SpoutManager.getChunkDataManager().setBlockData(blockIdString, world, x, y, z, blockId);
-		((SpoutChunk) world.getChunkAt(x<<4, z<<4)).setCustomBlockData(x, y, z, data);
+		((SpoutChunk) world.getChunkAt(x << 4, z << 4)).setCustomBlockData(x, y, z, data);
 
 		queueBlockOverrides(world, x, y, z, blockId, data);
 
@@ -209,10 +209,11 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 	}
 
 	private boolean glassUpdated = false;
+
 	//Fired when MaterialData.addCustomItem or MaterialData.addCustomBlock is called
 	public void onCustomMaterialRegistered(Material mat) {
 		if (mat instanceof CustomBlock && !glassUpdated) {
-			if (!((CustomBlock)mat).isOpaque()) {
+			if (!((CustomBlock) mat).isOpaque()) {
 				org.getspout.spout.block.mcblock.CustomBlock.updateGlass();
 				glassUpdated = true;
 			}
@@ -226,6 +227,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		private TIntArrayList zCoords = new TIntArrayList();
 		private TIntArrayList typeIds = new TIntArrayList();
 		private TByteArrayList data = new TByteArrayList();
+
 		BlockOverrides(World world) {
 			this.world = world;
 		}
@@ -245,7 +247,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 				if (xCoords.size() > 128) {
 					int chunkX = xCoords.get(0) >> 4;
 					int chunkZ = zCoords.get(0) >> 4;
-					packet = new PacketCustomBlockChunkOverride(SpoutManager.getChunkDataManager().getCustomBlockIds(world, chunkX, chunkZ), SpoutManager.getChunkDataManager().getCustomBlockData(world, chunkX, chunkZ),chunkX, chunkZ);
+					packet = new PacketCustomBlockChunkOverride(SpoutManager.getChunkDataManager().getCustomBlockIds(world, chunkX, chunkZ), SpoutManager.getChunkDataManager().getCustomBlockData(world, chunkX, chunkZ), chunkX, chunkZ);
 				} else {
 					packet = new PacketCustomMultiBlockOverride(xCoords, yCoords, zCoords, typeIds, data);
 				}

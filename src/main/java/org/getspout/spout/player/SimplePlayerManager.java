@@ -112,11 +112,11 @@ public class SimplePlayerManager implements PlayerManager {
 	public void setVersionString(int playerId, String versionString) {
 		SpoutPlayer sp = getPlayer(playerId);
 		if (sp instanceof SpoutCraftPlayer) {
-			SpoutCraftPlayer scp = (SpoutCraftPlayer)sp;
+			SpoutCraftPlayer scp = (SpoutCraftPlayer) sp;
 			scp.setVersionString(versionString);
 			System.out.println("[Spout] Successfully authenticated " + scp.getName() + "'s Spoutcraft client. Running client version: " + scp.getVersionString());
-			int build = Integer.parseInt(versionString);		
-			((SpoutCraftPlayer) sp).setBuildVersion(build);		
+			int build = Integer.parseInt(versionString);
+			((SpoutCraftPlayer) sp).setBuildVersion(build);
 			SpoutcraftBuildSetEvent sbse = new SpoutcraftBuildSetEvent(sp, build);
 			Bukkit.getPluginManager().callEvent(sbse);
 		}
@@ -129,7 +129,8 @@ public class SimplePlayerManager implements PlayerManager {
 		if (result != null && result.get() != null) {
 			found = result.get();
 		} else {
-loop:		for (World world : Bukkit.getServer().getWorlds()) {
+			loop:
+			for (World world : Bukkit.getServer().getWorlds()) {
 				for (Entity e : world.getEntities()) {
 					if (e.getUniqueId().equals(id)) {
 						found = e;
@@ -152,7 +153,8 @@ loop:		for (World world : Bukkit.getServer().getWorlds()) {
 		if (result != null && result.get() != null) {
 			found = result.get();
 		} else {
-loop:		for (World world : Bukkit.getServer().getWorlds()) {
+			loop:
+			for (World world : Bukkit.getServer().getWorlds()) {
 				for (Entity e : world.getEntities()) {
 					if (e.getEntityId() == entityId) {
 						found = e;

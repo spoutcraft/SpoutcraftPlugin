@@ -51,9 +51,9 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import org.bukkit.plugin.Plugin;
 
 public class SimpleFileManager implements FileManager {
-	private Map<Plugin,  List<File>> preLoginCache = new HashMap<Plugin,  List<File>>();
-	private Map<Plugin,  List<String>> preLoginUrlCache = new HashMap<Plugin,  List<String>>();
-	private Map<Plugin, List<String>> cachedFiles = new HashMap<Plugin,  List<String>>();
+	private Map<Plugin, List<File>> preLoginCache = new HashMap<Plugin, List<File>>();
+	private Map<Plugin, List<String>> preLoginUrlCache = new HashMap<Plugin, List<String>>();
+	private Map<Plugin, List<String>> cachedFiles = new HashMap<Plugin, List<String>>();
 	private static final String[] validExtensions = {"txt", "yml", "xml", "png", "jpg", "ogg", "midi", "wav", "zip"};
 
 	public void onPlayerJoin(final SpoutPlayer player) {
@@ -69,7 +69,7 @@ public class SimpleFileManager implements FileManager {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					if (crc !=-1) {
+					if (crc != -1) {
 						player.sendPacket(new PacketPreCacheFile(next.getKey().getDescription().getName(), file.getPath(), crc, false));
 					}
 				}
@@ -194,7 +194,7 @@ public class SimpleFileManager implements FileManager {
 		if (files == null) {
 			throw new NullPointerException("The file collection may not be null");
 		}
-		for (File file: files) {
+		for (File file : files) {
 			if (file == null || !file.exists() || file.isDirectory()) {
 				throw new IllegalArgumentException("Invalid Files! Files must not be null and must exist!");
 			}
@@ -219,7 +219,7 @@ public class SimpleFileManager implements FileManager {
 		if (fileUrls == null) {
 			throw new NullPointerException("The url list may not be null");
 		}
-		for (String file: fileUrls) {
+		for (String file : fileUrls) {
 			if (!canCache(file)) {
 				return false;
 			}
@@ -269,7 +269,7 @@ public class SimpleFileManager implements FileManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (crc !=-1) {
+			if (crc != -1) {
 				for (SpoutPlayer player : SpoutManager.getOnlinePlayers()) {
 					if (player.isSpoutCraftEnabled()) {
 						player.sendPacket(new PacketPreCacheFile(plugin.getDescription().getName(), file.getPath(), crc, false));
@@ -331,7 +331,6 @@ public class SimpleFileManager implements FileManager {
 		}
 		return success;
 	}
-
 
 	@Override
 	public boolean addToCache(Plugin plugin, InputStream input, String fileName) {
@@ -425,12 +424,14 @@ public class SimpleFileManager implements FileManager {
 				if (output != null) {
 					output.close();
 				}
-			} catch (IOException ignore) { }
+			} catch (IOException ignore) {
+			}
 			try {
 				if (input != null) {
 					input.close();
 				}
-			} catch (IOException ignore) { }
+			} catch (IOException ignore) {
+			}
 		}
 	}
 

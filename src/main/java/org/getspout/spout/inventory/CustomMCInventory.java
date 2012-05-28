@@ -32,7 +32,6 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.InventoryHolder;
 
 public class CustomMCInventory implements IInventory {
-
 	protected ItemStack[] items;
 	protected String name;
 	protected int stackSize;

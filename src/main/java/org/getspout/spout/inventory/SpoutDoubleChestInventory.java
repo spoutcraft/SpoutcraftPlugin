@@ -28,6 +28,7 @@ import org.bukkit.block.BlockFace;
 public class SpoutDoubleChestInventory extends SpoutCraftInventory implements DoubleChestInventory {
 	protected Block top;
 	protected Block bottom;
+
 	public SpoutDoubleChestInventory(IInventory inventory, Block top, Block bottom) {
 		super(inventory);
 		this.top = top;

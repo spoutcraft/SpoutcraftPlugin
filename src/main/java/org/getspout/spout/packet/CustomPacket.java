@@ -91,15 +91,14 @@ public class CustomPacket extends Packet {
 			} else {
 				byte[] data = new byte[length];
 				input.readFully(data);
-		
+
 				SpoutInputStream stream = new SpoutInputStream(ByteBuffer.wrap(data));
 				packet.readData(stream);
 
 				success = true;
 			}
-		}
-		catch (IOException ignore) { }
-		catch (Exception e) {
+		} catch (IOException ignore) {
+		} catch (Exception e) {
 			System.out.println("------------------------");
 			System.out.println("Unexpected Exception: " + PacketType.getPacketFromId(packetId) + ", " + packetId);
 			e.printStackTrace();
@@ -108,6 +107,7 @@ public class CustomPacket extends Packet {
 	}
 
 	SpoutOutputStream stream = new SpoutOutputStream();
+
 	@Override
 	public void a(DataOutputStream output) throws IOException {
 		if (packet == null) {

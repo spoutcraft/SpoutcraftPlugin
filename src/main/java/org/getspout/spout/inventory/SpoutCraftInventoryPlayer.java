@@ -29,13 +29,14 @@ import org.bukkit.inventory.ItemStack;
 public class SpoutCraftInventoryPlayer extends CraftInventoryPlayer implements SpoutPlayerInventory {
 	protected SpoutCraftingInventory crafting;
 	protected String name = null;
+
 	public SpoutCraftInventoryPlayer(PlayerInventory inventory, SpoutCraftingInventory crafting) {
 		super(inventory);
 		this.crafting = crafting;
 	}
 
 	public PlayerInventory getHandle() {
-		return (PlayerInventory)this.inventory;
+		return (PlayerInventory) this.inventory;
 	}
 
 	public IInventory getMatrixHandle() {

@@ -28,7 +28,6 @@ import org.bukkit.entity.Player;
 
 @SuppressWarnings("deprecation")
 public class SimpleBiomeManager implements BiomeManager {
-
 	@Override
 	public void setPlayerBiomeWeather(SpoutPlayer player, Biome biome, SpoutWeather weather) {
 

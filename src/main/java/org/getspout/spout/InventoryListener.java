@@ -42,7 +42,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
-public class InventoryListener implements Listener{
+public class InventoryListener implements Listener {
 	public InventoryListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}

@@ -46,7 +46,6 @@ import org.bukkit.ChatColor;
 public class SpoutNetServerHandler extends NetServerHandler {
 	protected Field entityListField = null;
 	protected ItemStack lastOverrideDisplayStack = null;
-
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];
 
 	public SpoutNetServerHandler(MinecraftServer minecraftserver, NetworkManager networkmanager, EntityPlayer entityplayer) {
@@ -143,7 +142,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 			//if (packet.lowPriority) {
 			//	MapChunkThread.sendPacket(this.player, packet);
 			//} else {
-				queueOutputPacket(packet);
+			queueOutputPacket(packet);
 			//}
 		}
 	}
@@ -182,8 +181,9 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		processingKick.set(true); // If any packets are sent while this flag is true, it will flush the sync queue
 
 		super.disconnect(kick);
-		if (this.disconnected)
+		if (this.disconnected) {
 			syncFlushPacketQueue(new MCCraftPacket[256]);
+		}
 
 		processingKick.set(false);
 	}

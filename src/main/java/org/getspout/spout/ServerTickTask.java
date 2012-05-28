@@ -38,11 +38,11 @@ public class ServerTickTask implements Runnable {
 	public void run() {
 		//counter++;
 		Spout.getInstance().playerListener.manager.onServerTick();
-		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onTick();
+		((SimpleMaterialManager) SpoutManager.getMaterialManager()).onTick();
 		Player[] online = Bukkit.getServer().getOnlinePlayers();
 		for (Player player : online) {
 			if (player instanceof SpoutCraftPlayer) {
-				((SpoutCraftPlayer)player).onTick();
+				((SpoutCraftPlayer) player).onTick();
 			}
 		}
 		SpoutCraftChunk.updateTicks();

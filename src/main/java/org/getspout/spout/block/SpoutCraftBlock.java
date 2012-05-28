@@ -193,7 +193,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 
 	public short getCustomBlockId() {
 		Serializable data = getData(SimpleMaterialManager.blockIdString);
-		return data == null ? 0 : (Short)data;
+		return data == null ? 0 : (Short) data;
 	}
 
 	public void setCustomBlockId(int blockId) {
@@ -241,8 +241,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	public void setCustomBlock(CustomBlock block) {
 		if (block != null) {
 			SpoutManager.getMaterialManager().overrideBlock(this, block);
-		}
-		else {
+		} else {
 			SpoutManager.getMaterialManager().removeBlockOverride(this);
 		}
 	}

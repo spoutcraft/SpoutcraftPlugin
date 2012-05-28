@@ -64,16 +64,16 @@ public class SpoutPlayerListener implements Listener {
 			SpoutCraftPlayer.updateBukkitEntity(event.getPlayer());
 			updatePlayerEvent(event);
 			Spout.getInstance().authenticate(event.getPlayer());
-			SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer());
+			SpoutCraftPlayer player = (SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(event.getPlayer());
 
 			//This forces EXISTING players to see the new player's skin, cape, and title
 			player.setSkin(player.getSkin());
 			player.setCape(player.getCape());
 			player.setTitle(player.getTitle());
 		}
-		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(event.getPlayer());
+		((SimplePlayerManager) SpoutManager.getPlayerManager()).onPlayerJoin(event.getPlayer());
 		manager.onPlayerJoin(event.getPlayer());
-		synchronized(Spout.getInstance().playersOnline) {
+		synchronized (Spout.getInstance().playersOnline) {
 			Spout.getInstance().playersOnline.add((SpoutPlayer) event.getPlayer());
 		}
 	}
@@ -81,7 +81,7 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
 		if (event.getPlayer() instanceof SpoutCraftPlayer) {
-			SpoutCraftPlayer player = (SpoutCraftPlayer)event.getPlayer();
+			SpoutCraftPlayer player = (SpoutCraftPlayer) event.getPlayer();
 			if (event.getReason().equals("You moved too quickly :( (Hacking?)")) {
 				if (player.canFly()) {
 					event.setCancelled(true);
@@ -103,12 +103,11 @@ public class SpoutPlayerListener implements Listener {
 		}
 
 		Runnable update = null;
-		final SpoutCraftPlayer scp = (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer());
+		final SpoutCraftPlayer scp = (SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(event.getPlayer());
 
 		if (event.getFrom().getWorld().equals(event.getTo().getWorld())) {
 			update = new PostTeleport(scp);
-		}
-		else {
+		} else {
 			update = new PostWorldTeleport(scp);
 		}
 		if (update != null) {
@@ -152,12 +151,12 @@ public class SpoutPlayerListener implements Listener {
 				case STONE_BUTTON:
 				case TRAP_DOOR:
 				case WOODEN_DOOR:
-				action = true;
-				break;
+					action = true;
+					break;
 			}
 
 			if (event.hasItem() && !action) {
-				SpoutBlock block = (SpoutBlock)event.getClickedBlock().getRelative(event.getBlockFace());
+				SpoutBlock block = (SpoutBlock) event.getClickedBlock().getRelative(event.getBlockFace());
 
 				if (event.getClickedBlock().getType() == Material.SNOW) {
 					block = block.getRelative(0, -1, 0);
@@ -167,26 +166,29 @@ public class SpoutPlayerListener implements Listener {
 				int damage = item.getDurability();
 				if (item.getType() == Material.FLINT && damage != 0) {
 
-				SimpleMaterialManager mm = (SimpleMaterialManager)SpoutManager.getMaterialManager();
+					SimpleMaterialManager mm = (SimpleMaterialManager) SpoutManager.getMaterialManager();
 
 					if (!player.getEyeLocation().getBlock().equals(block) && !player.getLocation().getBlock().equals(block)) {
 
 						CustomBlock cb = MaterialData.getCustomBlock(damage);
 
-
 						if (cb != null && isReplaceable(block.getType())) {
 							BlockState oldState = block.getState();
-							block.setTypeIdAndData(cb.getBlockId(), (byte)(cb.getBlockData()), true);
+							block.setTypeIdAndData(cb.getBlockId(), (byte) (cb.getBlockData()), true);
 							cb.onBlockPlace(block.getWorld(), block.getX(), block.getY(), block.getZ(), player);
 
 							int rot = Math.round(player.getLocation().getYaw() + 45 % 360);
-							if(rot < 0 ) rot += 360;
-							rot = (2 - (rot/90)) % 4;
-							if(rot < 0) rot += 4;
+							if (rot < 0) {
+								rot += 360;
+							}
+							rot = (2 - (rot / 90)) % 4;
+							if (rot < 0) {
+								rot += 4;
+							}
 							byte rotation = cb.canRotate() ? (byte) rot : 0;
 							mm.overrideBlock(block, cb, rotation);
 
-							if (canPlaceAt(block, oldState, (SpoutBlock)event.getClickedBlock(), item, player)) {
+							if (canPlaceAt(block, oldState, (SpoutBlock) event.getClickedBlock(), item, player)) {
 								// Yay, take the item from inventory
 								if (player.getGameMode() == GameMode.SURVIVAL) {
 									if (item.getAmount() == 1) {
@@ -221,7 +223,7 @@ public class SpoutPlayerListener implements Listener {
 			canBuild = true;
 		} else {
 			Location spawn = clicked.getWorld().getSpawnLocation();
-			if (Math.max(Math.abs(result.getX()-spawn.getBlockX()), Math.abs(result.getZ()-spawn.getBlockZ())) > spawnRadius) { // Slower check
+			if (Math.max(Math.abs(result.getX() - spawn.getBlockX()), Math.abs(result.getZ() - spawn.getBlockZ())) > spawnRadius) { // Slower check
 				canBuild = true;
 			}
 		}
@@ -236,9 +238,8 @@ public class SpoutPlayerListener implements Listener {
 		try {
 			Field player = PlayerEvent.class.getDeclaredField("player");
 			player.setAccessible(true);
-			player.set(event, (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer()));
-		}
-		catch (Exception e) {
+			player.set(event, (SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(event.getPlayer()));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -246,7 +247,7 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		synchronized(Spout.getInstance().playersOnline) {
+		synchronized (Spout.getInstance().playersOnline) {
 			Iterator<SpoutPlayer> i = Spout.getInstance().playersOnline.iterator();
 			while (i.hasNext()) {
 				String name = i.next().getName();
@@ -260,6 +261,7 @@ public class SpoutPlayerListener implements Listener {
 
 class PostTeleport implements Runnable {
 	SpoutCraftPlayer player;
+
 	public PostTeleport(SpoutCraftPlayer player) {
 		this.player = player;
 	}
@@ -272,6 +274,7 @@ class PostTeleport implements Runnable {
 
 class PostWorldTeleport implements Runnable {
 	SpoutCraftPlayer player;
+
 	public PostWorldTeleport(SpoutCraftPlayer player) {
 		this.player = player;
 	}

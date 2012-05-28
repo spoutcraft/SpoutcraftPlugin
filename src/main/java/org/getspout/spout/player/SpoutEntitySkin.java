@@ -25,6 +25,7 @@ import org.getspout.spoutapi.player.EntitySkinType;
 
 public class SpoutEntitySkin {
 	private HashMap<EntitySkinType, String> textures = new HashMap<EntitySkinType, String>();
+
 	public SpoutEntitySkin() {
 
 	}

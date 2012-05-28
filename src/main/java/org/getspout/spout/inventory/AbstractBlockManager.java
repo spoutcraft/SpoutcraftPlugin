@@ -49,7 +49,6 @@ import org.bukkit.entity.Player;
 
 public abstract class AbstractBlockManager implements MaterialManager {
 	protected final TIntPairObjectHashMap<String> customNames = new TIntPairObjectHashMap<String>(100);
-
 	protected final TIntPairFloatHashMap originalHardness = new TIntPairFloatHashMap();
 	protected final TIntPairFloatHashMap originalFriction = new TIntPairFloatHashMap();
 	protected final TIntByteHashMap originalOpacity = new TIntByteHashMap();
@@ -70,7 +69,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 
 	public void onPlayerJoin(SpoutPlayer player) {
 		if ((player).isSpoutCraftEnabled()) {
-			for (TLongObjectIterator<String> it = customNames.iterator(); it.hasNext();) {
+			for (TLongObjectIterator<String> it = customNames.iterator(); it.hasNext(); ) {
 				it.advance();
 				(player).sendPacket(new PacketItemName(TIntPairHashSet.longToKey1(it.key()), (short) TIntPairHashSet.longToKey2(it.key()), it.value()));
 			}
@@ -328,8 +327,9 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			toUpdate.add(block);
 			SpoutPacket updatePacket = new PacketBlockData(toUpdate);
 			for (SpoutPlayer player : SpoutManager.getOnlinePlayers()) {
-				if (player.isSpoutCraftEnabled())
+				if (player.isSpoutCraftEnabled()) {
 					player.sendPacket(updatePacket);
+				}
 			}
 		}
 	}

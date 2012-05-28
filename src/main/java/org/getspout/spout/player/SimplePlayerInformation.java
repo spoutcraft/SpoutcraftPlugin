@@ -32,9 +32,10 @@ import org.getspout.spoutapi.player.PlayerInformation;
 
 import org.bukkit.block.Biome;
 import org.bukkit.entity.LivingEntity;
+
 @SuppressWarnings("deprecation")
 public class SimplePlayerInformation implements PlayerInformation {
-	HashMap<Biome,SpoutWeather> weatherMap = new HashMap<Biome, SpoutWeather>();
+	HashMap<Biome, SpoutWeather> weatherMap = new HashMap<Biome, SpoutWeather>();
 	HashMap<LivingEntity, SpoutEntitySkin> entitySkin = new HashMap<LivingEntity, SpoutEntitySkin>();
 
 	@Override
@@ -63,15 +64,15 @@ public class SimplePlayerInformation implements PlayerInformation {
 	 * @return the property, if found, else null
 	 * @throws NoSuchMethodException when the property wasn't found
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Object getProperty(String key, Object ...args) throws NoSuchMethodException {
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public Object getProperty(String key, Object... args) throws NoSuchMethodException {
 		//Use in this form (String)getProperty("EntitySkin", entity);
 		Object ret = null;
 		Class clazz = getClass();
 		try {
 			//Generate an argument list from the given arguments
 			List<Class> classes = new ArrayList<Class>();
-			for (Object o:args) {
+			for (Object o : args) {
 				classes.add(o.getClass());
 			}
 			Class arguments[] = {};
@@ -81,11 +82,11 @@ public class SimplePlayerInformation implements PlayerInformation {
 			//get information from this
 			ret = getter.invoke(this, args);
 			//get information from global information, if ret==null
-			if (ret==null) {
+			if (ret == null) {
 				ret = getter.invoke(SpoutManager.getPlayerManager().getGlobalInfo(), args);
 			}
 		} catch (Exception e) {
-			throw new NoSuchMethodException("No get-method for the property '"+key+"' could be found.");
+			throw new NoSuchMethodException("No get-method for the property '" + key + "' could be found.");
 		}
 
 		return ret;

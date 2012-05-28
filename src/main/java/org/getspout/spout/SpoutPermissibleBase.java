@@ -29,6 +29,7 @@ import org.bukkit.plugin.Plugin;
 
 public class SpoutPermissibleBase implements Permissible {
 	protected Permissible perm;
+
 	public SpoutPermissibleBase(Permissible permissible) {
 		this.perm = permissible;
 	}
@@ -58,7 +59,7 @@ public class SpoutPermissibleBase implements Permissible {
 	}
 
 	@Override
-	public PermissionAttachment addAttachment(Plugin plugin, String  name, boolean value, int ticks) {
+	public PermissionAttachment addAttachment(Plugin plugin, String name, boolean value, int ticks) {
 		return perm.addAttachment(plugin, name, value, ticks);
 	}
 

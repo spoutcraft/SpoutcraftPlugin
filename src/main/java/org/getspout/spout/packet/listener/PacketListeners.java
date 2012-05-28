@@ -33,9 +33,8 @@ import org.bukkit.entity.Player;
 
 /**
  * Keeps track of packet listeners
- *
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class PacketListeners {
 	/**
 	 * Private constructor to avoid initialization
@@ -67,7 +66,9 @@ public class PacketListeners {
 	}
 
 	public static boolean canSend(Player player, Packet packet, MCCraftPacket[] packetWrappers, int packetId) {
-		if ((packet instanceof Packet50PreChunk) && packetId != 50) packetId = 50;
+		if ((packet instanceof Packet50PreChunk) && packetId != 50) {
+			packetId = 50;
+		}
 		AtomicReference<PacketListener[]> listenerReference = (AtomicReference<PacketListener[]>) listeners[packetId];
 		PacketListener[] listenerArray = listenerReference.get();
 		if (listenerArray != null) {
