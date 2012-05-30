@@ -34,7 +34,7 @@ import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class PacketAddonData implements CompressablePacket {
+public class PacketAddonData implements CompressiblePacket {
 	private AddonPacket packet = null;
 	private boolean needsCompression;
 	private boolean compressed = false;
