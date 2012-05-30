@@ -19,11 +19,6 @@
  */
 package org.getspout.spoutapi.packet;
 
-@Deprecated
-public interface CompressablePacket extends SpoutPacket {
-	public void compress();
-
-	public void decompress();
-
-	public boolean isCompressed();
+@SuppressWarnings("deprecation")
+public interface CompressiblePacket extends CompressablePacket {
 }

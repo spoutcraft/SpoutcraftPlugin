@@ -21,7 +21,7 @@ package org.getspout.spout;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
-import org.getspout.spoutapi.packet.CompressablePacket;
+import org.getspout.spoutapi.packet.CompressiblePacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketCompressionThread extends Thread {
@@ -52,7 +52,7 @@ public class PacketCompressionThread extends Thread {
 		return instance;
 	}
 
-	public static void add(CompressablePacket packet, SpoutPlayer player) {
+	public static void add(CompressiblePacket packet, SpoutPlayer player) {
 		if (instance != null) {
 			instance.queue.add(new QueuedPacket(player, packet));
 		}
@@ -71,10 +71,10 @@ public class PacketCompressionThread extends Thread {
 	}
 
 	private static class QueuedPacket {
-		final CompressablePacket packet;
+		final CompressiblePacket packet;
 		final SpoutPlayer player;
 
-		QueuedPacket(SpoutPlayer player, CompressablePacket packet) {
+		QueuedPacket(SpoutPlayer player, CompressiblePacket packet) {
 			this.player = player;
 			this.packet = packet;
 		}

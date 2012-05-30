@@ -33,7 +33,7 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
-public class PacketCustomMultiBlockOverride implements CompressablePacket {
+public class PacketCustomMultiBlockOverride implements CompressiblePacket {
 	private int chunkX;
 	private int chunkZ;
 	private boolean compressed = false;
