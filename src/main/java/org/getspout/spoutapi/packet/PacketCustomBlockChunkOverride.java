@@ -34,7 +34,7 @@ import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class PacketCustomBlockChunkOverride implements CompressablePacket {
+public class PacketCustomBlockChunkOverride implements CompressiblePacket {
 	private int chunkX;
 	private int chunkZ;
 	private boolean hasData = false;

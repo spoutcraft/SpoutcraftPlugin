@@ -32,7 +32,7 @@ import org.getspout.commons.io.FileUtil;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
-public class PacketCacheFile implements CompressablePacket {
+public class PacketCacheFile implements CompressiblePacket {
 	private String plugin;
 	private byte[] fileData;
 	private String fileName;

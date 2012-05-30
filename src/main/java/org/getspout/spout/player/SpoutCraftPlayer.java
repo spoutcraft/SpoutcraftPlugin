@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import net.minecraft.server.ContainerPlayer;
 import net.minecraft.server.Entity;
@@ -37,40 +38,12 @@ import net.minecraft.server.NetworkManager;
 import net.minecraft.server.TileEntityDispenser;
 import net.minecraft.server.TileEntityFurnace;
 import net.minecraft.server.TileEntitySign;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
-import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.block.CraftBlock;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
-import org.bukkit.craftbukkit.inventory.CraftInventory;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerVelocityEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.permissions.Permissible;
-import org.bukkit.permissions.PermissibleBase;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.permissions.PermissionAttachmentInfo;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.util.Vector;
-
 import org.getspout.commons.io.CRCStore.URLCheck;
 import org.getspout.commons.io.CRCStoreRunnable;
 import org.getspout.spout.PacketCompressionThread;
 import org.getspout.spout.Spout;
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spout.SpoutPermissibleBase;
-import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.config.Waypoint;
 import org.getspout.spout.inventory.SpoutCraftInventoryPlayer;
@@ -86,7 +59,7 @@ import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 import org.getspout.spoutapi.keyboard.Keyboard;
-import org.getspout.spoutapi.packet.CompressablePacket;
+import org.getspout.spoutapi.packet.CompressiblePacket;
 import org.getspout.spoutapi.packet.PacketAirTime;
 import org.getspout.spoutapi.packet.PacketAlert;
 import org.getspout.spoutapi.packet.PacketClipboardText;
@@ -112,6 +85,30 @@ import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Sign;
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.inventory.CraftInventory;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerVelocityEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permissible;
+import org.bukkit.permissions.PermissibleBase;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.util.Vector;
+
 public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	protected SpoutCraftInventoryPlayer inventory = null;
 	protected Keyboard forward = Keyboard.KEY_UNKNOWN;
@@ -122,7 +119,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	protected Keyboard inventoryKey = Keyboard.KEY_UNKNOWN;
 	protected Keyboard drop = Keyboard.KEY_UNKNOWN;
 	protected Keyboard chat = Keyboard.KEY_UNKNOWN;
-	protected Keyboard togglefog = Keyboard.KEY_UNKNOWN;
+	protected Keyboard toggleFog = Keyboard.KEY_UNKNOWN;
 	protected Keyboard sneak = Keyboard.KEY_UNKNOWN;
 	private int buildVersion = -1;
 	public RenderDistance currentRender = null;
@@ -143,20 +140,15 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private ScreenType activeScreen = ScreenType.GAME_SCREEN;
 	private GenericOverlayScreen currentScreen = null;
 	private Location lastTickLocation = null;
-	public SpoutCraftChunk lastTickChunk = null;
-	public Set<SpoutCraftChunk> lastTickAdjacentChunks = new HashSet<SpoutCraftChunk>();
 	private boolean screenOpenThisTick = false;
 	public LinkedList<SpoutPacket> queued = new LinkedList<SpoutPacket>();
 	private LinkedList<SpoutPacket> delayedPackets = new LinkedList<SpoutPacket>();
 	public long velocityAdjustmentTime = System.currentTimeMillis();
-
 	private long firstPlayed = 0;
 	private long lastPlayed = 0;
 	private boolean hasPlayed = false;
-
 	private GameMode prevMode;
-
-	private Map<String,String> addons;
+	private Map<String, String> addons;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -204,10 +196,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			return false;
 		}
 		OfflinePlayer other = (OfflinePlayer) obj;
-		if ((this.getName() == null) || (other.getName() == null)) {
-			return false;
-		}
-		return this.getName().equalsIgnoreCase(other.getName());
+		return this.getName() != null && this.getName().equalsIgnoreCase(other.getName());
 	}
 
 	@Override
@@ -217,7 +206,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		return hash;
 	}
 
-	/* Interace Overriden Public Methods */
+	/* Interface Overridden Public Methods */
 
 	@Override
 	public boolean isPermissionSet(String name) {
@@ -331,7 +320,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 	}
 
-	/* Inteface New Public Methods */
+	/* Interface New Public Methods */
 	@Override
 	public boolean closeActiveWindow() {
 		this.closeInventory();
@@ -352,9 +341,9 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public boolean openInventoryWindow(Inventory inventory, Location location, boolean ignoreDistance) {
 		IInventory dialog = ((CraftInventory) inventory).getInventory();
 		if (dialog instanceof TileEntityDispenser) {
-			getHandle().openContainer((TileEntityDispenser) dialog);
+			getHandle().openDispenser((TileEntityDispenser) dialog);
 		} else if (dialog instanceof TileEntityFurnace) {
-			getHandle().openContainer((TileEntityFurnace) dialog);
+			getHandle().openFurnace((TileEntityFurnace) dialog);
 		} else {
 			getHandle().openContainer(dialog);
 		}
@@ -428,7 +417,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public Keyboard getToggleFogKey() {
-		return togglefog;
+		return toggleFog;
 	}
 
 	@Override
@@ -623,35 +612,33 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void reconnect(String message, String hostname, int port) {
-		if (hostname.indexOf(":") != -1) {
+		if (hostname.contains(":")) {
 			throw new IllegalArgumentException("Hostnames may not contain the : symbol");
 		}
 		if (message == null) {
 			message = "[Redirect] Please reconnect to";
-		} else if (message.indexOf(":") != -1) {
+		} else if (message.contains(":")) {
 			throw new IllegalArgumentException("Kick messages may not contain the : symbol");
 		}
 		if (port == 25565) {
-			this.kickPlayer("[Redirect] Please reconnect to : " + hostname);
+			this.kickPlayer(message + " : " + hostname);
 		} else {
-			this.kickPlayer("[Redirect] Please reconnect to : " + hostname + ":" + port);
+			this.kickPlayer(message + " : " + hostname + ":" + port);
 		}
 	}
 
 	@Override
 	public void reconnect(String message, String hostname) {
-		if (hostname.indexOf(":") != -1) {
+		if (hostname.contains(":")) {
 			String[] split = hostname.split(":");
 			if (split.length != 2) {
 				throw new IllegalArgumentException("Improperly formatted hostname: " + hostname);
 			}
-			int port;
 			try {
-				port = Integer.parseInt(split[1]);
+				reconnect(message, split[0], Integer.parseInt(split[1]));
 			} catch (NumberFormatException nfe) {
 				throw new IllegalArgumentException("Unable to parse port number: " + split[1] + " in " + hostname);
 			}
-			reconnect(message, split[0], port);
 		} else {
 			reconnect(message, hostname, 25565);
 		}
@@ -690,8 +677,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 		if (activeScreen != ScreenType.GAME_SCREEN && activeScreen != ScreenType.CUSTOM_SCREEN) {
 			currentScreen = (GenericOverlayScreen) new GenericOverlayScreen(getEntityId(), getActiveScreen()).setX(0).setY(0);
-			PacketWidget packetw = new PacketWidget(currentScreen, currentScreen.getId());
-			sendPacket(packetw);
+			PacketWidget packetW = new PacketWidget(currentScreen, currentScreen.getId());
+			sendPacket(packetW);
 			currentScreen.onTick();
 		} else {
 			currentScreen = null;
@@ -751,7 +738,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setAirSpeedMultiplier(double multiplier) {
 		airspeedMod = multiplier;
 		updateMovement();
-
 	}
 
 	@Override
@@ -796,18 +782,14 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public boolean isPreCachingComplete() {
-		if (isSpoutCraftEnabled()) {
-			return precachingComplete;
-		} else {
-			return true;
-		}
+		return !isSpoutCraftEnabled() || precachingComplete;
 	}
 
 	@Override
 	public void openSignEditGUI(Sign sign) {
 		if (sign != null && isSpoutCraftEnabled()) {
 			sendPacket(new PacketOpenSignGUI(sign.getX(), sign.getY(), sign.getZ()));
-			TileEntitySign tes = (TileEntitySign) ((CraftWorld) ((CraftBlock) sign.getBlock()).getWorld()).getTileEntityAt(sign.getX(), sign.getY(), sign.getZ()); // Found a hidden trace to The Elder Scrolls. Bethesdas Lawyers are right!
+			TileEntitySign tes = (TileEntitySign) ((CraftWorld) (sign.getBlock()).getWorld()).getTileEntityAt(sign.getX(), sign.getY(), sign.getZ()); // Found a hidden trace to The Elder Scrolls. Bethesda's Lawyers are right!
 			tes.isEditable = true;
 		}
 	}
@@ -822,7 +804,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		this.inventoryKey = Keyboard.getKey(keys[5]);
 		this.drop = Keyboard.getKey(keys[6]);
 		this.chat = Keyboard.getKey(keys[7]);
-		this.togglefog = Keyboard.getKey(keys[8]);
+		this.toggleFog = Keyboard.getKey(keys[8]);
 		this.sneak = Keyboard.getKey(keys[9]);
 	}
 
@@ -839,11 +821,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 				queued.add(packet);
 			}
 		} else {
-			if (packet instanceof CompressablePacket) {
-				CompressablePacket compressable = ((CompressablePacket) packet);
+			if (packet instanceof CompressiblePacket) {
+				CompressiblePacket compressible = ((CompressiblePacket) packet);
 				//uncompressed, send it to the compression thread
-				if (!compressable.isCompressed()) {
-					PacketCompressionThread.add(compressable, this);
+				if (!compressible.isCompressed()) {
+					PacketCompressionThread.add(compressible, this);
 					return;
 				}
 			}
@@ -866,7 +848,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			throw new IllegalArgumentException("Packet not of type MCCraftPacket");
 		}
 		MCCraftPacket p = (MCCraftPacket) packet;
-		if (getHandle().netServerHandler instanceof  SpoutNetServerHandler) {
+		if (getHandle().netServerHandler instanceof SpoutNetServerHandler) {
 			getNetServerHandler().sendImmediatePacket(p.getPacket());
 		} else {
 			sendPacket(packet);
@@ -882,16 +864,14 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			throw new UnsupportedOperationException("All skins must be a PNG image");
 		}
 		if (url.length() > 255) {
-			throw new UnsupportedOperationException("All URL's must be shorter than 256 characters");
+			throw new UnsupportedOperationException("All URLs must be shorter than 256 characters");
 		}
 	}
 
 	private String skin = "http://s3.amazonaws.com/MinecraftSkins/" + getName() + ".png";
 	private HashMap<String, String> skinsFor = new HashMap<String, String>();
-
 	private String cape = "http://s3.amazonaws.com/MinecraftCloaks/" + getName() + ".png";
 	private HashMap<String, String> capesFor = new HashMap<String, String>();
-
 	private String title = getName();
 	private HashMap<String, String> titlesFor = new HashMap<String, String>();
 
@@ -927,7 +907,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			if (p instanceof SpoutPlayer && p != this) {
 				SpoutPlayer player = (SpoutPlayer) p;
 				sendDelayedPacket(new PacketSkinURL(player.getEntityId(), player.getSkin(this), player.getCape(this)));
-				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor (this)));
+				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor(this)));
 			}
 		}
 	}
@@ -1022,7 +1002,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer) {
-				((SpoutPlayer) p).sendPacket(new PacketEntityTitle(getEntityId(), getTitleFor ((SpoutPlayer) p)));
+				((SpoutPlayer) p).sendPacket(new PacketEntityTitle(getEntityId(), getTitleFor((SpoutPlayer) p)));
 			}
 		}
 	}
@@ -1053,7 +1033,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void hideTitleFrom(SpoutPlayer viewingPlayer) {
-		setTitleFor (viewingPlayer, "[hide]");
+		setTitleFor(viewingPlayer, "[hide]");
 	}
 
 	@Override
@@ -1063,7 +1043,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void resetTitleFor(SpoutPlayer viewingPlayer) {
-		setTitleFor (viewingPlayer, getName());
+		setTitleFor(viewingPlayer, getName());
 	}
 
 	@Override
@@ -1078,7 +1058,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		sendPacket(new PacketEntitySkin(target, "[reset]", (byte) 0));
 	}
 
-	/*Non Inteface public methods */
+	/*Non Interface public methods */
 
 	public Location getLastTickLocation() {
 		return lastTickLocation;
@@ -1174,7 +1154,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		Location current = getLocation();
 		if (lastTickLocation != null) {
 			if (!lastTickLocation.getWorld().equals(current.getWorld())) {
-				doPostPlayerChangeWorld(lastTickLocation.getWorld(), current.getWorld());
+				doPostPlayerChangeWorld();
 			}
 		}
 		lastTickLocation = current;
@@ -1193,7 +1173,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		getNetServerHandler().syncFlushPacketQueue();
 	}
 
-	public void doPostPlayerChangeWorld(World oldWorld, World newWorld) {
+	public void doPostPlayerChangeWorld() {
 		SpoutCraftPlayer.updateBukkitEntity(this);
 		if (isSpoutCraftEnabled()) {
 			updateMovement();
@@ -1233,11 +1213,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		if (cp.getHandle().netServerHandler instanceof SpoutNetServerHandler) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
-			//Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
-			//for (ChunkCoordIntPair c : chunkUpdateQueue) {
-			//	cp.getHandle().chunkCoordIntPairQueue.add(c);
-			//}
-			//((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();
+			/*
+			Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
+			for (ChunkCoordIntPair c : chunkUpdateQueue) {
+			cp.getHandle().chunkCoordIntPairQueue.add(c);
+			}
+			((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();
+			*/
 			cp.getHandle().netServerHandler.a();
 			Location loc = player.getLocation();
 			NetServerHandler handler = new NetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
@@ -1259,10 +1241,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
 			Location loc = player.getLocation();
 			SpoutNetServerHandler handler = new SpoutNetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
-			//for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
-			//	ChunkCoordIntPair c = (ChunkCoordIntPair) o;
-			//	handler.addActiveChunk(c);
-			//}
+			/*
+			for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
+			ChunkCoordIntPair c = (ChunkCoordIntPair) o;
+			handler.addActiveChunk(c);
+			}
+			*/
 			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 			cp.getHandle().netServerHandler = handler;
 			NetworkManager nm = cp.getHandle().netServerHandler.networkManager;
@@ -1307,20 +1291,22 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			return (SpoutCraftPlayer) ((((CraftPlayer) player).getHandle()).getBukkitEntity());
 		}
 		//We should never get here
-		//Logger.getLogger("Minecraft").warning("Player: " + player.getName() + " was not properly updated during login!");
+		Logger.getLogger("Minecraft").warning("Player: " + player.getName() + " was not properly updated during login!");
 		updateBukkitEntity(player);
 		return (SpoutCraftPlayer) ((((CraftPlayer) player).getHandle()).getBukkitEntity());
 	}
 
 	@Override
-	public Map<String,String> getAddons() {
+	public Map<String, String> getAddons() {
 		return addons;
 	}
 
 	@Override
 	public void setAddons(String[] addons, String[] versions) {
 		this.addons = new HashMap<String, String>();
-		for(int i = 0; i < addons.length; i++) this.addons.put(addons[i], versions[i]);
+		for (int i = 0; i < addons.length; i++) {
+			this.addons.put(addons[i], versions[i]);
+		}
 	}
 
 	@Override
@@ -1331,7 +1317,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public void updatePermissions(String... nodes) {
 		HashMap<String, Boolean> values = new HashMap<String, Boolean>();
-		for(String node:nodes) {
+		for (String node : nodes) {
 			boolean allow = hasPermission(node);
 			values.put(node, allow);
 		}
@@ -1346,20 +1332,20 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		//Hackish workaround for bukkit not giving us all the permissions
 		Set<Permission> defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(false);
-		for(Permission permission:defaults) {
+		for (Permission permission : defaults) {
 			allPerms.add(permission.getName());
 		}
 		defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(true);
-		for(Permission permission:defaults) {
+		for (Permission permission : defaults) {
 			allPerms.add(permission.getName());
 		}
 
 		//Overwrite with actual permissions, if applicable
-		for(PermissionAttachmentInfo info:perm.getEffectivePermissions()) {
+		for (PermissionAttachmentInfo info : perm.getEffectivePermissions()) {
 			allPerms.add(info.getPermission());
 		}
 
-		for(String p:allPerms) {
+		for (String p : allPerms) {
 			values.put(p, hasPermission(p));
 		}
 
