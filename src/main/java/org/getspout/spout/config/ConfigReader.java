@@ -28,19 +28,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.getspout.spout.Spout;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.getspout.spout.Spout;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ConfigReader {
 	private static boolean buildCheck = true;
 	private static boolean forceClient = false;
 	private static int authTicks = 200;
 	private static String kickMessage = "This server requires Spoutcraft! http://www.spout.org";
-
 	private static boolean allowSkyCheat = false;
 	private static boolean allowClearWaterCheat = false;
 	private static boolean allowStarsCheat = false;
@@ -53,8 +53,7 @@ public class ConfigReader {
 	private static boolean teleportSmoothing = true;
 	private static boolean authenticateSpoutcraft = true;
 	private static boolean runDeadlockMonitor = false;
-
-	private static HashMap<String, List<Waypoint> > waypoints = new HashMap<String, List<Waypoint>>();
+	private static HashMap<String, List<Waypoint>> waypoints = new HashMap<String, List<Waypoint>>();
 
 	public void read() {
 		Spout.getInstance().reloadConfig();
@@ -87,16 +86,16 @@ public class ConfigReader {
 		try {
 			Object o = config.get("waypoints");
 			if (o != null) {
-				MemorySection mem = (MemorySection)o;
+				MemorySection mem = (MemorySection) o;
 				Map<String, Object> worlds = getMemorySectionMap(mem);
 				Iterator<Entry<String, Object>> i = worlds.entrySet().iterator();
-				while(i.hasNext()) {
+				while (i.hasNext()) {
 					Entry<String, Object> e = i.next();
 					final String world = e.getKey().toLowerCase();
 					if (e.getValue() instanceof MemorySection) {
 						Map<String, Object> waypoints = getMemorySectionMap((MemorySection) e.getValue());
 						Iterator<Entry<String, Object>> j = waypoints.entrySet().iterator();
-						while(j.hasNext()) {
+						while (j.hasNext()) {
 							Entry<String, Object> waypoint = j.next();
 							MemorySection values = (MemorySection) waypoint.getValue();
 							double x = values.getDouble("x");
@@ -113,8 +112,7 @@ public class ConfigReader {
 					}
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("[Spout] Error while loading waypoints: ");
 			e.printStackTrace();
 		}
@@ -129,7 +127,7 @@ public class ConfigReader {
 		Spout.getInstance().saveConfig();
 		for (Player p : location.getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer) {
-				((SpoutPlayer)p).addWaypoint(name, location.getX(), location.getY(), location.getZ());
+				((SpoutPlayer) p).addWaypoint(name, location.getX(), location.getY(), location.getZ());
 			}
 		}
 	}

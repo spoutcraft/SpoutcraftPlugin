@@ -21,13 +21,6 @@ package org.getspout.spout.block;
 
 import java.io.Serializable;
 
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.CraftChunk;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.block.CraftBlock;
-
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -35,6 +28,13 @@ import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
+
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.craftbukkit.CraftChunk;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.block.CraftBlock;
 
 public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	protected final int x, y, z;
@@ -193,7 +193,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 
 	public short getCustomBlockId() {
 		Serializable data = getData(SimpleMaterialManager.blockIdString);
-		return data == null ? 0 : (Short)data;
+		return data == null ? 0 : (Short) data;
 	}
 
 	public void setCustomBlockId(int blockId) {
@@ -241,8 +241,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	public void setCustomBlock(CustomBlock block) {
 		if (block != null) {
 			SpoutManager.getMaterialManager().overrideBlock(this, block);
-		}
-		else {
+		} else {
 			SpoutManager.getMaterialManager().removeBlockOverride(this);
 		}
 	}

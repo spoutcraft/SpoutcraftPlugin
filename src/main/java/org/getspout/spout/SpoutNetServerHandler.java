@@ -22,6 +22,7 @@ package org.getspout.spout;
 import java.lang.reflect.Field;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IntHashMap;
 import net.minecraft.server.ItemStack;
@@ -32,7 +33,6 @@ import net.minecraft.server.Packet;
 import net.minecraft.server.Packet14BlockDig;
 import net.minecraft.server.Packet18ArmAnimation;
 import net.minecraft.server.Packet3Chat;
-import org.bukkit.ChatColor;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -41,10 +41,11 @@ import org.getspout.spoutapi.gui.Label;
 import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import org.bukkit.ChatColor;
+
 public class SpoutNetServerHandler extends NetServerHandler {
 	protected Field entityListField = null;
 	protected ItemStack lastOverrideDisplayStack = null;
-
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];
 
 	public SpoutNetServerHandler(MinecraftServer minecraftserver, NetworkManager networkmanager, EntityPlayer entityplayer) {
@@ -141,7 +142,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 			//if (packet.lowPriority) {
 			//	MapChunkThread.sendPacket(this.player, packet);
 			//} else {
-				queueOutputPacket(packet);
+			queueOutputPacket(packet);
 			//}
 		}
 	}
@@ -180,8 +181,9 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		processingKick.set(true); // If any packets are sent while this flag is true, it will flush the sync queue
 
 		super.disconnect(kick);
-		if (this.disconnected)
+		if (this.disconnected) {
 			syncFlushPacketQueue(new MCCraftPacket[256]);
+		}
 
 		processingKick.set(false);
 	}

@@ -45,7 +45,7 @@ public class CustomItemPickaxe extends ItemPickaxe {
 		for (int i = 0; i < Item.byId.length; i++) {
 			if (Item.byId[i] != null) {
 				if (Item.byId[i] instanceof ItemPickaxe) {
-					ItemPickaxe pickaxe = (ItemPickaxe)Item.byId[i];
+					ItemPickaxe pickaxe = (ItemPickaxe) Item.byId[i];
 					EnumToolMaterial etm = null;
 					try {
 						Field tool = ItemTool.class.getDeclaredField("b");
@@ -55,7 +55,7 @@ public class CustomItemPickaxe extends ItemPickaxe {
 						e.printStackTrace();
 					}
 					Item.byId[i] = null;
-					Item.byId[i] = new CustomItemPickaxe(pickaxe.id-256, etm);
+					Item.byId[i] = new CustomItemPickaxe(pickaxe.id - 256, etm);
 				}
 			}
 		}

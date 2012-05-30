@@ -19,11 +19,6 @@
  */
 package org.getspout.spout.sound;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.event.sound.BackgroundMusicEvent;
 import org.getspout.spoutapi.packet.PacketDownloadMusic;
@@ -33,6 +28,11 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.Music;
 import org.getspout.spoutapi.sound.SoundEffect;
 import org.getspout.spoutapi.sound.SoundManager;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 public class SimpleSoundManager implements SoundManager {
 	@Override

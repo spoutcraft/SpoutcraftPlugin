@@ -19,6 +19,12 @@
  */
 package org.getspout.spout;
 
+import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.Material;
+import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,12 +32,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
-import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.material.CustomItem;
-import org.getspout.spoutapi.material.Material;
-import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutCustomBlockMonitor implements Listener {
 	public SpoutCustomBlockMonitor(Spout plugin) {
@@ -49,8 +49,8 @@ public class SpoutCustomBlockMonitor implements Listener {
 		}
 		Material mat = MaterialData.getMaterial(inHand.getTypeId(), inHand.getDurability());
 		if (mat instanceof CustomItem) {
-			CustomItem item = (CustomItem)mat;
-			event.setCancelled(!item.onItemInteract((SpoutPlayer)event.getPlayer(), (SpoutBlock)event.getClickedBlock(), event.getBlockFace()) || event.isCancelled());
+			CustomItem item = (CustomItem) mat;
+			event.setCancelled(!item.onItemInteract((SpoutPlayer) event.getPlayer(), (SpoutBlock) event.getClickedBlock(), event.getBlockFace()) || event.isCancelled());
 		}
 	}
 }

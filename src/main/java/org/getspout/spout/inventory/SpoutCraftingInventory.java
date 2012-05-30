@@ -23,20 +23,20 @@ import java.util.Arrays;
 
 import net.minecraft.server.IInventory;
 import net.minecraft.server.InventoryCrafting;
+import org.getspout.spoutapi.inventory.CraftingInventory;
 
 import org.bukkit.inventory.ItemStack;
 
-import org.getspout.spoutapi.inventory.CraftingInventory;
-
 public class SpoutCraftingInventory extends SpoutCraftInventory implements CraftingInventory {
 	protected IInventory result;
+
 	public SpoutCraftingInventory(InventoryCrafting inventory, IInventory result) {
 		super(inventory);
 		this.result = result;
 	}
 
 	public InventoryCrafting getMatrixHandle() {
-		return (InventoryCrafting)getInventory();
+		return (InventoryCrafting) getInventory();
 	}
 
 	public IInventory getResultHandle() {
@@ -64,7 +64,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 		net.minecraft.server.ItemStack[] mcResultItems = this.result.getContents();
 
 		int i = 0;
-		for (i = 0; i < mcResultItems.length; i++ ) {
+		for (i = 0; i < mcResultItems.length; i++) {
 			items[i] = SpoutCraftItemStack.fromItemStack(mcResultItems[i]);
 		}
 
@@ -88,11 +88,11 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			if (this.result.getItem(index) != null) {
 				return SpoutCraftItemStack.fromItemStack(this.result.getItem(index));
 			}
-			return new SpoutCraftItemStack(0, 1, (short)0);
+			return new SpoutCraftItemStack(0, 1, (short) 0);
 		} else if (this.inventory.getItem(index - this.result.getSize()) != null) {
 			return SpoutCraftItemStack.fromItemStack(this.inventory.getItem(index - this.result.getSize()));
 		}
-		return new SpoutCraftItemStack(0, 1, (short)0);
+		return new SpoutCraftItemStack(0, 1, (short) 0);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 		SpoutCraftItemStack[] items = new SpoutCraftItemStack[getSize()];
 		//net.minecraft.server.ItemStack[] matrix = this.inventory.getContents();
 
-		for (int i = 0; i < getSize(); i++ ) {
+		for (int i = 0; i < getSize(); i++) {
 			items[i] = SpoutCraftItemStack.fromItemStack(this.inventory.getItem(i));
 		}
 
@@ -133,7 +133,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 
 		net.minecraft.server.ItemStack[] mcItems = this.inventory.getContents();
 
-		for (int i = 0; i < contents.length; i++ ) {
+		for (int i = 0; i < contents.length; i++) {
 			ItemStack item = contents[i];
 			if (item == null || item.getTypeId() <= 0) {
 				mcItems[i] = null;

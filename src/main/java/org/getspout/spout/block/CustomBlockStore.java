@@ -25,12 +25,9 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 
 public class CustomBlockStore implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private final int arraySize = 16*128*16;
-
+	private final int arraySize = 16 * 128 * 16;
 	private final int arrayConvertThreshold = 128;
 	private final int mapConvertThreshold = 64;
-
 	private TIntObjectHashMap<CustomMaterial> customBlockMap = new TIntObjectHashMap<CustomMaterial>();
 	private CustomMaterial[] customBlockArray = null;
 	private boolean map = true;

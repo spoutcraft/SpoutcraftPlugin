@@ -23,7 +23,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import net.minecraft.server.Packet;
-
 import org.getspout.spoutapi.packet.standard.MCPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket51MapChunkUncompressed;
 
@@ -76,11 +75,11 @@ public class MCCraftPacket implements MCPacket {
 	public static MCCraftPacket newInstance(int packetId, Packet packet) {
 		try {
 			@SuppressWarnings("unchecked")
-			Class<? extends MCCraftPacket> mcp = (Class<? extends MCCraftPacket>)MCPackets[packetId];
+			Class<? extends MCCraftPacket> mcp = (Class<? extends MCCraftPacket>) MCPackets[packetId];
 			if (mcp == null) {
 				return null;
 			}
-			Constructor<? extends MCCraftPacket> c = mcp.getConstructor(new Class[] {});
+			Constructor<? extends MCCraftPacket> c = mcp.getConstructor(new Class[]{});
 			MCCraftPacket r = c.newInstance(blank);
 			r.setPacket(packet, packetId);
 			return r;
@@ -102,11 +101,11 @@ public class MCCraftPacket implements MCPacket {
 	public static MCCraftPacket newInstance(int packetId) {
 		try {
 			@SuppressWarnings("unchecked")
-			Class<? extends Packet> packetClass = (Class<? extends Packet>)packets[packetId];
+			Class<? extends Packet> packetClass = (Class<? extends Packet>) packets[packetId];
 			if (packetClass == null) {
 				return null;
 			}
-			Constructor<? extends Packet> c = packetClass.getConstructor(new Class[] {});
+			Constructor<? extends Packet> c = packetClass.getConstructor(new Class[]{});
 			Packet r = c.newInstance(blank);
 
 			return newInstance(packetId, r);

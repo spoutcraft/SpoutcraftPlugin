@@ -19,10 +19,10 @@
  */
 package org.getspout.spout;
 
+import org.getspout.spoutapi.WorldManager;
+
 import org.bukkit.World;
 import org.bukkit.craftbukkit.CraftWorld;
-
-import org.getspout.spoutapi.WorldManager;
 
 public class SimpleWorldManager implements WorldManager {
 	@Override

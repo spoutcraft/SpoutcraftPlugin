@@ -25,6 +25,7 @@ import org.bukkit.craftbukkit.inventory.CraftInventory;
 
 public class SpoutCraftInventory extends CraftInventory {
 	protected String name = null;
+
 	public SpoutCraftInventory(IInventory inventory) {
 		super(inventory);
 	}

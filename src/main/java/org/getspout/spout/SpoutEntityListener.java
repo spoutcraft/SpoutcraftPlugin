@@ -19,6 +19,11 @@
  */
 package org.getspout.spout;
 
+import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.packet.PacketWaypoint;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -30,11 +35,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 
-import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.packet.PacketWaypoint;
-import org.getspout.spoutapi.player.SpoutPlayer;
-
 public class SpoutEntityListener implements Listener {
 	public SpoutEntityListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
@@ -43,21 +43,21 @@ public class SpoutEntityListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityDamage(EntityDamageEvent event) {
 		if (event.getEntity() instanceof SpoutPlayer) {
-			event.setCancelled(event.isCancelled() || !((SpoutPlayer)event.getEntity()).isPreCachingComplete());
+			event.setCancelled(event.isCancelled() || !((SpoutPlayer) event.getEntity()).isPreCachingComplete());
 		}
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityTarget(EntityTargetEvent event) {
 		if (event.getTarget() instanceof SpoutPlayer) {
-			event.setCancelled(event.isCancelled() || !((SpoutPlayer)event.getTarget()).isPreCachingComplete());
+			event.setCancelled(event.isCancelled() || !((SpoutPlayer) event.getTarget()).isPreCachingComplete());
 		}
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onEntityExplode(EntityExplodeEvent event) {
-		for(Block block : event.blockList()) {
-			SpoutBlock sb = (SpoutBlock)block;
+		for (Block block : event.blockList()) {
+			SpoutBlock sb = (SpoutBlock) block;
 			sb.setCustomBlock(null);
 		}
 	}
@@ -66,14 +66,15 @@ public class SpoutEntityListener implements Listener {
 	public void onEntityDeath(EntityDeathEvent event) {
 		if (event.getEntity() instanceof SpoutPlayer) {
 			Location l = event.getEntity().getLocation();
-			((SpoutPlayer)event.getEntity()).sendPacket(new PacketWaypoint(l.getX(), l.getY(), l.getZ(), "", true));
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new PostDeath((SpoutCraftPlayer)event.getEntity()), 200);
+			((SpoutPlayer) event.getEntity()).sendPacket(new PacketWaypoint(l.getX(), l.getY(), l.getZ(), "", true));
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new PostDeath((SpoutCraftPlayer) event.getEntity()), 200);
 		}
 	}
 }
 
 class PostDeath implements Runnable {
 	SpoutCraftPlayer player;
+
 	public PostDeath(SpoutCraftPlayer player) {
 		this.player = player;
 	}

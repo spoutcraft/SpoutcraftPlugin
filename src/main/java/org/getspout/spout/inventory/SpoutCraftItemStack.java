@@ -49,10 +49,10 @@ public class SpoutCraftItemStack extends CraftItemStack {
 			return null;
 		}
 		if (item instanceof SpoutCraftItemStack) {
-			return (SpoutCraftItemStack)item;
+			return (SpoutCraftItemStack) item;
 		}
 		if (item instanceof CraftItemStack) {
-			CraftItemStack cis = (CraftItemStack)item;
+			CraftItemStack cis = (CraftItemStack) item;
 			if (cis.getHandle() != null) {
 				return new SpoutCraftItemStack(cis.getHandle());
 			}

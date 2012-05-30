@@ -24,13 +24,12 @@ import net.minecraft.server.EnumAnimation;
 import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.World;
-
-import org.bukkit.Bukkit;
-
 import org.getspout.spout.Spout;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Food;
 import org.getspout.spoutapi.material.MaterialData;
+
+import org.bukkit.Bukkit;
 
 public class CustomItemFlint extends Item {
 	protected CustomItemFlint() {

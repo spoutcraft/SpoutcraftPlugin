@@ -28,21 +28,11 @@ import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import net.minecraft.server.Item;
-
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Recipe;
-import org.bukkit.plugin.Plugin;
-
 import org.getspout.commons.inventory.ItemMap;
 import org.getspout.commons.util.map.TIntPairObjectHashMap;
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -57,13 +47,20 @@ import org.getspout.spoutapi.packet.PacketCustomMultiBlockOverride;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.plugin.Plugin;
+
 public class SimpleMaterialManager extends AbstractBlockManager implements MaterialManager {
 	private final TIntObjectHashMap<String> itemPlugin = new TIntObjectHashMap<String>();
 	private final HashMap<World, TIntPairObjectHashMap<BlockOverrides>> queuedChunkBlockOverrides = new HashMap<World, TIntPairObjectHashMap<BlockOverrides>>(10);
 
 	public static void disableFlintStackMix() {
 		try {
-			Method a = Item.class.getDeclaredMethod("a", new Class[] { boolean.class });
+			Method a = Item.class.getDeclaredMethod("a", new Class[]{boolean.class});
 			a.setAccessible(true);
 			a.invoke(Item.byId[318], Boolean.TRUE);
 		} catch (Exception e) {
@@ -82,13 +79,13 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		if (player.isSpoutCraftEnabled()) {
 			for (CustomBlock block : MaterialData.getCustomBlocks()) {
 				if (block instanceof SpoutPacket) {
-					player.sendPacket((SpoutPacket)block);
+					player.sendPacket((SpoutPacket) block);
 				}
 			}
 			for (CustomItem item : MaterialData.getCustomItems()) {
 				CustomBlock owner = MaterialData.getCustomBlock(item.getCustomId());
 				if (item instanceof SpoutPacket && owner == null) {
-					player.sendPacket((SpoutPacket)item);
+					player.sendPacket((SpoutPacket) item);
 				}
 			}
 		}
@@ -149,7 +146,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		int blockId = customBlock.getCustomId();
 
 		SpoutManager.getChunkDataManager().setBlockData(blockIdString, world, x, y, z, blockId);
-		((SpoutChunk) world.getChunkAt(x<<4, z<<4)).setCustomBlockData(x, y, z, data);
+		((SpoutChunk) world.getChunkAt(x << 4, z << 4)).setCustomBlockData(x, y, z, data);
 
 		queueBlockOverrides(world, x, y, z, blockId, data);
 
@@ -212,10 +209,11 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 	}
 
 	private boolean glassUpdated = false;
+
 	//Fired when MaterialData.addCustomItem or MaterialData.addCustomBlock is called
 	public void onCustomMaterialRegistered(Material mat) {
 		if (mat instanceof CustomBlock && !glassUpdated) {
-			if (!((CustomBlock)mat).isOpaque()) {
+			if (!((CustomBlock) mat).isOpaque()) {
 				org.getspout.spout.block.mcblock.CustomBlock.updateGlass();
 				glassUpdated = true;
 			}
@@ -229,6 +227,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		private TIntArrayList zCoords = new TIntArrayList();
 		private TIntArrayList typeIds = new TIntArrayList();
 		private TByteArrayList data = new TByteArrayList();
+
 		BlockOverrides(World world) {
 			this.world = world;
 		}
@@ -248,7 +247,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 				if (xCoords.size() > 128) {
 					int chunkX = xCoords.get(0) >> 4;
 					int chunkZ = zCoords.get(0) >> 4;
-					packet = new PacketCustomBlockChunkOverride(SpoutManager.getChunkDataManager().getCustomBlockIds(world, chunkX, chunkZ), SpoutManager.getChunkDataManager().getCustomBlockData(world, chunkX, chunkZ),chunkX, chunkZ);
+					packet = new PacketCustomBlockChunkOverride(SpoutManager.getChunkDataManager().getCustomBlockIds(world, chunkX, chunkZ), SpoutManager.getChunkDataManager().getCustomBlockData(world, chunkX, chunkZ), chunkX, chunkZ);
 				} else {
 					packet = new PacketCustomMultiBlockOverride(xCoords, yCoords, zCoords, typeIds, data);
 				}

@@ -22,11 +22,10 @@ package org.getspout.spout.inventory;
 import java.util.HashMap;
 
 import net.minecraft.server.CraftingManager;
-
-import org.bukkit.inventory.ItemStack;
-
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
 import org.getspout.spoutapi.material.Material;
+
+import org.bukkit.inventory.ItemStack;
 
 public class SimpleSpoutShapedRecipe extends SpoutShapedRecipe implements SpoutRecipe {
 	public SimpleSpoutShapedRecipe(ItemStack result) {
@@ -61,10 +60,10 @@ public class SimpleSpoutShapedRecipe extends SpoutShapedRecipe implements SpoutR
 			data[i] = c;
 			i++;
 			Material mdata = ingred.get(c);
-	
+
 			int id = mdata.getRawId();
 			int dmg = mdata.getRawData();
-	
+
 			data[i] = new net.minecraft.server.ItemStack(id, 1, dmg);
 			i++;
 		}

@@ -34,7 +34,9 @@ public class CustomItemSpade extends ItemSpade {
 
 	@Override
 	public boolean canDestroySpecialBlock(Block paramBlock) {
-		if (paramBlock.id == Block.SNOW.id) return true;
+		if (paramBlock.id == Block.SNOW.id) {
+			return true;
+		}
 		return paramBlock.id == Block.SNOW_BLOCK.id;
 	}
 
@@ -45,7 +47,7 @@ public class CustomItemSpade extends ItemSpade {
 		for (int i = 0; i < Item.byId.length; i++) {
 			if (Item.byId[i] != null) {
 				if (Item.byId[i] instanceof ItemSpade) {
-					ItemSpade spade = (ItemSpade)Item.byId[i];
+					ItemSpade spade = (ItemSpade) Item.byId[i];
 					EnumToolMaterial etm = null;
 					Field tool = null;
 					try {
@@ -53,7 +55,7 @@ public class CustomItemSpade extends ItemSpade {
 						tool.setAccessible(true);
 						etm = (EnumToolMaterial) tool.get(spade);
 						Item.byId[i] = null;
-						Item.byId[i] = new CustomItemSpade(spade.id-256, etm);
+						Item.byId[i] = new CustomItemSpade(spade.id - 256, etm);
 					} catch (Exception e) {
 						System.out.println("Unexpected error replacing the spade material");
 						System.out.println("Current item: " + i + " Total Items: " + Item.byId.length);
@@ -61,7 +63,6 @@ public class CustomItemSpade extends ItemSpade {
 						System.out.println("Was using reflection with: " + (tool != null ? tool.getName() : "null") + " " + tool);
 						e.printStackTrace();
 					}
-
 				}
 			}
 		}

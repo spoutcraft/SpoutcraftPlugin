@@ -19,16 +19,17 @@
  */
 package org.getspout.spout;
 
-import org.bukkit.Bukkit;
-//import org.bukkit.Chunk;
-//import org.bukkit.World;
-import org.bukkit.entity.Player;
-
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.ServerTickEvent;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+//import org.bukkit.Chunk;
+//import org.bukkit.World;
 
 public class ServerTickTask implements Runnable {
 	//private int counter = 0;
@@ -37,11 +38,11 @@ public class ServerTickTask implements Runnable {
 	public void run() {
 		//counter++;
 		Spout.getInstance().playerListener.manager.onServerTick();
-		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onTick();
+		((SimpleMaterialManager) SpoutManager.getMaterialManager()).onTick();
 		Player[] online = Bukkit.getServer().getOnlinePlayers();
 		for (Player player : online) {
 			if (player instanceof SpoutCraftPlayer) {
-				((SpoutCraftPlayer)player).onTick();
+				((SpoutCraftPlayer) player).onTick();
 			}
 		}
 		SpoutCraftChunk.updateTicks();

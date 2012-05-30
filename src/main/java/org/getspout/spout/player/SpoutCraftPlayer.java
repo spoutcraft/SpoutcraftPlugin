@@ -37,33 +37,6 @@ import net.minecraft.server.NetworkManager;
 import net.minecraft.server.TileEntityDispenser;
 import net.minecraft.server.TileEntityFurnace;
 import net.minecraft.server.TileEntitySign;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
-import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.block.CraftBlock;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
-import org.bukkit.craftbukkit.inventory.CraftInventory;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerVelocityEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.permissions.Permissible;
-import org.bukkit.permissions.PermissibleBase;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.permissions.PermissionAttachmentInfo;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.util.Vector;
-
 import org.getspout.commons.io.CRCStore.URLCheck;
 import org.getspout.commons.io.CRCStoreRunnable;
 import org.getspout.spout.PacketCompressionThread;
@@ -112,6 +85,32 @@ import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
+import org.bukkit.block.Sign;
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.block.CraftBlock;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.inventory.CraftInventory;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerVelocityEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permissible;
+import org.bukkit.permissions.PermissibleBase;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.util.Vector;
+
 public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	protected SpoutCraftInventoryPlayer inventory = null;
 	protected Keyboard forward = Keyboard.KEY_UNKNOWN;
@@ -149,14 +148,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public LinkedList<SpoutPacket> queued = new LinkedList<SpoutPacket>();
 	private LinkedList<SpoutPacket> delayedPackets = new LinkedList<SpoutPacket>();
 	public long velocityAdjustmentTime = System.currentTimeMillis();
-
 	private long firstPlayed = 0;
 	private long lastPlayed = 0;
 	private boolean hasPlayed = false;
-
 	private GameMode prevMode;
-
-	private Map<String,String> addons;
+	private Map<String, String> addons;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -751,7 +747,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setAirSpeedMultiplier(double multiplier) {
 		airspeedMod = multiplier;
 		updateMovement();
-
 	}
 
 	@Override
@@ -866,7 +861,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			throw new IllegalArgumentException("Packet not of type MCCraftPacket");
 		}
 		MCCraftPacket p = (MCCraftPacket) packet;
-		if (getHandle().netServerHandler instanceof  SpoutNetServerHandler) {
+		if (getHandle().netServerHandler instanceof SpoutNetServerHandler) {
 			getNetServerHandler().sendImmediatePacket(p.getPacket());
 		} else {
 			sendPacket(packet);
@@ -888,10 +883,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	private String skin = "http://s3.amazonaws.com/MinecraftSkins/" + getName() + ".png";
 	private HashMap<String, String> skinsFor = new HashMap<String, String>();
-
 	private String cape = "http://s3.amazonaws.com/MinecraftCloaks/" + getName() + ".png";
 	private HashMap<String, String> capesFor = new HashMap<String, String>();
-
 	private String title = getName();
 	private HashMap<String, String> titlesFor = new HashMap<String, String>();
 
@@ -927,7 +920,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			if (p instanceof SpoutPlayer && p != this) {
 				SpoutPlayer player = (SpoutPlayer) p;
 				sendDelayedPacket(new PacketSkinURL(player.getEntityId(), player.getSkin(this), player.getCape(this)));
-				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor (this)));
+				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor(this)));
 			}
 		}
 	}
@@ -1022,7 +1015,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer) {
-				((SpoutPlayer) p).sendPacket(new PacketEntityTitle(getEntityId(), getTitleFor ((SpoutPlayer) p)));
+				((SpoutPlayer) p).sendPacket(new PacketEntityTitle(getEntityId(), getTitleFor((SpoutPlayer) p)));
 			}
 		}
 	}
@@ -1053,7 +1046,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void hideTitleFrom(SpoutPlayer viewingPlayer) {
-		setTitleFor (viewingPlayer, "[hide]");
+		setTitleFor(viewingPlayer, "[hide]");
 	}
 
 	@Override
@@ -1063,7 +1056,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void resetTitleFor(SpoutPlayer viewingPlayer) {
-		setTitleFor (viewingPlayer, getName());
+		setTitleFor(viewingPlayer, getName());
 	}
 
 	@Override
@@ -1313,14 +1306,16 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public Map<String,String> getAddons() {
+	public Map<String, String> getAddons() {
 		return addons;
 	}
 
 	@Override
 	public void setAddons(String[] addons, String[] versions) {
 		this.addons = new HashMap<String, String>();
-		for(int i = 0; i < addons.length; i++) this.addons.put(addons[i], versions[i]);
+		for (int i = 0; i < addons.length; i++) {
+			this.addons.put(addons[i], versions[i]);
+		}
 	}
 
 	@Override
@@ -1331,7 +1326,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public void updatePermissions(String... nodes) {
 		HashMap<String, Boolean> values = new HashMap<String, Boolean>();
-		for(String node:nodes) {
+		for (String node : nodes) {
 			boolean allow = hasPermission(node);
 			values.put(node, allow);
 		}
@@ -1346,20 +1341,20 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		//Hackish workaround for bukkit not giving us all the permissions
 		Set<Permission> defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(false);
-		for(Permission permission:defaults) {
+		for (Permission permission : defaults) {
 			allPerms.add(permission.getName());
 		}
 		defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(true);
-		for(Permission permission:defaults) {
+		for (Permission permission : defaults) {
 			allPerms.add(permission.getName());
 		}
 
 		//Overwrite with actual permissions, if applicable
-		for(PermissionAttachmentInfo info:perm.getEffectivePermissions()) {
+		for (PermissionAttachmentInfo info : perm.getEffectivePermissions()) {
 			allPerms.add(info.getPermission());
 		}
 
-		for(String p:allPerms) {
+		for (String p : allPerms) {
 			values.put(p, hasPermission(p));
 		}
 

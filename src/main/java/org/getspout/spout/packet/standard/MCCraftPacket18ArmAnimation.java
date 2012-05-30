@@ -20,12 +20,11 @@
 package org.getspout.spout.packet.standard;
 
 import net.minecraft.server.Packet18ArmAnimation;
-
 import org.getspout.spoutapi.packet.standard.MCPacket18ArmAnimation;
 
 public class MCCraftPacket18ArmAnimation extends MCCraftPacket implements MCPacket18ArmAnimation {
 	public Packet18ArmAnimation getPacket() {
-		return (Packet18ArmAnimation)packet;
+		return (Packet18ArmAnimation) packet;
 	}
 
 	public int getAnimate() {

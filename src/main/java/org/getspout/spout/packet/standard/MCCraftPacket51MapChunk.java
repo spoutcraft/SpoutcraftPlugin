@@ -20,7 +20,6 @@
 package org.getspout.spout.packet.standard;
 
 import net.minecraft.server.Packet51MapChunk;
-
 import org.getspout.spoutapi.packet.standard.MCPacket51MapChunk;
 
 public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51MapChunk {

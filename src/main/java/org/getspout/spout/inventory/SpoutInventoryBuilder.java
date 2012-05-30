@@ -21,10 +21,10 @@ package org.getspout.spout.inventory;
 
 import java.util.Collection;
 
+import org.getspout.spoutapi.inventory.InventoryBuilder;
+
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import org.getspout.spoutapi.inventory.InventoryBuilder;
 
 public class SpoutInventoryBuilder implements InventoryBuilder {
 	@Override

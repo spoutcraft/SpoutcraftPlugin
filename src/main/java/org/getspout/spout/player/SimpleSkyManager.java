@@ -21,13 +21,13 @@ package org.getspout.spout.player;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import org.getspout.spoutapi.gui.Color;
 import org.getspout.spoutapi.packet.PacketSky;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class SimpleSkyManager implements SkyManager {
 	private final HashMap<String, Integer> cloudHeight = new HashMap<String, Integer>();
@@ -52,7 +52,7 @@ public class SimpleSkyManager implements SkyManager {
 	public void setCloudHeight(SpoutPlayer player, int y) {
 		cloudHeight.put(player.getName(), y);
 		if (player.isSpoutCraftEnabled()) {
-			player.sendPacket(new PacketSky(y, 0, 0 ,0));
+			player.sendPacket(new PacketSky(y, 0, 0, 0));
 		}
 	}
 
@@ -83,7 +83,7 @@ public class SimpleSkyManager implements SkyManager {
 	public void setStarFrequency(SpoutPlayer player, int frequency) {
 		starFrequency.put(player.getName(), frequency);
 		if (player.isSpoutCraftEnabled()) {
-			player.sendPacket(new PacketSky(0, frequency, 0 ,0));
+			player.sendPacket(new PacketSky(0, frequency, 0, 0));
 		}
 	}
 
@@ -148,8 +148,7 @@ public class SimpleSkyManager implements SkyManager {
 			if (player.isSpoutCraftEnabled()) {
 				player.sendPacket(new PacketSky("[reset]", ""));
 			}
-		}
-		else {
+		} else {
 			checkUrl(Url);
 			sunUrl.put(player.getName(), Url);
 			if (player.isSpoutCraftEnabled()) {
@@ -204,8 +203,7 @@ public class SimpleSkyManager implements SkyManager {
 			if (player.isSpoutCraftEnabled()) {
 				player.sendPacket(new PacketSky("", "[reset]"));
 			}
-		}
-		else {
+		} else {
 			checkUrl(Url);
 			moonUrl.put(player.getName(), Url);
 			if (player.isSpoutCraftEnabled()) {
@@ -213,7 +211,6 @@ public class SimpleSkyManager implements SkyManager {
 			}
 		}
 	}
-
 
 	@Override
 	public void setSkyColor(SpoutPlayer player, Color skycolor) {
@@ -276,8 +273,8 @@ public class SimpleSkyManager implements SkyManager {
 		cloudColor.clear();
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 			if (player instanceof SpoutPlayer) {
-				if (((SpoutPlayer)player).isSpoutCraftEnabled()) {
-					((SpoutPlayer)player).sendPacket(new PacketSky(108, 1500, 100, 100, Color.remove(), Color.remove(), Color.remove(), "[reset]", "[reset]"));
+				if (((SpoutPlayer) player).isSpoutCraftEnabled()) {
+					((SpoutPlayer) player).sendPacket(new PacketSky(108, 1500, 100, 100, Color.remove(), Color.remove(), Color.remove(), "[reset]", "[reset]"));
 				}
 			}
 		}

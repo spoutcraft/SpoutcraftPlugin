@@ -22,6 +22,12 @@ package org.getspout.spout;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.getspout.spout.inventory.SimpleMaterialManager;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -36,17 +42,11 @@ import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 
-import org.getspout.spout.inventory.SimpleMaterialManager;
-import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.material.CustomBlock;
-import org.getspout.spoutapi.player.SpoutPlayer;
-
 public class SpoutBlockListener implements Listener {
 	private final SimpleMaterialManager mm;
 
 	public SpoutBlockListener(Spout plugin) {
-		mm = (SimpleMaterialManager)SpoutManager.getMaterialManager();
+		mm = (SimpleMaterialManager) SpoutManager.getMaterialManager();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
@@ -59,7 +59,7 @@ public class SpoutBlockListener implements Listener {
 
 		SpoutBlock block = (SpoutBlock) event.getBlock();
 
-		SpoutPlayer player = (SpoutPlayer)event.getPlayer();
+		SpoutPlayer player = (SpoutPlayer) event.getPlayer();
 
 		if (block.getCustomBlock() != null) {
 			CustomBlock material = block.getCustomBlock();
@@ -87,7 +87,7 @@ public class SpoutBlockListener implements Listener {
 		Block block = event.getBlock();
 		Material type = block.getType();
 		if (type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW || type == Material.DEAD_BUSH || type == Material.LONG_GRASS) {
-			if (net.minecraft.server.Block.byId[event.getMaterialId()].canPlace(((CraftWorld)block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
+			if (net.minecraft.server.Block.byId[event.getMaterialId()].canPlace(((CraftWorld) block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
 				event.setBuildable(true);
 			}
 		}
@@ -102,7 +102,7 @@ public class SpoutBlockListener implements Listener {
 		List<Block> eventBlocks = event.getBlocks();
 		ListIterator<Block> itr = eventBlocks.listIterator(eventBlocks.size());
 		while (itr.hasPrevious()) {
-			pistonBlockMove((SpoutBlock)itr.previous(), event.getDirection());
+			pistonBlockMove((SpoutBlock) itr.previous(), event.getDirection());
 		}
 	}
 
@@ -112,7 +112,7 @@ public class SpoutBlockListener implements Listener {
 			return;
 		}
 
-		pistonBlockMove((SpoutBlock)event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
+		pistonBlockMove((SpoutBlock) event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
 	}
 
 	private void pistonBlockMove(SpoutBlock block, BlockFace blockFace) {

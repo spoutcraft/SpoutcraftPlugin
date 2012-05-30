@@ -26,7 +26,6 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketCompressionThread extends Thread {
 	private static PacketCompressionThread instance = null;
-
 	private static final int QUEUE_CAPACITY = 1024 * 10;
 	private final LinkedBlockingDeque<QueuedPacket> queue = new LinkedBlockingDeque<QueuedPacket>(QUEUE_CAPACITY);
 
