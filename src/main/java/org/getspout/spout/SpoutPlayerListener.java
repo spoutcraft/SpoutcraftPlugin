@@ -216,10 +216,8 @@ public class SpoutPlayerListener implements Listener {
 	//       but it's private so... here it is >.>
 	private boolean canPlaceAt(SpoutBlock result, BlockState oldState, SpoutBlock clicked, ItemStack item, SpoutPlayer player) {
 		int spawnRadius = Bukkit.getServer().getSpawnRadius();
-		boolean canBuild = false;
-		if (spawnRadius <= 0 || player.isOp()) { // Fast checks
-			canBuild = true;
-		} else {
+		boolean canBuild = spawnRadius <= 0 || player.isOp();
+		if (!canBuild) {
 			Location spawn = clicked.getWorld().getSpawnLocation();
 			if (Math.max(Math.abs(result.getX()-spawn.getBlockX()), Math.abs(result.getZ()-spawn.getBlockZ())) > spawnRadius) { // Slower check
 				canBuild = true;
