@@ -202,7 +202,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public int hashCode() {
 		int hash = 5;
-		hash = 97 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
+		hash = 97 * hash + (this.getName() != null ? this.getName().toLowerCase().hashCode() : 0);
 		return hash;
 	}
 
