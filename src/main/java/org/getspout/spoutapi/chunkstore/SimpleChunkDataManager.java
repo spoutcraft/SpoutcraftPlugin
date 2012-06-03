@@ -33,9 +33,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 
-import org.getspout.commons.inventory.ItemMap;
-import org.getspout.commons.io.store.FlatFileStore;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
+import org.getspout.spoutapi.inventory.ItemMap;
+import org.getspout.spoutapi.io.store.FlatFileStore;
 
 public class SimpleChunkDataManager implements ChunkDataManager {
 	private ChunkStore chunkStore = new ChunkStore();

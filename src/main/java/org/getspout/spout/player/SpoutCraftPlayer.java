@@ -38,8 +38,31 @@ import net.minecraft.server.NetworkManager;
 import net.minecraft.server.TileEntityDispenser;
 import net.minecraft.server.TileEntityFurnace;
 import net.minecraft.server.TileEntitySign;
-import org.getspout.commons.io.CRCStore.URLCheck;
-import org.getspout.commons.io.CRCStoreRunnable;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Sign;
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.inventory.CraftInventory;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerVelocityEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permissible;
+import org.bukkit.permissions.PermissibleBase;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.permissions.PermissionAttachmentInfo;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.util.Vector;
+
 import org.getspout.spout.PacketCompressionThread;
 import org.getspout.spout.Spout;
 import org.getspout.spout.SpoutNetServerHandler;
@@ -58,6 +81,8 @@ import org.getspout.spoutapi.gui.OverlayScreen;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
+import org.getspout.spoutapi.io.CRCStore.URLCheck;
+import org.getspout.spoutapi.io.CRCStoreRunnable;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.CompressiblePacket;
 import org.getspout.spoutapi.packet.PacketAirTime;
@@ -84,30 +109,6 @@ import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
-import org.bukkit.craftbukkit.inventory.CraftInventory;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerVelocityEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.permissions.Permissible;
-import org.bukkit.permissions.PermissibleBase;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.permissions.PermissionAttachmentInfo;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.util.Vector;
 
 public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	protected SpoutCraftInventoryPlayer inventory = null;
@@ -207,7 +208,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	/* Interface Overridden Public Methods */
-
 	@Override
 	public boolean isPermissionSet(String name) {
 		return perm.isPermissionSet(name);

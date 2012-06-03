@@ -35,9 +35,6 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import org.getspout.commons.inventory.ItemMap;
-import org.getspout.commons.io.CRCStore;
-import org.getspout.commons.io.store.FlatFileStore;
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.block.mcblock.CustomBlock;
 import org.getspout.spout.command.SpoutCommand;
@@ -59,6 +56,9 @@ import org.getspout.spout.sound.SimpleSoundManager;
 import org.getspout.spout.util.DeadlockMonitor;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
+import org.getspout.spoutapi.inventory.ItemMap;
+import org.getspout.spoutapi.io.CRCStore;
+import org.getspout.spoutapi.io.store.FlatFileStore;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
 

@@ -29,13 +29,13 @@ import java.util.UUID;
 
 import gnu.trove.iterator.TIntObjectIterator;
 
-import org.getspout.commons.inventory.ItemMap;
-import org.getspout.commons.util.map.TByteShortByteKeyedMap;
-import org.getspout.commons.util.map.TByteShortByteKeyedObjectHashMap;
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutWorld;
 import org.getspout.spoutapi.chunkstore.Utils.SerializedData;
+import org.getspout.spoutapi.inventory.ItemMap;
 import org.getspout.spoutapi.inventory.MaterialManager;
+import org.getspout.spoutapi.util.map.TByteShortByteKeyedMap;
+import org.getspout.spoutapi.util.map.TByteShortByteKeyedObjectHashMap;
 
 public class ChunkMetaData implements Serializable {
 	private static final long serialVersionUID = 4L;

@@ -8,7 +8,7 @@
 	<version>dev-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
-	<description>SpoutPlugin is a plugin for Bukkit-based servers that exposes new API for other plugins to utilize.</description>
+	<description>A plugin for Bukkit-based servers that exposes new API for other plugins to utilize.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -66,12 +66,6 @@
 			<artifactId>craftbukkit</artifactId>
 			<version>${craftbukkitVersion}</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.getspout</groupId>
-			<artifactId>commons</artifactId>
-			<version>dev-SNAPSHOT</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>

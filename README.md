@@ -1,7 +1,7 @@
 [![Spout][Project Logo]][Website]
 What is SpoutPlugin?
 --------------------
-SpoutPlugin is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize.
+SpoutPlugin is a plugin for Bukkit-based servers that exposes new API for other plugins to utilize.
 
 Copyright (c) 2011-2012, SpoutDev <http://www.spout.org>
 

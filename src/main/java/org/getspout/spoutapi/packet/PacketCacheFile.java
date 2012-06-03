@@ -28,7 +28,7 @@ import java.util.zip.Inflater;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
-import org.getspout.commons.io.FileUtil;
+import org.getspout.spoutapi.io.FileUtil;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
@@ -39,7 +39,6 @@ public class PacketCacheFile implements CompressiblePacket {
 	private boolean compressed = false;
 
 	public PacketCacheFile() {
-
 	}
 
 	public PacketCacheFile(String plugin, File file) {

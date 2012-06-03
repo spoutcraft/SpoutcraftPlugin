@@ -32,9 +32,6 @@ import gnu.trove.map.hash.TIntIntHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import org.getspout.commons.util.map.TIntPairFloatHashMap;
-import org.getspout.commons.util.map.TIntPairHashSet;
-import org.getspout.commons.util.map.TIntPairObjectHashMap;
 import org.getspout.spout.block.mcblock.CustomMCBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
@@ -46,6 +43,9 @@ import org.getspout.spoutapi.packet.PacketBlockData;
 import org.getspout.spoutapi.packet.PacketItemName;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
+import org.getspout.spoutapi.util.map.TIntPairFloatHashMap;
+import org.getspout.spoutapi.util.map.TIntPairHashSet;
+import org.getspout.spoutapi.util.map.TIntPairObjectHashMap;
 
 public abstract class AbstractBlockManager implements MaterialManager {
 	protected final TIntPairObjectHashMap<String> customNames = new TIntPairObjectHashMap<String>(100);

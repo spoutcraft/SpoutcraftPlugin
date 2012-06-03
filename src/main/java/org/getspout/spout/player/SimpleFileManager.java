@@ -39,12 +39,12 @@ import org.apache.commons.io.IOUtils;
 
 import org.bukkit.plugin.Plugin;
 
-import org.getspout.commons.io.CRCStore;
-import org.getspout.commons.io.CRCStoreRunnable;
-import org.getspout.commons.io.FileUtil;
-import org.getspout.commons.io.CRCStore.URLCheck;
 import org.getspout.spout.Spout;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.CRCStore;
+import org.getspout.spoutapi.io.CRCStoreRunnable;
+import org.getspout.spoutapi.io.FileUtil;
+import org.getspout.spoutapi.io.CRCStore.URLCheck;
 import org.getspout.spoutapi.packet.PacketCacheDeleteFile;
 import org.getspout.spoutapi.packet.PacketPreCacheCompleted;
 import org.getspout.spoutapi.packet.PacketPreCacheFile;
