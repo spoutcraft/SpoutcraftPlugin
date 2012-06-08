@@ -33,6 +33,7 @@ public class Particle {
 	private Location location;
 	private Vector motion;
 	private int maxAge;
+	private double range = 16;
 	private float scale;
 	private float gravity = 0F;
 	private float particleRed = -1F;
@@ -128,7 +129,7 @@ public class Particle {
 
 	/**
 	 * Sets the red color for the particle, or -1 if it uses the default color. Values should be (0-1)
-	 * @param color
+	 * @param particleRed
 	 */
 	public Particle setParticleRed(float particleRed) {
 		this.particleRed = particleRed;
@@ -208,7 +209,7 @@ public class Particle {
 	 * @param player to spawn the particle for
 	 */
 	public void spawn(SpoutPlayer player) {
-		if (player.isSpoutCraftEnabled()) {
+		if (player.isSpoutCraftEnabled() && player.getLocation().distance(location) <= range) {
 			player.sendPacket(new PacketParticle(this));
 		}
 	}
@@ -232,6 +233,24 @@ public class Particle {
 
 	public Particle setAmount(int amount) {
 		this.amount = amount;
+		return this;
+	}
+
+	/**
+	 * Gets the range this particle will be visible at
+	 * @return range
+	 */
+	public double getRange() {
+		return range;
+	}
+
+	/**
+	 * Sets the range this particle will be visible at
+	 * Client graphics settings may override this
+	 * @param range
+	 */
+	public Particle setRange(double range) {
+		this.range = range;
 		return this;
 	}
 
