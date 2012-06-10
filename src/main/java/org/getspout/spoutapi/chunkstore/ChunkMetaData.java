@@ -38,7 +38,8 @@ import org.getspout.spoutapi.util.map.TByteShortByteKeyedMap;
 import org.getspout.spoutapi.util.map.TByteShortByteKeyedObjectHashMap;
 
 public class ChunkMetaData implements Serializable {
-	private static final long serialVersionUID = 4L;
+	//Field serialization only
+	private static final long serialVersionUID = 3L;
 
 	// This data is saved. This means data can handle different map heights
 	// Changes may be needed to the positionToKey method
