@@ -209,7 +209,7 @@ public class SpoutPlayerListener implements Listener {
 	}
 
 	private boolean isReplaceable(Material type) {
-		return type == Material.FIRE || type == Material.SNOW || type == Material.AIR || type == Material.VINE || type == Material.DEAD_BUSH || type == Material.LONG_GRASS;
+		return type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW || type == Material.AIR || type == Material.VINE || type == Material.DEAD_BUSH || type == Material.LONG_GRASS;
 	}
 
 	//TODO: canBuild should be set properly, CraftEventFactory.canBuild() would do this...
