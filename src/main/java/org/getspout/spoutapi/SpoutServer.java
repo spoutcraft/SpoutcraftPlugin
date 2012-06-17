@@ -551,4 +551,9 @@ public class SpoutServer implements Server {
 	public HelpMap getHelpMap() {
 		return server.getHelpMap();
 	}
+
+	@Override
+	public boolean isPrimaryThread() {
+		return server.isPrimaryThread();
+	}
 }
