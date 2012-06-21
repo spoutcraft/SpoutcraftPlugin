@@ -20,12 +20,10 @@
 package org.getspout.spoutapi.block.design;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.BlockVector;
-
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.packet.PacketUtil;

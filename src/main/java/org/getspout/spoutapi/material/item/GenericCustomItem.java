@@ -19,12 +19,12 @@
  */
 package org.getspout.spoutapi.material.item;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.Plugin;
-
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -84,11 +84,24 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 
 	@Override
 	public CustomItem setTexture(String texture) {
-		SpoutManager.getFileManager().addToCache(plugin, texture);
-		this.texture = texture;
+		this.setTexture(texture, true);
 		return this;
 	}
 
+	public CustomItem setTexture(String texture, boolean addToCache) {
+		if (addToCache == true) {
+			SpoutManager.getFileManager().addToCache(plugin, texture);
+		}
+		this.texture = texture;
+		return this;
+	}
+	
+	public CustomItem setTexture(File texture) {
+		SpoutManager.getFileManager().addToCache(plugin, texture);
+		this.setTexture(texture.getName(), false);
+		return this;
+	}
+	
 	@Override
 	public String getTexture() {
 		if (texture == null) {

@@ -223,7 +223,7 @@ public class SimpleSoundManager implements SoundManager {
 				throw new UnsupportedOperationException("All Url's must be between 5 and 256 characters");
 			}
 			String extension = Url.substring(Url.length() - 4, Url.length());
-			if (extension.equalsIgnoreCase(".ogg") || extension.equalsIgnoreCase(".wav") || extension.matches(".*[mM][iI][dD][iI]?$")) {
+			if (extension.equalsIgnoreCase(".ogg") || extension.equalsIgnoreCase(".wav") || extension.equalsIgnoreCase(".mp3") || extension.matches(".*[mM][iI][dD][iI]?$")) {
 				if (location == null || location.getWorld().equals(target.getWorld())) {
 					if (!soundEffect) {
 						BackgroundMusicEvent event = new BackgroundMusicEvent(Url, volumePercent, target);
