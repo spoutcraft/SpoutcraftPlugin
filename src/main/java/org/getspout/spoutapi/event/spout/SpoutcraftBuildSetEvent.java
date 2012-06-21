@@ -19,11 +19,9 @@
  */
 package org.getspout.spoutapi.event.spout;
 
-import org.getspout.spoutapi.player.SpoutPlayer;
-
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutcraftBuildSetEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();

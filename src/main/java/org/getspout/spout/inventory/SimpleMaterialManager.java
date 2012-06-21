@@ -19,13 +19,13 @@
  */
 package org.getspout.spout.inventory;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-
 import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
 
 import net.minecraft.server.Item;
 
@@ -35,12 +35,9 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
-
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.inventory.ItemMap;
 import org.getspout.spoutapi.inventory.MaterialManager;
