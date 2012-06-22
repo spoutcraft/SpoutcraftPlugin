@@ -62,7 +62,10 @@ public class MaterialData {
 	public static final Block grass = new Grass("Grass");
 	public static final Block dirt = new Solid("Dirt", 3);
 	public static final Block cobblestone = new Solid("Cobblestone", 4);
-	public static final Block wood = new Solid("Wooden Planks", 5);
+	public static final Block wood = new Solid("Wooden Planks", 5, 0);
+	public static final Block spruceWood = new Solid("Wooden Planks", 5, 1);
+	public static final Block birchWood = new Solid("Wooden Planks", 5, 2);
+	public static final Block jungleWood = new Solid("Wooden Planks", 5, 3);
 	public static final Block sapling = new Sapling("Sapling", 0);
 	public static final Block spruceSapling = new Sapling("Spruce Sapling", 1);
 	public static final Block birchSapling = new Sapling("Birch Sapling", 2);
@@ -89,7 +92,9 @@ public class MaterialData {
 	public static final Block lapisOre = new Solid("Lapis Lazuli Ore", 21);
 	public static final Block lapisBlock = new Solid("Lapis Lazuli Block", 22);
 	public static final Block dispenser = new Solid("Dispenser", 23);
-	public static final Block sandstone = new Solid("Sandstone", 24);
+	public static final Block sandstone = new Solid("Sandstone", 24, 0);
+	public static final Block decorativeSandstone = new Solid("Sandstone", 24, 1);
+	public static final Block smoothSandstone = new Solid("Sandstone", 24, 2);
 	public static final Block noteblock = new Solid("Note Block", 25);
 	public static final Block bedBlock = new Solid("Bed", 26);
 	public static final Block poweredRail = new Solid("Powered Rail", 27);
