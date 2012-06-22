@@ -157,7 +157,7 @@ public interface SoundManager {
 	public void stopMusic(SpoutPlayer target, boolean resetTimer, int fadeOutTime);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * @param plugin that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param Url    of the file to download
@@ -167,7 +167,7 @@ public interface SoundManager {
 	public void playGlobalCustomMusic(Plugin plugin, String Url, boolean notify);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.\
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param Url      of the file to download
@@ -178,7 +178,7 @@ public interface SoundManager {
 	public void playGlobalCustomMusic(Plugin plugin, String Url, boolean notify, Location location);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param Url      of the file to download
@@ -190,7 +190,7 @@ public interface SoundManager {
 	public void playGlobalCustomMusic(Plugin plugin, String Url, boolean notify, Location location, int distance);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * @param plugin        that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param Url           of the file to download
@@ -203,7 +203,7 @@ public interface SoundManager {
 	public void playGlobalCustomMusic(Plugin plugin, String Url, boolean notify, Location location, int distance, int volumePercent);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * @param plugin that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param target to play for
@@ -214,7 +214,7 @@ public interface SoundManager {
 	public void playCustomMusic(Plugin plugin, SpoutPlayer target, String Url, boolean notify);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param target   to play for
@@ -226,7 +226,7 @@ public interface SoundManager {
 	public void playCustomMusic(Plugin plugin, SpoutPlayer target, String Url, boolean notify, Location location);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param target   to play for
@@ -238,7 +238,7 @@ public interface SoundManager {
 	public void playCustomMusic(Plugin plugin, SpoutPlayer target, String Url, boolean notify, Location location, int distance);
 
 	/**
-	 * Plays a custom music file from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom music file from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * @param plugin        that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
 	 * @param target        to play for
@@ -252,7 +252,7 @@ public interface SoundManager {
 	public void playCustomMusic(Plugin plugin, SpoutPlayer target, String Url, boolean notify, Location location, int distance, int volumePercent);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
@@ -262,7 +262,7 @@ public interface SoundManager {
 	public void playGlobalCustomSoundEffect(Plugin plugin, String Url, boolean notify);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
@@ -274,7 +274,7 @@ public interface SoundManager {
 	public void playGlobalCustomSoundEffect(Plugin plugin, String Url, boolean notify, Location location);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
@@ -287,7 +287,7 @@ public interface SoundManager {
 	public void playGlobalCustomSoundEffect(Plugin plugin, String Url, boolean notify, Location location, int distance);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin        that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
@@ -301,7 +301,7 @@ public interface SoundManager {
 	public void playGlobalCustomSoundEffect(Plugin plugin, String Url, boolean notify, Location location, int distance, int volumePercent);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
@@ -313,7 +313,7 @@ public interface SoundManager {
 	public void playCustomSoundEffect(Plugin plugin, SpoutPlayer target, String Url, boolean notify);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
@@ -325,7 +325,7 @@ public interface SoundManager {
 	public void playCustomSoundEffect(Plugin plugin, SpoutPlayer target, String Url, boolean notify, Location location);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin   that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
@@ -339,7 +339,7 @@ public interface SoundManager {
 	public void playCustomSoundEffect(Plugin plugin, SpoutPlayer target, String Url, boolean notify, Location location, int distance);
 
 	/**
-	 * Plays a custom sound effect from the internet. The music must be in ogg, wav, or midi format.
+	 * Plays a custom sound effect from the internet. The music must be in mp3, ogg, wav, or midi format.
 	 * After the file has been downloaded once, it will be cached for future use.
 	 * Sound effects do not interrupt any ongoing music or other sound effects
 	 * @param plugin        that is playing this file. Used for caching purposes. If null, will use a temporary cache that is deleted upon next login.
