@@ -22,10 +22,12 @@ package org.getspout.spoutapi.gui;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.plugin.Plugin;
 
@@ -38,7 +40,7 @@ import org.getspout.spoutapi.packet.PacketWidgetRemove;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public abstract class GenericScreen extends GenericWidget implements Screen {
-	protected HashMap<Widget, Plugin> widgets = new HashMap<Widget, Plugin>();
+	protected Map<Widget, Plugin> widgets = new ConcurrentHashMap<Widget, Plugin>();
 	protected int playerId;
 	protected boolean bg = true;
 
@@ -139,7 +141,9 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 	public void onTick() {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		if (player != null) {
-			for (Widget widget : new HashSet<Widget>(widgets.keySet())) {
+			//Create a copy because onTick may remove the widget
+			Set<Widget> widgetCopy = new HashSet<Widget>(widgets.keySet());
+			for (Widget widget : widgetCopy) {
 				try {
 					widget.onTick();
 				} catch (Exception e) {
