@@ -20,6 +20,7 @@
 package org.getspout.spoutapi.gui;
 
 import java.io.IOException;
+import java.lang.NullPointerException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -65,6 +66,8 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 
 	@Override
 	public Screen attachWidget(Plugin plugin, Widget widget) {
+		if (plugin == null) throw new NullPointerException("Plugin can not be null!");
+		if (widget == null) throw new NullPointerException("Widget can not be null!");
 		widgets.put(widget, plugin);
 		widget.setPlugin(plugin);
 		widget.setDirty(true);
