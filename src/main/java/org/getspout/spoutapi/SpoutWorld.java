@@ -459,6 +459,11 @@ public class SpoutWorld implements World {
 	}
 
 	@Override
+	public Entity spawnEntity(Location location, EntityType entityType) {
+		return world.spawnEntity(location, entityType);
+	}
+
+	@Override
 	public Arrow spawnArrow(Location location, Vector velocity, float speed, float spread) {
 		return world.spawnArrow(location, velocity, speed, spread);
 	}
