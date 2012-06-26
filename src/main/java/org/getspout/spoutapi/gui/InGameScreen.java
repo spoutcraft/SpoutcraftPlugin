@@ -51,8 +51,10 @@ public class InGameScreen extends GenericScreen implements InGameHUD {
 		this.armor = new ArmorBar();
 		this.hunger = new HungerBar();
 		this.exp = new ExpBar();
+		
+		Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Spout");
 
-		attachWidget(null, health).attachWidget(null, bubble).attachWidget(null, chat).attachWidget(null, chatText).attachWidget(null, armor).attachWidget(null, hunger).attachWidget(null, exp);
+		attachWidget(plugin, health).attachWidget(plugin, bubble).attachWidget(plugin, chat).attachWidget(plugin, chatText).attachWidget(nupluginll, armor).attachWidget(plugin, hunger).attachWidget(plugin, exp);
 	}
 
 	@Override
