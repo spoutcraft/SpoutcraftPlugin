@@ -208,11 +208,17 @@ public class GenericBlockDesign implements BlockDesign {
 	}
 
 	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, int tx, int ty, int textureSizeX, int textureSizeY) {
+		float u = (float) tx / (float) textureSizeX;
+		float v = (float) ty / (float) textureSizeY;
+		return setVertex(quadNumber, vertexNumber, x, y, z, u, v);
+		
+	}
+	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, float u, float v) {
 		xPos[quadNumber][vertexNumber] = x;
 		yPos[quadNumber][vertexNumber] = y;
 		zPos[quadNumber][vertexNumber] = z;
-		textXPos[quadNumber][vertexNumber] = (float) tx / (float) textureSizeX;
-		textYPos[quadNumber][vertexNumber] = (float) ty / (float) textureSizeY;
+		textXPos[quadNumber][vertexNumber] = u;
+		textYPos[quadNumber][vertexNumber] = v;
 		return this;
 	}
 
