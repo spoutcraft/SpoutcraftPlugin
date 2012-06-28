@@ -151,6 +151,21 @@ public interface BlockDesign {
 	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, int tx, int ty, int textureSizeX, int textureSizeY);
 
 	/**
+	 * Manually specified a vertex for this block with uv mapping with texture set by setTexture
+	 * @param quadNumber   of the vertex
+	 * @param vertexNumber in the quad
+	 * @param x            vertex x coordinate
+	 * @param y            vertex y coordinate
+	 * @param z            vertex z coordinate
+	 * @param u            texture u value for this vertex
+	 * @param ty           texture v value for this vertex
+	 * @param textureSizeX total width of the texture
+	 * @param textureSizeY total height of the texture
+	 * @return this
+	 */
+	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, float u, float v);
+	
+	/**
 	 * Sets a vertex
 	 * @param vertex to set
 	 * @return this
