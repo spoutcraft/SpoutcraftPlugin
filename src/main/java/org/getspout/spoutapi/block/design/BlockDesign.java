@@ -158,9 +158,7 @@ public interface BlockDesign {
 	 * @param y            vertex y coordinate
 	 * @param z            vertex z coordinate
 	 * @param u            texture u value for this vertex
-	 * @param ty           texture v value for this vertex
-	 * @param textureSizeX total width of the texture
-	 * @param textureSizeY total height of the texture
+	 * @param v            texture v value for this vertex
 	 * @return this
 	 */
 	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, float u, float v);
