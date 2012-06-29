@@ -102,7 +102,9 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 	public Screen removeWidgets(Plugin p) {
 		for (Widget i : getAttachedWidgets()) {
 			if (widgets.get(i) != null && widgets.get(i).equals(p)) {
+				try {
 				removeWidget(i);
+				} catch(UnsupportedOperationException uoe) {}
 			}
 		}
 		return this;
