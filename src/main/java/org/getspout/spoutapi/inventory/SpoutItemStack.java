@@ -25,30 +25,40 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.material.Tool;
 
 public class SpoutItemStack extends ItemStack {
+	public SpoutItemStack(int typeId, int amount, short data) {
+		super(typeId, amount, data);
+		Material m = getMaterial();
+		if(m instanceof CustomItem) {
+			if(!((CustomItem) m).isStackable()) if(!getEnchantments().containsKey(SpoutEnchantment.UNSTACKABLE)) addUnsafeEnchantment(SpoutEnchantment.UNSTACKABLE, 1);
+		}
+		if(m instanceof Tool) {
+			if(!getEnchantments().containsKey(SpoutEnchantment.MAX_DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.MAX_DURABILITY, ((Tool) m).getMaxDurability());
+			if(!getEnchantments().containsKey(SpoutEnchantment.DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.DURABILITY, ((Tool) m).getMaxDurability());
+		}
+	}
+	
 	public SpoutItemStack(ItemStack item) {
-		super(item.getTypeId(), item.getAmount(), (short) item.getDurability());
+		this(item.getTypeId(), item.getAmount(), (short) item.getDurability());
+		addUnsafeEnchantments(item.getEnchantments());
 	}
 
 	public SpoutItemStack(int typeId) {
-		super(typeId);
+		this(typeId, 1, (short) 0);
 	}
 
 	public SpoutItemStack(int typeId, short data) {
-		super(typeId, 1, data);
-	}
-
-	public SpoutItemStack(int typeId, int amount, short data) {
-		super(typeId, amount, data);
+		this(typeId, 1, data);
 	}
 
 	public SpoutItemStack(CustomItem item) {
-		super(item.getRawId(), 1, (short) item.getRawData());
+		this(item.getRawId(), 1, (short) item.getRawData());
 	}
 
 	public SpoutItemStack(CustomItem item, int amount) {
-		super(item.getRawId(), amount, (short) item.getRawData());
+		this(item.getRawId(), amount, (short) item.getRawData());
 	}
 
 	public SpoutItemStack(CustomBlock block) {
@@ -60,11 +70,11 @@ public class SpoutItemStack extends ItemStack {
 	}
 
 	public SpoutItemStack(Material material) {
-		super(material.getRawId(), 1, (short) material.getRawData());
+		this(material.getRawId(), 1, (short) material.getRawData());
 	}
 
 	public SpoutItemStack(Material material, int amount) {
-		super(material.getRawId(), amount, (short) material.getRawData());
+		this(material.getRawId(), amount, (short) material.getRawData());
 	}
 
 	public Material getMaterial() {

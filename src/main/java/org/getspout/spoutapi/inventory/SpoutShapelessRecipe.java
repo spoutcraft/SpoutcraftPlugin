@@ -28,7 +28,7 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.getspout.spoutapi.material.Material;
 
 public class SpoutShapelessRecipe implements Recipe {
-	private ItemStack output;
+	private SpoutItemStack output;
 	private ArrayList<Material> ingredients = new ArrayList<Material>();
 
 	/**
@@ -39,7 +39,7 @@ public class SpoutShapelessRecipe implements Recipe {
 	 * @see ShapelessRecipe#addIngredient(MaterialData)
 	 */
 	public SpoutShapelessRecipe(ItemStack result) {
-		this.output = result;
+		this.output = new SpoutItemStack(result);//deal with enchantments
 	}
 
 	/**

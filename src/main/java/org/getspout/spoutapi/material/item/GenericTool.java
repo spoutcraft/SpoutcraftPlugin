@@ -28,15 +28,13 @@ public class GenericTool extends GenericItem implements Tool {
 	}
 
 	@Override
-	public short getDurability() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Tool setMaxDurability(short durability) {
+		return this;
 	}
 
 	@Override
-	public Tool setDurability(short durability) {
-		// TODO Auto-generated method stub
-		return this;
+	public short getMaxDurability() {
+		return 0;
 	}
 
 	@Override

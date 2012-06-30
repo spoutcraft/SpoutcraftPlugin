@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import net.minecraft.server.CraftingManager;
 
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.inventory.SpoutShapelessRecipe;
@@ -54,9 +55,6 @@ public class SimpleSpoutShapelessRecipe extends SpoutShapelessRecipe implements 
 			data[i] = new net.minecraft.server.ItemStack(id, 1, dmg);
 			i++;
 		}
-		int id = this.getResult().getTypeId();
-		int amount = this.getResult().getAmount();
-		short durability = this.getResult().getDurability();
-		CraftingManager.getInstance().registerShapelessRecipe(new net.minecraft.server.ItemStack(id, amount, durability), data);
+		CraftingManager.getInstance().registerShapelessRecipe(new CraftItemStack(getResult()).getHandle()/*Convert SpoutItemStack to MC ItemStack*/, data);
 	}
 }

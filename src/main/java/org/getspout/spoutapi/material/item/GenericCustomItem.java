@@ -42,6 +42,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	private String fullName;
 	private Plugin plugin;
 	private int customId;
+	private boolean stackable = true;
 	public String texture;
 
 	public GenericCustomItem(Plugin plugin, String name) {
@@ -59,6 +60,17 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	public GenericCustomItem(Plugin plugin, String name, String texture) {
 		this(plugin, name);
 		this.setTexture(texture);
+	}
+	
+	@Override
+	public boolean isStackable() {
+		return stackable;
+	}
+	
+	@Override
+	public CustomItem setStackable(boolean stackable) {
+		this.stackable = stackable;
+		return this;
 	}
 
 	@Override

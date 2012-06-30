@@ -57,6 +57,10 @@ public interface CustomItem extends Item {
 	 */
 	public String getTexture();
 
+	public CustomItem setStackable(boolean stackable);
+
+	public boolean isStackable();
+
 	/**
 	 * Occurs when a player right clicks on a block face of a air block in game, while holding this item
 	 * <p/>

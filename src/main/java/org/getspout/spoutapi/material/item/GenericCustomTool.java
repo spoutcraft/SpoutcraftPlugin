@@ -34,22 +34,22 @@ import org.getspout.spoutapi.material.Tool;
 import org.getspout.spoutapi.packet.PacketType;
 
 public class GenericCustomTool extends GenericCustomItem implements Tool {
-	private short durability = 1;
+	private short maxdurability = 100;
 	private TObjectFloatHashMap<Block> strengthMods = new TObjectFloatHashMap<Block>();
-
+	
 	public GenericCustomTool(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 	}
 
 	@Override
-	public short getDurability() {
-		return durability;
-	}
-
-	@Override
-	public Tool setDurability(short durability) {
-		this.durability = durability;
+	public Tool setMaxDurability(short durability) {
+		maxdurability = durability;
 		return this;
+	}
+	
+	@Override
+	public short getMaxDurability() {
+		return maxdurability;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
-		setDurability(input.readShort());
+		setMaxDurability(input.readShort());
 		short size = input.readShort();
 		for (int i = 0; i < size; i++) {
 			int id = input.readInt();
@@ -96,7 +96,7 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
-		output.writeShort(getDurability());
+		output.writeShort(getMaxDurability());
 		Block[] mod = getStrengthModifiedBlocks();
 		output.writeShort((short) mod.length);
 		for (int i = 0; i < mod.length; i++) {
