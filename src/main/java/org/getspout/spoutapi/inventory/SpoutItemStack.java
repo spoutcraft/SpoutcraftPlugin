@@ -32,7 +32,7 @@ public class SpoutItemStack extends ItemStack {
 		super(typeId, amount, data);
 		Material m = getMaterial();
 		if(m instanceof CustomItem) {
-			if(!((CustomItem) m).isStackable()) if(!getEnchantments().containsKey(SpoutEnchantment.UNSTACKABLE)) addUnsafeEnchantment(SpoutEnchantment.UNSTACKABLE, 1);
+			if(!((CustomItem) m).isStackable()) if(!getEnchantments().containsKey(SpoutEnchantment.UNSTACKABLE)) addUnsafeEnchantment(SpoutEnchantment.UNSTACKABLE, ((CustomItem) m).getCounter());
 		}
 		if(m instanceof Tool) {
 			if(!getEnchantments().containsKey(SpoutEnchantment.MAX_DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.MAX_DURABILITY, ((Tool) m).getMaxDurability());

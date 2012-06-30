@@ -43,6 +43,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	private Plugin plugin;
 	private int customId;
 	private boolean stackable = true;
+	private short counter = Short.MIN_VALUE;
 	public String texture;
 
 	public GenericCustomItem(Plugin plugin, String name) {
@@ -159,5 +160,13 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	@Override
 	public int getVersion() {
 		return 0;
+	}
+
+	@Override
+	public short getCounter() {
+		short res = counter;
+		if(counter == Short.MAX_VALUE) counter = Short.MIN_VALUE;
+		else counter++;
+		return res;
 	}
 }
