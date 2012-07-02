@@ -72,9 +72,11 @@ public class PlayerManager {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void onSpoutcraftEnable(SpoutPlayer player) {
 		timer.remove(player.getName());
 		player.sendPacket(new PacketServerPlugins(Bukkit.getServer().getPluginManager().getPlugins()));
+		player.updateInventory();
 
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);
 		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
