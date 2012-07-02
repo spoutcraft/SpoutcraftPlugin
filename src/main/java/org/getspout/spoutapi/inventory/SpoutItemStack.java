@@ -36,7 +36,7 @@ public class SpoutItemStack extends ItemStack {
 		}
 		if(m instanceof Tool) {
 			if(!getEnchantments().containsKey(SpoutEnchantment.MAX_DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.MAX_DURABILITY, ((Tool) m).getMaxDurability());
-			if(!getEnchantments().containsKey(SpoutEnchantment.DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.DURABILITY, ((Tool) m).getMaxDurability());
+			if(!getEnchantments().containsKey(SpoutEnchantment.DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.DURABILITY, 0);
 		}
 	}
 	

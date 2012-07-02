@@ -19,23 +19,38 @@
  */
 package org.getspout.spout.item.mcitem;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EnumAnimation;
 import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
+import net.minecraft.server.NetworkManager;
 import net.minecraft.server.World;
 
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 
 import org.getspout.spout.Spout;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Food;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class CustomItemFlint extends Item {
+	private Class<?> clazz = null;
+	private Field a = null;
+	
 	protected CustomItemFlint() {
 		super(62);
 		a(6, 0).a("flint");
+		try {
+			clazz = Class.forName("net.minecraft.server.NetworkWriterThread");
+			a = clazz.getDeclaredField("a");
+			a.setAccessible(true);
+		} catch(Exception e) {}
 	}
 
 	@Override
@@ -66,7 +81,31 @@ public class CustomItemFlint extends Item {
 
 		return itemstack;
 	}
-
+	
+	@Override
+	public boolean i() {
+		if(clazz == null || a == null) return false;
+		Thread t = Thread.currentThread();
+		if(!clazz.isInstance(t)) return false;
+		NetworkManager nm = null;
+		try {
+			nm = (NetworkManager) a.get(t);
+		} catch(Exception e) {}
+		if(nm == null) return false;
+		SpoutPlayer player = lookupPlayer(nm);
+		if(player == null) return false;
+		return player.isSpoutCraftEnabled();
+	}
+	
+	private SpoutPlayer lookupPlayer(NetworkManager nm) {
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			if(!(p instanceof CraftPlayer)) continue;
+			NetworkManager n = ((CraftPlayer) p).getHandle().netServerHandler.networkManager;
+			if(n == nm) return SpoutManager.getPlayer(p);
+		}
+		return null;
+	}
+	
 	public static void replaceFlint() {
 		Item.byId[MaterialData.flint.getRawId()] = null;
 		Item.byId[MaterialData.flint.getRawId()] = new CustomItemFlint();

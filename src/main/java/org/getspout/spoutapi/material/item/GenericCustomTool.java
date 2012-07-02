@@ -23,12 +23,15 @@ import java.io.IOException;
 
 import gnu.trove.map.hash.TObjectFloatHashMap;
 
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import org.getspout.spoutapi.inventory.SpoutEnchantment;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.material.Block;
 import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
 import org.getspout.spoutapi.packet.PacketType;
@@ -120,5 +123,18 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 	@Override
 	public int getVersion() {
 		return super.getVersion() + 0;
+	}
+	
+	public static short getDurability(ItemStack is) {
+		Material m = MaterialData.getMaterial(is.getTypeId(), is.getDurability());
+		if(!(m instanceof Tool)) throw new IllegalArgumentException("Itemstack must be a Tool!");
+		return (short) is.getEnchantmentLevel(SpoutEnchantment.DURABILITY);
+	}
+	
+	public static void setDurability(ItemStack is, short durability) {
+		Material m = MaterialData.getMaterial(is.getTypeId(), is.getDurability());
+		if(!(m instanceof Tool)) throw new IllegalArgumentException("Itemstack must be a Tool!");
+		is.removeEnchantment(SpoutEnchantment.DURABILITY);
+		is.addUnsafeEnchantment(SpoutEnchantment.DURABILITY, durability);
 	}
 }

@@ -7,9 +7,9 @@ import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 public class SpoutEnchantment extends Enchantment {
-	public static final Enchantment UNSTACKABLE = new SpoutEnchantment(1000);
-	public static final Enchantment DURABILITY = new SpoutEnchantment(1001);
-	public static final Enchantment MAX_DURABILITY = new SpoutEnchantment(1002);
+	public static final Enchantment UNSTACKABLE = new SpoutEnchantment(253);
+	public static final Enchantment DURABILITY = new SpoutEnchantment(254);
+	public static final Enchantment MAX_DURABILITY = new SpoutEnchantment(255);
 
 	public SpoutEnchantment(int id) {
 		super(id);
