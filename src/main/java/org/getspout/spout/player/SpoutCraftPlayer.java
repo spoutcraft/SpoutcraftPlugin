@@ -812,6 +812,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		delayedPackets.add(packet);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void sendPacket(SpoutPacket packet) {
 		if (!isSpoutCraftEnabled()) {

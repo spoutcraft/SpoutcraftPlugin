@@ -228,6 +228,12 @@ public class Spout extends JavaPlugin {
 			dm.loadAllChunks();
 
 			SimpleMaterialManager.disableFlintStackMix();
+			
+			try {
+				Class.forName("org.getspout.spoutapi.inventory.SpoutEnchantment");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		//These are safe even if the build check fails
 		getCommand("spout").setExecutor(new SpoutCommand(this));
