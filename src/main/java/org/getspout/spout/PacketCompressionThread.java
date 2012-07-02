@@ -58,6 +58,7 @@ public class PacketCompressionThread extends Thread {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void run() {
 		while (!isInterrupted()) {
 			try {
