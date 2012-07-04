@@ -21,6 +21,7 @@ package org.getspout.spoutapi.material.item;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockFace;
@@ -114,7 +115,13 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		this.setTexture(texture.getName(), false);
 		return this;
 	}
-	
+
+	public CustomItem setTexture(InputStream input, String cacheName) {
+		SpoutManager.getFileManager().addToCache(getPlugin(), input, cacheName);
+		this.setTexture(cacheName, false);
+		return this;
+	}
+
 	@Override
 	public String getTexture() {
 		if (texture == null) {
