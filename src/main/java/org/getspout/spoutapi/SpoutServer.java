@@ -558,7 +558,7 @@ public class SpoutServer implements Server {
 	}
 	
 	@Override
-	public static String getMotd() {
+	public String getMotd() {
 		return server.getMotd();
 	}
 }
