@@ -556,4 +556,9 @@ public class SpoutServer implements Server {
 	public boolean isPrimaryThread() {
 		return server.isPrimaryThread();
 	}
+
+	@Override
+	public String getMotd() {
+		return server.getMotd();
+	}
 }

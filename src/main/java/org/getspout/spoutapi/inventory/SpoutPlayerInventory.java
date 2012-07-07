@@ -20,7 +20,10 @@
 package org.getspout.spoutapi.inventory;
 
 import org.bukkit.inventory.PlayerInventory;
+import org.getspout.spoutapi.material.Material;
 
 public interface SpoutPlayerInventory extends PlayerInventory, CraftingInventory {
 	public int getItemInHandSlot();
+	
+	public void remove(Material material);
 }
