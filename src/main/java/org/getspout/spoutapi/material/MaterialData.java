@@ -571,7 +571,7 @@ public class MaterialData {
 		customBlockLookup.put(block.getCustomId(), block);
 		customBlocks.add(block);
 		nameLookup.put(block.getNotchianName().toLowerCase(), block);
-		SpoutManager.getMaterialManager().onCustomMaterialRegistered(item);
+		SpoutManager.getMaterialManager().onCustomMaterialRegistered(block);
 	}
 
 	/**
