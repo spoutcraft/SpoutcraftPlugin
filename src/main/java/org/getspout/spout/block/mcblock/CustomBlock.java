@@ -496,7 +496,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 	public static void updateGlass() {
 		//Allow placement of blocks on glass
 		try {
-			Field field = Material.SHATTERABLE.getClass().getDeclaredField("G");
+			Field field = Material.SHATTERABLE.getClass().getDeclaredField("H");
 			field.setAccessible(true);
 			field.setBoolean(Material.SHATTERABLE, false);
 		} catch (Exception e) {
