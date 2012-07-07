@@ -28,6 +28,7 @@ import java.util.List;
 
 import gnu.trove.map.hash.TIntObjectHashMap;
 
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.material.block.Air;
 import org.getspout.spoutapi.material.block.DoubleSlabs;
 import org.getspout.spoutapi.material.block.GenericLiquid;
@@ -559,6 +560,7 @@ public class MaterialData {
 		customItemLookup.put(item.getCustomId(), item);
 		customItems.add(item);
 		nameLookup.put(item.getNotchianName().toLowerCase(), item);
+		SpoutManager.getMaterialManager().onCustomMaterialRegistered(item);
 	}
 
 	/**
@@ -569,6 +571,7 @@ public class MaterialData {
 		customBlockLookup.put(block.getCustomId(), block);
 		customBlocks.add(block);
 		nameLookup.put(block.getNotchianName().toLowerCase(), block);
+		SpoutManager.getMaterialManager().onCustomMaterialRegistered(item);
 	}
 
 	/**
