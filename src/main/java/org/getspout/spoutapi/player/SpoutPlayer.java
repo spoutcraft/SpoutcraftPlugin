@@ -37,6 +37,7 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket;
+import org.getspout.spoutapi.player.accessories.AccessoryType;
 
 /**
  * Represents a SpoutPlayer, which extends the standard Bukkit Player.
@@ -825,4 +826,32 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * Gets the Player's SC version as a String.
 	 */
 	public String getVersionString();
+	
+	/**
+	 * Checks if the player has that accessory type.
+	 * @param type The type to check for.
+	 * @return Whether the player has that type of accessory.
+	 */
+	public boolean hasAccessory(AccessoryType type);
+	
+	/**
+	 * Adds a new accessory to the player.
+	 * @param type The accessory's type.
+	 * @param url  The accessory's url.
+	 */
+	public void addAccessory(AccessoryType type, String url);
+	
+	/**
+	 * Removes an accessory from the player.
+	 * @param type The accessory type.
+	 * @return The accessory's url.
+	 */
+	public String removeAccessory(AccessoryType type);
+	
+	/**
+	 * Gets the accessory's url
+	 * @param type The accessory.
+	 * @return  The url.
+	 */
+	public String getAccessoryURL(AccessoryType type);
 }
