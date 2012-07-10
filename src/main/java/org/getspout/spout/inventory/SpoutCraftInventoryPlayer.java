@@ -25,6 +25,10 @@ import net.minecraft.server.PlayerInventory;
 import org.bukkit.craftbukkit.inventory.CraftInventoryPlayer;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
+import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.material.Tool;
 
 public class SpoutCraftInventoryPlayer extends CraftInventoryPlayer implements SpoutPlayerInventory {
 	protected SpoutCraftingInventory crafting;
@@ -75,5 +79,29 @@ public class SpoutCraftInventoryPlayer extends CraftInventoryPlayer implements S
 
 	public int getItemInHandSlot() {
 		return this.getHandle().itemInHandIndex;
+	}
+
+	@Override
+	public void remove(org.bukkit.Material material) {
+		ItemStack[] items = getContents();
+		for (int i = 0; i < items.length; i++) {
+			if(items[i] == null) continue;
+			org.getspout.spoutapi.material.Material myMat = MaterialData.getMaterial(items[i].getTypeId(), items[i].getDurability());
+			if(myMat instanceof CustomItem || myMat instanceof Tool || myMat instanceof CustomBlock)
+				continue;
+			if (items[i].getType() == material) {
+				clear(i);
+			}
+		}
+	}
+
+	@Override
+	public void remove(org.getspout.spoutapi.material.Material material) {
+		ItemStack[] items = getContents();
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] != null && MaterialData.getMaterial(items[i].getTypeId(), items[i].getDurability()) == material) {
+				clear(i);
+			}
+		}
 	}
 }
