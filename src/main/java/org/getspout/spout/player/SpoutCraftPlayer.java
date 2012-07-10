@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import net.minecraft.server.ContainerPlayer;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
@@ -37,7 +36,6 @@ import net.minecraft.server.NetworkManager;
 import net.minecraft.server.TileEntityDispenser;
 import net.minecraft.server.TileEntityFurnace;
 import net.minecraft.server.TileEntitySign;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -83,6 +81,7 @@ import org.getspout.spoutapi.io.CRCStore.URLCheck;
 import org.getspout.spoutapi.io.CRCStoreRunnable;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.packet.CompressiblePacket;
+import org.getspout.spoutapi.packet.PacketAccessory;
 import org.getspout.spoutapi.packet.PacketAirTime;
 import org.getspout.spoutapi.packet.PacketAlert;
 import org.getspout.spoutapi.packet.PacketClipboardText;
@@ -107,6 +106,7 @@ import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.RenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
+import org.getspout.spoutapi.player.accessories.AccessoryType;
 
 public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	protected SpoutCraftInventoryPlayer inventory = null;
@@ -148,6 +148,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private boolean hasPlayed = false;
 	private GameMode prevMode;
 	private Map<String, String> addons;
+	private Map<AccessoryType, String> accessories = new HashMap<AccessoryType, String>();
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -907,6 +908,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 				SpoutPlayer player = (SpoutPlayer) p;
 				sendDelayedPacket(new PacketSkinURL(player.getEntityId(), player.getSkin(this), player.getCape(this)));
 				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor(this)));
+				for(AccessoryType type : AccessoryType.values()) {
+					if(player.hasAccessory(type)) {
+						sendDelayedPacket(new PacketAccessory(type, player.getAccessoryURL(type)));
+					}
+				}
 			}
 		}
 	}
@@ -1367,5 +1373,30 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		for (Waypoint p : waypoints) {
 			addWaypoint(p.getName(), p.getX(), p.getY(), p.getZ());
 		}
+	}
+
+	@Override
+	public boolean hasAccessory(AccessoryType type) {
+		return accessories.containsKey(type);
+	}
+
+	@Override
+	public void addAccessory(AccessoryType type, String url) {
+		accessories.put(type, url);
+		for (Player p : getWorld().getPlayers()) {
+			if (p instanceof SpoutPlayer) {
+				((SpoutPlayer) p).sendPacket(new PacketAccessory(type, url));
+			}
+		}
+	}
+
+	@Override
+	public String removeAccessory(AccessoryType type) {
+		return accessories.remove(type);
+	}
+
+	@Override
+	public String getAccessoryURL(AccessoryType type) {
+		return accessories.get(type);
 	}
 }
