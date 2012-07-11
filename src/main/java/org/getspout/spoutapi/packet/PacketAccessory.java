@@ -24,30 +24,36 @@ import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.accessories.AccessoryType;
 
-
-
 public class PacketAccessory implements SpoutPacket{
 	private AccessoryType type;
 	private String url;
-	
+	private boolean add;
+
 	public PacketAccessory() {
 	}
 
 	public PacketAccessory(AccessoryType type, String url) {
+		this(type, url, true);
+	}
+
+	public PacketAccessory(AccessoryType type, String url, boolean add) {
 		this.type = type;
 		this.url = url;
+		this.add = add;
 	}
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
 		type = AccessoryType.get(input.readInt());
 		url = input.readString();
+		add = input.readBoolean();
 	}
 
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(type.getId());
 		output.writeString(url);
+		output.writeBoolean(add);
 	}
 
 	@Override
@@ -65,7 +71,7 @@ public class PacketAccessory implements SpoutPacket{
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 }

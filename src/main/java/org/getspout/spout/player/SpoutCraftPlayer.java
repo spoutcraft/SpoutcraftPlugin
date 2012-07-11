@@ -1392,6 +1392,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public String removeAccessory(AccessoryType type) {
+		for (Player p : getWorld().getPlayers()) {
+			if (p instanceof SpoutPlayer) {
+				((SpoutPlayer) p).sendPacket(new PacketAccessory(type, "", false));
+			}
+		}
 		return accessories.remove(type);
 	}
 
