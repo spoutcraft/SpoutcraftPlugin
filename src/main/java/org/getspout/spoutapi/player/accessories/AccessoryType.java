@@ -28,7 +28,8 @@ public enum AccessoryType {
 	BRACELET(3),
 	WINGS(4),
 	EARS(5),
-	SUNGLASSES(6);
+	SUNGLASSES(6)
+	TAIL(7);
 	private final int id;
 	private static Map<Integer, AccessoryType> types = new HashMap<Integer, AccessoryType>();
 
