@@ -88,6 +88,7 @@ public class MaterialData {
 	public static final Block leaves = new Tree("Leaves", 18, 0);
 	public static final Block spruceLeaves = new Tree("Leaves", 18, 1);
 	public static final Block birchLeaves = new Tree("Leaves", 18, 2);
+	public static final Block jungleLeaves = new Tree("Leaves", 18, 3);
 	public static final Block sponge = new Solid("Sponge", 19);
 	public static final Block glass = new Solid("Glass", 20);
 	public static final Block lapisOre = new Solid("Lapis Lazuli Ore", 21);
