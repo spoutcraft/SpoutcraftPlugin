@@ -17,6 +17,12 @@
 		<buildNumber>0</buildNumber>
 	</properties>
 
+	<!-- Organization -->
+	<organization>
+		<name>SpoutDev</name>
+		<url>http://www.spout.org</url>
+	</organization>
+
 	<!-- License -->
 	<licenses>
 		<license>
@@ -36,13 +42,13 @@
 	<!-- Continuous integration -->
 	<ciManagement>
 		<system>jenkins</system>
-		<url>http://build.spout.org</url>
+		<url>http://build.spout.org/job/SpoutPlugin</url>
 	</ciManagement>
 
 	<!-- Issue management -->
 	<issueManagement>
-		<system>JIRA</system>
-		<url>http://issues.spout.org</url>
+		<system>jira</system>
+		<url>http://issues.spout.org/browse/SpoutPlugin</url>
 	</issueManagement>
 
 	<!-- Repository locations -->
@@ -54,7 +60,7 @@
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
-			<id>spout-plugins</id>
+			<id>spout-repo</id>
 			<url>http://repo.spout.org</url>
 		</pluginRepository>
 	</pluginRepositories>
@@ -76,7 +82,7 @@
 		<dependency>
 			<groupId>net.sf.trove4j</groupId>
 			<artifactId>trove4j</artifactId>
-			<version>3.0.2</version>
+			<version>3.0.3</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -84,6 +90,7 @@
 	<!-- Build settings -->
 	<build>
 		<defaultGoal>clean install</defaultGoal>
+
 		<!-- Resources -->
 		<resources>
 			<resource>
@@ -103,6 +110,7 @@
 				</includes>
 			</resource>
 		</resources>
+
 		<!-- Plugins -->
 		<plugins>
 			<!-- License headers check plugin -->
@@ -132,10 +140,10 @@
 					</mapping>
 					<properties>
 						<name>${project.name}</name>
-						<url>${project.url}</url>
+						<url>${project.organization.url}</url>
 						<license>GNU Lesser General Public License</license>
 						<licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
-						<copyright>Copyright (c) ${project.inceptionYear}-2012, SpoutDev</copyright>
+						<copyright>Copyright (c) ${project.inceptionYear}-2012, ${project.organization.name}</copyright>
 					</properties>
 					<includes>
 						<include>src/main/java/**</include>
@@ -151,6 +159,12 @@
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
+					<compilerArguments>
+						<O>-Xlint:all</O>
+						<O>-Xlint:-path</O>
+					</compilerArguments>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			<!-- JAR dependency addition plugin -->

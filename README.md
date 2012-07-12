@@ -47,7 +47,6 @@ If you do not already have repo.spout.org in your repository list, you will need
 
     <repository>
         <id>spout-repo</id>
-        <name>Spout project maven repo</name>
         <url>https://repo.spout.org</url>
     </repository>
 
@@ -73,7 +72,7 @@ Coding and Pull Request Formatting
 [GitHub]: https://github.com/SpoutDev/SpoutPlugin
 [Javadoc]: http://jd.spout.org/legacy/plugin/
 [Jenkins]: http://build.spout.org/job/SpoutPlugin
-[Issues]: http://issues.spout.org/browse/SPOUTPLUGIN
+[Issues]: http://issues.spout.org/browse/SpoutPlugin
 [Twitter]: http://spout.in/twitter
 [Twitter Logo]: http://cdn.spout.org/img/button/twitter_follow_us.png
 [Facebook]: http://spout.in/facebook
