@@ -21,7 +21,9 @@ package org.getspout.spoutapi.inventory;
 
 import org.bukkit.inventory.ItemStack;
 
-import org.getspout.spoutapi.material.GenericCustomTool ;
+import org.getspout.spoutapi.material.item.GenericCustomTool;
+import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
