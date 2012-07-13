@@ -21,8 +21,7 @@ package org.getspout.spoutapi.inventory;
 
 import org.bukkit.inventory.ItemStack;
 
-import org.getspout.spoutapi.material.CustomBlock;
-import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.GenericCustomTool ;
 import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
@@ -31,10 +30,7 @@ public class SpoutItemStack extends ItemStack {
 	public SpoutItemStack(int typeId, int amount, short data) {
 		super(typeId, amount, data);
 		Material m = getMaterial();
-		if(m instanceof CustomItem) {
-			if(!((CustomItem) m).isStackable()) if(!getEnchantments().containsKey(SpoutEnchantment.UNSTACKABLE)) addUnsafeEnchantment(SpoutEnchantment.UNSTACKABLE, ((CustomItem) m).getCounter());
-		}
-		if(m instanceof Tool) {
+		if(m instanceof GenericCustomTool) {
 			if(!getEnchantments().containsKey(SpoutEnchantment.MAX_DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.MAX_DURABILITY, ((Tool) m).getMaxDurability());
 			if(!getEnchantments().containsKey(SpoutEnchantment.DURABILITY)) addUnsafeEnchantment(SpoutEnchantment.DURABILITY, 0);
 		}
