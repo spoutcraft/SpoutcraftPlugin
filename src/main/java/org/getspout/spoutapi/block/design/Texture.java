@@ -19,11 +19,11 @@
  */
 package org.getspout.spoutapi.block.design;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.plugin.Plugin;
-
 import org.getspout.spoutapi.SpoutManager;
 
 public class Texture {
@@ -37,36 +37,85 @@ public class Texture {
 	/**
 	 * Creates a new Texture for use with BlockDesigns.
 	 * <p/>
-	 * This is designed to hold multiple SubTextures, similar to vanilla's terrain.png
-	 * In order to use it to get multiple SubTextures, you must specify the total width, total height,
-	 * and the spriteSize which is the length of the sides of the squares inside it.
+	 * This is designed to hold multiple SubTextures, similar to vanilla's terrain.png In order to use it to get multiple SubTextures, you must specify the total width, total height, and the
+	 * spriteSize which is the length of the sides of the squares inside it.
 	 * <p/>
-	 * The image itself used for this Texture MUST be a power of 2 on each side.
-	 * 16, 32, 64, 128, 256, 512, etc.
-	 * For example, a png that is 18x20 will get loaded by OpenGL as 32x32, thus skewing your SubTextures
+	 * The image itself used for this Texture MUST be a power of 2 on each side. 16, 32, 64, 128, 256, 512, etc. For example, a png that is 18x20 will get loaded by OpenGL as 32x32, thus skewing your
+	 * SubTextures
 	 * <p/>
-	 * The layout for textureId's in order to get SubTextures from this goes from
-	 * Left -> Right, then Top -> Bottom, like so:
-	 * [0, 1, 2,  3
-	 * 4, 5, 6,  7,
-	 * 8, 9, 10, 11]
+	 * The layout for textureId's in order to get SubTextures from this goes from Left -> Right, then Top -> Bottom, like so: [0, 1, 2, 3 4, 5, 6, 7, 8, 9, 10, 11]
 	 * <p/>
 	 * If you are using just a single image, the textureId is always 0.
-	 * @param plugin     associated with this Texture
-	 * @param texture    url to use. Must be a png
-	 * @param width      of the texture in pixels
-	 * @param height     of the texture in pixels
-	 * @param spriteSize width and height of the sprites inside the texture
+	 * 
+	 * @param plugin
+	 *            associated with this Texture
+	 * @param texture
+	 *            url to use. Must be a png
+	 * @param width
+	 *            of the texture in pixels
+	 * @param height
+	 *            of the texture in pixels
+	 * @param spriteSize
+	 *            width and height of the sprites inside the texture
 	 */
-	public Texture(Plugin plugin, String texture, int width, int height, int spriteSize) {
+	public Texture(final Plugin plugin, final String texture, final int width, final int height, final int spriteSize) {
+		initialize(plugin, texture, width, height, spriteSize);
+		SpoutManager.getFileManager().addToCache(plugin, texture);
+	}
+
+	/**
+	 * Creates a new Texture for use with BlockDesigns.
+	 * <p/>
+	 * This is designed to hold multiple SubTextures, similar to vanilla's terrain.png In order to use it to get multiple SubTextures, you must specify the total width, total height, and the
+	 * spriteSize which is the length of the sides of the squares inside it.
+	 * <p/>
+	 * The image itself used for this Texture MUST be a power of 2 on each side. 16, 32, 64, 128, 256, 512, etc. For example, a png that is 18x20 will get loaded by OpenGL as 32x32, thus skewing your
+	 * SubTextures
+	 * <p/>
+	 * The layout for textureId's in order to get SubTextures from this goes from Left -> Right, then Top -> Bottom, like so: [0, 1, 2, 3 4, 5, 6, 7, 8, 9, 10, 11]
+	 * <p/>
+	 * If you are using just a single image, the textureId is always 0.
+	 * 
+	 * @param plugin
+	 *            associated with this Texture
+	 * @param resource
+	 *            stream containing the image that contains the textures
+	 * @param texture
+	 *            url to use. Must be a png
+	 * @param width
+	 *            of the texture in pixels
+	 * @param height
+	 *            of the texture in pixels
+	 * @param spriteSize
+	 *            width and height of the sprites inside the texture
+	 */
+	public Texture(final Plugin plugin, final InputStream resource, final String texture, final int width, final int height, final int spriteSize) {
+		initialize(plugin, texture, width, height, spriteSize);
+		SpoutManager.getFileManager().addToCache(plugin, resource, texture);
+	}
+
+	/**
+	 * Initialize the Texture.
+	 * 
+	 * @param plugin
+	 *            associated with this Texture
+	 * @param texture
+	 *            url to use. Must be a png
+	 * @param width
+	 *            of the texture in pixels
+	 * @param height
+	 *            of the texture in pixels
+	 * @param spriteSize
+	 *            width and height of the sprites inside the texture
+	 */
+	private void initialize(final Plugin plugin, final String texture, final int width, final int height, final int spriteSize) {
 		this.texture = texture;
 		this.plugin = plugin;
-		SpoutManager.getFileManager().addToCache(plugin, texture);
 		this.width = width;
 		this.height = height;
 		this.spriteSize = spriteSize;
 
-		int amount = (width / spriteSize) * (height / spriteSize);
+		final int amount = (width / spriteSize) * (height / spriteSize);
 
 		subTextures = new ArrayList<SubTexture>(amount);
 
@@ -81,16 +130,19 @@ public class Texture {
 
 	/**
 	 * Gets a SubTexture from this texture
-	 * @param textureId to get
+	 * 
+	 * @param textureId
+	 *            to get
 	 * @return the SubTexture
 	 */
-	public SubTexture getSubTexture(int textureId) {
+	public SubTexture getSubTexture(final int textureId) {
 
 		return subTextures.get(textureId);
 	}
 
 	/**
 	 * Gets the texture URL from this Texture
+	 * 
 	 * @return texture URL
 	 */
 	public String getTexture() {
@@ -99,6 +151,7 @@ public class Texture {
 
 	/**
 	 * Gets the size of sprites in this Texture
+	 * 
 	 * @return spriteSize
 	 */
 	public int getSpriteSize() {
@@ -107,6 +160,7 @@ public class Texture {
 
 	/**
 	 * Gets the total width of this texture
+	 * 
 	 * @return width
 	 */
 	public int getWidth() {
@@ -115,6 +169,7 @@ public class Texture {
 
 	/**
 	 * Gets the total height of this texture
+	 * 
 	 * @return height
 	 */
 	public int getHeight() {
@@ -123,6 +178,7 @@ public class Texture {
 
 	/**
 	 * Gets the plugin associated with this texture
+	 * 
 	 * @return plugin
 	 */
 	public Plugin getPlugin() {
