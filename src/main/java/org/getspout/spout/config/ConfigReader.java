@@ -41,6 +41,7 @@ public class ConfigReader {
 	private static int authTicks = 200;
 	private static String kickMessage = "This server requires Spoutcraft! http://www.spout.org";
 
+	private static boolean allowSprintCheat = false;
 	private static boolean allowSkyCheat = false;
 	private static boolean allowClearWaterCheat = false;
 	private static boolean allowStarsCheat = false;
@@ -65,6 +66,7 @@ public class ConfigReader {
 		forceClient = configuration.getBoolean("ForceSinglePlayerClient", false);
 		kickMessage = configuration.getString("ForceSinglePlayerClientKickMessage");
 		authTicks = configuration.getInt("AuthenticateTicks", 200);
+		allowSprintCheat = configuration.getBoolean("AllowSprintCheat", false);
 		allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
 		allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
 		allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
@@ -170,6 +172,10 @@ public class ConfigReader {
 
 	public static int getAuthenticateTicks() {
 		return authTicks;
+	}
+
+	public static boolean isAllowSprintCheat() {
+		return allowSprintCheat;
 	}
 
 	public static boolean isAllowSkyCheat() {

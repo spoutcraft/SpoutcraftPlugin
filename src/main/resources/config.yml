@@ -10,6 +10,7 @@ AllowEntityLabelCheat: false
 AllowClearWaterCheat: false
 AllowCoordsCheat: true
 AllowSkyCheat: false
+AllowSprintCheat: false
 AllowStarsCheat: false
 AllowTimeCheat: false
 AllowVoidFogCheat: false
