@@ -228,16 +228,6 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	}
 
 	@Override
-	public boolean equals(Object other) {
-		return other == this;
-	}
-
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	@Override
 	public void setCustomBlock(CustomBlock block) {
 		if (block != null) {
 			SpoutManager.getMaterialManager().overrideBlock(this, block);

@@ -56,10 +56,6 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 
 	public final TIntIntHashMap powerOverrides = new TIntIntHashMap();
 
-	public final Map<Integer, Block> blockCache = new MapMaker().weakValues().makeMap();
-
-	protected Field cache;
-
 	transient private final int worldHeight;
 	transient private final int worldHeightMinusOne;
 	transient private final int xBitShifts;
@@ -67,13 +63,6 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 
 	public SpoutCraftChunk(Chunk chunk) {
 		super(chunk);
-		try {
-			cache = CraftChunk.class.getDeclaredField("cache");
-			cache.setAccessible(true);
-		} catch (Exception e) {
-			cache = null;
-			//cache is not present in newer builds
-		}
 
 		SpoutWorld world = Spout.getServer().getWorld(getWorld().getUID());
 
@@ -83,42 +72,12 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 		worldHeightMinusOne = worldHeight - 1;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<Integer, Block> getCache() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		if (cache != null) {
-			return (Map<Integer, Block>) cache.get(this);
-		}
-		return blockCache;
-	}
-
 	@Override
 	public Block getBlock(int x, int y, int z) {
-		try {
-			int pos = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
-			Map<Integer, Block> cache = getCache();
-			Block block = cache.get(pos);
-			if (block == null) {
-				Block newBlock = new SpoutCraftBlock(this, (getX() << 4) | (x & 0xF), y & worldHeightMinusOne, (getZ() << 4) | (z & 0xF));
-				Block oldBlock = cache.put(pos, newBlock);
-				if (oldBlock == null) {
-					block = newBlock;
-				} else {
-					block = oldBlock;
-				}
-			}
-			return block;
-		} catch (Exception e) {
-			return super.getBlock(x, y, z);
-		}
+		return new SpoutCraftBlock(this, (getX() << 4) | (x & 0xF), y & worldHeightMinusOne, (getZ() << 4) | (z & 0xF));
 	}
 
 	private Block getBlockFromPos(int pos) throws IllegalAccessException, NoSuchFieldException {
-		Block block = getCache().get(pos);
-
-		if (block != null) {
-			return block;
-		}
-
 		int x = (pos >> xBitShifts) & 0xF;
 		int y = (pos >> 0) & worldHeightMinusOne;
 		int z = (pos >> zBitShifts) & 0xF;
