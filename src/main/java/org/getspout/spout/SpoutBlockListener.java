@@ -94,35 +94,59 @@ public class SpoutBlockListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onBlockPistonExtend(BlockPistonExtendEvent event) {
-		if (event.isCancelled()) {
-			return;
-		}
-
-		List<Block> eventBlocks = event.getBlocks();
-		ListIterator<Block> itr = eventBlocks.listIterator(eventBlocks.size());
-		while (itr.hasPrevious()) {
-			pistonBlockMove((SpoutBlock)itr.previous(), event.getDirection());
-		}
-	}
-
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onBlockPistonRetract(BlockPistonRetractEvent event) {
-		if (event.isCancelled() || !event.isSticky()) {
-			return;
-		}
-
-		pistonBlockMove((SpoutBlock)event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
-	}
-
-	private void pistonBlockMove(SpoutBlock block, BlockFace blockFace) {
-		if (block.getCustomBlock() != null) {
-			SpoutBlock targetBlock = block.getRelative(blockFace);
-			CustomBlock material = block.getCustomBlock();
-			byte data = block.getCustomBlockData();
-			this.mm.removeBlockOverride(block);
-			this.mm.overrideBlock(targetBlock, material, data);
-		}
-	}
+        @EventHandler(priority=EventPriority.MONITOR)
+        public void onBlockPistonExtend(BlockPistonExtendEvent event)
+        {
+               if (event.isCancelled()) {
+                        return;
+               }
+ 
+               BreakOnPushed((SpoutBlock)event.getBlock(), event.getDirection());
+                         
+               List eventBlocks = event.getBlocks();
+               ListIterator itr = eventBlocks.listIterator(eventBlocks.size());
+               while (itr.hasPrevious())
+               {
+               SpoutBlock sb = (SpoutBlock)itr.previous();
+               pistonBlockMove(sb, event.getDirection());
+               BreakOnPushed(sb, event.getDirection());
+               }
+        }
+ 
+        @EventHandler(priority=EventPriority.MONITOR)
+        public void onBlockPistonRetract(BlockPistonRetractEvent event) {
+               if ((event.isCancelled()) || (!event.isSticky())) {
+                        return;
+               }
+ 
+               pistonBlockMove((SpoutBlock)event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
+        }
+ 
+        private void pistonBlockMove(SpoutBlock block, BlockFace blockFace) {
+               if (block.getCustomBlock() != null && !block.getPistonMoveReaction().equals(PistonMoveReaction.BREAK) && !block.getPistonMoveReaction().equals(PistonMoveReaction.BLOCK ) {
+                    SpoutBlock targetBlock = block.getRelative(blockFace);
+                        CustomBlock material = block.getCustomBlock();
+                        Byte data = block.getCustomBlockData();
+                        this.mm.removeBlockOverride(block);
+                        this.mm.overrideBlock(targetBlock, material, data);
+               }
+        }
+        
+        public void BreakOnPushed(SpoutBlock sb, BlockFace bf)
+        {
+               try
+               {
+                    SpoutBlock targetBlock = sb.getRelative(bf);
+                     if(targetBlock.getPistonMoveReaction().equals(PistonMoveReaction.BREAK))
+                     {
+                      if(targetBlock.getCustomBlock() != null)
+                      {
+                       targetBlock.getWorld().dropItemNaturally(targetBlock.getLocation(), targetBlock.getCustomBlock().getItemDrop());
+                       SpoutManager.getMaterialManager().removeBlockOverride(targetBlock);
+                      }
+                     }
+                }
+                catch (Exception e) {
+                }
+        }
 }
