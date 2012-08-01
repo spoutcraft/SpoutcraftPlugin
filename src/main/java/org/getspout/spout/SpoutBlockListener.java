@@ -120,8 +120,9 @@ public class SpoutBlockListener implements Listener {
 		if (block.getCustomBlock() != null) {
 			SpoutBlock targetBlock = block.getRelative(blockFace);
 			CustomBlock material = block.getCustomBlock();
-			mm.removeBlockOverride(block);
-			mm.overrideBlock(targetBlock.getWorld(), targetBlock.getX(), targetBlock.getY(), targetBlock.getZ(), material);
+			byte data = block.getCustomBlockData();
+			this.mm.removeBlockOverride(block);
+			this.mm.overrideBlock(targetBlock, material, data);
 		}
 	}
 }
