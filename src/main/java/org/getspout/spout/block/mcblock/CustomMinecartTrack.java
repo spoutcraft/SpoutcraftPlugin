@@ -51,7 +51,7 @@ public class CustomMinecartTrack extends BlockMinecartTrack implements CustomMCB
 	protected BlockMinecartTrack parent;
 
 	protected CustomMinecartTrack(BlockMinecartTrack parent) {
-		super(parent.id, parent.textureId, parent.i());
+		super(parent.id, parent.textureId, parent.n());
 		this.parent = parent;
 
 		updateField(parent, this, "strength");
