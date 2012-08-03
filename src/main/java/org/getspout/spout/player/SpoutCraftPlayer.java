@@ -31,6 +31,8 @@ import net.minecraft.server.ContainerPlayer;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IInventory;
+import net.minecraft.server.INetworkManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.NetServerHandler;
 import net.minecraft.server.NetworkManager;
 import net.minecraft.server.TileEntityDispenser;
@@ -169,7 +171,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
 		prevMode = getGameMode();
-		fly = ((CraftServer) Bukkit.getServer()).getHandle().server.allowFlight;
+		fly = MinecraftServer.getServer().getAllowFlight();
 	}
 
 	@Override
@@ -1194,7 +1196,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	/* Non Interface public static methods */
 
-	public static boolean setNetServerHandler(NetworkManager nm, NetServerHandler nsh) {
+	public static boolean setNetServerHandler(INetworkManager nm, NetServerHandler nsh) {
 		try {
 			Field p = NetworkManager.class.getDeclaredField("packetListener");
 			p.setAccessible(true);
@@ -1227,13 +1229,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			*/
 			cp.getHandle().netServerHandler.a();
 			Location loc = player.getLocation();
-			NetServerHandler handler = new NetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
+			NetServerHandler handler = new NetServerHandler(MinecraftServer.getServer(), cp.getHandle().netServerHandler.networkManager, cp.getHandle());
 			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 			cp.getHandle().netServerHandler = handler;
-			NetworkManager nm = cp.getHandle().netServerHandler.networkManager;
+			INetworkManager nm = cp.getHandle().netServerHandler.networkManager;
 			setNetServerHandler(nm, cp.getHandle().netServerHandler);
 			oldHandler.disconnected = true;
-			((CraftServer) Spout.getInstance().getServer()).getServer().networkListenThread.a(handler);
 			return true;
 		}
 		return false;
@@ -1245,7 +1246,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		if (!(cp.getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
 			Location loc = player.getLocation();
-			SpoutNetServerHandler handler = new SpoutNetServerHandler(server.getHandle().server, cp.getHandle().netServerHandler.networkManager, cp.getHandle());
+			SpoutNetServerHandler handler = new SpoutNetServerHandler(MinecraftServer.getServer(), cp.getHandle().netServerHandler.networkManager, cp.getHandle());
 			/*
 			for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
 			ChunkCoordIntPair c = (ChunkCoordIntPair) o;
@@ -1254,10 +1255,9 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			*/
 			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 			cp.getHandle().netServerHandler = handler;
-			NetworkManager nm = cp.getHandle().netServerHandler.networkManager;
+			INetworkManager nm = cp.getHandle().netServerHandler.networkManager;
 			setNetServerHandler(nm, cp.getHandle().netServerHandler);
 			oldHandler.disconnected = true;
-			((CraftServer) Spout.getInstance().getServer()).getServer().networkListenThread.a(handler);
 			return true;
 		}
 		return false;
