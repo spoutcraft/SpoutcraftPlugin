@@ -70,7 +70,7 @@ public class MCCraftPacket implements MCPacket {
 	private static final Object[] blank = new Class[0];
 
 	public static MCCraftPacket newInstance(Packet packet) {
-		return newInstance(packet.b(), packet);
+		return newInstance(packet.k(), packet);
 	}
 
 	public static MCCraftPacket newInstance(int packetId, Packet packet) {
