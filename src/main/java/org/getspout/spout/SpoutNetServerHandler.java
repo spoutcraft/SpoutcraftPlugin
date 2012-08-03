@@ -23,6 +23,7 @@ import java.lang.reflect.Field;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.INetworkManager;
 import net.minecraft.server.IntHashMap;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -47,7 +48,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];
 
-	public SpoutNetServerHandler(MinecraftServer minecraftserver, NetworkManager networkmanager, EntityPlayer entityplayer) {
+	public SpoutNetServerHandler(MinecraftServer minecraftserver, INetworkManager networkmanager, EntityPlayer entityplayer) {
 		super(minecraftserver, networkmanager, entityplayer);
 		//cache the field for later use
 		try {
@@ -167,9 +168,9 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	}
 
 	@Override
-	public void a() {
+	public void d() {
 		syncFlushPacketQueue();
-		super.a();
+		super.d();
 	}
 
 	AtomicBoolean processingKick = new AtomicBoolean(false);
@@ -203,7 +204,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	private void syncedSendPacket(Packet packet, MCCraftPacket[] packetWrappers) {
 		int packetId = -1;
 		try {
-			packetId = packet.b();
+			packetId = packet.k();
 		} catch (Exception e) {
 			return;
 		}
