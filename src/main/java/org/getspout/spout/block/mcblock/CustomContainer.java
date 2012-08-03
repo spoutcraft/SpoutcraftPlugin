@@ -22,6 +22,7 @@ package org.getspout.spout.block.mcblock;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import gnu.trove.map.hash.TIntIntHashMap;
@@ -72,7 +73,7 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 		this.maxY = parent.maxY;
 		this.maxZ = parent.maxZ;
 		this.stepSound = parent.stepSound;
-		this.cc = parent.cc;
+		this.co = parent.co;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
 
@@ -113,36 +114,24 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public TileEntity a_() {
+	protected void r_() {
 		try {
-			Method a = BlockContainer.class.getDeclaredMethod("a_", (Class[]) null);
-			a.setAccessible(true);
-			return (TileEntity) a.invoke(parent, (Object[]) null);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	@Override
-	protected void k() {
-		try {
-			Method k = Block.class.getDeclaredMethod("k", (Class[]) null);
-			k.setAccessible(true);
-			k.invoke(parent, (Object[]) null);
+			Method r_ = Block.class.getDeclaredMethod("r_", (Class[]) null);
+			r_.setAccessible(true);
+			r_.invoke(parent, (Object[]) null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public boolean b() {
-		return parent.b();
+	public boolean c() {
+		return parent.c();
 	}
 
 	@Override
-	public float m() {
-		return parent.m();
+	public float m(World world, int i, int j, int k) {
+		return parent.m(world, i, j, k);
 	}
 
 	@Override
@@ -160,8 +149,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean b(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-		return parent.b(iblockaccess, i, j, k, l);
+	public boolean c(IBlockAccess iblockaccess, int i, int j, int k) {
+		return parent.c(iblockaccess, i, j, k);
 	}
 
 	@Override
@@ -176,8 +165,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, ArrayList arraylist) {
-		parent.a(world, i, j, k, axisalignedbb, arraylist);
+	public void a(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List list, Entity entity) {
+		parent.a(world, i, j, k, axisalignedbb, list, entity);
 	}
 
 	@Override
@@ -186,11 +175,11 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean a() {
+	public boolean d() {
 		if (parent != null) {
-			return parent.a();
+			return parent.d();
 		}
-		return super.a();
+		return super.d();
 	}
 
 	@Override
@@ -199,13 +188,13 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean E_() {
-		return parent.E_();
+	public boolean l() {
+		return parent.l();
 	}
 
 	@Override
-	public void a(World world, int i, int j, int k, Random random) {
-		parent.a(world, i, j, k, random);
+	public void b(World world, int i, int j, int k, Random random) {
+		parent.b(world, i, j, k, random);
 	}
 
 	@Override
@@ -227,8 +216,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public int c() {
-		return parent.c();
+	public int b() {
+		return parent.b();
 	}
 
 	@Override
@@ -237,7 +226,19 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public void remove(World world, int i, int j, int k) {
+	public TileEntity a(World world) {
+		try {
+			Method a = BlockContainer.class.getDeclaredMethod("a", (Class[]) null);
+			a.setAccessible(true);
+			return (TileEntity) a.invoke(parent, (Object[]) null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void remove(World world, int i, int j, int k, int l, int i1) {
 		boolean handled = false;
 		org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, i, j, k);
 		if (block != null) {
@@ -245,7 +246,7 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 			handled = true;
 		}
 		if (!handled) {
-			parent.remove(world, i, j, k);
+			parent.remove(world, i, j, k, l, i1);
 		}
 	}
 
@@ -260,8 +261,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public float getDamage(EntityHuman entityhuman) {
-		float def = parent.getDamage(entityhuman);
+	public float getDamage(EntityHuman entityhuman, World world, int i, int j, int k) {
+		float def = parent.getDamage(entityhuman, world, i, j, k);
 		if (entityhuman instanceof EntityPlayer) {
 			SpoutPlayer player = (SpoutPlayer) ((EntityPlayer) entityhuman).netServerHandler.getPlayer();
 			if (player.getLastClickedLocation() != null) {
@@ -324,12 +325,12 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
+	public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
 		org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, i, j, k);
 		if (block != null && entityhuman instanceof EntityPlayer) {
 			return block.onBlockInteract(world.getWorld(), i, j, k, ((SpoutPlayer) entityhuman.getBukkitEntity()));
 		}
-		return parent.interact(world, i, j, k, entityhuman);
+		return parent.interact(world, i, j, k, entityhuman, l, f, f1, f2);
 	}
 
 	@Override
@@ -346,8 +347,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public void postPlace(World world, int i, int j, int k, int l) {
-		parent.postPlace(world, i, j, k, l);
+	public void postPlace(World world, int i, int j, int k, int l, float f, float f1, float f2) {
+		parent.postPlace(world, i, j, k, l, f, f1, f2);
 	}
 
 	@Override
@@ -419,8 +420,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean d(World world, int i, int j, int k, int l) {
-		return parent.d(world, i, j, k, l);
+	public boolean c(World world, int i, int j, int k, int l) {
+		return parent.c(world, i, j, k, l);
 	}
 
 	@Override
@@ -429,8 +430,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public boolean f(World world, int i, int j, int k) {
-		return parent.f(world, i, j, k);
+	public boolean d(World world, int i, int j, int k) {
+		return parent.d(world, i, j, k);
 	}
 
 	@Override
@@ -439,8 +440,8 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 	}
 
 	@Override
-	public void a(World world, int i, int j, int k, int l, int i1) {
-		parent.a(world, i, j, k, l, i1);
+	public void b(World world, int i, int j, int k, int l, int i1) {
+		parent.b(world, i, j, k, l, i1);
 	}
 
 	private static void updateField(Block parent, Block child, String fieldName) {
