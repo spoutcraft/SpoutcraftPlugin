@@ -25,16 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.server.Packet18ArmAnimation;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.block.mcblock.CustomBlock;
 import org.getspout.spout.command.SpoutCommand;
@@ -61,6 +51,15 @@ import org.getspout.spoutapi.io.CRCStore;
 import org.getspout.spoutapi.io.store.FlatFileStore;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class Spout extends JavaPlugin {
 	public SpoutPlayerListener playerListener;
@@ -105,9 +104,9 @@ public class Spout extends JavaPlugin {
 		}
 		//order matters
 		CustomBlock.resetBlocks();
-		((SimpleMaterialManager)SpoutManager.getMaterialManager()).reset();
-		((SimpleSkyManager)SpoutManager.getSkyManager()).reset();
-		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPluginDisable();
+		((SimpleMaterialManager) SpoutManager.getMaterialManager()).reset();
+		((SimpleSkyManager) SpoutManager.getSkyManager()).reset();
+		((SimplePlayerManager) SpoutManager.getPlayerManager()).onPluginDisable();
 		Player[] online = getServer().getOnlinePlayers();
 		for (Player player : online) {
 			try {
@@ -125,14 +124,14 @@ public class Spout extends JavaPlugin {
 
 		getServer().getScheduler().cancelTasks(this);
 
-		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+		SimpleChunkDataManager dm = (SimpleChunkDataManager) SpoutManager.getChunkDataManager();
 		dm.unloadAllChunks();
 		dm.closeAllFiles();
 
 		CRCConfig.save();
 
 		if (itemMapConfig != null) {
-			synchronized(itemMapConfig) {
+			synchronized (itemMapConfig) {
 				itemMapConfig.save();
 			}
 		}
@@ -174,9 +173,9 @@ public class Spout extends JavaPlugin {
 						warnMessage(minecraftVersion, bukkitVersion);
 						for (Player player : Bukkit.getOnlinePlayers()) {
 							if (player.isOp()) {
-						 		player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] " + ChatColor.RED + "SpoutPlugin is not working correctly, please check the console.");
+								player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] " + ChatColor.RED + "SpoutPlugin is not working correctly, please check the console.");
 							} else {
-							//	player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] Dear " + player.getName() + ", please let your admin know to check the console.");
+								//	player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] Dear " + player.getName() + ", please let your admin know to check the console.");
 							}
 						}
 					}
@@ -199,15 +198,15 @@ public class Spout extends JavaPlugin {
 				SpoutCraftPlayer.updateBukkitEntity(player);
 				authenticate(player);
 				playerListener.manager.onPlayerJoin(player);
-				((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(player);
+				((SimplePlayerManager) SpoutManager.getPlayerManager()).onPlayerJoin(player);
 				player.setPreCachingComplete(true); //already done if we are already online!
-				synchronized(playersOnline) {
+				synchronized (playersOnline) {
 					playersOnline.add(player);
 				}
 			}
 
 			SpoutCraftChunk.replaceAllBukkitChunks();
-			((SimplePlayerManager)SpoutManager.getPlayerManager()).onPluginEnable();
+			((SimplePlayerManager) SpoutManager.getPlayerManager()).onPluginEnable();
 
 			CustomItemSpade.replaceSpades();
 			CustomItemPickaxe.replacePickaxes();
@@ -224,11 +223,11 @@ public class Spout extends JavaPlugin {
 			CustomPacket.removeClassMapping();
 			CustomPacket.addClassMapping();
 
-			SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+			SimpleChunkDataManager dm = (SimpleChunkDataManager) SpoutManager.getChunkDataManager();
 			dm.loadAllChunks();
 
 			SimpleMaterialManager.disableFlintStackMix();
-			
+
 			try {
 				Class.forName("org.getspout.spoutapi.inventory.SpoutEnchantment");
 			} catch (ClassNotFoundException e) {
@@ -273,7 +272,7 @@ public class Spout extends JavaPlugin {
 				"spout.client.minimap.showentities",
 		};
 		PluginManager pm = Bukkit.getPluginManager();
-		for(String d : defaults) {
+		for (String d : defaults) {
 			pm.addPermission(new Permission(d, PermissionDefault.TRUE));
 		}
 	}
@@ -290,25 +289,25 @@ public class Spout extends JavaPlugin {
 		if (ConfigReader.authenticateSpoutcraft()) {
 			Packet18ArmAnimation packet = new Packet18ArmAnimation();
 			packet.a = -42;
-			((SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(player)).getNetServerHandler().sendImmediatePacket(packet);
+			((SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(player)).getNetServerHandler().sendImmediatePacket(packet);
 		}
 	}
 
 	public void warnMessage(String minecraftVersion, String bukkitVersion) {
 		Bukkit.getServer().getLogger().info(
-			"\n-----------------------------------------------------\n" +
-			"|| SpoutPlugin is not working correctly due to version mismatch.\n" +
-			"|| Expected Minecraft Server version: " + minecraftVersion + "\n" +
-			"|| Current Minecraft Server version: " + bukkitVersion + "\n" +
-			"|| Either disable ForceMinecraftVersionCheck in /plugins/Spout/config.yml or update CraftBukkit.\n" +
-			"-------------------------------------------------------"
+				"\n-----------------------------------------------------\n" +
+						"|| SpoutPlugin is not working correctly due to version mismatch.\n" +
+						"|| Expected Minecraft Server version: " + minecraftVersion + "\n" +
+						"|| Current Minecraft Server version: " + bukkitVersion + "\n" +
+						"|| Either disable ForceMinecraftVersionCheck in /plugins/Spout/config.yml or update CraftBukkit.\n" +
+						"-------------------------------------------------------"
 		);
 	}
 }
 
 class ShutdownThread extends Thread {
 	public void run() {
-		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+		SimpleChunkDataManager dm = (SimpleChunkDataManager) SpoutManager.getChunkDataManager();
 		dm.unloadAllChunks();
 		dm.closeAllFiles();
 	}
