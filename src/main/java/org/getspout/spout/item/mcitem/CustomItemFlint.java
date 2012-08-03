@@ -23,6 +23,7 @@ import java.lang.reflect.Field;
 
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EnumAnimation;
+import net.minecraft.server.INetworkManager;
 import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.NetworkManager;
@@ -45,7 +46,7 @@ public class CustomItemFlint extends Item {
 	
 	protected CustomItemFlint() {
 		super(62);
-		a(6, 0).a("flint");
+		b(6, 0).b("flint");
 		try {
 			clazz = Class.forName("net.minecraft.server.NetworkWriterThread");
 			a = clazz.getDeclaredField("a");
@@ -64,12 +65,12 @@ public class CustomItemFlint extends Item {
 	}
 
 	@Override
-	public EnumAnimation d(ItemStack itemstack) {
+	public EnumAnimation b(ItemStack itemstack) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			return EnumAnimation.b;
 		}
-		return super.d(itemstack);
+		return super.b(itemstack);
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class CustomItemFlint extends Item {
 	}
 	
 	@Override
-	public boolean i() {
+	public boolean u() {
 		if(clazz == null || a == null) return false;
 		Thread t = Thread.currentThread();
 		if(!clazz.isInstance(t)) return false;
@@ -100,7 +101,7 @@ public class CustomItemFlint extends Item {
 	private SpoutPlayer lookupPlayer(NetworkManager nm) {
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			if(!(p instanceof CraftPlayer)) continue;
-			NetworkManager n = ((CraftPlayer) p).getHandle().netServerHandler.networkManager;
+			INetworkManager n = ((CraftPlayer) p).getHandle().netServerHandler.networkManager;
 			if(n == nm) return SpoutManager.getPlayer(p);
 		}
 		return null;
@@ -123,7 +124,7 @@ class FoodUpdate implements Runnable {
 
 	@Override
 	public void run() {
-		if (human.b(false)) {
+		if (human.e(false)) {
 			human.a(item, 32);
 		}
 	}
