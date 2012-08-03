@@ -93,7 +93,8 @@ public class TIntPairObjectHashMap<K>{
 		return map.valueCollection();
 	}
 
+	@SuppressWarnings("unchecked")
 	public K[] values() {
-		return map.values();
+		return (K[]) map.values();
 	}
 }
