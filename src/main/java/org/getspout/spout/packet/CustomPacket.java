@@ -160,7 +160,7 @@ public class CustomPacket extends Packet {
 	@SuppressWarnings("rawtypes")
 	public static void removeClassMapping() {
 		try {
-			Packet.j.d(195);
+			Packet.l.d(195);
 			Field field = Packet.class.getDeclaredField("a");
 			field.setAccessible(true);
 			Map temp = (Map) field.get(null);
