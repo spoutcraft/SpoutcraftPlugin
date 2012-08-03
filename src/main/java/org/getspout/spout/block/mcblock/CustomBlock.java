@@ -70,9 +70,9 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		this.parent = parent;
 		updateField(parent, this, "strength");
 		updateField(parent, this, "durability");
-		updateField(parent, this, "bR");
-		updateField(parent, this, "bS");
-		updateField(parent, this, "bT");
+		updateField(parent, this, "cd");
+		updateField(parent, this, "ce");
+		updateField(parent, this, "cf");
 		this.minX = parent.minX;
 		this.minY = parent.minY;
 		this.minZ = parent.minZ;
