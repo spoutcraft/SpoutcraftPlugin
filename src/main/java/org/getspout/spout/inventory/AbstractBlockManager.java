@@ -19,6 +19,7 @@
  */
 package org.getspout.spout.inventory;
 
+import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ import gnu.trove.map.hash.TIntIntHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import net.minecraft.server.Block;
 import org.getspout.spout.block.mcblock.CustomMCBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
@@ -164,7 +166,17 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
-		return net.minecraft.server.Block.byId[id].m(); //m is now hardness
+		//Access the protected strength field in Block
+		Block mBlock = Block.byId[id];
+		float hardness = 999999999f; //Probably useless safeguard
+		try {
+			Field field = Block.class.getDeclaredField("strength");
+			field.setAccessible(true);
+			hardness = field.getFloat(mBlock);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return hardness;
 	}
 
 	@Override
