@@ -77,6 +77,11 @@ public class CustomMCInventory implements IInventory {
 	}
 
 	@Override
+	public void startOpen() {
+
+	}
+
+	@Override
 	public ItemStack[] getContents() {
 		return this.items;
 	}
@@ -167,10 +172,6 @@ public class CustomMCInventory implements IInventory {
 
 	@Override
 	public void f() {
-	}
-
-	@Override
-	public void g() {
 	}
 
 	@Override
