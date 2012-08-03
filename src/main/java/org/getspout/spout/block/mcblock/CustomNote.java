@@ -46,7 +46,7 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 		this.maxY = parent.maxY;
 		this.maxZ = parent.maxZ;
 		this.stepSound = parent.stepSound;
-		this.cc = parent.cc;
+		this.co = parent.co;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
 
@@ -72,16 +72,16 @@ public class CustomNote extends BlockNote implements CustomMCBlock {
 		this.durability = resistance;
 	}
 
-	public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman) {
-		return parent.interact(world, i, j, k, entityhuman);
+	public boolean interact(World world, int i, int j, int k, EntityHuman entityhuman, int l, float f, float f1, float f2) {
+		return parent.interact(world, i, j, k, entityhuman, l, f, f1, f2);
 	}
 
 	public void attack(World world, int i, int j, int k, EntityHuman entityhuman) {
 		parent.attack(world, i, j, k, entityhuman);
 	}
 
-	public TileEntity a_() {
-		return parent.a_();
+	public TileEntity a(World world) {
+		return parent.a(world);
 	}
 
 	private static void updateField(Block parent, Block child, String fieldName) {
