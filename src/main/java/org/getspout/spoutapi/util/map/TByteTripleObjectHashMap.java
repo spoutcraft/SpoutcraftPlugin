@@ -93,8 +93,9 @@ public class TByteTripleObjectHashMap<K>{
 		return map.valueCollection();
 	}
 
+	@SuppressWarnings("unchecked")
 	public K[] values() {
-		return map.values();
+		return (K[]) map.values();
 	}
 
 	private static final int key(int x, int y, int z) {
