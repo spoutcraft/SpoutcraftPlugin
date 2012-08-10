@@ -27,7 +27,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.minecraft.server.ContainerPlayer;
+import net.minecraft.server.DedicatedServer;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.IInventory;
@@ -35,6 +38,7 @@ import net.minecraft.server.INetworkManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.NetServerHandler;
 import net.minecraft.server.NetworkManager;
+import net.minecraft.server.ServerConnection;
 import net.minecraft.server.TileEntityDispenser;
 import net.minecraft.server.TileEntityFurnace;
 import net.minecraft.server.TileEntitySign;
@@ -62,7 +66,6 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 import org.getspout.spout.PacketCompressionThread;
-import org.getspout.spout.Spout;
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spout.SpoutPermissibleBase;
 import org.getspout.spout.config.ConfigReader;
@@ -1257,6 +1260,21 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			cp.getHandle().netServerHandler = handler;
 			INetworkManager nm = cp.getHandle().netServerHandler.networkManager;
 			setNetServerHandler(nm, cp.getHandle().netServerHandler);
+			Field handlerList = null;
+			try {
+				handlerList = ServerConnection.class.getDeclaredField("d");
+				handlerList.setAccessible(true);
+				ServerConnection sc = ((DedicatedServer) MinecraftServer.getServer()).ac();
+				List rhandlerList = (List) handlerList.get(sc);
+				rhandlerList.remove(oldHandler);
+				rhandlerList.add(handler);
+			} catch (NoSuchFieldException ex) {
+				Logger.getLogger(SpoutCraftPlayer.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (SecurityException ex) {
+				Logger.getLogger(SpoutCraftPlayer.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (IllegalAccessException ex) {
+				Logger.getLogger(SpoutCraftPlayer.class.getName()).log(Level.SEVERE, null, ex);
+			}
 			oldHandler.disconnected = true;
 			return true;
 		}
