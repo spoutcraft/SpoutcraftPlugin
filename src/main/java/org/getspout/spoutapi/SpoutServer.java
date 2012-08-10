@@ -37,6 +37,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
+import org.bukkit.Warning.WarningState;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandException;
@@ -560,5 +561,10 @@ public class SpoutServer implements Server {
 	@Override
 	public String getMotd() {
 		return server.getMotd();
+	}
+
+	@Override
+	public WarningState getWarningState() {
+		return server.getWarningState();
 	}
 }
