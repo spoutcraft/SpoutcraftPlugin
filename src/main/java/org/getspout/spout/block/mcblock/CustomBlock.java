@@ -428,7 +428,7 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		if (block != null) {
 			return block.isProvidingPowerTo(world.getWorld(), i, j, k, CraftBlock.notchToBlockFace(l));
 		}
-		return parent.d(world, i, j, k, l);
+		return parent.c(world, i, j, k, l);
 	}
 
 	@Override
