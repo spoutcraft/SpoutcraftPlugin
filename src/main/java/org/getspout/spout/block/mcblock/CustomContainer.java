@@ -21,7 +21,6 @@ package org.getspout.spout.block.mcblock;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -227,14 +226,7 @@ public class CustomContainer extends BlockContainer implements CustomMCBlock {
 
 	@Override
 	public TileEntity a(World world) {
-		try {
-			Method a = BlockContainer.class.getDeclaredMethod("a", (Class[]) null);
-			a.setAccessible(true);
-			return (TileEntity) a.invoke(parent, (Object[]) null);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		return parent.a(world);
 	}
 
 	@Override
