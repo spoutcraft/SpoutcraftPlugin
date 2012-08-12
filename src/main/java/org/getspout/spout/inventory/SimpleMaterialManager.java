@@ -23,6 +23,7 @@ import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
@@ -43,6 +45,7 @@ import org.getspout.spoutapi.inventory.ItemMap;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
 import org.getspout.spoutapi.inventory.SpoutShapelessRecipe;
+import org.getspout.spoutapi.io.store.FlatFileStore;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Material;
@@ -270,6 +273,31 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 						}
 					}
 				}
+			}
+		}
+	}
+
+	@Override
+	public void renameMaterialKey(JavaPlugin plugin, String oldKey, String newKey) {
+		String fullOldKey = plugin.getDescription().getName() + "." + oldKey;
+		String fullNewKey = plugin.getDescription().getName() + "." + newKey;
+
+		ItemMap.getRootMap().rename(fullOldKey, fullNewKey);
+		
+		for (File worldFolder : Bukkit.getWorldContainer().listFiles()) {
+			if ((new File(worldFolder, "spout_meta/worldItemMap.txt")).exists()) {
+				World world = Bukkit.getWorld(worldFolder.getName());
+				if (world != null) {
+					ItemMap worldItemMap = SpoutManager.getChunkDataManager().getItemMap(world);
+					if (worldItemMap != null) {
+						worldItemMap.rename(fullOldKey, fullNewKey);
+						continue;
+					}
+				}
+				FlatFileStore<Integer> fs = new FlatFileStore<Integer>(new File(worldFolder, "spout_meta/worldItemMap.txt"), Integer.class);
+				fs.load();
+				ItemMap worldItemMap = new ItemMap(ItemMap.getRootMap(), fs, null);
+				worldItemMap.rename(fullOldKey, fullNewKey);
 			}
 		}
 	}

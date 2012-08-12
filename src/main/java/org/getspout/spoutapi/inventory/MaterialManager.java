@@ -25,6 +25,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.Material;
@@ -131,4 +132,6 @@ public interface MaterialManager {
 	 * @return true if successful
 	 */
 	public boolean registerSpoutRecipe(Recipe recipe);
+
+	public void renameMaterialKey(JavaPlugin plugin, String oldKey, String newKey);
 }

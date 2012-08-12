@@ -22,6 +22,7 @@ package org.getspout.spoutapi.chunkdatamanager;
 import java.io.Serializable;
 
 import org.bukkit.World;
+import org.getspout.spoutapi.inventory.ItemMap;
 
 public interface ChunkDataManager {
 	/**
@@ -132,4 +133,6 @@ public interface ChunkDataManager {
 	public byte[] getCustomBlockData(World world, int x, int z);
 
 	public void setCustomBlockData(World world, int x, int z, byte[] rots);
+
+	public ItemMap getItemMap(World world);
 }
