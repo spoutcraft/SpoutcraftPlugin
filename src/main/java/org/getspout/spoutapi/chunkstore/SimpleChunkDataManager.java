@@ -301,4 +301,9 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 	public int getStringId(String string) {
 		return ItemMap.getRootMap().register(string);
 	}
+
+	@Override
+	public ItemMap getItemMap(World world) {
+		return worldItemMaps.get(world.getUID());
+	}
 }
