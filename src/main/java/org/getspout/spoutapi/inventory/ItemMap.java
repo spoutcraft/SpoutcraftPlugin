@@ -183,4 +183,13 @@ public class ItemMap {
 			return checkPos;
 		}
 	}
+
+	public void rename(String oldKey, String newKey) {
+		Integer id = store.get(oldKey);
+		if (id != null) {
+			store.set(newKey, id);
+			store.remove(oldKey);
+			save();
+		}
+	}
 }
