@@ -31,6 +31,7 @@ import org.bukkit.ChunkSnapshot;
 import org.bukkit.Difficulty;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.WorldType;
@@ -40,6 +41,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
@@ -456,6 +458,16 @@ public class SpoutWorld implements World {
 	@Override
 	public <T extends Entity> T spawn(Location location, Class<T> clazz) throws IllegalArgumentException {
 		return world.spawn(location, clazz);
+	}
+
+	@Override
+	public FallingBlock spawnFallingBlock(Location location, Material material, byte b) throws IllegalArgumentException {
+		return world.spawnFallingBlock(location, material, b);
+	}
+
+	@Override
+	public FallingBlock spawnFallingBlock(Location location, int i, byte b) throws IllegalArgumentException {
+		return world.spawnFallingBlock(location, i, b);
 	}
 
 	@Override
