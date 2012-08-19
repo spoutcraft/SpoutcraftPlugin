@@ -341,6 +341,11 @@ public class SpoutWorld implements World {
 	}
 
 	@Override
+	public boolean isChunkInUse(int i, int i1) {
+		return world.isChunkInUse(i, i1);
+	}
+
+	@Override
 	public boolean isThundering() {
 		return world.isThundering();
 	}

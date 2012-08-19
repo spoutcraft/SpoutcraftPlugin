@@ -146,8 +146,8 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 				Field worldServer = CraftWorld.class.getDeclaredField("world");
 				worldServer.setAccessible(true);
 				ChunkProviderServer cps = ((WorldServer) worldServer.get(cw)).chunkProviderServer;
-				for (Object c : cps.chunkList) {
-					Chunk chunk = (Chunk) c;
+				for (Chunk c : cps.chunks.values()) {
+					Chunk chunk = c;
 					if (reset) {
 						if (chunk.bukkitChunk instanceof SpoutCraftChunk) {
 							((SpoutCraftChunk) chunk.bukkitChunk).onReset();
