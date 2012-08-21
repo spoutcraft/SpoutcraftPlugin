@@ -111,7 +111,7 @@ public class SpoutCommand implements CommandExecutor {
 			} else {
 				Bukkit.getServer().getScheduler().cancelTask(motd_task);
 			}
-			MinecraftServer.getServer().setMotd(args[0]);
+			MinecraftServer.getServer().setMotd(args[1]);
 			motd_task = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new Runnable() {
 				@Override
 				public void run() {
