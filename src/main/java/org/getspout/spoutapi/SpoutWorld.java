@@ -32,6 +32,7 @@ import org.bukkit.Difficulty;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.WorldType;
@@ -621,6 +622,11 @@ public class SpoutWorld implements World {
 	@Override
 	public void setWaterAnimalSpawnLimit(int i) {
 		world.setWaterAnimalSpawnLimit(i);
+	}
+
+	@Override
+	public void playSound(Location location, Sound sound, float v, float v1) {
+		world.playSound(location, sound, v, v1);
 	}
 
 	@Override
