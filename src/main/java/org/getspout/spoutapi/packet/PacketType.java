@@ -89,9 +89,7 @@ public enum PacketType {
 	PacketSlotClick(59, PacketSlotClick.class),
 	PacketWaypoint(60, PacketWaypoint.class),
 	PacketParticle(61, PacketParticle.class),
-	PacketAccessory(62, PacketAccessory.class), 
-	PacketWorldId(63, PacketWorldId.class),
-	;
+	PacketAccessory(62, PacketAccessory.class);
 	private final int id;
 	private final Class<? extends SpoutPacket> packetClass;
 	private static final HashMap<Integer, PacketType> lookupId = new HashMap<Integer, PacketType>();
