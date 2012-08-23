@@ -40,6 +40,7 @@ import org.getspout.spoutapi.packet.PacketAllowVisualCheats;
 import org.getspout.spoutapi.packet.PacketBlockData;
 import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
 import org.getspout.spoutapi.packet.PacketServerPlugins;
+import org.getspout.spoutapi.packet.PacketWorldId;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -98,5 +99,6 @@ public class PlayerManager {
 		Bukkit.getServer().getPluginManager().callEvent(new SpoutCraftEnableEvent(player));
 		((SpoutCraftPlayer)player).updateAppearance();
 		((SpoutCraftPlayer)player).updateWaypoints();
+		player.sendPacket(new PacketWorldId(player.getWorld().getUID()));
 	}
 }

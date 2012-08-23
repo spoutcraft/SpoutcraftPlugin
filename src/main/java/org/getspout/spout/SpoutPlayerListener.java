@@ -53,6 +53,7 @@ import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.packet.PacketWorldId;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutPlayerListener implements Listener {
@@ -309,6 +310,7 @@ class PostWorldTeleport implements Runnable {
 	public void run() {
 		player.updateAppearance();
 		player.updateWaypoints();
+		player.sendPacket(new PacketWorldId(player.getWorld().getUID()));
 	}
 }
 
