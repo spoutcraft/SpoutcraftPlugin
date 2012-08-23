@@ -254,6 +254,32 @@ public class SpoutPlayerListener implements Listener {
 			}
 		}
 	}
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPlayerDrop(PlayerDropItemEvent e) {
+		SpoutItemStack sis = new SpoutItemStack(e.getItemDrop().getItemStack());
+		if(!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem())
+		{
+			CustomItem ci = (CustomItem)sis.getMaterial();
+			if(!ci.isStackable())
+			{
+				sis.addEnchantment(SpoutEnchantment.UNSTACKABLE, 1000);
+			}
+		}
+		e.getItemDrop().setItemStack(sis);
+	}
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPlayerPickupItem(PlayerPickupItemEvent e) {
+		SpoutItemStack sis = new SpoutItemStack(e.getItem().getItemStack());
+		if(!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem())
+		{
+			CustomItem ci = (CustomItem)sis.getMaterial();
+			if(!ci.isStackable())
+			{
+				sis.addEnchantment(SpoutEnchantment.UNSTACKABLE, 1000);
+			}
+		}
+		e.getItem().setItemStack(sis);
+	}
 }
 
 class PostTeleport implements Runnable {
