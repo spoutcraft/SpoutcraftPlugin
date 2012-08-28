@@ -41,6 +41,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spout.inventory.SimpleMaterialManager;
@@ -97,9 +98,17 @@ public class SpoutPlayerListener implements Listener {
 			}
 		}
 	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onPlayerTeleport(PlayerTeleportEvent event) {
+		SpoutPlayer splr = SpoutManager.getPlayer(event.getPlayer());
+		if(event.getCause() == TeleportCause.UNKNOWN && splr.isSpoutCraftEnabled() && splr.isFlying() && splr.getFlySpeed() > 1.0f) {
+			event.setCancelled(true);
+		}
+	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onPlayerTeleport(final PlayerTeleportEvent event) {
+	public void onPlayerTeleportMonitor(final PlayerTeleportEvent event) {
 		if (!(event.getPlayer() instanceof SpoutPlayer)) {
 			updatePlayerEvent(event);
 		}

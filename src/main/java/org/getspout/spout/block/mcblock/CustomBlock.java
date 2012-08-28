@@ -492,11 +492,11 @@ public class CustomBlock extends Block implements CustomMCBlock {
 	}
 
 	//TODO: This causes redstone issues with glass (allows power through glass, vanilla does not) but it can't
-	//Be solved from a plugin. Workaround: Don't update glass unless non-opaque custom blocks are on the server.
+	//Be solved from a plugin. Implemented workaround: Don't update glass unless non-opaque custom blocks are on the server.
 	public static void updateGlass() {
 		//Allow placement of blocks on glass
 		try {
-			Field field = Material.SHATTERABLE.getClass().getDeclaredField("H");
+			Field field = Material.SHATTERABLE.getClass().getDeclaredField("I");
 			field.setAccessible(true);
 			field.setBoolean(Material.SHATTERABLE, false);
 		} catch (Exception e) {
