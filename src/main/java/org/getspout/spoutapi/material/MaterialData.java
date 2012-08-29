@@ -227,6 +227,15 @@ public class MaterialData {
 	public static final Block dragonEgg = new Solid("Dragon Egg", 122);
 	public static final Block redstoneLampOff = new Solid("Redstone Lamp (Off)", 123);
 	public static final Block redstoneLampOn = new Solid("Redstone Lamp", 124);
+	public static final Block sandstoneStairs = new Solid("Sandstone Stairs", 128);
+	public static final Block emeraldOre = new Solid("Emerald Ore", 129);
+	public static final Block enderChest = new Solid("Ender Chest", 130);
+	public static final Block tripwireHook = new Solid("Tripwire Hook", 131);
+	public static final Block tripwire = new Solid("Tripwire", 132);
+	public static final Block emeraldBlock = new Solid("Block of Emerald", 133);
+	public static final Block spruceWoodStairs = new Solid("Spruce Wood Stairs", 134);
+	public static final Block birchWoodStairs = new Solid("Birch Wood Stairs", 135);
+	public static final Block jungleWoodStairs = new Solid("Jungle Wood Stairs", 136);
 	public static final Item ironShovel = new GenericTool("Iron Shovel", 256);
 	public static final Item ironPickaxe = new GenericTool("Iron Pickaxe", 257);
 	public static final Item ironAxe = new GenericTool("Iron Axe", 258);
