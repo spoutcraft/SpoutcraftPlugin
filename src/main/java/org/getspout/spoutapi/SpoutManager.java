@@ -25,6 +25,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
+import org.getspout.spoutapi.entity.EntityManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.keyboard.KeyBindingManager;
@@ -45,6 +46,7 @@ public class SpoutManager {
 	private InventoryBuilder inventoryBuilder = null;
 	private PacketManager packetManager = null;
 	private PlayerManager playerManager = null;
+	private EntityManager entityManager = null;
 	private ChunkDataManager chunkDataManager = null;
 	private FileManager fileManager = null;
 	private KeyBindingManager keyBindingManager = null;
@@ -171,6 +173,12 @@ public class SpoutManager {
 			fileManager = manager;
 		}
 	}
+	
+	public void setEntityManager(EntityManager manager) {
+		if(entityManager == null) {
+			entityManager = manager;
+		}
+	}
 
 	public void setPlayerManager(PlayerManager manager) {
 		if (playerManager == null) {
@@ -263,5 +271,13 @@ public class SpoutManager {
 	 */
 	public static PlayerManager getPlayerManager() {
 		return getInstance().playerManager;
+	}
+	
+	/**
+	 * Gets the entity manager
+	 * @return entity manager
+	 */
+	public static EntityManager getEntityManager() {
+		return getInstance().entityManager;
 	}
 }

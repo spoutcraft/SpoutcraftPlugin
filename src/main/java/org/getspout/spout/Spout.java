@@ -60,6 +60,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.getspout.spout.entity.SimpleEntityManager;
 
 public class Spout extends JavaPlugin {
 	public SpoutPlayerListener playerListener;
@@ -86,6 +87,7 @@ public class Spout extends JavaPlugin {
 		SpoutManager.getInstance().setInventoryBuilder(new SpoutInventoryBuilder());
 		SpoutManager.getInstance().setPacketManager(new SimplePacketManager());
 		SpoutManager.getInstance().setPlayerManager(new SimplePlayerManager());
+		SpoutManager.getInstance().setEntityManager(new SimpleEntityManager());
 		SpoutManager.getInstance().setChunkDataManager(new SimpleChunkDataManager());
 		SpoutManager.getInstance().setBiomeManager(new SimpleBiomeManager());
 		SpoutManager.getInstance().setFileManager(new SimpleFileManager());

@@ -20,6 +20,7 @@
 package org.getspout.spout.entity.ai;
 
 import net.minecraft.server.PathfinderGoal;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.entity.ai.SpoutAI;
 
 public class SpoutcraftAI extends PathfinderGoal {
@@ -28,10 +29,11 @@ public class SpoutcraftAI extends PathfinderGoal {
 	
 	public SpoutcraftAI(SpoutAI base) {
 		this.ai = base;
+		SpoutManager.getBiomeManager();
 	}
 
 	@Override
-	public boolean a() { //shouldExecute
+	public boolean a() {
 		return ai.shouldExecute();
 	}
 

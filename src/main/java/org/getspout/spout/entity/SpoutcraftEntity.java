@@ -26,7 +26,7 @@ import org.getspout.spoutapi.entity.ai.SpoutAI;
 public class SpoutcraftEntity implements SpoutEntity{
 	private EntityBase base;
 	
-	private SpoutcraftEntity(EntityBase base) {
+	public SpoutcraftEntity(EntityBase base) {
 		this.base = base;
 	}
 
