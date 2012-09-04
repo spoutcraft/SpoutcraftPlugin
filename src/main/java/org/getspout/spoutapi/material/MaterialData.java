@@ -478,6 +478,9 @@ public class MaterialData {
 	public static final Item spawnEggOcelot = new SpawnEgg("Spawn Ocelot", 383, 98);
 	public static final Item bottleOEnchanting = new GenericItem("Bottle o' Enchanting", 384);
 	public static final Item fireCharge = new GenericItem("Fire Charge", 385);
+	public static final Item bookAndQuill = new GenericItem("Book And Quill", 386);
+	public static final Item writtenBook = new GenericItem("Written Book", 387);
+	public static final Item emerald = new GenericItem("Emerald", 388);
 	public static final Item goldMusicDisc = new GenericItem("Music Disc", 2256);
 	public static final Item greenMusicDisc = new GenericItem("Music Disc", 2257);
 	public static final Item orangeMusicDisc = new GenericItem("Music Disc", 2258);
