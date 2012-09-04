@@ -915,7 +915,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor(this)));
 				for(AccessoryType type : AccessoryType.values()) {
 					if(player.hasAccessory(type)) {
-						sendDelayedPacket(new PacketAccessory(type, player.getAccessoryURL(type)));
+						sendDelayedPacket(new PacketAccessory(player.getName(), type, player.getAccessoryURL(type)));
 					}
 				}
 			}
@@ -1403,7 +1403,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		accessories.put(type, url);
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer) {
-				((SpoutPlayer) p).sendPacket(new PacketAccessory(type, url));
+				((SpoutPlayer) p).sendPacket(new PacketAccessory(getName(), type, url));
 			}
 		}
 	}
@@ -1412,7 +1412,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public String removeAccessory(AccessoryType type) {
 		for (Player p : getWorld().getPlayers()) {
 			if (p instanceof SpoutPlayer) {
-				((SpoutPlayer) p).sendPacket(new PacketAccessory(type, "", false));
+				((SpoutPlayer) p).sendPacket(new PacketAccessory(getName(), type, "", false));
 			}
 		}
 		return accessories.remove(type);

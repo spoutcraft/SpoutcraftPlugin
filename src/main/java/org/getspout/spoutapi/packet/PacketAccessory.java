@@ -26,17 +26,18 @@ import org.getspout.spoutapi.player.accessories.AccessoryType;
 
 public class PacketAccessory implements SpoutPacket{
 	private AccessoryType type;
-	private String url;
+	private String url, who;
 	private boolean add;
 
 	public PacketAccessory() {
 	}
 
-	public PacketAccessory(AccessoryType type, String url) {
-		this(type, url, true);
+	public PacketAccessory(String who,AccessoryType type, String url) {
+		this(who, type, url, true);
 	}
 
-	public PacketAccessory(AccessoryType type, String url, boolean add) {
+	public PacketAccessory(String who,AccessoryType type, String url, boolean add) {
+		this.who = who;
 		this.type = type;
 		this.url = url;
 		this.add = add;
@@ -44,6 +45,7 @@ public class PacketAccessory implements SpoutPacket{
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
+		who = input.readString();
 		type = AccessoryType.get(input.readInt());
 		url = input.readString();
 		add = input.readBoolean();
@@ -51,6 +53,7 @@ public class PacketAccessory implements SpoutPacket{
 
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
+		output.writeString(who);
 		output.writeInt(type.getId());
 		output.writeString(url);
 		output.writeBoolean(add);
@@ -71,7 +74,7 @@ public class PacketAccessory implements SpoutPacket{
 
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 
 }
