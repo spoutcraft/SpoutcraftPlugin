@@ -67,11 +67,13 @@ public class PacketCustomChunks implements SpoutPacket {
 			return;
 		}
 		for (int i = 0; i < howMany; i++) {
-			Chunk c = player.getWorld().getChunkAt(chunkX[i], chunkZ[i]);
-			if (c instanceof SpoutChunk) {
-				SpoutChunk chunk = (SpoutChunk) c;
-				if (chunk.getCustomBlockIds() != null && chunk.getCustomBlockIds().length != 0) {
-					player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunk.getCustomBlockData(), chunkX[i], chunkZ[i]));
+			if (player != null) {
+				Chunk c = player.getWorld().getChunkAt(chunkX[i], chunkZ[i]);
+				if (c instanceof SpoutChunk) {
+					SpoutChunk chunk = (SpoutChunk) c;
+					if (chunk.getCustomBlockIds() == null || chunk.getCustomBlockIds().length != 0) {
+						player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunk.getCustomBlockData(), chunkX[i], chunkZ[i]));
+					}
 				}
 			}
 		}
