@@ -17,37 +17,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.getspout.spoutapi.material.item;
+package org.getspout.spout.item.mcitem;
 
-import org.getspout.spoutapi.material.Armor;
+import net.minecraft.server.EnumArmorMaterial;
+import net.minecraft.server.ItemArmor;
 
-public class GenericArmor extends GenericItem implements Armor {
-	public GenericArmor(String name, int id) {
-		super(name, id);
+public class CustomItemArmor extends ItemArmor {
+
+	public CustomItemArmor(int arg0, EnumArmorMaterial arg1, int arg2,
+			int arg3) {
+		super(arg0, arg1, arg2, arg3);
 	}
-	
-	@Override
-	public Armor setMaxDurability(short durability) {
-		return this;
-	}
-	
-	@Override
-	public short getMaxDurability(){
-		return 0;
-	}
-	
-	@Override
-	public short getDefense(){
-		return 0;
-	}
-	
-	@Override
-	public void setDefense(short defense) {
-	}
-	
-	@Override
-	public byte getType(){
-		return 0;
-	}
-	
+
 }
