@@ -34,12 +34,14 @@ import org.getspout.spoutapi.packet.PacketType;
 
 public class GenericCustomArmor  extends GenericCustomItem implements Armor {
 	private short maxdurability = 100;
-	private byte type;
+	private int type;
 	private short defense;
+	private String textureArmor;
 	
-	public GenericCustomArmor(Plugin plugin, String name, String texture, byte type) {
+	public GenericCustomArmor(Plugin plugin, String name, String texture, String textureArmor, int type) {
 		super(plugin, name, texture);
 		this.type = type;
+		this.textureArmor = textureArmor;
 	}
 
 	@Override
@@ -64,15 +66,21 @@ public class GenericCustomArmor  extends GenericCustomItem implements Armor {
 	}
 	
 	@Override
-	public byte getType() {
+	public int getType() {
 		return type;
 	}
 
 	@Override
+	public String getArmorTexture() {
+		return textureArmor;
+	}
+	
+	@Override
 	public void readData(SpoutInputStream input) throws IOException {
 		super.readData(input);
 		setMaxDurability(input.readShort());
-		this.type = (byte)input.readShort();	// FIX: There isn't a input.readByte()...
+		this.textureArmor = input.readString();
+		this.type = input.readInt();
 		this.defense = input.readShort();
 	}
 
@@ -80,7 +88,8 @@ public class GenericCustomArmor  extends GenericCustomItem implements Armor {
 	public void writeData(SpoutOutputStream output) throws IOException {
 		super.writeData(output);
 		output.writeShort(getMaxDurability());
-		output.writeShort(type);				// FIX: There isn't a input.writeByte()...
+		output.writeString(textureArmor);
+		output.writeInt(type);	
 		output.writeShort(getDefense());
 	}
 

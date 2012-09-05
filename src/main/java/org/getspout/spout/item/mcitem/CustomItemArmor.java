@@ -19,8 +19,13 @@
  */
 package org.getspout.spout.item.mcitem;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.server.EnumArmorMaterial;
+import net.minecraft.server.Item;
 import net.minecraft.server.ItemArmor;
+import net.minecraft.server.ItemSpade;
+import net.minecraft.server.ItemTool;
 
 public class CustomItemArmor extends ItemArmor {
 
@@ -29,4 +34,33 @@ public class CustomItemArmor extends ItemArmor {
 		super(arg0, arg1, arg2, arg3);
 	}
 
+
+	/**
+	 * Fixes a bug in nms where Notch compares reference to snow and snow blocks instead of id's for the snow and snow block
+	 */
+	public static void replaceArmors() {
+		for (int i = 0; i < Item.byId.length; i++) {
+			if (Item.byId[i] != null) {
+				if (Item.byId[i] instanceof ItemArmor) {
+					ItemArmor armor = (ItemArmor)Item.byId[i];
+					EnumArmorMaterial eam = null;
+					Field tool = null;
+					try {
+						tool = ItemArmor.class.getDeclaredField("bZ");
+						tool.setAccessible(true);
+						eam = (EnumArmorMaterial) tool.get(armor);
+						Item.byId[i] = null;
+						Item.byId[i] = new CustomItemArmor(armor.id-256, eam, armor.c, armor.a);
+					} catch (Exception e) {
+						System.out.println("Unexpected error replacing the armor material");
+						System.out.println("Current item: " + i + " Total Items: " + Item.byId.length);
+						System.out.println("Crashed replacing: " + armor.getClass() + " " + armor.toString());
+						System.out.println("Was using reflection with: " + (tool != null ? tool.getName() : "null") + " " + tool);
+						e.printStackTrace();
+					}
+
+				}
+			}
+		}
+	}
 }

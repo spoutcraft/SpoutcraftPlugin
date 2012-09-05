@@ -29,5 +29,7 @@ public interface Armor extends Item {
 	
 	public void setDefense(short defense);
 	
-	public byte getType();
+	public int getType();
+	
+	public String getArmorTexture();
 }

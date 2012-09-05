@@ -32,6 +32,11 @@ public class GenericArmor extends GenericItem implements Armor {
 	}
 	
 	@Override
+	public String getArmorTexture() {
+		return "";
+	}
+	
+	@Override
 	public short getMaxDurability(){
 		return 0;
 	}
@@ -46,7 +51,7 @@ public class GenericArmor extends GenericItem implements Armor {
 	}
 	
 	@Override
-	public byte getType(){
+	public int getType(){
 		return 0;
 	}
 	

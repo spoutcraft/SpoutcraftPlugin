@@ -31,6 +31,7 @@ import org.getspout.spout.command.SpoutCommand;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.inventory.SpoutInventoryBuilder;
+import org.getspout.spout.item.mcitem.CustomItemArmor;
 import org.getspout.spout.item.mcitem.CustomItemFlint;
 import org.getspout.spout.item.mcitem.CustomItemPickaxe;
 import org.getspout.spout.item.mcitem.CustomItemSpade;
@@ -210,6 +211,7 @@ public class Spout extends JavaPlugin {
 			SpoutCraftChunk.replaceAllBukkitChunks();
 			((SimplePlayerManager) SpoutManager.getPlayerManager()).onPluginEnable();
 
+			CustomItemArmor.replaceArmors();
 			CustomItemSpade.replaceSpades();
 			CustomItemPickaxe.replacePickaxes();
 			CustomItemFlint.replaceFlint();
