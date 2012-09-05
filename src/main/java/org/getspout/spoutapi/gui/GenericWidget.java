@@ -78,7 +78,7 @@ public abstract class GenericWidget implements Widget {
 
 	@Override
 	public int getVersion() {
-		return 5;
+		return 6;
 	}
 
 	public GenericWidget(int X, int Y, int width, int height) {
@@ -124,9 +124,6 @@ public abstract class GenericWidget implements Widget {
 		setAnchor(WidgetAnchor.getAnchorFromId(input.read()));
 		setVisible(input.readBoolean());
 		setPriority(RenderPriority.getRenderPriorityFromId(input.readInt()));
-		long msb = input.readLong();
-		long lsb = input.readLong();
-		this.id = new UUID(msb, lsb);
 		setTooltip(input.readString());
 		setPlugin(Bukkit.getServer().getPluginManager().getPlugin(input.readString()));
 		animType = WidgetAnim.getAnimationFromId(input.read());
@@ -145,8 +142,6 @@ public abstract class GenericWidget implements Widget {
 		output.write(getAnchor().getId());
 		output.writeBoolean(isVisible());
 		output.writeInt(priority.getId());
-		output.writeLong(getId().getMostSignificantBits());
-		output.writeLong(getId().getLeastSignificantBits());
 		output.writeString(getTooltip());
 		output.writeString(plugin != null ? plugin : "Spoutcraft");
 		output.write(animType.getId());

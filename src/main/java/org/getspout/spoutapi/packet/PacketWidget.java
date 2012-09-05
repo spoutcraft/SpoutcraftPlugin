@@ -70,8 +70,8 @@ public class PacketWidget implements SpoutPacket {
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(widget.getType().getId());
-		output.writeLong(screen.getMostSignificantBits());
-		output.writeLong(screen.getLeastSignificantBits());
+		output.writeUUID(screen);
+		output.writeUUID(widget.getId());
 
 		SpoutOutputStream data = new SpoutOutputStream();
 		widget.writeData(data);
@@ -101,6 +101,6 @@ public class PacketWidget implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return 1;
+		return 2;
 	}
 }
