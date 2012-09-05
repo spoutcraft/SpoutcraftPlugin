@@ -20,4 +20,16 @@
 package org.getspout.spoutapi.material;
 
 public interface Armor extends Item {
+
+	public Armor setMaxDurability(short durability);
+	
+	public short getMaxDurability();
+	
+	public short getDefense();
+	
+	public void setDefense(short defense);
+	
+	public int getType();
+	
+	public String getArmorTexture();
 }
