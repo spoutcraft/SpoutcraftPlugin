@@ -73,6 +73,7 @@ public class SpoutPlayerListener implements Listener {
 			SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer());
 
 			//This forces EXISTING players to see the new player's skin, cape, and title
+			player.updateAppearance();
 			player.setSkin(player.getSkin());
 			player.setCape(player.getCape());
 			player.setTitle(player.getTitle());
