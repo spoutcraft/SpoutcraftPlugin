@@ -82,7 +82,7 @@ public class PacketCustomBlockChunkOverride implements CompressiblePacket {
 	}
 
 	@Override
-	public void run(int playerId) { //TODO remove after the first 1.3 RB, it just preserves compat now...
+	public void run(int playerId) {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		if (player != null) {
 			Chunk c = player.getWorld().getChunkAt(chunkX, chunkZ);
