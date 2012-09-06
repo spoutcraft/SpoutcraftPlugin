@@ -27,6 +27,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -43,10 +44,11 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutBlockListener implements Listener {
+
 	private final SimpleMaterialManager mm;
 
 	public SpoutBlockListener(Spout plugin) {
-		mm = (SimpleMaterialManager)SpoutManager.getMaterialManager();
+		mm = (SimpleMaterialManager) SpoutManager.getMaterialManager();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
@@ -59,7 +61,7 @@ public class SpoutBlockListener implements Listener {
 
 		SpoutBlock block = (SpoutBlock) event.getBlock();
 
-		SpoutPlayer player = (SpoutPlayer)event.getPlayer();
+		SpoutPlayer player = (SpoutPlayer) event.getPlayer();
 
 		if (block.getCustomBlock() != null) {
 			CustomBlock material = block.getCustomBlock();
@@ -88,7 +90,7 @@ public class SpoutBlockListener implements Listener {
 		Block block = event.getBlock();
 		Material type = block.getType();
 		if (type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW || type == Material.DEAD_BUSH || type == Material.LONG_GRASS) {
-			if (net.minecraft.server.Block.byId[event.getMaterialId()].canPlace(((CraftWorld)block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
+			if (net.minecraft.server.Block.byId[event.getMaterialId()].canPlace(((CraftWorld) block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
 				event.setBuildable(true);
 			}
 		}
@@ -100,29 +102,46 @@ public class SpoutBlockListener implements Listener {
 			return;
 		}
 
-		List<Block> eventBlocks = event.getBlocks();
-		ListIterator<Block> itr = eventBlocks.listIterator(eventBlocks.size());
+		breakOnPushed((SpoutBlock) event.getBlock(), event.getDirection());
+
+		List eventBlocks = event.getBlocks();
+		ListIterator itr = eventBlocks.listIterator(eventBlocks.size());
 		while (itr.hasPrevious()) {
-			pistonBlockMove((SpoutBlock)itr.previous(), event.getDirection());
+			SpoutBlock sb = (SpoutBlock) itr.previous();
+			pistonBlockMove(sb, event.getDirection());
+			breakOnPushed(sb, event.getDirection());
 		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockPistonRetract(BlockPistonRetractEvent event) {
-		if (event.isCancelled() || !event.isSticky()) {
+		if ((event.isCancelled()) || (!event.isSticky())) {
 			return;
 		}
 
-		pistonBlockMove((SpoutBlock)event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
+		pistonBlockMove((SpoutBlock) event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
 	}
 
 	private void pistonBlockMove(SpoutBlock block, BlockFace blockFace) {
-		if (block.getCustomBlock() != null) {
+		if (block.getCustomBlock() != null && !block.getPistonMoveReaction().equals(PistonMoveReaction.BREAK) && !block.getPistonMoveReaction().equals(PistonMoveReaction.BLOCK)) {
 			SpoutBlock targetBlock = block.getRelative(blockFace);
 			CustomBlock material = block.getCustomBlock();
-			byte data = block.getCustomBlockData();
+			Byte data = block.getCustomBlockData();
 			this.mm.removeBlockOverride(block);
 			this.mm.overrideBlock(targetBlock, material, data);
+		}
+	}
+
+	public void breakOnPushed(SpoutBlock sb, BlockFace bf) {
+		try {
+			SpoutBlock targetBlock = sb.getRelative(bf);
+			if (targetBlock.getPistonMoveReaction().equals(PistonMoveReaction.BREAK)) {
+				if (targetBlock.getCustomBlock() != null) {
+					targetBlock.getWorld().dropItemNaturally(targetBlock.getLocation(), targetBlock.getCustomBlock().getItemDrop());
+					SpoutManager.getMaterialManager().removeBlockOverride(targetBlock);
+				}
+			}
+		} catch (Exception e) {
 		}
 	}
 }
