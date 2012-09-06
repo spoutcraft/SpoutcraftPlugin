@@ -27,12 +27,15 @@ import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
 
 import net.minecraft.server.MinecraftServer;
+import org.bukkit.ChatColor;
 import org.getspout.spout.Spout;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutCommand implements CommandExecutor {
+
 	private final Spout p;
 	private String motd_temp = null;
 	private int motd_task = 0;
@@ -53,7 +56,7 @@ public class SpoutCommand implements CommandExecutor {
 			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
 
 			CommandSender target = sender;
-	
+
 			if (args.length > 1) {
 				target = p.getServer().getPlayer(args[1]);
 				if (target == null) {
@@ -90,13 +93,26 @@ public class SpoutCommand implements CommandExecutor {
 			}
 			if (args.length > 1) {
 				String name = args[1];
-				(new ConfigReader()).addWaypoint(name, ((Player)sender).getLocation());
+				(new ConfigReader()).addWaypoint(name, ((Player) sender).getLocation());
 				sender.sendMessage("Waypoint [" + name + "] created successfully");
 				return true;
 			} else {
 				sender.sendMessage("You must give a name to the waypoint.");
 				return true;
 			}
+		}
+		if (c.equals("list")) {
+			String message = ChatColor.GREEN + "Players online with Spoutcraft: ";
+			for (Player plr : Bukkit.getOnlinePlayers()) {
+				SpoutPlayer splr = SpoutManager.getPlayer(plr);
+				if (splr.isSpoutCraftEnabled()) {
+					message += ChatColor.YELLOW+splr.getName()+ChatColor.GREEN+ ", ";
+				}
+			}
+			message = message.substring(0, message.length() - 2);
+			message += ChatColor.GREEN+"!";
+			sender.sendMessage(message);
+			return true;
 		}
 		if (c.equals("reload")) {
 			(new ConfigReader()).read();

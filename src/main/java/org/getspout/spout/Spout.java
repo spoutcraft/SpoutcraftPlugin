@@ -74,7 +74,7 @@ public class Spout extends JavaPlugin {
 	protected FlatFileStore<String> CRCConfig;
 	protected FlatFileStore<Integer> itemMapConfig;
 	protected ItemMap serverItemMap;
-	protected List<SpoutPlayer> playersOnline = new ArrayList<SpoutPlayer>();
+	protected final List<SpoutPlayer> playersOnline = new ArrayList<SpoutPlayer>();
 	protected Thread shutdownThread = null;
 	protected InventoryListener invListener;
 	private boolean hardDisable = false;
