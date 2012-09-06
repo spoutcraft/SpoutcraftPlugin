@@ -21,8 +21,13 @@ package org.getspout.spout;
 
 import java.util.HashMap;
 
+import net.minecraft.server.ContainerPlayer;
+import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.IInventory;
+import net.minecraft.server.Slot;
+
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Player; 
 
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.inventory.SimpleMaterialManager;
@@ -36,12 +41,13 @@ import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.event.spout.SpoutcraftFailedEvent;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.inventory.SpoutSlotArmor;
 import org.getspout.spoutapi.packet.PacketAllowVisualCheats;
 import org.getspout.spoutapi.packet.PacketBlockData;
 import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
 import org.getspout.spoutapi.packet.PacketServerPlugins;
 import org.getspout.spoutapi.player.PlayerInformation;
-import org.getspout.spoutapi.player.SpoutPlayer;
+import org.getspout.spoutapi.player.SpoutPlayer; 
 
 public class PlayerManager {
 	private HashMap<String, Integer> timer = new HashMap<String, Integer>();
@@ -74,6 +80,14 @@ public class PlayerManager {
 
 	@SuppressWarnings("deprecation")
 	public void onSpoutcraftEnable(SpoutPlayer player) {
+		SpoutCraftPlayer handle = (SpoutCraftPlayer)player;
+		EntityPlayer entityPlayer = handle.getHandle();
+		for(int i = 0; i < 4; i++) {
+			SpoutSlotArmor newSlotArmor = new SpoutSlotArmor((ContainerPlayer)entityPlayer.defaultContainer, 
+						(IInventory)entityPlayer.inventory, entityPlayer.inventory.getSize() - 1 -i, 8, 8 + i * 18, i);
+			entityPlayer.defaultContainer.b.set(5 + i, newSlotArmor);
+		}
+		
 		timer.remove(player.getName());
 		player.sendPacket(new PacketServerPlugins(Bukkit.getServer().getPluginManager().getPlugins()));
 		player.updateInventory();
