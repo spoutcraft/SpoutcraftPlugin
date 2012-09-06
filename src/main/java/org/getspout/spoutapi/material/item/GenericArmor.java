@@ -25,4 +25,34 @@ public class GenericArmor extends GenericItem implements Armor {
 	public GenericArmor(String name, int id) {
 		super(name, id);
 	}
+	
+	@Override
+	public Armor setMaxDurability(short durability) {
+		return this;
+	}
+	
+	@Override
+	public String getArmorTexture(int index) {
+		return "";
+	}
+	
+	@Override
+	public short getMaxDurability(){
+		return 0;
+	}
+	
+	@Override
+	public short getDefense(){
+		return 0;
+	}
+	
+	@Override
+	public Armor setDefense(short defense) {
+		return this;
+	}
+	
+	@Override
+	public int getType(){
+		return 0;
+	}
 }
