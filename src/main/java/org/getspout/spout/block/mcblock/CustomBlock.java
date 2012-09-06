@@ -84,6 +84,11 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		updateField(parent, this, "name");
 	}
 
+	@Override
+	public int getExpDrop(World world, int data, int enchantmentLevel) {
+		return parent.getExpDrop(world, data, enchantmentLevel);
+	}
+
 	private org.getspout.spoutapi.material.CustomBlock getCustomBlock(World world, int x, int y, int z) {
 		short[] customIds = SpoutManager.getChunkDataManager().getCustomBlockIds(world.getWorld(), x >> 4, z >> 4);
 		if (customIds != null) {
