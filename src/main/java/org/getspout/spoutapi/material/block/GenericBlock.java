@@ -29,7 +29,7 @@ public class GenericBlock implements Block {
 	private final boolean subtypes;
 	private final String name;
 	private String customName;
-	private SoundEffect stepSound = SoundEffect.STONE_1;
+	private SoundEffect stepSound = SoundEffect.STONE;
 
 	private GenericBlock(String name, int id, int data, boolean subtypes) {
 		this.name = name;
