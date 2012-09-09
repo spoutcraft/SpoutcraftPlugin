@@ -22,7 +22,48 @@ package org.getspout.spoutapi.material.item;
 import org.getspout.spoutapi.material.Armor;
 
 public class GenericArmor extends GenericItem implements Armor {
-	public GenericArmor(String name, int id) {
+	private String[] textures;
+	private short maxDur;
+	private short defense;
+	
+	public GenericArmor(String name, int id, String[] partTextures) {
 		super(name, id);
+		textures = partTextures;
+	}
+
+	@Override
+	public Armor setMaxDurability(short durability) {
+		maxDur = durability;
+		return this;
+	}
+
+	@Override
+	public short getMaxDurability() {
+		return maxDur;
+	}
+
+	@Override
+	public short getDefense() {
+		return defense;
+	}
+
+	@Override
+	public Armor setDefense(short newDefense) {
+		defense = newDefense;
+		return this;
+	}
+
+	@Override
+	public int getType() {
+		return 0;
+	}
+
+	@Override
+	public String getArmorTexture(int index) {
+		try {
+			return textures[index];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 }
