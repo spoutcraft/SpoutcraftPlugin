@@ -28,6 +28,7 @@ import java.util.zip.Inflater;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import org.bukkit.Chunk;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.io.SpoutInputStream;
@@ -85,10 +86,16 @@ public class PacketCustomBlockChunkOverride implements CompressiblePacket {
 	public void run(int playerId) {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		if (player != null) {
+			CraftWorld cw = ((CraftWorld)player.getWorld());
+			if (cw.getHandle().chunkProviderServer.unloadQueue.contains(chunkX, chunkZ)) {
+				return;
+			}
+			if (!cw.getHandle().chunkProviderServer.isChunkLoaded(chunkX, chunkZ)) {
+				return;
+			}
 			Chunk c = player.getWorld().getChunkAt(chunkX, chunkZ);
 			if (c instanceof SpoutChunk) {
 				SpoutChunk chunk = (SpoutChunk)c;
-
 				player.sendPacket(new PacketCustomBlockChunkOverride(chunk.getCustomBlockIds(), chunk.getCustomBlockData(), chunkX, chunkZ));
 			}
 		}
