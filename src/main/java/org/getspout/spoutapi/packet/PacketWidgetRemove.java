@@ -29,7 +29,6 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketWidgetRemove implements SpoutPacket {
 	protected Widget widget;
-	protected UUID screen;
 
 	public PacketWidgetRemove() {
 
@@ -37,32 +36,16 @@ public class PacketWidgetRemove implements SpoutPacket {
 
 	public PacketWidgetRemove(Widget widget, UUID screen) {
 		this.widget = widget;
-		this.screen = screen;
 	}
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
-		int id = input.readInt();
-		long msb = input.readLong();
-		long lsb = input.readLong();
-		screen = new UUID(msb, lsb);
-		WidgetType widgetType = WidgetType.getWidgetFromId(id);
-		if (widgetType != null) {
-			try {
-				widget = widgetType.getWidgetClass().newInstance();
-				widget.readData(input);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		
 	}
 
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
-		output.writeInt(widget.getType().getId());
-		output.writeLong(screen.getMostSignificantBits());
-		output.writeLong(screen.getLeastSignificantBits());
-		widget.writeData(output);
+		output.writeUUID(widget.getId());
 	}
 
 	@Override
@@ -82,6 +65,6 @@ public class PacketWidgetRemove implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 }
