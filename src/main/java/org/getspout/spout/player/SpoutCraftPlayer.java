@@ -333,31 +333,22 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public boolean openInventoryWindow(Inventory inventory) {
-		return openInventoryWindow(inventory, null, false);
+		return super.openInventory(inventory) != null;
 	}
 
 	@Override
 	public boolean openInventoryWindow(Inventory inventory, Location location) {
-		return openInventoryWindow(inventory, location, false);
+		return super.openInventory(inventory) != null;
 	}
 
 	@Override
 	public boolean openInventoryWindow(Inventory inventory, Location location, boolean ignoreDistance) {
-		IInventory dialog = ((CraftInventory) inventory).getInventory();
-		if (dialog instanceof TileEntityDispenser) {
-			getHandle().openDispenser((TileEntityDispenser) dialog);
-		} else if (dialog instanceof TileEntityFurnace) {
-			getHandle().openFurnace((TileEntityFurnace) dialog);
-		} else {
-			getHandle().openContainer(dialog);
-		}
-		return true;
+		return super.openInventory(inventory) != null;
 	}
 
 	@Override
 	public boolean openWorkbenchWindow(Location location) {
-		this.openEnchanting(location, true);
-		return true;
+		return super.openWorkbench(location, true) != null;
 	}
 
 	@Override
