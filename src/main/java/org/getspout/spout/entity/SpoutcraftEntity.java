@@ -23,7 +23,7 @@ import java.util.List;
 import org.getspout.spoutapi.entity.SpoutEntity;
 import org.getspout.spoutapi.entity.ai.SpoutAI;
 
-public class SpoutcraftEntity implements SpoutEntity{
+public class SpoutcraftEntity implements SpoutEntity {
 	private EntityBase base;
 	
 	public SpoutcraftEntity(EntityBase base) {
