@@ -20,34 +20,33 @@
 package org.getspout.spoutapi.packet;
 
 import java.io.IOException;
-
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketFullVersion implements SpoutPacket {
-	private String versionString;
+	private long version;
 
 	public PacketFullVersion() {
 	}
 
-	public PacketFullVersion(String versionString) {
-		this.versionString = versionString;
+	public PacketFullVersion(long version) {
+		this.version = version;
 	}
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
-		versionString = input.readString();
+		version = input.readLong();
 	}
 
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
-		output.writeString(versionString);
+		output.writeLong(version);
 	}
 
 	@Override
 	public void run(int playerId) {
-		SpoutManager.getPlayerManager().setVersionString(playerId, versionString);
+		SpoutManager.getPlayerManager().setVersionString(playerId, ""+version);
 	}
 
 	@Override
@@ -61,6 +60,6 @@ public class PacketFullVersion implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 }
