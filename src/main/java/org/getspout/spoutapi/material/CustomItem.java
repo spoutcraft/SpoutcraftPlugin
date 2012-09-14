@@ -57,8 +57,16 @@ public interface CustomItem extends Item {
 	 */
 	public String getTexture();
 
+	/**
+	 * Sets the stackable flag
+	 * @param stackable
+	 * @return this
+	 */
 	public CustomItem setStackable(boolean stackable);
 
+	/**
+	 * Gets if the item is stackable or not.
+	 */
 	public boolean isStackable();
 	
 	/**
