@@ -141,6 +141,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		setName(input.readString());
 		plugin = Bukkit.getServer().getPluginManager().getPlugin(input.readString());
 		texture = input.readString();
+		stackable = input.readBoolean();
 	}
 
 	@Override
@@ -149,6 +150,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		output.writeString(getName());
 		output.writeString(getPlugin().getDescription().getName());
 		output.writeString(getTexture());
+		output.writeBoolean(isStackable());	// The client needs to know about this too.
 	}
 
 	@Override
@@ -166,7 +168,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 	@Override
