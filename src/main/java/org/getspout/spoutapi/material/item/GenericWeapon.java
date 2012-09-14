@@ -25,4 +25,36 @@ public class GenericWeapon extends GenericItem implements Weapon {
 	public GenericWeapon(String name, int id) {
 		super(name, id);
 	}
+	
+	public Tool setMaxDurability(short durability) {
+		return this;
+	}
+	
+	public short getMaxDurability() {
+		return 0;
+	}
+	
+	public int getDamage() {
+		return 0;
+	}
+	
+	public Weapon setDamage(int damage) {
+		return this;
+	}
+	
+	public int getAttackSpeed() {
+		return 0;
+	}
+	
+	public Weapon setAttackSpeed(int speed) {
+		return this;
+	}
+	
+	public boolean isBlockFlag() {
+		return false;
+	}
+	
+	public Weapon setBlockFlag(boolean canBlock) {
+		return this;
+	}
 }
