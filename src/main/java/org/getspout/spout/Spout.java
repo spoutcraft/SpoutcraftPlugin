@@ -272,6 +272,8 @@ public class Spout extends JavaPlugin {
 				"spout.client.signcolors",
 				"spout.client.chatcolors",
 				"spout.client.minimap.showentities",
+				"spout.client.autorun.forward",
+				"spout.client.autorun.backward"
 		};
 		PluginManager pm = Bukkit.getPluginManager();
 		for (String d : defaults) {
