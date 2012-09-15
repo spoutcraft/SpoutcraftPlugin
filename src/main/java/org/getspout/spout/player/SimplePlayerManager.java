@@ -115,7 +115,12 @@ public class SimplePlayerManager implements PlayerManager {
 			SpoutCraftPlayer scp = (SpoutCraftPlayer)sp;
 			scp.setVersionString(versionString);
 			System.out.println("[Spout] Successfully authenticated " + scp.getName() + "'s Spoutcraft client. Running client version: " + scp.getVersionString());
-			int build = Integer.parseInt(versionString);		
+			int build;
+			try {
+				build = Integer.parseInt(versionString);
+			} catch (Exception e) {
+				build = 1700;
+			}
 			((SpoutCraftPlayer) sp).setBuildVersion(build);		
 			SpoutcraftBuildSetEvent sbse = new SpoutcraftBuildSetEvent(sp, build);
 			Bukkit.getPluginManager().callEvent(sbse);
