@@ -82,12 +82,5 @@ public class SpoutItemStack extends ItemStack {
 	public boolean isCustomItem() {
 		return getMaterial() instanceof CustomItem;
 	}
-	
-	@Override
-	public boolean isStackable() {
-		if( isCustomItem() ) {
-			return ((CustomItem)getMaterial()).isStackable();
-		}
-		return super.isStackable();
-	}
+
 }

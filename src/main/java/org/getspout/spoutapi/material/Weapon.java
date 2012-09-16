@@ -20,4 +20,20 @@
 package org.getspout.spoutapi.material;
 
 public interface Weapon extends Item {
+	
+	public short getMaxDurability();
+	
+	public Weapon setMaxDurability(short durability);
+	
+	public int getDamage();
+	
+	public Weapon setDamage(int damage);
+	
+	public int getAttackSpeed();
+	
+	public Weapon setAttackSpeed(int speed);
+	
+	public boolean isBlockFlag();
+	
+	public Weapon setBlockFlag(boolean canBlock);
 }

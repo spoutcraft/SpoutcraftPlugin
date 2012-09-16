@@ -38,6 +38,7 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Food;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.material.Weapon;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class CustomItemFlint extends Item {
@@ -60,6 +61,8 @@ public class CustomItemFlint extends Item {
 		if (item instanceof Food) {
 			--itemstack.count;
 			entityhuman.getFoodData().eat(((Food) item).getHungerRestored(), 0.6F);
+		} else if(item instanceof Weapon) {
+			entityhuman.a(itemstack, 72000); 
 		}
 		return itemstack;
 	}
@@ -69,6 +72,8 @@ public class CustomItemFlint extends Item {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			return EnumAnimation.b;
+		} else if(item instanceof Weapon) {
+			return EnumAnimation.d;
 		}
 		return super.b(itemstack);
 	}
@@ -78,6 +83,8 @@ public class CustomItemFlint extends Item {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), new FoodUpdate(entityhuman, itemstack), 2);
+		} else if(item instanceof Weapon) {
+			entityhuman.a(itemstack, 72000); 
 		}
 
 		return itemstack;
