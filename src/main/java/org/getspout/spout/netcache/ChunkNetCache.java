@@ -26,9 +26,6 @@ public class ChunkNetCache {
 	private static final byte[] partition = new byte[2048];
 
 	public static byte[] handle(byte[] inflatedBuffer, Set<Long> hashSet) {
-		if (inflatedBuffer.length < 16384 || true) {
-			return inflatedBuffer;
-		}
 		
 		int dataLength = inflatedBuffer.length;
 		int segments = dataLength >> 11;

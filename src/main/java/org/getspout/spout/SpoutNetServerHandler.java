@@ -19,6 +19,9 @@
  */
 package org.getspout.spout;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,6 +38,7 @@ import net.minecraft.server.NetworkManager;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet14BlockDig;
 import net.minecraft.server.Packet18ArmAnimation;
+import net.minecraft.server.Packet250CustomPayload;
 import net.minecraft.server.Packet3Chat;
 
 import org.bukkit.ChatColor;
@@ -53,6 +57,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	protected Field entityListField = null;
 	protected ItemStack lastOverrideDisplayStack = null;
 	private Set<Long> hashSet = Sets.newSetFromMap(new ConcurrentHashMap<Long, Boolean>());
+	private boolean cacheEnabled = false;
 
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];
 
@@ -89,6 +94,24 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	}
 
 	private boolean allowReload = false;
+	
+	@Override
+	public void a(Packet250CustomPayload packet250custompayload) {
+		if (packet250custompayload.tag.equals("ChkCache:setHash")) {
+			if (!cacheEnabled) {
+				cacheEnabled = true;
+			}
+			DataInputStream din = new DataInputStream(new ByteArrayInputStream(packet250custompayload.data));
+			try {
+				while (true) {
+					long hash = din.readLong();
+					this.hashSet.add(hash);
+				}
+			} catch (IOException ee) {
+			}
+		}
+		super.a(packet250custompayload);
+	}
 
 	@Override
 	public void a(Packet3Chat packet) {
@@ -147,7 +170,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	@Override
 	public void sendPacket(Packet packet) {
 		if (packet != null) {
-			if (packet.lowPriority) {
+			if (cacheEnabled && packet.lowPriority) {
 				CacheThread.sendPacket(this, packet, hashSet);
 			} else {
 				queueOutputPacket(packet);
