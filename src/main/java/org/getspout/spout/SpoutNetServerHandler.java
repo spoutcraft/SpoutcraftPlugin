@@ -20,8 +20,11 @@
 package org.getspout.spout;
 
 import java.lang.reflect.Field;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.INetworkManager;
 import net.minecraft.server.IntHashMap;
@@ -33,7 +36,9 @@ import net.minecraft.server.Packet;
 import net.minecraft.server.Packet14BlockDig;
 import net.minecraft.server.Packet18ArmAnimation;
 import net.minecraft.server.Packet3Chat;
+
 import org.bukkit.ChatColor;
+import org.getspout.spout.netcache.CacheThread;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -42,9 +47,12 @@ import org.getspout.spoutapi.gui.Label;
 import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import com.google.common.collect.Sets;
+
 public class SpoutNetServerHandler extends NetServerHandler {
 	protected Field entityListField = null;
 	protected ItemStack lastOverrideDisplayStack = null;
+	private Set<Long> hashSet = Sets.newSetFromMap(new ConcurrentHashMap<Long, Boolean>());
 
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];
 
@@ -139,11 +147,11 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	@Override
 	public void sendPacket(Packet packet) {
 		if (packet != null) {
-			//if (packet.lowPriority) {
-			//	MapChunkThread.sendPacket(this.player, packet);
-			//} else {
+			if (packet.lowPriority) {
+				CacheThread.sendPacket(this, packet, hashSet);
+			} else {
 				queueOutputPacket(packet);
-			//}
+			}
 		}
 	}
 

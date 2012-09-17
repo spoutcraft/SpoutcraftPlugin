@@ -1,0 +1,60 @@
+/*
+ * This file is part of SpoutPlugin.
+ *
+ * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * SpoutPlugin is licensed under the GNU Lesser General Public License.
+ *
+ * SpoutPlugin is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SpoutPlugin is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package org.getspout.spout.netcache;
+
+import java.util.Set;
+
+public class ChunkNetCache {
+	
+	private static final byte[] partition = new byte[2048];
+
+	public static byte[] handle(byte[] inflatedBuffer, Set<Long> hashSet) {
+		if (inflatedBuffer.length < 16384 || true) {
+			return inflatedBuffer;
+		}
+		
+		int dataLength = inflatedBuffer.length;
+		int segments = dataLength >> 11;
+		if ((dataLength & 0x7FF) != 0) {
+			segments++;
+		}
+		
+		int newLength = dataLength + (segments << 3) + 8 + 4 + 1;
+		
+		byte[] newBuffer = new byte[newLength];
+		
+		for (int i = 0; i < segments; i++) {
+			PartitionChunk.copyFromChunkData(inflatedBuffer, i, partition, inflatedBuffer.length);
+			long hash = PartitionChunk.hash(partition);
+			if (hashSet.add(hash)) {
+				PartitionChunk.copyToChunkData(newBuffer, i, partition, dataLength);
+			} else {
+				PartitionChunk.setHash(newBuffer, i, hash, dataLength);
+			}
+		}
+		long crc = PartitionChunk.hash(inflatedBuffer);
+		PartitionChunk.setHash(newBuffer, 0, crc, newLength - 13);
+		PartitionChunk.setInt(newBuffer, 0, dataLength, newLength - 5);
+		
+		return newBuffer;
+		
+	}
+	
+}
