@@ -55,7 +55,7 @@ public class CacheThread extends Thread {
 				
 				if (entry.getPacket() instanceof Packet51MapChunk) {
 					Packet51MapChunk p = (Packet51MapChunk) entry.getPacket();
-					p.inflatedBuffer = ChunkNetCache.handle(p.inflatedBuffer, entry.getHashSet());
+					p.inflatedBuffer = entry.getChunkNetCache().handle(p.inflatedBuffer);
 				}
 				entry.getNSH().queueOutputPacket(entry.getPacket());
 			} catch (InterruptedException ie) {
@@ -65,20 +65,20 @@ public class CacheThread extends Thread {
 		}
 	}
 	
-	public static void sendPacket(SpoutNetServerHandler nsh, Packet packet, Set<Long> hashSet) {
-		queue.add(new QueueEntry(nsh, packet, hashSet));
+	public static void sendPacket(SpoutNetServerHandler nsh, Packet packet, ChunkNetCache chunkNetCache) {
+		queue.add(new QueueEntry(nsh, packet, chunkNetCache));
 	}
 	
 	private static class QueueEntry {
 		
-		private SpoutNetServerHandler nsh;
-		private Packet packet;
-		private Set<Long> hashSet;
+		private final SpoutNetServerHandler nsh;
+		private final Packet packet;
+		private final ChunkNetCache chunkNetCache;
 		
-		public QueueEntry(SpoutNetServerHandler nsh, Packet packet, Set<Long> hashSet) {
+		public QueueEntry(SpoutNetServerHandler nsh, Packet packet, ChunkNetCache chunkNetCache) {
 			this.nsh = nsh;
 			this.packet = packet;
-			this.hashSet = hashSet;
+			this.chunkNetCache = chunkNetCache;
 		}
 		
 		public SpoutNetServerHandler getNSH() {
@@ -89,8 +89,8 @@ public class CacheThread extends Thread {
 			return packet;
 		}
 		
-		public Set<Long> getHashSet() {
-			return hashSet;
+		public ChunkNetCache getChunkNetCache() {
+			return chunkNetCache;
 		}
 		
 	}

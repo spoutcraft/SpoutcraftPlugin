@@ -19,12 +19,7 @@
  */
 package org.getspout.spout;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -43,6 +38,7 @@ import net.minecraft.server.Packet3Chat;
 
 import org.bukkit.ChatColor;
 import org.getspout.spout.netcache.CacheThread;
+import org.getspout.spout.netcache.ChunkNetCache;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -51,13 +47,10 @@ import org.getspout.spoutapi.gui.Label;
 import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import com.google.common.collect.Sets;
-
 public class SpoutNetServerHandler extends NetServerHandler {
 	protected Field entityListField = null;
 	protected ItemStack lastOverrideDisplayStack = null;
-	private Set<Long> hashSet = Sets.newSetFromMap(new ConcurrentHashMap<Long, Boolean>());
-	private boolean cacheEnabled = false;
+	private final ChunkNetCache chunkNetCache = new ChunkNetCache();
 
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];
 
@@ -97,19 +90,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	
 	@Override
 	public void a(Packet250CustomPayload packet250custompayload) {
-		if (packet250custompayload.tag.equals("ChkCache:setHash")) {
-			if (!cacheEnabled) {
-				cacheEnabled = true;
-			}
-			DataInputStream din = new DataInputStream(new ByteArrayInputStream(packet250custompayload.data));
-			try {
-				while (true) {
-					long hash = din.readLong();
-					this.hashSet.add(hash);
-				}
-			} catch (IOException ee) {
-			}
-		}
+		chunkNetCache.handleCustomPacket(packet250custompayload.tag, packet250custompayload.data);
 		super.a(packet250custompayload);
 	}
 
@@ -170,8 +151,8 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	@Override
 	public void sendPacket(Packet packet) {
 		if (packet != null) {
-			if (cacheEnabled && packet.lowPriority) {
-				CacheThread.sendPacket(this, packet, hashSet);
+			if (packet.lowPriority && chunkNetCache.isCacheEnabled()) {
+				CacheThread.sendPacket(this, packet, chunkNetCache);
 			} else {
 				queueOutputPacket(packet);
 			}

@@ -19,13 +19,49 @@
  */
 package org.getspout.spout.netcache;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.google.common.collect.Sets;
 
 public class ChunkNetCache {
 	
-	private static final byte[] partition = new byte[2048];
+	private final byte[] partition = new byte[2048];
+	private final Set<Long> hashSet;
+	private volatile boolean cacheEnabled = false;
+	
+	public ChunkNetCache() {
+		this(Sets.newSetFromMap(new ConcurrentHashMap<Long, Boolean>()));
+	}
+	
+	public ChunkNetCache(Set<Long> hashSet) {
+		this.hashSet = hashSet;
+	}
+	
+	public boolean isCacheEnabled() {
+		return cacheEnabled;
+	}
+	
+	public void handleCustomPacket(String channel, byte[] array) {
+		if (channel.equals("ChkCache:setHash")) {
+			cacheEnabled = true;
+			if (array != null) {
+				DataInputStream din = new DataInputStream(new ByteArrayInputStream(array));
+				try {
+					while (true) {
+						long hash = din.readLong();
+						this.hashSet.add(hash);
+					}
+				} catch (IOException ee) {
+				}
+			}
+		}
+	}
 
-	public static byte[] handle(byte[] inflatedBuffer, Set<Long> hashSet) {
+	public byte[] handle(byte[] inflatedBuffer) {
 		
 		int dataLength = inflatedBuffer.length;
 		int segments = dataLength >> 11;
