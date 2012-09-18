@@ -33,15 +33,20 @@ import net.minecraft.server.NetworkManager;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet14BlockDig;
 import net.minecraft.server.Packet18ArmAnimation;
+import net.minecraft.server.Packet20NamedEntitySpawn;
+import net.minecraft.server.Packet24MobSpawn;
 import net.minecraft.server.Packet250CustomPayload;
 import net.minecraft.server.Packet3Chat;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.LivingEntity;
+
 import org.getspout.spout.netcache.CacheThread;
 import org.getspout.spout.netcache.ChunkNetCache;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.Label;
 import org.getspout.spoutapi.gui.RenderPriority;
@@ -155,6 +160,19 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				CacheThread.sendPacket(this, packet, chunkNetCache);
 			} else {
 				queueOutputPacket(packet);
+			}
+			if (packet instanceof Packet20NamedEntitySpawn) {
+				SpoutPlayer player = SpoutManager
+						.getPlayerFromId(((Packet20NamedEntitySpawn) packet).a);
+				if( getPlayer() instanceof SpoutPlayer && player != null ) {
+					((SpoutCraftPlayer)getPlayer()).updateAppearance((SpoutPlayer)getPlayer());
+				}
+			} else if (packet instanceof Packet24MobSpawn) {
+				LivingEntity entity = (LivingEntity) SpoutManager
+						.getEntityFromId(((Packet24MobSpawn) packet).a);
+				if( getPlayer() instanceof SpoutPlayer ) {
+					((SpoutCraftPlayer)getPlayer()).updateEntitySkins(entity);
+				}
 			}
 		}
 	}
