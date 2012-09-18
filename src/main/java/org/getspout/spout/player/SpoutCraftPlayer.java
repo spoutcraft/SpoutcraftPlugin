@@ -903,21 +903,42 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			}
 		}
 	}
-
-	public void updateAppearance() {
+	
+	public void updateEntitySkins(LivingEntity entity) {
+		PlayerInformation info = getInformation();
+		PlayerInformation global = SpoutManager.getPlayerManager()
+				.getGlobalInfo();
+		for (EntitySkinType type : EntitySkinType.values()) {
+			String skin = null;
+			if (info != null) {
+				skin = getInformation().getEntitySkin(entity, type);
+			}
+			if (skin == null) {
+				skin = global.getEntitySkin(entity, type);
+			}
+			if (skin != null) {
+				sendDelayedPacket(new PacketEntitySkin(entity, skin,
+							type.getId()));
+			}
+		}
+		String title = org.getspout.spoutapi.Spout.getServer().getTitle(entity);
+		if (title != null) {
+			sendDelayedPacket(new PacketEntityTitle(entity.getEntityId(), title));
+		}
+	}
+	
+	public void updateAppearance(SpoutPlayer viewer) {
 		if (!isSpoutCraftEnabled()) {
 			return;
 		}
-		for (Player p : getWorld().getPlayers()) {
-			if (p instanceof SpoutPlayer && p != this) {
-				SpoutPlayer player = (SpoutPlayer) p;
-				sendDelayedPacket(new PacketSkinURL(player.getEntityId(), player.getSkin(this), player.getCape(this)));
-				sendDelayedPacket(new PacketEntityTitle(player.getEntityId(), player.getTitleFor(this)));
-				for(AccessoryType type : AccessoryType.values()) {
-					if(player.hasAccessory(type)) {
-						sendDelayedPacket(new PacketAccessory(player.getName(), type, player.getAccessoryURL(type)));
-					}
-				}
+		viewer.sendDelayedPacket(new PacketSkinURL(getEntityId(),
+				getSkin(viewer), getCape(viewer)));
+		viewer.sendDelayedPacket(new PacketEntityTitle(getEntityId(),
+				getTitleFor(viewer)));
+		for (AccessoryType type : AccessoryType.values()) {
+			if (hasAccessory(type)) {
+				viewer.sendDelayedPacket(new PacketAccessory(getName(), type,
+						getAccessoryURL(type)));
 			}
 		}
 	}
@@ -1187,8 +1208,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		SpoutCraftPlayer.updateBukkitEntity(this);
 		if (isSpoutCraftEnabled()) {
 			updateMovement();
+			updateAppearance(this);
 		}
-		updateAppearance();
 	}
 
 	public void updateMovement() {

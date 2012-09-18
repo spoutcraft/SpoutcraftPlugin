@@ -84,7 +84,7 @@ class PostDeath implements Runnable {
 
 	@Override
 	public void run() {
-		player.updateAppearance();
+		player.updateAppearance(player);
 		player.updateWaypoints();
 	}
 }

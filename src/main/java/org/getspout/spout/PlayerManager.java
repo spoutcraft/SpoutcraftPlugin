@@ -96,7 +96,6 @@ public class PlayerManager {
 
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));
 		Bukkit.getServer().getPluginManager().callEvent(new SpoutCraftEnableEvent(player));
-		((SpoutCraftPlayer)player).updateAppearance();
 		((SpoutCraftPlayer)player).updateWaypoints();
 	}
 }
