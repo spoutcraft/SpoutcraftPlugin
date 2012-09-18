@@ -71,12 +71,6 @@ public class SpoutPlayerListener implements Listener {
 			updatePlayerEvent(event);
 			Spout.getInstance().authenticate(event.getPlayer());
 			SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer());
-
-			//This forces EXISTING players to see the new player's skin, cape, and title
-			player.updateAppearance();
-			player.setSkin(player.getSkin());
-			player.setCape(player.getCape());
-			player.setTitle(player.getTitle());
 		}
 		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(event.getPlayer());
 		manager.onPlayerJoin(event.getPlayer());
@@ -305,7 +299,7 @@ class PostTeleport implements Runnable {
 
 	@Override
 	public void run() {
-		player.updateAppearance();
+		player.updateAppearance(player);
 	}
 }
 
@@ -317,7 +311,7 @@ class PostWorldTeleport implements Runnable {
 
 	@Override
 	public void run() {
-		player.updateAppearance();
+		player.updateAppearance(player);
 		player.updateWaypoints();
 	}
 }
