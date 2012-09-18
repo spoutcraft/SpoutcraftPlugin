@@ -165,7 +165,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 				SpoutPlayer player = SpoutManager
 						.getPlayerFromId(((Packet20NamedEntitySpawn) packet).a);
 				if( getPlayer() instanceof SpoutPlayer && player != null ) {
-					((SpoutCraftPlayer)getPlayer()).updateAppearance((SpoutPlayer)getPlayer());
+					((SpoutCraftPlayer)player).updateAppearance((SpoutPlayer)getPlayer());
 				}
 			} else if (packet instanceof Packet24MobSpawn) {
 				LivingEntity entity = (LivingEntity) SpoutManager
