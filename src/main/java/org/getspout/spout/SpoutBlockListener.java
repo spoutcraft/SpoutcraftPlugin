@@ -19,11 +19,14 @@
  */
 package org.getspout.spout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -36,22 +39,28 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
-
+import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
+import org.getspout.spoutapi.event.spout.ServerTickEvent;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutBlockListener implements Listener {
 
 	private final SimpleMaterialManager mm;
-
+	
+	/**
+	 * Used to prevent multiple piston events in the same tick.
+	 */
+	private List<Location> pistonEventQueue = new ArrayList<Location>();
+	
 	public SpoutBlockListener(Spout plugin) {
 		mm = (SimpleMaterialManager) SpoutManager.getMaterialManager();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-
+	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockBreak(BlockBreakEvent event) {
 
@@ -101,15 +110,17 @@ public class SpoutBlockListener implements Listener {
 		if (event.isCancelled()) {
 			return;
 		}
-
-		breakOnPushed((SpoutBlock) event.getBlock(), event.getDirection());
-
+		
+		if (this.pistonEventQueue.contains(event.getBlock().getLocation())) {
+			return;
+		}
+		pistonEventQueue.add(event.getBlock().getLocation());
+		
 		List eventBlocks = event.getBlocks();
 		ListIterator itr = eventBlocks.listIterator(eventBlocks.size());
 		while (itr.hasPrevious()) {
 			SpoutBlock sb = (SpoutBlock) itr.previous();
 			pistonBlockMove(sb, event.getDirection());
-			breakOnPushed(sb, event.getDirection());
 		}
 	}
 
@@ -118,30 +129,49 @@ public class SpoutBlockListener implements Listener {
 		if ((event.isCancelled()) || (!event.isSticky())) {
 			return;
 		}
-
+		
+		if (this.pistonEventQueue.contains(event.getBlock().getLocation())) {
+			return;
+		}
+		pistonEventQueue.add(event.getBlock().getLocation());
+		
 		pistonBlockMove((SpoutBlock) event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
 	}
 
 	private void pistonBlockMove(SpoutBlock block, BlockFace blockFace) {
-		if (block.getCustomBlock() != null && !block.getPistonMoveReaction().equals(PistonMoveReaction.BREAK) && !block.getPistonMoveReaction().equals(PistonMoveReaction.BLOCK)) {
-			SpoutBlock targetBlock = block.getRelative(blockFace);
-			CustomBlock material = block.getCustomBlock();
-			Byte data = block.getCustomBlockData();
+		if (block.getCustomBlock() == null) {
+			return;
+		}
+		if (block.getPistonMoveReaction().equals(PistonMoveReaction.MOVE)) {
+			
+			int customBlockId = block.getCustomBlock().getCustomId();
+			Byte customBlockData = block.getCustomBlockData();
+			
+			SpoutCraftBlock targetScb = (SpoutCraftBlock) block.getRelative(blockFace);
+			
+			//Only move the data, since the base block will be moved *After* this event fires.
+			//so if we also move the base block now, we are in fact, creating a new block.
+			targetScb.setCustomBlockId(customBlockId);
+			targetScb.setCustomBlockData(customBlockData);
+			this.mm.queueBlockOverrides(targetScb, customBlockId, customBlockData);
+			
 			this.mm.removeBlockOverride(block);
-			this.mm.overrideBlock(targetBlock, material, data);
+			
+		} else if (block.getPistonMoveReaction().equals(PistonMoveReaction.BREAK)) {
+			breakOnPushed(block);
 		}
 	}
 
-	public void breakOnPushed(SpoutBlock sb, BlockFace bf) {
-		try {
-			SpoutBlock targetBlock = sb.getRelative(bf);
-			if (targetBlock.getPistonMoveReaction().equals(PistonMoveReaction.BREAK)) {
-				if (targetBlock.getCustomBlock() != null) {
-					targetBlock.getWorld().dropItemNaturally(targetBlock.getLocation(), targetBlock.getCustomBlock().getItemDrop());
-					SpoutManager.getMaterialManager().removeBlockOverride(targetBlock);
-				}
-			}
-		} catch (Exception e) {
+	public void breakOnPushed(SpoutBlock sb) {
+		if (sb.getCustomBlock() == null || !sb.getPistonMoveReaction().equals(PistonMoveReaction.BREAK)) {
+			return;
 		}
+		sb.getWorld().dropItemNaturally(sb.getLocation(), sb.getCustomBlock().getItemDrop());
+		SpoutManager.getMaterialManager().removeBlockOverride(sb);
+	}
+	
+	@EventHandler
+	public void onTick(ServerTickEvent event) {
+		pistonEventQueue.clear();
 	}
 }
