@@ -27,6 +27,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.collect.Sets;
 
+import org.getspout.spout.config.ConfigReader;
+
 public class ChunkNetCache {
 	
 	private final byte[] partition = new byte[2048];
@@ -46,7 +48,7 @@ public class ChunkNetCache {
 	}
 	
 	public void handleCustomPacket(String channel, byte[] array) {
-		if (channel.equals("ChkCache:setHash")) {
+		if (ConfigReader.isChunkDataCache() && channel.equals("ChkCache:setHash")) {
 			cacheEnabled = true;
 			if (array != null) {
 				DataInputStream din = new DataInputStream(new ByteArrayInputStream(array));
