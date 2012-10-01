@@ -24,6 +24,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.google.common.collect.Sets;
 
@@ -31,7 +32,7 @@ import org.getspout.spout.config.ConfigReader;
 
 public class ChunkNetCache {
 	
-	private final byte[] partition = new byte[2048];
+	private final AtomicReference<byte[]> partitionCache = new AtomicReference<byte[]>();
 	private final Set<Long> hashSet;
 	private volatile boolean cacheEnabled = false;
 	
@@ -65,16 +66,26 @@ public class ChunkNetCache {
 
 	public byte[] handle(byte[] inflatedBuffer) {
 		
+		byte[] partition = partitionCache.getAndSet(null);
+		
+		if (partition == null) {
+			partition = new byte[2048];
+		}
+
+		if (!cacheEnabled) {
+			return inflatedBuffer;
+		}
+
 		int dataLength = inflatedBuffer.length;
 		int segments = dataLength >> 11;
 		if ((dataLength & 0x7FF) != 0) {
 			segments++;
 		}
-		
+
 		int newLength = dataLength + (segments << 3) + 8 + 4 + 1;
-		
+
 		byte[] newBuffer = new byte[newLength];
-		
+
 		for (int i = 0; i < segments; i++) {
 			PartitionChunk.copyFromChunkData(inflatedBuffer, i, partition, inflatedBuffer.length);
 			long hash = PartitionChunk.hash(partition);
@@ -87,9 +98,10 @@ public class ChunkNetCache {
 		long crc = PartitionChunk.hash(inflatedBuffer);
 		PartitionChunk.setHash(newBuffer, 0, crc, newLength - 13);
 		PartitionChunk.setInt(newBuffer, 0, dataLength, newLength - 5);
+
+		partitionCache.set(partition);
 		
 		return newBuffer;
-		
 	}
 	
 }
