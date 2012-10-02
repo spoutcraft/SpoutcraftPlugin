@@ -164,7 +164,6 @@
 						<O>-Xlint:-path</O>
 					</compilerArguments>
 					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			<!-- JAR dependency addition plugin -->
