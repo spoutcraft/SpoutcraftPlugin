@@ -73,7 +73,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 		try {
 			Field y = NetworkManager.class.getDeclaredField("y");
 			y.setAccessible(true);
-			int size = (Integer) x.get(this.networkManager);
+			int size = (Integer) y.get(this.networkManager);
 			y.set(this.networkManager, size - 1024 * 1024 * 9);
 		} catch (Exception e) {
 			e.printStackTrace();
