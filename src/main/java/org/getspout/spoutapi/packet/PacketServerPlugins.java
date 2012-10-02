@@ -31,7 +31,6 @@ public class PacketServerPlugins implements SpoutPacket {
 	private String[] versions;
 
 	public PacketServerPlugins() {
-
 	}
 
 	public PacketServerPlugins(Plugin[] plugins) {
@@ -65,12 +64,10 @@ public class PacketServerPlugins implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

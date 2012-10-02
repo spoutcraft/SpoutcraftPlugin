@@ -80,12 +80,10 @@ public class PacketDownloadMusic implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

@@ -467,14 +467,14 @@ public class CustomBlock extends Block implements CustomMCBlock {
 				int olds = lightEmission[i];
 				boolean oldr = r[i];
 
-				/* Order matters, BlockChest extends BlockContainer*/
+				// Order matters, BlockChest extends BlockContainer
 				if (parent instanceof BlockChest) {
 					Block.byId[i] = new CustomChest((BlockChest) parent);
 				} else if (parent instanceof BlockContainer) {
 					Block.byId[i] = new CustomContainer((BlockContainer) parent);
 				} else if (parent instanceof BlockMinecartTrack) {
 					Block.byId[i] = new CustomMinecartTrack((BlockMinecartTrack) parent);
-				} else if (parent instanceof BlockStem) { /* Order matters, BlockStem extends BlockFlower*/
+				} else if (parent instanceof BlockStem) { // Order matters, BlockStem extends BlockFlower
 					Block.byId[i] = new CustomStem((BlockStem) parent);
 				} else if (parent instanceof BlockMushroom) {
 					Block.byId[i] = new CustomMushroom((BlockMushroom) parent);
@@ -496,10 +496,10 @@ public class CustomBlock extends Block implements CustomMCBlock {
 		}
 	}
 
-	//TODO: This causes redstone issues with glass (allows power through glass, vanilla does not) but it can't
-	//Be solved from a plugin. Implemented workaround: Don't update glass unless non-opaque custom blocks are on the server.
+	// TODO This causes redstone issues with glass (allows power through glass, vanilla does not) but it can't
+	// Be solved from a plugin. Implemented workaround: Don't update glass unless non-opaque custom blocks are on the server.
 	public static void updateGlass() {
-		//Allow placement of blocks on glass
+		// Allow placement of blocks on glass
 		try {
 			Field field = Material.SHATTERABLE.getClass().getDeclaredField("I");
 			field.setAccessible(true);

@@ -29,6 +29,7 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import org.bukkit.Chunk;
 import org.bukkit.craftbukkit.CraftWorld;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutChunk;
 import org.getspout.spoutapi.io.SpoutInputStream;
@@ -161,7 +162,6 @@ public class PacketCustomBlockChunkOverride implements CompressiblePacket {
 			try {
 				bos.close();
 			} catch (IOException e) {
-
 			}
 
 			data = bos.toByteArray();

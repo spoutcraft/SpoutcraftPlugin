@@ -58,8 +58,8 @@ public class SpoutEntityListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onEntityExplode(EntityExplodeEvent event) {
-		if(!event.isCancelled()) {
-			for(Block block : event.blockList()) {
+		if  (!event.isCancelled()) {
+			for (Block block : event.blockList()) {
 				SpoutBlock sb = (SpoutBlock)block;
 				sb.setCustomBlock(null);
 			}

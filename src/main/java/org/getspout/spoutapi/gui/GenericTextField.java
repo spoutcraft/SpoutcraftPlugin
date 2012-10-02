@@ -29,7 +29,7 @@ public class GenericTextField extends GenericControl implements TextField {
 	private static final char MASK_MAXLINES = 0x7F; // bits 1–7
 	private static final char MASK_TABINDEX = 0x3F80; // bits 8–14
 	private static final char FLAG_PASSWORD = 0x4000; // bit 15
-	//private static final char FLAG_FOCUS = 0x8000; // bit 16 // Focus is already set in Control.
+	//private static final char FLAG_FOCUS = 0x8000; // bit 16 - Focus is already set in Control.
 	protected String text = "";
 	protected String placeholder = "";
 	protected int cursor = 0;
@@ -206,7 +206,7 @@ public class GenericTextField extends GenericControl implements TextField {
 
 	@Override
 	public TextField copy() {
-		// ignore focus parameter which would lead to strange behaviour!
+		// Ignore focus parameter which would lead to strange behaviour!
 		return ((TextField) super.copy())
 				.setText(getText())
 				.setCursorPosition(getCursorPosition())

@@ -31,7 +31,6 @@ public class Listeners {
 	 * Private constructor to avoid initialization
 	 */
 	private Listeners() {
-
 	}
 
 	private static ConcurrentHashMap<Listener, PacketListener> map = new ConcurrentHashMap<Listener, PacketListener>();

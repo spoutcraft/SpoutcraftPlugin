@@ -35,7 +35,6 @@ public class PacketPlaySound implements SpoutPacket {
 	int volume, distance;
 
 	public PacketPlaySound() {
-
 	}
 
 	public PacketPlaySound(SoundEffect sound, int distance, int volume) {
@@ -90,12 +89,10 @@ public class PacketPlaySound implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

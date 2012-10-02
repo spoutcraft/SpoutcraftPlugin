@@ -23,6 +23,7 @@ import net.minecraft.server.IInventory;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+
 import org.getspout.spoutapi.inventory.DoubleChestInventory;
 
 public class SpoutDoubleChestInventory extends SpoutCraftInventory implements DoubleChestInventory {

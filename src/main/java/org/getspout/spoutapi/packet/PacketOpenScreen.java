@@ -48,7 +48,6 @@ public class PacketOpenScreen implements SpoutPacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

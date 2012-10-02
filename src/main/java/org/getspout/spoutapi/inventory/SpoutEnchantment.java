@@ -56,7 +56,7 @@ public class SpoutEnchantment extends Enchantment {
 
 	@Override
 	public int getStartLevel() {
-		return 1000;//Should be impossible to get :P
+		return 1000; // Should be impossible to get :P
 	}
 
 	@Override
@@ -73,5 +73,4 @@ public class SpoutEnchantment extends Enchantment {
 	public boolean canEnchantItem(ItemStack paramItemStack) {
 		return true;
 	}
-
 }

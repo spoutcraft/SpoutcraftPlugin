@@ -90,7 +90,7 @@ public class CRCStore {
 			Long previous = lastCheck.get(urlString);
 			previous = previous == null ? 0 : previous;
 
-			boolean timeExpired = currentTime -  previous > 600000; // recheck every 10 mins
+			boolean timeExpired = currentTime -  previous > 600000; // Recheck every 10 mins
 
 			long urlLastModified = 0;
 
@@ -108,8 +108,8 @@ public class CRCStore {
 			} else {
 				crc = FileUtil.getCRC(in, buffer);
 				info = urlLastModified + ":" + crc;
-				if(urlCRCStore==null) {
-					System.out.println("[Spout] Error: Attempted to create CRC for URL " + urlString + " before urlCRCStore was initialized!");
+				if (urlCRCStore == null) {
+					System.out.println("[SpoutPlugin] Attempted to create CRC for URL " + urlString + " before urlCRCStore was initialized!");
 					return 0L;
 				}
 				synchronized(urlCRCStoreSync) {

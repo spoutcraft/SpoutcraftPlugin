@@ -36,7 +36,6 @@ public class PacketFocusUpdate implements SpoutPacket {
 	private UUID widgetId;
 
 	public PacketFocusUpdate() {
-
 	}
 
 	public PacketFocusUpdate(Control control, boolean focus) {

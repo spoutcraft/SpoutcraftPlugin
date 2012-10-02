@@ -175,7 +175,8 @@ public class FileUtil {
 		} finally {
 			try {
 				bw.close();
-			} catch (IOException ioe2) {}
+			} catch (IOException ioe2) {
+			}
 		}
 	}
 
@@ -213,7 +214,8 @@ public class FileUtil {
 		} finally {
 			try {
 				br.close();
-			} catch (IOException ioe) {}
+			} catch (IOException ioe) {
+			}
 		}
 	}
 
@@ -267,7 +269,7 @@ public class FileUtil {
 			long size = in.size();
 
 			while (pos < size) {
-				pos += in.transferTo(pos, 10*1024*1024, out);
+				pos += in.transferTo(pos, 10 * 1024 * 1024, out);
 			}
 		} catch (IOException ioe) {
 			return false;

@@ -92,7 +92,7 @@ public class GenericListWidget extends GenericScrollable implements ListWidget {
 			selected = items.size() - 1;
 		}
 
-		//Check if selection is visible
+		// Check if selection is visible
 		ensureVisible(getItemRect(selected));
 		return this;
 	}

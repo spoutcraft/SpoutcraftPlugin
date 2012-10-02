@@ -30,7 +30,6 @@ public class PacketItemName implements SpoutPacket {
 	private String name;
 
 	public PacketItemName() {
-
 	}
 
 	public PacketItemName(int id, short data, String name) {
@@ -55,12 +54,10 @@ public class PacketItemName implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

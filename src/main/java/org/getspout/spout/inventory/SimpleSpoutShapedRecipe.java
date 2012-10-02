@@ -62,10 +62,10 @@ public class SimpleSpoutShapedRecipe extends SpoutShapedRecipe implements SpoutR
 			data[i] = c;
 			i++;
 			Material mdata = ingred.get(c);
-	
+
 			int id = mdata.getRawId();
 			int dmg = mdata.getRawData();
-	
+
 			data[i] = new net.minecraft.server.ItemStack(id, 1, dmg);
 			i++;
 		}

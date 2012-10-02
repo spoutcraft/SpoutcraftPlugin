@@ -33,7 +33,6 @@ import org.getspout.spoutapi.packet.standard.MCPacket;
 
 /**
  * Keeps track of packet listeners
- *
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class PacketListeners {

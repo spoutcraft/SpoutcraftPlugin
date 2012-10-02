@@ -27,7 +27,6 @@ import java.util.zip.Inflater;
 
 import gnu.trove.list.array.TByteArrayList;
 import gnu.trove.list.array.TIntArrayList;
-
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import org.getspout.spoutapi.io.SpoutInputStream;

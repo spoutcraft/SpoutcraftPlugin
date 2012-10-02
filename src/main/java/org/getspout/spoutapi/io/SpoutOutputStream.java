@@ -35,7 +35,6 @@ public class SpoutOutputStream extends OutputStream {
 	ByteBuffer buffer = ByteBuffer.allocate(256);
 
 	public SpoutOutputStream() {
-
 	}
 
 	public void writeBlock(Block block) {

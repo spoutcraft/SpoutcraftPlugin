@@ -43,7 +43,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class CustomItemFlint extends Item {
 	private Class<?> clazz = null;
 	private Field a = null;
-	
+
 	protected CustomItemFlint() {
 		super(62);
 		b(6, 0).b("flint");
@@ -51,7 +51,8 @@ public class CustomItemFlint extends Item {
 			clazz = Class.forName("net.minecraft.server.NetworkWriterThread");
 			a = clazz.getDeclaredField("a");
 			a.setAccessible(true);
-		} catch(Exception e) {}
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
@@ -82,31 +83,44 @@ public class CustomItemFlint extends Item {
 
 		return itemstack;
 	}
-	
+
 	@Override
 	public boolean u() {
-		if(clazz == null || a == null) return false;
+		if (clazz == null || a == null) {
+			return false;
+		}
 		Thread t = Thread.currentThread();
-		if(!clazz.isInstance(t)) return false;
+		if (!clazz.isInstance(t)) {
+			return false;
+		}
 		NetworkManager nm = null;
 		try {
 			nm = (NetworkManager) a.get(t);
-		} catch(Exception e) {}
-		if(nm == null) return false;
+		} catch (Exception e) {
+		}
+		if (nm == null) {
+			return false;
+		}
 		SpoutPlayer player = lookupPlayer(nm);
-		if(player == null) return false;
+		if (player == null) {
+			return false;
+		}
 		return player.isSpoutCraftEnabled();
 	}
-	
+
 	private SpoutPlayer lookupPlayer(NetworkManager nm) {
-		for(Player p : Bukkit.getOnlinePlayers()) {
-			if(!(p instanceof CraftPlayer)) continue;
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (!(p instanceof CraftPlayer)) {
+				continue;
+			}
 			INetworkManager n = ((CraftPlayer) p).getHandle().netServerHandler.networkManager;
-			if(n == nm) return SpoutManager.getPlayer(p);
+			if (n == nm) {
+				return SpoutManager.getPlayer(p);
+			}
 		}
 		return null;
 	}
-	
+
 	public static void replaceFlint() {
 		Item.byId[MaterialData.flint.getRawId()] = null;
 		Item.byId[MaterialData.flint.getRawId()] = new CustomItemFlint();

@@ -30,7 +30,6 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import com.avaje.ebean.config.ServerConfig;
-
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import org.bukkit.Bukkit;
@@ -197,7 +196,6 @@ public class SpoutServer implements Server {
 		return server.getAllowNether();
 	}
 
-	//@Override
 	@Override
 	public boolean getAllowEnd() {
 		return true;
@@ -557,7 +555,7 @@ public class SpoutServer implements Server {
 	public boolean isPrimaryThread() {
 		return server.isPrimaryThread();
 	}
-	
+
 	@Override
 	public String getMotd() {
 		return server.getMotd();

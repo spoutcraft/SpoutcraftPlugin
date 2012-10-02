@@ -25,9 +25,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * @author Afforess
- */
 @Documented
 @Target(value = ElementType.METHOD)
 @Retention(value = RetentionPolicy.SOURCE)

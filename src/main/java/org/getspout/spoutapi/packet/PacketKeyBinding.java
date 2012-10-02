@@ -38,7 +38,6 @@ public class PacketKeyBinding implements SpoutPacket {
 	UUID uniqueId;
 
 	public PacketKeyBinding() {
-
 	}
 
 	public PacketKeyBinding(KeyBinding binding) {
@@ -69,7 +68,6 @@ public class PacketKeyBinding implements SpoutPacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

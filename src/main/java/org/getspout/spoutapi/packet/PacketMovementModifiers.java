@@ -32,7 +32,6 @@ public class PacketMovementModifiers implements SpoutPacket {
 	double airspeedMod = 1;
 
 	public PacketMovementModifiers() {
-
 	}
 
 	public PacketMovementModifiers(double gravity, double walking, double swimming, double jumping, double airspeed) {
@@ -63,13 +62,11 @@ public class PacketMovementModifiers implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int playerId) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

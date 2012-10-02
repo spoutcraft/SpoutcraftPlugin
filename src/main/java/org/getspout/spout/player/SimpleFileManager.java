@@ -426,12 +426,14 @@ public class SimpleFileManager implements FileManager {
 				if (output != null) {
 					output.close();
 				}
-			} catch (IOException ignore) { }
+			} catch (IOException ignore) {
+			}
 			try {
 				if (input != null) {
 					input.close();
 				}
-			} catch (IOException ignore) { }
+			} catch (IOException ignore) {
+			}
 		}
 	}
 

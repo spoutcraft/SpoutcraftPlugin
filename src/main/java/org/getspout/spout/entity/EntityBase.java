@@ -23,34 +23,36 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import net.minecraft.server.EntityZombie;
+
 import org.bukkit.World;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.util.UnsafeList;
+
 import org.getspout.spout.entity.ai.SpoutcraftAI;
 import org.getspout.spoutapi.entity.ai.SpoutAI;
 
 public class EntityBase extends EntityZombie{
 	private int aiID = 0;
-	
+
 	public EntityBase(World world) {
 		super(((CraftWorld) world).getHandle());
-		//Clear AI
+		// Clear AI
 		try {
 			Field goalList = this.goalSelector.getClass().getDeclaredField("a");
 			goalList.setAccessible(true);
 			goalList.set(goalSelector, new UnsafeList());
 		} catch (Exception ex) {
 			Logger.getLogger(EntityBase.class.getName()).log(Level.SEVERE, null, ex);
-		}	
+		}
 	}
-	
-	public void addTask(SpoutAI ai) { //Add our custom AI
+
+	public void addTask(SpoutAI ai) { // Add our custom AI
 		this.goalSelector.a(aiID++, (SpoutcraftAI) ai);
 	}
 
 	public List<SpoutAI> getTasks() {
 		throw new UnsupportedOperationException("Not implemented yet!");
 	}
-	
 }

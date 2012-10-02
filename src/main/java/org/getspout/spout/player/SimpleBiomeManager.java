@@ -28,29 +28,23 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 @SuppressWarnings("deprecation")
 public class SimpleBiomeManager implements BiomeManager {
-
 	@Override
 	public void setPlayerBiomeWeather(SpoutPlayer player, Biome biome, SpoutWeather weather) {
-
 	}
 
 	@Override
 	public void setPlayerWeather(SpoutPlayer player, SpoutWeather weather) {
-
 	}
 
 	@Override
 	public void setGlobalBiomeWeather(Biome biome, SpoutWeather weather) {
-
 	}
 
 	@Override
 	public void setGlobalWeather(SpoutWeather weather) {
-
 	}
 
 	public void onPlayerJoin(SpoutPlayer player) {
-
 	}
 
 	@Override

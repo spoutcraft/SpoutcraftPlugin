@@ -21,7 +21,7 @@ package org.getspout.spoutapi.material;
 
 public interface Tool extends Item {
 	public Tool setMaxDurability(short durability);
-	
+
 	public short getMaxDurability();
 
 	public float getStrengthModifier(Block block);

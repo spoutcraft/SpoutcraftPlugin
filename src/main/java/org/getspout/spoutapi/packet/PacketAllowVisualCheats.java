@@ -35,7 +35,6 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 	private boolean voidfog = false;
 
 	public PacketAllowVisualCheats() {
-
 	}
 
 	public PacketAllowVisualCheats(boolean tsky, boolean tclearwater, boolean tstars, boolean tweather, boolean ttime, boolean tcoords, boolean tentitylabel, boolean tvoidfog) {
@@ -75,12 +74,10 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

@@ -65,7 +65,6 @@ public class PacketCustomBlockDesign implements SpoutPacket {
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	public PacketType getPacketType() {

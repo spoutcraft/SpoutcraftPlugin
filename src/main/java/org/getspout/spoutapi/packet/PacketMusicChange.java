@@ -36,7 +36,6 @@ public class PacketMusicChange implements SpoutPacket {
 	boolean cancel = false;
 
 	public PacketMusicChange() {
-
 	}
 
 	public PacketMusicChange(int music, int volumePercent) {
@@ -78,7 +77,6 @@ public class PacketMusicChange implements SpoutPacket {
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

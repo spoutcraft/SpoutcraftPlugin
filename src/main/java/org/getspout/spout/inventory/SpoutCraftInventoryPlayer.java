@@ -24,6 +24,7 @@ import net.minecraft.server.PlayerInventory;
 
 import org.bukkit.craftbukkit.inventory.CraftInventoryPlayer;
 import org.bukkit.inventory.ItemStack;
+
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
@@ -85,10 +86,13 @@ public class SpoutCraftInventoryPlayer extends CraftInventoryPlayer implements S
 	public void remove(org.bukkit.Material material) {
 		ItemStack[] items = getContents();
 		for (int i = 0; i < items.length; i++) {
-			if(items[i] == null) continue;
-			org.getspout.spoutapi.material.Material myMat = MaterialData.getMaterial(items[i].getTypeId(), items[i].getDurability());
-			if(myMat instanceof CustomItem || myMat instanceof Tool || myMat instanceof CustomBlock)
+			if (items[i] == null) {
 				continue;
+			}
+			org.getspout.spoutapi.material.Material myMat = MaterialData.getMaterial(items[i].getTypeId(), items[i].getDurability());
+			if (myMat instanceof CustomItem || myMat instanceof Tool || myMat instanceof CustomBlock) {
+				continue;
+			}
 			if (items[i].getType() == material) {
 				clear(i);
 			}

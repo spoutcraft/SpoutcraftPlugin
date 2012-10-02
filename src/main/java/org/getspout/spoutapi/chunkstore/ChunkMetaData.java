@@ -38,7 +38,7 @@ import org.getspout.spoutapi.util.map.TByteShortByteKeyedMap;
 import org.getspout.spoutapi.util.map.TByteShortByteKeyedObjectHashMap;
 
 public class ChunkMetaData implements Serializable {
-	//Field serialization only
+	// Field serialization only
 	private static final long serialVersionUID = 3L;
 
 	// This data is saved. This means data can handle different map heights
@@ -46,18 +46,18 @@ public class ChunkMetaData implements Serializable {
 	private int cx;
 	private int cz;
 	private UUID worldUid;
-	//Storage for objects saved to this chunk
+	// Storage for objects saved to this chunk
 	private HashMap<String, Serializable> chunkData;
-	//storage for custom block id's
+	// Storage for custom block IDs
 	private short[] customBlockIds = null;
-	//storage for custom block rotations's
+	// Storage for custom block rotations
 	private byte[] customBlockData = null;
-	//storage for local block data
+	// Storage for local block data
 	private TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>> blockData;
 	private static final int CURRENT_VERSION = 4;
 	private static final int MAGIC_NUMBER = 0xEA5EDEBB;
 	transient private boolean dirty = false;
-	//quais-final, need to be set in serialization
+	// Quais-final, need to be set in serialization
 	transient private int worldHeight;
 	transient private int worldHeightMinusOne;
 	transient private int xBitShifts;
@@ -188,7 +188,6 @@ public class ChunkMetaData implements Serializable {
 	}
 
 	public Serializable removeBlockData(String id, int x, int y, int z) {
-
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds != null) {
 				int key = ((x & 0xF) << xBitShifts) | ((z & 0xF) << zBitShifts) | (y & worldHeightMinusOne);
@@ -225,7 +224,7 @@ public class ChunkMetaData implements Serializable {
 			HashMap<String, Serializable> localBlockData = blockData.get(x, y, z);
 			if (localBlockData != null) {
 				Serializable serial = localBlockData.get(id);
-				//Check if we need to deserialize it
+				// Check if we need to deserialize it
 				if (serial != null && serial instanceof SerializedData) {
 					try {
 						serial = Utils.deserializeRaw(((SerializedData) serial).serialData);
@@ -242,7 +241,6 @@ public class ChunkMetaData implements Serializable {
 	}
 
 	public Serializable putBlockData(String id, int x, int y, int z, Serializable o) {
-
 		if (id.equals(MaterialManager.blockIdString)) {
 			if (customBlockIds == null) {
 				customBlockIds = new short[16 * 16 * worldHeight];
@@ -312,7 +310,7 @@ public class ChunkMetaData implements Serializable {
 		blockData = new TByteShortByteKeyedObjectHashMap<HashMap<String, Serializable>>(100);
 		chunkData = new HashMap<String, Serializable>();
 
-		int fileVersionNumber; // can be used to determine the format of the file
+		int fileVersionNumber; // Can be used to determine the format of the file
 
 		long lsb = in.readLong();
 		if (((int) (lsb >> 32)) == MAGIC_NUMBER) {
@@ -328,7 +326,7 @@ public class ChunkMetaData implements Serializable {
 		cz = in.readInt();
 		boolean customBlockIdsExist = in.readBoolean();
 
-		//Constructor is not invoked, need to set these fields
+		// Constructor is not invoked, need to set these fields
 		SpoutWorld world = Spout.getServer().getWorld(this.worldUid);
 
 		this.worldHeight = world.getMaxHeight();
@@ -366,11 +364,13 @@ public class ChunkMetaData implements Serializable {
 			HashMap<String, Serializable> map = readMap(in);
 			blockData.put(x, y, z, map);
 		}
-		
+
 		if (fileVersionNumber >= 4) {
 			boolean hasRotations = in.readBoolean();
 			customBlockData = new byte[16 * 16 * worldHeight];
-			if(hasRotations) in.readFully(customBlockData);
+			if (hasRotations) {
+				in.readFully(customBlockData);
+			}
 		}
 
 		if (fileVersionNumber < CURRENT_VERSION) {
@@ -393,7 +393,7 @@ public class ChunkMetaData implements Serializable {
 			Integer globalId = worldItemMap.convertTo(serverItemMap, customBlockIds[i]);
 
 			if (globalId == null) {
-				System.out.println("Custom id " + customBlockIds[i] + " does not exist in custom item map, replacing with 0");
+				System.out.println("Custom ID " + customBlockIds[i] + " does not exist in custom item map, replacing with 0");
 				globalId = 0;
 			}
 			customBlockIds[i] = (short) (int) globalId;

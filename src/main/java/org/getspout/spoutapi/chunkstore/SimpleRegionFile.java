@@ -44,7 +44,7 @@ public class SimpleRegionFile {
 	@SuppressWarnings("unused")
 	private long lastAccessTime = System.currentTimeMillis();
 	@SuppressWarnings("unused")
-	private static long TIMEOUT_TIME = 300000; //5 min
+	private static long TIMEOUT_TIME = 300000; // 5 min
 
 	public SimpleRegionFile(File f, int rx, int rz) {
 		this(f, rx, rz, 10);
@@ -151,10 +151,10 @@ public class SimpleRegionFile {
 	}
 
 	public boolean testCloseTimeout() {
-		//		if (System.currentTimeMillis() - TIMEOUT_TIME > lastAccessTime) {
-		//			close();
-		//			return true;
-		//		}
+		/*if (System.currentTimeMillis() - TIMEOUT_TIME > lastAccessTime) {
+			close();
+			return true;
+		}*/
 		return false;
 	}
 

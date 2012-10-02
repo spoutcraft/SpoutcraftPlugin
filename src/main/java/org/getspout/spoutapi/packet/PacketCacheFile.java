@@ -51,7 +51,7 @@ public class PacketCacheFile implements CompressiblePacket {
 		this.fileName = FileUtil.getFileName(file.getPath());
 	}
 
-	//TODO move to separate thread?
+	// TODO Move to separate thread?
 	public void compress() {
 		if (!compressed) {
 			Deflater deflater = new Deflater();
@@ -87,13 +87,11 @@ public class PacketCacheFile implements CompressiblePacket {
 					int count = decompressor.inflate(buf);
 					bos.write(buf, 0, count);
 				} catch (DataFormatException e) {
-
 				}
 			}
 			try {
 				bos.close();
 			} catch (IOException e) {
-
 			}
 
 			fileData = bos.toByteArray();
@@ -126,13 +124,11 @@ public class PacketCacheFile implements CompressiblePacket {
 	@Override
 	public void run(int playerId) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void failure(int playerId) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -19,15 +19,16 @@
  */
 package org.getspout.spout.command;
 
+import net.minecraft.server.MinecraftServer;
+
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
 
-import net.minecraft.server.MinecraftServer;
-import org.bukkit.ChatColor;
 import org.getspout.spout.Spout;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -35,7 +36,6 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutCommand implements CommandExecutor {
-
 	private final Spout p;
 	private String motd_temp = null;
 	private int motd_task = 0;
@@ -47,42 +47,42 @@ public class SpoutCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 0) {
-			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
+			sender.sendMessage("[SpoutPlugin] Server version: " + p.getDescription().getVersion());
 			return true;
 		}
 
 		String c = args[0];
 		if (c.equals("version")) {
-			sender.sendMessage("[Spout] Server version: " + p.getDescription().getVersion());
+			sender.sendMessage("[SpoutPlugin] Server version: " + p.getDescription().getVersion());
 
 			CommandSender target = sender;
 
 			if (args.length > 1) {
 				target = p.getServer().getPlayer(args[1]);
 				if (target == null) {
-					sender.sendMessage("[Spout] Unknown player: " + args[1]);
+					sender.sendMessage("[SpoutPlugin] Unknown player: " + args[1]);
 					return true;
 				}
 			}
 
 			if (!(target instanceof Player)) {
-				sender.sendMessage("[Spout] Client version: no client");
+				sender.sendMessage("[SpoutPlugin] Client version: no client");
 			}
 			if (!(target instanceof SpoutPlayer)) {
-				sender.sendMessage("[Spout] Client version: standard client");
+				sender.sendMessage("[SpoutPlugin] Client version: standard client");
 			} else {
 				SpoutCraftPlayer sp = (SpoutCraftPlayer) target;
 				if (!sp.isSpoutCraftEnabled()) {
-					sender.sendMessage("[Spout] Client version: standard client");
+					sender.sendMessage("[SpoutPlugin] Client version: standard client");
 				} else {
-					sender.sendMessage("[Spout] Client version: " + sp.getVersionString());
+					sender.sendMessage("[SpoutPlugin] Client version: " + sp.getVersionString());
 				}
 			}
 			return true;
 		}
 
 		if (!sender.isOp()) {
-			sender.sendMessage("[Spout] This command is Op only");
+			sender.sendMessage("[SpoutPlugin] This command is Op only");
 			return true;
 		}
 
@@ -106,22 +106,22 @@ public class SpoutCommand implements CommandExecutor {
 			for (Player plr : Bukkit.getOnlinePlayers()) {
 				SpoutPlayer splr = SpoutManager.getPlayer(plr);
 				if (splr.isSpoutCraftEnabled()) {
-					message += ChatColor.YELLOW+splr.getName()+ChatColor.GREEN+ ", ";
+					message += ChatColor.YELLOW + splr.getName() + ChatColor.GREEN + ", ";
 				}
 			}
 			message = message.substring(0, message.length() - 2);
-			message += ChatColor.GREEN+"!";
+			message += ChatColor.GREEN + "!";
 			sender.sendMessage(message);
 			return true;
 		}
 		if (c.equals("reload")) {
 			(new ConfigReader()).read();
-			sender.sendMessage("Configuration for Spout has been reloaded.");
+			sender.sendMessage("Configuration for SpoutPlugin has been reloaded.");
 			return true;
 		}
 		if (c.equals("verify") && args.length > 1) {
-			sender.sendMessage("[Spout] Temporarily setting the motd to: " + args[1]);
-			sender.sendMessage("[Spout] It will return to its original setting in ~5 mins");
+			sender.sendMessage("[SpoutPlugin] Temporarily setting the MOTD to: " + args[1]);
+			sender.sendMessage("[SpoutPlugin] It will return to its original setting in ~5 mins");
 			if (motd_temp == null) {
 				motd_temp = MinecraftServer.getServer().getMotd();
 			} else {

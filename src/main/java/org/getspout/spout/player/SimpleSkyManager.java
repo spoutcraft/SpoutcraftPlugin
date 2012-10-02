@@ -287,7 +287,7 @@ public class SimpleSkyManager implements SkyManager {
 		if (cloudHeight.containsKey(player.getName())) {
 			return cloudHeight.get(player.getName());
 		}
-		return -999; //special value tells the client to use the default client values
+		return -999; // Special value tells the client to use the default client values
 	}
 
 	private void checkUrl(String Url) {
@@ -298,7 +298,7 @@ public class SimpleSkyManager implements SkyManager {
 			throw new UnsupportedOperationException("All textures must be a PNG image");
 		}
 		if (Url.length() > 255) {
-			throw new UnsupportedOperationException("All Url's must be shorter than 256 characters");
+			throw new UnsupportedOperationException("All URLs must be shorter than 256 characters");
 		}
 	}
 }

@@ -220,7 +220,7 @@ public class SimpleSoundManager implements SoundManager {
 	private void playCustomFile(Plugin plugin, SpoutPlayer target, String Url, boolean notify, Location location, int distance, int volumePercent, boolean soundEffect) {
 		if (target.isSpoutCraftEnabled()) {
 			if (Url.length() > 255 || Url.length() < 5) {
-				throw new UnsupportedOperationException("All Url's must be between 5 and 256 characters");
+				throw new UnsupportedOperationException("All URLs must be between 5 and 256 characters");
 			}
 			String extension = Url.substring(Url.length() - 4, Url.length());
 			if (extension.equalsIgnoreCase(".ogg") || extension.equalsIgnoreCase(".wav") || extension.equalsIgnoreCase(".mp3") || extension.matches(".*[mM][iI][dD][iI]?$")) {

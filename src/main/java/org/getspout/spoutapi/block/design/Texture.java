@@ -45,7 +45,7 @@ public class Texture {
 	 * 16, 32, 64, 128, 256, 512, etc.
 	 * For example, a png that is 18x20 will get loaded by OpenGL as 32x32, thus skewing your SubTextures
 	 * <p/>
-	 * The layout for textureId's in order to get SubTextures from this goes from
+	 * The layout for textureIds in order to get SubTextures from this goes from
 	 * Left -> Right, then Top -> Bottom, like so:
 	 * [0, 1, 2,  3
 	 * 4, 5, 6,  7,

@@ -42,7 +42,6 @@ public class PacketEntityInformation implements CompressiblePacket {
 	private byte[] data = null;
 
 	public PacketEntityInformation() {
-
 	}
 
 	public PacketEntityInformation(List<LivingEntity> entities) {
@@ -100,7 +99,6 @@ public class PacketEntityInformation implements CompressiblePacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

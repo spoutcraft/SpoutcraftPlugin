@@ -39,7 +39,7 @@ import org.getspout.spoutapi.packet.PacketType;
 public class GenericCustomTool extends GenericCustomItem implements Tool {
 	private short maxdurability = 100;
 	private TObjectFloatHashMap<Block> strengthMods = new TObjectFloatHashMap<Block>();
-	
+
 	public GenericCustomTool(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 	}
@@ -49,7 +49,7 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 		maxdurability = durability;
 		return this;
 	}
-	
+
 	@Override
 	public short getMaxDurability() {
 		return maxdurability;
@@ -124,16 +124,20 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 	public int getVersion() {
 		return super.getVersion() + 0;
 	}
-	
+
 	public static short getDurability(ItemStack is) {
 		Material m = MaterialData.getMaterial(is.getTypeId(), is.getDurability());
-		if(!(m instanceof Tool)) throw new IllegalArgumentException("Itemstack must be a Tool!");
+		if (!(m instanceof Tool)) {
+			throw new IllegalArgumentException("Itemstack must be a tool!");
+		}
 		return (short) is.getEnchantmentLevel(SpoutEnchantment.DURABILITY);
 	}
-	
+
 	public static void setDurability(ItemStack is, short durability) {
 		Material m = MaterialData.getMaterial(is.getTypeId(), is.getDurability());
-		if(!(m instanceof Tool)) throw new IllegalArgumentException("Itemstack must be a Tool!");
+		if (!(m instanceof Tool)) {
+			throw new IllegalArgumentException("Itemstack must be a tool!");
+		}
 		is.removeEnchantment(SpoutEnchantment.DURABILITY);
 		is.addUnsafeEnchantment(SpoutEnchantment.DURABILITY, durability);
 	}

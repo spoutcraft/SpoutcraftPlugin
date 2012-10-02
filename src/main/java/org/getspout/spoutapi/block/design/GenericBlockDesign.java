@@ -211,7 +211,7 @@ public class GenericBlockDesign implements BlockDesign {
 		float u = (float) tx / (float) textureSizeX;
 		float v = (float) ty / (float) textureSizeY;
 		return setVertex(quadNumber, vertexNumber, x, y, z, u, v);
-		
+
 	}
 	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, float u, float v) {
 		xPos[quadNumber][vertexNumber] = x;
@@ -266,7 +266,7 @@ public class GenericBlockDesign implements BlockDesign {
 	public BlockDesign setVertex(Vertex vertex) {
 		return setVertex(vertex.getQuadNum(), vertex.getIndex(), vertex.getX(), vertex.getY(), vertex.getZ(), vertex.getTextureX(), vertex.getTextureY(), vertex.getTextureWidth(), vertex.getTextureHeight());
 	}
-	
+
 	@Override
 	public BlockDesign rotate(int degrees) {
 		double angle = Math.toRadians(degrees);
@@ -275,16 +275,16 @@ public class GenericBlockDesign implements BlockDesign {
 				{ 0f,						1f,	0f						},
 				{ (float) -Math.sin(angle),	0f, (float) Math.cos(angle) }
 		};
-		
+
 		float[][] xx = new float[xPos.length][xPos[0].length];
 		float[][] yy = new float[yPos.length][yPos[0].length];
 		float[][] zz = new float[zPos.length][zPos[0].length];
 		int[] lightx = new int[lightSourceXOffset.length];
 		int[] lighty = new int[lightSourceYOffset.length];
 		int[] lightz = new int[lightSourceZOffset.length];
-		for(int i = 0; i < xx.length; i++) {
+		for (int i = 0; i < xx.length; i++) {
 			for (int j = 0; j < 4; j++) {
-				float x1 = xPos[i][j] - 0.5f;//shift 0.5 to center around origin.
+				float x1 = xPos[i][j] - 0.5f; // Shift 0.5 to center around origin.
 				float y1 = yPos[i][j] - 0.5f;
 				float z1 = zPos[i][j] - 0.5f;
 				float x2 = (x1*rotmatrix[0][0]) + (y1*rotmatrix[0][1]) + (z1*rotmatrix[0][2]);
@@ -294,7 +294,7 @@ public class GenericBlockDesign implements BlockDesign {
 				yy[i][j] = y2 + 0.5f;
 				zz[i][j] = z2 + 0.5f;
 				int side = i;
-				if(side > 0 && side < 5 && angle != 0) {
+				if (side > 0 && side < 5 && angle != 0) {
 					side--;
 					side+=(4-(degrees/90));
 					side = (side % 4) + 1;
@@ -302,10 +302,9 @@ public class GenericBlockDesign implements BlockDesign {
 				lightx[side] = lightSourceXOffset[i];
 				lighty[side] = lightSourceYOffset[i];
 				lightz[side] = lightSourceZOffset[i];
-				       
 			}
 		}
-		
+
 		GenericBlockDesign des = new GenericBlockDesign(lowXBound, lowYBound, lowZBound, highXBound, highYBound, highZBound, textureURL, Bukkit.getPluginManager().getPlugin(texturePlugin), xx, yy, zz, textXPos, textYPos, renderPass);
 		des.lightSourceXOffset = lightx;
 		des.lightSourceYOffset = lighty;

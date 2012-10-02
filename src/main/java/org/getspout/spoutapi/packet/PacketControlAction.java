@@ -49,7 +49,6 @@ public class PacketControlAction implements SpoutPacket {
 	protected String data = "";
 
 	public PacketControlAction() {
-
 	}
 
 	public PacketControlAction(Screen screen, Widget widget, float state) {
@@ -167,7 +166,6 @@ public class PacketControlAction implements SpoutPacket {
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

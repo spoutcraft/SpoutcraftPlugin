@@ -32,7 +32,6 @@ public class PacketSky implements SpoutPacket {
 	String moon = "";
 
 	public PacketSky() {
-
 	}
 
 	public PacketSky(int cloudY, int stars, int sunPercent, int moonPercent) {
@@ -109,12 +108,10 @@ public class PacketSky implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

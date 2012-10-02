@@ -77,7 +77,6 @@ public class PacketKeyPress implements SpoutPacket {
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

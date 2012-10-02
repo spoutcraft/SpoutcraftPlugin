@@ -44,7 +44,7 @@ public class KeyBindingEvent extends Event {
 		return player;
 	}
 
-	//Convenience method
+	// Convenience method
 	public ScreenType getScreenType() {
 		return player.getActiveScreen();
 	}

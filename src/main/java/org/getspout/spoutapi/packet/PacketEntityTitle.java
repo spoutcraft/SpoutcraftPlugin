@@ -29,7 +29,6 @@ public class PacketEntityTitle implements SpoutPacket {
 	public int entityId;
 
 	public PacketEntityTitle() {
-
 	}
 
 	public PacketEntityTitle(int entityId, String title) {
@@ -51,12 +50,10 @@ public class PacketEntityTitle implements SpoutPacket {
 
 	@Override
 	public void run(int id) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

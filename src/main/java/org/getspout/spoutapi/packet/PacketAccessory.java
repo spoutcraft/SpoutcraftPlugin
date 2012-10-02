@@ -20,6 +20,7 @@
 package org.getspout.spoutapi.packet;
 
 import java.io.IOException;
+
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.accessories.AccessoryType;
@@ -76,5 +77,4 @@ public class PacketAccessory implements SpoutPacket{
 	public int getVersion() {
 		return 2;
 	}
-
 }

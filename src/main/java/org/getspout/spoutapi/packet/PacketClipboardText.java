@@ -30,7 +30,6 @@ public class PacketClipboardText implements SpoutPacket {
 	protected String text;
 
 	public PacketClipboardText() {
-
 	}
 
 	public PacketClipboardText(String text) {
@@ -58,7 +57,6 @@ public class PacketClipboardText implements SpoutPacket {
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

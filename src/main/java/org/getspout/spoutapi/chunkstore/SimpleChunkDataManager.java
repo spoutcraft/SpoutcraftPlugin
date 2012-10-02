@@ -93,7 +93,7 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 			return false;
 		}
 	}
-	
+
 	public boolean closeChunk(World w, int x, int z) {
 		ChunkMetaData md = getMetaData(w, x, z, false, false);
 

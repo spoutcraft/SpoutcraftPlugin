@@ -24,8 +24,6 @@ import gnu.trove.set.hash.TLongHashSet;
 
 /**
  * A simplistic set that supports 2 ints for one value inside the set.
- * @author Afforess
- *
  */
 public class TIntPairHashSet {
 	private TLongHashSet set;

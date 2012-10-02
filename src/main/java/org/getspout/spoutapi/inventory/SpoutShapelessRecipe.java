@@ -39,7 +39,7 @@ public class SpoutShapelessRecipe implements Recipe {
 	 * @see ShapelessRecipe#addIngredient(MaterialData)
 	 */
 	public SpoutShapelessRecipe(ItemStack result) {
-		this.output = new SpoutItemStack(result);//deal with enchantments
+		this.output = new SpoutItemStack(result); // Deal with enchantments
 	}
 
 	/**

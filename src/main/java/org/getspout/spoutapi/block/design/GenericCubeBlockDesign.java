@@ -26,7 +26,7 @@ public class GenericCubeBlockDesign extends GenericCuboidBlockDesign {
 	 * Creates a basic cube custom block model
 	 * @param plugin       making this block
 	 * @param texture      to use
-	 * @param textureId[6] Array of faces, give Id's for SubTexture locations
+	 * @param textureId[6] Array of faces, give IDs for SubTexture locations
 	 *                     Array is laid out as follows {bottom, face, face, face, face, top}
 	 */
 	public GenericCubeBlockDesign(Plugin plugin, Texture texture, int[] textureId) {

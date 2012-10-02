@@ -104,14 +104,14 @@ public interface SpoutChunk extends Chunk {
 	 * @return the previous custom block at the location, or null if none existed.
 	 */
 	public CustomBlock setCustomBlock(int x, int y, int z, CustomBlock block);
-	
+
 	public byte[] getCustomBlockData();
 
 	public void setCustomBlockData(byte[] rots);
-	
+
 	public byte getCustomBlockData(int x, int y, int z);
-	
+
 	public byte setCustomBlockData(int x, int y, int z, byte rot);
-	
+
 	public CustomBlock setCustomBlock(int x, int y, int z, CustomBlock block, byte data);
 }

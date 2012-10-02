@@ -52,7 +52,6 @@ public class CustomPacket extends Packet {
 	}
 
 	public CustomPacket() {
-
 	}
 
 	public CustomPacket(SpoutPacket packet) {
@@ -68,8 +67,8 @@ public class CustomPacket extends Packet {
 	public void a(DataInputStream input) throws IOException {
 		int packetId = -1;
 		packetId = input.readShort();
-		int version = input.readShort(); //packet version
-		int length = input.readInt(); //packet size
+		int version = input.readShort(); // Packet version
+		int length = input.readInt(); // Packet size
 		if (packetId > -1 && version > -1) {
 			try {
 				this.packet = PacketType.getPacketFromId(packetId).getPacketClass().newInstance();
@@ -85,7 +84,7 @@ public class CustomPacket extends Packet {
 				return;
 			} else if (packet.getVersion() != version) {
 				input.skipBytes(length);
-				//Keep server admins from going insane :p
+				// Keep server admins from going insane :p
 				if (nags[packetId]-- > 0) {
 					//System.out.println("Invalid Packet Id: " + packetId + ". Current v: " + packet.getVersion() + " Receieved v: " + version + " Skipping contents.");
 				}
@@ -98,9 +97,8 @@ public class CustomPacket extends Packet {
 
 				success = true;
 			}
-		}
-		catch (IOException ignore) { }
-		catch (Exception e) {
+		} catch (IOException ignore) {
+		} catch (Exception e) {
 			System.out.println("------------------------");
 			System.out.println("Unexpected Exception: " + PacketType.getPacketFromId(packetId) + ", " + packetId);
 			e.printStackTrace();

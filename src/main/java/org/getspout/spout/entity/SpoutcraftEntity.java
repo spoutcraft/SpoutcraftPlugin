@@ -20,12 +20,13 @@
 package org.getspout.spout.entity;
 
 import java.util.List;
+
 import org.getspout.spoutapi.entity.SpoutEntity;
 import org.getspout.spoutapi.entity.ai.SpoutAI;
 
 public class SpoutcraftEntity implements SpoutEntity{
 	private EntityBase base;
-	
+
 	public SpoutcraftEntity(EntityBase base) {
 		this.base = base;
 	}
@@ -39,5 +40,4 @@ public class SpoutcraftEntity implements SpoutEntity{
 	public List<SpoutAI> getTasks() {
 		return base.getTasks();
 	}
-	
 }

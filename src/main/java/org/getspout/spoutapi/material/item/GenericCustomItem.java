@@ -26,6 +26,7 @@ import java.io.InputStream;
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.Plugin;
+
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -63,12 +64,12 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		this(plugin, name);
 		this.setTexture(texture);
 	}
-	
+
 	@Override
 	public boolean isStackable() {
 		return stackable;
 	}
-	
+
 	@Override
 	public CustomItem setStackable(boolean stackable) {
 		this.stackable = stackable;
@@ -109,7 +110,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		this.texture = texture;
 		return this;
 	}
-	
+
 	public CustomItem setTexture(File texture) {
 		SpoutManager.getFileManager().addToCache(plugin, texture);
 		this.setTexture(texture.getName(), false);
@@ -172,8 +173,11 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	@Override
 	public short getCounter() {
 		short res = counter;
-		if(counter == Short.MAX_VALUE) counter = Short.MIN_VALUE;
-		else counter++;
+		if (counter == Short.MAX_VALUE) {
+			counter = Short.MIN_VALUE;
+		} else {
+			counter++;
+		}
 		return res;
 	}
 }

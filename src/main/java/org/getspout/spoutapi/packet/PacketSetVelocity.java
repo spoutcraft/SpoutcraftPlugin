@@ -31,7 +31,6 @@ public class PacketSetVelocity implements SpoutPacket {
 	private int entityId = 0;
 
 	public PacketSetVelocity() {
-
 	}
 
 	public PacketSetVelocity(int entityId, double motX, double motY, double motZ) {
@@ -59,12 +58,10 @@ public class PacketSetVelocity implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

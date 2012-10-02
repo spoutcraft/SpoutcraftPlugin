@@ -31,7 +31,6 @@ public class PacketWidgetRemove implements SpoutPacket {
 	protected Widget widget;
 
 	public PacketWidgetRemove() {
-
 	}
 
 	public PacketWidgetRemove(Widget widget, UUID screen) {
@@ -50,12 +49,10 @@ public class PacketWidgetRemove implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

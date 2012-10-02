@@ -43,11 +43,10 @@ public interface CustomBlock extends Block {
 	 * @return this
 	 */
 	public CustomBlock setBlockDesign(BlockDesign design);
-	
+
 	public BlockDesign getBlockDesign(int id);
 
 	public CustomBlock setBlockDesign(BlockDesign design, int id);
-
 
 	/**
 	 * Gets the Custom ID number associated with this CustomBlock
@@ -97,7 +96,7 @@ public interface CustomBlock extends Block {
 	 * @return dropped itemstack
 	 */
 	public SpoutItemStack getItemDrop();
-	
+
 	/**
 	 * Whether or not this CustomBlock will rotate to face the player when placed.
 	 * @return Should the block rotate
@@ -215,7 +214,7 @@ public interface CustomBlock extends Block {
 	 * @return true if the face is powered
 	 */
 	public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face);
-	
+
 	/**
 	 * True if this custom block is capable of providing redstone power to adjacent blocks
 	 * @return true if power source

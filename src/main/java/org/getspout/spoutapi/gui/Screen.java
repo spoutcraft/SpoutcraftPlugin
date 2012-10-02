@@ -32,7 +32,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  */
 public interface Screen extends Widget {
 	/**
-	 * Get's an array of all the attached widgets to this screen. Modifying this array will not affect the screen.
+	 * Gets an array of all the attached widgets to this screen. Modifying this array will not affect the screen.
 	 * @return array of all widgets
 	 */
 	public Widget[] getAttachedWidgets();
@@ -46,7 +46,7 @@ public interface Screen extends Widget {
 	public Screen attachWidget(Plugin plugin, Widget widget);
 
 	/**
-	 * Attach a series of widgets to this screen in one call.
+	 * Attaches a series of widgets to this screen in one call.
 	 * @param plugin  that owns these widgets
 	 * @param widgets to attach
 	 * @return screen
@@ -82,7 +82,7 @@ public interface Screen extends Widget {
 	public boolean containsWidget(UUID id);
 
 	/**
-	 * Get's the widget that is associated with the given id, or null if none was found
+	 * Gets the widget that is associated with the given id, or null if none was found
 	 * @param id to search for
 	 * @return widget, or null if none found.
 	 */
@@ -119,10 +119,10 @@ public interface Screen extends Widget {
 	 * @return the screen type
 	 */
 	public ScreenType getScreenType();
-	
+
 	/**
 	 * Called when the screen is closed.
-	 * 
+	 *
 	 * @param event
 	 */
 	public void onScreenClose(ScreenCloseEvent event);

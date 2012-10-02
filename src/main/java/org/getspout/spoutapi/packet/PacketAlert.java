@@ -26,7 +26,6 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketAlert implements SpoutPacket {
 	public PacketAlert() {
-
 	}
 
 	public PacketAlert(String title, String message, int itemId) {
@@ -51,12 +50,10 @@ public class PacketAlert implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

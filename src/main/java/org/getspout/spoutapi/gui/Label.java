@@ -68,13 +68,13 @@ public interface Label extends Widget {
 	public boolean isAuto();
 
 	/**
-	 * Does this widget automatically resize with it's contents
+	 * Does this widget automatically resize with its contents
 	 * @return
 	 */
 	public boolean isResize();
 
 	/**
-	 * Tell this widget to resize with it's contents
+	 * Tell this widget to resize with its contents
 	 * @param resize
 	 * @return
 	 */

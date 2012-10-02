@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import net.minecraft.server.ContainerPlayer;
 import net.minecraft.server.DedicatedServer;
 import net.minecraft.server.Entity;
@@ -42,6 +43,7 @@ import net.minecraft.server.ServerConnection;
 import net.minecraft.server.TileEntityDispenser;
 import net.minecraft.server.TileEntityFurnace;
 import net.minecraft.server.TileEntitySign;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -65,6 +67,7 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
+
 import org.getspout.spout.PacketCompressionThread;
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spout.SpoutPermissibleBase;
@@ -320,7 +323,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			double speed = speedX + speedY + speedZ;
 
 			velocityAdjustmentTime = System.currentTimeMillis() + (long) (speed * 5);
-			getHandle().velocityChanged = false; //prevents nms from sending an override packet later, but still tells the server about the new velocity
+			getHandle().velocityChanged = false; // Prevents nms from sending an override packet later, but still tells the server about the new velocity
 		}
 	}
 
@@ -812,7 +815,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		this.sneak = Keyboard.getKey(keys[9]);
 	}
 
-	//Sends a packet delayed by 1 tick
+	// Sends a packet delayed by 1 tick
 	@Override
 	public void sendDelayedPacket(SpoutPacket packet) {
 		delayedPackets.add(packet);
@@ -828,7 +831,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		} else {
 			if (packet instanceof CompressiblePacket) {
 				CompressiblePacket compressible = ((CompressiblePacket) packet);
-				//uncompressed, send it to the compression thread
+				// Uncompressed, send it to the compression thread
 				if (!compressible.isCompressed()) {
 					PacketCompressionThread.add(compressible, this);
 					return;
@@ -903,7 +906,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			}
 		}
 	}
-	
+
 	public void updateEntitySkins(LivingEntity entity) {
 		PlayerInformation info = getInformation();
 		PlayerInformation global = SpoutManager.getPlayerManager()
@@ -926,7 +929,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			sendDelayedPacket(new PacketEntityTitle(entity.getEntityId(), title));
 		}
 	}
-	
+
 	public void updateAppearance(SpoutPlayer viewer) {
 		if (!isSpoutCraftEnabled()) {
 			return;
@@ -1089,8 +1092,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		sendPacket(new PacketEntitySkin(target, "[reset]", (byte) 0));
 	}
 
-	/*Non Interface public methods */
-
+	/* Non-Interface public methods */
 	public Location getLastTickLocation() {
 		return lastTickLocation;
 	}
@@ -1181,7 +1183,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 		screenOpenThisTick = false;
 
-		//Because the player teleport event doesn't always fire :(
+		// Because the player teleport event doesn't always fire :(
 		Location current = getLocation();
 		if (lastTickLocation != null) {
 			if (!lastTickLocation.getWorld().equals(current.getWorld())) {
@@ -1200,7 +1202,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
 		}
 
-		//Do this last!
+		// Do this last!
 		getNetServerHandler().syncFlushPacketQueue();
 	}
 
@@ -1219,7 +1221,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	/* Non Interface public static methods */
-
 	public static boolean setNetServerHandler(INetworkManager nm, NetServerHandler nsh) {
 		try {
 			Field p = NetworkManager.class.getDeclaredField("packetListener");
@@ -1244,13 +1245,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 		if (cp.getHandle().netServerHandler instanceof SpoutNetServerHandler) {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
-			/*
-			Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
+			/*Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
 			for (ChunkCoordIntPair c : chunkUpdateQueue) {
 			cp.getHandle().chunkCoordIntPairQueue.add(c);
 			}
-			((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();
-			*/
+			((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();*/
 			cp.getHandle().netServerHandler.a();
 			Location loc = player.getLocation();
 			NetServerHandler handler = new NetServerHandler(MinecraftServer.getServer(), cp.getHandle().netServerHandler.networkManager, cp.getHandle());
@@ -1271,12 +1270,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
 			Location loc = player.getLocation();
 			SpoutNetServerHandler handler = new SpoutNetServerHandler(MinecraftServer.getServer(), cp.getHandle().netServerHandler.networkManager, cp.getHandle());
-			/*
-			for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
+			/*for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
 			ChunkCoordIntPair c = (ChunkCoordIntPair) o;
 			handler.addActiveChunk(c);
-			}
-			*/
+			}*/
 			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 			cp.getHandle().netServerHandler = handler;
 			INetworkManager nm = cp.getHandle().netServerHandler.networkManager;
@@ -1334,7 +1331,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		if ((((CraftPlayer) player).getHandle()).getBukkitEntity() instanceof SpoutCraftPlayer) {
 			return (SpoutCraftPlayer) ((((CraftPlayer) player).getHandle()).getBukkitEntity());
 		}
-		//We should never get here
+		// We should never get here
 		//Logger.getLogger("Minecraft").warning("Player: " + player.getName() + " was not properly updated during login!");
 		updateBukkitEntity(player);
 		return (SpoutCraftPlayer) ((((CraftPlayer) player).getHandle()).getBukkitEntity());
@@ -1374,7 +1371,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		HashMap<String, Boolean> values = new HashMap<String, Boolean>();
 		HashSet<String> allPerms = new HashSet<String>();
 
-		//Hackish workaround for bukkit not giving us all the permissions
+		// Hackish workaround for Bukkit not giving us all the permissions
 		Set<Permission> defaults = Bukkit.getServer().getPluginManager().getDefaultPermissions(false);
 		for (Permission permission : defaults) {
 			allPerms.add(permission.getName());
@@ -1384,7 +1381,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			allPerms.add(permission.getName());
 		}
 
-		//Overwrite with actual permissions, if applicable
+		// Overwrite with actual permissions, if applicable
 		for (PermissionAttachmentInfo info : perm.getEffectivePermissions()) {
 			allPerms.add(info.getPermission());
 		}

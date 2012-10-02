@@ -19,9 +19,9 @@
  */
 package org.getspout.spoutapi.gui;
 
-import javax.xml.bind.TypeConstraintException;
 import java.io.IOException;
 import java.util.UUID;
+import javax.xml.bind.TypeConstraintException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -534,20 +534,20 @@ public abstract class GenericWidget implements Widget {
 		try {
 			Widget copy = getType().getWidgetClass().newInstance();
 			copy.setX(getX()) // Easier reading
-					.setY(getY()) //
-					.setWidth(getWidth()) //
-					.setHeight(getHeight()) //
-					.setVisible(isVisible()) //
-					.setPriority(getPriority()) //
-					.setTooltip(getTooltip()) //
-					.setAnchor(getAnchor()) //
+					.setY(getY())
+					.setWidth(getWidth())
+					.setHeight(getHeight())
+					.setVisible(isVisible())
+					.setPriority(getPriority())
+					.setTooltip(getTooltip())
+					.setAnchor(getAnchor())
 					.setMargin(getMarginTop(), getMarginRight(), getMarginBottom(), getMarginLeft()) //
-					.setMinWidth(getMinWidth()) //
-					.setMaxWidth(getMaxWidth()) //
-					.setMinHeight(getMinHeight()) //
-					.setMaxHeight(getMaxHeight()) //
-					.setFixed(isFixed()) //
-					.setAutoDirty(isAutoDirty()) //
+					.setMinWidth(getMinWidth())
+					.setMaxWidth(getMaxWidth())
+					.setMinHeight(getMinHeight())
+					.setMaxHeight(getMaxHeight())
+					.setFixed(isFixed())
+					.setAutoDirty(isAutoDirty())
 					.animate(animType, animValue, animCount, animTicks, (animFlags & ANIM_REPEAT) != 0, (animFlags & ANIM_RESET) != 0);
 			return copy;
 		} catch (Exception e) {

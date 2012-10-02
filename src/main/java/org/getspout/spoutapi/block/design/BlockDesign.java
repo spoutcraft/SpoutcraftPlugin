@@ -162,7 +162,7 @@ public interface BlockDesign {
 	 * @return this
 	 */
 	public BlockDesign setVertex(int quadNumber, int vertexNumber, float x, float y, float z, float u, float v);
-	
+
 	/**
 	 * Sets a vertex
 	 * @param vertex to set
@@ -209,6 +209,6 @@ public interface BlockDesign {
 	 * @return the texture
 	 */
 	public Texture getTexture();
-	
+
 	public BlockDesign rotate(int degrees);
 }

@@ -27,8 +27,6 @@ import gnu.trove.set.TLongSet;
 
 /**
  * A simplistic map that supports a pair of integers for keys, using a trove long object hashmap in the backend.
- * @author Afforess
- *
  */
 public class TIntPairObjectHashMap<K>{
 	private TLongObjectHashMap<K> map;

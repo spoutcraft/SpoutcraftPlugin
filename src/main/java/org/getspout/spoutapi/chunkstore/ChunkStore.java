@@ -63,12 +63,12 @@ public class ChunkStore {
 				throw new RuntimeException("Wrong class type read for chunk meta data for " + x + ", " + z);
 			}
 		} catch (IOException e) {
-			//Assume the format changed
+			// Assume the format changed
 			return null;
 			//throw new RuntimeException("Unable to process chunk meta data for " + x + ", " + z, e);
 		} catch (ClassNotFoundException e) {
-			//Assume the format changed
-			//System.out.println("[Spout] is Unable to find serialized class for " + x + ", " + z + ", " + e.getMessage());
+			// Assume the format changed
+			//System.out.println("[SpoutPlugin] is Unable to find serialized class for " + x + ", " + z + ", " + e.getMessage());
 			return null;
 			//throw new RuntimeException("Unable to find serialized class for " + x + ", " + z, e);
 		}
@@ -89,7 +89,7 @@ public class ChunkStore {
 			throw new RuntimeException("Unable to write chunk meta data for " + x + ", " + z, e);
 		}
 	}
-	
+
 	public void closeChunkMetaData(World world, int x, int z) {
 		SimpleRegionFile rf = getSimpleRegionFile(world, x, z);
 		if (rf != null) {

@@ -48,18 +48,18 @@ public class ServerTickTask implements Runnable {
 		ServerTickEvent event = new ServerTickEvent();
 		Bukkit.getServer().getPluginManager().callEvent(event);
 
-		//if (counter % 20 == 0) {
-		//	for (World world : Bukkit.getServer().getWorlds()) {
-		//		Chunk[] chunks = world.getLoadedChunks();
-		//		for (Chunk chunk : chunks) {
-		//			if (SpoutCraftChunk.replaceBukkitChunk(chunk)) {
-		//				System.out.println("Bad Chunk at (" + chunk.getX() + ", " + chunk.getZ());
-		//			}
-		//		}
-		//	}
-		//}
-		//if (counter % 1200 == 0) { //check every min
-		//	(SimpleChunkDataManager)SpoutManager.getChunkDataManager()).testFileTimeouts();
-		//}
+		/*if (counter % 20 == 0) {
+			for (World world : Bukkit.getServer().getWorlds()) {
+				Chunk[] chunks = world.getLoadedChunks();
+				for (Chunk chunk : chunks) {
+					if (SpoutCraftChunk.replaceBukkitChunk(chunk)) {
+						System.out.println("Bad Chunk at (" + chunk.getX() + ", " + chunk.getZ());
+					}
+				}
+			}
+		}
+		if (counter % 1200 == 0) { //check every min
+			(SimpleChunkDataManager)SpoutManager.getChunkDataManager()).testFileTimeouts();
+		}*/
 	}
 }

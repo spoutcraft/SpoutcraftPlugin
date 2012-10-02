@@ -40,7 +40,7 @@ public class InventoryCloseEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the top (or main) inventory that was closed
+	 * Gets the top (or main) inventory that was closed
 	 * @return inventory closed
 	 */
 	public Inventory getInventory() {
@@ -48,7 +48,7 @@ public class InventoryCloseEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the second, bottom inventory that was closed.
+	 * Gets the second, bottom inventory that was closed.
 	 * @return bottom inventory closed or null if there was no second inventory closed
 	 */
 	public Inventory getBottomInventory() {

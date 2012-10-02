@@ -41,7 +41,6 @@ public class PacketAddonData implements CompressiblePacket {
 	private byte[] data;
 
 	public PacketAddonData() {
-
 	}
 
 	public PacketAddonData(AddonPacket packet) {
@@ -161,13 +160,11 @@ public class PacketAddonData implements CompressiblePacket {
 					int count = decompressor.inflate(buf);
 					bos.write(buf, 0, count);
 				} catch (DataFormatException e) {
-
 				}
 			}
 			try {
 				bos.close();
 			} catch (IOException e) {
-
 			}
 
 			data = bos.toByteArray();

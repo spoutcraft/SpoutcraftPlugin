@@ -33,7 +33,7 @@ public class GenericCuboidCustomBlock extends GenericCustomBlock {
 	public GenericCuboidCustomBlock(Plugin plugin, String name) {
 		super(plugin, name);
 	}
-	
+
 	/**
 	 * Creates a basic GenericCustomblock with no design that is opaque/solid.
 	 * @param plugin creating the block

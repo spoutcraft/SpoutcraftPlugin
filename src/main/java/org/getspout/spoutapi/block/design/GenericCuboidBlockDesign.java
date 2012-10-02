@@ -36,7 +36,7 @@ public class GenericCuboidBlockDesign extends GenericBlockDesign {
 	 * Creates a basic cuboid custom block model
 	 * @param plugin       making this block
 	 * @param texture      to use
-	 * @param textureId[6] Array of faces, give Id's for SubTexture locations
+	 * @param textureId[6] Array of faces, give IDs for SubTexture locations
 	 * @param xMin         minimum x coordinate of the cuboid
 	 * @param yMin         minimum y coordinate of the cuboid
 	 * @param zMin         minimum z coordinate of the cuboid

@@ -77,7 +77,7 @@ public interface Widget {
 	public void writeData(SpoutOutputStream output) throws IOException;
 
 	/**
-	 * Get's the plugin that attached this widget to the screen, or null if this screen is unattached.
+	 * Gets the plugin that attached this widget to the screen, or null if this screen is unattached.
 	 * @return plugin that attached this widget to the screen
 	 */
 	public Plugin getPlugin();
@@ -247,7 +247,7 @@ public interface Widget {
 	public void setContainer(Container container);
 
 	/**
-	 * Container Layout - Set whether the widget will be resized with it's container
+	 * Container Layout - Set whether the widget will be resized with its container
 	 * @param fixed if it is a static size
 	 * @return the container
 	 */
@@ -260,7 +260,7 @@ public interface Widget {
 	public boolean getFixed();
 
 	/**
-	 * Container Layout - Whether the widget is fixed size inside it's container
+	 * Container Layout - Whether the widget is fixed size inside its container
 	 * @return
 	 */
 	public boolean isFixed();
@@ -545,13 +545,13 @@ public interface Widget {
 	public void onAnimateStop();
 
 	/**
-	 * Returns true if the widget has had it's position set.
+	 * Returns true if the widget has had its position set.
 	 * @return true if it has a position
 	 */
 	public boolean hasPosition();
 
 	/**
-	 * Returns true if a widget has had it's size set.
+	 * Returns true if a widget has had its size set.
 	 * @return if it has a size
 	 */
 	public boolean hasSize();

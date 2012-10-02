@@ -242,7 +242,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 		}
 		return set;
 	}
-	
+
 	@Override
 	public void onScreenClose(ScreenCloseEvent e) {
 	}

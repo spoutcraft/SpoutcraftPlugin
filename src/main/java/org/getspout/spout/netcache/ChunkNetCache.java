@@ -31,23 +31,22 @@ import com.google.common.collect.Sets;
 import org.getspout.spout.config.ConfigReader;
 
 public class ChunkNetCache {
-	
 	private final AtomicReference<byte[]> partitionCache = new AtomicReference<byte[]>();
 	private final Set<Long> hashSet;
 	private volatile boolean cacheEnabled = false;
-	
+
 	public ChunkNetCache() {
 		this(Sets.newSetFromMap(new ConcurrentHashMap<Long, Boolean>()));
 	}
-	
+
 	public ChunkNetCache(Set<Long> hashSet) {
 		this.hashSet = hashSet;
 	}
-	
+
 	public boolean isCacheEnabled() {
 		return cacheEnabled;
 	}
-	
+
 	public void handleCustomPacket(String channel, byte[] array) {
 		if (ConfigReader.isChunkDataCache() && channel.equals("ChkCache:setHash")) {
 			cacheEnabled = true;
@@ -65,9 +64,8 @@ public class ChunkNetCache {
 	}
 
 	public byte[] handle(byte[] inflatedBuffer) {
-		
 		byte[] partition = partitionCache.getAndSet(null);
-		
+
 		if (partition == null) {
 			partition = new byte[2048];
 		}
@@ -100,8 +98,7 @@ public class ChunkNetCache {
 		PartitionChunk.setInt(newBuffer, 0, dataLength, newLength - 5);
 
 		partitionCache.set(partition);
-		
+
 		return newBuffer;
 	}
-	
 }

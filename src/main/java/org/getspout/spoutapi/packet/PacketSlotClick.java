@@ -68,10 +68,10 @@ public class PacketSlotClick implements SpoutPacket {
 
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeLong(screen.getMostSignificantBits());
-		output.writeLong(screen.getLeastSignificantBits());//16
+		output.writeLong(screen.getLeastSignificantBits()); // 16
 		output.writeLong(slot.getMostSignificantBits());
-		output.writeLong(slot.getLeastSignificantBits());//32
-		output.write(button);//mouseClick will usually be 0 (left) or 1 (right) - so this is safe unless the mouse has... 257 buttons :P
+		output.writeLong(slot.getLeastSignificantBits()); // 32
+		output.write(button); // mouseClick will usually be 0 (left) or 1 (right) - so this is safe unless the mouse has... 257 buttons :P
 		output.writeBoolean(holdingShift);//34
 	}
 
@@ -102,7 +102,7 @@ public class PacketSlotClick implements SpoutPacket {
 			return;
 		}
 
-		//Slot Handling code goes here.
+		// Slot handling code goes here.
 		Slot slot = (Slot) in.getWidget(this.slot);
 		try {
 			ItemStack stackOnCursor = p.getItemOnCursor();
@@ -111,9 +111,9 @@ public class PacketSlotClick implements SpoutPacket {
 			}
 			ItemStack stackInSlot = slot.getItem();
 			if ((stackOnCursor == null || stackOnCursor.getTypeId() == 0) && stackInSlot.getTypeId() == 0) {
-				return; //Nothing to do
+				return; // Nothing to do
 			}
-			if (stackOnCursor.getTypeId() == 0 && stackInSlot.getTypeId() != 0 && button == 1) { //Split item
+			if (stackOnCursor.getTypeId() == 0 && stackInSlot.getTypeId() != 0 && button == 1) { // Split item
 				int amountSlot = stackInSlot.getAmount() / 2;
 				int amountCursor = stackInSlot.getAmount() - amountSlot;
 				if (stackInSlot.getAmount() == 1) {
@@ -131,10 +131,10 @@ public class PacketSlotClick implements SpoutPacket {
 				if (!s.isCancelled()) {
 					slot.setItem(stackInSlot);
 				} else {
-					slot.setDirty(true);//we need to tell the client that the operation was denied.
+					slot.setDirty(true); // We need to tell the client that the operation was denied.
 					return;
 				}
-			} else if (stackOnCursor != null && (stackInSlot.getTypeId() == 0 || (stackInSlot.getTypeId() == stackOnCursor.getTypeId() && stackInSlot.getDurability() == stackOnCursor.getDurability()))) { //Put item
+			} else if (stackOnCursor != null && (stackInSlot.getTypeId() == 0 || (stackInSlot.getTypeId() == stackOnCursor.getTypeId() && stackInSlot.getDurability() == stackOnCursor.getDurability()))) { // Put item
 				ItemStack toPut = stackOnCursor.clone();
 				int putAmount = toPut.getAmount();
 				if (button == 1) {
@@ -165,31 +165,31 @@ public class PacketSlotClick implements SpoutPacket {
 					put.setAmount(amount);
 					slot.setItem(put);
 				} else {
-					slot.setDirty(true);//we need to tell the client that the operation was denied.
+					slot.setDirty(true); // We need to tell the client that the operation was denied.
 				}
 			} else if (stackOnCursor == null || stackOnCursor.getTypeId() == 0) { //Take item or shift click
 				if (holdingShift) {
 					slot.onItemShiftClicked();
 					SlotEvent s = new SlotShiftClickEvent(p, slot);
 					Bukkit.getPluginManager().callEvent(s);
-				} else { //Take item
+				} else { // Take item
 					SlotEvent s = new SlotTakeEvent(p, slot, stackInSlot, !slot.onItemTake(stackInSlot));
 					Bukkit.getPluginManager().callEvent(s);
 					if (!s.isCancelled()) {
 						stackOnCursor = stackInSlot;
 						slot.setItem(new ItemStack(0));
 					} else {
-						slot.setDirty(true);//we need to tell the client that the operation was denied.
+						slot.setDirty(true); // We need to tell the client that the operation was denied.
 					}
 				}
-			} else if (stackOnCursor.getTypeId() != stackInSlot.getTypeId() || stackOnCursor.getDurability() != stackInSlot.getDurability()) { //Exchange slot stack and cursor stack
+			} else if (stackOnCursor.getTypeId() != stackInSlot.getTypeId() || stackOnCursor.getDurability() != stackInSlot.getDurability()) { // Exchange slot stack and cursor stack
 				SlotEvent s = new SlotExchangeEvent(p, slot, stackInSlot, stackOnCursor.clone(), !slot.onItemExchange(stackInSlot, stackOnCursor.clone()));
 				Bukkit.getPluginManager().callEvent(s);
 				if (!s.isCancelled()) {
 					slot.setItem(stackOnCursor.clone());
 					stackOnCursor = stackInSlot;
 				} else {
-					slot.setDirty(true);//we need to tell the client that the operation was denied.
+					slot.setDirty(true); // We need to tell the client that the operation was denied.
 				}
 			}
 

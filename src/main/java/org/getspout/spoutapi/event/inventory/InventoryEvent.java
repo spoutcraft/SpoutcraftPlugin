@@ -51,7 +51,7 @@ public abstract class InventoryEvent extends Event implements Cancellable {
 	}
 
 	/**
-	 * Get's the location of the inventory, if there is one. Returns null if no location could be found.
+	 * Gets the location of the inventory, if there is one. Returns null if no location could be found.
 	 * @return location of the inventory
 	 */
 	public Location getLocation() {

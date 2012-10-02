@@ -37,7 +37,6 @@ public class PacketParticle implements SpoutPacket {
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
-
 	}
 
 	@Override
@@ -56,12 +55,10 @@ public class PacketParticle implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

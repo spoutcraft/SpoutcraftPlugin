@@ -30,10 +30,11 @@ import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 
+import net.minecraft.server.Block;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import net.minecraft.server.Block;
 import org.getspout.spout.block.mcblock.CustomMCBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
@@ -157,7 +158,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			setFriction(block, originalFriction.get(id, data));
 			originalFriction.remove(id, data);
 		}
-		updateBlockAttributes(id, (short) data); // invalidate cache
+		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 
 	@Override
@@ -166,9 +167,9 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
-		//Access the protected strength field in Block
+		// Access the protected strength field in Block
 		Block mBlock = Block.byId[id];
-		float hardness = 999999999f; //Probably useless safeguard
+		float hardness = 999999999f; // Probably useless safeguard
 		try {
 			Field field = Block.class.getDeclaredField("strength");
 			field.setAccessible(true);
@@ -193,7 +194,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (b instanceof CustomMCBlock) {
 			((CustomMCBlock) b).setHardness(hardness);
 		}
-		updateBlockAttributes(id, (short) data); // invalidate cache
+		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 
 	@Override
@@ -227,7 +228,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			originalOpacity.put(id, (byte) (isOpaque(block) ? 1 : 0));
 		}
 		net.minecraft.server.Block.n[id] = opacity;
-		updateBlockAttributes(id, (short) data); // invalidate cache
+		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 
 	@Override
@@ -241,7 +242,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			setOpaque(block, originalOpacity.get(id) != 0);
 			originalOpacity.remove(id);
 		}
-		updateBlockAttributes(id, (short) data); // invalidate cache
+		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 
 	@Override
@@ -264,7 +265,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			originalLight.put(id, getLightLevel(block));
 		}
 		net.minecraft.server.Block.lightEmission[id] = level;
-		updateBlockAttributes(id, (short) data); // invalidate cache
+		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 
 	@Override
@@ -278,12 +279,12 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			setLightLevel(block, originalLight.get(id));
 			originalLight.remove(id);
 		}
-		updateBlockAttributes(id, (short) data); // invalidate cache
+		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 
 	@Override
 	public Set<org.getspout.spoutapi.material.Block> getModifiedBlocks() {
-		// hit cache first
+		// Hit cache first
 		if (cachedBlockData != null) {
 			return cachedBlockData;
 		}
@@ -328,7 +329,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 				modified.add(block);
 			}
 		}
-		cachedBlockData = modified; // save to cache
+		cachedBlockData = modified; // Save to cache
 		return modified;
 	}
 
@@ -340,8 +341,9 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			toUpdate.add(block);
 			SpoutPacket updatePacket = new PacketBlockData(toUpdate);
 			for (SpoutPlayer player : SpoutManager.getOnlinePlayers()) {
-				if (player.isSpoutCraftEnabled())
+				if (player.isSpoutCraftEnabled()) {
 					player.sendPacket(updatePacket);
+				}
 			}
 		}
 	}

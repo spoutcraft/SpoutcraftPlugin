@@ -37,6 +37,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
@@ -200,19 +201,18 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		for (World world : Bukkit.getServer().getWorlds()) {
 			TIntPairObjectHashMap<BlockOverrides> chunkOverrides = queuedChunkBlockOverrides.get(world);
 			if (chunkOverrides != null && chunkOverrides.size() > 0 && world.getPlayers().size() > 0) {
-				// long time = System.nanoTime();
+				//long time = System.nanoTime();
 				for (BlockOverrides override : chunkOverrides.valueCollection()) {
 					override.sendPacket();
 				}
 				chunkOverrides.clear();
-				// System.out.println("Sending block overrides took " +
-				// (System.nanoTime() - time) * 1E-6D + " ms");
+				//System.out.println("Sending block overrides took " + (System.nanoTime() - time) * 1E-6D + " ms");
 			}
 		}
 	}
 
 	private boolean glassUpdated = false;
-	//Fired when MaterialData.addCustomItem or MaterialData.addCustomBlock is called
+	// Fired when MaterialData.addCustomItem or MaterialData.addCustomBlock is called
 	public void onCustomMaterialRegistered(Material mat) {
 		if (mat instanceof CustomBlock && !glassUpdated) {
 			if (!((CustomBlock)mat).isOpaque()) {
@@ -283,7 +283,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 		String fullNewKey = plugin.getDescription().getName() + "." + newKey;
 
 		ItemMap.getRootMap().rename(fullOldKey, fullNewKey);
-		
+
 		for (File worldFolder : Bukkit.getWorldContainer().listFiles()) {
 			if ((new File(worldFolder, "spout_meta/worldItemMap.txt")).exists()) {
 				World world = Bukkit.getWorld(worldFolder.getName());

@@ -29,11 +29,10 @@ import net.minecraft.server.Packet51MapChunk;
 import org.getspout.spout.SpoutNetServerHandler;
 
 public class CacheThread extends Thread {
-
 	private static final CacheThread instance;
-	
+
 	private static LinkedBlockingQueue<QueueEntry> queue = new  LinkedBlockingQueue<QueueEntry>();
-	
+
 	static {
 		instance = new CacheThread();
 	}
@@ -43,16 +42,16 @@ public class CacheThread extends Thread {
 		setDaemon(true);
 		start();
 	}
-	
+
 	public static CacheThread getInstance() {
 		return instance;
 	}
-	
+
 	public void run() {
 		while (!isInterrupted()) {
 			try {
 				QueueEntry entry = queue.take();
-				
+
 				if (entry.getPacket() instanceof Packet51MapChunk) {
 					Packet51MapChunk p = (Packet51MapChunk) entry.getPacket();
 					p.inflatedBuffer = entry.getChunkNetCache().handle(p.inflatedBuffer);
@@ -64,35 +63,32 @@ public class CacheThread extends Thread {
 			}
 		}
 	}
-	
+
 	public static void sendPacket(SpoutNetServerHandler nsh, Packet packet, ChunkNetCache chunkNetCache) {
 		queue.add(new QueueEntry(nsh, packet, chunkNetCache));
 	}
-	
+
 	private static class QueueEntry {
-		
 		private final SpoutNetServerHandler nsh;
 		private final Packet packet;
 		private final ChunkNetCache chunkNetCache;
-		
+
 		public QueueEntry(SpoutNetServerHandler nsh, Packet packet, ChunkNetCache chunkNetCache) {
 			this.nsh = nsh;
 			this.packet = packet;
 			this.chunkNetCache = chunkNetCache;
 		}
-		
+
 		public SpoutNetServerHandler getNSH() {
 			return nsh;
 		}
-		
+
 		public Packet getPacket() {
 			return packet;
 		}
-		
+
 		public ChunkNetCache getChunkNetCache() {
 			return chunkNetCache;
 		}
-		
 	}
-	
 }

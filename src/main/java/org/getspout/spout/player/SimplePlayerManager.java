@@ -19,12 +19,12 @@
  */
 package org.getspout.spout.player;
 
-import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -114,14 +114,14 @@ public class SimplePlayerManager implements PlayerManager {
 		if (sp instanceof SpoutCraftPlayer) {
 			SpoutCraftPlayer scp = (SpoutCraftPlayer)sp;
 			scp.setVersionString(versionString);
-			System.out.println("[Spout] Successfully authenticated " + scp.getName() + "'s Spoutcraft client. Running client version: " + scp.getVersionString());
+			System.out.println("[SpoutPlugin] Authenticated " + scp.getName() + " using Spoutcraft " + scp.getVersionString());
 			int build;
 			try {
 				build = Integer.parseInt(versionString);
 			} catch (Exception e) {
 				build = 1700;
 			}
-			((SpoutCraftPlayer) sp).setBuildVersion(build);		
+			((SpoutCraftPlayer) sp).setBuildVersion(build);
 			SpoutcraftBuildSetEvent sbse = new SpoutcraftBuildSetEvent(sp, build);
 			Bukkit.getPluginManager().callEvent(sbse);
 		}

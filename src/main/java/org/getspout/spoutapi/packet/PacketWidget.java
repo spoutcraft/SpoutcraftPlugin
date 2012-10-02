@@ -33,7 +33,6 @@ public class PacketWidget implements SpoutPacket {
 	protected UUID screen;
 
 	public PacketWidget() {
-
 	}
 
 	public PacketWidget(Widget widget, UUID screen) {
@@ -86,7 +85,6 @@ public class PacketWidget implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override

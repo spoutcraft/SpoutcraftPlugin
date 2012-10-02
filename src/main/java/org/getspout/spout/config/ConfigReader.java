@@ -32,6 +32,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+
 import org.getspout.spout.Spout;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -39,7 +40,7 @@ public class ConfigReader {
 	private static boolean buildCheck = true;
 	private static boolean forceClient = false;
 	private static int authTicks = 200;
-	private static String kickMessage = "This server requires Spoutcraft! http://www.spout.org";
+	private static String kickMessage = "This server requires Spoutcraft! http://get.spout.org";
 
 	private static boolean allowSkyCheat = false;
 	private static boolean allowClearWaterCheat = false;
@@ -90,13 +91,13 @@ public class ConfigReader {
 				MemorySection mem = (MemorySection)o;
 				Map<String, Object> worlds = getMemorySectionMap(mem);
 				Iterator<Entry<String, Object>> i = worlds.entrySet().iterator();
-				while(i.hasNext()) {
+				while (i.hasNext()) {
 					Entry<String, Object> e = i.next();
 					final String world = e.getKey().toLowerCase();
 					if (e.getValue() instanceof MemorySection) {
 						Map<String, Object> waypoints = getMemorySectionMap((MemorySection) e.getValue());
 						Iterator<Entry<String, Object>> j = waypoints.entrySet().iterator();
-						while(j.hasNext()) {
+						while (j.hasNext()) {
 							Entry<String, Object> waypoint = j.next();
 							MemorySection values = (MemorySection) waypoint.getValue();
 							double x = values.getDouble("x");
@@ -113,9 +114,8 @@ public class ConfigReader {
 					}
 				}
 			}
-		}
-		catch (Exception e) {
-			System.out.println("[Spout] Error while loading waypoints: ");
+		} catch (Exception e) {
+			System.out.println("[SpoutPlugin] Error while loading waypoints: ");
 			e.printStackTrace();
 		}
 	}

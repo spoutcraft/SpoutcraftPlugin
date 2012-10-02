@@ -57,13 +57,17 @@ public class InventoryListener implements Listener{
 			event.setCancelled(true);
 		}
 	}
-	
+
 	@EventHandler(priority=EventPriority.LOWEST)
 	public void onItemCraft(CraftItemEvent e) {
 		ItemStack res = e.getCurrentItem();
 		res.removeEnchantment(SpoutEnchantment.UNSTACKABLE);
 		Material m = MaterialData.getMaterial(res.getTypeId(), res.getDurability());
-		if(m instanceof CustomItem) if(!((CustomItem) m).isStackable() && e.isShiftClick()) e.setCancelled(true);//shift clicking causes.... issues with unstackable Spout items.
-		e.setCurrentItem(new SpoutItemStack(res));//handle enchantments and stuff.
+		if (m instanceof CustomItem) {
+			if(!((CustomItem) m).isStackable() && e.isShiftClick()) {
+				e.setCancelled(true); // Shift clicking causes... issues with unstackable Spout items.
+			}
+		}
+		e.setCurrentItem(new SpoutItemStack(res)); // Handle enchantments and stuff.
 	}
 }

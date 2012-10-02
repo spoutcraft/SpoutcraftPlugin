@@ -41,7 +41,7 @@ public class SpoutWorldListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onChunkLoad(ChunkLoadEvent event) {
 		if (SpoutCraftChunk.replaceBukkitChunk(event.getChunk())) {
-			//update the reference to the chunk in the event
+			// Update the reference to the chunk in the event
 			try {
 				Field chunk = ChunkEvent.class.getDeclaredField("chunk");
 				chunk.setAccessible(true);

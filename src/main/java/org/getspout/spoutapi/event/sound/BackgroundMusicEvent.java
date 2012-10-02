@@ -47,7 +47,7 @@ public class BackgroundMusicEvent extends Event implements Cancellable {
 	}
 
 	/**
-	 * Get's the music this song is playing, or null if it is custom
+	 * Gets the music this song is playing, or null if it is custom
 	 * @return music
 	 */
 	public Music getMusic() {
@@ -55,7 +55,7 @@ public class BackgroundMusicEvent extends Event implements Cancellable {
 	}
 
 	/**
-	 * Get's the music Url this song is playing, or null if it is official MC music
+	 * Gets the music Url this song is playing, or null if it is official MC music
 	 * @return music url
 	 */
 	public String getMusicUrl() {
@@ -63,7 +63,7 @@ public class BackgroundMusicEvent extends Event implements Cancellable {
 	}
 
 	/**
-	 * Get's the volume percent for this music
+	 * Gets the volume percent for this music
 	 * @return volume percent
 	 */
 	public int getVolumePercent() {
@@ -71,7 +71,7 @@ public class BackgroundMusicEvent extends Event implements Cancellable {
 	}
 
 	/**
-	 * Set's the volume percent for this music
+	 * Sets the volume percent for this music
 	 * @param volume to set
 	 */
 	public void setVolumePercent(int volume) {
@@ -79,7 +79,7 @@ public class BackgroundMusicEvent extends Event implements Cancellable {
 	}
 
 	/**
-	 * Get's the player that the music is intended for
+	 * Gets the player that the music is intended for
 	 * @return target
 	 */
 	public SpoutPlayer getTargetPlayer() {

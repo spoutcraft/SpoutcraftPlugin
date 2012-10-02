@@ -54,7 +54,6 @@ public class SpoutManager {
 	private WorldManager worldManager = null;
 
 	protected SpoutManager() {
-
 	}
 
 	/**
@@ -173,9 +172,9 @@ public class SpoutManager {
 			fileManager = manager;
 		}
 	}
-	
+
 	public void setEntityManager(EntityManager manager) {
-		if(entityManager == null) {
+		if (entityManager == null) {
 			entityManager = manager;
 		}
 	}
@@ -272,7 +271,7 @@ public class SpoutManager {
 	public static PlayerManager getPlayerManager() {
 		return getInstance().playerManager;
 	}
-	
+
 	/**
 	 * Gets the entity manager
 	 * @return entity manager

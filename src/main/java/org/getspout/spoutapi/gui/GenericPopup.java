@@ -89,6 +89,6 @@ public class GenericPopup extends GenericScreen implements PopupScreen {
 
 	@Override
 	public void handleItemOnCursor(ItemStack itemOnCursor) {
-		//do nothign with the item by default.
+		// Do nothing with the item by default.
 	}
 }

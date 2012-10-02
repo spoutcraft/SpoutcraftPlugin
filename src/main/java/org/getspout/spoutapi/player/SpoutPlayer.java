@@ -113,75 +113,75 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	public Screen getCurrentScreen();
 
 	/**
-	 * Return's true if the player is using the spoutcraft single player mod
+	 * Returns true if the player is using the spoutcraft single player mod
 	 * @return spout craft single player mod enabled
 	 */
 	public boolean isSpoutCraftEnabled();
 
 	/**
-	 * Return's the key bound to forward movement for this player, or unknown if not known.
+	 * Returns the key bound to forward movement for this player, or unknown if not known.
 	 * @return forward key
 	 */
 	@ClientOnly
 	public Keyboard getForwardKey();
 
 	/**
-	 * Return's the key bound to backward movement for this player, or unknown if not known.
+	 * Returns the key bound to backward movement for this player, or unknown if not known.
 	 * @return backward key
 	 */
 	@ClientOnly
 	public Keyboard getBackwardKey();
 
 	/**
-	 * Return's the key bound to left movement for this player, or unknown if not known.
+	 * Returns the key bound to left movement for this player, or unknown if not known.
 	 * @return left key
 	 */
 	@ClientOnly
 	public Keyboard getLeftKey();
 
 	/**
-	 * Return's the key bound to right movement for this player, or unknown if not known.
+	 * Returns the key bound to right movement for this player, or unknown if not known.
 	 * @return right key
 	 */
 	public Keyboard getRightKey();
 
 	/**
-	 * Return's the key bound to jumping for this player, or unknown if not known.
+	 * Returns the key bound to jumping for this player, or unknown if not known.
 	 * @return jump key
 	 */
 	@ClientOnly
 	public Keyboard getJumpKey();
 
 	/**
-	 * Return's the key bound to opening and closing inventories for this player, or unknown if not known.
+	 * Returns the key bound to opening and closing inventories for this player, or unknown if not known.
 	 * @return inventory key
 	 */
 	@ClientOnly
 	public Keyboard getInventoryKey();
 
 	/**
-	 * Return's the key bound to dropping items for this player, or unknown if not known.
+	 * Returns the key bound to dropping items for this player, or unknown if not known.
 	 * @return drop item key
 	 */
 	@ClientOnly
 	public Keyboard getDropItemKey();
 
 	/**
-	 * Return's the key bound to opening the chat bar for this player, or unknown if not known.
+	 * Returns the key bound to opening the chat bar for this player, or unknown if not known.
 	 * @return chat key
 	 */
 	@ClientOnly
 	public Keyboard getChatKey();
 
 	/**
-	 * Return's the key bound to toggle view fog for this player, or unknown if not known.
+	 * Returns the key bound to toggle view fog for this player, or unknown if not known.
 	 * @return toggle fog key
 	 */
 	@ClientOnly
 	public Keyboard getToggleFogKey();
 
 	/**
-	 * Return's the key bound to sneaking for this player, or unknown if not known.
+	 * Returns the key bound to sneaking for this player, or unknown if not known.
 	 * @return sneak key
 	 */
 	@ClientOnly
@@ -242,7 +242,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	public void setMinimumRenderDistance(RenderDistance minimum);
 
 	/**
-	 * Send's the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
+	 * Sends the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
 	 * The title and message may not exceed 26 characters in length
 	 * The item to render may not be null
 	 * @param title    to send
@@ -253,7 +253,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	public void sendNotification(String title, String message, Material toRender);
 
 	/**
-	 * Send's the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
+	 * Sends the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
 	 * The title and message may not exceed 26 characters in length
 	 * The item to render may not be null
 	 * @param title    to send
@@ -266,7 +266,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	public void sendNotification(String title, String message, Material toRender, short data, int time);
 
 	/**
-	 * Send's the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
+	 * Sends the player a notification (using the existing Achievement Get window), with the given title, message, and item to render as a graphic
 	 * The title and message may not exceed 26 characters in length
 	 * The item to render may not be null
 	 * @param title   to send
@@ -278,7 +278,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	public void sendNotification(String title, String message, ItemStack item, int time);
 
 	/**
-	 * Get's the clipboard text from the player, or null if unknown
+	 * Gets the clipboard text from the player, or null if unknown
 	 * @return clipboard text
 	 */
 	@ClientOnly
@@ -653,12 +653,12 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	public void hideTitleFrom(SpoutPlayer viewingPlayer);
 
 	/**
-	 * Resets the title back to it's default state.
+	 * Resets the title back to its default state.
 	 */
 	public void resetTitle();
 
 	/**
-	 * Resets the title back to it's default state for the viewingPlayer.
+	 * Resets the title back to its default state for the viewingPlayer.
 	 * @param viewingPlayer
 	 */
 	public void resetTitleFor(SpoutPlayer viewingPlayer);
@@ -818,36 +818,36 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	public void addWaypoint(String name, double x, double y, double z);
 
 	/**
-	 * Gets the Player's SC version as an int.
+	 * Gets the player's Spoutcraft version as an int.
 	 */
 	public int getBuildVersion();
 
 	/**
-	 * Gets the Player's SC version as a String.
+	 * Gets the player's Spoutcraft version as a String.
 	 */
 	public String getVersionString();
-	
+
 	/**
 	 * Checks if the player has that accessory type.
 	 * @param type The type to check for.
 	 * @return Whether the player has that type of accessory.
 	 */
 	public boolean hasAccessory(AccessoryType type);
-	
+
 	/**
 	 * Adds a new accessory to the player.
 	 * @param type The accessory's type.
 	 * @param url  The accessory's url.
 	 */
 	public void addAccessory(AccessoryType type, String url);
-	
+
 	/**
 	 * Removes an accessory from the player.
 	 * @param type The accessory type.
 	 * @return The accessory's url.
 	 */
 	public String removeAccessory(AccessoryType type);
-	
+
 	/**
 	 * Gets the accessory's url
 	 * @param type The accessory.

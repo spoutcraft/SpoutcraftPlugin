@@ -21,11 +21,11 @@ package org.getspout.spout.block.mcblock;
 
 import java.lang.reflect.Field;
 
-import org.bukkit.event.block.BlockRedstoneEvent;
-
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockTrapdoor;
 import net.minecraft.server.World;
+
+import org.bukkit.event.block.BlockRedstoneEvent;
 
 public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 	protected BlockTrapdoor parent;
@@ -141,9 +141,9 @@ public class CustomTrapdoor extends BlockTrapdoor implements CustomMCBlock {
 		} else {
 			Block block = Block.byId[i];
 
-			//Spout Start - changed Block.GLOWSTONE to byId lookup
+			// Spout Start - changed Block.GLOWSTONE to byId lookup
 			return block != null && block.material.k() && block.c() || block == Block.byId[Block.GLOWSTONE.id];
-			//Spout End
+			// Spout End
 		}
 	}
 

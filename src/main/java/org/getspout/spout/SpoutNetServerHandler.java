@@ -61,7 +61,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 
 	public SpoutNetServerHandler(MinecraftServer minecraftserver, INetworkManager networkmanager, EntityPlayer entityplayer) {
 		super(minecraftserver, networkmanager, entityplayer);
-		//cache the field for later use
+		// Cache the field for later use
 		try {
 			entityListField = NetServerHandler.class.getDeclaredField("s");
 			entityListField.setAccessible(true);
@@ -69,7 +69,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 			e.printStackTrace();
 		}
 
-		//Lower the active packet queue size in bytes by 9 megabytes, to allow for 10mb of data in a players queue
+		// Lower the active packet queue size in bytes by 9 megabytes, to allow for 10mb of data in a players queue
 		try {
 			Field y = NetworkManager.class.getDeclaredField("y");
 			y.setAccessible(true);
@@ -92,7 +92,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	}
 
 	private boolean allowReload = false;
-	
+
 	@Override
 	public void a(Packet250CustomPayload packet250custompayload) {
 		chunkNetCache.handleCustomPacket(packet250custompayload.tag, packet250custompayload.data);
@@ -128,7 +128,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	public void a(Packet18ArmAnimation packet) {
 		if (packet.a == -42) {
 			SpoutCraftPlayer player = (SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(getPlayer());
-			player.setBuildVersion(1); //Don't know yet, just set above zero
+			player.setBuildVersion(1); // Don't know yet, just set above zero
 			try {
 				Spout.getInstance().playerListener.manager.onSpoutcraftEnable((SpoutPlayer) getPlayer());
 			} catch (Exception e) {
@@ -164,13 +164,13 @@ public class SpoutNetServerHandler extends NetServerHandler {
 			if (packet instanceof Packet20NamedEntitySpawn) {
 				SpoutPlayer player = SpoutManager
 						.getPlayerFromId(((Packet20NamedEntitySpawn) packet).a);
-				if( getPlayer() instanceof SpoutPlayer && player != null ) {
+				if (getPlayer() instanceof SpoutPlayer && player != null) {
 					((SpoutCraftPlayer)player).updateAppearance((SpoutPlayer)getPlayer());
 				}
 			} else if (packet instanceof Packet24MobSpawn) {
 				LivingEntity entity = (LivingEntity) SpoutManager
 						.getEntityFromId(((Packet24MobSpawn) packet).a);
-				if( getPlayer() instanceof SpoutPlayer ) {
+				if (getPlayer() instanceof SpoutPlayer) {
 					((SpoutCraftPlayer)getPlayer()).updateEntitySkins(entity);
 				}
 			}
@@ -207,12 +207,12 @@ public class SpoutNetServerHandler extends NetServerHandler {
 
 	@Override
 	public void disconnect(String kick) {
-
 		processingKick.set(true); // If any packets are sent while this flag is true, it will flush the sync queue
 
 		super.disconnect(kick);
-		if (this.disconnected)
+		if (this.disconnected) {
 			syncFlushPacketQueue(new MCCraftPacket[256]);
+		}
 
 		processingKick.set(false);
 	}

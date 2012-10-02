@@ -83,7 +83,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 			player.sendPacket(this);
 		}
 	}
-	
+
 	/**
 	 * Creates a GenericCustomBlock with no model yet.
 	 * @param plugin   creating the block
@@ -246,7 +246,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	@Override
 	public CustomBlock setBlockDesign(BlockDesign design) {
-		if(rotate) {
+		if (rotate) {
 			setBlockDesign(design, 0);
 			setBlockDesign(design.rotate(90), 1);
 			setBlockDesign(design.rotate(180), 2);
@@ -447,7 +447,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	public int getVersion() {
 		return 0;
 	}
-	
+
 	public boolean isPowerSource() {
 		return false;
 	}

@@ -86,7 +86,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the result of this event.
+	 * Gets the result of this event.
 	 * Default: Allow for Minecraft to handle the inventory click normally
 	 * Allow: Allow the inventory click to continue, regardless of the consequences
 	 * Deny: Block the inventory click from occuring, reset the inventory state to the pre-click state
@@ -98,7 +98,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Set's the result of this event.
+	 * Sets the result of this event.
 	 * Default: Allow for Minecraft to handle the inventory click normally
 	 * Allow: Allow the inventory click to continue, regardless of the consequences
 	 * Deny: Block the inventory click from occuring, reset the inventory state to the pre-click state
@@ -112,7 +112,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the type of slot that is being interacted with
+	 * Gets the type of slot that is being interacted with
 	 * @return slot type
 	 */
 	@Deprecated
@@ -121,7 +121,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the item at the slow being interacted with, or null if empty
+	 * Gets the item at the slow being interacted with, or null if empty
 	 * @return item
 	 */
 	@Deprecated
@@ -130,7 +130,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Set's the slot being interacted with. Use null for an empty slot.
+	 * Sets the slot being interacted with. Use null for an empty slot.
 	 * Note: The inventory slot can not be changed unless the result has been set to Allow.
 	 * @param item to set
 	 */
@@ -143,7 +143,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the cursor being interacted with, or null if empty.
+	 * Gets the cursor being interacted with, or null if empty.
 	 * @return cursor
 	 */
 	@Deprecated
@@ -152,7 +152,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Set's the cursor being interacted with. Use null for an empty slot.
+	 * Sets the cursor being interacted with. Use null for an empty slot.
 	 * Note: The cursor can not be changed unless the result has been set to Allow.
 	 * @param cursor to set
 	 */
@@ -165,7 +165,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the slot index being interacted with
+	 * Gets the slot index being interacted with
 	 * If the slot is -999, the clicked region is outside of the inventory
 	 * @return slot index
 	 */
@@ -175,7 +175,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the raw slot index that the packet sent
+	 * Gets the raw slot index that the packet sent
 	 * If the slot is -999, the clicked region is outside of the inventory
 	 * @return raw slot
 	 */
@@ -185,7 +185,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Return's true if the click on the inventory window was a left click. If false, it was a right click.
+	 * Returns true if the click on the inventory window was a left click. If false, it was a right click.
 	 * @return true if left click
 	 */
 	@Deprecated
@@ -194,7 +194,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Return's true if the click on the inventory crafting slow was a shift click.
+	 * Returns true if the click on the inventory crafting slow was a shift click.
 	 * @return true if shift click
 	 */
 	@Deprecated
@@ -205,7 +205,7 @@ public class InventoryClickEvent extends InventoryEvent {
 	protected int convertSlot(int slot) {
 		if (getInventory() instanceof SpoutPlayerInventory) {
 			int size = getInventory().getSize();
-			//Armour slot
+			// Armor slot
 			switch (slot) {
 				case 5:
 					return 39;
@@ -216,7 +216,7 @@ public class InventoryClickEvent extends InventoryEvent {
 				case 8:
 					return 36;
 			}
-			//Quickslots
+			// Quickslots
 			if (slot >= size) {
 				slot -= size;
 			}

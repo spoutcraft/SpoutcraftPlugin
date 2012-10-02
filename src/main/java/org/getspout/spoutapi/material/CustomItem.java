@@ -60,7 +60,7 @@ public interface CustomItem extends Item {
 	public CustomItem setStackable(boolean stackable);
 
 	public boolean isStackable();
-	
+
 	/**
 	 * Gets the next short. Starts at Short.MIN_VALUE and loopss back at Short.MAX_VALUE. This is used internally.
 	 */

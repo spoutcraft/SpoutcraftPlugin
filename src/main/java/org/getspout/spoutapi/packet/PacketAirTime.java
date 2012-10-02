@@ -29,7 +29,6 @@ public class PacketAirTime implements SpoutPacket {
 	public int air;
 
 	public PacketAirTime() {
-
 	}
 
 	public PacketAirTime(int maxTime, int time) {
@@ -51,12 +50,10 @@ public class PacketAirTime implements SpoutPacket {
 
 	@Override
 	public void run(int id) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

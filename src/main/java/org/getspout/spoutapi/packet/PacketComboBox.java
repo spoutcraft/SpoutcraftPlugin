@@ -36,7 +36,6 @@ public class PacketComboBox implements SpoutPacket {
 	private int selection;
 
 	public PacketComboBox() {
-
 	}
 
 	public PacketComboBox(GenericComboBox box) {
@@ -64,12 +63,18 @@ public class PacketComboBox implements SpoutPacket {
 	@Override
 	public void run(int playerId) {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
-		
+
 		Widget w = null;
-		if(player.getCurrentScreen() != null) w = player.getCurrentScreen().getWidget(uuid);
-		if(w == null) w = player.getMainScreen().getWidget(uuid);
-		if(w == null && player.getMainScreen().getActivePopup() != null) w = player.getMainScreen().getActivePopup().getWidget(uuid);
-		
+		if (player.getCurrentScreen() != null) {
+			w = player.getCurrentScreen().getWidget(uuid);
+		}
+		if (w == null) {
+			w = player.getMainScreen().getWidget(uuid);
+		}
+		if (w == null && player.getMainScreen().getActivePopup() != null) {
+			w = player.getMainScreen().getActivePopup().getWidget(uuid);
+		}
+
 		if (w != null && w instanceof GenericComboBox) {
 			box = (GenericComboBox) w;
 			box.setOpen(open, false);

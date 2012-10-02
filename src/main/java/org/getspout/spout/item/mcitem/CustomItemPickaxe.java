@@ -39,7 +39,7 @@ public class CustomItemPickaxe extends ItemPickaxe {
 	}
 
 	/**
-	 * Fixes a bug in nms where Notch compares references to ores instead of ore ids
+	 * Fixes a bug in nms where Notch compares references to ores instead of ore IDs
 	 */
 	public static void replacePickaxes() {
 		for (int i = 0; i < Item.byId.length; i++) {

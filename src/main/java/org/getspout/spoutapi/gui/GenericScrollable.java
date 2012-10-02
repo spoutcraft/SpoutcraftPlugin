@@ -94,22 +94,22 @@ public abstract class GenericScrollable extends GenericControl implements Scroll
 		boolean correctHorizontal = false;
 		boolean correctVertical = false;
 		if (scrollTop <= rect.getTop() && rect.getBottom() <= scrollBottom) {
-			//Fits vertical
+			// Fits vertical
 			if (scrollLeft <= rect.getLeft() && rect.getRight() <= scrollRight) {
-				//Fits completely
-				//Nothing to do.
+				// Fits completely
+				// Nothing to do.
 				return;
 			} else {
-				//Doesn't fit horizontal
+				// Doesn't fit horizontal
 				correctHorizontal = true;
 			}
 		} else {
-			//Doesn't fit vertical
+			// Doesn't fit vertical
 			correctVertical = true;
 			if (scrollLeft <= rect.getLeft() && rect.getRight() <= scrollRight) {
-				//But does fit horizontal
+				// But does fit horizontal
 			} else {
-				//Doesn't fit horizontal too
+				// Doesn't fit horizontal too
 				correctHorizontal = true;
 			}
 		}

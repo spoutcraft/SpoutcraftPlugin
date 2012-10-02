@@ -39,6 +39,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
+
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spoutapi.SpoutManager;
@@ -48,22 +49,20 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutBlockListener implements Listener {
-
 	private final SimpleMaterialManager mm;
-	
+
 	/**
 	 * Used to prevent multiple piston events in the same tick.
 	 */
 	private List<Location> pistonEventQueue = new ArrayList<Location>();
-	
+
 	public SpoutBlockListener(Spout plugin) {
 		mm = (SimpleMaterialManager) SpoutManager.getMaterialManager();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onBlockBreak(BlockBreakEvent event) {
-
 		if (event.isCancelled()) {
 			return;
 		}
@@ -86,11 +85,8 @@ public class SpoutBlockListener implements Listener {
 		}
 	}
 
-	//This replaces nms functionality that is broken due to
-	//the references in the nms.Block.byId[] no longer matching
-	//the static final refernces in Block.
-	//Specifically, public boolean a(int i, int j, int k, int l, boolean flag, int i1)
-	//in World.java is broken otherwise.
+	// This replaces nms functionality that is broken due to the references in the nms.Block.byId[] no longer matching the static final refernces in Block.
+	// Specifically, public boolean a(int i, int j, int k, int l, boolean flag, int i1) in World.java is broken otherwise.
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockCanBuild(BlockCanBuildEvent event) {
 		if (event.isBuildable()) {
@@ -110,12 +106,12 @@ public class SpoutBlockListener implements Listener {
 		if (event.isCancelled()) {
 			return;
 		}
-		
+
 		if (this.pistonEventQueue.contains(event.getBlock().getLocation())) {
 			return;
 		}
 		pistonEventQueue.add(event.getBlock().getLocation());
-		
+
 		List eventBlocks = event.getBlocks();
 		ListIterator itr = eventBlocks.listIterator(eventBlocks.size());
 		while (itr.hasPrevious()) {
@@ -129,12 +125,12 @@ public class SpoutBlockListener implements Listener {
 		if ((event.isCancelled()) || (!event.isSticky())) {
 			return;
 		}
-		
+
 		if (this.pistonEventQueue.contains(event.getBlock().getLocation())) {
 			return;
 		}
 		pistonEventQueue.add(event.getBlock().getLocation());
-		
+
 		pistonBlockMove((SpoutBlock) event.getBlock().getRelative(event.getDirection(), 2), event.getDirection().getOppositeFace());
 	}
 
@@ -143,20 +139,18 @@ public class SpoutBlockListener implements Listener {
 			return;
 		}
 		if (block.getPistonMoveReaction().equals(PistonMoveReaction.MOVE)) {
-			
+
 			int customBlockId = block.getCustomBlock().getCustomId();
 			Byte customBlockData = block.getCustomBlockData();
-			
+
 			SpoutCraftBlock targetScb = (SpoutCraftBlock) block.getRelative(blockFace);
-			
-			//Only move the data, since the base block will be moved *After* this event fires.
-			//so if we also move the base block now, we are in fact, creating a new block.
+
+			// Only move the data, since the base block will be moved *After* this event fires. So if we also move the base block now, we are in fact, creating a new block.
 			targetScb.setCustomBlockId(customBlockId);
 			targetScb.setCustomBlockData(customBlockData);
 			this.mm.queueBlockOverrides(targetScb, customBlockId, customBlockData);
-			
+
 			this.mm.removeBlockOverride(block);
-			
 		} else if (block.getPistonMoveReaction().equals(PistonMoveReaction.BREAK)) {
 			breakOnPushed(block);
 		}
@@ -169,7 +163,7 @@ public class SpoutBlockListener implements Listener {
 		sb.getWorld().dropItemNaturally(sb.getLocation(), sb.getCustomBlock().getItemDrop());
 		SpoutManager.getMaterialManager().removeBlockOverride(sb);
 	}
-	
+
 	@EventHandler
 	public void onTick(ServerTickEvent event) {
 		pistonEventQueue.clear();

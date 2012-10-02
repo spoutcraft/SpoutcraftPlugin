@@ -31,7 +31,6 @@ public class PacketClientAddons implements SpoutPacket {
 	private String[] versions;
 
 	public PacketClientAddons() {
-
 	}
 
 	public PacketClientAddons(Map<String, String> addons) {
@@ -69,7 +68,6 @@ public class PacketClientAddons implements SpoutPacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

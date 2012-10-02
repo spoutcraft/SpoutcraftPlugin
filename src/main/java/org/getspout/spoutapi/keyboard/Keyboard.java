@@ -170,7 +170,7 @@ public enum Keyboard {
 		if (lookupKeyCode.containsKey(key)) {
 			return lookupKeyCode.get(key);
 		}
-		//Some computers report signed/unsigned values incorrectly
+		// Some computers report signed/unsigned values incorrectly
 		if (lookupKeyCode.containsKey(256 + key)) {
 			return lookupKeyCode.get(256 + key);
 		}

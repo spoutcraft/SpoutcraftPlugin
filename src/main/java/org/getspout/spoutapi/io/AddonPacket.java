@@ -34,7 +34,6 @@ public abstract class AddonPacket {
 	private static HashMap<Class<? extends AddonPacket>, String> packetsIds = new HashMap<Class<? extends AddonPacket>, String>();
 
 	public AddonPacket() {
-
 	}
 
 	/**

@@ -20,13 +20,13 @@
 package org.getspout.spout.entity.ai;
 
 import net.minecraft.server.PathfinderGoal;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.entity.ai.SpoutAI;
 
 public class SpoutcraftAI extends PathfinderGoal {
-	
 	private SpoutAI ai;
-	
+
 	public SpoutcraftAI(SpoutAI base) {
 		this.ai = base;
 		SpoutManager.getBiomeManager();
@@ -71,5 +71,4 @@ public class SpoutcraftAI extends PathfinderGoal {
 	public int h() {
 		return super.h();
 	}
-	
 }

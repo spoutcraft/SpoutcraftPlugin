@@ -34,12 +34,14 @@ public class CustomItemSpade extends ItemSpade {
 
 	@Override
 	public boolean canDestroySpecialBlock(Block paramBlock) {
-		if (paramBlock.id == Block.SNOW.id) return true;
+		if (paramBlock.id == Block.SNOW.id) {
+			return true;
+		}
 		return paramBlock.id == Block.SNOW_BLOCK.id;
 	}
 
 	/**
-	 * Fixes a bug in nms where Notch compares reference to snow and snow blocks instead of id's for the snow and snow block
+	 * Fixes a bug in nms where Notch compares reference to snow and snow blocks instead of IDs for the snow and snow block
 	 */
 	public static void replaceSpades() {
 		for (int i = 0; i < Item.byId.length; i++) {
@@ -61,7 +63,6 @@ public class CustomItemSpade extends ItemSpade {
 						System.out.println("Was using reflection with: " + (tool != null ? tool.getName() : "null") + " " + tool);
 						e.printStackTrace();
 					}
-
 				}
 			}
 		}

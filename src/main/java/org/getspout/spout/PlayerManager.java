@@ -63,8 +63,8 @@ public class PlayerManager {
 					Bukkit.getServer().getPluginManager().callEvent(new SpoutcraftFailedEvent(scp));
 					scp.queued = null;
 					if ((ConfigReader.isForceClient() && !player.hasPermission("spout.plugin.ignorespoutcraft")) || player.hasPermission("spout.plugin.forcespoutcraft") && !player.isOp()) {
-						System.out.println("[Spout] Failed to authenticate " + player.getName() + "'s Spoutcraft client in " + ConfigReader.getAuthenticateTicks() + " server ticks.");
-						System.out.println("[Spout] Kicking " + player.getName() + " for not running Spoutcraft");
+						System.out.println("[SpoutPlugin] Failed to authenticate " + player.getName() + "'s Spoutcraft client in " + ConfigReader.getAuthenticateTicks() + " server ticks.");
+						System.out.println("[SpoutPlugin] Kicking " + player.getName() + " for not running Spoutcraft");
 						player.kickPlayer(ConfigReader.getKickMessage());
 					}
 				}
@@ -88,9 +88,11 @@ public class PlayerManager {
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
 			byte i = -128;
 			do {
-				if(block.getBlockDesign(i) != null) player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign(i), i));
+				if (block.getBlockDesign(i) != null) {
+					player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign(i), i));
+				}
 				i++;
-			} while(i != 127);
+			} while (i != 127);
 		}
 		player.updatePermissions();
 

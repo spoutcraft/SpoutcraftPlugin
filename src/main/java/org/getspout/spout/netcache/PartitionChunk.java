@@ -20,13 +20,11 @@
 package org.getspout.spout.netcache;
 
 public class PartitionChunk {
-	
 	static public void copyToChunkData(byte[] chunkData, int blockNum, byte[] partition, int dataLength) {
-		
 		int j = blockNum << 11;
-		
+
 		boolean clear = partition == null;
-		
+
 		if (clear) {
 			for (int i = 0; i < 2048 && j < dataLength; i++) {
 				chunkData[j++] = 0;
@@ -39,7 +37,6 @@ public class PartitionChunk {
 	}
 
 	static public void copyFromChunkData(byte[] chunkData, int blockNum, byte[] partition, int dataLength) {
-
 		int j = blockNum << 11;
 
 		int i = 0;
@@ -50,7 +47,7 @@ public class PartitionChunk {
 			partition[i] = 0;
 		}
 	}
-	
+
 	static public long getHash(byte[] chunkData, int blockNum, int base) {
 		int p = blockNum * 8 + base;
 		long hash = 0;
@@ -76,7 +73,7 @@ public class PartitionChunk {
 		chunkData[p++] = (byte) (hash >> 8);
 		chunkData[p++] = (byte) (hash >> 0);
 	}
-	
+
 	static public int getInt(byte[] chunkData, int blockNum, int base) {
 		int p = blockNum * 4 + base;
 		int hash = 0;
@@ -94,11 +91,11 @@ public class PartitionChunk {
 		chunkData[p++] = (byte) (hash >> 8);
 		chunkData[p++] = (byte) (hash >> 0);
 	}
-	
+
 	public static long hash(final byte[] a) {
 		return hash(a, 0, a.length);
 	}
-	
+
 	public static long hash(final byte[] a, final int off, final int len) {
 		long h = 1;
 		int end = off + len;

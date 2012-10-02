@@ -36,7 +36,6 @@ public class PacketRenderDistance implements SpoutPacket {
 	protected byte min = -1;
 
 	public PacketRenderDistance() {
-
 	}
 
 	public PacketRenderDistance(boolean resetMax, boolean resetMin) {
@@ -93,7 +92,6 @@ public class PacketRenderDistance implements SpoutPacket {
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

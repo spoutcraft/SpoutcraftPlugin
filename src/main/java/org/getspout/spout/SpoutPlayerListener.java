@@ -93,11 +93,11 @@ public class SpoutPlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		SpoutPlayer splr = SpoutManager.getPlayer(event.getPlayer());
-		if(event.getCause() == TeleportCause.UNKNOWN && splr.isSpoutCraftEnabled() && splr.isFlying() && splr.getFlySpeed() > 1.0f) {
+		if (event.getCause() == TeleportCause.UNKNOWN && splr.isSpoutCraftEnabled() && splr.isFlying() && splr.getFlySpeed() > 1.0f) {
 			event.setCancelled(true);
 		}
 	}
@@ -116,8 +116,7 @@ public class SpoutPlayerListener implements Listener {
 
 		if (event.getFrom().getWorld().equals(event.getTo().getWorld())) {
 			update = new PostTeleport(scp);
-		}
-		else {
+		} else {
 			update = new PostWorldTeleport(scp);
 		}
 		if (update != null) {
@@ -175,13 +174,10 @@ public class SpoutPlayerListener implements Listener {
 				ItemStack item = event.getItem();
 				int damage = item.getDurability();
 				if (item.getType() == Material.FLINT && damage != 0) {
-
-				SimpleMaterialManager mm = (SimpleMaterialManager)SpoutManager.getMaterialManager();
+					SimpleMaterialManager mm = (SimpleMaterialManager)SpoutManager.getMaterialManager();
 
 					if (!player.getEyeLocation().getBlock().equals(block) && !player.getLocation().getBlock().equals(block)) {
-
 						CustomBlock cb = MaterialData.getCustomBlock(damage);
-
 
 						if (cb != null && isReplaceable(block.getType())) {
 							BlockState oldState = block.getState();
@@ -189,9 +185,13 @@ public class SpoutPlayerListener implements Listener {
 							cb.onBlockPlace(block.getWorld(), block.getX(), block.getY(), block.getZ(), player);
 
 							int rot = Math.round(player.getLocation().getYaw() + 45 % 360);
-							if(rot < 0 ) rot += 360;
+							if (rot < 0 ) {
+								rot += 360;
+							}
 							rot = (2 - (rot/90)) % 4;
-							if(rot < 0) rot += 4;
+							if (rot < 0) {
+								rot += 4;
+							}
 							byte rotation = cb.canRotate() ? (byte) rot : 0;
 							mm.overrideBlock(block, cb, rotation);
 
@@ -221,8 +221,7 @@ public class SpoutPlayerListener implements Listener {
 		return type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW || type == Material.AIR || type == Material.VINE || type == Material.DEAD_BUSH || type == Material.LONG_GRASS;
 	}
 
-	//TODO: canBuild should be set properly, CraftEventFactory.canBuild() would do this...
-	//       but it's private so... here it is >.>
+	// TODO canBuild should be set properly, CraftEventFactory.canBuild() would do this... but it's private so... here it is >.>
 	private boolean canPlaceAt(SpoutBlock result, BlockState oldState, SpoutBlock clicked, ItemStack item, SpoutPlayer player) {
 		int spawnRadius = Bukkit.getServer().getSpawnRadius();
 		boolean canBuild = spawnRadius <= 0 || player.isOp();
@@ -263,27 +262,25 @@ public class SpoutPlayerListener implements Listener {
 			}
 		}
 	}
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDrop(PlayerDropItemEvent e) {
 		SpoutItemStack sis = new SpoutItemStack(e.getItemDrop().getItemStack());
-		if(!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem())
-		{
+		if (!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem()) {
 			CustomItem ci = (CustomItem)sis.getMaterial();
-			if(!ci.isStackable())
-			{
+			if (!ci.isStackable()) {
 				sis.addEnchantment(SpoutEnchantment.UNSTACKABLE, 1000);
 			}
 		}
 		e.getItemDrop().setItemStack(sis);
 	}
+
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerPickupItem(PlayerPickupItemEvent e) {
 		SpoutItemStack sis = new SpoutItemStack(e.getItem().getItemStack());
-		if(!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem())
-		{
+		if (!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem()) {
 			CustomItem ci = (CustomItem)sis.getMaterial();
-			if(!ci.isStackable())
-			{
+			if (!ci.isStackable()) {
 				sis.addEnchantment(SpoutEnchantment.UNSTACKABLE, 1000);
 			}
 		}
@@ -315,4 +312,3 @@ class PostWorldTeleport implements Runnable {
 		player.updateWaypoints();
 	}
 }
-

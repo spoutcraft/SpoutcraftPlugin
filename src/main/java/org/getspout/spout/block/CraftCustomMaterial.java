@@ -45,7 +45,7 @@ public class CraftCustomMaterial {
 		if (cache[blockId] != null) {
 			return false;
 		} else if (blockId < 1024 || blockId > 65536 || metaDataSize > 256 || metaDataSize < 0) {
-			throw new IllegalArgumentException("[Spout] Illegal parameters for custom material registration");
+			throw new IllegalArgumentException("[SpoutPlugin] Illegal parameters for custom material registration");
 		}
 
 		cache[blockId] = new CraftCustomMaterial[metaDataSize];

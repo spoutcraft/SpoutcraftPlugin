@@ -29,7 +29,6 @@ public class PacketTexturePack implements SpoutPacket {
 	private long expectedCRC;
 
 	public PacketTexturePack() {
-
 	}
 
 	public PacketTexturePack(String url, long expectedCRC) {
@@ -51,12 +50,10 @@ public class PacketTexturePack implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

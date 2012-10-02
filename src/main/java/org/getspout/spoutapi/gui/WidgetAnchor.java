@@ -25,7 +25,7 @@ import java.util.HashMap;
  * Widget anchors allow you to place widgets that
  * stick or "anchor" to a point on the screen.
  * <p/>
- * A widget's coordinates refer to it's <b>top left</b>
+ * A widget's coordinates refer to its <b>top left</b>
  * corner and anchors change the point they are
  * relative to on the screen.
  * <p/>

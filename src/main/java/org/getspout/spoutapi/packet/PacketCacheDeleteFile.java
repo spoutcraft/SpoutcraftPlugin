@@ -29,7 +29,6 @@ public class PacketCacheDeleteFile implements SpoutPacket {
 	private String fileName;
 
 	public PacketCacheDeleteFile() {
-
 	}
 
 	public PacketCacheDeleteFile(String plugin, String fileName) {
@@ -51,12 +50,10 @@ public class PacketCacheDeleteFile implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

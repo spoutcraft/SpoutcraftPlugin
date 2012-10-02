@@ -25,7 +25,6 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * Represents Packet103SetSlot
- * @author Richard Robertson
  */
 public interface MCPacket103SetSlot extends MCPacket {
 	/**

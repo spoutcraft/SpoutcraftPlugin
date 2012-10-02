@@ -35,7 +35,6 @@ public class PacketPreCacheFile implements SpoutPacket {
 	private String plugin;
 
 	public PacketPreCacheFile() {
-
 	}
 
 	public PacketPreCacheFile(String plugin, String file, long expectedCRC, boolean url) {
@@ -78,7 +77,6 @@ public class PacketPreCacheFile implements SpoutPacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

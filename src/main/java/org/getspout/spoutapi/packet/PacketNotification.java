@@ -29,7 +29,6 @@ public class PacketNotification extends PacketAlert {
 	protected short data;
 
 	public PacketNotification() {
-
 	}
 
 	public PacketNotification(String title, String message, int itemId, short data, int time) {

@@ -78,7 +78,7 @@ public class PacketScreenshot implements SpoutPacket {
 
 	public void run(int playerId) {
 		if (isRequest) {
-			return; // we can't do anything!
+			return; // We can't do anything!
 		}
 		try {
 			ByteArrayInputStream bais = new ByteArrayInputStream(ssAsPng);

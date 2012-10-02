@@ -67,12 +67,10 @@ public class PacketWaypoint implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

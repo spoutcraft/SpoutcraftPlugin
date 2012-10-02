@@ -27,7 +27,6 @@ import org.getspout.spoutapi.io.store.SimpleStore;
  * This map can be backed by File to ensure persistence.
  *
  * It also provides functionality to convert ids between 2 maps.
- *
  */
 public class ItemMap {
 	private static ItemMap root;
@@ -139,7 +138,6 @@ public class ItemMap {
 	 */
 
 	public int register(String key) {
-
 		Integer id = store.get(key);
 
 		if (id != null) {

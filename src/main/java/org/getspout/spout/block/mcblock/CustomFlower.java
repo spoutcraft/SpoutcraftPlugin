@@ -68,8 +68,8 @@ public class CustomFlower extends BlockFlower implements CustomMCBlock {
 		this.co = parent.co;
 		this.frictionFactor = parent.frictionFactor;
 		updateField(parent, this, "name");
-		
-		//set the material to be replaceable.
+
+		// Set the material to be replaceable.
 		this.material.i();
 	}
 

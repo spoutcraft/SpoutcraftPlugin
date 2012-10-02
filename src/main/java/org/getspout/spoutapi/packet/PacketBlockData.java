@@ -38,7 +38,6 @@ public class PacketBlockData implements CompressiblePacket {
 	boolean compressed = false;
 
 	public PacketBlockData() {
-
 	}
 
 	public PacketBlockData(Set<Block> modifiedData) {
@@ -98,13 +97,11 @@ public class PacketBlockData implements CompressiblePacket {
 					int count = decompressor.inflate(buf);
 					bos.write(buf, 0, count);
 				} catch (DataFormatException e) {
-
 				}
 			}
 			try {
 				bos.close();
 			} catch (IOException e) {
-
 			}
 
 			data = bos.toByteArray();
@@ -136,12 +133,10 @@ public class PacketBlockData implements CompressiblePacket {
 
 	@Override
 	public void run(int playerId) {
-
 	}
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

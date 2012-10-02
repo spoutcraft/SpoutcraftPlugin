@@ -32,6 +32,7 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutWeather;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.PlayerInformation;
+
 @SuppressWarnings("deprecation")
 public class SimplePlayerInformation implements PlayerInformation {
 	HashMap<Biome,SpoutWeather> weatherMap = new HashMap<Biome, SpoutWeather>();
@@ -65,22 +66,22 @@ public class SimplePlayerInformation implements PlayerInformation {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Object getProperty(String key, Object ...args) throws NoSuchMethodException {
-		//Use in this form (String)getProperty("EntitySkin", entity);
+		// Use in this form (String)getProperty("EntitySkin", entity);
 		Object ret = null;
 		Class clazz = getClass();
 		try {
-			//Generate an argument list from the given arguments
+			// Generate an argument list from the given arguments
 			List<Class> classes = new ArrayList<Class>();
 			for (Object o:args) {
 				classes.add(o.getClass());
 			}
 			Class arguments[] = {};
 			arguments = classes.toArray(arguments);
-			//get the property-get-method
+			// Get the property-get-method
 			Method getter = clazz.getDeclaredMethod("get" + key, arguments);
-			//get information from this
+			// Get information from this
 			ret = getter.invoke(this, args);
-			//get information from global information, if ret==null
+			// Get information from global information, if ret==null
 			if (ret==null) {
 				ret = getter.invoke(SpoutManager.getPlayerManager().getGlobalInfo(), args);
 			}

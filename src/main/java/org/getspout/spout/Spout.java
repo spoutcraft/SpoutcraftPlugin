@@ -25,10 +25,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.server.Packet18ArmAnimation;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spout.block.mcblock.CustomBlock;
 import org.getspout.spout.command.SpoutCommand;
 import org.getspout.spout.config.ConfigReader;
+import org.getspout.spout.entity.SimpleEntityManager;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.inventory.SpoutInventoryBuilder;
 import org.getspout.spout.item.mcitem.CustomItemFlint;
@@ -51,16 +62,6 @@ import org.getspout.spoutapi.io.CRCStore;
 import org.getspout.spoutapi.io.store.FlatFileStore;
 import org.getspout.spoutapi.packet.PacketRenderDistance;
 import org.getspout.spoutapi.player.SpoutPlayer;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.getspout.spout.entity.SimpleEntityManager;
 
 public class Spout extends JavaPlugin {
 	public SpoutPlayerListener playerListener;
@@ -104,7 +105,7 @@ public class Spout extends JavaPlugin {
 			Runtime.getRuntime().removeShutdownHook(shutdownThread);
 			return;
 		}
-		//order matters
+		// Order matters
 		CustomBlock.resetBlocks();
 		((SimpleMaterialManager) SpoutManager.getMaterialManager()).reset();
 		((SimpleSkyManager) SpoutManager.getSkyManager()).reset();
@@ -140,7 +141,7 @@ public class Spout extends JavaPlugin {
 
 		SimpleFileManager.clearTempDirectory();
 
-		//end the thread
+		// End the thread
 		PacketCompressionThread.endThread();
 
 		Runtime.getRuntime().removeShutdownHook(shutdownThread);
@@ -151,7 +152,7 @@ public class Spout extends JavaPlugin {
 	public void onEnable() {
 		(new ConfigReader()).read();
 
-		//The infamous SpoutPlugin build check
+		// The infamous SpoutPlugin build check
 		if (ConfigReader.isBuildCheck()) {
 			InputStream is = getResource("plugin.yml");
 			final YamlConfiguration config = YamlConfiguration.loadConfiguration(is);
@@ -177,7 +178,7 @@ public class Spout extends JavaPlugin {
 							if (player.isOp()) {
 								player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] " + ChatColor.RED + "SpoutPlugin is not working correctly, please check the console.");
 							} else {
-								//	player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] Dear " + player.getName() + ", please let your admin know to check the console.");
+								//player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] Dear " + player.getName() + ", please let your admin know to check the console.");
 							}
 						}
 					}
@@ -201,7 +202,7 @@ public class Spout extends JavaPlugin {
 				authenticate(player);
 				playerListener.manager.onPlayerJoin(player);
 				((SimplePlayerManager) SpoutManager.getPlayerManager()).onPlayerJoin(player);
-				player.setPreCachingComplete(true); //already done if we are already online!
+				player.setPreCachingComplete(true); // Already done if we are already online!
 				synchronized (playersOnline) {
 					playersOnline.add(player);
 				}
@@ -217,11 +218,11 @@ public class Spout extends JavaPlugin {
 
 			PacketCompressionThread.startThread();
 
-			//Start counting ticks
+			// Start counting ticks
 			Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new ServerTickTask(), 0, 1);
 
-			//Remove mappings from previous loads
-			//Can not remove them on disable because the packets will still be in the send queue
+			// Remove mappings from previous loads
+			// Can not remove them on disable because the packets will still be in the send queue
 			CustomPacket.removeClassMapping();
 			CustomPacket.addClassMapping();
 
@@ -236,7 +237,7 @@ public class Spout extends JavaPlugin {
 				e.printStackTrace();
 			}
 		}
-		//These are safe even if the build check fails
+		// These are safe even if the build check fails
 		getCommand("spout").setExecutor(new SpoutCommand(this));
 
 		CRCConfig = new FlatFileStore<String>(new File(this.getDataFolder(), "CRCCache.txt"), String.class);
@@ -246,7 +247,7 @@ public class Spout extends JavaPlugin {
 
 		itemMapConfig = new FlatFileStore<Integer>(new File(this.getDataFolder(), "itemMap.txt"), Integer.class);
 		if (!itemMapConfig.load()) {
-			System.out.println("[Spout] Unable to load global item map");
+			System.out.println("[SpoutPlugin] Unable to load global item map");
 		} else {
 			serverItemMap = new ItemMap(null, itemMapConfig, null);
 		}

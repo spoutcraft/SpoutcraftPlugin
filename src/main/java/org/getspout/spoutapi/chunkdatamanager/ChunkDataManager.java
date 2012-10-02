@@ -22,6 +22,7 @@ package org.getspout.spoutapi.chunkdatamanager;
 import java.io.Serializable;
 
 import org.bukkit.World;
+
 import org.getspout.spoutapi.inventory.ItemMap;
 
 public interface ChunkDataManager {

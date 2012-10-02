@@ -29,7 +29,6 @@ public class PacketStopMusic implements SpoutPacket {
 	private int fadeTime = -1;
 
 	public PacketStopMusic() {
-
 	}
 
 	public PacketStopMusic(boolean resetTimer, int fadeTime) {
@@ -51,12 +50,10 @@ public class PacketStopMusic implements SpoutPacket {
 
 	@Override
 	public void run(int PlayerId) {
-
 	}
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

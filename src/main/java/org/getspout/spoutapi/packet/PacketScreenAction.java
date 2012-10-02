@@ -94,7 +94,9 @@ public class PacketScreenAction implements SpoutPacket {
 		this.action = (byte) ScreenAction.Close.getId();
 		PopupScreen screen = player.getMainScreen().getActivePopup();
 		if (screen != null) {
-			if(update) screen.onScreenClose(e);
+			if (update) {
+				screen.onScreenClose(e);
+			}
 			if(!e.isCancelled() && ScreenType.getType(this.screen) == ScreenType.CUSTOM_SCREEN) {
 				handleScreenClose(player, e, false);
 				return;
@@ -106,8 +108,10 @@ public class PacketScreenAction implements SpoutPacket {
 	
 	private void handleScreenClose(SpoutPlayer player, ScreenCloseEvent e, boolean update) {
 		PopupScreen p = player.getMainScreen().getActivePopup();
-		if(update && p != null) p.onScreenClose(e);
-		if(e.isCancelled()) {
+		if (update && p != null){
+			p.onScreenClose(e);
+		}
+		if (e.isCancelled()) {
 			handleScreenCloseCancelled(player, e, false);
 			return;
 		}
@@ -120,7 +124,6 @@ public class PacketScreenAction implements SpoutPacket {
 
 	@Override
 	public void failure(int id) {
-
 	}
 
 	@Override

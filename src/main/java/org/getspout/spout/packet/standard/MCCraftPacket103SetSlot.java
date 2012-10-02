@@ -32,7 +32,6 @@ import org.getspout.spoutapi.packet.standard.MCPacket103SetSlot;
 
 /**
  * Implementation of MCPacket103SetSlot
- * @author Richard Robertson
  */
 public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket103SetSlot {
 	private static Field windowField, slotField, itemStackField;

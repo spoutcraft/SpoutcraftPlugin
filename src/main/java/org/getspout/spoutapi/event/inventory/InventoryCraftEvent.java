@@ -53,7 +53,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the inventory where the crafting is taking place
+	 * Gets the inventory where the crafting is taking place
 	 * @return inventory
 	 */
 	public CraftingInventory getInventory() {
@@ -61,7 +61,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the width of the inventory crafting area
+	 * Gets the width of the inventory crafting area
 	 * @return width
 	 */
 	public int getWidth() {
@@ -69,7 +69,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the height of the inventory crafting area
+	 * Gets the height of the inventory crafting area
 	 * @return height
 	 */
 	public int getHeight() {
@@ -77,7 +77,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the recipe at the inventory crafting area
+	 * Gets the recipe at the inventory crafting area
 	 * @return recipe
 	 */
 	public ItemStack[][] getRecipe() {
@@ -85,7 +85,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the itemstack at the cursor
+	 * Gets the itemstack at the cursor
 	 * @return cursor
 	 */
 	public ItemStack getCursor() {
@@ -93,7 +93,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Set's the itemstack at the cursor
+	 * Sets the itemstack at the cursor
 	 * @param cursor to set
 	 */
 	public void setCursor(ItemStack cursor) {
@@ -101,7 +101,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the current (new) item at the slot
+	 * Gets the current (new) item at the slot
 	 * @return current item
 	 */
 	public ItemStack getResult() {
@@ -109,7 +109,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the amount of new items when shift click was used
+	 * Gets the amount of new items when shift click was used
 	 * @return amount
 	 */
 	public int getResultAmount() {
@@ -117,7 +117,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Set's the current item at the slot
+	 * Sets the current item at the slot
 	 * @param result to set
 	 */
 	public void setResult(ItemStack result) {
@@ -125,7 +125,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the slot index being interacted with
+	 * Gets the slot index being interacted with
 	 * @return slot index
 	 */
 	public int getSlot() {
@@ -133,7 +133,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Get's the slot type being interacted with
+	 * Gets the slot type being interacted with
 	 * @return slot type
 	 */
 	public InventorySlotType getSlotType() {
@@ -141,7 +141,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Return's true if the click on the inventory crafting slot was a left click. If false, it was a right click.
+	 * Returns true if the click on the inventory crafting slot was a left click. If false, it was a right click.
 	 * @return true if left click
 	 */
 	public boolean isLeftClick() {
@@ -149,7 +149,7 @@ public class InventoryCraftEvent extends InventoryEvent {
 	}
 
 	/**
-	 * Return's true if the click on the inventory crafting slot was a shift click.
+	 * Returns true if the click on the inventory crafting slot was a shift click.
 	 * @return true if shift click
 	 */
 	public boolean isShiftClick() {
