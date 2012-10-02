@@ -71,10 +71,10 @@ public class SpoutNetServerHandler extends NetServerHandler {
 
 		//Lower the active packet queue size in bytes by 9 megabytes, to allow for 10mb of data in a players queue
 		try {
-			Field x = NetworkManager.class.getDeclaredField("x");
-			x.setAccessible(true);
+			Field y = NetworkManager.class.getDeclaredField("y");
+			y.setAccessible(true);
 			int size = (Integer) x.get(this.networkManager);
-			x.set(this.networkManager, size - 1024 * 1024 * 9);
+			y.set(this.networkManager, size - 1024 * 1024 * 9);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
