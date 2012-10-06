@@ -279,9 +279,6 @@ public class GenericBlockDesign implements BlockDesign {
 		float[][] xx = new float[xPos.length][xPos[0].length];
 		float[][] yy = new float[yPos.length][yPos[0].length];
 		float[][] zz = new float[zPos.length][zPos[0].length];
-		int[] lightx = new int[lightSourceXOffset.length];
-		int[] lighty = new int[lightSourceYOffset.length];
-		int[] lightz = new int[lightSourceZOffset.length];
 		for (int i = 0; i < xx.length; i++) {
 			for (int j = 0; j < 4; j++) {
 				float x1 = xPos[i][j] - 0.5f; // Shift 0.5 to center around origin.
@@ -299,16 +296,30 @@ public class GenericBlockDesign implements BlockDesign {
 					side+=(4-(degrees/90));
 					side = (side % 4) + 1;
 				}
-				lightx[side] = lightSourceXOffset[i];
-				lighty[side] = lightSourceYOffset[i];
-				lightz[side] = lightSourceZOffset[i];
 			}
 		}
 
 		GenericBlockDesign des = new GenericBlockDesign(lowXBound, lowYBound, lowZBound, highXBound, highYBound, highZBound, textureURL, Bukkit.getPluginManager().getPlugin(texturePlugin), xx, yy, zz, textXPos, textYPos, renderPass);
-		des.lightSourceXOffset = lightx;
-		des.lightSourceYOffset = lighty;
-		des.lightSourceZOffset = lightz;
+		des.calculateLightSources();
 		return des;
+	}
+	
+	public GenericBlockDesign calculateLightSources() {
+		lightSourceXOffset = new int[xPos.length];
+		lightSourceYOffset = new int[xPos.length];
+		lightSourceZOffset = new int[xPos.length];
+		for (int quad = 0; quad < xPos.length; quad++) {
+			BlockVector normal = new BlockVector();
+
+			normal.setX(((yPos[quad][0] - yPos[quad][1]) * (zPos[quad][1] - zPos[quad][2])) - ((zPos[quad][0] - zPos[quad][1]) * (yPos[quad][1] - yPos[quad][2])));
+			normal.setY(((zPos[quad][0] - zPos[quad][1]) * (xPos[quad][1] - xPos[quad][2])) - ((xPos[quad][0] - xPos[quad][1]) * (zPos[quad][1] - zPos[quad][2])));
+			normal.setZ(((xPos[quad][0] - xPos[quad][1]) * (yPos[quad][1] - yPos[quad][2])) - ((yPos[quad][0] - yPos[quad][1]) * (xPos[quad][1] - xPos[quad][2])));
+
+			Double length = Math.sqrt((normal.getX() * normal.getX()) + (normal.getY() * normal.getY()) + (normal.getZ() * normal.getZ()));
+
+			this.setLightSource(quad, (int) Math.round(normal.getX() / length), (int) Math.round(normal.getY() / length), (int) Math.round(normal.getZ() / length));
+		}
+		
+		return this;
 	}
 }
