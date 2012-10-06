@@ -205,6 +205,18 @@ public class SpoutPlayerListener implements Listener {
 									}
 								}
 								player.updateInventory();
+								// Now we have placed a nice custom block! We should check its rotation and rotate the base block!
+								if (cb.canRotate()) {
+									if (rot == 1) {
+										block.setData((byte) 1);
+									} else if (rot == 2) {
+										block.setData((byte) 2);
+									} else if (rot == 3) {
+										block.setData((byte) 0);
+									} else {
+										block.setData((byte) 3);
+									}
+								}
 							} else {
 								// Event cancelled or can't build
 								mm.removeBlockOverride(block);
