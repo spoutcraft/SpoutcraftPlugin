@@ -301,11 +301,9 @@ public class Spout extends JavaPlugin {
 	}
 
 	public void authenticate(Player player) {
-		if (ConfigReader.authenticateSpoutcraft()) {
 			Packet18ArmAnimation packet = new Packet18ArmAnimation();
 			packet.a = -42;
 			((SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(player)).getNetServerHandler().sendImmediatePacket(packet);
-		}
 	}
 
 	public void warnMessage(String minecraftVersion, String bukkitVersion) {

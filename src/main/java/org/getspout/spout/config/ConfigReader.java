@@ -41,7 +41,6 @@ public class ConfigReader {
 
 	private static boolean chunkDataCache = true;
 	private static boolean teleportSmoothing = true;
-	private static boolean authenticateSpoutcraft = true;
 	private static boolean runDeadlockMonitor = false;
 
 	private static HashMap<String, List<Waypoint> > waypoints = new HashMap<String, List<Waypoint>>();
@@ -161,10 +160,6 @@ public class ConfigReader {
 
 	public static boolean isTeleportSmoothing() {
 		return teleportSmoothing;
-	}
-
-	public static boolean authenticateSpoutcraft() {
-		return authenticateSpoutcraft;
 	}
 
 	public static boolean runDeadlockMonitor() {
