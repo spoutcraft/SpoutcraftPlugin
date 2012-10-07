@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.getspout.spout;
+package org.getspout.spout.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -28,6 +28,7 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spout.Spout;
 
 import org.getspout.spoutapi.inventory.SpoutEnchantment;
 import org.getspout.spoutapi.inventory.SpoutItemStack;

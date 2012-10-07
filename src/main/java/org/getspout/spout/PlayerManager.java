@@ -25,6 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import org.getspout.spout.config.ConfigReader;
+import org.getspout.spout.config.PermHandler;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.keyboard.SimpleKeyBindingManager;
 import org.getspout.spout.player.SimpleBiomeManager;
@@ -62,7 +63,7 @@ public class PlayerManager {
 					SpoutCraftPlayer scp = (SpoutCraftPlayer)SpoutManager.getPlayer(player);
 					Bukkit.getServer().getPluginManager().callEvent(new SpoutcraftFailedEvent(scp));
 					scp.queued = null;
-					if ((ConfigReader.isForceClient() && !player.hasPermission("spout.plugin.ignorespoutcraft")) || player.hasPermission("spout.plugin.forcespoutcraft") && !player.isOp()) {
+					if ((!player.hasPermission("spout.plugin.ignorespoutcraft")) || player.hasPermission("spout.plugin.forcespoutcraft") && !player.isOp()) {
 						System.out.println("[SpoutPlugin] Failed to authenticate " + player.getName() + "'s Spoutcraft client in " + ConfigReader.getAuthenticateTicks() + " server ticks.");
 						System.out.println("[SpoutPlugin] Kicking " + player.getName() + " for not running Spoutcraft");
 						player.kickPlayer(ConfigReader.getKickMessage());
@@ -83,7 +84,7 @@ public class PlayerManager {
 		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
 		((SimpleFileManager)SpoutManager.getFileManager()).onPlayerJoin(player);
 		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
-		player.sendPacket(new PacketAllowVisualCheats(ConfigReader.isAllowSkyCheat(),ConfigReader.isAllowClearWaterCheat(),ConfigReader.isAllowStarsCheat(),ConfigReader.isAllowWeatherCheat(),ConfigReader.isAllowTimeCheat(),ConfigReader.isAllowCoordsCheat(),ConfigReader.isAllowEntityLabelCheat(),ConfigReader.isAllowVoidFogCheat()));
+		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player)));
 
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
 			byte i = -128;

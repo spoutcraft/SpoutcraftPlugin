@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.getspout.spout;
+package org.getspout.spout.listeners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +39,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
+import org.getspout.spout.Spout;
 
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spout.inventory.SimpleMaterialManager;

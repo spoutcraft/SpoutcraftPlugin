@@ -19,6 +19,12 @@
  */
 package org.getspout.spout;
 
+import org.getspout.spout.listeners.SpoutBlockListener;
+import org.getspout.spout.listeners.SpoutPlayerListener;
+import org.getspout.spout.listeners.PluginListener;
+import org.getspout.spout.listeners.SpoutWorldListener;
+import org.getspout.spout.listeners.SpoutEntityListener;
+import org.getspout.spout.listeners.InventoryListener;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -260,6 +266,10 @@ public class Spout extends JavaPlugin {
 		setupPermissions();
 
 		super.onEnable();
+	}
+	
+	public List<SpoutPlayer> getOnlinePlayers() {
+		return playersOnline;
 	}
 
 	/**

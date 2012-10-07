@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.getspout.spout;
+package org.getspout.spout.listeners;
 
 import java.lang.reflect.Field;
 
@@ -28,6 +28,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.getspout.spout.Spout;
 
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spoutapi.SpoutManager;

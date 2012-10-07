@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.getspout.spout;
+package org.getspout.spout.listeners;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -43,6 +43,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
+import org.getspout.spout.PlayerManager;
+import org.getspout.spout.Spout;
 
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.player.SimplePlayerManager;
@@ -74,8 +76,8 @@ public class SpoutPlayerListener implements Listener {
 		}
 		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(event.getPlayer());
 		manager.onPlayerJoin(event.getPlayer());
-		synchronized(Spout.getInstance().playersOnline) {
-			Spout.getInstance().playersOnline.add((SpoutPlayer) event.getPlayer());
+		synchronized(Spout.getInstance().getOnlinePlayers()) {
+			Spout.getInstance().getOnlinePlayers().add((SpoutPlayer) event.getPlayer());
 		}
 	}
 
@@ -264,8 +266,8 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		synchronized(Spout.getInstance().playersOnline) {
-			Iterator<SpoutPlayer> i = Spout.getInstance().playersOnline.iterator();
+		synchronized(Spout.getInstance().getOnlinePlayers()) {
+			Iterator<SpoutPlayer> i = Spout.getInstance().getOnlinePlayers().iterator();
 			while (i.hasNext()) {
 				String name = i.next().getName();
 				if (name.equals(player.getName())) {
