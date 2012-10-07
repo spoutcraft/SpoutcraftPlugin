@@ -1,6 +1,5 @@
 ForceClientKickMessage: This server requires Spoutcraft! http://www.spout.org
 MinecraftVersionCheck: true
-AuthenticateSpoutcraft: true
 ClientCheckTicks: 200
 ChunkDataCache: true
 
