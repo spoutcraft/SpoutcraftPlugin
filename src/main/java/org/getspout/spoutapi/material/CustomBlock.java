@@ -105,10 +105,36 @@ public interface CustomBlock extends Block {
 
 	/**
 	 * Sets whether or not this CustomBlock will rotate to face the player when placed.
-	 * @param rotate Should th eblock rotate
+	 * @param rotate Should the block rotate
 	 * @return this
 	 */
 	public CustomBlock setRotate(boolean rotate);
+	
+	/**
+	 * Whether or not this CustomBlock can also rotate upside-down.
+	 * @return Should the block rotate
+	 */
+	public boolean canMirroredRotate();
+
+	/**
+	 * Sets whether or not this CustomBlock can also rotate upside-down.
+	 * @param rotate Should the block rotate
+	 * @return this
+	 */
+	public CustomBlock setMirroredRotate(boolean mirroredRotate);
+	
+	/**
+	 * Whether or not this CustomBlock can rotate in all directions.
+	 * @return Should the block rotate
+	 */
+	public boolean canFullRotate();
+
+	/**
+	 * Sets whether or not this CustomBlock can rotate in all directions.
+	 * @param rotate Should the block rotate
+	 * @return this
+	 */
+	public CustomBlock setFullRotate(boolean fullRotate);
 
 	/**
 	 * Fires when a neighboring block changes

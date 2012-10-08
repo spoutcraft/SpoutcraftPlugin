@@ -210,5 +210,5 @@ public interface BlockDesign {
 	 */
 	public Texture getTexture();
 
-	public BlockDesign rotate(int degrees);
+	public BlockDesign rotate(int degrees, Axis axis);
 }
