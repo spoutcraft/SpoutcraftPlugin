@@ -63,7 +63,7 @@ public class PlayerManager {
 					SpoutCraftPlayer scp = (SpoutCraftPlayer)SpoutManager.getPlayer(player);
 					Bukkit.getServer().getPluginManager().callEvent(new SpoutcraftFailedEvent(scp));
 					scp.queued = null;
-					if (player.hasPermission("spout.plugin.ignorespoutcraft") {
+					if (player.hasPermission("spout.plugin.ignorespoutcraft")) {
 						break;
 					}
 					if (!player.hasPermission("spout.plugin.forcespoutcraft")) {
