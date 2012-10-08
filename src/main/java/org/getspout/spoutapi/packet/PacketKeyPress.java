@@ -33,20 +33,20 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketKeyPress implements SpoutPacket {
 	public boolean pressDown;
-	public byte key;
+	public int key;
 	public byte settingKeys[] = new byte[10];
 	public int screenType = -1;
 
 	public PacketKeyPress() {
 	}
 
-	public PacketKeyPress(byte key, boolean pressDown) {
+	public PacketKeyPress(int key, boolean pressDown) {
 		this.key = key;
 		this.pressDown = pressDown;
 	}
 
 	public void readData(SpoutInputStream datainputstream) throws IOException {
-		this.key = (byte) datainputstream.read();
+		this.key = datainputstream.readInt();
 		this.pressDown = datainputstream.readBoolean();
 		this.screenType = datainputstream.readInt();
 		for (int i = 0; i < 10; i++) {
@@ -55,7 +55,7 @@ public class PacketKeyPress implements SpoutPacket {
 	}
 
 	public void writeData(SpoutOutputStream dataoutputstream) throws IOException {
-		dataoutputstream.write(this.key);
+		dataoutputstream.writeInt(this.key);
 		dataoutputstream.writeBoolean(this.pressDown);
 		dataoutputstream.writeInt(this.screenType);
 		for (int i = 0; i < 10; i++) {
@@ -86,6 +86,6 @@ public class PacketKeyPress implements SpoutPacket {
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 }
