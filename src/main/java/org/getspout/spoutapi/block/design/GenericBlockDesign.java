@@ -20,6 +20,7 @@
 package org.getspout.spoutapi.block.design;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -268,37 +269,61 @@ public class GenericBlockDesign implements BlockDesign {
 	}
 
 	@Override
-	public BlockDesign rotate(int degrees) {
+	public BlockDesign rotate(int degrees, Axis axis) {
+		// Store angle to save some cpu calculations.
 		double angle = Math.toRadians(degrees);
-		float[][] rotmatrix = {
-				{ (float) Math.cos(angle),	0f,	(float) Math.sin(angle) },
-				{ 0f,						1f,	0f						},
-				{ (float) -Math.sin(angle),	0f, (float) Math.cos(angle) }
+		
+		// Rotation matrices to use for rotation calculation.
+		float[][] rotmatrixX = {
+			{ 1f, 0f,                       0f                      },
+			{ 0f, (float) Math.cos(angle), (float) -Math.sin(angle) },
+			{ 0f, (float) Math.sin(angle), (float) Math.cos(angle)  }
 		};
+		
+		float[][] rotmatrixY = {
+			{ (float) Math.cos(angle),  0f, (float) Math.sin(angle) },
+			{ 0f,                       1f, 0f                      },
+			{ (float) -Math.sin(angle), 0f, (float) Math.cos(angle) }
+		};
+		
+		float[][] rotmatrixZ = {
+			{ (float) Math.cos(angle), (float) -Math.sin(angle), 0f },
+			{ (float) Math.sin(angle), (float) Math.cos(angle),  0f },
+			{ 0f,                      0f,                       1f }
+		};
+		
+		// Store matrices for easy code acces.
+		HashMap<Axis, float[][]> rotmatrix = new HashMap<Axis, float[][]>();
+		rotmatrix.put(Axis.X, rotmatrixX);
+		rotmatrix.put(Axis.Y, rotmatrixY);
+		rotmatrix.put(Axis.Z, rotmatrixZ);
 
+		// Create new vertices arrays.
 		float[][] xx = new float[xPos.length][xPos[0].length];
 		float[][] yy = new float[yPos.length][yPos[0].length];
 		float[][] zz = new float[zPos.length][zPos[0].length];
+		
+		// Iterate over all vertices.
 		for (int i = 0; i < xx.length; i++) {
 			for (int j = 0; j < 4; j++) {
-				float x1 = xPos[i][j] - 0.5f; // Shift 0.5 to center around origin.
+				// Shift 0.5 to center around origin.
+				float x1 = xPos[i][j] - 0.5f;
 				float y1 = yPos[i][j] - 0.5f;
 				float z1 = zPos[i][j] - 0.5f;
-				float x2 = (x1*rotmatrix[0][0]) + (y1*rotmatrix[0][1]) + (z1*rotmatrix[0][2]);
-				float y2 = (x1*rotmatrix[1][0]) + (y1*rotmatrix[1][1]) + (z1*rotmatrix[1][2]);
-				float z2 = (x1*rotmatrix[2][0]) + (y1*rotmatrix[2][1]) + (z1*rotmatrix[2][2]);
+				
+				// Calculate rotated vertices coords.
+				float x2 = (x1*rotmatrix.get(axis)[0][0]) + (y1*rotmatrix.get(axis)[0][1]) + (z1*rotmatrix.get(axis)[0][2]);
+				float y2 = (x1*rotmatrix.get(axis)[1][0]) + (y1*rotmatrix.get(axis)[1][1]) + (z1*rotmatrix.get(axis)[1][2]);
+				float z2 = (x1*rotmatrix.get(axis)[2][0]) + (y1*rotmatrix.get(axis)[2][1]) + (z1*rotmatrix.get(axis)[2][2]);
+				
+				// Shift 0.5 to move block back to correct position.
 				xx[i][j] = x2 + 0.5f;
 				yy[i][j] = y2 + 0.5f;
 				zz[i][j] = z2 + 0.5f;
-				int side = i;
-				if (side > 0 && side < 5 && angle != 0) {
-					side--;
-					side+=(4-(degrees/90));
-					side = (side % 4) + 1;
-				}
 			}
 		}
 
+		// Create new BlockDesign and apply auto light calculations.
 		GenericBlockDesign des = new GenericBlockDesign(lowXBound, lowYBound, lowZBound, highXBound, highYBound, highZBound, textureURL, Bukkit.getPluginManager().getPlugin(texturePlugin), xx, yy, zz, textXPos, textYPos, renderPass);
 		des.calculateLightSources();
 		return des;
