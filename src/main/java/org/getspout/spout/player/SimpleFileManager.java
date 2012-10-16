@@ -266,7 +266,8 @@ public class SimpleFileManager implements FileManager {
 			String fileName = FileUtil.getFileName(file.getPath());
 			long crc = -1;
 			try {
-				crc = CRCStore.getCRC(fileName, FileUtils.readFileToByteArray(file));
+				byte[] data = new byte[FileUtils.readFileToByteArray(file).length];
+				crc = FileUtil.getCRC(file, data);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
