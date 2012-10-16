@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,15 +38,13 @@ import java.util.Map.Entry;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-
 import org.bukkit.plugin.Plugin;
-
 import org.getspout.spout.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.io.CRCStore;
+import org.getspout.spoutapi.io.CRCStore.URLCheck;
 import org.getspout.spoutapi.io.CRCStoreRunnable;
 import org.getspout.spoutapi.io.FileUtil;
-import org.getspout.spoutapi.io.CRCStore.URLCheck;
 import org.getspout.spoutapi.packet.PacketCacheDeleteFile;
 import org.getspout.spoutapi.packet.PacketPreCacheCompleted;
 import org.getspout.spoutapi.packet.PacketPreCacheFile;
@@ -287,6 +287,12 @@ public class SimpleFileManager implements FileManager {
 		if (plugin == null) {
 			throw new NullPointerException("Plugin may not be null");
 		}
+		
+		//only cache valid url
+		if (!isValidUrl(fileUrl)) {
+			return false;
+		}
+		
 		if (addToPreLoginCache(plugin, fileUrl)) {
 			URLCheck urlCheck = new URLCheck(fileUrl, new byte[4096], new CRCStoreRunnable() {
 				Long CRC;
@@ -442,6 +448,15 @@ public class SimpleFileManager implements FileManager {
 			FileUtils.deleteDirectory(getTempDirectory());
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private boolean isValidUrl(String url) {
+		try {
+			URL checkURL = new URL(url);
+			return true;
+		} catch (MalformedURLException e) {
+			return false;
 		}
 	}
 }
