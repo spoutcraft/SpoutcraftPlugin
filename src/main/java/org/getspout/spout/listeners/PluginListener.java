@@ -123,8 +123,7 @@ public class PluginListener implements Listener {
 		
 		if (urlCaches != null) {
 			for(String url : urlCaches) {
-				Bukkit.getServer().getLogger().info("[SpoutPlugin] Preparing " + url);
-				
+				//Bukkit.getServer().getLogger().info("[SpoutPlugin] Preparing " + url);
 				
 				try {
 					URL fileURL = new URL(url);
@@ -140,11 +139,21 @@ public class PluginListener implements Listener {
 					URLConnection connection = fileURL.openConnection();
 					connection.addRequestProperty("User-Agent", Spout.getInstance().getDescription().getFullName());
 					
+					long urlLastModified = connection.getLastModified();
+					
+					if (target.exists() && urlLastModified == target.lastModified()) {
+						continue;
+					}
+					
+					Bukkit.getLogger().info("[SpoutPlugin] File " + target.getName() + " is out of date: Updating now.");
 					ReadableByteChannel channel = Channels.newChannel(connection.getInputStream());
 					
 					FileOutputStream outputStream = new FileOutputStream(target);
 					outputStream.getChannel().transferFrom(channel, 0, 1 << 24);
 					outputStream.close();
+					
+					//update modified time on file
+					target.setLastModified(urlLastModified);
 					
 				} catch (MalformedURLException e) {
 					// TODO Auto-generated catch block
