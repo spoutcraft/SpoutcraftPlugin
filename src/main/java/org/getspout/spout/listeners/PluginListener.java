@@ -40,6 +40,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.getspout.spout.Spout;
+import org.getspout.spout.config.ServerUUID;
 import org.getspout.spout.player.SimpleFileManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.io.FileUtil;
@@ -78,7 +79,7 @@ public class PluginListener implements Listener {
 			Bukkit.getLogger().info("[SpoutPlugin] Precache CRC: " + String.valueOf(crc));
 			
 			if (crc !=-1) {
-				player.sendPacket(new PacketValidatePrecache(crc, Bukkit.getServer().getName()));
+				player.sendPacket(new PacketValidatePrecache(crc, ServerUUID.getId()));
 			}
 		}
 	}

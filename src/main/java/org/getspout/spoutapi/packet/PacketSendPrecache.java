@@ -9,6 +9,7 @@ import java.util.zip.Inflater;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.Bukkit;
+import org.getspout.spout.config.ServerUUID;
 import org.getspout.spoutapi.io.FileUtil;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
@@ -27,7 +28,7 @@ public class PacketSendPrecache implements CompressiblePacket {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.serverName = Bukkit.getServer().getName();
+		this.serverName = ServerUUID.getId();
 	}
 	
 	// TODO Move to separate thread?
