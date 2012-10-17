@@ -91,17 +91,13 @@ public class PluginListener implements Listener {
 	@EventHandler
 	public void onPluginEnabled(PluginEnableEvent event) {
 		
+		boolean changed = false;
+		
 		Bukkit.getServer().getLogger().info("[SpoutPlugin] Initializing precache for " + event.getPlugin().getName());
 		
 		File cacheFolder = new File(Spout.getInstance().getDataFolder(), "precache");
 		if (!cacheFolder.exists()) {
 			cacheFolder.mkdirs();
-		}
-		
-		//delete the final zip, and it will be recreated on player join anew
-		File zip = new File(Spout.getInstance().getDataFolder(), "precache.zip");
-		if (zip.exists()) {
-			zip.delete();
 		}
 		
 		List<File> fileCaches = ((SimpleFileManager)SpoutManager.getFileManager()).getPluginPreLoginCache(event.getPlugin());
@@ -118,6 +114,7 @@ public class PluginListener implements Listener {
 				Bukkit.getLogger().info("[SpoutPlugin] File " + target.getName() + " is out of date: Updating now.");
 				try {
 					copyFile(file, target);
+					changed = true;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -158,6 +155,7 @@ public class PluginListener implements Listener {
 					
 					//update modified time on file
 					target.setLastModified(urlLastModified);
+					changed= true;
 					
 				} catch (MalformedURLException e) {
 					// TODO Auto-generated catch block
@@ -166,6 +164,15 @@ public class PluginListener implements Listener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		}
+		
+		if (changed == true) {
+			//delete the final zip, and it will be recreated on player join anew
+			Bukkit.getLogger().info("[SpoutPlugin] Precache has changed. Removing old precache");
+			File zip = new File(Spout.getInstance().getDataFolder(), "precache.zip");
+			if (zip.exists()) {
+				zip.delete();
 			}
 		}
 		
