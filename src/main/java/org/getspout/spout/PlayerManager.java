@@ -28,6 +28,7 @@ import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.config.PermHandler;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.keyboard.SimpleKeyBindingManager;
+import org.getspout.spout.listeners.PluginListener;
 import org.getspout.spout.player.SimpleBiomeManager;
 import org.getspout.spout.player.SimpleFileManager;
 import org.getspout.spout.player.SimpleSkyManager;
@@ -88,7 +89,8 @@ public class PlayerManager {
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);
 		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
 		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
-		((SimpleFileManager)SpoutManager.getFileManager()).onPlayerJoin(player);
+		//((SimpleFileManager)SpoutManager.getFileManager()).onPlayerJoin(player);
+		PluginListener.onPlayerJoin(player);
 		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
 		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player)));
 
