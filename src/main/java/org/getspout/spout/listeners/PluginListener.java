@@ -109,9 +109,13 @@ public class PluginListener implements Listener {
 		
 		if (fileCaches != null) {
 			for(File file : fileCaches) {
-				Bukkit.getServer().getLogger().info("[SpoutPlugin] Preparing " + file.getName());
+				//Bukkit.getServer().getLogger().info("[SpoutPlugin] Preparing " + file.getName());
 				
 				File target = new File(cacheFolder, event.getPlugin().getName() +"/"+ file.getName());
+				if (FileUtil.getCRC(target, new byte[(int) target.length()]) == FileUtil.getCRC(file, new byte[(int) file.length()])) {
+					continue;
+				}
+				Bukkit.getLogger().info("[SpoutPlugin] File " + target.getName() + " is out of date: Updating now.");
 				try {
 					copyFile(file, target);
 				} catch (IOException e) {
