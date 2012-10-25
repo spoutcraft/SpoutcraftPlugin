@@ -1,33 +1,61 @@
 package org.getspout.spoutapi.packet;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.getspout.spout.precache.PrecacheTuple;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketValidatePrecache implements SpoutPacket {
 	
-	long crc;
-	String serverName;
+	int count;
+	PrecacheTuple[] plugins;
 	
 	public PacketValidatePrecache() {
 	}
 	
-	public PacketValidatePrecache(long crc, String serverName) {
-		this.crc = crc;
-		this.serverName = serverName;
+	public PacketValidatePrecache(HashMap<Plugin, Long> pluginMap) {
+		count = pluginMap.size();
+		plugins = new PrecacheTuple[count];
+		int i = 0;
+		for (Entry entry : pluginMap.entrySet()) {
+			Plugin p = (Plugin)entry.getKey();
+			plugins[i] = new PrecacheTuple(
+					p.getDescription().getName(),
+					p.getDescription().getVersion(),
+					(Long)entry.getValue()
+				);
+			i++;
+		}
 	}
+	
 	
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
-		crc = input.readLong();
-		serverName = input.readString();
+		count = input.readInt();
+		plugins = new PrecacheTuple[count];
+		if (count > 0) {
+			for(int i = 0; i<count; i++) {
+				String plugin = input.readString();
+				String version = input.readString();
+				long crc = input.readLong();
+				plugins[i] = new PrecacheTuple(plugin, version, crc);
+			}
+		}
 	}
 
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
-		output.writeLong(crc);
-		output.writeString(serverName);
+		output.writeInt(count);
+		for (int i=0; i<count; i++) {
+			output.writeString(plugins[i].getPlugin());
+			output.writeString(plugins[i].getVersion());
+			output.writeLong(plugins[i].getCrc());
+		}
 	}
 
 	@Override

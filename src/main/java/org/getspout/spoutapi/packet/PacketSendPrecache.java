@@ -8,27 +8,27 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.bukkit.Bukkit;
-import org.getspout.spout.config.ServerUUID;
-import org.getspout.spoutapi.io.FileUtil;
+import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class PacketSendPrecache implements CompressiblePacket {
 	private byte[] fileData;
-	private String serverName;
+	private String plugin;
+	private String version;
 	private boolean compressed = false;
 	
 	public PacketSendPrecache() {
 	}
 	
-	public PacketSendPrecache(File file) {
+	public PacketSendPrecache(Plugin plugin, File file) {
 		try {
 			this.fileData = FileUtils.readFileToByteArray(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.serverName = ServerUUID.getId();
+		this.plugin = plugin.getDescription().getName();
+		this.version = plugin.getDescription().getVersion();
 	}
 	
 	// TODO Move to separate thread?
@@ -81,7 +81,8 @@ public class PacketSendPrecache implements CompressiblePacket {
 	
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
-		this.serverName = input.readString();
+		this.plugin = input.readString();
+		this.version = input.readString();
 		compressed = input.readBoolean();
 		int size = input.readInt();
 		this.fileData = new byte[size];
@@ -90,7 +91,8 @@ public class PacketSendPrecache implements CompressiblePacket {
 
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
-		output.writeString(serverName);
+		output.writeString(plugin);
+		output.writeString(version);
 		output.writeBoolean(compressed);
 		output.writeInt(fileData.length);
 		output.write(fileData);
