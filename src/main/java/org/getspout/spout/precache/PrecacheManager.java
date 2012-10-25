@@ -89,6 +89,10 @@ public class PrecacheManager {
 						target.delete();
 					}
 					
+					if (!target.getParentFile().exists()) {
+						target.getParentFile().mkdirs();
+					}
+					
 					Bukkit.getLogger().info("[SpoutPlugin] File " + target.getName() + " is out of date: Updating now.");
 					ReadableByteChannel channel = Channels.newChannel(connection.getInputStream());
 					
