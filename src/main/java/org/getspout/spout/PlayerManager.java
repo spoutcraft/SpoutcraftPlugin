@@ -91,7 +91,8 @@ public class PlayerManager {
 		PrecacheManager.onPlayerJoin(player);
 		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
 		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player)));
-
+		
+		/*
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
 			byte i = -128;
 			do {
@@ -101,6 +102,7 @@ public class PlayerManager {
 				i++;
 			} while (i != 127);
 		}
+		*/
 		player.updatePermissions();
 
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));

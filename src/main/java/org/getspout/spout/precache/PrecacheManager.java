@@ -1,5 +1,7 @@
 package org.getspout.spout.precache;
 
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,7 +21,11 @@ import org.bukkit.plugin.Plugin;
 import org.getspout.spout.Spout;
 import org.getspout.spout.player.SimpleFileManager;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.design.BlockDesign;
+import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.io.FileUtil;
+import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.packet.PacketValidatePrecache;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -47,6 +53,56 @@ public class PrecacheManager {
 		
 		List<File> fileCaches = ((SimpleFileManager)SpoutManager.getFileManager()).getPluginPreLoginCache(plugin);
 		List<String> urlCaches = ((SimpleFileManager)SpoutManager.getFileManager()).getPluginPreLoginUrlCache(plugin);
+		List<CustomBlock> blocks = MaterialData.getCustomBlocks(plugin);
+		
+		if (blocks.size() > 0) {
+			int i0 = 0;
+			for(CustomBlock block : blocks) {
+				byte i = -128;
+				do {
+					if (block.getBlockDesign(i) != null) {
+						BlockDesign design = block.getBlockDesign(i);
+						long beforeCRC = -1;
+						File target = new File(getPluginCacheFolder(plugin), String.valueOf(i0)+".sbd");
+						
+						if (!target.getParentFile().exists()) {
+							target.getParentFile().mkdirs();
+						}
+						
+						if (target.exists()) {
+							beforeCRC = FileUtil.getCRC(target,  new byte[(int) target.length()]);
+							target.delete();
+						}
+						
+						try {
+							DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(target)));
+							
+							out.writeShort((short)block.getCustomId());
+							out.writeByte(i);
+							design.write(out);
+							out.flush();
+							out.close();
+							
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						if (target.exists()) {
+							long newCRC = FileUtil.getCRC(target,  new byte[(int) target.length()]);
+							if (newCRC != beforeCRC) {
+								changed = true;
+								Bukkit.getLogger().info("[SpoutPlugin] Block Design Cache Updated: " + block.getName() + " " + String.valueOf(i));
+							}
+						}
+						
+						i0++;
+					}
+					i++;
+				} while (i != 127);
+				
+			}
+		}
 		
 		if (fileCaches != null) {
 			for(File file : fileCaches) {
