@@ -267,7 +267,12 @@ public class GenericBlockDesign implements BlockDesign {
 	public BlockDesign setVertex(Vertex vertex) {
 		return setVertex(vertex.getQuadNum(), vertex.getIndex(), vertex.getX(), vertex.getY(), vertex.getZ(), vertex.getTextureX(), vertex.getTextureY(), vertex.getTextureWidth(), vertex.getTextureHeight());
 	}
-
+	
+	@Override
+	public BlockDesign rotate(int degrees) {
+		return rotate(degrees, Axis.Y);
+	}
+	
 	@Override
 	public BlockDesign rotate(int degrees, Axis axis) {
 		// Store angle to save some cpu calculations.

@@ -209,6 +209,19 @@ public interface BlockDesign {
 	 * @return the texture
 	 */
 	public Texture getTexture();
-
+	
+	/**
+	 * Rotates a block on the Y Axis
+	 * @param degrees - the degree of rotation
+	 * @return the rotated BlockDesign
+	 */
+	public BlockDesign rotate(int degrees);
+	
+	/**
+	 * Rotates the block design on the given axis
+	 * @param degrees   the degree of rotation
+	 * @param axis      the axis to rotate on
+	 * @return the rotated BlockDesign
+	 */
 	public BlockDesign rotate(int degrees, Axis axis);
 }
