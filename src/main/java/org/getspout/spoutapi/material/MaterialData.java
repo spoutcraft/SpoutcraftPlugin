@@ -56,7 +56,9 @@ public class MaterialData {
 	private final static Object[] idLookup = new Object[3200];
 	private final static List<CustomBlock> customBlocks = new LinkedList<CustomBlock>();
 	private final static List<CustomItem> customItems = new LinkedList<CustomItem>();
+	private final static List<CustomArmor> customArmor = new LinkedList<CustomArmor>();
 	private final static TIntObjectHashMap<CustomItem> customItemLookup = new TIntObjectHashMap<CustomItem>(250);
+	private final static TIntObjectHashMap<CustomArmor> customArmorLookup = new TIntObjectHashMap<CustomArmor>(250);
 	private final static TIntObjectHashMap<CustomBlock> customBlockLookup = new TIntObjectHashMap<CustomBlock>(250);
 	private final static HashMap<String, Material> nameLookup = new HashMap<String, Material>(1000);
 	private final static int FLINT_ID = 318;
@@ -588,6 +590,18 @@ public class MaterialData {
 	 * Adds a custom block to the material list
 	 * @param block to add
 	 */
+	
+	/**
+	 * Adds a custom armor to the material list
+	 * @param armor to add
+	 */
+	public static void addCustomArmor(CustomArmor armor) {
+		customArmorLookup.put(armor.getCustomId(), armor);
+		customArmor.add(armor);
+		nameLookup.put(armor.getNotchianName().toLowerCase(), armor);
+		SpoutManager.getMaterialManager().onCustomMaterialRegistered(armor);
+	}
+	
 	public static void addCustomBlock(CustomBlock block) {
 		customBlockLookup.put(block.getCustomId(), block);
 		customBlocks.add(block);
