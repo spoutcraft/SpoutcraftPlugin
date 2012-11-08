@@ -625,8 +625,38 @@ public class SpoutWorld implements World {
 	}
 
 	@Override
+	public int getAmbientSpawnLimit() {
+		return world.getAmbientSpawnLimit();
+	}
+
+	@Override
+	public void setAmbientSpawnLimit(int i) {
+		world.setAmbientSpawnLimit(i);
+	}
+
+	@Override
 	public void playSound(Location location, Sound sound, float v, float v1) {
 		world.playSound(location, sound, v, v1);
+	}
+
+	@Override
+	public String[] getGameRules() {
+		return world.getGameRules();
+	}
+
+	@Override
+	public String getGameRuleValue(String s) {
+		return world.getGameRuleValue(s);
+	}
+
+	@Override
+	public boolean setGameRuleValue(String s, String s1) {
+		return setGameRuleValue(s, s1);
+	}
+
+	@Override
+	public boolean isGameRule(String s) {
+		return world.isGameRule(s);
 	}
 
 	@Override
