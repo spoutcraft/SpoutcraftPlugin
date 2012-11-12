@@ -1282,7 +1282,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			try {
 				handlerList = ServerConnection.class.getDeclaredField("d");
 				handlerList.setAccessible(true);
-				ServerConnection sc = ((DedicatedServer) MinecraftServer.getServer()).ac();
+				ServerConnection sc = ((DedicatedServer) MinecraftServer.getServer()).ae();
 				List rhandlerList = (List) handlerList.get(sc);
 				rhandlerList.remove(oldHandler);
 				rhandlerList.add(handler);
