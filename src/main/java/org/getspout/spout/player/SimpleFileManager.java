@@ -460,4 +460,18 @@ public class SimpleFileManager implements FileManager {
 			return false;
 		}
 	}
+	
+	public List<File> getPluginPreLoginCache(Plugin plugin) {
+		if (!preLoginCache.containsKey(plugin)) {
+			return null;
+		}
+		return preLoginCache.get(plugin);
+	}
+	
+	public List<String> getPluginPreLoginUrlCache(Plugin plugin) {
+		if (!preLoginUrlCache.containsKey(plugin)) {
+			return null;
+		}
+		return preLoginUrlCache.get(plugin);
+	}
 }

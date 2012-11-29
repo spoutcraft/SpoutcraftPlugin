@@ -24,8 +24,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
+import org.bukkit.event.server.PluginEnableEvent;
 import org.getspout.spout.Spout;
-
+import org.getspout.spout.precache.PrecacheManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -41,4 +42,14 @@ public class PluginListener implements Listener {
 			p.getMainScreen().removeWidgets(event.getPlugin());
 		}
 	}
+	
+	/**
+	 * Handle the precache setup after all plugins have loaded
+	 * @param event
+	 */
+	@EventHandler
+	public void onPluginEnabled(PluginEnableEvent event) {
+		PrecacheManager.onPluginEnabled(event.getPlugin());
+	}
+	
 }

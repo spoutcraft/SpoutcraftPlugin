@@ -19,11 +19,11 @@
  */
 package org.getspout.spoutapi.block.design;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.BlockVector;
-
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
@@ -66,7 +66,9 @@ public interface BlockDesign {
 	public void writeReset(SpoutOutputStream output) throws IOException;
 
 	public void write(SpoutOutputStream output) throws IOException;
-
+	
+	public void write(DataOutputStream output) throws IOException;
+	
 	/**
 	 * Sets the specified Texture for this BlockDesign
 	 * @param plugin  associated with the texture
