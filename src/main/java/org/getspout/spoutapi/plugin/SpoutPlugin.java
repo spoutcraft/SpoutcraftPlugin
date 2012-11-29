@@ -46,10 +46,6 @@ public abstract class SpoutPlugin extends JavaPlugin {
 		return getDescription().getVersion();
 	}
 
-	public Logger getLogger() {
-		return getSpoutServer().getLogger();
-	}
-
 	public void log(String s) {
 		getLogger().info(String.format("[%s] %s", getName(), s));
 	}

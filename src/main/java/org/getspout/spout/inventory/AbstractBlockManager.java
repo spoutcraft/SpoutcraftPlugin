@@ -36,6 +36,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import org.getspout.spout.block.mcblock.CustomMCBlock;
+import org.getspout.spout.block.mcblock.WrappedMCBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.MaterialManager;
@@ -191,8 +192,8 @@ public abstract class AbstractBlockManager implements MaterialManager {
 			originalHardness.put(id, data, getHardness(block));
 		}
 		net.minecraft.server.Block b = net.minecraft.server.Block.byId[id];
-		if (b instanceof CustomMCBlock) {
-			((CustomMCBlock) b).setHardness(hardness);
+		if (b instanceof WrappedMCBlock) {
+			((WrappedMCBlock) b).setHardness(hardness);
 		}
 		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
@@ -214,7 +215,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 	@Override
 	public boolean isOpaque(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		return net.minecraft.server.Block.n[id];
+		return net.minecraft.server.Block.s[id];
 	}
 
 	@Override
@@ -227,7 +228,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (!originalOpacity.containsKey(id)) {
 			originalOpacity.put(id, (byte) (isOpaque(block) ? 1 : 0));
 		}
-		net.minecraft.server.Block.n[id] = opacity;
+		net.minecraft.server.Block.s[id] = opacity;
 		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 

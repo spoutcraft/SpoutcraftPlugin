@@ -216,7 +216,7 @@ public class SimpleMaterialManager extends AbstractBlockManager implements Mater
 	public void onCustomMaterialRegistered(Material mat) {
 		if (mat instanceof CustomBlock && !glassUpdated) {
 			if (!((CustomBlock)mat).isOpaque()) {
-				org.getspout.spout.block.mcblock.CustomBlock.updateGlass();
+				org.getspout.spout.block.mcblock.CustomMCBlock.updateGlass();
 				glassUpdated = true;
 			}
 		}

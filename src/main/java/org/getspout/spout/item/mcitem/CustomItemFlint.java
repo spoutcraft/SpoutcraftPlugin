@@ -52,6 +52,7 @@ public class CustomItemFlint extends Item {
 			a = clazz.getDeclaredField("a");
 			a.setAccessible(true);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -66,12 +67,12 @@ public class CustomItemFlint extends Item {
 	}
 
 	@Override
-	public EnumAnimation b(ItemStack itemstack) {
+	public EnumAnimation d_(ItemStack itemstack) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			return EnumAnimation.b;
 		}
-		return super.b(itemstack);
+		return super.d_(itemstack);
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class CustomItemFlint extends Item {
 	}
 
 	@Override
-	public boolean u() {
+	public boolean v() {
 		if (clazz == null || a == null) {
 			return false;
 		}
@@ -138,7 +139,7 @@ class FoodUpdate implements Runnable {
 
 	@Override
 	public void run() {
-		if (human.e(false)) {
+		if (human.f(false)) {
 			human.a(item, 32);
 		}
 	}

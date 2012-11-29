@@ -192,6 +192,11 @@ public class SpoutServer implements Server {
 	}
 
 	@Override
+	public boolean isHardcore() {
+		return server.isHardcore();
+	}
+
+	@Override
 	public boolean getAllowNether() {
 		return server.getAllowNether();
 	}
@@ -544,6 +549,11 @@ public class SpoutServer implements Server {
 	@Override
 	public int getWaterAnimalSpawnLimit() {
 		return server.getWaterAnimalSpawnLimit();
+	}
+
+	@Override
+	public int getAmbientSpawnLimit() {
+		return server.getAmbientSpawnLimit();
 	}
 
 	@Override

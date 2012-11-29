@@ -19,8 +19,9 @@
  */
 package org.getspout.spout.packet.standard;
 
-import net.minecraft.server.Packet51MapChunk;
+import java.lang.reflect.Field;
 
+import net.minecraft.server.Packet51MapChunk;
 import org.getspout.spoutapi.packet.standard.MCPacket51MapChunk;
 
 public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51MapChunk {
@@ -51,7 +52,14 @@ public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51
 
 	@Override
 	public byte[] getCompressedChunkData() {
-		return getPacket().buffer;
+		try {
+			Field buffer = Packet51MapChunk.class.getDeclaredField("buffer");
+			buffer.setAccessible(true);
+			return (byte[]) buffer.get(getPacket());
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return null;
 	}
 
 	@Override

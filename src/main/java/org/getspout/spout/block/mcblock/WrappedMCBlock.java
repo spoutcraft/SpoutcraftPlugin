@@ -17,14 +17,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.getspout.spoutapi.entity;
+package org.getspout.spout.block.mcblock;
 
-import java.util.List;
+import net.minecraft.server.Block;
 
-import org.getspout.spoutapi.entity.ai.SpoutAI;
-
-public interface SpoutEntity {
-	public void addTask(SpoutAI task);
-
-	public List<SpoutAI> getTasks();
+public interface WrappedMCBlock {
+	public Block getWrapped();
+	
+	public void setHardness(float hardness);
 }

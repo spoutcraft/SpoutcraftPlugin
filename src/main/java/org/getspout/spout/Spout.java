@@ -42,10 +42,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.getspout.spout.block.SpoutCraftChunk;
-import org.getspout.spout.block.mcblock.CustomBlock;
+import org.getspout.spout.block.mcblock.CustomMCBlock;
 import org.getspout.spout.command.SpoutCommand;
 import org.getspout.spout.config.ConfigReader;
-import org.getspout.spout.entity.SimpleEntityManager;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.inventory.SpoutInventoryBuilder;
 import org.getspout.spout.item.mcitem.CustomItemFlint;
@@ -94,7 +93,6 @@ public class Spout extends JavaPlugin {
 		SpoutManager.getInstance().setInventoryBuilder(new SpoutInventoryBuilder());
 		SpoutManager.getInstance().setPacketManager(new SimplePacketManager());
 		SpoutManager.getInstance().setPlayerManager(new SimplePlayerManager());
-		SpoutManager.getInstance().setEntityManager(new SimpleEntityManager());
 		SpoutManager.getInstance().setChunkDataManager(new SimpleChunkDataManager());
 		SpoutManager.getInstance().setBiomeManager(new SimpleBiomeManager());
 		SpoutManager.getInstance().setFileManager(new SimpleFileManager());
@@ -112,7 +110,7 @@ public class Spout extends JavaPlugin {
 			return;
 		}
 		// Order matters
-		CustomBlock.resetBlocks();
+		CustomMCBlock.resetBlocks();
 		((SimpleMaterialManager) SpoutManager.getMaterialManager()).reset();
 		((SimpleSkyManager) SpoutManager.getSkyManager()).reset();
 		((SimplePlayerManager) SpoutManager.getPlayerManager()).onPluginDisable();
@@ -220,7 +218,7 @@ public class Spout extends JavaPlugin {
 			CustomItemSpade.replaceSpades();
 			CustomItemPickaxe.replacePickaxes();
 			CustomItemFlint.replaceFlint();
-			CustomBlock.replaceBlocks();
+			CustomMCBlock.replaceBlocks();
 
 			PacketCompressionThread.startThread();
 
