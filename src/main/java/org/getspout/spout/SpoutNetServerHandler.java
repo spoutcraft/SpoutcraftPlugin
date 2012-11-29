@@ -41,7 +41,6 @@ import net.minecraft.server.Packet3Chat;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 
-import org.getspout.spout.netcache.CacheThread;
 import org.getspout.spout.netcache.ChunkNetCache;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
@@ -156,11 +155,7 @@ public class SpoutNetServerHandler extends NetServerHandler {
 	@Override
 	public void sendPacket(Packet packet) {
 		if (packet != null) {
-			if (packet.lowPriority && chunkNetCache.isCacheEnabled()) {
-				CacheThread.sendPacket(this, packet, chunkNetCache);
-			} else {
-				queueOutputPacket(packet);
-			}
+		    queueOutputPacket(packet);
 			if (packet instanceof Packet20NamedEntitySpawn) {
 				SpoutPlayer player = SpoutManager
 						.getPlayerFromId(((Packet20NamedEntitySpawn) packet).a);

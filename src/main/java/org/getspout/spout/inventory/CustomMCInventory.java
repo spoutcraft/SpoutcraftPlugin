@@ -73,11 +73,6 @@ public class CustomMCInventory implements IInventory {
 	}
 
 	@Override
-	public boolean a(EntityHuman arg0) {
-		return true;
-	}
-
-	@Override
 	public void startOpen() {
 
 	}
@@ -171,7 +166,12 @@ public class CustomMCInventory implements IInventory {
 	public void update() {
 	}
 
-	@Override
+    @Override
+    public boolean a_(EntityHuman entityhuman) {
+        return true;
+    }
+
+    @Override
 	public void f() {
 	}
 
