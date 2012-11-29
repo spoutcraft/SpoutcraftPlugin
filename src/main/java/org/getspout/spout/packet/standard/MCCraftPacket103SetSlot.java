@@ -25,17 +25,15 @@ import java.util.logging.Logger;
 
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet103SetSlot;
+import org.getspout.spoutapi.packet.standard.MCPacket103SetSlot;
 
 import org.bukkit.inventory.ItemStack;
-
-import org.getspout.spoutapi.packet.standard.MCPacket103SetSlot;
 
 /**
  * Implementation of MCPacket103SetSlot
  */
 public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket103SetSlot {
 	private static Field windowField, slotField, itemStackField;
-
 	private int rawWindow, rawSlot;
 	private net.minecraft.server.ItemStack notchStack;
 	private ItemStack bukkitStack;
@@ -135,13 +133,13 @@ public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket10
 	public void setPacket(Packet packet, int packetId) {
 		super.setPacket(packet, packetId);
 		try {
-			rawWindow = ((Integer)windowField.get(packet)).intValue();
+			rawWindow = ((Integer) windowField.get(packet)).intValue();
 			window = Window.getWindowById(rawWindow);
-			rawSlot = ((Integer)slotField.get(packet)).intValue();
+			rawSlot = ((Integer) slotField.get(packet)).intValue();
 			slot = Slot.getSlotByRawValues(rawWindow, rawSlot);
-			notchStack = (net.minecraft.server.ItemStack)itemStackField.get(packet);
+			notchStack = (net.minecraft.server.ItemStack) itemStackField.get(packet);
 			if (notchStack != null) {
-				bukkitStack = new ItemStack(notchStack.id, notchStack.count, (short)notchStack.getData());
+				bukkitStack = new ItemStack(notchStack.id, notchStack.count, (short) notchStack.getData());
 			}
 		} catch (Exception ex) {
 		}
