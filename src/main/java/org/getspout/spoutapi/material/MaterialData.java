@@ -19,15 +19,17 @@
  */
 package org.getspout.spoutapi.material;
 
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import gnu.trove.map.hash.TIntObjectHashMap;
-
+import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.material.block.Air;
 import org.getspout.spoutapi.material.block.DoubleSlabs;
@@ -710,6 +712,21 @@ public class MaterialData {
 		CustomBlock[] blocks = new CustomBlock[customBlocks.size()];
 		for (int i = 0; i < blocks.length; i++) {
 			blocks[i] = customBlocks.get(i);
+		}
+		return blocks;
+	}
+	
+	/**
+	 * Gets a list of all currently registered custom blocks for a specific plugin
+	 * @param plugin The plugin in which owns the custom blocks
+	 * @return custom block list for given plugin
+	 */
+	public static List<CustomBlock> getCustomBlocks(Plugin plugin) {
+		List<CustomBlock> blocks = new ArrayList<CustomBlock>();
+		for(CustomBlock block : customBlocks) {
+			if (block.getPlugin().equals(plugin)) {
+				blocks.add(block);
+			}
 		}
 		return blocks;
 	}

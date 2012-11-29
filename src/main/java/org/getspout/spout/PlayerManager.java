@@ -23,15 +23,14 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.config.PermHandler;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.keyboard.SimpleKeyBindingManager;
 import org.getspout.spout.player.SimpleBiomeManager;
-import org.getspout.spout.player.SimpleFileManager;
 import org.getspout.spout.player.SimpleSkyManager;
 import org.getspout.spout.player.SpoutCraftPlayer;
+import org.getspout.spout.precache.PrecacheManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.event.spout.SpoutcraftFailedEvent;
@@ -88,10 +87,12 @@ public class PlayerManager {
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);
 		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
 		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
-		((SimpleFileManager)SpoutManager.getFileManager()).onPlayerJoin(player);
+		//((SimpleFileManager)SpoutManager.getFileManager()).onPlayerJoin(player);
+		PrecacheManager.onPlayerJoin(player);
 		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
 		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player)));
-
+		
+		/*
 		for (CustomBlock block : MaterialData.getCustomBlocks()) {
 			byte i = -128;
 			do {
@@ -101,6 +102,7 @@ public class PlayerManager {
 				i++;
 			} while (i != 127);
 		}
+		*/
 		player.updatePermissions();
 
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));

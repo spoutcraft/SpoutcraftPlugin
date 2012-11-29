@@ -19,6 +19,7 @@
  */
 package org.getspout.spoutapi.block.design;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -159,7 +160,33 @@ public class GenericBlockDesign implements BlockDesign {
 		PacketUtil.writeIntArray(output, lightSourceYOffset);
 		PacketUtil.writeIntArray(output, lightSourceZOffset);
 	}
-
+	
+	public void write(DataOutputStream output) throws IOException {
+		if (reset) {
+			PacketUtil.writeString(output, resetString);
+			return;
+		}
+		PacketUtil.writeString(output, textureURL);
+		PacketUtil.writeString(output, texturePlugin);
+		PacketUtil.writeDoubleArray(output, xPos);
+		PacketUtil.writeDoubleArray(output, yPos);
+		PacketUtil.writeDoubleArray(output, zPos);
+		PacketUtil.writeDoubleArray(output, textXPos);
+		PacketUtil.writeDoubleArray(output, textYPos);
+		output.writeFloat(lowXBound);
+		output.writeFloat(lowYBound);
+		output.writeFloat(lowZBound);
+		output.writeFloat(highXBound);
+		output.writeFloat(highYBound);
+		output.writeFloat(highZBound);
+		output.writeFloat(maxBrightness);
+		output.writeFloat(minBrightness);
+		output.writeInt(renderPass);
+		PacketUtil.writeIntArray(output, lightSourceXOffset);
+		PacketUtil.writeIntArray(output, lightSourceYOffset);
+		PacketUtil.writeIntArray(output, lightSourceZOffset);
+	}
+	
 	public BlockDesign setTexture(Plugin plugin, String textureURL) {
 		this.texturePlugin = plugin.getDescription().getName();
 		this.textureURL = textureURL;
