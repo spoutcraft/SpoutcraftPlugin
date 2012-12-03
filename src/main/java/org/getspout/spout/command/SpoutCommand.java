@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -102,15 +102,14 @@ public class SpoutCommand implements CommandExecutor {
 			}
 		}
 		if (c.equals("list")) {
-			String message = ChatColor.GREEN + "Players online with Spoutcraft: ";
+			String message = "Players online with " + ChatColor.BLUE + "Spoutcraft" + ChatColor.RESET + ":\n";
 			for (Player plr : Bukkit.getOnlinePlayers()) {
 				SpoutPlayer splr = SpoutManager.getPlayer(plr);
 				if (splr.isSpoutCraftEnabled()) {
-					message += ChatColor.YELLOW + splr.getName() + ChatColor.GREEN + ", ";
+					message += ChatColor.GREEN + splr.getName() + ChatColor.RESET + ", ";
 				}
 			}
 			message = message.substring(0, message.length() - 2);
-			message += ChatColor.GREEN + "!";
 			sender.sendMessage(message);
 			return true;
 		}

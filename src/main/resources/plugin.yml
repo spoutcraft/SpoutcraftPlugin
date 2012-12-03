@@ -1,12 +1,13 @@
 name: Spout
-version: ${buildNumber}
-description: SpoutPlugin is a plugin for Bukkit-based servers and a Minecraft client mod system that exposes new API for other plugins to utilize.
-author: SpoutDev
-website: http://www.spout.org
+version: ${releaseVersion} b${buildNumber}
+mcversion: ${minecraftVersion}
+
+description: ${project.description}
+author: ${project.organization.name}
+website: ${project.url}
 
 main: org.getspout.spout.Spout
 load: startup
-mcversion: ${minecraftVersion}
 
 commands:
     spout:
@@ -23,3 +24,27 @@ permissions:
     spout.plugin.ignorespoutcraft:
         description: Allows players without Spoutcraft to join even if the server forces Spoutcraft in the config.
         default: false
+    spout.plugin.cheat.coords:
+        description: Allows the player to see coordinates on their client.
+        default: true
+    spout.plugin.cheat.clearwater:
+        description: Allows the player to enable/disable clear water.
+        default: true
+    spout.plugin.cheat.entitylabel:
+        description: Allows the player to see entity labels.
+        default: true
+    spout.plugin.cheat.sky:
+        description: Allows the player to enable/disable the sky.
+        default: true
+    spout.plugin.cheat.stars:
+        description: Allows the player to enable/disable stars.
+        default: true
+    spout.plugin.cheat.time:
+        description: Allows the player to change their client time.
+        default: true
+    spout.plugin.cheat.voidfog:
+        description: Allows the player to enable/disable the void fog.
+        default: true
+    spout.plugin.cheat.weather:
+        description: Allows the player to enable/disable weather.
+        default: true

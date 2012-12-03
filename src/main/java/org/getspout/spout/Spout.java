@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -310,7 +310,7 @@ public class Spout extends JavaPlugin {
 						"|| SpoutPlugin is not working correctly due to version mismatch.\n" +
 						"|| Expected Minecraft Server version: " + minecraftVersion + "\n" +
 						"|| Current Minecraft Server version: " + bukkitVersion + "\n" +
-						"|| Either disable ForceMinecraftVersionCheck in /plugins/Spout/config.yml or update CraftBukkit.\n" +
+						"|| Either disable MinecraftVersionCheck in /plugins/Spout/config.yml or update CraftBukkit.\n" +
 						"-------------------------------------------------------"
 		);
 	}
