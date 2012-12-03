@@ -16,7 +16,7 @@ SpoutPlugin is licensed under the [GNU Lesser General Public License Version 3][
 Copyright (c) 2011-2012, Spout LLC <<http://www.spout.org/>>
 
 ## Getting the Source
-The latest and greatest source can be found here on [GitHub].  
+The latest and greatest source can be found here on [GitHub][Source].  
 Download the latest builds from our [build server][Builds]. [![Build Status](http://build.spout.org/job/SpoutPlugin/badge/icon)][Builds]  
 View the latest [Javadoc].
 
@@ -56,7 +56,7 @@ If you do not already have repo.spout.org in your repository list, you will need
 
 **Please follow the above conventions if you want your pull request(s) accepted.**
 
-[Logo]: http://cdn.spout.org/logo/spoutplugin-github.png
+[Logo]: http://cdn.spout.org/spoutplugin-github.png
 [Homepage]: http://www.spout.org
 [Forums]: http://forums.spout.org
 [License]: http://www.gnu.org/licenses/lgpl.html
