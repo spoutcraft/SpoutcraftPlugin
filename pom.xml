@@ -229,7 +229,13 @@
 									<artifact>*:*</artifact>
 									<excludes>
 										<exclude>META-INF/*.txt</exclude>
+										<exclude>LICENSE</exclude>
+										<exclude>NOTICE</exclude>
 									</excludes>
+									<artifact>cglib:cglib</artifact>
+									<includes>
+										<include>**</include>
+									</includes>
 								</filter>
 							</filters>
 						</configuration>
