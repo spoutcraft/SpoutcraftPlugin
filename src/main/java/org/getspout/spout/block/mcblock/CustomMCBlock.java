@@ -404,7 +404,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 					return modifier / hardness / (modifier > 1F ? 30F : 100F);
 				}
 			}
-		} else if (method.getName().equals("doPhysics")) {
+		} else if (method.getName().equals("remove")) {
 			World world = (World) args[0];
 			int x = (Integer) args[1];
 			int y = (Integer) args[2];
