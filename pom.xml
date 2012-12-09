@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -10,7 +9,7 @@
 	<version>1.4.5-R0.2-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
-	<description>SpoutPlugin is the good ol' plugin for the CraftBukkit server. It uses a Java trick called reflection to modify certain parts of CraftBukkit to allow lots of new features, most of which require the Spoutcraft client to run. It also features an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit.</description>
+	<description>SpoutPlugin is an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit.</description>
 
 	<!-- Build properties -->
 	<properties>
@@ -23,7 +22,7 @@
 
 	<!-- Company information -->
 	<organization>
-		<name>SpoutDev</name>
+		<name>Spout LLC</name>
 		<url>http://www.spout.org</url>
 	</organization>
 
@@ -49,10 +48,10 @@
 		<url>http://build.spout.org/job/SpoutPlugin</url>
 	</ciManagement>
 
-	<!-- Issue management -->
+	<!-- Issue tracker -->
 	<issueManagement>
 		<system>jira</system>
-		<url>http://issues.spout.org/browse/SpoutPlugin</url>
+		<url>http://issues.spout.org/browse/SPOUTPLUGIN</url>
 	</issueManagement>
 
 	<!-- Dependency repositories -->
@@ -100,6 +99,12 @@
 		</dependency>
 		<!-- Included in the final JAR -->
 		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
@@ -111,20 +116,15 @@
 			<version>3.0.3</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 	<!-- Build configuration -->
 	<build>
 		<defaultGoal>clean install</defaultGoal>
 
-		<!-- Static resources -->
+		<!-- Resources to include -->
 		<resources>
+			<!-- Static resources -->
 			<resource>
 				<targetPath>.</targetPath>
 				<filtering>false</filtering>
@@ -133,6 +133,7 @@
 					<include>LICENSE.txt</include>
 				</includes>
 			</resource>
+			<!-- Filtered resources -->
 			<resource>
 				<targetPath>.</targetPath>
 				<filtering>true</filtering>
@@ -181,11 +182,11 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Version strip plugin -->
+			<!-- Release version plugin -->
 			<plugin>
 				<groupId>com.sourcesense.maven</groupId>
 				<artifactId>maven-nosnapshot-plugin</artifactId>
-				<version>0.0.7-SNAPSHOT</version>
+				<version>0.0.7</version>
 				<executions>
 					<execution>
 						<configuration>
@@ -203,7 +204,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.0</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -214,7 +215,7 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
-			<!-- JAR dependency addition plugin -->
+			<!-- Dependency addition plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -228,7 +229,13 @@
 									<artifact>*:*</artifact>
 									<excludes>
 										<exclude>META-INF/*.txt</exclude>
+										<exclude>LICENSE</exclude>
+										<exclude>NOTICE</exclude>
 									</excludes>
+									<artifact>cglib:cglib</artifact>
+									<includes>
+										<include>**</include>
+									</includes>
 								</filter>
 							</filters>
 						</configuration>
@@ -238,6 +245,21 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<!-- Javadoc creation plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<bottom><![CDATA[Copyright (c) {inceptionYear}-{currentYear}, <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
+					<doctitle><![CDATA[${project.name} API ${releaseVersion} b${buildNumber} - ${maven.build.timestamp}]]></doctitle>
+					<windowtitle>Javadoc | ${project.name} ${releaseVersion} b${buildNumber}</windowtitle>
+					<author>false</author>
+					<version>false</version>
+					<linksource>true</linksource>
+					<sourcepath>${project.basedir}/src/main/java/org/getspout/spoutapi</sourcepath>
+				</configuration>
 			</plugin>
 		</plugins>
 
@@ -256,13 +278,13 @@
 									<pluginExecutionFilter>
 										<groupId>com.sourcesense.maven</groupId>
 										<artifactId>maven-nosnapshot-plugin</artifactId>
-										<versionRange>[0.0.7-SNAPSHOT,)</versionRange>
+										<versionRange>[0.0.7,)</versionRange>
 										<goals>
 											<goal>strip</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore/>
+										<execute/>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

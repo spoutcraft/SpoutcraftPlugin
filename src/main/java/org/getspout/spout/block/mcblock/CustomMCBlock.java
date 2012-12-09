@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, SpoutDev <http://www.spout.org/>
+ * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -24,6 +24,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
+
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 
 import net.minecraft.server.Block;
 import net.minecraft.server.BlockButton;
@@ -51,9 +55,6 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
 import org.getspout.spoutapi.player.SpoutPlayer;
-import org.mockito.cglib.proxy.Enhancer;
-import org.mockito.cglib.proxy.MethodInterceptor;
-import org.mockito.cglib.proxy.MethodProxy;
 
 public final class CustomMCBlock implements MethodInterceptor {
 	private final Block wrapped;
@@ -403,7 +404,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 					return modifier / hardness / (modifier > 1F ? 30F : 100F);
 				}
 			}
-		} else if (method.getName().equals("doPhysics")) {
+		} else if (method.getName().equals("remove")) {
 			World world = (World) args[0];
 			int x = (Integer) args[1];
 			int y = (Integer) args[2];
