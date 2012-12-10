@@ -21,8 +21,8 @@ package org.getspout.spout.inventory;
 
 import java.util.Arrays;
 
-import net.minecraft.server.IInventory;
-import net.minecraft.server.InventoryCrafting;
+import net.minecraft.server.v1_4_5.IInventory;
+import net.minecraft.server.v1_4_5.InventoryCrafting;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -61,14 +61,14 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 	@Override
 	public SpoutCraftItemStack[] getContents() {
 		SpoutCraftItemStack[] items = new SpoutCraftItemStack[getSize()];
-		net.minecraft.server.ItemStack[] mcResultItems = this.result.getContents();
+		net.minecraft.server.v1_4_5.ItemStack[] mcResultItems = this.result.getContents();
 
 		int i = 0;
 		for (i = 0; i < mcResultItems.length; i++ ) {
 			items[i] = SpoutCraftItemStack.fromItemStack(mcResultItems[i]);
 		}
 
-		net.minecraft.server.ItemStack[] mcItems = this.inventory.getContents();
+		net.minecraft.server.v1_4_5.ItemStack[] mcItems = this.inventory.getContents();
 
 		for (int j = 0; j < mcItems.length; j++) {
 			items[i + j] = SpoutCraftItemStack.fromItemStack(mcItems[j]);
@@ -121,7 +121,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 
 	@Override
 	public SpoutCraftItemStack getResult() {
-		net.minecraft.server.ItemStack item = this.result.getItem(0);
+		net.minecraft.server.v1_4_5.ItemStack item = this.result.getItem(0);
 		return SpoutCraftItemStack.fromItemStack(item);
 	}
 
@@ -131,7 +131,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			throw new IllegalArgumentException("Invalid inventory size; expected " + this.inventory.getContents().length);
 		}
 
-		net.minecraft.server.ItemStack[] mcItems = this.inventory.getContents();
+		net.minecraft.server.v1_4_5.ItemStack[] mcItems = this.inventory.getContents();
 
 		for (int i = 0; i < contents.length; i++ ) {
 			ItemStack item = contents[i];
@@ -145,7 +145,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 
 	@Override
 	public void setResult(ItemStack item) {
-		net.minecraft.server.ItemStack[] contents = this.result.getContents();
+		net.minecraft.server.v1_4_5.ItemStack[] contents = this.result.getContents();
 		if (item == null || item.getTypeId() <= 0) {
 			contents[0] = null;
 		} else {

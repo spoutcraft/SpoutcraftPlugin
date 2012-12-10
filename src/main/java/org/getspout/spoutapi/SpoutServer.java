@@ -572,6 +572,11 @@ public class SpoutServer implements Server {
 	}
 
 	@Override
+	public String getShutdownMessage() {
+		return server.getShutdownMessage();
+	}
+
+	@Override
 	public WarningState getWarningState() {
 		return server.getWarningState();
 	}

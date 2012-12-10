@@ -22,7 +22,6 @@ package org.getspout.spout.listeners;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -31,7 +30,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.PistonMoveReaction;
-import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_5.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -96,7 +95,7 @@ public class SpoutBlockListener implements Listener {
 		Block block = event.getBlock();
 		Material type = block.getType();
 		if (type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW || type == Material.DEAD_BUSH || type == Material.LONG_GRASS) {
-			if (net.minecraft.server.Block.byId[event.getMaterialId()].canPlace(((CraftWorld) block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
+			if (net.minecraft.server.v1_4_5.Block.byId[event.getMaterialId()].canPlace(((CraftWorld) block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
 				event.setBuildable(true);
 			}
 		}

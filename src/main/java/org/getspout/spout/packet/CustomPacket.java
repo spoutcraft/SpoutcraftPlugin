@@ -27,8 +27,8 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import net.minecraft.server.NetHandler;
-import net.minecraft.server.Packet;
+import net.minecraft.server.v1_4_5.NetHandler;
+import net.minecraft.server.v1_4_5.Packet;
 
 import org.getspout.spout.SpoutNetServerHandler;
 import org.getspout.spoutapi.SpoutManager;

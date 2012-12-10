@@ -95,6 +95,11 @@ public class SpoutWorld implements World {
 	}
 
 	@Override
+	public boolean createExplosion(double v, double v2, double v3, float v4, boolean b, boolean b2) {
+		return world.createExplosion(v, v2, v3, v4, b, b2);
+	}
+
+	@Override
 	public Item dropItem(Location location, ItemStack item) {
 		return world.dropItem(location, item);
 	}

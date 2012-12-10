@@ -30,12 +30,10 @@ import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 
-import net.minecraft.server.Block;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import org.getspout.spout.block.mcblock.CustomMCBlock;
+import net.minecraft.server.v1_4_5.Block;
 import org.getspout.spout.block.mcblock.WrappedMCBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
@@ -131,7 +129,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
-		return net.minecraft.server.Block.byId[id].frictionFactor;
+		return Block.byId[id].frictionFactor;
 	}
 
 	@Override
@@ -144,7 +142,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (!originalFriction.containsKey(id, data)) {
 			originalFriction.put(id, data, getFriction(block));
 		}
-		net.minecraft.server.Block.byId[id].frictionFactor = friction;
+		Block.byId[id].frictionFactor = friction;
 		updateBlockAttributes(id, (short) data); // invalidate cache
 	}
 
@@ -191,7 +189,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (!originalHardness.containsKey(id, data)) {
 			originalHardness.put(id, data, getHardness(block));
 		}
-		net.minecraft.server.Block b = net.minecraft.server.Block.byId[id];
+		Block b = Block.byId[id];
 		if (b instanceof WrappedMCBlock) {
 			((WrappedMCBlock) b).setHardness(hardness);
 		}
@@ -215,7 +213,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 	@Override
 	public boolean isOpaque(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		return net.minecraft.server.Block.s[id];
+		return Block.s[id];
 	}
 
 	@Override
@@ -228,7 +226,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (!originalOpacity.containsKey(id)) {
 			originalOpacity.put(id, (byte) (isOpaque(block) ? 1 : 0));
 		}
-		net.minecraft.server.Block.s[id] = opacity;
+		Block.s[id] = opacity;
 		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 
@@ -252,7 +250,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (block instanceof CustomBlock) {
 			id = ((CustomBlock) block).getBlockId();
 		}
-		return net.minecraft.server.Block.lightEmission[id];
+		return Block.lightEmission[id];
 	}
 
 	@Override
@@ -265,7 +263,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (!originalLight.containsKey(id)) {
 			originalLight.put(id, getLightLevel(block));
 		}
-		net.minecraft.server.Block.lightEmission[id] = level;
+		Block.lightEmission[id] = level;
 		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 

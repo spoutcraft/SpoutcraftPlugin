@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-import net.minecraft.server.Item;
+import net.minecraft.server.v1_4_5.Item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;

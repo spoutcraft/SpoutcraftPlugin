@@ -19,6 +19,7 @@
  */
 package org.getspout.spout;
 
+import net.minecraft.server.v1_4_5.Packet18ArmAnimation;
 import org.getspout.spout.listeners.SpoutBlockListener;
 import org.getspout.spout.listeners.SpoutPlayerListener;
 import org.getspout.spout.listeners.PluginListener;
@@ -29,8 +30,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.minecraft.server.Packet18ArmAnimation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

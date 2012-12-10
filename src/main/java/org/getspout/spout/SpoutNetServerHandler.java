@@ -23,24 +23,23 @@ import java.lang.reflect.Field;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.INetworkManager;
-import net.minecraft.server.IntHashMap;
-import net.minecraft.server.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.NetServerHandler;
-import net.minecraft.server.NetworkManager;
-import net.minecraft.server.Packet;
-import net.minecraft.server.Packet14BlockDig;
-import net.minecraft.server.Packet18ArmAnimation;
-import net.minecraft.server.Packet20NamedEntitySpawn;
-import net.minecraft.server.Packet24MobSpawn;
-import net.minecraft.server.Packet250CustomPayload;
-import net.minecraft.server.Packet3Chat;
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 
+import net.minecraft.server.v1_4_5.EntityPlayer;
+import net.minecraft.server.v1_4_5.INetworkManager;
+import net.minecraft.server.v1_4_5.IntHashMap;
+import net.minecraft.server.v1_4_5.ItemStack;
+import net.minecraft.server.v1_4_5.MinecraftServer;
+import net.minecraft.server.v1_4_5.NetServerHandler;
+import net.minecraft.server.v1_4_5.NetworkManager;
+import net.minecraft.server.v1_4_5.Packet;
+import net.minecraft.server.v1_4_5.Packet14BlockDig;
+import net.minecraft.server.v1_4_5.Packet18ArmAnimation;
+import net.minecraft.server.v1_4_5.Packet20NamedEntitySpawn;
+import net.minecraft.server.v1_4_5.Packet24MobSpawn;
+import net.minecraft.server.v1_4_5.Packet250CustomPayload;
+import net.minecraft.server.v1_4_5.Packet3Chat;
 import org.getspout.spout.netcache.ChunkNetCache;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;

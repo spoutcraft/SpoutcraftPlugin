@@ -20,7 +20,7 @@
 package org.getspout.spout;
 
 import org.bukkit.World;
-import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_5.CraftWorld;
 
 import org.getspout.spoutapi.WorldManager;
 

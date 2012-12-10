@@ -24,23 +24,21 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.collect.MapMaker;
 import gnu.trove.map.hash.TIntIntHashMap;
 
-import net.minecraft.server.Chunk;
-import net.minecraft.server.ChunkProviderServer;
-import net.minecraft.server.WorldServer;
+import net.minecraft.server.v1_4_5.Chunk;
+import net.minecraft.server.v1_4_5.ChunkProviderServer;
+import net.minecraft.server.v1_4_5.WorldServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.CraftChunk;
-import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_5.CraftChunk;
+import org.bukkit.craftbukkit.v1_4_5.CraftWorld;
 
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;

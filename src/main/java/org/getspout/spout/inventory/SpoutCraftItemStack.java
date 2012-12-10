@@ -19,12 +19,12 @@
  */
 package org.getspout.spout.inventory;
 
-import net.minecraft.server.NBTTagCompound;
+import net.minecraft.server.v1_4_5.NBTTagCompound;
 
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_4_5.inventory.CraftItemStack;
 
 public class SpoutCraftItemStack extends CraftItemStack {
-	public SpoutCraftItemStack(net.minecraft.server.ItemStack item) {
+	public SpoutCraftItemStack(net.minecraft.server.v1_4_5.ItemStack item) {
 		super(item);
 	}
 
@@ -32,11 +32,11 @@ public class SpoutCraftItemStack extends CraftItemStack {
 		super(type, amount, damage);
 	}
 
-	public net.minecraft.server.ItemStack getHandle() {
+	public net.minecraft.server.v1_4_5.ItemStack getHandle() {
 		return this.item;
 	}
 
-	public static SpoutCraftItemStack fromItemStack(net.minecraft.server.ItemStack item) {
+	public static SpoutCraftItemStack fromItemStack(net.minecraft.server.v1_4_5.ItemStack item) {
 		if (item == null) {
 			return null;
 		}

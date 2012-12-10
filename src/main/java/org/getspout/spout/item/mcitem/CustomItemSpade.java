@@ -21,11 +21,11 @@ package org.getspout.spout.item.mcitem;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.Block;
-import net.minecraft.server.EnumToolMaterial;
-import net.minecraft.server.Item;
-import net.minecraft.server.ItemSpade;
-import net.minecraft.server.ItemTool;
+import net.minecraft.server.v1_4_5.Block;
+import net.minecraft.server.v1_4_5.EnumToolMaterial;
+import net.minecraft.server.v1_4_5.Item;
+import net.minecraft.server.v1_4_5.ItemSpade;
+import net.minecraft.server.v1_4_5.ItemTool;
 
 public class CustomItemSpade extends ItemSpade {
 	public CustomItemSpade(int i, EnumToolMaterial etm) {
