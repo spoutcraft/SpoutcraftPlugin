@@ -48,7 +48,7 @@ public class CustomItemFlint extends Item {
 		super(62);
 		b(6, 0).b("flint");
 		try {
-			clazz = Class.forName("net.minecraft.server.NetworkWriterThread");
+			clazz = Class.forName("net.minecraft.server.v1_4_5.NetworkWriterThread");
 			a = clazz.getDeclaredField("a");
 			a.setAccessible(true);
 		} catch (Exception e) {
