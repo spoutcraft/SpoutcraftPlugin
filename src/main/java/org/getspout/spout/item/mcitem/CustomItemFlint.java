@@ -47,8 +47,19 @@ public class CustomItemFlint extends Item {
 	protected CustomItemFlint() {
 		super(62);
 		b(6, 0).b("flint");
+		Class clazz = null;
 		try {
 			clazz = Class.forName("net.minecraft.server.v1_4_5.NetworkWriterThread");
+		} catch (ClassNotFoundException e) {
+			//Libigot/Nover compatibility. Those two replace the classloader and as such forname fails on them. This may be temporary
+			//as we fix it in Libigot. For now, this will do.
+			try {
+				clazz = Class.forName("net.minecraft.server.NetworkWriterThread");
+			} catch (ClassNotFoundException e1) {
+				e.printStackTrace();
+			}
+		}
+		try {
 			a = clazz.getDeclaredField("a");
 			a.setAccessible(true);
 		} catch (Exception e) {
