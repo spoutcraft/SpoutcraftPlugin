@@ -41,7 +41,6 @@ import org.getspout.spout.Spout;
 import org.getspout.spout.player.SimpleFileManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.design.BlockDesign;
-import org.getspout.spoutapi.block.design.GenericBlockDesign;
 import org.getspout.spoutapi.io.FileUtil;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
@@ -49,7 +48,6 @@ import org.getspout.spoutapi.packet.PacketValidatePrecache;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PrecacheManager {
-	
 	private static HashMap<Plugin, Long> plugins = new HashMap<Plugin, Long>();
 	
 	public static void onPlayerJoin(final SpoutPlayer player) {
@@ -82,7 +80,7 @@ public class PrecacheManager {
 					if (block.getBlockDesign(i) != null) {
 						BlockDesign design = block.getBlockDesign(i);
 						long beforeCRC = -1;
-						File target = new File(getPluginCacheFolder(plugin), String.valueOf(i0)+".sbd");
+						File target = new File(getPluginCacheFolder(plugin), String.valueOf(i0) + ".sbd");
 						
 						if (!target.getParentFile().exists()) {
 							target.getParentFile().mkdirs();
@@ -103,7 +101,6 @@ public class PrecacheManager {
 							out.close();
 							
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						
@@ -119,7 +116,6 @@ public class PrecacheManager {
 					}
 					i++;
 				} while (i != 127);
-				
 			}
 		}
 		
@@ -144,7 +140,6 @@ public class PrecacheManager {
 		
 		if (urlCaches != null) {
 			for(String url : urlCaches) {
-				
 				try {
 					URL fileURL = new URL(url);
 					String fileName = url.substring( url.lastIndexOf('/')+1, url.length() );
@@ -187,12 +182,11 @@ public class PrecacheManager {
 			}
 		}
 		
-		if (changed == true) {
+		if (changed) {
 			//rebuild the zip
 			try {
 				buildPrecacheZip(plugin);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return;
 			}

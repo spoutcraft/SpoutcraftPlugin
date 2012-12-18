@@ -87,24 +87,10 @@ public class PlayerManager {
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);
 		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
 		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
-		//((SimpleFileManager)SpoutManager.getFileManager()).onPlayerJoin(player);
-		PrecacheManager.onPlayerJoin(player);
 		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
 		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player)));
-		
-		/*
-		for (CustomBlock block : MaterialData.getCustomBlocks()) {
-			byte i = -128;
-			do {
-				if (block.getBlockDesign(i) != null) {
-					player.sendPacket(new PacketCustomBlockDesign((short)block.getCustomId(), block.getBlockDesign(i), i));
-				}
-				i++;
-			} while (i != 127);
-		}
-		*/
 		player.updatePermissions();
-
+		PrecacheManager.onPlayerJoin(player);
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));
 		Bukkit.getServer().getPluginManager().callEvent(new SpoutCraftEnableEvent(player));
 		((SpoutCraftPlayer)player).updateWaypoints();

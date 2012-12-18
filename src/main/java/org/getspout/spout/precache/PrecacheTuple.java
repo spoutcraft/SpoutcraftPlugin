@@ -48,17 +48,4 @@ public class PrecacheTuple {
 	public long getCrc() {
 		return crc;
 	}
-	
-	public void setPlugin(String plugin) {
-		this.plugin = plugin;
-	}
-	
-	public void setVersion(String version) {
-		this.version = version;
-	}
-	
-	public void setCrc(long crc) {
-		this.crc = crc;
-	}
-	
 }

@@ -32,7 +32,6 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketRequestPrecache implements SpoutPacket {
-	
 	private String plugin;
 	
 	public PacketRequestPrecache() {
@@ -76,5 +75,4 @@ public class PacketRequestPrecache implements SpoutPacket {
 	public int getVersion() {
 		return 0;
 	}
-
 }
