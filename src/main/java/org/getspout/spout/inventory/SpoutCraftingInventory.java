@@ -72,7 +72,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 		net.minecraft.server.v1_4_5.ItemStack[] mcItems = this.inventory.getContents();
 
 		for (int j = 0; j < mcItems.length; j++) {
-			items[i + j] = CraftItemStack.asCraftMirror(mcItems[i]);
+			items[i + j] = CraftItemStack.asCraftMirror(mcItems[j]);
 		}
 
 		return items;
