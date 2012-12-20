@@ -23,6 +23,7 @@ import java.util.Arrays;
 
 import net.minecraft.server.v1_4_5.IInventory;
 import net.minecraft.server.v1_4_5.InventoryCrafting;
+import org.bukkit.craftbukkit.v1_4_5.inventory.CraftItemStack;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -59,19 +60,19 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 	}
 
 	@Override
-	public SpoutCraftItemStack[] getContents() {
-		SpoutCraftItemStack[] items = new SpoutCraftItemStack[getSize()];
+	public CraftItemStack[] getContents() {
+		CraftItemStack[] items = new CraftItemStack[getSize()];
 		net.minecraft.server.v1_4_5.ItemStack[] mcResultItems = this.result.getContents();
 
 		int i = 0;
 		for (i = 0; i < mcResultItems.length; i++ ) {
-			items[i] = SpoutCraftItemStack.fromItemStack(mcResultItems[i]);
+			items[i] = CraftItemStack.asCraftMirror(mcResultItems[i]);
 		}
 
 		net.minecraft.server.v1_4_5.ItemStack[] mcItems = this.inventory.getContents();
 
 		for (int j = 0; j < mcItems.length; j++) {
-			items[i + j] = SpoutCraftItemStack.fromItemStack(mcItems[j]);
+			items[i + j] = CraftItemStack.asCraftMirror(mcItems[i]);
 		}
 
 		return items;
@@ -83,16 +84,16 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 	}
 
 	@Override
-	public SpoutCraftItemStack getItem(int index) {
+	public CraftItemStack getItem(int index) {
 		if (index == 0) {
 			if (this.result.getItem(index) != null) {
-				return SpoutCraftItemStack.fromItemStack(this.result.getItem(index));
+				return CraftItemStack.asCraftMirror(this.result.getItem(index));
 			}
-			return new SpoutCraftItemStack(0, 1, (short)0);
+			return CraftItemStack.asCraftCopy(new ItemStack(0,1,(short)0));
 		} else if (this.inventory.getItem(index - this.result.getSize()) != null) {
-			return SpoutCraftItemStack.fromItemStack(this.inventory.getItem(index - this.result.getSize()));
+			return CraftItemStack.asCraftMirror(this.inventory.getItem(index - this.result.getSize()));
 		}
-		return new SpoutCraftItemStack(0, 1, (short)0);
+		return CraftItemStack.asCraftCopy(new ItemStack(0,1,(short)0));
 	}
 
 	@Override
@@ -101,28 +102,28 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			item = null;
 		}
 		if (index == 0) {
-			this.result.setItem(index, (item == null ? null : SpoutCraftItemStack.getCraftItemStack(item).getHandle()));
+			this.result.setItem(index, (item == null ? null : CraftItemStack.asNMSCopy(item)));
 		} else {
-			this.inventory.setItem((index - this.result.getSize()), (item == null ? null : SpoutCraftItemStack.getCraftItemStack(item).getHandle()));
+			this.inventory.setItem((index - this.result.getSize()), (item == null ? null : CraftItemStack.asNMSCopy(item)));
 		}
 	}
 
 	@Override
-	public SpoutCraftItemStack[] getMatrix() {
-		SpoutCraftItemStack[] items = new SpoutCraftItemStack[getSize()];
+	public CraftItemStack[] getMatrix() {
+		CraftItemStack[] items = new CraftItemStack[getSize()];
 		//net.minecraft.server.ItemStack[] matrix = this.inventory.getContents();
 
 		for (int i = 0; i < getSize(); i++ ) {
-			items[i] = SpoutCraftItemStack.fromItemStack(this.inventory.getItem(i));
+			items[i] = CraftItemStack.asCraftMirror(this.inventory.getItem(i));
 		}
 
 		return items;
 	}
 
 	@Override
-	public SpoutCraftItemStack getResult() {
+	public CraftItemStack getResult() {
 		net.minecraft.server.v1_4_5.ItemStack item = this.result.getItem(0);
-		return SpoutCraftItemStack.fromItemStack(item);
+		return CraftItemStack.asCraftMirror(item);
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			if (item == null || item.getTypeId() <= 0) {
 				mcItems[i] = null;
 			} else {
-				mcItems[i] = SpoutCraftItemStack.getCraftItemStack(item).getHandle();
+				mcItems[i] = CraftItemStack.asNMSCopy(item);
 			}
 		}
 	}
@@ -149,7 +150,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 		if (item == null || item.getTypeId() <= 0) {
 			contents[0] = null;
 		} else {
-			contents[0] = SpoutCraftItemStack.getCraftItemStack(item).getHandle();
+			contents[0] = CraftItemStack.asNMSCopy(item);
 		}
 	}
 }

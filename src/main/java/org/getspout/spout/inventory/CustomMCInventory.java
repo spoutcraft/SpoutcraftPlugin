@@ -28,6 +28,7 @@ import net.minecraft.server.v1_4_5.IInventory;
 import net.minecraft.server.v1_4_5.ItemStack;
 
 import org.bukkit.craftbukkit.v1_4_5.entity.CraftHumanEntity;
+import org.bukkit.craftbukkit.v1_4_5.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -42,8 +43,7 @@ public class CustomMCInventory implements IInventory {
 			if (items[i] == null || items[i].getTypeId() == 0) {
 				this.items[i] = null;
 			} else {
-				SpoutCraftItemStack item = SpoutCraftItemStack.getCraftItemStack(items[i]);
-				this.items[i] = item == null ? null : item.getHandle();
+				this.items[i] = CraftItemStack.asNMSCopy(items[i]);
 			}
 		}
 		this.name = name;
@@ -56,8 +56,7 @@ public class CustomMCInventory implements IInventory {
 			if (item == null || item.getTypeId() == 0) {
 				this.items[pos] = null;
 			} else {
-				SpoutCraftItemStack temp = SpoutCraftItemStack.getCraftItemStack(item);
-				this.items[pos] = temp == null ? null : temp.getHandle();
+				this.items[pos] = CraftItemStack.asNMSCopy(item);
 			}
 			pos++;
 		}

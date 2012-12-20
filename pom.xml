@@ -15,7 +15,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<currentYear>2012</currentYear>
-		<craftbukkitVersion>1.4.5-R0.3-SNAPSHOT</craftbukkitVersion>
+		<craftbukkitVersion>1.4.5-R1.1-SNAPSHOT</craftbukkitVersion>
 		<minecraftVersion>1.4.5</minecraftVersion>
 		<buildNumber>0</buildNumber>
 	</properties>

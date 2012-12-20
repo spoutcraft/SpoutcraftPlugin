@@ -55,6 +55,6 @@ public class SimpleSpoutShapelessRecipe extends SpoutShapelessRecipe implements 
 			data[i] = new net.minecraft.server.v1_4_5.ItemStack(id, 1, dmg);
 			i++;
 		}
-		CraftingManager.getInstance().registerShapelessRecipe(new CraftItemStack(getResult()).getHandle()/*Convert SpoutItemStack to MC ItemStack*/, data);
+		CraftingManager.getInstance().registerShapelessRecipe(CraftItemStack.asNMSCopy(getResult())/*Convert SpoutItemStack to MC ItemStack*/, data);
 	}
 }

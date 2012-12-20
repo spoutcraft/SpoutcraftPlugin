@@ -69,6 +69,6 @@ public class SimpleSpoutShapedRecipe extends SpoutShapedRecipe implements SpoutR
 			data[i] = new net.minecraft.server.v1_4_5.ItemStack(id, 1, dmg);
 			i++;
 		}
-		CraftingManager.getInstance().registerShapedRecipe(new CraftItemStack(getResult()).getHandle()/*Convert SpoutItemStack to MC ItemStack*/, data);
+		CraftingManager.getInstance().registerShapedRecipe(CraftItemStack.asNMSCopy(getResult())/*Convert SpoutItemStack to MC ItemStack*/, data);
 	}
 }
