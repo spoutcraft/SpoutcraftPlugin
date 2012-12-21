@@ -21,9 +21,9 @@ package org.getspout.spout.inventory;
 
 import java.util.ArrayList;
 
-import net.minecraft.server.v1_4_5.CraftingManager;
+import net.minecraft.server.v1_4_6.CraftingManager;
 
-import org.bukkit.craftbukkit.v1_4_5.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.inventory.SpoutShapelessRecipe;
@@ -52,7 +52,7 @@ public class SimpleSpoutShapelessRecipe extends SpoutShapelessRecipe implements 
 		for (Material mdata : ingred) {
 			int id = mdata.getRawId();
 			int dmg = mdata.getRawData();
-			data[i] = new net.minecraft.server.v1_4_5.ItemStack(id, 1, dmg);
+			data[i] = new net.minecraft.server.v1_4_6.ItemStack(id, 1, dmg);
 			i++;
 		}
 		CraftingManager.getInstance().registerShapelessRecipe(CraftItemStack.asNMSCopy(getResult())/*Convert SpoutItemStack to MC ItemStack*/, data);

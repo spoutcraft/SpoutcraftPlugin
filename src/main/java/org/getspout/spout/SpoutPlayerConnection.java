@@ -26,20 +26,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 
-import net.minecraft.server.v1_4_5.EntityPlayer;
-import net.minecraft.server.v1_4_5.INetworkManager;
-import net.minecraft.server.v1_4_5.IntHashMap;
-import net.minecraft.server.v1_4_5.ItemStack;
-import net.minecraft.server.v1_4_5.MinecraftServer;
-import net.minecraft.server.v1_4_5.NetServerHandler;
-import net.minecraft.server.v1_4_5.NetworkManager;
-import net.minecraft.server.v1_4_5.Packet;
-import net.minecraft.server.v1_4_5.Packet14BlockDig;
-import net.minecraft.server.v1_4_5.Packet18ArmAnimation;
-import net.minecraft.server.v1_4_5.Packet20NamedEntitySpawn;
-import net.minecraft.server.v1_4_5.Packet24MobSpawn;
-import net.minecraft.server.v1_4_5.Packet250CustomPayload;
-import net.minecraft.server.v1_4_5.Packet3Chat;
+import net.minecraft.server.v1_4_6.EntityPlayer;
+import net.minecraft.server.v1_4_6.INetworkManager;
+import net.minecraft.server.v1_4_6.IntHashMap;
+import net.minecraft.server.v1_4_6.ItemStack;
+import net.minecraft.server.v1_4_6.MinecraftServer;
+import net.minecraft.server.v1_4_6.PlayerConnection;
+import net.minecraft.server.v1_4_6.NetworkManager;
+import net.minecraft.server.v1_4_6.Packet;
+import net.minecraft.server.v1_4_6.Packet14BlockDig;
+import net.minecraft.server.v1_4_6.Packet18ArmAnimation;
+import net.minecraft.server.v1_4_6.Packet20NamedEntitySpawn;
+import net.minecraft.server.v1_4_6.Packet24MobSpawn;
+import net.minecraft.server.v1_4_6.Packet250CustomPayload;
+import net.minecraft.server.v1_4_6.Packet3Chat;
 import org.getspout.spout.netcache.ChunkNetCache;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
@@ -50,18 +50,18 @@ import org.getspout.spoutapi.gui.Label;
 import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SpoutNetServerHandler extends NetServerHandler {
+public class SpoutPlayerConnection extends PlayerConnection {
 	protected Field entityListField = null;
 	protected ItemStack lastOverrideDisplayStack = null;
 	private final ChunkNetCache chunkNetCache = new ChunkNetCache();
 
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];
 
-	public SpoutNetServerHandler(MinecraftServer minecraftserver, INetworkManager networkmanager, EntityPlayer entityplayer) {
+	public SpoutPlayerConnection(MinecraftServer minecraftserver, INetworkManager networkmanager, EntityPlayer entityplayer) {
 		super(minecraftserver, networkmanager, entityplayer);
 		// Cache the field for later use
 		try {
-			entityListField = NetServerHandler.class.getDeclaredField("s");
+			entityListField = PlayerConnection.class.getDeclaredField("s");
 			entityListField.setAccessible(true);
 		} catch (Exception e) {
 			e.printStackTrace();

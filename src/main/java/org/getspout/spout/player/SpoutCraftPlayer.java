@@ -30,19 +30,19 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.minecraft.server.v1_4_5.ContainerPlayer;
-import net.minecraft.server.v1_4_5.DedicatedServer;
-import net.minecraft.server.v1_4_5.Entity;
-import net.minecraft.server.v1_4_5.EntityPlayer;
-import net.minecraft.server.v1_4_5.IInventory;
-import net.minecraft.server.v1_4_5.INetworkManager;
-import net.minecraft.server.v1_4_5.MinecraftServer;
-import net.minecraft.server.v1_4_5.NetServerHandler;
-import net.minecraft.server.v1_4_5.NetworkManager;
-import net.minecraft.server.v1_4_5.ServerConnection;
-import net.minecraft.server.v1_4_5.TileEntityDispenser;
-import net.minecraft.server.v1_4_5.TileEntityFurnace;
-import net.minecraft.server.v1_4_5.TileEntitySign;
+import net.minecraft.server.v1_4_6.ContainerPlayer;
+import net.minecraft.server.v1_4_6.DedicatedServer;
+import net.minecraft.server.v1_4_6.Entity;
+import net.minecraft.server.v1_4_6.EntityPlayer;
+import net.minecraft.server.v1_4_6.IInventory;
+import net.minecraft.server.v1_4_6.INetworkManager;
+import net.minecraft.server.v1_4_6.MinecraftServer;
+import net.minecraft.server.v1_4_6.PlayerConnection;
+import net.minecraft.server.v1_4_6.NetworkManager;
+import net.minecraft.server.v1_4_6.ServerConnection;
+import net.minecraft.server.v1_4_6.TileEntityDispenser;
+import net.minecraft.server.v1_4_6.TileEntityFurnace;
+import net.minecraft.server.v1_4_6.TileEntitySign;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -51,10 +51,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.v1_4_5.CraftServer;
-import org.bukkit.craftbukkit.v1_4_5.CraftWorld;
-import org.bukkit.craftbukkit.v1_4_5.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_4_5.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_4_6.CraftServer;
+import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_6.inventory.CraftInventory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerVelocityEvent;
@@ -69,7 +69,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import org.getspout.spout.PacketCompressionThread;
-import org.getspout.spout.SpoutNetServerHandler;
+import org.getspout.spout.SpoutPlayerConnection;
 import org.getspout.spout.SpoutPermissibleBase;
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.config.Waypoint;
@@ -161,8 +161,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
 		createInventory(null);
-		if (entity.netServerHandler != null) {
-			CraftPlayer player = entity.netServerHandler.getPlayer();
+		if (entity.playerConnection != null) {
+			CraftPlayer player = entity.playerConnection.getPlayer();
 			perm = new SpoutPermissibleBase(player.addAttachment(Bukkit.getServer().getPluginManager().getPlugin("Spout")).getPermissible());
 			perm.recalculatePermissions();
 
@@ -653,7 +653,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public PlayerInformation getInformation() {
-		return SpoutManager.getPlayerManager().getPlayerInfo(this);
+		return SpoutManager.getPlayerChunkMap().getPlayerInfo(this);
 	}
 
 	@Override
@@ -837,7 +837,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 					return;
 				}
 			}
-			getNetServerHandler().sendPacket(new CustomPacket(packet));
+			getPlayerConnection().sendPacket(new CustomPacket(packet));
 		}
 	}
 
@@ -847,7 +847,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			throw new IllegalArgumentException("Packet not of type MCCraftPacket");
 		}
 		MCCraftPacket p = (MCCraftPacket) packet;
-		getHandle().netServerHandler.sendPacket(p.getPacket());
+		getHandle().playerConnection.sendPacket(p.getPacket());
 	}
 
 	@Override
@@ -856,8 +856,8 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			throw new IllegalArgumentException("Packet not of type MCCraftPacket");
 		}
 		MCCraftPacket p = (MCCraftPacket) packet;
-		if (getHandle().netServerHandler instanceof SpoutNetServerHandler) {
-			getNetServerHandler().sendImmediatePacket(p.getPacket());
+		if (getHandle().playerConnection instanceof SpoutPlayerConnection) {
+			getPlayerConnection().sendImmediatePacket(p.getPacket());
 		} else {
 			sendPacket(packet);
 		}
@@ -886,7 +886,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public void updateEntitySkins(List<LivingEntity> entities) {
 		PlayerInformation info = getInformation();
-		PlayerInformation global = SpoutManager.getPlayerManager().getGlobalInfo();
+		PlayerInformation global = SpoutManager.getPlayerChunkMap().getGlobalInfo();
 		for (LivingEntity le : entities) {
 			for (EntitySkinType type : EntitySkinType.values()) {
 				String skin = null;
@@ -909,7 +909,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	public void updateEntitySkins(LivingEntity entity) {
 		PlayerInformation info = getInformation();
-		PlayerInformation global = SpoutManager.getPlayerManager()
+		PlayerInformation global = SpoutManager.getPlayerChunkMap()
 				.getGlobalInfo();
 		for (EntitySkinType type : EntitySkinType.values()) {
 			String skin = null;
@@ -1146,11 +1146,11 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 	}
 
-	public SpoutNetServerHandler getNetServerHandler() {
-		if (!(getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
-			updateNetServerHandler(this);
+	public SpoutPlayerConnection getPlayerConnection() {
+		if (!(getHandle().playerConnection instanceof SpoutPlayerConnection)) {
+			updatePlayerConnection(this);
 		}
-		return (SpoutNetServerHandler) getHandle().netServerHandler;
+		return (SpoutPlayerConnection) getHandle().playerConnection;
 	}
 
 	public int getBuildVersion() {
@@ -1203,7 +1203,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 
 		// Do this last!
-		getNetServerHandler().syncFlushPacketQueue();
+		getPlayerConnection().syncFlushPacketQueue();
 	}
 
 	public void doPostPlayerChangeWorld() {
@@ -1221,9 +1221,9 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	/* Non Interface public static methods */
-	public static boolean setNetServerHandler(INetworkManager nm, NetServerHandler nsh) {
+	public static boolean setPlayerConnection(INetworkManager nm, PlayerConnection nsh) {
 		try {
-			Field p = NetworkManager.class.getDeclaredField("packetListener");
+			Field p = NetworkManager.class.getDeclaredField("connection");
 			p.setAccessible(true);
 			p.set(nm, nsh);
 		} catch (NoSuchFieldException e) {
@@ -1239,45 +1239,45 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		return true;
 	}
 
-	public static boolean resetNetServerHandler(Player player) {
+	public static boolean resetPlayerConnection(Player player) {
 		CraftPlayer cp = (CraftPlayer) player;
 		CraftServer server = (CraftServer) Bukkit.getServer();
 
-		if (cp.getHandle().netServerHandler instanceof SpoutNetServerHandler) {
-			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
-			/*Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutNetServerHandler) cp.getHandle().netServerHandler).getChunkUpdateQueue();
+		if (cp.getHandle().playerConnection instanceof SpoutPlayerConnection) {
+			PlayerConnection oldHandler = cp.getHandle().playerConnection;
+			/*Set<ChunkCoordIntPair> chunkUpdateQueue = ((SpoutPlayerConnection) cp.getHandle().playerConnection).getChunkUpdateQueue();
 			for (ChunkCoordIntPair c : chunkUpdateQueue) {
 			cp.getHandle().chunkCoordIntPairQueue.add(c);
 			}
-			((SpoutNetServerHandler) cp.getHandle().netServerHandler).flushUnloadQueue();*/
-			cp.getHandle().netServerHandler.a();
+			((SpoutPlayerConnection) cp.getHandle().playerConnection).flushUnloadQueue();*/
+			cp.getHandle().playerConnection.a();
 			Location loc = player.getLocation();
-			NetServerHandler handler = new NetServerHandler(MinecraftServer.getServer(), cp.getHandle().netServerHandler.networkManager, cp.getHandle());
+			PlayerConnection handler = new PlayerConnection(MinecraftServer.getServer(), cp.getHandle().playerConnection.networkManager, cp.getHandle());
 			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-			cp.getHandle().netServerHandler = handler;
-			INetworkManager nm = cp.getHandle().netServerHandler.networkManager;
-			setNetServerHandler(nm, cp.getHandle().netServerHandler);
+			cp.getHandle().playerConnection = handler;
+			INetworkManager nm = cp.getHandle().playerConnection.networkManager;
+			setPlayerConnection(nm, cp.getHandle().playerConnection);
 			oldHandler.disconnected = true;
 			return true;
 		}
 		return false;
 	}
 
-	public static boolean updateNetServerHandler(Player player) {
+	public static boolean updatePlayerConnection(Player player) {
 		CraftPlayer cp = (CraftPlayer) player;
 		CraftServer server = (CraftServer) Bukkit.getServer();
-		if (!(cp.getHandle().netServerHandler instanceof SpoutNetServerHandler)) {
-			NetServerHandler oldHandler = cp.getHandle().netServerHandler;
+		if (!(cp.getHandle().playerConnection instanceof SpoutPlayerConnection)) {
+			PlayerConnection oldHandler = cp.getHandle().playerConnection;
 			Location loc = player.getLocation();
-			SpoutNetServerHandler handler = new SpoutNetServerHandler(MinecraftServer.getServer(), cp.getHandle().netServerHandler.networkManager, cp.getHandle());
+			SpoutPlayerConnection handler = new SpoutPlayerConnection(MinecraftServer.getServer(), cp.getHandle().playerConnection.networkManager, cp.getHandle());
 			/*for (Object o : cp.getHandle().playerChunkCoordIntPairs) {
 			ChunkCoordIntPair c = (ChunkCoordIntPair) o;
 			handler.addActiveChunk(c);
 			}*/
 			handler.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-			cp.getHandle().netServerHandler = handler;
-			INetworkManager nm = cp.getHandle().netServerHandler.networkManager;
-			setNetServerHandler(nm, cp.getHandle().netServerHandler);
+			cp.getHandle().playerConnection = handler;
+			INetworkManager nm = cp.getHandle().playerConnection.networkManager;
+			setPlayerConnection(nm, cp.getHandle().playerConnection);
 			Field handlerList = null;
 			try {
 				handlerList = ServerConnection.class.getDeclaredField("d");

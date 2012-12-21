@@ -27,10 +27,10 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import net.minecraft.server.v1_4_5.NetHandler;
-import net.minecraft.server.v1_4_5.Packet;
+import net.minecraft.server.v1_4_6.Connection;
+import net.minecraft.server.v1_4_6.Packet;
 
-import org.getspout.spout.SpoutNetServerHandler;
+import org.getspout.spout.SpoutPlayerConnection;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
@@ -130,9 +130,9 @@ public class CustomPacket extends Packet {
 	}
 
 	@Override
-	public void handle(NetHandler netHandler) {
-		if (netHandler instanceof SpoutNetServerHandler) {
-			SpoutNetServerHandler handler = (SpoutNetServerHandler) netHandler;
+	public void handle(Connection connection) {
+		if (connection instanceof SpoutPlayerConnection) {
+			SpoutPlayerConnection handler = (SpoutPlayerConnection) connection;
 			SpoutPlayer player = SpoutManager.getPlayerFromId(handler.getPlayer().getEntityId());
 			if (player != null) {
 				if (success) {

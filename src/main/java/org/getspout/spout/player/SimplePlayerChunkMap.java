@@ -32,11 +32,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import org.getspout.spoutapi.event.spout.SpoutcraftBuildSetEvent;
+import org.getspout.spoutapi.player.PlayerChunkMap;
 import org.getspout.spoutapi.player.PlayerInformation;
-import org.getspout.spoutapi.player.PlayerManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class SimplePlayerManager implements PlayerManager {
+public class SimplePlayerChunkMap implements PlayerChunkMap {
 	HashMap<String, PlayerInformation> infoMap = new HashMap<String, PlayerInformation>();
 	PlayerInformation globalInfo = new SimplePlayerInformation();
 	TIntObjectHashMap<WeakReference<Entity>> entityIdMap = new TIntObjectHashMap<WeakReference<Entity>>();

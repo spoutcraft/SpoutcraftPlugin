@@ -32,7 +32,7 @@ For those using [Maven](http://maven.apache.org/download.html) to manage project
     <dependency>
         <groupId>org.getspout</groupId>
         <artifactId>spoutplugin</artifactId>
-        <version>1.4.3-R0.2-SNAPSHOT</version>
+        <version>1.4.6-R0.1-SNAPSHOT</version>
     </dependency>
 
 If you do not already have repo.spout.org in your repository list, you will need to add this also:

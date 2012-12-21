@@ -19,7 +19,7 @@
  */
 package org.getspout.spout;
 
-import net.minecraft.server.v1_4_5.Packet18ArmAnimation;
+import net.minecraft.server.v1_4_6.Packet18ArmAnimation;
 import org.getspout.spout.listeners.SpoutBlockListener;
 import org.getspout.spout.listeners.SpoutPlayerListener;
 import org.getspout.spout.listeners.PluginListener;
@@ -54,7 +54,7 @@ import org.getspout.spout.packet.CustomPacket;
 import org.getspout.spout.packet.SimplePacketManager;
 import org.getspout.spout.player.SimpleBiomeManager;
 import org.getspout.spout.player.SimpleFileManager;
-import org.getspout.spout.player.SimplePlayerManager;
+import org.getspout.spout.player.SimplePlayerChunkMap;
 import org.getspout.spout.player.SimpleSkyManager;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spout.sound.SimpleSoundManager;
@@ -91,7 +91,7 @@ public class Spout extends JavaPlugin {
 		SpoutManager.getInstance().setSkyManager(new SimpleSkyManager());
 		SpoutManager.getInstance().setInventoryBuilder(new SpoutInventoryBuilder());
 		SpoutManager.getInstance().setPacketManager(new SimplePacketManager());
-		SpoutManager.getInstance().setPlayerManager(new SimplePlayerManager());
+		SpoutManager.getInstance().setPlayerChunkMap(new SimplePlayerChunkMap());
 		SpoutManager.getInstance().setChunkDataManager(new SimpleChunkDataManager());
 		SpoutManager.getInstance().setBiomeManager(new SimpleBiomeManager());
 		SpoutManager.getInstance().setFileManager(new SimpleFileManager());
@@ -112,7 +112,7 @@ public class Spout extends JavaPlugin {
 		CustomMCBlock.resetBlocks();
 		((SimpleMaterialManager) SpoutManager.getMaterialManager()).reset();
 		((SimpleSkyManager) SpoutManager.getSkyManager()).reset();
-		((SimplePlayerManager) SpoutManager.getPlayerManager()).onPluginDisable();
+		((SimplePlayerChunkMap) SpoutManager.getPlayerChunkMap()).onPluginDisable();
 		Player[] online = getServer().getOnlinePlayers();
 		for (Player player : online) {
 			try {
@@ -199,12 +199,12 @@ public class Spout extends JavaPlugin {
 			invListener = new InventoryListener(this);
 
 			for (SpoutPlayer player : org.getspout.spoutapi.Spout.getServer().getOnlinePlayers()) {
-				SpoutCraftPlayer.resetNetServerHandler(player);
-				SpoutCraftPlayer.updateNetServerHandler(player);
+				SpoutCraftPlayer.resetPlayerConnection(player);
+				SpoutCraftPlayer.updatePlayerConnection(player);
 				SpoutCraftPlayer.updateBukkitEntity(player);
 				authenticate(player);
 				playerListener.manager.onPlayerJoin(player);
-				((SimplePlayerManager) SpoutManager.getPlayerManager()).onPlayerJoin(player);
+				((SimplePlayerChunkMap) SpoutManager.getPlayerChunkMap()).onPlayerJoin(player);
 				player.setPreCachingComplete(true); // Already done if we are already online!
 				synchronized (playersOnline) {
 					playersOnline.add(player);
@@ -212,7 +212,7 @@ public class Spout extends JavaPlugin {
 			}
 
 			SpoutCraftChunk.replaceAllBukkitChunks();
-			((SimplePlayerManager) SpoutManager.getPlayerManager()).onPluginEnable();
+			((SimplePlayerChunkMap) SpoutManager.getPlayerChunkMap()).onPluginEnable();
 
 			CustomItemSpade.replaceSpades();
 			CustomItemPickaxe.replacePickaxes();
@@ -300,7 +300,7 @@ public class Spout extends JavaPlugin {
 	public void authenticate(Player player) {
 			Packet18ArmAnimation packet = new Packet18ArmAnimation();
 			packet.a = -42;
-			((SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(player)).getNetServerHandler().sendImmediatePacket(packet);
+			((SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(player)).getPlayerConnection().sendImmediatePacket(packet);
 	}
 
 	public void warnMessage(String minecraftVersion, String bukkitVersion) {

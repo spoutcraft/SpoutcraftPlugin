@@ -23,6 +23,7 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
 import org.getspout.spout.config.ConfigReader;
 import org.getspout.spout.config.PermHandler;
 import org.getspout.spout.inventory.SimpleMaterialManager;
@@ -43,7 +44,7 @@ import org.getspout.spoutapi.packet.PacketServerPlugins;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class PlayerManager {
+public class PlayerChunkMap {
 	private HashMap<String, Integer> timer = new HashMap<String, Integer>();
 	HashMap<String, PlayerInformation> infoMap = new HashMap<String, PlayerInformation>();
 

@@ -6,7 +6,7 @@
 	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
-	<version>1.4.5-R0.3-SNAPSHOT</version>
+	<version>1.4.6-R0.1-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
 	<description>SpoutPlugin is an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit.</description>
@@ -15,8 +15,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<currentYear>2012</currentYear>
-		<craftbukkitVersion>1.4.5-R1.1-SNAPSHOT</craftbukkitVersion>
-		<minecraftVersion>1.4.5</minecraftVersion>
+		<craftbukkitVersion>1.4.6-R0.1-SNAPSHOT</craftbukkitVersion>
+		<minecraftVersion>1.4.6</minecraftVersion>
 		<buildNumber>0</buildNumber>
 	</properties>
 

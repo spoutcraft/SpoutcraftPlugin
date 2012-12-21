@@ -21,16 +21,16 @@ package org.getspout.spout.item.mcitem;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_4_5.EntityHuman;
-import net.minecraft.server.v1_4_5.EnumAnimation;
-import net.minecraft.server.v1_4_5.INetworkManager;
-import net.minecraft.server.v1_4_5.Item;
-import net.minecraft.server.v1_4_5.ItemStack;
-import net.minecraft.server.v1_4_5.NetworkManager;
-import net.minecraft.server.v1_4_5.World;
+import net.minecraft.server.v1_4_6.EntityHuman;
+import net.minecraft.server.v1_4_6.EnumAnimation;
+import net.minecraft.server.v1_4_6.INetworkManager;
+import net.minecraft.server.v1_4_6.Item;
+import net.minecraft.server.v1_4_6.ItemStack;
+import net.minecraft.server.v1_4_6.NetworkManager;
+import net.minecraft.server.v1_4_6.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_4_5.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import org.getspout.spout.Spout;
@@ -49,7 +49,7 @@ public class CustomItemFlint extends Item {
 		b(6, 0).b("flint");
 		Class clazz = null;
 		try {
-			clazz = Class.forName("net.minecraft.server.v1_4_5.NetworkWriterThread");
+			clazz = Class.forName("net.minecraft.server.v1_4_6.NetworkWriterThread");
 		} catch (ClassNotFoundException e) {
 			//Libigot/Nover compatibility. Those two replace the classloader and as such forname fails on them. This may be temporary
 			//as we fix it in Libigot. For now, this will do.
@@ -78,12 +78,12 @@ public class CustomItemFlint extends Item {
 	}
 
 	@Override
-	public EnumAnimation d_(ItemStack itemstack) {
+	public EnumAnimation b_(ItemStack itemstack) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			return EnumAnimation.b;
 		}
-		return super.d_(itemstack);
+		return super.b_(itemstack);
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class CustomItemFlint extends Item {
 			if (!(p instanceof CraftPlayer)) {
 				continue;
 			}
-			INetworkManager n = ((CraftPlayer) p).getHandle().netServerHandler.networkManager;
+			INetworkManager n = ((CraftPlayer) p).getHandle().playerConnection.networkManager;
 			if (n == nm) {
 				return SpoutManager.getPlayer(p);
 			}
@@ -150,7 +150,7 @@ class FoodUpdate implements Runnable {
 
 	@Override
 	public void run() {
-		if (human.f(false)) {
+		if (human.g(false)) {
 			human.a(item, 32);
 		}
 	}

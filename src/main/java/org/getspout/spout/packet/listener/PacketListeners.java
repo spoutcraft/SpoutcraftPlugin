@@ -22,7 +22,7 @@ package org.getspout.spout.packet.listener;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
-import net.minecraft.server.v1_4_5.Packet;
+import net.minecraft.server.v1_4_6.Packet;
 
 import org.bukkit.entity.Player;
 
@@ -191,8 +191,8 @@ public class PacketListeners {
 
 		AtomicReference<PacketListener[]> listenerReference = (AtomicReference<PacketListener[]>) listeners[packetId];
 
-		for (PacketListener packetListener : listenerReference.get()) {
-			if (packetListener == listener) {
+		for (PacketListener connection : listenerReference.get()) {
+			if (connection == listener) {
 				return true;
 			}
 		}

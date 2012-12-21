@@ -31,7 +31,7 @@ import org.getspout.spoutapi.keyboard.KeyBindingManager;
 import org.getspout.spoutapi.packet.PacketManager;
 import org.getspout.spoutapi.player.BiomeManager;
 import org.getspout.spoutapi.player.FileManager;
-import org.getspout.spoutapi.player.PlayerManager;
+import org.getspout.spoutapi.player.PlayerChunkMap;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.SoundManager;
@@ -44,7 +44,7 @@ public class SpoutManager {
 	private BiomeManager biomeManager = null;
 	private InventoryBuilder inventoryBuilder = null;
 	private PacketManager packetManager = null;
-	private PlayerManager playerManager = null;
+	private PlayerChunkMap playerChunkMap = null;
 	private ChunkDataManager chunkDataManager = null;
 	private FileManager fileManager = null;
 	private KeyBindingManager keyBindingManager = null;
@@ -171,9 +171,9 @@ public class SpoutManager {
 		}
 	}
 
-	public void setPlayerManager(PlayerManager manager) {
-		if (playerManager == null) {
-			playerManager = manager;
+	public void setPlayerChunkMap(PlayerChunkMap manager) {
+		if (playerChunkMap == null) {
+			playerChunkMap = manager;
 		}
 	}
 
@@ -209,7 +209,7 @@ public class SpoutManager {
 	 * @return SpoutPlayer
 	 */
 	public static SpoutPlayer getPlayerFromId(int entityId) {
-		return getInstance().playerManager.getPlayer(entityId);
+		return getInstance().playerChunkMap.getPlayer(entityId);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class SpoutManager {
 	 * @return SpoutPlayer
 	 */
 	public static SpoutPlayer getPlayerFromId(UUID id) {
-		return getInstance().playerManager.getPlayer(id);
+		return getInstance().playerChunkMap.getPlayer(id);
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class SpoutManager {
 	 * @return Entity
 	 */
 	public static Entity getEntityFromId(int entityId) {
-		return getInstance().playerManager.getEntity(entityId);
+		return getInstance().playerChunkMap.getEntity(entityId);
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class SpoutManager {
 	 * @return Entity
 	 */
 	public static Entity getEntityFromId(UUID id) {
-		return getInstance().playerManager.getEntity(id);
+		return getInstance().playerChunkMap.getEntity(id);
 	}
 
 	/**
@@ -245,7 +245,7 @@ public class SpoutManager {
 	 * @return SpoutPlayer
 	 */
 	public static SpoutPlayer getPlayer(Player player) {
-		return getInstance().playerManager.getPlayer(player);
+		return getInstance().playerChunkMap.getPlayer(player);
 	}
 
 	/**
@@ -253,14 +253,14 @@ public class SpoutManager {
 	 * @return online players
 	 */
 	public static SpoutPlayer[] getOnlinePlayers() {
-		return getInstance().playerManager.getOnlinePlayers();
+		return getInstance().playerChunkMap.getOnlinePlayers();
 	}
 
 	/**
 	 * Gets the player manager
 	 * @return player manager
 	 */
-	public static PlayerManager getPlayerManager() {
-		return getInstance().playerManager;
+	public static PlayerChunkMap getPlayerChunkMap() {
+		return getInstance().playerChunkMap;
 	}
 }

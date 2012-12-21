@@ -33,7 +33,7 @@ import gnu.trove.map.hash.TIntIntHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import net.minecraft.server.v1_4_5.Block;
+import net.minecraft.server.v1_4_6.Block;
 import org.getspout.spout.block.mcblock.WrappedMCBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;

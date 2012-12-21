@@ -29,25 +29,25 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import net.minecraft.server.v1_4_5.Block;
-import net.minecraft.server.v1_4_5.BlockButton;
-import net.minecraft.server.v1_4_5.BlockDiode;
-import net.minecraft.server.v1_4_5.BlockHalfTransparant;
-import net.minecraft.server.v1_4_5.BlockMinecartTrack;
-import net.minecraft.server.v1_4_5.BlockPiston;
-import net.minecraft.server.v1_4_5.BlockPumpkin;
-import net.minecraft.server.v1_4_5.BlockRedstoneLamp;
-import net.minecraft.server.v1_4_5.BlockRedstoneOre;
-import net.minecraft.server.v1_4_5.BlockRedstoneTorch;
-import net.minecraft.server.v1_4_5.BlockStem;
-import net.minecraft.server.v1_4_5.BlockStepAbstract;
-import net.minecraft.server.v1_4_5.Entity;
-import net.minecraft.server.v1_4_5.EntityHuman;
-import net.minecraft.server.v1_4_5.EntityPlayer;
-import net.minecraft.server.v1_4_5.EnumMobType;
-import net.minecraft.server.v1_4_5.IBlockAccess;
-import net.minecraft.server.v1_4_5.Material;
-import net.minecraft.server.v1_4_5.World;
+import net.minecraft.server.v1_4_6.Block;
+import net.minecraft.server.v1_4_6.BlockButton;
+import net.minecraft.server.v1_4_6.BlockDiode;
+import net.minecraft.server.v1_4_6.BlockHalfTransparant;
+import net.minecraft.server.v1_4_6.BlockMinecartTrack;
+import net.minecraft.server.v1_4_6.BlockPiston;
+import net.minecraft.server.v1_4_6.BlockPumpkin;
+import net.minecraft.server.v1_4_6.BlockRedstoneLamp;
+import net.minecraft.server.v1_4_6.BlockRedstoneOre;
+import net.minecraft.server.v1_4_6.BlockRedstoneTorch;
+import net.minecraft.server.v1_4_6.BlockStem;
+import net.minecraft.server.v1_4_6.BlockStepAbstract;
+import net.minecraft.server.v1_4_6.Entity;
+import net.minecraft.server.v1_4_6.EntityHuman;
+import net.minecraft.server.v1_4_6.EntityPlayer;
+import net.minecraft.server.v1_4_6.EnumMobType;
+import net.minecraft.server.v1_4_6.IBlockAccess;
+import net.minecraft.server.v1_4_6.Material;
+import net.minecraft.server.v1_4_6.World;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -335,7 +335,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_4_5.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_4_6.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("c") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, int.class})) {
 			World world = (World) args[0];
@@ -345,7 +345,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			int face = (Integer) args[4];
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_4_5.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_4_6.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("b") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, Entity.class})) {
 			World world = (World) args[0];

@@ -43,11 +43,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
-import org.getspout.spout.PlayerManager;
-import org.getspout.spout.Spout;
 
+import org.getspout.spout.PlayerChunkMap;
+import org.getspout.spout.Spout;
 import org.getspout.spout.inventory.SimpleMaterialManager;
-import org.getspout.spout.player.SimplePlayerManager;
+import org.getspout.spout.player.SimplePlayerChunkMap;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -59,7 +59,7 @@ import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutPlayerListener implements Listener {
-	public final PlayerManager manager = new PlayerManager();
+	public final PlayerChunkMap manager = new PlayerChunkMap();
 
 	public SpoutPlayerListener(Spout plugin) {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
@@ -68,13 +68,13 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerJoin(final PlayerJoinEvent event) {
 		if (!event.getPlayer().getClass().equals(SpoutCraftPlayer.class)) {
-			SpoutCraftPlayer.updateNetServerHandler(event.getPlayer());
+			SpoutCraftPlayer.updatePlayerConnection(event.getPlayer());
 			SpoutCraftPlayer.updateBukkitEntity(event.getPlayer());
 			updatePlayerEvent(event);
 			Spout.getInstance().authenticate(event.getPlayer());
 			SpoutCraftPlayer player = (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer());
 		}
-		((SimplePlayerManager)SpoutManager.getPlayerManager()).onPlayerJoin(event.getPlayer());
+		((SimplePlayerChunkMap)SpoutManager.getPlayerChunkMap()).onPlayerJoin(event.getPlayer());
 		manager.onPlayerJoin(event.getPlayer());
 		synchronized(Spout.getInstance().getOnlinePlayers()) {
 			Spout.getInstance().getOnlinePlayers().add((SpoutPlayer) event.getPlayer());

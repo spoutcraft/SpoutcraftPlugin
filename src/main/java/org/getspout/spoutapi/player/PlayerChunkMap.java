@@ -24,7 +24,7 @@ import java.util.UUID;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public interface PlayerManager {
+public interface PlayerChunkMap {
 	public SpoutPlayer getPlayer(Player player);
 
 	public SpoutPlayer getPlayer(UUID id);
