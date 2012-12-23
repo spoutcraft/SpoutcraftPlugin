@@ -610,7 +610,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	/**
 	 * Sets the overhead title for the player.
 	 * <p/>
-	 * Note: '/n' or "/n" in the title will create a new line. You may use as many lines in a title as you desire.
+	 * Note: '\n' in the title will create a new line. You may use as many lines in a title as you desire.
 	 * <p/>
 	 * Note: You can color titles with the {@link org.bukkit#ChatColor} colors.
 	 * @param title to set overhead.
@@ -620,7 +620,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	/**
 	 * Sets the overhead title for the player, only visible to the viewingPlayer.
 	 * <p/>
-	 * Note: '/n' or "/n" in the title will create a new line. You may use as many lines in a title as you desire.
+	 * Note: '\n' in the title will create a new line. You may use as many lines in a title as you desire.
 	 * <p/>
 	 * Note: You can color titles with the {@link org.bukkit#ChatColor} colors.
 	 * @param viewingPlayer that this title is visible to
