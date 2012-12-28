@@ -309,7 +309,6 @@ public class SpoutPlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerPickupItem(PlayerPickupItemEvent e) {
-		Bukkit.getLogger().info(e.getItem().getItemStack().toString());
 		SpoutItemStack sis = new SpoutItemStack(e.getItem().getItemStack());
 		if (!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem()) {
 			CustomItem ci = (CustomItem)sis.getMaterial();
