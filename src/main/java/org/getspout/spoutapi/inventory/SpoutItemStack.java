@@ -20,6 +20,7 @@
 package org.getspout.spoutapi.inventory;
 
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import org.getspout.spoutapi.material.item.GenericCustomTool;
 import org.getspout.spoutapi.material.CustomBlock;
@@ -29,7 +30,7 @@ import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
 
 public class SpoutItemStack extends ItemStack {
-	public SpoutItemStack(int typeId, int amount, short data) {
+	public SpoutItemStack(int typeId, int amount, short data, ItemMeta meta) {
 		super(typeId, amount, data);
 		Material m = getMaterial();
 		if (m instanceof GenericCustomTool) {
@@ -40,27 +41,30 @@ public class SpoutItemStack extends ItemStack {
 				addUnsafeEnchantment(SpoutEnchantment.DURABILITY, 0);
 			}
 		}
+		if (meta != null) {
+			super.setItemMeta(meta);
+		}
 	}
 
 	public SpoutItemStack(ItemStack item) {
-		this(item.getTypeId(), item.getAmount(), (short) item.getDurability());
+		this(item.getTypeId(), item.getAmount(), item.getDurability(), item.getItemMeta());
 		addUnsafeEnchantments(item.getEnchantments());
 	}
 
 	public SpoutItemStack(int typeId) {
-		this(typeId, 1, (short) 0);
+		this(typeId, 1, (short) 0, null);
 	}
 
 	public SpoutItemStack(int typeId, short data) {
-		this(typeId, 1, data);
+		this(typeId, 1, data, null);
 	}
 
 	public SpoutItemStack(CustomItem item) {
-		this(item.getRawId(), 1, (short) item.getRawData());
+		this(item.getRawId(), 1, (short) item.getRawData(), null);
 	}
 
 	public SpoutItemStack(CustomItem item, int amount) {
-		this(item.getRawId(), amount, (short) item.getRawData());
+		this(item.getRawId(), amount, (short) item.getRawData(), null);
 	}
 
 	public SpoutItemStack(CustomBlock block) {
@@ -72,11 +76,11 @@ public class SpoutItemStack extends ItemStack {
 	}
 
 	public SpoutItemStack(Material material) {
-		this(material.getRawId(), 1, (short) material.getRawData());
+		this(material.getRawId(), 1, (short) material.getRawData(), null);
 	}
 
 	public SpoutItemStack(Material material, int amount) {
-		this(material.getRawId(), amount, (short) material.getRawData());
+		this(material.getRawId(), amount, (short) material.getRawData(), null);
 	}
 
 	public Material getMaterial() {

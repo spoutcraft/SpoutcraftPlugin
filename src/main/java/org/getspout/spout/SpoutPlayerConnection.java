@@ -52,7 +52,6 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutPlayerConnection extends PlayerConnection {
 	protected Field entityListField = null;
-	protected ItemStack lastOverrideDisplayStack = null;
 	private final ChunkNetCache chunkNetCache = new ChunkNetCache();
 
 	private MCCraftPacket[] packetWrappers = new MCCraftPacket[256];

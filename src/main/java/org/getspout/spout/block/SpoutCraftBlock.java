@@ -188,7 +188,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 	public SpoutItemStack toItemStack(int amount) {
 		int type = getTypeId();
 		int data = getBlockType().hasSubtypes() ? getData() : 0;
-		return new SpoutItemStack(type, amount, (short) data);
+		return new SpoutItemStack(type, amount, (short) data, null);
 	}
 
 	public short getCustomBlockId() {

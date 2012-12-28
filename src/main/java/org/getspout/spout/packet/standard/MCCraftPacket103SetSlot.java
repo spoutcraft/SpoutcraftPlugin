@@ -121,7 +121,7 @@ public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket10
 		if (bukkitStack == null) {
 			notchStack = null;
 		} else {
-			notchStack = new net.minecraft.server.v1_4_6.ItemStack(bukkitStack.getTypeId(), bukkitStack.getAmount(), bukkitStack.getDurability());
+			notchStack = org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack.asNMSCopy(bukkitStack);
 		}
 		try {
 			itemStackField.set(packet, notchStack);
@@ -139,7 +139,7 @@ public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket10
 			slot = Slot.getSlotByRawValues(rawWindow, rawSlot);
 			notchStack = (net.minecraft.server.v1_4_6.ItemStack) itemStackField.get(packet);
 			if (notchStack != null) {
-				bukkitStack = new ItemStack(notchStack.id, notchStack.count, (short) notchStack.getData());
+				bukkitStack = org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack.asBukkitCopy(notchStack);
 			}
 		} catch (Exception ex) {
 		}

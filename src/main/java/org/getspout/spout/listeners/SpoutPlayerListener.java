@@ -274,7 +274,7 @@ public class SpoutPlayerListener implements Listener {
 		try {
 			Field player = PlayerEvent.class.getDeclaredField("player");
 			player.setAccessible(true);
-			player.set(event, (SpoutCraftPlayer)SpoutCraftPlayer.getPlayer(event.getPlayer()));
+			player.set(event, SpoutCraftPlayer.getPlayer(event.getPlayer()));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -309,6 +309,7 @@ public class SpoutPlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerPickupItem(PlayerPickupItemEvent e) {
+		Bukkit.getLogger().info(e.getItem().getItemStack().toString());
 		SpoutItemStack sis = new SpoutItemStack(e.getItem().getItemStack());
 		if (!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem()) {
 			CustomItem ci = (CustomItem)sis.getMaterial();

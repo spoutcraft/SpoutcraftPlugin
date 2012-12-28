@@ -77,7 +77,7 @@ public class SpoutInputStream extends InputStream {
 		int id = readInt();
 		short dura = readShort();
 		short amt = readShort();
-		return new SpoutItemStack(id, amt, dura);
+		return new SpoutItemStack(id, amt, dura, item.getItemMeta());
 	}
 
 	public Material readMaterial() {
