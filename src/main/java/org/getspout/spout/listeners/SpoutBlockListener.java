@@ -38,6 +38,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.getspout.spout.Spout;
 
 import org.getspout.spout.block.SpoutCraftBlock;
@@ -76,7 +77,7 @@ public class SpoutBlockListener implements Listener {
 			material.onBlockDestroyed(block.getWorld(), block.getX(), block.getY(), block.getZ(), player);
 			if (material.getItemDrop() != null) {
 				if (player.getGameMode() == GameMode.SURVIVAL) {
-					block.getWorld().dropItem(block.getLocation(), material.getItemDrop());
+					block.getWorld().dropItem(block.getLocation(), getSpoutItem(material.getItemDrop()));
 				}
 				block.setTypeId(0);
 				event.setCancelled(true);
@@ -160,12 +161,23 @@ public class SpoutBlockListener implements Listener {
 		if (sb.getCustomBlock() == null || !sb.getPistonMoveReaction().equals(PistonMoveReaction.BREAK)) {
 			return;
 		}
-		sb.getWorld().dropItemNaturally(sb.getLocation(), sb.getCustomBlock().getItemDrop());
+		sb.getWorld().dropItemNaturally(sb.getLocation(), getSpoutItem(sb.getCustomBlock().getItemDrop()));
 		SpoutManager.getMaterialManager().removeBlockOverride(sb);
 	}
 
 	@EventHandler
 	public void onTick(ServerTickEvent event) {
 		pistonEventQueue.clear();
+	}
+
+	public ItemStack getSpoutItem(ItemStack item)
+	{
+		ItemMeta im = item.getItemMeta();
+		im.setDisplayName(sb.getName().replace("&","§");
+		ArrayList<String> lore = new ArrayList<String>();
+		lore.add("§3Spoutcraft Item");
+		im.setLore(lore);
+		item.setItemMeta(im);
+		return item;
 	}
 }
