@@ -47,6 +47,7 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.event.spout.ServerTickEvent;
 import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutBlockListener implements Listener {
@@ -170,14 +171,16 @@ public class SpoutBlockListener implements Listener {
 		pistonEventQueue.clear();
 	}
 
-	public ItemStack getSpoutItem(ItemStack item)
-	{
-		ItemMeta im = item.getItemMeta();
-		im.setDisplayName(sb.getName().replace("&","§");
-		ArrayList<String> lore = new ArrayList<String>();
-		lore.add("§3Spoutcraft Item");
-		im.setLore(lore);
-		item.setItemMeta(im);
+	public ItemStack getSpoutItem(ItemStack item) {
+		if(new SpoutItemStack(item).isCustomItem()) {
+			CustomItem ci = (CustomItem)new SpoutItemStack(item).getMaterial();
+			ItemMeta im = item.getItemMeta();
+			im.setDisplayName(ci.getName().replace("&","§");
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add("§3Spoutcraft Item");
+			im.setLore(lore);
+			item.setItemMeta(im);
+		}
 		return item;
 	}
 }

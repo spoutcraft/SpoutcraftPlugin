@@ -42,14 +42,13 @@ public class SpoutItemStack extends ItemStack {
 			}
 		}
 		if (meta != null) {
-			super.setItemMeta(meta);
-			if (m instanceof GenericCustomItem) {
-				ItemMeta im = getItemMeta();
-				im.setDisplayName(sb.getName().replace("&","§");
+			if (m instanceof CustomItem) {
+				CustomItem ci = (CustomItem) m;
+				meta.setDisplayName(ci.getName().replace("&","§");
 				ArrayList<String> lore = new ArrayList<String>();
 				lore.add("§3Spoutcraft Item");
-				im.setLore(lore);
-				setItemMeta(im);
+				meta.setLore(lore);
+				super.setItemMeta(meta);
 			}
 		}
 	}
