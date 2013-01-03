@@ -20,9 +20,12 @@
 package org.getspout.spoutapi.gui;
 
 import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
@@ -92,5 +95,33 @@ public class GenericSlot extends GenericControl implements Slot {
 		output.writeShort((short) stack.getAmount());
 		output.writeShort(stack.getDurability());
 		output.writeInt(depth);
+		
+		if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
+			output.writeBoolean(true);
+			output.writeString(stack.getItemMeta().getDisplayName());
+		} else {
+			output.writeBoolean(false);
+		}
+		
+		if (stack.hasItemMeta() && stack.getItemMeta().hasLore()) {
+			output.writeBoolean(true);
+			output.writeInt(stack.getItemMeta().getLore().size());
+			for(String l : stack.getItemMeta().getLore()) {
+				output.writeString(l);
+			}
+		} else {
+			output.writeBoolean(false);
+		}
+		
+		if (stack.hasItemMeta() && stack.getItemMeta().hasEnchants()) {
+			output.writeBoolean(true);
+			output.writeInt(stack.getItemMeta().getEnchants().size());
+			for(Entry e : stack.getItemMeta().getEnchants().entrySet()) {
+				output.writeInt(((Enchantment)e.getKey()).getId());
+				output.writeInt(((Integer)e.getValue()).intValue());
+			}
+		} else {
+			output.writeBoolean(false);
+		}
 	}
 }
