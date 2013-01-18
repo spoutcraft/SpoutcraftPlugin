@@ -9,7 +9,7 @@
 	<version>1.4.7-R0.2-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
-	<description>SpoutPlugin (the Bukkit plugin, formerly BukkitContrib) is a plugin for Bukkit, which provides an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit. SpoutPlugin is a legacy project and will be replaced by the Spout server when finished. </description>
+	<description>SpoutPlugin (formerly BukkitContrib) is a plugin for Bukkit, which provides an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit. SpoutPlugin is a legacy project, and will be replaced by the Spout voxel game platform when finished. </description>
 
 	<!-- Build properties -->
 	<properties>

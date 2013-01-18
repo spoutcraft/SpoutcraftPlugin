@@ -1,11 +1,11 @@
 [![SpoutPlugin][Project Logo]][Homepage]
 
-SpoutPlugin (the Bukkit plugin, formerly BukkitContrib) is a plugin for Bukkit, which provides an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit. SpoutPlugin is a legacy project and will be replaced by the Spout server when finished. 
+SpoutPlugin (formerly BukkitContrib) is a plugin for [Bukkit](http://www.bukkit.org), which provides an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit. SpoutPlugin is a legacy project, and will be replaced by the [Spout voxel game platform](https://github.com/SpoutDev/Spout) when finished. 
 
 [Homepage] | [Forums] | [Twitter] | [Facebook]
 
 ## Using
-It's easy to get started! Simply download the latest compatible SpoutPlugin jar, then place the jar in your CraftBukkit plugins folder. Simple as that! You can then add any other plugins that utilize SpoutPlugin, then fire up Spoutcraft and play!
+It's easy to get started! Simply [download the latest][Download] compatible SpoutPlugin jar, then place the jar in your [CraftBukkit](http://dl.bukkit.org) plugins folder. Simple as that! You can then add any other plugins that utilize SpoutPlugin, then fire up [Spoutcraft](https://github.com/SpoutDev/Spoutcraft) and play!
 
 ## Contributing
 Like the project? Feel free to [donate] to help continue development!
