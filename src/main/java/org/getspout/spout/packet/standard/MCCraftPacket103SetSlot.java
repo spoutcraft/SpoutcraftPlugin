@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -23,8 +23,8 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.minecraft.server.v1_4_6.Packet;
-import net.minecraft.server.v1_4_6.Packet103SetSlot;
+import net.minecraft.server.v1_4_R1.Packet;
+import net.minecraft.server.v1_4_R1.Packet103SetSlot;
 import org.getspout.spoutapi.packet.standard.MCPacket103SetSlot;
 
 import org.bukkit.inventory.ItemStack;
@@ -35,7 +35,7 @@ import org.bukkit.inventory.ItemStack;
 public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket103SetSlot {
 	private static Field windowField, slotField, itemStackField;
 	private int rawWindow, rawSlot;
-	private net.minecraft.server.v1_4_6.ItemStack notchStack;
+	private net.minecraft.server.v1_4_R1.ItemStack notchStack;
 	private ItemStack bukkitStack;
 	private Slot slot;
 	private Window window;
@@ -121,7 +121,7 @@ public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket10
 		if (bukkitStack == null) {
 			notchStack = null;
 		} else {
-			notchStack = org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack.asNMSCopy(bukkitStack);
+			notchStack = org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack.asNMSCopy(bukkitStack);
 		}
 		try {
 			itemStackField.set(packet, notchStack);
@@ -137,9 +137,9 @@ public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket10
 			window = Window.getWindowById(rawWindow);
 			rawSlot = ((Integer) slotField.get(packet)).intValue();
 			slot = Slot.getSlotByRawValues(rawWindow, rawSlot);
-			notchStack = (net.minecraft.server.v1_4_6.ItemStack) itemStackField.get(packet);
+			notchStack = (net.minecraft.server.v1_4_R1.ItemStack) itemStackField.get(packet);
 			if (notchStack != null) {
-				bukkitStack = org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack.asBukkitCopy(notchStack);
+				bukkitStack = org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack.asBukkitCopy(notchStack);
 			}
 		} catch (Exception ex) {
 		}

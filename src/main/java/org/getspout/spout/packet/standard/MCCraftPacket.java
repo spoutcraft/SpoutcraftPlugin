@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@ package org.getspout.spout.packet.standard;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import net.minecraft.server.v1_4_6.Packet;
+import net.minecraft.server.v1_4_R1.Packet;
 import org.getspout.spoutapi.packet.standard.MCPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket51MapChunkUncompressed;
 
@@ -56,14 +56,14 @@ public class MCCraftPacket implements MCPacket {
 
 		MCPackets[256] = MCPacket51MapChunkUncompressed.class;
 
-		packets[0] = net.minecraft.server.v1_4_6.Packet0KeepAlive.class;
-		packets[3] = net.minecraft.server.v1_4_6.Packet3Chat.class;
-		packets[17] = net.minecraft.server.v1_4_6.Packet17EntityLocationAction.class;
-		packets[18] = net.minecraft.server.v1_4_6.Packet18ArmAnimation.class;
-		packets[51] = net.minecraft.server.v1_4_6.Packet51MapChunk.class;
-		packets[103] = net.minecraft.server.v1_4_6.Packet103SetSlot.class;
+		packets[0] = net.minecraft.server.v1_4_R1.Packet0KeepAlive.class;
+		packets[3] = net.minecraft.server.v1_4_R1.Packet3Chat.class;
+		packets[17] = net.minecraft.server.v1_4_R1.Packet17EntityLocationAction.class;
+		packets[18] = net.minecraft.server.v1_4_R1.Packet18ArmAnimation.class;
+		packets[51] = net.minecraft.server.v1_4_R1.Packet51MapChunk.class;
+		packets[103] = net.minecraft.server.v1_4_R1.Packet103SetSlot.class;
 
-		packets[256] = net.minecraft.server.v1_4_6.Packet51MapChunk.class;
+		packets[256] = net.minecraft.server.v1_4_R1.Packet51MapChunk.class;
 	}
 
 	private static final Object[] blank = new Class[0];

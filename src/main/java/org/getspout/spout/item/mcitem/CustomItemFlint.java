@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -21,16 +21,16 @@ package org.getspout.spout.item.mcitem;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_4_6.EntityHuman;
-import net.minecraft.server.v1_4_6.EnumAnimation;
-import net.minecraft.server.v1_4_6.INetworkManager;
-import net.minecraft.server.v1_4_6.Item;
-import net.minecraft.server.v1_4_6.ItemStack;
-import net.minecraft.server.v1_4_6.NetworkManager;
-import net.minecraft.server.v1_4_6.World;
+import net.minecraft.server.v1_4_R1.EntityHuman;
+import net.minecraft.server.v1_4_R1.EnumAnimation;
+import net.minecraft.server.v1_4_R1.INetworkManager;
+import net.minecraft.server.v1_4_R1.Item;
+import net.minecraft.server.v1_4_R1.ItemStack;
+import net.minecraft.server.v1_4_R1.NetworkManager;
+import net.minecraft.server.v1_4_R1.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import org.getspout.spout.Spout;
@@ -49,7 +49,7 @@ public class CustomItemFlint extends Item {
 		b(6, 0).b("flint");
 		Class clazz = null;
 		try {
-			clazz = Class.forName("net.minecraft.server.v1_4_6.NetworkWriterThread");
+			clazz = Class.forName("net.minecraft.server.v1_4_R1.NetworkWriterThread");
 		} catch (ClassNotFoundException e) {
 			//Libigot/Nover compatibility. Those two replace the classloader and as such forname fails on them. This may be temporary
 			//as we fix it in Libigot. For now, this will do.

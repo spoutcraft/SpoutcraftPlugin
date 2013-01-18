@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -30,19 +30,19 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.minecraft.server.v1_4_6.ContainerPlayer;
-import net.minecraft.server.v1_4_6.DedicatedServer;
-import net.minecraft.server.v1_4_6.Entity;
-import net.minecraft.server.v1_4_6.EntityPlayer;
-import net.minecraft.server.v1_4_6.IInventory;
-import net.minecraft.server.v1_4_6.INetworkManager;
-import net.minecraft.server.v1_4_6.MinecraftServer;
-import net.minecraft.server.v1_4_6.PlayerConnection;
-import net.minecraft.server.v1_4_6.NetworkManager;
-import net.minecraft.server.v1_4_6.ServerConnection;
-import net.minecraft.server.v1_4_6.TileEntityDispenser;
-import net.minecraft.server.v1_4_6.TileEntityFurnace;
-import net.minecraft.server.v1_4_6.TileEntitySign;
+import net.minecraft.server.v1_4_R1.ContainerPlayer;
+import net.minecraft.server.v1_4_R1.DedicatedServer;
+import net.minecraft.server.v1_4_R1.Entity;
+import net.minecraft.server.v1_4_R1.EntityPlayer;
+import net.minecraft.server.v1_4_R1.IInventory;
+import net.minecraft.server.v1_4_R1.INetworkManager;
+import net.minecraft.server.v1_4_R1.MinecraftServer;
+import net.minecraft.server.v1_4_R1.PlayerConnection;
+import net.minecraft.server.v1_4_R1.NetworkManager;
+import net.minecraft.server.v1_4_R1.ServerConnection;
+import net.minecraft.server.v1_4_R1.TileEntityDispenser;
+import net.minecraft.server.v1_4_R1.TileEntityFurnace;
+import net.minecraft.server.v1_4_R1.TileEntitySign;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -51,10 +51,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Sign;
-import org.bukkit.craftbukkit.v1_4_6.CraftServer;
-import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_4_6.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_4_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftInventory;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerVelocityEvent;

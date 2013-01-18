@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -21,11 +21,11 @@ package org.getspout.spout.item.mcitem;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_4_6.Block;
-import net.minecraft.server.v1_4_6.EnumToolMaterial;
-import net.minecraft.server.v1_4_6.Item;
-import net.minecraft.server.v1_4_6.ItemSpade;
-import net.minecraft.server.v1_4_6.ItemTool;
+import net.minecraft.server.v1_4_R1.Block;
+import net.minecraft.server.v1_4_R1.EnumToolMaterial;
+import net.minecraft.server.v1_4_R1.Item;
+import net.minecraft.server.v1_4_R1.ItemSpade;
+import net.minecraft.server.v1_4_R1.ItemTool;
 
 public class CustomItemSpade extends ItemSpade {
 	public CustomItemSpade(int i, EnumToolMaterial etm) {

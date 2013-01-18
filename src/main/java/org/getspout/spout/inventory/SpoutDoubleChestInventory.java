@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
  */
 package org.getspout.spout.inventory;
 
-import net.minecraft.server.v1_4_6.IInventory;
+import net.minecraft.server.v1_4_R1.IInventory;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -84,6 +84,6 @@ public class SpoutDoubleChestInventory extends SpoutCraftInventory implements Do
 	private static boolean isSolid(Block block) {
 		// s[]: If block type is completely solid.
 		// This should really be part of Spout or Bukkit, but for now it's here.
-		return net.minecraft.server.v1_4_6.Block.s[block.getTypeId()];
+		return net.minecraft.server.v1_4_R1.Block.s[block.getTypeId()];
 	}
 }

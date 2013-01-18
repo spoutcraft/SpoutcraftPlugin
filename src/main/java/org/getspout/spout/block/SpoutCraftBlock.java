@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -24,9 +24,9 @@ import java.io.Serializable;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_4_6.CraftChunk;
-import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
-import org.bukkit.craftbukkit.v1_4_6.block.CraftBlock;
+import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
+import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_R1.block.CraftBlock;
 
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spoutapi.SpoutManager;
@@ -109,7 +109,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 			return (SpoutBlock) result;
 		}
 		// XXX should not happen!
-		net.minecraft.server.v1_4_6.Chunk chunk = ((CraftChunk) result.getChunk()).getHandle();
+		net.minecraft.server.v1_4_R1.Chunk chunk = ((CraftChunk) result.getChunk()).getHandle();
 		chunk.bukkitChunk = new SpoutCraftChunk(chunk);
 		return (SpoutBlock) chunk.bukkitChunk.getBlock(result.getX() & 0xF, result.getY() & 0x7F, result.getZ() & 0xF);
 	}
@@ -161,7 +161,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 		}
 		chunk.powerOverrides.put(index, powerbits);
 
-		net.minecraft.server.v1_4_6.World world = ((CraftWorld) this.getWorld()).getHandle();
+		net.minecraft.server.v1_4_R1.World world = ((CraftWorld) this.getWorld()).getHandle();
 		world.applyPhysics(this.getX(), this.getY(), this.getZ(), this.getTypeId());
 	}
 

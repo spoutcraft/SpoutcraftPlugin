@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
  */
 package org.getspout.spout.packet.standard;
 
-import net.minecraft.server.v1_4_6.Packet17EntityLocationAction;
+import net.minecraft.server.v1_4_R1.Packet17EntityLocationAction;
 import org.getspout.spoutapi.packet.standard.MCPacket17;
 
 public class MCCraftPacket17EntityLocationAction extends MCCraftPacket implements MCPacket17 {

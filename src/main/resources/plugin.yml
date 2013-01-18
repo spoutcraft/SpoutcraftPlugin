@@ -1,12 +1,12 @@
 name: Spout
 version: ${releaseVersion} b${buildNumber}
 mcversion: ${minecraftVersion}
-
 description: ${project.description}
-author: ${project.organization.name}
 website: ${project.url}
 
-main: org.getspout.spout.Spout
+author: ${project.organization.name}
+
+main: ${mainClass}
 load: startup
 
 commands:

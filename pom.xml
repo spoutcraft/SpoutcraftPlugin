@@ -6,17 +6,17 @@
 	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
-	<version>1.4.6-R0.2-SNAPSHOT</version>
+	<version>1.4.7-R0.2-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
-	<description>SpoutPlugin is an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit.</description>
+	<description>SpoutPlugin (the Bukkit plugin, formerly BukkitContrib) is a plugin for Bukkit, which provides an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit. SpoutPlugin is a legacy project and will be replaced by the Spout server when finished. </description>
 
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<currentYear>2012</currentYear>
-		<craftbukkitVersion>1.4.6-R0.2-SNAPSHOT</craftbukkitVersion>
-		<minecraftVersion>1.4.6</minecraftVersion>
+		<mainClass>${project.groupId}.spout.Spout</mainClass>
+		<craftbukkitVersion>1.4.7-R0.2-SNAPSHOT</craftbukkitVersion>
+		<minecraftVersion>1.4.7</minecraftVersion>
 		<buildNumber>0</buildNumber>
 	</properties>
 
@@ -90,13 +90,6 @@
 
 	<!-- Project dependencies -->
 	<dependencies>
-		<!-- Provided by third-party -->
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>craftbukkit</artifactId>
-			<version>${craftbukkitVersion}</version>
-			<scope>provided</scope>
-		</dependency>
 		<!-- Included in the final JAR -->
 		<dependency>
 			<groupId>cglib</groupId>
@@ -116,6 +109,13 @@
 			<version>3.0.3</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- Provided by third-party -->
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>craftbukkit</artifactId>
+			<version>${craftbukkitVersion}</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<!-- Build configuration -->
@@ -126,18 +126,18 @@
 		<resources>
 			<!-- Static resources -->
 			<resource>
-				<targetPath>.</targetPath>
 				<filtering>false</filtering>
-				<directory>${basedir}</directory>
+				<directory>${project.basedir}</directory>
+				<targetPath>.</targetPath>
 				<includes>
 					<include>LICENSE.txt</include>
 				</includes>
 			</resource>
 			<!-- Filtered resources -->
 			<resource>
-				<targetPath>.</targetPath>
 				<filtering>true</filtering>
-				<directory>${basedir}/src/main/resources</directory>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<targetPath>.</targetPath>
 				<includes>
 					<include>*.yml</include>
 				</includes>
@@ -157,12 +157,12 @@
 							<properties>
 								<name>${project.name}</name>
 								<url>${project.organization.url}</url>
-								<copyright>Copyright (c) ${project.inceptionYear}-${currentYear}, ${project.organization.name}</copyright>
+								<copyright>Copyright (c) ${project.inceptionYear}, ${project.organization.name}</copyright>
 							</properties>
 							<quiet>true</quiet>
 							<encoding>UTF-8</encoding>
 							<strictCheck>true</strictCheck>
-							<header>${basedir}/HEADER.txt</header>
+							<header>HEADER.txt</header>
 							<mapping>
 								<java>SLASHSTAR_STYLE</java>
 							</mapping>
@@ -246,21 +246,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Javadoc creation plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<bottom><![CDATA[Copyright (c) {inceptionYear}-{currentYear}, <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
-					<doctitle><![CDATA[${project.name} API ${releaseVersion} b${buildNumber} - ${maven.build.timestamp}]]></doctitle>
-					<windowtitle>Javadoc | ${project.name} ${releaseVersion} b${buildNumber}</windowtitle>
-					<author>false</author>
-					<version>false</version>
-					<linksource>true</linksource>
-					<sourcepath>${project.basedir}/src/main/java/org/getspout/spoutapi</sourcepath>
-				</configuration>
-			</plugin>
 		</plugins>
 
 		<!-- Plugin management -->
@@ -295,4 +280,28 @@
 		</pluginManagement>
 	</build>
 
+	<!-- Reporting configuration -->
+	<reporting>
+		<!-- Reporting plugins -->
+		<plugins>
+			<!-- Javadoc creation plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<sourcepath>${project.basedir}/src/main/java/org/getspout/spoutapi</sourcepath>
+					<bottom><![CDATA[Copyright (c) {project.inceptionYear}, <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
+					<doctitle><![CDATA[${project.name} API ${releaseVersion} b${buildNumber} - ${maven.build.timestamp}]]></doctitle>
+					<windowtitle>Javadoc | ${project.name} ${releaseVersion} b${buildNumber}</windowtitle>
+					<author>false</author>
+					<version>false</version>
+					<linksource>true</linksource>
+					<links>
+						<link>http://jd.bukkit.org/apidocs</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

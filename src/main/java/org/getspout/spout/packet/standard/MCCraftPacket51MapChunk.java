@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@ package org.getspout.spout.packet.standard;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_4_6.Packet51MapChunk;
+import net.minecraft.server.v1_4_R1.Packet51MapChunk;
 import org.getspout.spoutapi.packet.standard.MCPacket51MapChunk;
 
 public class MCCraftPacket51MapChunk extends MCCraftPacket implements MCPacket51MapChunk {

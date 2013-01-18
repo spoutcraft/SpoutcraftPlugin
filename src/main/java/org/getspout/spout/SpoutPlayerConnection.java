@@ -1,7 +1,7 @@
 /*
  * This file is part of SpoutPlugin.
  *
- * Copyright (c) 2011-2012, Spout LLC <http://www.spout.org/>
+ * Copyright (c) 2011, Spout LLC <http://www.spout.org/>
  * SpoutPlugin is licensed under the GNU Lesser General Public License.
  *
  * SpoutPlugin is free software: you can redistribute it and/or modify
@@ -26,20 +26,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 
-import net.minecraft.server.v1_4_6.EntityPlayer;
-import net.minecraft.server.v1_4_6.INetworkManager;
-import net.minecraft.server.v1_4_6.IntHashMap;
-import net.minecraft.server.v1_4_6.ItemStack;
-import net.minecraft.server.v1_4_6.MinecraftServer;
-import net.minecraft.server.v1_4_6.PlayerConnection;
-import net.minecraft.server.v1_4_6.NetworkManager;
-import net.minecraft.server.v1_4_6.Packet;
-import net.minecraft.server.v1_4_6.Packet14BlockDig;
-import net.minecraft.server.v1_4_6.Packet18ArmAnimation;
-import net.minecraft.server.v1_4_6.Packet20NamedEntitySpawn;
-import net.minecraft.server.v1_4_6.Packet24MobSpawn;
-import net.minecraft.server.v1_4_6.Packet250CustomPayload;
-import net.minecraft.server.v1_4_6.Packet3Chat;
+import net.minecraft.server.v1_4_R1.EntityPlayer;
+import net.minecraft.server.v1_4_R1.INetworkManager;
+import net.minecraft.server.v1_4_R1.IntHashMap;
+import net.minecraft.server.v1_4_R1.ItemStack;
+import net.minecraft.server.v1_4_R1.MinecraftServer;
+import net.minecraft.server.v1_4_R1.PlayerConnection;
+import net.minecraft.server.v1_4_R1.NetworkManager;
+import net.minecraft.server.v1_4_R1.Packet;
+import net.minecraft.server.v1_4_R1.Packet14BlockDig;
+import net.minecraft.server.v1_4_R1.Packet18ArmAnimation;
+import net.minecraft.server.v1_4_R1.Packet20NamedEntitySpawn;
+import net.minecraft.server.v1_4_R1.Packet24MobSpawn;
+import net.minecraft.server.v1_4_R1.Packet250CustomPayload;
+import net.minecraft.server.v1_4_R1.Packet3Chat;
 import org.getspout.spout.netcache.ChunkNetCache;
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
