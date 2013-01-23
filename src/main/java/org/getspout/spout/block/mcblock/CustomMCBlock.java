@@ -322,7 +322,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 		        } else {
 		        	System.err.println("Unable to find method : " + method.getName() + " with: " + Arrays.toString(method.getParameterTypes()));	 
 		        	return null;
-		        }
+				}
 			}
 		}
 		//Overridden methods
@@ -363,7 +363,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			int x = (Integer) args[1];
 			int y = (Integer) args[2];
 			int z = (Integer) args[3];
-			EntityHuman human = (EntityHuman) args[4];
+			Entity human = (Entity) args[4];
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null && human instanceof EntityPlayer) {
 				return block.onBlockInteract(world.getWorld(), x, y, z, ((SpoutPlayer) human.getBukkitEntity()));
@@ -424,7 +424,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 				block.onNeighborBlockChange(world.getWorld(), x, y, z, face);
 			}
 		}
-        return m.invoke(wrapped, args);
+        	return m.invoke(wrapped, args);
 	}
 }
 
