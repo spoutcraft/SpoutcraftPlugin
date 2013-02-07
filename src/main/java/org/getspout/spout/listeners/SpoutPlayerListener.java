@@ -26,6 +26,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -144,24 +145,24 @@ public class SpoutPlayerListener implements Listener {
 			boolean action = false;
 
 			switch (event.getClickedBlock().getType()) {
-				case BREWING_STAND:
-				case CHEST:
-				case DISPENSER:
-				case ENCHANTMENT_TABLE:
-				case FURNACE:
-				case WORKBENCH:
-				case BED_BLOCK:
-				case CAKE_BLOCK:
-				case CAULDRON:
-				case DIODE_BLOCK_OFF:
-				case DIODE_BLOCK_ON:
-				case FENCE_GATE:
-				case IRON_DOOR_BLOCK:
-				case LEVER:
-				case NOTE_BLOCK:
-				case STONE_BUTTON:
-				case TRAP_DOOR:
-				case WOODEN_DOOR:
+			case BREWING_STAND:
+			case CHEST:
+			case DISPENSER:
+			case ENCHANTMENT_TABLE:
+			case FURNACE:
+			case WORKBENCH:
+			case BED_BLOCK:
+			case CAKE_BLOCK:
+			case CAULDRON:
+			case DIODE_BLOCK_OFF:
+			case DIODE_BLOCK_ON:
+			case FENCE_GATE:
+			case IRON_DOOR_BLOCK:
+			case LEVER:
+			case NOTE_BLOCK:
+			case STONE_BUTTON:
+			case TRAP_DOOR:
+			case WOODEN_DOOR:
 				action = true;
 				break;
 			}
@@ -216,24 +217,58 @@ public class SpoutPlayerListener implements Listener {
 								// Now we have placed a nice custom block! We should check its rotation and rotate the base block!
 								if (cb.canRotate()) {
 									if (cb.canMirroredRotate() && mirrored) {
-										if (rot == 1) {
-											block.setData((byte) 5);
-										} else if (rot == 2) {
-											block.setData((byte) 6);
-										} else if (rot == 3) {
-											block.setData((byte) 4);
+										if (block.getType() == Material.LEVER || block.getType() == Material.TORCH || block.getType() == Material.STONE_BUTTON || block.getType() == Material.WOOD_BUTTON) {
+											// The below Types need a slightly different data value to assign correct positioning.
+											if (event.getBlockFace() == BlockFace.UP) {
+												block.setData((byte) 5);
+											} else if (event.getBlockFace() == BlockFace.DOWN) {
+												block.setData((byte) 7);
+											} else if (rot == 1) {
+												block.setData((byte) 1);
+											} else if (rot == 2) {
+												block.setData((byte) 4);
+											} else if (rot == 3) {
+												block.setData((byte) 2);
+											} else if (rot == 0) {
+												block.setData((byte) 3);
+											}
 										} else {
-											block.setData((byte) 7);
+											if (rot == 1) {
+												block.setData((byte) 5);
+											} else if (rot == 2) {
+												block.setData((byte) 6);
+											} else if (rot == 3) {
+												block.setData((byte) 4);
+											} else {
+												block.setData((byte) 7);
+											}
 										}
 									} else {
-										if (rot == 1) {
-											block.setData((byte) 1);
-										} else if (rot == 2) {
-											block.setData((byte) 2);
-										} else if (rot == 3) {
-											block.setData((byte) 0);
+										if (block.getType() == Material.LEVER || block.getType() == Material.TORCH || block.getType() == Material.STONE_BUTTON || block.getType() == Material.WOOD_BUTTON) {
+											// The below Types need a slightly different data value to assign correct positioning.
+											if (event.getBlockFace() == BlockFace.UP) {
+												block.setData((byte) 5);
+											} else if (event.getBlockFace() == BlockFace.DOWN) {
+												block.setData((byte) 7);
+											} else if (rot == 1) {
+												block.setData((byte) 1);
+											} else if (rot == 2) {
+												block.setData((byte) 4);
+											} else if (rot == 3) {
+												block.setData((byte) 2);
+											} else if (rot == 0) {
+												block.setData((byte) 3);
+											}
 										} else {
-											block.setData((byte) 3);
+											if (rot == 1) {
+												block.setData((byte) 1);
+											} else if (rot == 2) {
+												block.setData((byte) 2);
+											} else if (rot == 3) {
+												block.setData((byte) 0);
+											} else if (rot == 0 ){
+												block.setData((byte) 3);
+											}
 										}
 									}
 								}
