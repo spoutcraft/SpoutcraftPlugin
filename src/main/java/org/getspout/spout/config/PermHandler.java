@@ -62,4 +62,7 @@ public class PermHandler {
 		return allowCheat(forWho, "voidfog");
 	}
 	
+	public static boolean allowFlySpeedCheat(SpoutPlayer forWho) {
+		return allowCheat(forWho, "flyspeed");
+	}
 }

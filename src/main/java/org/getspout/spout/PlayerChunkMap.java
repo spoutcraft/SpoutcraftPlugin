@@ -89,7 +89,7 @@ public class PlayerChunkMap {
 		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
 		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
 		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
-		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player)));
+		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player),PermHandler.allowFlySpeedCheat(player)));
 		player.updatePermissions();
 		PrecacheManager.onPlayerJoin(player);
 		player.sendPacket(new PacketBlockData(SpoutManager.getMaterialManager().getModifiedBlocks()));

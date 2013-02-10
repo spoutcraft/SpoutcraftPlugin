@@ -48,3 +48,6 @@ permissions:
     spout.plugin.cheat.weather:
         description: Allows the player to enable/disable weather.
         default: true
+    spout.plugin.cheat.flyspeed:
+        description: Allows the player to enable/disable weather.
+        default: false
