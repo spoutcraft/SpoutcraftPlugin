@@ -26,18 +26,36 @@ permissions:
         default: false
     spout.plugin.cheat.coords:
         description: Allows the player to see coordinates on their client.
+        default: true   
+    spout.plugin.cheat.entitylabel:
+        description: Allows the player to see entity labels.
         default: true
     spout.plugin.cheat.clearwater:
         description: Allows the player to enable/disable clear water.
         default: true
-    spout.plugin.cheat.entitylabel:
-        description: Allows the player to see entity labels.
+    spout.plugin.force.clearwater:
+        description: Forces below clear water setting.
+        default: false
+    spout.plugin.show.clearwater:
+        description: show or hide clear water based on force permission.
         default: true
     spout.plugin.cheat.sky:
         description: Allows the player to enable/disable the sky.
         default: true
+    spout.plugin.force.sky:
+        description: Forces below sky setting.
+        default: false
+    spout.plugin.show.sky:
+        description: Show or hide the sky.
+        default: true
     spout.plugin.cheat.stars:
         description: Allows the player to enable/disable stars.
+        default: true
+    spout.plugin.force.stars:
+        description: Forces below stars setting.
+        default: false
+    spout.plugin.show.stars:
+        description: Show or hide the stars.
         default: true
     spout.plugin.cheat.time:
         description: Allows the player to change their client time.
@@ -45,9 +63,21 @@ permissions:
     spout.plugin.cheat.voidfog:
         description: Allows the player to enable/disable the void fog.
         default: true
+    spout.plugin.force.voidfog:
+        description: Forces below void fog setting.
+        default: false
+    spout.plugin.show.voidfog:
+        description: Show or hide the void fog.
+        default: true  
     spout.plugin.cheat.weather:
         description: Allows the player to enable/disable weather.
         default: true
+    spout.plugin.force.weather:
+        description: Forces below weather setting.
+        default: false
+    spout.plugin.show.weather:
+        description: Show or hide weather.
+        default: true  
     spout.plugin.cheat.flyspeed:
         description: Allows the player to enable/disable weather.
         default: false
