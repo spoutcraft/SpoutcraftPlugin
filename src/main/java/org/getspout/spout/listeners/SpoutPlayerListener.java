@@ -47,6 +47,7 @@ import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spout.PlayerChunkMap;
 import org.getspout.spout.Spout;
+import org.getspout.spout.config.PermHandler;
 import org.getspout.spout.inventory.SimpleMaterialManager;
 import org.getspout.spout.player.SimplePlayerChunkMap;
 import org.getspout.spout.player.SpoutCraftPlayer;
@@ -57,6 +58,7 @@ import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.packet.PacketAllowVisualCheats;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutPlayerListener implements Listener {
@@ -124,6 +126,9 @@ public class SpoutPlayerListener implements Listener {
 		}
 		if (update != null) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), update, 2);
+		}
+		if (event.getPlayer() instanceof SpoutPlayer) {
+			scp.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(scp),PermHandler.forceSkyCheat(scp),PermHandler.showSkyCheat(scp),PermHandler.allowClearWaterCheat(scp),PermHandler.forceClearWaterCheat(scp),PermHandler.showClearWaterCheat(scp),PermHandler.allowStarsCheat(scp),PermHandler.forceStarsCheat(scp),PermHandler.showStarsCheat(scp),PermHandler.allowWeatherCheat(scp),PermHandler.forceWeatherCheat(scp),PermHandler.showWeatherCheat(scp),PermHandler.allowTimeCheat(scp),PermHandler.allowCoordsCheat(scp),PermHandler.allowEntityLabelCheat(scp),PermHandler.allowVoidFogCheat(scp),PermHandler.forceVoidFogCheat(scp),PermHandler.showVoidFogCheat(scp),PermHandler.allowFlySpeedCheat(scp)));
 		}
 	}
 
