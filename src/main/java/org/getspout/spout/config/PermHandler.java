@@ -30,21 +30,61 @@ public class PermHandler {
 		return forWho.hasPermission("spout.plugin.cheat."+which);
 	}
 	
+	public static boolean forceCheat(SpoutPlayer forWho, String which) {
+		return forWho.hasPermission("spout.plugin.force."+which);
+	}
+	
+	public static boolean showCheat(SpoutPlayer forWho, String which) {
+		return forWho.hasPermission("spout.plugin.show."+which);
+	}
+	
 	public static boolean allowSkyCheat(SpoutPlayer forWho) {
 		return allowCheat(forWho, "sky");
+	}
+	
+	public static boolean forceSkyCheat(SpoutPlayer forWho) {
+		return forceCheat(forWho, "sky");
+	}
+	
+	public static boolean showSkyCheat(SpoutPlayer forWho) {
+		return showCheat(forWho, "sky");
 	}
 	
 	public static boolean allowClearWaterCheat(SpoutPlayer forWho) {
 		return allowCheat(forWho, "clearwater");
 	}
 	
+	public static boolean forceClearWaterCheat(SpoutPlayer forWho) {
+		return forceCheat(forWho, "clearwater");
+	}
+	
+	public static boolean showClearWaterCheat(SpoutPlayer forWho) {
+		return showCheat(forWho, "clearwater");
+	}
+	
 	public static boolean allowStarsCheat(SpoutPlayer forWho) {
 		return allowCheat(forWho, "stars");
+	}
+	
+	public static boolean forceStarsCheat(SpoutPlayer forWho) {
+		return forceCheat(forWho, "stars");
+	}
+	
+	public static boolean showStarsCheat(SpoutPlayer forWho) {
+		return showCheat(forWho, "stars");
 	}
 	
 	public static boolean allowWeatherCheat(SpoutPlayer forWho) {
 		return allowCheat(forWho, "weather");
 	}
+	
+	public static boolean forceWeatherCheat(SpoutPlayer forWho) {
+		return forceCheat(forWho, "weather");
+	}
+	
+	public static boolean showWeatherCheat(SpoutPlayer forWho) {
+		return showCheat(forWho, "weather");
+	}	
 	
 	public static boolean allowTimeCheat(SpoutPlayer forWho) {
 		return allowCheat(forWho, "time");
@@ -62,4 +102,15 @@ public class PermHandler {
 		return allowCheat(forWho, "voidfog");
 	}
 	
+	public static boolean forceVoidFogCheat(SpoutPlayer forWho) {
+		return forceCheat(forWho, "voidfog");
+	}
+	
+	public static boolean showVoidFogCheat(SpoutPlayer forWho) {
+		return showCheat(forWho, "voidfog");
+	}
+	
+	public static boolean allowFlySpeedCheat(SpoutPlayer forWho) {
+		return allowCheat(forWho, "flyspeed");
+	}
 }
