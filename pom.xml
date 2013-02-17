@@ -6,7 +6,7 @@
 	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
-	<version>1.4.7-R0.2-SNAPSHOT</version>
+	<version>1.4.7-R1.0-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
 	<description>SpoutPlugin (formerly BukkitContrib) is a plugin for Bukkit, which provides an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit. SpoutPlugin is a legacy project, and will be replaced by the Spout voxel game platform when finished. </description>
@@ -15,7 +15,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mainClass>${project.groupId}.spout.Spout</mainClass>
-		<craftbukkitVersion>1.4.7-R0.2-SNAPSHOT</craftbukkitVersion>
+		<craftbukkitVersion>1.4.7-R1.0</craftbukkitVersion>
 		<minecraftVersion>1.4.7</minecraftVersion>
 		<buildNumber>0</buildNumber>
 	</properties>
@@ -37,9 +37,9 @@
 
 	<!-- Source code access -->
 	<scm>
-		<developerConnection>scm:git:git@github.com:SpoutDev/SpoutPlugin.git</developerConnection>
-		<connection>scm:git:git://github.com/SpoutDev/SpoutPlugin.git</connection>
-		<url>https://github.com/SpoutDev/SpoutPlugin</url>
+		<developerConnection>scm:git:git@github.com:Legacy/SpoutPlugin.git</developerConnection>
+		<connection>scm:git:git://github.com/Legacy/SpoutPlugin.git</connection>
+		<url>https://github.com/Legacy/SpoutPlugin</url>
 	</scm>
 
 	<!-- Build server -->
@@ -51,7 +51,7 @@
 	<!-- Issue tracker -->
 	<issueManagement>
 		<system>jira</system>
-		<url>http://issues.spout.org/browse/SPOUTPLUGIN</url>
+		<url>http://issues.spout.org/browse/LEGACY</url>
 	</issueManagement>
 
 	<!-- Dependency repositories -->
@@ -157,7 +157,8 @@
 							<properties>
 								<name>${project.name}</name>
 								<url>${project.organization.url}</url>
-								<copyright>Copyright (c) ${project.inceptionYear}, ${project.organization.name}</copyright>
+								<inceptionYear>${project.inceptionYear}</inceptionYear>
+								<company>${project.organization.name}</company>
 							</properties>
 							<quiet>true</quiet>
 							<encoding>UTF-8</encoding>
