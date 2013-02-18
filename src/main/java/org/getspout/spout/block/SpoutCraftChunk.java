@@ -94,7 +94,6 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 					block.setTypeId(entry.getValue());
 					i.remove();
 				} catch (Exception e) {
-
 				}
 			}
 			Iterator<Entry<Integer, Byte>> j = queuedData.entrySet().iterator();
@@ -106,7 +105,6 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 						block.setData(entry.getValue());
 						j.remove();
 					} catch (Exception e) {
-
 					}
 				} else {
 					break;

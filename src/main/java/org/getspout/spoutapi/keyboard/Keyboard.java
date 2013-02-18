@@ -170,7 +170,7 @@ public enum Keyboard {
 		if (lookupKeyCode.containsKey(key)) {
 			return lookupKeyCode.get(key);
 		}
-		
+
 		return KEY_UNKNOWN;
 	}
 

@@ -85,7 +85,6 @@ public class Texture {
 	 * @return the SubTexture
 	 */
 	public SubTexture getSubTexture(int textureId) {
-
 		return subTextures.get(textureId);
 	}
 

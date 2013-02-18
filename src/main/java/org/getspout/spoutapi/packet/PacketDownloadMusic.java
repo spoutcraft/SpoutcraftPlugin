@@ -33,7 +33,6 @@ public class PacketDownloadMusic implements SpoutPacket {
 	String URL, plugin;
 
 	public PacketDownloadMusic() {
-
 	}
 
 	public PacketDownloadMusic(String plugin, String URL, Location loc, int distance, int volume, boolean soundEffect, boolean notify) {

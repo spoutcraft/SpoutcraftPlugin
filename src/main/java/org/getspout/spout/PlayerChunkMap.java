@@ -67,7 +67,7 @@ public class PlayerChunkMap {
 						break;
 					}
 					if (!player.hasPermission("spout.plugin.forcespoutcraft")) {
-						break;	
+						break;
 					}
 					if (!player.isOp()) {
 						System.out.println("[SpoutPlugin] Failed to authenticate " + player.getName() + "'s Spoutcraft client in " + ConfigReader.getAuthenticateTicks() + " server ticks.");
@@ -88,7 +88,7 @@ public class PlayerChunkMap {
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);
 		((SimpleSkyManager)SpoutManager.getSkyManager()).onPlayerJoin(player);
 		((SimpleBiomeManager)SpoutManager.getBiomeManager()).onPlayerJoin(player);
-		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);		
+		((SimpleKeyBindingManager)SpoutManager.getKeyBindingManager()).onPlayerJoin(player);
 		player.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(player),PermHandler.forceSkyCheat(player),PermHandler.showSkyCheat(player),PermHandler.allowClearWaterCheat(player),PermHandler.forceClearWaterCheat(player),PermHandler.showClearWaterCheat(player),PermHandler.allowStarsCheat(player),PermHandler.forceStarsCheat(player),PermHandler.showStarsCheat(player),PermHandler.allowWeatherCheat(player),PermHandler.forceWeatherCheat(player),PermHandler.showWeatherCheat(player),PermHandler.allowTimeCheat(player),PermHandler.allowCoordsCheat(player),PermHandler.allowEntityLabelCheat(player),PermHandler.allowVoidFogCheat(player),PermHandler.forceVoidFogCheat(player),PermHandler.showVoidFogCheat(player),PermHandler.allowFlySpeedCheat(player)));
 		player.updatePermissions();
 		PrecacheManager.onPlayerJoin(player);

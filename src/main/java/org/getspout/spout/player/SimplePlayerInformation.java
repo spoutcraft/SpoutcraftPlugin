@@ -86,7 +86,7 @@ public class SimplePlayerInformation implements PlayerInformation {
 				ret = getter.invoke(SpoutManager.getPlayerChunkMap().getGlobalInfo(), args);
 			}
 		} catch (Exception e) {
-			throw new NoSuchMethodException("No get-method for the property '"+key+"' could be found.");
+			throw new NoSuchMethodException("No get-method for the property '" + key + "' could be found.");
 		}
 
 		return ret;

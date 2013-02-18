@@ -32,7 +32,6 @@ public class GenericButton extends GenericControl implements Button {
 	protected float scale = 1.0F;
 
 	public GenericButton() {
-
 	}
 
 	@Override
@@ -153,7 +152,6 @@ public class GenericButton extends GenericControl implements Button {
 
 	@Override
 	public void onButtonClick(ButtonClickEvent event) {
-
 	}
 
 	@Override

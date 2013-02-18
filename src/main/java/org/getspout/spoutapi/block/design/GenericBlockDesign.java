@@ -160,7 +160,7 @@ public class GenericBlockDesign implements BlockDesign {
 		PacketUtil.writeIntArray(output, lightSourceYOffset);
 		PacketUtil.writeIntArray(output, lightSourceZOffset);
 	}
-	
+
 	public void write(DataOutputStream output) throws IOException {
 		if (reset) {
 			PacketUtil.writeString(output, resetString);
@@ -186,7 +186,7 @@ public class GenericBlockDesign implements BlockDesign {
 		PacketUtil.writeIntArray(output, lightSourceYOffset);
 		PacketUtil.writeIntArray(output, lightSourceZOffset);
 	}
-	
+
 	public BlockDesign setTexture(Plugin plugin, String textureURL) {
 		this.texturePlugin = plugin.getDescription().getName();
 		this.textureURL = textureURL;
@@ -227,7 +227,6 @@ public class GenericBlockDesign implements BlockDesign {
 	}
 
 	public BlockDesign setQuad(int quadNumber, float x1, float y1, float z1, int tx1, int ty1, float x2, float y2, float z2, int tx2, int ty2, float x3, float y3, float z3, int tx3, int ty3, float x4, float y4, float z4, int tx4, int ty4, int textureSizeX, int textureSizeY) {
-
 		setVertex(quadNumber, 0, x1, y1, z1, tx1, ty1, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 1, x2, y2, z2, tx2, ty2, textureSizeX, textureSizeY);
 		setVertex(quadNumber, 2, x3, y3, z3, tx3, ty3, textureSizeX, textureSizeY);
@@ -294,36 +293,36 @@ public class GenericBlockDesign implements BlockDesign {
 	public BlockDesign setVertex(Vertex vertex) {
 		return setVertex(vertex.getQuadNum(), vertex.getIndex(), vertex.getX(), vertex.getY(), vertex.getZ(), vertex.getTextureX(), vertex.getTextureY(), vertex.getTextureWidth(), vertex.getTextureHeight());
 	}
-	
+
 	@Override
 	public BlockDesign rotate(int degrees) {
 		return rotate(degrees, Axis.Y);
 	}
-	
+
 	@Override
 	public BlockDesign rotate(int degrees, Axis axis) {
 		// Store angle to save some cpu calculations.
 		double angle = Math.toRadians(degrees);
-		
+
 		// Rotation matrices to use for rotation calculation.
 		float[][] rotmatrixX = {
 			{ 1f, 0f,                       0f                      },
 			{ 0f, (float) Math.cos(angle), (float) -Math.sin(angle) },
 			{ 0f, (float) Math.sin(angle), (float) Math.cos(angle)  }
 		};
-		
+
 		float[][] rotmatrixY = {
 			{ (float) Math.cos(angle),  0f, (float) Math.sin(angle) },
 			{ 0f,                       1f, 0f                      },
 			{ (float) -Math.sin(angle), 0f, (float) Math.cos(angle) }
 		};
-		
+
 		float[][] rotmatrixZ = {
 			{ (float) Math.cos(angle), (float) -Math.sin(angle), 0f },
 			{ (float) Math.sin(angle), (float) Math.cos(angle),  0f },
 			{ 0f,                      0f,                       1f }
 		};
-		
+
 		// Store matrices for easy code acces.
 		HashMap<Axis, float[][]> rotmatrix = new HashMap<Axis, float[][]>();
 		rotmatrix.put(Axis.X, rotmatrixX);
@@ -334,7 +333,7 @@ public class GenericBlockDesign implements BlockDesign {
 		float[][] xx = new float[xPos.length][xPos[0].length];
 		float[][] yy = new float[yPos.length][yPos[0].length];
 		float[][] zz = new float[zPos.length][zPos[0].length];
-		
+
 		// Iterate over all vertices.
 		for (int i = 0; i < xx.length; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -342,12 +341,12 @@ public class GenericBlockDesign implements BlockDesign {
 				float x1 = xPos[i][j] - 0.5f;
 				float y1 = yPos[i][j] - 0.5f;
 				float z1 = zPos[i][j] - 0.5f;
-				
+
 				// Calculate rotated vertices coords.
 				float x2 = (x1*rotmatrix.get(axis)[0][0]) + (y1*rotmatrix.get(axis)[0][1]) + (z1*rotmatrix.get(axis)[0][2]);
 				float y2 = (x1*rotmatrix.get(axis)[1][0]) + (y1*rotmatrix.get(axis)[1][1]) + (z1*rotmatrix.get(axis)[1][2]);
 				float z2 = (x1*rotmatrix.get(axis)[2][0]) + (y1*rotmatrix.get(axis)[2][1]) + (z1*rotmatrix.get(axis)[2][2]);
-				
+
 				// Shift 0.5 to move block back to correct position.
 				xx[i][j] = x2 + 0.5f;
 				yy[i][j] = y2 + 0.5f;
@@ -360,7 +359,7 @@ public class GenericBlockDesign implements BlockDesign {
 		des.calculateLightSources();
 		return des;
 	}
-	
+
 	public GenericBlockDesign calculateLightSources() {
 		lightSourceXOffset = new int[xPos.length];
 		lightSourceYOffset = new int[xPos.length];
@@ -376,7 +375,7 @@ public class GenericBlockDesign implements BlockDesign {
 
 			this.setLightSource(quad, (int) Math.round(normal.getX() / length), (int) Math.round(normal.getY() / length), (int) Math.round(normal.getZ() / length));
 		}
-		
+
 		return this;
 	}
 }

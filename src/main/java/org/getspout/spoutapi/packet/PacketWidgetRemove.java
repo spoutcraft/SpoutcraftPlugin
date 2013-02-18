@@ -39,7 +39,6 @@ public class PacketWidgetRemove implements SpoutPacket {
 
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
-		
 	}
 
 	@Override

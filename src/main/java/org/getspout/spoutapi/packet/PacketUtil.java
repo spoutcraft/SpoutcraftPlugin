@@ -72,7 +72,7 @@ public abstract class PacketUtil {
 			output.writeInt(ints[i]);
 		}
 	}
-	
+
 	public static void writeIntArray(DataOutputStream output, int[] ints) throws IOException {
 		if (ints.length > 256) {
 			throw new IllegalArgumentException("Array containing " + ints.length + " ints passed to writeQuadFloat");
@@ -91,7 +91,7 @@ public abstract class PacketUtil {
 			output.writeFloat(floats[i]);
 		}
 	}
-	
+
 	public static void writeQuadFloat(DataOutputStream output, float[] floats) throws IOException {
 		if (floats.length != 4) {
 			throw new IllegalArgumentException("Array containing " + floats.length + " floats passed to writeQuadFloat");
@@ -100,7 +100,7 @@ public abstract class PacketUtil {
 			output.writeFloat(floats[i]);
 		}
 	}
-	
+
 	public static void writeDoubleArray(SpoutOutputStream output, float[][] floats) throws IOException {
 		if (floats.length > 256) {
 			throw new IllegalArgumentException("Double array exceeded max length (" + floats.length + ")");
@@ -111,7 +111,7 @@ public abstract class PacketUtil {
 			writeQuadFloat(output, floats[i]);
 		}
 	}
-	
+
 	public static void writeDoubleArray(DataOutputStream output, float[][] floats) throws IOException {
 		if (floats.length > 256) {
 			throw new IllegalArgumentException("Double array exceeded max length (" + floats.length + ")");
@@ -122,19 +122,19 @@ public abstract class PacketUtil {
 			writeQuadFloat(output, floats[i]);
 		}
 	}
-	
+
 	public static void writeString(DataOutputStream output, String string) throws IOException {
 		byte[] data = string.getBytes("UTF-8");
 		output.writeInt(data.length);
 		output.write(data);
 	}
-	
+
 	public static String readString(DataInputStream input) throws IOException {
 		int length= input.readInt();
 		byte[] data=new byte[length];
 		input.readFully(data);
 		String string = new String(data,"UTF-8");
-		
+
 		return string;
 	}
 }

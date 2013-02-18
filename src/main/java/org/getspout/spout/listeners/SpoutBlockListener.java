@@ -139,7 +139,6 @@ public class SpoutBlockListener implements Listener {
 			return;
 		}
 		if (block.getPistonMoveReaction().equals(PistonMoveReaction.MOVE)) {
-
 			int customBlockId = block.getCustomBlock().getCustomId();
 			Byte customBlockData = block.getCustomBlockData();
 

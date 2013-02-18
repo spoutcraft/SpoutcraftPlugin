@@ -214,7 +214,6 @@ public class SimpleSkyManager implements SkyManager {
 		}
 	}
 
-
 	@Override
 	public void setSkyColor(SpoutPlayer player, Color skycolor) {
 		skyColor.put(player.getName(), skycolor);

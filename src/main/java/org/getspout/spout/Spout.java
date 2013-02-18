@@ -19,17 +19,12 @@
  */
 package org.getspout.spout;
 
-import net.minecraft.server.v1_4_R1.Packet18ArmAnimation;
-import org.getspout.spout.listeners.SpoutBlockListener;
-import org.getspout.spout.listeners.SpoutPlayerListener;
-import org.getspout.spout.listeners.PluginListener;
-import org.getspout.spout.listeners.SpoutWorldListener;
-import org.getspout.spout.listeners.SpoutEntityListener;
-import org.getspout.spout.listeners.InventoryListener;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.server.v1_4_R1.Packet18ArmAnimation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -50,6 +45,12 @@ import org.getspout.spout.item.mcitem.CustomItemFlint;
 import org.getspout.spout.item.mcitem.CustomItemPickaxe;
 import org.getspout.spout.item.mcitem.CustomItemSpade;
 import org.getspout.spout.keyboard.SimpleKeyBindingManager;
+import org.getspout.spout.listeners.SpoutBlockListener;
+import org.getspout.spout.listeners.SpoutPlayerListener;
+import org.getspout.spout.listeners.PluginListener;
+import org.getspout.spout.listeners.SpoutWorldListener;
+import org.getspout.spout.listeners.SpoutEntityListener;
+import org.getspout.spout.listeners.InventoryListener;
 import org.getspout.spout.packet.CustomPacket;
 import org.getspout.spout.packet.SimplePacketManager;
 import org.getspout.spout.player.SimpleBiomeManager;
@@ -264,7 +265,7 @@ public class Spout extends JavaPlugin {
 
 		super.onEnable();
 	}
-	
+
 	public List<SpoutPlayer> getOnlinePlayers() {
 		return playersOnline;
 	}

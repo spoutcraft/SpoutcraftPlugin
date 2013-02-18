@@ -338,7 +338,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 			setBlockDesign(design.rotate(90, Axis.Y), 1);
 			setBlockDesign(design.rotate(180, Axis.Y), 2);
 			setBlockDesign(design.rotate(270, Axis.Y), 3);
-			
+
 			if (mirroredRotate) {
 				setBlockDesign(design.rotate(180, Axis.Z), 4);
 				setBlockDesign(design.rotate(180, Axis.Z).rotate(90, Axis.Y), 5);
@@ -351,23 +351,23 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 				setBlockDesign(design.rotate(90, Axis.X).rotate(90, Axis.Y), 9);
 				setBlockDesign(design.rotate(90, Axis.X).rotate(180, Axis.Y), 10);
 				setBlockDesign(design.rotate(90, Axis.X).rotate(270, Axis.Y), 11);
-				
+
 				setBlockDesign(design.rotate(270, Axis.X), 12);
 				setBlockDesign(design.rotate(270, Axis.X).rotate(90, Axis.Y), 13);
 				setBlockDesign(design.rotate(270, Axis.X).rotate(180, Axis.Y), 14);
 				setBlockDesign(design.rotate(270, Axis.X).rotate(270, Axis.Y), 15);
-				
+
 				setBlockDesign(design.rotate(90, Axis.Z), 16);
 				setBlockDesign(design.rotate(90, Axis.Z).rotate(90, Axis.Y), 17);
 				setBlockDesign(design.rotate(90, Axis.Z).rotate(180, Axis.Y), 18);
 				setBlockDesign(design.rotate(90, Axis.Z).rotate(270, Axis.Y), 19);
-				
+
 				setBlockDesign(design.rotate(270, Axis.Z), 20);
 				setBlockDesign(design.rotate(270, Axis.Z).rotate(90, Axis.Y), 21);
 				setBlockDesign(design.rotate(270, Axis.Z).rotate(180, Axis.Y), 22);
 				setBlockDesign(design.rotate(270, Axis.Z).rotate(270, Axis.Y), 23);
 			}
-			
+
 			return this;
 		}
 		return setBlockDesign(design, 0);

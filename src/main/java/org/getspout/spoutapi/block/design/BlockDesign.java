@@ -66,9 +66,9 @@ public interface BlockDesign {
 	public void writeReset(SpoutOutputStream output) throws IOException;
 
 	public void write(SpoutOutputStream output) throws IOException;
-	
+
 	public void write(DataOutputStream output) throws IOException;
-	
+
 	/**
 	 * Sets the specified Texture for this BlockDesign
 	 * @param plugin  associated with the texture
@@ -211,14 +211,14 @@ public interface BlockDesign {
 	 * @return the texture
 	 */
 	public Texture getTexture();
-	
+
 	/**
 	 * Rotates a block on the Y Axis
 	 * @param degrees - the degree of rotation
 	 * @return the rotated BlockDesign
 	 */
 	public BlockDesign rotate(int degrees);
-	
+
 	/**
 	 * Rotates the block design on the given axis
 	 * @param degrees   the degree of rotation

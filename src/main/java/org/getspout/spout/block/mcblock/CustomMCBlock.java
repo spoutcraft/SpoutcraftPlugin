@@ -87,7 +87,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 		enc.setInterfaces(new Class[] { WrappedMCBlock.class });
 		enc.setCallback(new CustomMCBlock(parent));
 		enc.setClassLoader(CustomMCBlock.class.getClassLoader());
-		
+
 		Constructor<?>[] constructors = parent.getClass().getDeclaredConstructors();
 		BlockConstructor use = null;
 		for (Constructor<?> c : constructors) {
@@ -99,7 +99,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 				}
 			}
 		}
-		
+
 		if (use == null) {
 			System.err.println("Unable to find matching constructor for class: " + parent.getClass().getName());
 			for (Constructor<?> c : constructors) {
@@ -107,7 +107,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			}
 			return null;
 		}
-						
+
 		Block proxy;
 		switch(use) {
 			case None:
@@ -124,7 +124,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 					}  else if (parent instanceof BlockDiode) {
 						field2 = ((Boolean)getField(parent, "c")).booleanValue();
 					} else {
-						//Furnace
+						// Furnace
 						field2 = ((Boolean)getField(parent, "b")).booleanValue();
 					}
 					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2});
@@ -270,7 +270,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			}
 		}
 	}
-	
+
 	private static Object getField(Block parent, String fieldName) {
 		return getField(parent.getClass(), parent, fieldName);
 	}
@@ -306,7 +306,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 		Method m = fastMethodCache.get(method);
 		if (m == null) {
-			//Special cases
+			// Special cases
 			if (method.getName().equals("getWrapped")) {
 				return getWrapped();
 			} else if (method.getName().equals("setHardness")) {
@@ -325,14 +325,14 @@ public final class CustomMCBlock implements MethodInterceptor {
 				}
 			}
 		}
-		//Overridden methods
+		// Overridden methods
 		if (method.getName().equals("a") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {IBlockAccess.class, int.class, int.class, int.class, int.class})) {
 			World world = (World) args[0];
 			int x = (Integer) args[1];
 			int y = (Integer) args[2];
 			int z = (Integer) args[3];
 			int face = (Integer) args[4];
-			
+
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
 				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_4_R1.block.CraftBlock.notchToBlockFace(face));
@@ -424,7 +424,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 				block.onNeighborBlockChange(world.getWorld(), x, y, z, face);
 			}
 		}
-        	return m.invoke(wrapped, args);
+			return m.invoke(wrapped, args);
 	}
 }
 

@@ -30,10 +30,11 @@ import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 
+import net.minecraft.server.v1_4_R1.Block;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import net.minecraft.server.v1_4_R1.Block;
 import org.getspout.spout.block.mcblock.WrappedMCBlock;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;

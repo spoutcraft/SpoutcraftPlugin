@@ -33,5 +33,5 @@ public @interface ClientOnly {
 
 	public String version() default "1.1";
 
-	public String shortDescription() default "Indicates that the function requires the use of the Spout SinglePlayer client mod to have any effect";
+	public String shortDescription() default "Indicates that the function requires the use of the Spoutcraft client mod to have any effect";
 }

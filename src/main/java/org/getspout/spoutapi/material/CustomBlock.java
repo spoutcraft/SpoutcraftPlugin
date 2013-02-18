@@ -109,7 +109,7 @@ public interface CustomBlock extends Block {
 	 * @return this
 	 */
 	public CustomBlock setRotate(boolean rotate);
-	
+
 	/**
 	 * Whether or not this CustomBlock can also rotate upside-down.
 	 * @return Should the block rotate
@@ -122,7 +122,7 @@ public interface CustomBlock extends Block {
 	 * @return this
 	 */
 	public CustomBlock setMirroredRotate(boolean mirroredRotate);
-	
+
 	/**
 	 * Whether or not this CustomBlock can rotate in all directions.
 	 * @return Should the block rotate

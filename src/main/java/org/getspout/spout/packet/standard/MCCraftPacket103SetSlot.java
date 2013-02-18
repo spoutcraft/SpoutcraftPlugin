@@ -25,9 +25,10 @@ import java.util.logging.Logger;
 
 import net.minecraft.server.v1_4_R1.Packet;
 import net.minecraft.server.v1_4_R1.Packet103SetSlot;
-import org.getspout.spoutapi.packet.standard.MCPacket103SetSlot;
 
 import org.bukkit.inventory.ItemStack;
+
+import org.getspout.spoutapi.packet.standard.MCPacket103SetSlot;
 
 /**
  * Implementation of MCPacket103SetSlot

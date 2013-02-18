@@ -114,7 +114,7 @@ public class SimplePlayerChunkMap implements PlayerChunkMap {
 		if (sp instanceof SpoutCraftPlayer) {
 			SpoutCraftPlayer scp = (SpoutCraftPlayer)sp;
 			scp.setVersionString(versionString);
-			System.out.println("[SpoutPlugin] Authenticated " + scp.getName() + " using Spoutcraft " + scp.getVersionString());
+			System.out.println("[SpoutPlugin] " + scp.getName() + " is running Spoutcraft build " + scp.getVersionString());
 			int build;
 			try {
 				build = Integer.parseInt(versionString);

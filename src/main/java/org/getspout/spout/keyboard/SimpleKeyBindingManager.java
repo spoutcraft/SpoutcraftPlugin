@@ -39,7 +39,7 @@ public class SimpleKeyBindingManager implements KeyBindingManager {
 	@Override
 	public void registerBinding(String id, Keyboard defaultKey, String description, BindingExecutionDelegate callback, Plugin plugin) throws IllegalArgumentException {
 		if (searchBinding(id, plugin) != null) {
-			throw new IllegalArgumentException("This binding is already registered: "+id+" for plugin ["+plugin.getDescription().getName()+"]");
+			throw new IllegalArgumentException("This binding is already registered: " + id + " for plugin [" + plugin.getDescription().getName() + "]");
 		}
 		KeyBinding binding = new KeyBinding(id, defaultKey, description, plugin, callback);
 		bindings.put(binding.getUniqueId(), binding);
@@ -71,14 +71,14 @@ public class SimpleKeyBindingManager implements KeyBindingManager {
 			try {
 				binding.getDelegate().keyPressed(new KeyBindingEvent(player, binding));
 			} catch (Exception e) {
-				System.out.println("Could not execute Key Press Delegate of plugin ["+plugin.getDescription().getName()+"] for action ["+id+"]!");
+				System.out.println("Could not execute Key Press Delegate of plugin [" + plugin.getDescription().getName() + "] for action [" + id + "]!");
 				e.printStackTrace();
 			}
 		} else {
 			try {
 				binding.getDelegate().keyReleased(new KeyBindingEvent(player, binding));
 			} catch (Exception e) {
-				System.out.println("Could not execute Key Release Delegate of plugin ["+plugin.getDescription().getName()+"] for action ["+id+"]!");
+				System.out.println("Could not execute Key Release Delegate of plugin [" + plugin.getDescription().getName() + "] for action [" + id + "]!");
 				e.printStackTrace();
 			}
 		}

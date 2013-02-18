@@ -1,6 +1,6 @@
 [![SpoutPlugin][Project Logo]][Homepage]
 
-SpoutPlugin (formerly BukkitContrib) is a plugin for [Bukkit](http://www.bukkit.org), which provides an API which extends the Bukkit API to allow plugin developers to have features that aren't normally in Bukkit. SpoutPlugin is a legacy project, and will be replaced by the [Spout voxel game platform](https://github.com/SpoutDev/Spout) when finished. 
+SpoutPlugin (formerly BukkitContrib) is a plugin for [Bukkit](http://www.bukkit.org), which extends the Bukkit API to provide features that aren't normally available. SpoutPlugin is a legacy project, and will be replaced by the [Spout voxel game platform](https://github.com/SpoutDev/Spout) when finished. 
 
 [Homepage] | [Forums] | [Twitter] | [Facebook]
 

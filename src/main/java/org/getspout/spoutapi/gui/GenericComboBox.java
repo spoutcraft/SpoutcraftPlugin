@@ -79,7 +79,6 @@ public class GenericComboBox extends GenericButton implements ComboBox {
 	}
 
 	public void onSelectionChanged(int i, String text) {
-
 	}
 
 	public boolean isOpen() {

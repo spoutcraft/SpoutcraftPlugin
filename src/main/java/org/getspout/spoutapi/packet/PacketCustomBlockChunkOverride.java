@@ -104,7 +104,6 @@ public class PacketCustomBlockChunkOverride implements CompressiblePacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override
@@ -156,7 +155,6 @@ public class PacketCustomBlockChunkOverride implements CompressiblePacket {
 					int count = decompressor.inflate(buf);
 					bos.write(buf, 0, count);
 				} catch (DataFormatException e) {
-
 				}
 			}
 			try {

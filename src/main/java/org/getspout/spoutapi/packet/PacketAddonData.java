@@ -49,7 +49,6 @@ public class PacketAddonData implements CompressiblePacket {
 		try {
 			packet.write(stream);
 		} catch (Exception e) {
-
 		}
 		ByteBuffer buffer = stream.getRawBuffer();
 		data = new byte[buffer.capacity() - buffer.remaining()];
@@ -108,7 +107,6 @@ public class PacketAddonData implements CompressiblePacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

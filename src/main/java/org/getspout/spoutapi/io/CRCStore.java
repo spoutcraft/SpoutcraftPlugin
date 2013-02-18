@@ -61,7 +61,6 @@ public class CRCStore {
 			if (urlCRCStore != null) {
 				info = urlCRCStore.get(key);
 				if (info != null) {
-
 					String[] split = info.split(":");
 					if (split.length == 2) {
 						try {

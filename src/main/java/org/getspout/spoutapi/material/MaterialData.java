@@ -19,8 +19,6 @@
  */
 package org.getspout.spoutapi.material;
 
-import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -29,7 +27,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import org.bukkit.plugin.Plugin;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.material.block.Air;
 import org.getspout.spoutapi.material.block.DoubleSlabs;
@@ -561,7 +562,7 @@ public class MaterialData {
 				System.out.println("WARNING! Unknown lookup contents, " + idLookup[mat.getRawId()]);
 			}
 		} else {
-			System.out.println("WARNING! Material " + mat.getNotchianName() + " Could Not Fit " + id + ", " + data + " into the lookup array!");
+			System.out.println("WARNING! Material " + mat.getNotchianName() + " could not fit " + id + ", " + data + " into the lookup array!");
 		}
 	}
 
@@ -674,7 +675,7 @@ public class MaterialData {
 				mat = constructor.newInstance(orig.getName(), id, data);
 				insertItem(id, data, mat);
 			} catch (Exception e) {
-				System.out.println("[Spoutcraft] Failed to create a duplicate item in MaterialData.getOrCreateMaterial, for " + id + ", " + data);
+				System.out.println("[Spoutcraft] Failed to create a duplicate item in MaterialData.getOrCreateMaterial for " + id + ", " + data);
 			}
 			return mat;
 		}
@@ -715,7 +716,7 @@ public class MaterialData {
 		}
 		return blocks;
 	}
-	
+
 	/**
 	 * Gets a list of all currently registered custom blocks for a specific plugin
 	 * @param plugin The plugin in which owns the custom blocks
@@ -723,7 +724,7 @@ public class MaterialData {
 	 */
 	public static List<CustomBlock> getCustomBlocks(Plugin plugin) {
 		List<CustomBlock> blocks = new ArrayList<CustomBlock>();
-		for(CustomBlock block : customBlocks) {
+		for (CustomBlock block : customBlocks) {
 			if (block.getPlugin().equals(plugin)) {
 				blocks.add(block);
 			}

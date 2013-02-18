@@ -41,7 +41,7 @@ public class ConfigReader {
 
 	private static boolean chunkDataCache = true;
 	private static boolean teleportSmoothing = true;
-	private static boolean runDeadlockMonitor = false;	
+	private static boolean runDeadlockMonitor = false;
 
 	private static HashMap<String, List<Waypoint> > waypoints = new HashMap<String, List<Waypoint>>();
 
@@ -52,7 +52,7 @@ public class ConfigReader {
 
 		kickMessage = configuration.getString("ForceClientKickMessage");
 		authTicks = configuration.getInt("ClientCheckTicks", 200);
-		buildCheck = configuration.getBoolean("MinecraftVersionCheck", true);		
+		buildCheck = configuration.getBoolean("MinecraftVersionCheck", true);
 		/*allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
 		allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
 		allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
@@ -164,5 +164,5 @@ public class ConfigReader {
 
 	public static boolean runDeadlockMonitor() {
 		return runDeadlockMonitor;
-	}	
+	}
 }

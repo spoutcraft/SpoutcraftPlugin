@@ -19,14 +19,14 @@
  */
 package org.getspout.spout.inventory;
 
-import gnu.trove.list.array.TByteArrayList;
-import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
+
+import gnu.trove.list.array.TByteArrayList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import net.minecraft.server.v1_4_R1.Item;
 

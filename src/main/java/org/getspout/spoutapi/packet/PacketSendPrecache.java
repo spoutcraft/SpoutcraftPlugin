@@ -36,10 +36,10 @@ public class PacketSendPrecache implements CompressiblePacket {
 	private String plugin;
 	private String version;
 	private boolean compressed = false;
-	
+
 	public PacketSendPrecache() {
 	}
-	
+
 	public PacketSendPrecache(Plugin plugin, File file) {
 		try {
 			this.fileData = FileUtils.readFileToByteArray(file);
@@ -49,7 +49,7 @@ public class PacketSendPrecache implements CompressiblePacket {
 		this.plugin = plugin.getDescription().getName();
 		this.version = plugin.getDescription().getVersion();
 	}
-	
+
 	// TODO Move to separate thread?
 	public void compress() {
 		if (!compressed) {
@@ -72,7 +72,7 @@ public class PacketSendPrecache implements CompressiblePacket {
 			compressed = true;
 		}
 	}
-	
+
 	public void decompress() {
 		if (compressed) {
 			Inflater decompressor = new Inflater();
@@ -93,11 +93,11 @@ public class PacketSendPrecache implements CompressiblePacket {
 				fileData = bos.toByteArray();
 		}
 	}
-	
+
 	public boolean isCompressed() {
 		return compressed;
 	}
-	
+
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
 		this.plugin = input.readString();
@@ -116,7 +116,7 @@ public class PacketSendPrecache implements CompressiblePacket {
 		output.writeInt(fileData.length);
 		output.write(fileData);
 	}
-	
+
 	@Override
 	public void run(int playerId) {
 	}

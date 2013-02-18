@@ -42,7 +42,7 @@ public class PluginListener implements Listener {
 			p.getMainScreen().removeWidgets(event.getPlugin());
 		}
 	}
-	
+
 	/**
 	 * Handle the precache setup after all plugins have loaded
 	 * @param event
@@ -51,5 +51,5 @@ public class PluginListener implements Listener {
 	public void onPluginEnabled(PluginEnableEvent event) {
 		PrecacheManager.onPluginEnabled(event.getPlugin());
 	}
-	
+
 }

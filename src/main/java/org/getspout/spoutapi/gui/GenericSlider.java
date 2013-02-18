@@ -85,7 +85,6 @@ public class GenericSlider extends GenericControl implements Slider {
 
 	@Override
 	public void onSliderDrag(SliderDragEvent event) {
-
 	}
 
 	@Override

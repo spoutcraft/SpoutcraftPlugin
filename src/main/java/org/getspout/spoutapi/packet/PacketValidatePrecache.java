@@ -78,7 +78,6 @@ public class PacketValidatePrecache implements SpoutPacket {
 
 	@Override
 	public void failure(int playerId) {
-
 	}
 
 	@Override

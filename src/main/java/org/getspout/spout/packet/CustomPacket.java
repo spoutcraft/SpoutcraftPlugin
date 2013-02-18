@@ -91,7 +91,7 @@ public class CustomPacket extends Packet {
 			} else {
 				byte[] data = new byte[length];
 				input.readFully(data);
-		
+
 				SpoutInputStream stream = new SpoutInputStream(ByteBuffer.wrap(data));
 				packet.readData(stream);
 

@@ -23,8 +23,8 @@ import java.util.Arrays;
 
 import net.minecraft.server.v1_4_R1.IInventory;
 import net.minecraft.server.v1_4_R1.InventoryCrafting;
-import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack;
 
+import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.inventory.CraftingInventory;

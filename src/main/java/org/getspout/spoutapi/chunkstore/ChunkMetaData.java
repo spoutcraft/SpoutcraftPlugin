@@ -389,7 +389,6 @@ public class ChunkMetaData implements Serializable {
 	private void convertIds(ItemMap worldItemMap) {
 		int length = customBlockIds.length;
 		for (int i = 0; i < length; i++) {
-
 			Integer globalId = worldItemMap.convertTo(serverItemMap, customBlockIds[i]);
 
 			if (globalId == null) {
@@ -414,7 +413,6 @@ public class ChunkMetaData implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	private HashMap<String, Serializable> readMap(ObjectInputStream in) throws IOException {
-
 		if (!in.readBoolean()) {
 			return null;
 		}

@@ -288,12 +288,12 @@ public class SimpleFileManager implements FileManager {
 		if (plugin == null) {
 			throw new NullPointerException("Plugin may not be null");
 		}
-		
-		//only cache valid url
+
+		// Only cache valid URL
 		if (!isValidUrl(fileUrl)) {
 			return false;
 		}
-		
+
 		if (addToPreLoginCache(plugin, fileUrl)) {
 			URLCheck urlCheck = new URLCheck(fileUrl, new byte[4096], new CRCStoreRunnable() {
 				Long CRC;
@@ -339,7 +339,6 @@ public class SimpleFileManager implements FileManager {
 		}
 		return success;
 	}
-
 
 	@Override
 	public boolean addToCache(Plugin plugin, InputStream input, String fileName) {
@@ -451,7 +450,7 @@ public class SimpleFileManager implements FileManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private boolean isValidUrl(String url) {
 		try {
 			URL checkURL = new URL(url);
@@ -460,14 +459,14 @@ public class SimpleFileManager implements FileManager {
 			return false;
 		}
 	}
-	
+
 	public List<File> getPluginPreLoginCache(Plugin plugin) {
 		if (!preLoginCache.containsKey(plugin)) {
 			return null;
 		}
 		return preLoginCache.get(plugin);
 	}
-	
+
 	public List<String> getPluginPreLoginUrlCache(Plugin plugin) {
 		if (!preLoginUrlCache.containsKey(plugin)) {
 			return null;

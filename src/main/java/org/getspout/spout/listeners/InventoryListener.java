@@ -65,7 +65,7 @@ public class InventoryListener implements Listener{
 		res.removeEnchantment(SpoutEnchantment.UNSTACKABLE);
 		Material m = MaterialData.getMaterial(res.getTypeId(), res.getDurability());
 		if (m instanceof CustomItem) {
-			if(!((CustomItem) m).isStackable() && e.isShiftClick()) {
+			if (!((CustomItem) m).isStackable() && e.isShiftClick()) {
 				e.setCancelled(true); // Shift clicking causes... issues with unstackable Spout items.
 			}
 		}

@@ -146,7 +146,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 	public void onTick() {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		if (player != null) {
-			//Create a copy because onTick may remove the widget
+			// Create a copy because onTick may remove the widget
 			Set<Widget> widgetCopy = new HashSet<Widget>(widgets.keySet());
 			for (Widget widget : widgetCopy) {
 				try {

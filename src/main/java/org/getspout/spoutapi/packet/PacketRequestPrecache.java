@@ -33,10 +33,10 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketRequestPrecache implements SpoutPacket {
 	private String plugin;
-	
+
 	public PacketRequestPrecache() {
 	}
-	
+
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
 		plugin = input.readString();
@@ -49,9 +49,8 @@ public class PacketRequestPrecache implements SpoutPacket {
 
 	@Override
 	public void run(int playerId) {
-		
 		Plugin plugin = Bukkit.getPluginManager().getPlugin(this.plugin);
-		
+
 		File preCache = PrecacheManager.getPluginCacheZip(plugin);
 		if (preCache.exists()) {
 			SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
@@ -63,7 +62,6 @@ public class PacketRequestPrecache implements SpoutPacket {
 
 	@Override
 	public void failure(int playerId) {
-		
 	}
 
 	@Override

@@ -239,6 +239,16 @@
 									</includes>
 								</filter>
 							</filters>
+							<relocations>
+								<relocation>
+									<pattern>net.sf.cglib</pattern>
+									<shadedPattern>org.getspout.lib.cglib</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>org.objectweb.asm</pattern>
+									<shadedPattern>org.getspout.lib.asm</shadedPattern>
+								</relocation>
+							</relocations>
 						</configuration>
 						<phase>package</phase>
 						<goals>

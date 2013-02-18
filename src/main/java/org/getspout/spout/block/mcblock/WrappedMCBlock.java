@@ -23,6 +23,6 @@ import net.minecraft.server.v1_4_R1.Block;
 
 public interface WrappedMCBlock {
 	public Block getWrapped();
-	
+
 	public void setHardness(float hardness);
 }
