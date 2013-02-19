@@ -1223,7 +1223,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	/* Non Interface public static methods */
 	public static boolean setPlayerConnection(INetworkManager nm, PlayerConnection nsh) {
 		try {
-			Field p = NetworkManager.class.getDeclaredField("connection");
+			Field p = nm.getClass().getDeclaredField("connection");
 			p.setAccessible(true);
 			p.set(nm, nsh);
 		} catch (NoSuchFieldException e) {
