@@ -261,35 +261,13 @@ public class Spout extends JavaPlugin {
 			new DeadlockMonitor().start();
 		}
 
-		setupPermissions();
-
 		super.onEnable();
 	}
 
 	public List<SpoutPlayer> getOnlinePlayers() {
 		return playersOnline;
 	}
-
-	/**
-	 * Initializes Spouts permissions
-	 */
-	private void setupPermissions() {
-		String defaults[] = {
-				"spout.client.minimap",
-				"spout.client.overviewmap",
-				"spout.client.sortinventory",
-				"spout.client.signcolors",
-				"spout.client.chatcolors",
-				"spout.client.minimap.showentities",
-				"spout.client.autorun.forward",
-				"spout.client.autorun.backward"
-		};
-		PluginManager pm = Bukkit.getPluginManager();
-		for (String d : defaults) {
-			pm.addPermission(new Permission(d, PermissionDefault.TRUE));
-		}
-	}
-
+	
 	/**
 	 * Gets the singleton instance of the Spout plugin
 	 * @return Spout plugin

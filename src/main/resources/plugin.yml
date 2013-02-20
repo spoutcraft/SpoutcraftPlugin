@@ -3,12 +3,9 @@ version: ${releaseVersion} b${buildNumber}
 mcversion: ${minecraftVersion}
 description: ${project.description}
 website: ${project.url}
-
 author: ${project.organization.name}
-
 main: ${mainClass}
 load: startup
-
 commands:
     spout:
         aliases: [spoutcommand, spoutcmd, spcmd]
@@ -16,8 +13,26 @@ commands:
         usage: |
             Usage: /<command> version [player]
             Usage: /<command> verify [motd]
-
 permissions:
+    spout.plugin.*:
+        description: Gives access to all spout plugin abilities
+        children:
+            spout.plugin.cheat.coords: true
+            spout.plugin.cheat.entitylabel: true
+            spout.plugin.cheat.clearwater: true
+            spout.plugin.cheat.sky: true
+            spout.plugin.cheat.stars: true
+            spout.plugin.cheat.time: true
+            spout.plugin.cheat.voidfog: true
+            spout.plugin.cheat.weather: true
+            spout.plugin.cheat.flyspeed: true
+            spout.plugin.minimap: true
+            spout.plugin.overviewmap: true
+            spout.plugin.sortinventory: true
+            spout.plugin.signcolors: true
+            spout.plugin.minimap.showentities: true
+            spout.plugin.autorun.forward: true
+            spout.plugin.autorun.backward: true
     spout.plugin.forcespoutcraft:
         description: Forces players to join with Spoutcraft even if the server doesn't force Spoutcraft in the config.
         default: false
@@ -80,4 +95,25 @@ permissions:
         default: true  
     spout.plugin.cheat.flyspeed:
         description: Allows the player to enable/disable weather.
-        default: false
+        default: true
+    spout.plugin.minimap:
+        description: Allows the player to enable/disable minimap.
+        default: true
+    spout.plugin.overviewmap:
+        description: Allows the player to enable/disable overviewmap.
+        default: true
+    spout.plugin.sortinventory:
+        description: Allows the player to auto-sort their inventory.
+        default: true
+    spout.plugin.signcolors:
+        description: Allows the player to input sign colors onto signs.
+        default: true    
+    spout.plugin.minimap.showentities:
+        description: Allows the player to see entities on minimap
+        default: true
+    spout.plugin.autorun.forward:
+        description: Allows the player to enable/disable autorun forward.
+        default: true
+    spout.plugin.autorun.backward:
+        description: Allows the player to enable/disable autorun backwards.
+        default: true
