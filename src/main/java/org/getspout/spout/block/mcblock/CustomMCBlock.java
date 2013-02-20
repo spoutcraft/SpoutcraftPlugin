@@ -217,7 +217,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 		//Store...whatever u is
 		final boolean[] uArray = new boolean[Block.u.length];
 		System.arraycopy(Block.u, 0, uArray, 0, Block.u.length);
-		//Store...whatever u is
+		//Store...whatever v is
 		final boolean[] vArray = new boolean[Block.v.length];
 		System.arraycopy(Block.v, 0, vArray, 0, Block.v.length);
 		//Store proper lighting values for emission
@@ -227,9 +227,6 @@ public final class CustomMCBlock implements MethodInterceptor {
 		for (int i = 0; i < Block.byId.length; i++) {
 			if (Block.byId[i] != null) {
 				Block parent = Block.byId[i];
-				if (parent.equals(Block.STATIONARY_WATER)) {
-					continue;
-				}
 				Block.byId[i] = null;
 				try {
 					Block.byId[i] = createProxy(parent);
