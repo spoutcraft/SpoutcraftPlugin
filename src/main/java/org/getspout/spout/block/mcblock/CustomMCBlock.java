@@ -205,9 +205,31 @@ public final class CustomMCBlock implements MethodInterceptor {
 	}
 
 	public static void replaceBlocks() {
+		//Store proper lighting values for opacity
+		final int[] lightOpacity = new int[Block.lightBlock.length];
+		System.arraycopy(Block.lightBlock, 0, lightOpacity, 0, lightOpacity.length);
+		//Store...whatever q is
+		final boolean[] qArray = new boolean[Block.q.length];
+		System.arraycopy(Block.q, 0, qArray, 0, Block.q.length);
+		//Store...whatever s is
+		final boolean[] sArray = new boolean[Block.s.length];
+		System.arraycopy(Block.s, 0, sArray, 0, Block.s.length);
+		//Store...whatever u is
+		final boolean[] uArray = new boolean[Block.u.length];
+		System.arraycopy(Block.u, 0, uArray, 0, Block.u.length);
+		//Store...whatever u is
+		final boolean[] vArray = new boolean[Block.v.length];
+		System.arraycopy(Block.v, 0, vArray, 0, Block.v.length);
+		//Store proper lighting values for emission
+		final int[] lightEmission = new int[Block.lightEmission.length];
+		System.arraycopy(Block.lightEmission, 0, lightEmission, 0, Block.lightEmission.length);
+
 		for (int i = 0; i < Block.byId.length; i++) {
 			if (Block.byId[i] != null) {
 				Block parent = Block.byId[i];
+				if (parent.equals(Block.STATIONARY_WATER)) {
+					continue;
+				}
 				Block.byId[i] = null;
 				try {
 					Block.byId[i] = createProxy(parent);
@@ -218,6 +240,13 @@ public final class CustomMCBlock implements MethodInterceptor {
 				}
 			}
 		}
+		//Fix values
+		System.arraycopy(lightOpacity, 0, Block.lightBlock, 0, lightOpacity.length);
+		System.arraycopy(qArray, 0, Block.q, 0, qArray.length);
+		System.arraycopy(sArray, 0, Block.s, 0, sArray.length);
+		System.arraycopy(uArray, 0, Block.u, 0, uArray.length);
+		System.arraycopy(vArray, 0, Block.v, 0, vArray.length);
+		System.arraycopy(lightEmission, 0, Block.lightEmission, 0, lightEmission.length);
 	}
 
 	@SuppressWarnings("rawtypes")
