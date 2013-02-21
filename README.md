@@ -25,7 +25,7 @@ The latest and greatest source can be found here on [GitHub][Source].
 
 If you are using Git, use this command to clone the project:
 
-    git clone git://github.com/SpoutLegacy/SpoutPlugin.git
+    git clone git://github.com/Legacy/SpoutPlugin.git
 
 Or download the [latest zip archive][Download Source].
 
@@ -65,7 +65,7 @@ Want to know how to use the API? Check out the latest [Javadoc].
 [Download Source]: https://github.com/Legacy/SpoutPlugin/archive/master.zip
 [Builds]: http://build.spout.org/job/SpoutPlugin
 [Build Icon]: http://build.spout.org/job/SpoutPlugin/badge/icon
-[Javadoc]: http://jd.spout.org/legacy/plugin/latest
+[Javadoc]: http://jd.spout.org/legacy
 [Issues]: http://issues.spout.org/browse/LEGACY
 [Twitter]: http://spout.in/twitter
 [Facebook]: http://spout.in/facebook
