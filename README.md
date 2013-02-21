@@ -25,7 +25,7 @@ The latest and greatest source can be found here on [GitHub][Source].
 
 If you are using Git, use this command to clone the project:
 
-    git clone git://github.com/SpoutLegacy/SpoutPlugin.git
+    git clone git://github.com/Legacy/SpoutPlugin.git
 
 Or download the [latest zip archive][Download Source].
 
