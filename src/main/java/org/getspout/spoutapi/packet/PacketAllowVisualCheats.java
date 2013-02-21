@@ -43,12 +43,12 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 	private boolean cheatvoidfog = false;
 	private boolean forcevoidfog = false;
 	private boolean showvoidfog = false;
-	private boolean flyspeed = false;
+	private boolean flightspeed = false;
 
 	public PacketAllowVisualCheats() {
 	}
 
-	public PacketAllowVisualCheats(boolean tsky, boolean fsky, boolean ssky, boolean tclearwater, boolean fclearwater, boolean sclearwater, boolean tstars, boolean fstars, boolean sstars, boolean tweather, boolean fweather, boolean sweather, boolean ttime, boolean tcoords, boolean tentitylabel, boolean tvoidfog, boolean fvoidfog, boolean svoidfog, boolean tflyspeed) {
+	public PacketAllowVisualCheats(boolean tsky, boolean fsky, boolean ssky, boolean tclearwater, boolean fclearwater, boolean sclearwater, boolean tstars, boolean fstars, boolean sstars, boolean tweather, boolean fweather, boolean sweather, boolean ttime, boolean tcoords, boolean tentitylabel, boolean tvoidfog, boolean fvoidfog, boolean svoidfog, boolean tflightspeed) {
 		this.cheatsky = tsky;
 		this.forcesky = fsky;
 		this.showsky = ssky;
@@ -67,7 +67,7 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 		this.cheatvoidfog = tvoidfog;
 		this.forcevoidfog = fvoidfog;
 		this.showvoidfog = svoidfog;
-		this.flyspeed = tflyspeed;
+		this.flightspeed = tflightspeed;
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 		cheatvoidfog = input.readBoolean();
 		forcevoidfog = input.readBoolean();
 		showvoidfog = input.readBoolean();
-		flyspeed = input.readBoolean();
+		flightspeed = input.readBoolean();
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class PacketAllowVisualCheats implements SpoutPacket {
 		output.writeBoolean(cheatvoidfog);
 		output.writeBoolean(forcevoidfog);
 		output.writeBoolean(showvoidfog);
-		output.writeBoolean(flyspeed);
+		output.writeBoolean(flightspeed);
 	}
 
 	@Override

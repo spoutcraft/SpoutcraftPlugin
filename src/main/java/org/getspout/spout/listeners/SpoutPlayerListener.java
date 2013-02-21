@@ -102,7 +102,7 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		SpoutPlayer splr = SpoutManager.getPlayer(event.getPlayer());
-		if (event.getCause() == TeleportCause.UNKNOWN && splr.isSpoutCraftEnabled() && splr.isFlying() && splr.getFlySpeed() > 1.0f) {
+		if (event.getCause() == TeleportCause.UNKNOWN && splr.isSpoutCraftEnabled() && splr.isFlying() && splr.getFlightSpeed() > 1.0f) {
 			event.setCancelled(true);
 		}
 	}
@@ -128,7 +128,7 @@ public class SpoutPlayerListener implements Listener {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Spout.getInstance(), update, 2);
 		}
 		if (event.getPlayer() instanceof SpoutPlayer) {
-			scp.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(scp),PermHandler.forceSkyCheat(scp),PermHandler.showSkyCheat(scp),PermHandler.allowClearWaterCheat(scp),PermHandler.forceClearWaterCheat(scp),PermHandler.showClearWaterCheat(scp),PermHandler.allowStarsCheat(scp),PermHandler.forceStarsCheat(scp),PermHandler.showStarsCheat(scp),PermHandler.allowWeatherCheat(scp),PermHandler.forceWeatherCheat(scp),PermHandler.showWeatherCheat(scp),PermHandler.allowTimeCheat(scp),PermHandler.allowCoordsCheat(scp),PermHandler.allowEntityLabelCheat(scp),PermHandler.allowVoidFogCheat(scp),PermHandler.forceVoidFogCheat(scp),PermHandler.showVoidFogCheat(scp),PermHandler.allowFlySpeedCheat(scp)));
+			scp.sendPacket(new PacketAllowVisualCheats(PermHandler.allowSkyCheat(scp),PermHandler.forceSkyCheat(scp),PermHandler.showSkyCheat(scp),PermHandler.allowClearWaterCheat(scp),PermHandler.forceClearWaterCheat(scp),PermHandler.showClearWaterCheat(scp),PermHandler.allowStarsCheat(scp),PermHandler.forceStarsCheat(scp),PermHandler.showStarsCheat(scp),PermHandler.allowWeatherCheat(scp),PermHandler.forceWeatherCheat(scp),PermHandler.showWeatherCheat(scp),PermHandler.allowTimeCheat(scp),PermHandler.allowCoordsCheat(scp),PermHandler.allowEntityLabelCheat(scp),PermHandler.allowVoidFogCheat(scp),PermHandler.forceVoidFogCheat(scp),PermHandler.showVoidFogCheat(scp),PermHandler.allowFlightSpeedCheat(scp)));
 		}
 	}
 

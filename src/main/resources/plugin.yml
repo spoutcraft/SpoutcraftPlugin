@@ -25,7 +25,7 @@ permissions:
             spout.plugin.cheat.time: true
             spout.plugin.cheat.voidfog: true
             spout.plugin.cheat.weather: true
-            spout.plugin.cheat.flyspeed: true
+            spout.plugin.cheat.flightspeed: true
             spout.plugin.minimap: true
             spout.plugin.overviewmap: true
             spout.plugin.sortinventory: true
@@ -93,8 +93,8 @@ permissions:
     spout.plugin.show.weather:
         description: Show or hide weather.
         default: true  
-    spout.plugin.cheat.flyspeed:
-        description: Allows the player to enable/disable weather.
+    spout.plugin.cheat.flightspeed:
+        description: Allows the player to change their flightspeed.
         default: true
     spout.plugin.minimap:
         description: Allows the player to enable/disable minimap.
