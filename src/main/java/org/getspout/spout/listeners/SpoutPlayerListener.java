@@ -102,7 +102,7 @@ public class SpoutPlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		SpoutPlayer splr = SpoutManager.getPlayer(event.getPlayer());
-		if (event.getCause() == TeleportCause.UNKNOWN && splr.isSpoutCraftEnabled() && splr.isFlying() && splr.getFlightSpeed() > 1.0f) {
+		if (event.getCause() == TeleportCause.UNKNOWN && splr.isSpoutCraftEnabled() && splr.isFlying() && splr.getFlySpeed() > 1.0f) {
 			event.setCancelled(true);
 		}
 	}
