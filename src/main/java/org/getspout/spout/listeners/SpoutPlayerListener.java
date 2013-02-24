@@ -60,6 +60,8 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.packet.PacketAllowVisualCheats;
 import org.getspout.spoutapi.player.SpoutPlayer;
+import org.getspout.spoutapi.event.input.KeyReleasedEvent;
+import org.getspout.spoutapi.event.spout.ServerTickEvent;
 
 public class SpoutPlayerListener implements Listener {
 	public final PlayerChunkMap manager = new PlayerChunkMap();
@@ -384,3 +386,27 @@ class PostWorldTeleport implements Runnable {
 		player.updateWaypoints();
 	}
 }
+
+@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onCustomFoodInteract(PlayerInteractEvent e) {
+		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) && new SpoutItemStack(e.getPlayer().getItemInHand()).isCustomItem()) {
+			CustomItem ci = (CustomItem)new SpoutItemStack(e.getPlayer().getItemInHand()).getMaterial();
+			if(ci instanceof GenericCustomFood) {
+				GenericCustomFood.players.put(e.getPlayer().getName(), 0);
+			}
+		}
+	}
+	  
+@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onCustomFoodInteract(KeyReleasedEvent e) {
+		if(e.getKey().equals(Keyboard.MOUSE_RIGHT)) {
+			if(GenericCustomFood.players.containsKey(e.getPlayer().getName())) {
+				GenericCustomFood.players.remove(e.getPlayer().getName());
+			}
+		}
+	}
+	  
+@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onCustomFoodTick(ServerTickEvent e) {
+		GenericCustomFood.onTick();
+	}
