@@ -19,7 +19,7 @@
  */
 package org.getspout.spout.packet.standard;
 
-import net.minecraft.server.v1_4_R1.Packet18ArmAnimation;
+import net.minecraft.server.v1_5_R2.Packet18ArmAnimation;
 
 import org.getspout.spoutapi.packet.standard.MCPacket18ArmAnimation;
 

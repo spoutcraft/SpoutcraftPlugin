@@ -35,13 +35,13 @@ SpoutPlugin uses Maven to handle its dependencies.
 * Download and install [Maven 2 or 3](http://maven.apache.org/download.html)  
 * Checkout this repo and run: `mvn clean install`
 
-## Using with Your Project
+## Using with your project
 If you're using [Maven](http://maven.apache.org/download.html) to manage project dependencies, simply include the following in your `pom.xml`:
 
     <dependency>
         <groupId>org.getspout</groupId>
         <artifactId>spoutplugin</artifactId>
-        <version>1.4.7-R1.0-SNAPSHOT</version>
+        <version>1.5.1-R0.1-SNAPSHOT</version>
     </dependency>
 
 If you do not already have repo.spout.org in your repository list, you will need to add this also:

@@ -6,7 +6,7 @@
 	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
-	<version>1.4.7-R1.0-SNAPSHOT</version>
+	<version>1.5.1-R0.1-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
 	<description>SpoutPlugin (formerly BukkitContrib) is a plugin for Bukkit, which extends the Bukkit API to provide features that aren't normally available. SpoutPlugin is a legacy project, and will be replaced by the Spout voxel game platform when finished.</description>
@@ -15,12 +15,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mainClass>${project.groupId}.spout.Spout</mainClass>
-		<craftbukkitVersion>1.4.7-R1.0</craftbukkitVersion>
-		<minecraftVersion>1.4.7</minecraftVersion>
+		<craftbukkitVersion>1.5.1-R0.1-SNAPSHOT</craftbukkitVersion>
+		<minecraftVersion>1.5.1</minecraftVersion>
 		<buildNumber>0</buildNumber>
 	</properties>
 
-	<!-- Company information -->
+	<!-- Organization information -->
 	<organization>
 		<name>Spout LLC</name>
 		<url>http://www.spout.org</url>
@@ -90,7 +90,7 @@
 
 	<!-- Project dependencies -->
 	<dependencies>
-		<!-- Included in the final JAR -->
+		<!-- Include in final JAR -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
@@ -136,7 +136,7 @@
 			<!-- Filtered resources -->
 			<resource>
 				<filtering>true</filtering>
-				<directory>${project.basedir}/src/main/resources</directory>
+				<directory>src/main/resources</directory>
 				<targetPath>.</targetPath>
 				<includes>
 					<include>*.yml</include>
@@ -146,7 +146,7 @@
 
 		<!-- Build plugins -->
 		<plugins>
-			<!-- License headers plugin -->
+			<!-- License header plugin -->
 			<plugin>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
@@ -183,24 +183,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Release version plugin -->
-			<plugin>
-				<groupId>com.sourcesense.maven</groupId>
-				<artifactId>maven-nosnapshot-plugin</artifactId>
-				<version>0.0.7</version>
-				<executions>
-					<execution>
-						<configuration>
-							<version>${project.version}</version>
-							<propertyName>releaseVersion</propertyName>
-						</configuration>
-						<phase>initialize</phase>
-						<goals>
-							<goal>strip</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- Source compiler plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -212,6 +194,7 @@
 					<compilerArguments>
 						<O>-Xlint:all</O>
 						<O>-Xlint:-path</O>
+						<O>-Xlint:unchecked</O>
 					</compilerArguments>
 					<showWarnings>true</showWarnings>
 				</configuration>
@@ -258,37 +241,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-
-		<!-- Plugin management -->
-		<pluginManagement>
-			<plugins>
-				<!-- Eclipse exclusions -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>com.sourcesense.maven</groupId>
-										<artifactId>maven-nosnapshot-plugin</artifactId>
-										<versionRange>[0.0.7,)</versionRange>
-										<goals>
-											<goal>strip</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute/>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<!-- Reporting configuration -->
@@ -301,10 +253,10 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9</version>
 				<configuration>
-					<sourcepath>${project.basedir}/src/main/java/org/getspout/spoutapi</sourcepath>
-					<bottom><![CDATA[Copyright (c) {project.inceptionYear}, <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
-					<doctitle><![CDATA[${project.name} API ${releaseVersion} b${buildNumber} - ${maven.build.timestamp}]]></doctitle>
-					<windowtitle>Javadoc | ${project.name} ${releaseVersion} b${buildNumber}</windowtitle>
+					<sourcepath>src/main/java/org/getspout/spoutapi</sourcepath>
+					<bottom><![CDATA[Copyright (c) {project.inceptionYear} <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
+					<doctitle><![CDATA[${project.name} API ${project.version}-b${buildNumber}]]></doctitle>
+					<windowtitle>Javadoc | ${project.name} API ${project.version}-b${buildNumber}</windowtitle>
 					<author>false</author>
 					<version>false</version>
 					<linksource>true</linksource>

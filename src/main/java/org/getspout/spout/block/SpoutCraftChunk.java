@@ -30,15 +30,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import gnu.trove.map.hash.TIntIntHashMap;
 
-import net.minecraft.server.v1_4_R1.Chunk;
-import net.minecraft.server.v1_4_R1.ChunkProviderServer;
-import net.minecraft.server.v1_4_R1.WorldServer;
+import net.minecraft.server.v1_5_R2.Chunk;
+import net.minecraft.server.v1_5_R2.ChunkProviderServer;
+import net.minecraft.server.v1_5_R2.WorldServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
-import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R2.CraftChunk;
+import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
 
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;

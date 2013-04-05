@@ -23,8 +23,8 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.minecraft.server.v1_4_R1.Packet;
-import net.minecraft.server.v1_4_R1.Packet103SetSlot;
+import net.minecraft.server.v1_5_R2.Packet;
+import net.minecraft.server.v1_5_R2.Packet103SetSlot;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -36,7 +36,7 @@ import org.getspout.spoutapi.packet.standard.MCPacket103SetSlot;
 public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket103SetSlot {
 	private static Field windowField, slotField, itemStackField;
 	private int rawWindow, rawSlot;
-	private net.minecraft.server.v1_4_R1.ItemStack notchStack;
+	private net.minecraft.server.v1_5_R2.ItemStack notchStack;
 	private ItemStack bukkitStack;
 	private Slot slot;
 	private Window window;
@@ -122,7 +122,7 @@ public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket10
 		if (bukkitStack == null) {
 			notchStack = null;
 		} else {
-			notchStack = org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack.asNMSCopy(bukkitStack);
+			notchStack = org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack.asNMSCopy(bukkitStack);
 		}
 		try {
 			itemStackField.set(packet, notchStack);
@@ -138,9 +138,9 @@ public class MCCraftPacket103SetSlot extends MCCraftPacket implements MCPacket10
 			window = Window.getWindowById(rawWindow);
 			rawSlot = ((Integer) slotField.get(packet)).intValue();
 			slot = Slot.getSlotByRawValues(rawWindow, rawSlot);
-			notchStack = (net.minecraft.server.v1_4_R1.ItemStack) itemStackField.get(packet);
+			notchStack = (net.minecraft.server.v1_5_R2.ItemStack) itemStackField.get(packet);
 			if (notchStack != null) {
-				bukkitStack = org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack.asBukkitCopy(notchStack);
+				bukkitStack = org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack.asBukkitCopy(notchStack);
 			}
 		} catch (Exception ex) {
 		}

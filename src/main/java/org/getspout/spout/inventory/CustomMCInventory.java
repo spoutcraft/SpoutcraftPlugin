@@ -23,12 +23,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.IInventory;
-import net.minecraft.server.v1_4_R1.ItemStack;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.IInventory;
+import net.minecraft.server.v1_5_R2.ItemStack;
 
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftHumanEntity;
-import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftHumanEntity;
+import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -125,6 +125,11 @@ public class CustomMCInventory implements IInventory {
 		return name;
 	}
 
+	@Override
+	public boolean c() {
+		return false;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -165,12 +170,17 @@ public class CustomMCInventory implements IInventory {
 	}
 
 	@Override
-	public boolean a_(EntityHuman entityhuman) {
+	public boolean a(EntityHuman entityhuman) {
 		return true;
 	}
 
 	@Override
-	public void f() {
+	public void g() {
+	}
+
+	@Override
+	public boolean b(int i, ItemStack itemStack) {
+		return true; //TODO I believe this is CanSet
 	}
 
 	@Override

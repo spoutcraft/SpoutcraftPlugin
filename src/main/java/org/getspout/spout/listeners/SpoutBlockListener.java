@@ -30,7 +30,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.PistonMoveReaction;
-import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -95,7 +95,7 @@ public class SpoutBlockListener implements Listener {
 		Block block = event.getBlock();
 		Material type = block.getType();
 		if (type == Material.WATER || type == Material.STATIONARY_WATER || type == Material.LAVA || type == Material.STATIONARY_LAVA || type == Material.FIRE || type == Material.SNOW || type == Material.DEAD_BUSH || type == Material.LONG_GRASS) {
-			if (net.minecraft.server.v1_4_R1.Block.byId[event.getMaterialId()].canPlace(((CraftWorld) block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
+			if (net.minecraft.server.v1_5_R2.Block.byId[event.getMaterialId()].canPlace(((CraftWorld) block.getWorld()).getHandle(), block.getX(), block.getY(), block.getZ())) {
 				event.setBuildable(true);
 			}
 		}

@@ -21,10 +21,10 @@ package org.getspout.spout.inventory;
 
 import java.util.Arrays;
 
-import net.minecraft.server.v1_4_R1.IInventory;
-import net.minecraft.server.v1_4_R1.InventoryCrafting;
+import net.minecraft.server.v1_5_R2.IInventory;
+import net.minecraft.server.v1_5_R2.InventoryCrafting;
 
-import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.inventory.CraftingInventory;
@@ -62,14 +62,14 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 	@Override
 	public CraftItemStack[] getContents() {
 		CraftItemStack[] items = new CraftItemStack[getSize()];
-		net.minecraft.server.v1_4_R1.ItemStack[] mcResultItems = this.result.getContents();
+		net.minecraft.server.v1_5_R2.ItemStack[] mcResultItems = this.result.getContents();
 
 		int i = 0;
 		for (i = 0; i < mcResultItems.length; i++ ) {
 			items[i] = CraftItemStack.asCraftMirror(mcResultItems[i]);
 		}
 
-		net.minecraft.server.v1_4_R1.ItemStack[] mcItems = this.inventory.getContents();
+		net.minecraft.server.v1_5_R2.ItemStack[] mcItems = this.inventory.getContents();
 
 		for (int j = 0; j < mcItems.length; j++) {
 			items[i + j] = CraftItemStack.asCraftMirror(mcItems[j]);
@@ -122,7 +122,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 
 	@Override
 	public CraftItemStack getResult() {
-		net.minecraft.server.v1_4_R1.ItemStack item = this.result.getItem(0);
+		net.minecraft.server.v1_5_R2.ItemStack item = this.result.getItem(0);
 		return CraftItemStack.asCraftMirror(item);
 	}
 
@@ -132,7 +132,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 			throw new IllegalArgumentException("Invalid inventory size; expected " + this.inventory.getContents().length);
 		}
 
-		net.minecraft.server.v1_4_R1.ItemStack[] mcItems = this.inventory.getContents();
+		net.minecraft.server.v1_5_R2.ItemStack[] mcItems = this.inventory.getContents();
 
 		for (int i = 0; i < contents.length; i++ ) {
 			ItemStack item = contents[i];
@@ -146,7 +146,7 @@ public class SpoutCraftingInventory extends SpoutCraftInventory implements Craft
 
 	@Override
 	public void setResult(ItemStack item) {
-		net.minecraft.server.v1_4_R1.ItemStack[] contents = this.result.getContents();
+		net.minecraft.server.v1_5_R2.ItemStack[] contents = this.result.getContents();
 		if (item == null || item.getTypeId() <= 0) {
 			contents[0] = null;
 		} else {

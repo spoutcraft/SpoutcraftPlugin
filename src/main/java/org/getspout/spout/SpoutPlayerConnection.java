@@ -23,20 +23,19 @@ import java.lang.reflect.Field;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import net.minecraft.server.v1_4_R1.EntityPlayer;
-import net.minecraft.server.v1_4_R1.INetworkManager;
-import net.minecraft.server.v1_4_R1.IntHashMap;
-import net.minecraft.server.v1_4_R1.ItemStack;
-import net.minecraft.server.v1_4_R1.MinecraftServer;
-import net.minecraft.server.v1_4_R1.PlayerConnection;
-import net.minecraft.server.v1_4_R1.NetworkManager;
-import net.minecraft.server.v1_4_R1.Packet;
-import net.minecraft.server.v1_4_R1.Packet14BlockDig;
-import net.minecraft.server.v1_4_R1.Packet18ArmAnimation;
-import net.minecraft.server.v1_4_R1.Packet20NamedEntitySpawn;
-import net.minecraft.server.v1_4_R1.Packet24MobSpawn;
-import net.minecraft.server.v1_4_R1.Packet250CustomPayload;
-import net.minecraft.server.v1_4_R1.Packet3Chat;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
+import net.minecraft.server.v1_5_R2.INetworkManager;
+import net.minecraft.server.v1_5_R2.IntHashMap;
+import net.minecraft.server.v1_5_R2.MinecraftServer;
+import net.minecraft.server.v1_5_R2.PlayerConnection;
+import net.minecraft.server.v1_5_R2.NetworkManager;
+import net.minecraft.server.v1_5_R2.Packet;
+import net.minecraft.server.v1_5_R2.Packet14BlockDig;
+import net.minecraft.server.v1_5_R2.Packet18ArmAnimation;
+import net.minecraft.server.v1_5_R2.Packet20NamedEntitySpawn;
+import net.minecraft.server.v1_5_R2.Packet24MobSpawn;
+import net.minecraft.server.v1_5_R2.Packet250CustomPayload;
+import net.minecraft.server.v1_5_R2.Packet3Chat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
@@ -61,7 +60,7 @@ public class SpoutPlayerConnection extends PlayerConnection {
 		super(minecraftserver, networkmanager, entityplayer);
 		// Cache the field for later use
 		try {
-			entityListField = PlayerConnection.class.getDeclaredField("s");
+			entityListField = PlayerConnection.class.getDeclaredField("r");
 			entityListField.setAccessible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,10 +68,10 @@ public class SpoutPlayerConnection extends PlayerConnection {
 
 		// Lower the active packet queue size in bytes by 9 megabytes, to allow for 10mb of data in a players queue
 		try {
-			Field y = NetworkManager.class.getDeclaredField("y");
-			y.setAccessible(true);
-			int size = (Integer) y.get(this.networkManager);
-			y.set(this.networkManager, size - 1024 * 1024 * 9);
+			Field z = NetworkManager.class.getDeclaredField("z");
+			z.setAccessible(true);
+			int size = (Integer) z.get(this.networkManager);
+			z.set(this.networkManager, size - 1024 * 1024 * 9);
 		} catch (Exception e) {
 		}
 	}
@@ -227,7 +226,7 @@ public class SpoutPlayerConnection extends PlayerConnection {
 	private void syncedSendPacket(Packet packet, MCCraftPacket[] packetWrappers) {
 		int packetId = -1;
 		try {
-			packetId = packet.k();
+			packetId = packet.n();
 		} catch (Exception e) {
 			return;
 		}

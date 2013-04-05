@@ -34,7 +34,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
 
 public class PacketCustomBlockChunkOverride implements CompressiblePacket {
 	private int chunkX;

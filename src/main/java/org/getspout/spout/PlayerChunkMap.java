@@ -82,7 +82,7 @@ public class PlayerChunkMap {
 	@SuppressWarnings("deprecation")
 	public void onSpoutcraftEnable(SpoutPlayer player) {
 		timer.remove(player.getName());
-		player.sendPacket(new PacketServerPlugins(Bukkit.getServer().getPluginManager().getPlugins()));
+		//player.sendPacket(new PacketServerPlugins(Bukkit.getServer().getPluginManager().getPlugins()));
 		player.updateInventory();
 
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onPlayerJoin(player);

@@ -29,25 +29,26 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import net.minecraft.server.v1_4_R1.Block;
-import net.minecraft.server.v1_4_R1.BlockButton;
-import net.minecraft.server.v1_4_R1.BlockDiode;
-import net.minecraft.server.v1_4_R1.BlockHalfTransparant;
-import net.minecraft.server.v1_4_R1.BlockMinecartTrack;
-import net.minecraft.server.v1_4_R1.BlockPiston;
-import net.minecraft.server.v1_4_R1.BlockPumpkin;
-import net.minecraft.server.v1_4_R1.BlockRedstoneLamp;
-import net.minecraft.server.v1_4_R1.BlockRedstoneOre;
-import net.minecraft.server.v1_4_R1.BlockRedstoneTorch;
-import net.minecraft.server.v1_4_R1.BlockStem;
-import net.minecraft.server.v1_4_R1.BlockStepAbstract;
-import net.minecraft.server.v1_4_R1.Entity;
-import net.minecraft.server.v1_4_R1.EntityHuman;
-import net.minecraft.server.v1_4_R1.EntityPlayer;
-import net.minecraft.server.v1_4_R1.EnumMobType;
-import net.minecraft.server.v1_4_R1.IBlockAccess;
-import net.minecraft.server.v1_4_R1.Material;
-import net.minecraft.server.v1_4_R1.World;
+import net.minecraft.server.v1_5_R2.Block;
+import net.minecraft.server.v1_5_R2.BlockButtonAbstract;
+import net.minecraft.server.v1_5_R2.BlockDiodeAbstract;
+import net.minecraft.server.v1_5_R2.BlockFurnace;
+import net.minecraft.server.v1_5_R2.BlockHalfTransparant;
+import net.minecraft.server.v1_5_R2.BlockMinecartTrack;
+import net.minecraft.server.v1_5_R2.BlockPressurePlateAbstract;
+import net.minecraft.server.v1_5_R2.BlockPressurePlateBinary;
+import net.minecraft.server.v1_5_R2.BlockPumpkin;
+import net.minecraft.server.v1_5_R2.BlockRedstoneOre;
+import net.minecraft.server.v1_5_R2.BlockRedstoneTorch;
+import net.minecraft.server.v1_5_R2.BlockStem;
+import net.minecraft.server.v1_5_R2.BlockStepAbstract;
+import net.minecraft.server.v1_5_R2.Entity;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
+import net.minecraft.server.v1_5_R2.EnumMobType;
+import net.minecraft.server.v1_5_R2.IBlockAccess;
+import net.minecraft.server.v1_5_R2.Material;
+import net.minecraft.server.v1_5_R2.World;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -69,14 +70,14 @@ public final class CustomMCBlock implements MethodInterceptor {
 	private org.getspout.spoutapi.material.CustomBlock getCustomBlock(World world, int x, int y, int z) {
 		short[] customIds = SpoutManager.getChunkDataManager().getCustomBlockIds(world.getWorld(), x >> 4, z >> 4);
 		if (customIds != null) {
-			int index = getIndex(world, x, y, z);
+			int index = getIndex(x, y, z);
 			short id = customIds[index];
 			return MaterialData.getCustomBlock(id);
 		}
 		return null;
 	}
 
-	protected static int getIndex(World world, int x, int y, int z) {
+	protected static int getIndex(int x, int y, int z) {
 		return (x & 0xF) << 0xC | (z & 0xF) << 0x8 | (y & 0xFF);
 	}
 
@@ -108,118 +109,162 @@ public final class CustomMCBlock implements MethodInterceptor {
 			return null;
 		}
 
-		Block proxy;
-		switch(use) {
-			case None:
-				proxy = (Block) enc.create(); break;
-			case Id:
-				proxy = (Block) enc.create(use.constructor, new Object[] {parent.id}); break;
-			case IdAndStep:
-				{
-					boolean field2;
-					if (parent instanceof BlockStepAbstract) {
-						field2 = ((Boolean)getField(BlockStepAbstract.class, parent, "a")).booleanValue();
-					} else if (parent instanceof BlockRedstoneLamp) {
-						field2 = ((Boolean)getField(parent, "a")).booleanValue();
-					}  else if (parent instanceof BlockDiode) {
-						field2 = ((Boolean)getField(parent, "c")).booleanValue();
-					} else {
-						// Furnace
-						field2 = ((Boolean)getField(parent, "b")).booleanValue();
+		try {
+			Block proxy;
+			switch(use) {
+				case None:
+					proxy = (Block) enc.create(); break;
+				case Id:
+					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id}); break;
+				case IdAndStep:
+					{
+						boolean field2;
+						if (parent instanceof BlockStepAbstract) {
+							field2 = ((Boolean)getField(BlockStepAbstract.class, parent, "a")).booleanValue();
+						} else if (parent instanceof BlockFurnace) {
+							field2 = ((Boolean)getField(parent, "b")).booleanValue();
+						} else if (parent instanceof BlockRedstoneTorch) {
+							field2 = ((Boolean)getField(parent, "isOn")).booleanValue();
+						} else if (parent instanceof BlockDiodeAbstract) {
+							field2 = ((Boolean)getField(BlockDiodeAbstract.class, parent, "a")).booleanValue();
+						} else {
+							field2 = ((Boolean)getField(parent, "a")).booleanValue();
+						}
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2});
 					}
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2});
-				}
-				break;
-			case IdAndMaterial:
-				proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material}); break;
-			case IdAndTexture:
-				proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.textureId}); break;
-			case IdTextureAndMaterial:
-				proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.textureId, parent.material}); break;
-			case IdBlockAndOther:
-				{
-					Block field2 = ((Block)getField(parent, "cD"));
-					int field3 = ((Integer)getField(parent, "cE"));
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2, field3});
-				}
-				break;
-			case SignBlock:
-				{
-					Class field2 = ((Class)getField(parent, "a"));
-					boolean field3 = ((Boolean)getField(parent, "b"));
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2, field3});
-				}
-				break;
-			case IdTextureAndTicks:
-				{
-					boolean field3;
-					if (parent instanceof BlockMinecartTrack || parent instanceof BlockPiston || parent instanceof BlockRedstoneOre || parent instanceof BlockButton || parent instanceof BlockPumpkin) {
-						field3 = ((Boolean)getField(parent, "a")).booleanValue();
-					} else if (parent instanceof BlockRedstoneTorch)  {
-						field3 = ((Boolean)getField(parent, "isOn")).booleanValue();
-					} else {
-						field3 = ((Boolean)getField(parent, "isTicking")).booleanValue();
+					break;
+				case IdAndMaterial:
+					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material}); break;
+				case IdAndTexture:
+					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, (Integer)getField(parent, "a")}); break;
+				case IdTextureAndMaterial:
+					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material}); break;
+				case IdMaterialAndFlag:
+					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material, false}); break;
+				case IdAndName:
+					{
+						String name = (String) getField(parent, "a");
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, name});
 					}
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.textureId, field3});
-				}
-				break;
-			case PressurePlate:
-				{
-					EnumMobType field3 = ((EnumMobType)getField(parent, "a"));
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.textureId, field3, parent.material});
-				}
-				break;
-			case HugeMushroom:
-				{
-					int field4 = ((Integer)getField(parent, "a"));
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material, parent.textureId, field4});
-				}
-				break;
-			case BlockStem:
-				{
-					Block field2;
-					if (parent instanceof BlockStem) {
-						field2 = ((Block)getField(parent, "blockFruit"));
-					} else {
-						field2 = Block.COBBLESTONE;
+					break;
+				case IdNameAndMaterial:
+					{
+						String name = (String) getField(parent, "a");
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, name, parent.material});
 					}
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2});
-				}
-				break;
-			case IdTextureMaterialAndTransparent:
-				{
-					boolean field4 = ((Boolean)getField(BlockHalfTransparant.class, parent, "a")).booleanValue();
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.textureId, parent.material, field4});
-				}
-				break;
-			case IdTextureDataMaterialAndDrops:
-				{
-					int field3 = (Integer) getField(parent, "a");
-					boolean field5 = ((Boolean)getField(parent, "b")).booleanValue();
-					proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.textureId, field3, parent.material, field5});
-				}
-				break;
-			default: throw new IllegalStateException("Unknown type " +  use);
+					break;
+				case IdNameMaterialAndDrop:
+					{
+						String name = (String) getField(BlockPressurePlateAbstract.class, parent, "a");
+						int field4 = (Integer) getField(parent, "a");
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, name, parent.material, field4});
+					}
+					break;
+				case IdBlockAndOther:
+					{
+						Block field2 = ((Block)getField(parent, "b"));
+						int field3 = ((Integer)getField(parent, "c"));
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2, field3});
+					}
+					break;
+				case IdMaterialAndDrop:
+					{
+						int field3 = ((Integer)getField(parent, "b"));
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material, field3});
+					}
+					break;
+				case SignBlock:
+					{
+						Class field2 = ((Class)getField(parent, "a"));
+						boolean field3 = ((Boolean)getField(parent, "b"));
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2, field3});
+					}
+					break;
+				case IdTextureAndTicks:
+					{
+						boolean field3;
+						if (parent instanceof BlockMinecartTrack || parent instanceof BlockRedstoneOre || parent instanceof BlockButtonAbstract || parent instanceof BlockPumpkin) {
+							field3 = ((Boolean)getField(parent, "a")).booleanValue();
+						} else {
+							field3 = ((Boolean)getField(parent, "isTicking")).booleanValue();
+						}
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field3});
+					}
+					break;
+				case PressurePlate:
+					{
+						EnumMobType field3 = ((EnumMobType)getField(parent, "a"));
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field3, parent.material});
+					}
+					break;
+				case HugeMushroom:
+					{
+						int field4 = ((Integer)getField(parent, "a"));
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material, field4});
+					}
+					break;
+				case BlockStem:
+					{
+						Block field2;
+						if (parent instanceof BlockStem) {
+							field2 = ((Block)getField(parent, "blockFruit"));
+						} else {
+							field2 = Block.COBBLESTONE;
+						}
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2});
+					}
+					break;
+				case IdTextureMaterialAndTransparent:
+					{
+						boolean field4 = ((Boolean)getField(BlockHalfTransparant.class, parent, "a")).booleanValue();
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, parent.material, field4});
+					}
+					break;
+				case IdTextureDataMaterialAndDrops:
+					{
+						int field3 = (Integer) getField(parent, "a");
+						boolean field5 = ((Boolean)getField(parent, "b")).booleanValue();
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field3, parent.material, field5});
+					}
+					break;
+				case IdNameMaterialAndMobType:
+					{
+						String name = (String) getField(BlockPressurePlateAbstract.class, parent, "a");
+						EnumMobType mobs = (EnumMobType) getField(BlockPressurePlateBinary.class, parent, "a");
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, name, parent.material, mobs});
+					}
+					break;
+				case IdStringStringMaterialAndFlag:
+					{
+						String field2 = (String) getField(parent, "a");
+						String field3 = (String) getField(parent, "c");
+						boolean field5 = (Boolean) getField(parent, "b");
+						proxy = (Block) enc.create(use.constructor, new Object[] {parent.id, field2, field3, parent.material, field5});
+					}
+					break;
+				default: throw new IllegalStateException("Unknown type " +  use);
+			}
+			return proxy;
+		} catch (RuntimeException e) {
+			System.err.println("Error creating : " + parent.getClass().getName() + " with constructor: " + use.name());
+			e.printStackTrace();
+			return null;
 		}
-		return proxy;
 	}
 
 	public static void replaceBlocks() {
 		//Store proper lighting values for opacity
 		final int[] lightOpacity = new int[Block.lightBlock.length];
 		System.arraycopy(Block.lightBlock, 0, lightOpacity, 0, lightOpacity.length);
-		//Store...whatever q is
-		final boolean[] qArray = new boolean[Block.q.length];
-		System.arraycopy(Block.q, 0, qArray, 0, Block.q.length);
 		//Store...whatever s is
 		final boolean[] sArray = new boolean[Block.s.length];
 		System.arraycopy(Block.s, 0, sArray, 0, Block.s.length);
 		//Store...whatever u is
 		final boolean[] uArray = new boolean[Block.u.length];
-		System.arraycopy(Block.u, 0, uArray, 0, Block.u.length);
-		//Store...whatever v is
-		final boolean[] vArray = new boolean[Block.v.length];
-		System.arraycopy(Block.v, 0, vArray, 0, Block.v.length);
+		System.arraycopy(Block.u, 0, sArray, 0, Block.u.length);
+		//Store...whatever w is
+		final boolean[] wArray = new boolean[Block.w.length];
+		System.arraycopy(Block.w, 0, wArray, 0, Block.w.length);
 		//Store proper lighting values for emission
 		final int[] lightEmission = new int[Block.lightEmission.length];
 		System.arraycopy(Block.lightEmission, 0, lightEmission, 0, Block.lightEmission.length);
@@ -229,7 +274,12 @@ public final class CustomMCBlock implements MethodInterceptor {
 				Block parent = Block.byId[i];
 				Block.byId[i] = null;
 				try {
-					Block.byId[i] = createProxy(parent);
+					Block fake  = createProxy(parent);;
+					if (fake != null) {
+						Block.byId[i] = fake;
+					} else {
+						Block.byId[i] = parent;
+					}
 				} catch (Throwable t) {
 					System.err.println("Error replacing : " + parent.getClass().getName());
 					t.printStackTrace();
@@ -239,10 +289,9 @@ public final class CustomMCBlock implements MethodInterceptor {
 		}
 		//Fix values
 		System.arraycopy(lightOpacity, 0, Block.lightBlock, 0, lightOpacity.length);
-		System.arraycopy(qArray, 0, Block.q, 0, qArray.length);
 		System.arraycopy(sArray, 0, Block.s, 0, sArray.length);
 		System.arraycopy(uArray, 0, Block.u, 0, uArray.length);
-		System.arraycopy(vArray, 0, Block.v, 0, vArray.length);
+		System.arraycopy(wArray, 0, Block.w, 0, wArray.length);
 		System.arraycopy(lightEmission, 0, Block.lightEmission, 0, lightEmission.length);
 	}
 
@@ -253,6 +302,11 @@ public final class CustomMCBlock implements MethodInterceptor {
 		IdAndStep(new Class[] {int.class, boolean.class}),
 		IdAndMaterial(new Class[] {int.class, Material.class}),
 		IdAndTexture(new Class[] {int.class, int.class}),
+		IdAndName(new Class[] {int.class, String.class}),
+		IdMaterialAndDrop(new Class[] {int.class, Material.class, int.class}),
+		IdNameAndMaterial(new Class[] {int.class, String.class, Material.class}),
+		IdNameMaterialAndDrop(new Class[] {int.class, String.class, Material.class, int.class}),
+		IdMaterialAndFlag(new Class[] {int.class, Material.class, boolean.class}),
 		IdBlockAndOther(new Class[] {int.class, Block.class, int.class}),
 		SignBlock(new Class[] {int.class, Class.class, boolean.class}),
 		PressurePlate(new Class[] {int.class, int.class, EnumMobType.class, Material.class}),
@@ -261,7 +315,9 @@ public final class CustomMCBlock implements MethodInterceptor {
 		IdTextureAndTicks(new Class[] {int.class, int.class, boolean.class}),
 		IdTextureAndMaterial(new Class[] {int.class, int.class, Material.class}),
 		IdTextureMaterialAndTransparent(new Class[] {int.class, int.class, Material.class, boolean.class}),
-		IdTextureDataMaterialAndDrops(new Class[] {int.class, int.class, int.class, Material.class, boolean.class});
+		IdTextureDataMaterialAndDrops(new Class[] {int.class, int.class, int.class, Material.class, boolean.class}),
+		IdNameMaterialAndMobType(new Class[]{int.class, String.class, Material.class, EnumMobType.class}),
+		IdStringStringMaterialAndFlag(new Class[] {int.class, String.class, String.class, Material.class, boolean.class});
 
 		private final Class[] constructor;
 		BlockConstructor(Class[] constructor) {
@@ -307,9 +363,8 @@ public final class CustomMCBlock implements MethodInterceptor {
 			field.setAccessible(true);
 			return field.get(parent);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		return null;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -361,7 +416,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_4_R1.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R2.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("c") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, int.class})) {
 			World world = (World) args[0];
@@ -371,7 +426,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			int face = (Integer) args[4];
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_4_R1.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R2.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("b") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, Entity.class})) {
 			World world = (World) args[0];
@@ -413,7 +468,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 						return m.invoke(wrapped, args);
 					}
 
-					def = (!human.b(wrapped) ? 1.0F / hardness / 100.0F : human.a(wrapped) / hardness / 30.0F);
+					def = (!human.a(wrapped) ? 1.0F / hardness / 100.0F : human.a(wrapped, false) / hardness / 30.0F); //TODO EntityHuman.a(Block, boolean) appears to not make any use of the flag variable...
 
 					if (!(item instanceof CustomItem)) {
 						return def;
