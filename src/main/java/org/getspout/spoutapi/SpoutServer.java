@@ -58,6 +58,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.messaging.Messenger;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -585,5 +586,10 @@ public class SpoutServer implements Server {
 	@Override
 	public ItemFactory getItemFactory() {
 		return server.getItemFactory();
+	}
+
+	@Override
+	public ScoreboardManager getScoreboardManager() {		
+		return server.getScoreboardManager();
 	}
 }
