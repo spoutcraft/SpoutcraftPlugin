@@ -253,33 +253,40 @@ public final class CustomMCBlock implements MethodInterceptor {
 	}
 
 	public static void replaceBlocks() {
-		//Store proper lighting values for opacity
-		final int[] lightOpacity = new int[Block.lightBlock.length];
-		System.arraycopy(Block.lightBlock, 0, lightOpacity, 0, lightOpacity.length);
-		//Store...whatever s is
-		final boolean[] sArray = new boolean[Block.s.length];
-		System.arraycopy(Block.s, 0, sArray, 0, Block.s.length);
-		//Store...whatever u is
-		final boolean[] uArray = new boolean[Block.u.length];
-		System.arraycopy(Block.u, 0, sArray, 0, Block.u.length);
-		//Store...whatever w is
-		final boolean[] wArray = new boolean[Block.w.length];
-		System.arraycopy(Block.w, 0, wArray, 0, Block.w.length);
-		//Store proper lighting values for emission
-		final int[] lightEmission = new int[Block.lightEmission.length];
-		System.arraycopy(Block.lightEmission, 0, lightEmission, 0, Block.lightEmission.length);
-
 		for (int i = 0; i < Block.byId.length; i++) {
 			if (Block.byId[i] != null) {
 				Block parent = Block.byId[i];
 				Block.byId[i] = null;
 				try {
+					// 1.5.1 Change, copy data from parent to proxy upon each proxy creation.
+					//Store proper lighting values for opacity
+					final int[] lightOpacity = new int[Block.lightBlock.length];
+					System.arraycopy(Block.lightBlock, 0, lightOpacity, 0, lightOpacity.length);
+					//Store...whatever s is
+					final boolean[] sArray = new boolean[Block.s.length];
+					System.arraycopy(Block.s, 0, sArray, 0, Block.s.length);
+					//Store...whatever u is
+					final boolean[] uArray = new boolean[Block.u.length];
+					System.arraycopy(Block.u, 0, sArray, 0, Block.u.length);
+					//Store...whatever w is
+					final boolean[] wArray = new boolean[Block.w.length];
+					System.arraycopy(Block.w, 0, wArray, 0, Block.w.length);
+					//Store proper lighting values for emission
+					final int[] lightEmission = new int[Block.lightEmission.length];
+					System.arraycopy(Block.lightEmission, 0, lightEmission, 0, Block.lightEmission.length);				
 					Block fake  = createProxy(parent);;
 					if (fake != null) {
 						Block.byId[i] = fake;
 					} else {
 						Block.byId[i] = parent;
 					}
+					//Fix values
+					System.arraycopy(lightOpacity, 0, Block.lightBlock, 0, lightOpacity.length);
+					System.arraycopy(sArray, 0, Block.s, 0, sArray.length);
+					System.arraycopy(uArray, 0, Block.u, 0, uArray.length);
+					System.arraycopy(wArray, 0, Block.w, 0, wArray.length);
+					System.arraycopy(lightEmission, 0, Block.lightEmission, 0, lightEmission.length);
+					
 				} catch (Throwable t) {
 					System.err.println("Error replacing : " + parent.getClass().getName());
 					t.printStackTrace();
@@ -287,12 +294,6 @@ public final class CustomMCBlock implements MethodInterceptor {
 				}
 			}
 		}
-		//Fix values
-		System.arraycopy(lightOpacity, 0, Block.lightBlock, 0, lightOpacity.length);
-		System.arraycopy(sArray, 0, Block.s, 0, sArray.length);
-		System.arraycopy(uArray, 0, Block.u, 0, uArray.length);
-		System.arraycopy(wArray, 0, Block.w, 0, wArray.length);
-		System.arraycopy(lightEmission, 0, Block.lightEmission, 0, lightEmission.length);
 	}
 
 	@SuppressWarnings("rawtypes")
