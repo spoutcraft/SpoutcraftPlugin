@@ -862,4 +862,25 @@ public class MaterialData {
 	public static CustomBlock getCustomBlock(String name) {
 		return customBlockLookup.get(ItemMap.getRootMap().get(name));
 	}
+
+	/**
+	 * Fetches a {@link CustomItem} from the map based on plugin and name.
+	 * @param plugin The name of the plugin where the custom item is registered in
+	 * @param name The name of the custom item
+	 * @return The custom item found or null
+	 */
+	public static CustomItem getCustomItem(String plugin, String name) {
+		return customItemLookup.get(ItemMap.getRootMap().get(plugin + "." + name));
+	}
+
+	/**
+	 * Fetches a {@link CustomItem} from the map based on the name provided.
+	 *
+	 * CustomItems are keyed to pluginname.name so keep this in mind when passing a full string.
+	 * @param name The name to lookup
+	 * @return The custom item found or null
+	 */
+	public static CustomItem getCustomItem(String name) {
+		return customItemLookup.get(ItemMap.getRootMap().get(name));
+	}
 }
