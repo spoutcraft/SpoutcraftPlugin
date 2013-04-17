@@ -32,6 +32,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.inventory.ItemMap;
 import org.getspout.spoutapi.material.block.Air;
 import org.getspout.spoutapi.material.block.DoubleSlabs;
 import org.getspout.spoutapi.material.block.GenericLiquid;
@@ -839,5 +840,26 @@ public class MaterialData {
 	 */
 	public static Material getMaterial(String notchianName) {
 		return nameLookup.get(notchianName.toLowerCase());
+	}
+
+	/**
+	 * Fetches a {@link CustomBlock} from the map based on plugin and name.
+	 * @param plugin The name of the plugin where the custom block is registered in
+	 * @param name The name of the custom block
+	 * @return The custom block found or null
+	 */
+	public static CustomBlock getCustomBlock(String plugin, String name) {
+		return customBlockLookup.get(ItemMap.getRootMap().get(plugin + "." + name));
+	}
+
+	/**
+	 * Fetches a {@link CustomBlock} from the map based on the name provided.
+	 *
+	 * CustomBlocks are keyed to pluginname.name so keep this in mind when passing a full string.
+	 * @param name The name to lookup
+	 * @return The custom block found or null
+	 */
+	public static CustomBlock getCustomBlock(String name) {
+		return customBlockLookup.get(ItemMap.getRootMap().get(name));
 	}
 }
