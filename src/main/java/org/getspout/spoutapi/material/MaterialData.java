@@ -849,7 +849,7 @@ public class MaterialData {
 	 * @return The custom block found or null
 	 */
 	public static CustomBlock getCustomBlock(String plugin, String name) {
-		return customBlockLookup.get(ItemMap.getRootMap().get(plugin + "." + name));
+		return getCustomBlock(plugin + "." + name);
 	}
 
 	/**
@@ -860,7 +860,11 @@ public class MaterialData {
 	 * @return The custom block found or null
 	 */
 	public static CustomBlock getCustomBlock(String name) {
-		return customBlockLookup.get(ItemMap.getRootMap().get(name));
+		final Integer id = ItemMap.getRootMap().get(name);
+		if (id == null) {
+			return null;
+		}
+		return customBlockLookup.get(id);
 	}
 
 	/**
@@ -870,7 +874,7 @@ public class MaterialData {
 	 * @return The custom item found or null
 	 */
 	public static CustomItem getCustomItem(String plugin, String name) {
-		return customItemLookup.get(ItemMap.getRootMap().get(plugin + "." + name));
+		return getCustomItem(plugin + "." + name);
 	}
 
 	/**
@@ -881,6 +885,10 @@ public class MaterialData {
 	 * @return The custom item found or null
 	 */
 	public static CustomItem getCustomItem(String name) {
-		return customItemLookup.get(ItemMap.getRootMap().get(name));
+		final Integer id = ItemMap.getRootMap().get(name);
+		if (id == null) {
+			return null;
+		}
+		return customItemLookup.get(id);
 	}
 }

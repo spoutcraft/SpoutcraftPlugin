@@ -196,7 +196,7 @@ public class ItemMap {
 	 * @param key The key to lookup
 	 * @return The id associated with the key
 	 */
-	public int get(String key) {
+	public Integer get(String key) {
 		return store.get(key);
 	}
 }

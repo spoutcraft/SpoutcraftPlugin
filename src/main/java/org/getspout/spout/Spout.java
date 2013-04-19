@@ -218,7 +218,7 @@ public class Spout extends JavaPlugin {
 			CustomItemSpade.replaceSpades();
 			CustomItemPickaxe.replacePickaxes();
 			CustomItemFlint.replaceFlint();
-			CustomMCBlock.replaceBlocks();
+			//CustomMCBlock.replaceBlocks();
 
 			PacketCompressionThread.startThread();
 
