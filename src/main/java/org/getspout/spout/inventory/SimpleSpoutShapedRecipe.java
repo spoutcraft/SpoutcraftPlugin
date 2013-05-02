@@ -21,9 +21,9 @@ package org.getspout.spout.inventory;
 
 import java.util.HashMap;
 
-import net.minecraft.server.v1_5_R2.CraftingManager;
+import net.minecraft.server.v1_5_R3.CraftingManager;
 
-import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -66,7 +66,7 @@ public class SimpleSpoutShapedRecipe extends SpoutShapedRecipe implements SpoutR
 			int id = mdata.getRawId();
 			int dmg = mdata.getRawData();
 
-			data[i] = new net.minecraft.server.v1_5_R2.ItemStack(id, 1, dmg);
+			data[i] = new net.minecraft.server.v1_5_R3.ItemStack(id, 1, dmg);
 			i++;
 		}
 		CraftingManager.getInstance().registerShapedRecipe(CraftItemStack.asNMSCopy(getResult())/*Convert SpoutItemStack to MC ItemStack*/, data);

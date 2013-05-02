@@ -19,9 +19,9 @@
  */
 package org.getspout.spout.inventory;
 
-import net.minecraft.server.v1_5_R2.IInventory;
+import net.minecraft.server.v1_5_R3.IInventory;
 
-import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventory;
 
 public class SpoutCraftInventory extends CraftInventory {
 	protected String name = null;

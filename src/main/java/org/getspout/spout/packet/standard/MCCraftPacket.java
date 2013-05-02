@@ -22,7 +22,7 @@ package org.getspout.spout.packet.standard;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import net.minecraft.server.v1_5_R2.Packet;
+import net.minecraft.server.v1_5_R3.Packet;
 
 import org.getspout.spoutapi.packet.standard.MCPacket;
 import org.getspout.spoutapi.packet.standard.MCPacket51MapChunkUncompressed;
@@ -57,14 +57,14 @@ public class MCCraftPacket implements MCPacket {
 
 		MCPackets[256] = MCPacket51MapChunkUncompressed.class;
 
-		packets[0] = net.minecraft.server.v1_5_R2.Packet0KeepAlive.class;
-		packets[3] = net.minecraft.server.v1_5_R2.Packet3Chat.class;
-		packets[17] = net.minecraft.server.v1_5_R2.Packet17EntityLocationAction.class;
-		packets[18] = net.minecraft.server.v1_5_R2.Packet18ArmAnimation.class;
-		packets[51] = net.minecraft.server.v1_5_R2.Packet51MapChunk.class;
-		packets[103] = net.minecraft.server.v1_5_R2.Packet103SetSlot.class;
+		packets[0] = net.minecraft.server.v1_5_R3.Packet0KeepAlive.class;
+		packets[3] = net.minecraft.server.v1_5_R3.Packet3Chat.class;
+		packets[17] = net.minecraft.server.v1_5_R3.Packet17EntityLocationAction.class;
+		packets[18] = net.minecraft.server.v1_5_R3.Packet18ArmAnimation.class;
+		packets[51] = net.minecraft.server.v1_5_R3.Packet51MapChunk.class;
+		packets[103] = net.minecraft.server.v1_5_R3.Packet103SetSlot.class;
 
-		packets[256] = net.minecraft.server.v1_5_R2.Packet51MapChunk.class;
+		packets[256] = net.minecraft.server.v1_5_R3.Packet51MapChunk.class;
 	}
 
 	private static final Object[] blank = new Class[0];

@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.v1_5_R2.Packet18ArmAnimation;
+import net.minecraft.server.v1_5_R3.Packet18ArmAnimation;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

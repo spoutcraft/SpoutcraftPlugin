@@ -19,10 +19,10 @@
  */
 package org.getspout.spout.inventory;
 
-import net.minecraft.server.v1_5_R2.IInventory;
-import net.minecraft.server.v1_5_R2.PlayerInventory;
+import net.minecraft.server.v1_5_R3.IInventory;
+import net.minecraft.server.v1_5_R3.PlayerInventory;
 
-import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventoryPlayer;
 import org.bukkit.inventory.ItemStack;
 
 import org.getspout.spoutapi.inventory.SpoutPlayerInventory;

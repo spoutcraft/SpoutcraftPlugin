@@ -19,14 +19,14 @@
  */
 package org.getspout.spout.command;
 
-import net.minecraft.server.v1_5_R2.MinecraftServer;
+import net.minecraft.server.v1_5_R3.MinecraftServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_5_R3.CraftServer;
 import org.bukkit.entity.Player;
 
 import org.getspout.spout.Spout;

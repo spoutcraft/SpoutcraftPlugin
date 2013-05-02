@@ -30,7 +30,7 @@ import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 
-import net.minecraft.server.v1_5_R2.Block;
+import net.minecraft.server.v1_5_R3.Block;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

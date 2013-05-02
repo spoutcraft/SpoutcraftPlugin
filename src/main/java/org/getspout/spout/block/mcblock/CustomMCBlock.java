@@ -29,26 +29,26 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import net.minecraft.server.v1_5_R2.Block;
-import net.minecraft.server.v1_5_R2.BlockButtonAbstract;
-import net.minecraft.server.v1_5_R2.BlockDiodeAbstract;
-import net.minecraft.server.v1_5_R2.BlockFurnace;
-import net.minecraft.server.v1_5_R2.BlockHalfTransparant;
-import net.minecraft.server.v1_5_R2.BlockMinecartTrack;
-import net.minecraft.server.v1_5_R2.BlockPressurePlateAbstract;
-import net.minecraft.server.v1_5_R2.BlockPressurePlateBinary;
-import net.minecraft.server.v1_5_R2.BlockPumpkin;
-import net.minecraft.server.v1_5_R2.BlockRedstoneOre;
-import net.minecraft.server.v1_5_R2.BlockRedstoneTorch;
-import net.minecraft.server.v1_5_R2.BlockStem;
-import net.minecraft.server.v1_5_R2.BlockStepAbstract;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityPlayer;
-import net.minecraft.server.v1_5_R2.EnumMobType;
-import net.minecraft.server.v1_5_R2.IBlockAccess;
-import net.minecraft.server.v1_5_R2.Material;
-import net.minecraft.server.v1_5_R2.World;
+import net.minecraft.server.v1_5_R3.Block;
+import net.minecraft.server.v1_5_R3.BlockButtonAbstract;
+import net.minecraft.server.v1_5_R3.BlockDiodeAbstract;
+import net.minecraft.server.v1_5_R3.BlockFurnace;
+import net.minecraft.server.v1_5_R3.BlockHalfTransparant;
+import net.minecraft.server.v1_5_R3.BlockMinecartTrack;
+import net.minecraft.server.v1_5_R3.BlockPressurePlateAbstract;
+import net.minecraft.server.v1_5_R3.BlockPressurePlateBinary;
+import net.minecraft.server.v1_5_R3.BlockPumpkin;
+import net.minecraft.server.v1_5_R3.BlockRedstoneOre;
+import net.minecraft.server.v1_5_R3.BlockRedstoneTorch;
+import net.minecraft.server.v1_5_R3.BlockStem;
+import net.minecraft.server.v1_5_R3.BlockStepAbstract;
+import net.minecraft.server.v1_5_R3.Entity;
+import net.minecraft.server.v1_5_R3.EntityHuman;
+import net.minecraft.server.v1_5_R3.EntityPlayer;
+import net.minecraft.server.v1_5_R3.EnumMobType;
+import net.minecraft.server.v1_5_R3.IBlockAccess;
+import net.minecraft.server.v1_5_R3.Material;
+import net.minecraft.server.v1_5_R3.World;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -416,7 +416,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R2.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R3.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("c") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, int.class})) {
 			World world = (World) args[0];
@@ -426,7 +426,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			int face = (Integer) args[4];
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R2.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R3.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("b") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, Entity.class})) {
 			World world = (World) args[0];
