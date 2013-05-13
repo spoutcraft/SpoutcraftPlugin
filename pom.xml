@@ -6,7 +6,7 @@
 	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
-	<version>1.5.2-R0.1-SNAPSHOT</version>
+	<version>1.5.2-R0.2-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
 	<description>SpoutPlugin (formerly BukkitContrib) is a plugin for Bukkit, which extends the Bukkit API to provide features that aren't normally available. SpoutPlugin is a legacy project, and will be replaced by the Spout voxel game platform when finished.</description>
@@ -15,7 +15,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mainClass>${project.groupId}.spout.Spout</mainClass>
-		<craftbukkitVersion>1.5.2-R0.1-SNAPSHOT</craftbukkitVersion>
+		<craftbukkitVersion>1.5.2-R0.2-SNAPSHOT</craftbukkitVersion>
 		<minecraftVersion>1.5.2</minecraftVersion>
 		<buildNumber>0</buildNumber>
 	</properties>
