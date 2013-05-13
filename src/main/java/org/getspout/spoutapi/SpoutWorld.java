@@ -54,6 +54,7 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
+import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.block.SpoutChunk;
 
@@ -161,12 +162,12 @@ public class SpoutWorld implements World {
 
 	@Override
 	public SpoutChunk getChunkAt(Location location) {
-		return (SpoutChunk) world.getChunkAt(location);
+		return SpoutCraftChunk.getChunkSafe(world.getChunkAt(location));
 	}
 
 	@Override
 	public SpoutChunk getChunkAt(Block block) {
-		return (SpoutChunk) world.getChunkAt(block);
+		return SpoutCraftChunk.getChunkSafe(world.getChunkAt(block));
 	}
 
 	public SpoutChunk getChunkAt(int x, int y, int z) {
@@ -175,7 +176,7 @@ public class SpoutWorld implements World {
 
 	@Override
 	public SpoutChunk getChunkAt(int x, int z) {
-		return (SpoutChunk) world.getChunkAt(x, z);
+		return SpoutCraftChunk.getChunkSafe(world.getChunkAt(x, z));
 	}
 
 	@Override

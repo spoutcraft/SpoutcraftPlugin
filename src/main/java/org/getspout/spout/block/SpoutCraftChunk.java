@@ -159,6 +159,16 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 		}
 	}
 
+	public static SpoutCraftChunk getChunkSafe(org.bukkit.Chunk chunk) {
+		if (chunk == null) {
+			return null;
+		}
+		if (replaceBukkitChunk(chunk)) {
+			return (SpoutCraftChunk) ((CraftChunk)chunk).getHandle().bukkitChunk;
+		}
+		return (SpoutCraftChunk) chunk;
+	}
+
 	public static boolean replaceBukkitChunk(org.bukkit.Chunk chunk) {
 		CraftChunk handle = (CraftChunk) ((CraftChunk) chunk).getHandle().bukkitChunk;
 		if (handle != null) {
