@@ -48,6 +48,7 @@ import net.minecraft.server.v1_5_R3.EntityPlayer;
 import net.minecraft.server.v1_5_R3.EnumMobType;
 import net.minecraft.server.v1_5_R3.IBlockAccess;
 import net.minecraft.server.v1_5_R3.Material;
+import net.minecraft.server.v1_5_R3.StepSound;
 import net.minecraft.server.v1_5_R3.World;
 
 import org.getspout.spoutapi.SpoutManager;
@@ -275,11 +276,42 @@ public final class CustomMCBlock implements MethodInterceptor {
 				Block.byId[i] = null;
 				try {
 					Block fake  = createProxy(parent);;
+					// Fix sound values since proxy screws it up
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockCloth")) {
+						fake.stepSound = new StepSound("cloth", 1.0F, 1.0F);
+					}
+					
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSand")) {
+						fake.stepSound = new StepSound("sand", 1.0F, 1.0F);
+					}
+					
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockGravel")) {
+						fake.stepSound = new StepSound("gravel", 1.0F, 1.0F);
+					}
+					
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockGrass")) {
+						fake.stepSound = new StepSound("grass", 1.0F, 1.0F);
+					}
+						
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSnow") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSnowBlock")) {
+						fake.stepSound = new StepSound("snow", 1.0F, 1.0F);
+					}
+					
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockWood") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockLog")) {
+						fake.stepSound = new StepSound("wood", 1.0F, 1.0F);
+					}
+					
 					if (fake != null) {
 						Block.byId[i] = fake;
 					} else {
 						Block.byId[i] = parent;
 					}
+					
+					// Revert non-used custom block classes to fix other issues.
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockLadder") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockAnvil")) {
+						Block.byId[i] = parent;
+					}
+					
 				} catch (Throwable t) {
 					System.err.println("Error replacing : " + parent.getClass().getName());
 					t.printStackTrace();
