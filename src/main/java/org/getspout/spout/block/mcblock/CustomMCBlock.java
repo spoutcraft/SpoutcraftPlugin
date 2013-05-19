@@ -289,7 +289,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 						fake.stepSound = new StepSound("gravel", 1.0F, 1.0F);
 					}
 					
-					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockGrass")) {
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockGrass") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockDirt")) {
 						fake.stepSound = new StepSound("grass", 1.0F, 1.0F);
 					}
 						
