@@ -657,6 +657,9 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public ScreenType getActiveScreen() {
+		if (activeScreen == ScreenType.UNKNOWN) {
+			activeScreen = ScreenType.GAME_SCREEN;
+		}
 		return activeScreen;
 	}
 
