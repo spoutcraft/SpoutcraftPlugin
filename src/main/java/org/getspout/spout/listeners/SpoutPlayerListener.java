@@ -26,6 +26,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
@@ -218,6 +219,7 @@ public class SpoutPlayerListener implements Listener {
 										item.setAmount(item.getAmount() - 1);
 									}
 								}
+								player.playSound(player.getLocation(), Sound.DIG_STONE, 1.0F, 0.7936508F);
 								player.updateInventory();
 								// Now we have placed a nice custom block! We should check its rotation and rotate the base block!
 								if (cb.canRotate()) {
