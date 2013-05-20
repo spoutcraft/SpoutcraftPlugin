@@ -281,7 +281,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 						fake.stepSound = new StepSound("cloth", 1.0F, 1.0F);
 					}
 					
-					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSand")) {
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSand") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSlowSand")) {
 						fake.stepSound = new StepSound("sand", 1.0F, 1.0F);
 					}
 					
@@ -289,7 +289,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 						fake.stepSound = new StepSound("gravel", 1.0F, 1.0F);
 					}
 					
-					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockGrass") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockDirt")) {
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockGrass") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockDirt") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockFlower") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockCrops") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockPotatoes") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockCarrots") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSapling") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockMushroom") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockPumpkin") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockMelon") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockCactus") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockNetherWart")) {
 						fake.stepSound = new StepSound("grass", 1.0F, 1.0F);
 					}
 						
