@@ -866,13 +866,13 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public void checkUrl(String url) {
 		if (url == null || url.length() < 5) {
-			throw new UnsupportedOperationException("Invalid URL");
+			throw new UnsupportedOperationException("Invalid URL [" + url + "]");
 		}
 		if (!url.substring(url.length() - 4, url.length()).equalsIgnoreCase(".png")) {
-			throw new UnsupportedOperationException("All skins must be a PNG image");
+			throw new UnsupportedOperationException("Invalid URL [" + url + "], all skins must be a PNG image");
 		}
 		if (url.length() > 255) {
-			throw new UnsupportedOperationException("All URLs must be shorter than 256 characters");
+			throw new UnsupportedOperationException("Invalid URL [" + url + "], all URLs must be shorter than 256 characters");
 		}
 	}
 
