@@ -657,9 +657,6 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public ScreenType getActiveScreen() {
-		if (activeScreen == ScreenType.UNKNOWN) {
-			activeScreen = ScreenType.GAME_SCREEN;
-		}
 		return activeScreen;
 	}
 
@@ -786,6 +783,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	public void setPreCachingComplete(boolean complete) {
 		if (!precachingComplete) {
 			precachingComplete = complete;
+			activeScreen = ScreenType.GAME_SCREEN;  // Fix from Precache Loading Screen being unknown to client.
 		}
 	}
 
