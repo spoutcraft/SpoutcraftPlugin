@@ -259,9 +259,10 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 					md = chunkStore.readChunkMetaData(world, x, z);
 					if (md != null) {
 						if (!md.getWorldUID().equals(world.getUID()) || md.getChunkX() != x || md.getChunkZ() != z) {
-							System.out.println("Expected: " + world.getUID() + " " + x + " " + z);
-							System.out.println("Actual: " + md.getWorldUID() + " " + md.getChunkX() + " " + md.getChunkZ());
-							throw new RuntimeException("Chunk meta data stored in wrong location");
+							System.err.println("Chunk data mismatch!");
+							System.err.println("Expected: " + world.getUID() + " " + x + " " + z);
+							System.err.println("Actual: " + md.getWorldUID() + " " + md.getChunkX() + " " + md.getChunkZ());
+							//throw new RuntimeException("Chunk meta data stored in wrong location");
 						}
 						md.setWorldItemMap(getWorldItemMap(world));
 					}
