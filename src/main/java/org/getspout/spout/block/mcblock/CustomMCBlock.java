@@ -50,8 +50,9 @@ import net.minecraft.server.v1_5_R3.IBlockAccess;
 import net.minecraft.server.v1_5_R3.Material;
 import net.minecraft.server.v1_5_R3.StepSound;
 import net.minecraft.server.v1_5_R3.World;
-
+import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
@@ -278,15 +279,45 @@ public final class CustomMCBlock implements MethodInterceptor {
 			if (Block.byId[i] != null) {
 				Block parent = Block.byId[i];
 				Block.byId[i] = null;
+
+				float strength = 0;
+				try {
+					final Field field = getField(parent.getClass(), "strength");
+					field.setAccessible(true);
+					strength = field.getFloat(parent);
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (NoSuchFieldException e) {
+					e.printStackTrace();
+				}
+
+				float durability = 0;
+				try {
+					final Field field = getField(parent.getClass(), "durability");
+					field.setAccessible(true);
+					durability = field.getFloat(parent);
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (NoSuchFieldException e) {
+					e.printStackTrace();
+				}
+
 				try {
 					Block fake  = createProxy(parent);
-					
+
 					if (fake != null) {
 						Block.byId[i] = fake;
 					} else {
 						Block.byId[i] = parent;
 					}
-					
+					final Field strengthField = getField(fake.getClass(), "strength");
+					strengthField.setAccessible(true);
+					strengthField.setFloat(fake, strength);
+
+					final Field durabilityField = getField(fake.getClass(), "durability");
+					durabilityField.setAccessible(true);
+					durabilityField.setFloat(fake, durability);
+
 				} catch (Throwable t) {
 					System.err.println("Error replacing : " + parent.getClass().getName());
 					t.printStackTrace();
@@ -513,6 +544,19 @@ public final class CustomMCBlock implements MethodInterceptor {
 			}
 		}
 			return m.invoke(wrapped, args);
+	}
+
+	private static Field getField(Class clazz, String fieldName) throws NoSuchFieldException {
+		try {
+			return clazz.getDeclaredField(fieldName);
+		} catch (NoSuchFieldException e) {
+			Class superClass = clazz.getSuperclass();
+			if (superClass == null) {
+				throw e;
+			} else {
+				return getField(superClass, fieldName);
+			}
+		}
 	}
 }
 
