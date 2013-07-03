@@ -19,16 +19,16 @@
  */
 package org.getspout.spout.packet;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import net.minecraft.server.v1_5_R3.Connection;
-import net.minecraft.server.v1_5_R3.Packet;
+import net.minecraft.server.v1_6_R1.Connection;
+import net.minecraft.server.v1_6_R1.Packet;
 
 import org.getspout.spout.SpoutPlayerConnection;
 import org.getspout.spoutapi.SpoutManager;
@@ -64,7 +64,7 @@ public class CustomPacket extends Packet {
 	}
 
 	@Override
-	public void a(DataInputStream input) throws IOException {
+	public void a(DataInput input) throws IOException {
 		int packetId = -1;
 		packetId = input.readShort();
 		int version = input.readShort(); // Packet version
@@ -108,7 +108,7 @@ public class CustomPacket extends Packet {
 
 	SpoutOutputStream stream = new SpoutOutputStream();
 	@Override
-	public void a(DataOutputStream output) throws IOException {
+	public void a(DataOutput output) throws IOException {
 		if (packet == null) {
 			output.writeShort(-1);
 			output.writeShort(-1);

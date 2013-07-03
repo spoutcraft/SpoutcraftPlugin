@@ -21,16 +21,16 @@ package org.getspout.spout.item.mcitem;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.EnumAnimation;
-import net.minecraft.server.v1_5_R3.INetworkManager;
-import net.minecraft.server.v1_5_R3.Item;
-import net.minecraft.server.v1_5_R3.ItemStack;
-import net.minecraft.server.v1_5_R3.NetworkManager;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.EnumAnimation;
+import net.minecraft.server.v1_6_R1.INetworkManager;
+import net.minecraft.server.v1_6_R1.Item;
+import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R1.NetworkManager;
+import net.minecraft.server.v1_6_R1.World;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import org.getspout.spout.Spout;
@@ -49,7 +49,7 @@ public class CustomItemFlint extends Item {
 		b("flint");
 		Class clazz = null;
 		try {
-			clazz = Class.forName("net.minecraft.server.v1_5_R3.NetworkWriterThread");
+			clazz = Class.forName("net.minecraft.server.v1_6_R1.NetworkWriterThread");
 		} catch (ClassNotFoundException e) {
 			// Libigot/Nover compatibility. Those two replace the classloader and as such forname fails on them.
 			// This may be temporary as we fix it in Libigot. For now, this will do.
@@ -78,12 +78,12 @@ public class CustomItemFlint extends Item {
 	}
 
 	@Override
-	public EnumAnimation b_(ItemStack itemstack) {
+	public EnumAnimation c_(ItemStack itemstack) {
 		CustomItem item = MaterialData.getCustomItem(itemstack.getData());
 		if (item instanceof Food) {
 			return EnumAnimation.EAT;
 		}
-		return super.b_(itemstack);
+		return super.c_(itemstack);
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class CustomItemFlint extends Item {
 	}
 
 	@Override
-	public boolean w() {
+	public boolean x() {
 		if (clazz == null || a == null) {
 			return false;
 		}
@@ -150,7 +150,7 @@ class FoodUpdate implements Runnable {
 
 	@Override
 	public void run() {
-		if (human.i(false)) {
+		if (human.g(false)) {
 			human.a(item, 32);
 		}
 	}

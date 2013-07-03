@@ -21,12 +21,12 @@ package org.getspout.spout.item.mcitem;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_5_R3.Block;
-import net.minecraft.server.v1_5_R3.EnumToolMaterial;
-import net.minecraft.server.v1_5_R3.Item;
-import net.minecraft.server.v1_5_R3.ItemPickaxe;
-import net.minecraft.server.v1_5_R3.ItemTool;
-import net.minecraft.server.v1_5_R3.Material;
+import net.minecraft.server.v1_6_R1.Block;
+import net.minecraft.server.v1_6_R1.EnumToolMaterial;
+import net.minecraft.server.v1_6_R1.Item;
+import net.minecraft.server.v1_6_R1.ItemPickaxe;
+import net.minecraft.server.v1_6_R1.ItemTool;
+import net.minecraft.server.v1_6_R1.Material;
 
 public class CustomItemPickaxe extends ItemPickaxe {
 	public CustomItemPickaxe(int i, EnumToolMaterial etm) {

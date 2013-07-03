@@ -30,7 +30,7 @@ import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.map.hash.TIntByteHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 
-import net.minecraft.server.v1_5_R3.Block;
+import net.minecraft.server.v1_6_R1.Block;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -214,7 +214,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 	@Override
 	public boolean isOpaque(org.getspout.spoutapi.material.Block block) {
 		int id = block.getRawId();
-		return Block.s[id];
+		return Block.t[id];
 	}
 
 	@Override
@@ -227,7 +227,7 @@ public abstract class AbstractBlockManager implements MaterialManager {
 		if (!originalOpacity.containsKey(id)) {
 			originalOpacity.put(id, (byte) (isOpaque(block) ? 1 : 0));
 		}
-		Block.s[id] = opacity;
+		Block.t[id] = opacity;
 		updateBlockAttributes(id, (short) data); // Invalidate cache
 	}
 

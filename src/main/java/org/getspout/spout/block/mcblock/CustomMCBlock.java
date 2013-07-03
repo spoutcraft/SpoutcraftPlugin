@@ -29,27 +29,27 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import net.minecraft.server.v1_5_R3.Block;
-import net.minecraft.server.v1_5_R3.BlockButtonAbstract;
-import net.minecraft.server.v1_5_R3.BlockDiodeAbstract;
-import net.minecraft.server.v1_5_R3.BlockFurnace;
-import net.minecraft.server.v1_5_R3.BlockHalfTransparant;
-import net.minecraft.server.v1_5_R3.BlockMinecartTrack;
-import net.minecraft.server.v1_5_R3.BlockPressurePlateAbstract;
-import net.minecraft.server.v1_5_R3.BlockPressurePlateBinary;
-import net.minecraft.server.v1_5_R3.BlockPumpkin;
-import net.minecraft.server.v1_5_R3.BlockRedstoneOre;
-import net.minecraft.server.v1_5_R3.BlockRedstoneTorch;
-import net.minecraft.server.v1_5_R3.BlockStem;
-import net.minecraft.server.v1_5_R3.BlockStepAbstract;
-import net.minecraft.server.v1_5_R3.Entity;
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.EntityPlayer;
-import net.minecraft.server.v1_5_R3.EnumMobType;
-import net.minecraft.server.v1_5_R3.IBlockAccess;
-import net.minecraft.server.v1_5_R3.Material;
-import net.minecraft.server.v1_5_R3.StepSound;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.Block;
+import net.minecraft.server.v1_6_R1.BlockButtonAbstract;
+import net.minecraft.server.v1_6_R1.BlockDiodeAbstract;
+import net.minecraft.server.v1_6_R1.BlockFurnace;
+import net.minecraft.server.v1_6_R1.BlockHalfTransparant;
+import net.minecraft.server.v1_6_R1.BlockMinecartTrack;
+import net.minecraft.server.v1_6_R1.BlockPressurePlateAbstract;
+import net.minecraft.server.v1_6_R1.BlockPressurePlateBinary;
+import net.minecraft.server.v1_6_R1.BlockPumpkin;
+import net.minecraft.server.v1_6_R1.BlockRedstoneOre;
+import net.minecraft.server.v1_6_R1.BlockRedstoneTorch;
+import net.minecraft.server.v1_6_R1.BlockStem;
+import net.minecraft.server.v1_6_R1.BlockStepAbstract;
+import net.minecraft.server.v1_6_R1.Entity;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.EntityPlayer;
+import net.minecraft.server.v1_6_R1.EnumMobType;
+import net.minecraft.server.v1_6_R1.IBlockAccess;
+import net.minecraft.server.v1_6_R1.Material;
+import net.minecraft.server.v1_6_R1.StepSound;
+import net.minecraft.server.v1_6_R1.World;
 import org.getspout.spout.block.SpoutCraftBlock;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -262,15 +262,15 @@ public final class CustomMCBlock implements MethodInterceptor {
 		//Store proper lighting values for opacity
 		final int[] lightOpacity = new int[Block.lightBlock.length];
 		System.arraycopy(Block.lightBlock, 0, lightOpacity, 0, lightOpacity.length);
-		//Store...whatever s is
-		final boolean[] sArray = new boolean[Block.s.length];
-		System.arraycopy(Block.s, 0, sArray, 0, Block.s.length);
-		//Store...whatever u is
-		final boolean[] uArray = new boolean[Block.u.length];
-		System.arraycopy(Block.u, 0, sArray, 0, Block.u.length);
-		//Store...whatever w is
-		final boolean[] wArray = new boolean[Block.w.length];
-		System.arraycopy(Block.w, 0, wArray, 0, Block.w.length);
+		//Store...whatever t is
+		final boolean[] sArray = new boolean[Block.t.length];
+		System.arraycopy(Block.t, 0, sArray, 0, Block.t.length);
+		//Store...whatever v is
+		final boolean[] uArray = new boolean[Block.v.length];
+		System.arraycopy(Block.v, 0, sArray, 0, Block.v.length);
+		//Store...whatever x is
+		final boolean[] wArray = new boolean[Block.x.length];
+		System.arraycopy(Block.x, 0, wArray, 0, Block.x.length);
 		//Store proper lighting values for emission
 		final int[] lightEmission = new int[Block.lightEmission.length];
 		System.arraycopy(Block.lightEmission, 0, lightEmission, 0, Block.lightEmission.length);
@@ -327,9 +327,9 @@ public final class CustomMCBlock implements MethodInterceptor {
 		}
 		//Fix values
 		System.arraycopy(lightOpacity, 0, Block.lightBlock, 0, lightOpacity.length);
-		//System.arraycopy(sArray, 0, Block.s, 0, sArray.length);
-		//System.arraycopy(uArray, 0, Block.u, 0, uArray.length);
-		//System.arraycopy(wArray, 0, Block.w, 0, wArray.length);
+		//System.arraycopy(sArray, 0, Block.t, 0, sArray.length);
+		//System.arraycopy(uArray, 0, Block.v, 0, uArray.length);
+		//System.arraycopy(wArray, 0, Block.x, 0, wArray.length);
 		System.arraycopy(lightEmission, 0, Block.lightEmission, 0, lightEmission.length);
 	}
 
@@ -454,7 +454,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R3.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R1.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("c") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, int.class})) {
 			World world = (World) args[0];
@@ -464,7 +464,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 			int face = (Integer) args[4];
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
 			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_5_R3.block.CraftBlock.notchToBlockFace(face));
+				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R1.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("b") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, Entity.class})) {
 			World world = (World) args[0];
