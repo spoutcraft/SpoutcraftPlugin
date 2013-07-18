@@ -19,7 +19,7 @@
  */
 package org.getspout.spout.packet.standard;
 
-import net.minecraft.server.v1_6_R1.Packet0KeepAlive;
+import net.minecraft.server.v1_6_R2.Packet0KeepAlive;
 
 import org.getspout.spoutapi.packet.standard.MCPacket0KeepAlive;
 

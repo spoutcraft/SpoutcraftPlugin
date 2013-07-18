@@ -20,8 +20,6 @@
 package org.getspout.spout;
 
 import org.bukkit.Bukkit;
-//import org.bukkit.Chunk;
-//import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import org.getspout.spout.block.SpoutCraftChunk;
@@ -31,11 +29,8 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.ServerTickEvent;
 
 public class ServerTickTask implements Runnable {
-	//private int counter = 0;
-
 	@Override
 	public void run() {
-		//counter++;
 		Spout.getInstance().playerListener.manager.onServerTick();
 		((SimpleMaterialManager)SpoutManager.getMaterialManager()).onTick();
 		Player[] online = Bukkit.getServer().getOnlinePlayers();
@@ -47,19 +42,5 @@ public class ServerTickTask implements Runnable {
 		SpoutCraftChunk.updateTicks();
 		ServerTickEvent event = new ServerTickEvent();
 		Bukkit.getServer().getPluginManager().callEvent(event);
-
-		/*if (counter % 20 == 0) {
-			for (World world : Bukkit.getServer().getWorlds()) {
-				Chunk[] chunks = world.getLoadedChunks();
-				for (Chunk chunk : chunks) {
-					if (SpoutCraftChunk.replaceBukkitChunk(chunk)) {
-						System.out.println("Bad Chunk at (" + chunk.getX() + ", " + chunk.getZ());
-					}
-				}
-			}
-		}
-		if (counter % 1200 == 0) { //check every min
-			(SimpleChunkDataManager)SpoutManager.getChunkDataManager()).testFileTimeouts();
-		}*/
 	}
 }

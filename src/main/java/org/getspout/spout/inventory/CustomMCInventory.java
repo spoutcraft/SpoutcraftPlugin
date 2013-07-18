@@ -23,12 +23,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.IInventory;
-import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.IInventory;
+import net.minecraft.server.v1_6_R2.ItemStack;
 
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftHumanEntity;
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftHumanEntity;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.InventoryHolder;
 

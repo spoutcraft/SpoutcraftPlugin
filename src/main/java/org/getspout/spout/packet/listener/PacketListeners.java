@@ -22,7 +22,7 @@ package org.getspout.spout.packet.listener;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
-import net.minecraft.server.v1_6_R1.Packet;
+import net.minecraft.server.v1_6_R2.Packet;
 
 import org.bukkit.entity.Player;
 

@@ -27,8 +27,8 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import net.minecraft.server.v1_6_R1.Connection;
-import net.minecraft.server.v1_6_R1.Packet;
+import net.minecraft.server.v1_6_R2.Connection;
+import net.minecraft.server.v1_6_R2.Packet;
 
 import org.getspout.spout.SpoutPlayerConnection;
 import org.getspout.spoutapi.SpoutManager;

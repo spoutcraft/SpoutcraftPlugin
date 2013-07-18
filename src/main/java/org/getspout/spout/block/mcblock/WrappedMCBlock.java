@@ -19,7 +19,7 @@
  */
 package org.getspout.spout.block.mcblock;
 
-import net.minecraft.server.v1_6_R1.Block;
+import net.minecraft.server.v1_6_R2.Block;
 
 public interface WrappedMCBlock {
 	public Block getWrapped();

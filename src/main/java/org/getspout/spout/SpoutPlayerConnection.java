@@ -23,19 +23,19 @@ import java.lang.reflect.Field;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import net.minecraft.server.v1_6_R1.EntityPlayer;
-import net.minecraft.server.v1_6_R1.INetworkManager;
-import net.minecraft.server.v1_6_R1.IntHashMap;
-import net.minecraft.server.v1_6_R1.MinecraftServer;
-import net.minecraft.server.v1_6_R1.PlayerConnection;
-import net.minecraft.server.v1_6_R1.NetworkManager;
-import net.minecraft.server.v1_6_R1.Packet;
-import net.minecraft.server.v1_6_R1.Packet14BlockDig;
-import net.minecraft.server.v1_6_R1.Packet18ArmAnimation;
-import net.minecraft.server.v1_6_R1.Packet20NamedEntitySpawn;
-import net.minecraft.server.v1_6_R1.Packet24MobSpawn;
-import net.minecraft.server.v1_6_R1.Packet250CustomPayload;
-import net.minecraft.server.v1_6_R1.Packet3Chat;
+import net.minecraft.server.v1_6_R2.EntityPlayer;
+import net.minecraft.server.v1_6_R2.INetworkManager;
+import net.minecraft.server.v1_6_R2.IntHashMap;
+import net.minecraft.server.v1_6_R2.MinecraftServer;
+import net.minecraft.server.v1_6_R2.PlayerConnection;
+import net.minecraft.server.v1_6_R2.NetworkManager;
+import net.minecraft.server.v1_6_R2.Packet;
+import net.minecraft.server.v1_6_R2.Packet14BlockDig;
+import net.minecraft.server.v1_6_R2.Packet18ArmAnimation;
+import net.minecraft.server.v1_6_R2.Packet20NamedEntitySpawn;
+import net.minecraft.server.v1_6_R2.Packet24MobSpawn;
+import net.minecraft.server.v1_6_R2.Packet250CustomPayload;
+import net.minecraft.server.v1_6_R2.Packet3Chat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
@@ -190,9 +190,9 @@ public class SpoutPlayerConnection extends PlayerConnection {
 	}
 
 	@Override
-	public void d() {
+	public void e() {
 		syncFlushPacketQueue();
-		super.d();
+		super.e();
 	}
 
 	AtomicBoolean processingKick = new AtomicBoolean(false);
