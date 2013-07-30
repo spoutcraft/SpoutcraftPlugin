@@ -1,22 +1,15 @@
 language: java
 jdk: oraclejdk7
 
-before_script: gem install travis-artifacts
-script: mvn clean package -DbuildNumber=${TRAVIS_BUILD_NUMBER}
+script: mvn clean package -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=$TRAVIS_COMMIT
 after_success:
   - export PROJECT_ARTIFACT_ID="`sed -n 's|.*<artifactId>\(.*\)</artifactId>.*|\1|p' $TRAVIS_BUILD_DIR/pom.xml | awk '{ print $1; exit }'`" && echo Project artifactId is $PROJECT_ARTIFACT_ID
   - export PROJECT_NAME="`sed -n 's|.*<name>\(.*\)</name>.*|\1|p' $TRAVIS_BUILD_DIR/pom.xml | awk '{ print $1; exit }'`" && echo Project name is $PROJECT_NAME
   - export PROJECT_VERSION="`sed -n 's|.*<version>\(.*\)</version>.*|\1|p' $TRAVIS_BUILD_DIR/pom.xml | awk '{ print $1; exit }'`" && echo Project version is $PROJECT_VERSION
-  - "test ${TRAVIS_BRANCH} = master && cd $TRAVIS_BUILD_DIR/target && travis-artifacts upload --path $PROJECT_ARTIFACT_ID-* --target-path $TRAVIS_BUILD_NUMBER"
 
 notifications:
   email: false
   irc: "irc.esper.net#spoutdev"
-  webhooks: http://get.spout.org/hook
-
-env:
-  global:
-    - "ARTIFACTS_S3_BUCKET=spn-snapshots"
-    - "ARTIFACTS_AWS_REGION=us-east-1"
-    - secure: "egra+8xXul+gwIakmTrb+LFg50hL/x6TNqg+hKLDm3nGaYxKar4itjItWceB\nSvNolsA/LJZ5EMJepz4dm16lvkMSD1IEnIOutb33zeKPk4EBDISwzxHbKJkH\nvmfzOUCSCbGN7qEvlfMdhrr6ErKNC/ZBxIFy3PYsUhY661O4bmc="
-    - secure: "FULSWbzUKxGnkKlkAz6aHrVUHz/hMWVDhAPYDKHHrY9lnz/U5XWqfQrp+ndm\nGARCspZ32YhusBF/yQmz/sN8fbiyEQNv3EWJWX+7xZnVcctbdPcgnlZvnvFr\nUBFOzWMZrWXo8TqykALaFr8ERDiMFIquhfULIK1Y5Z3CtVejXsg="
+  webhooks:
+    - http://get.spout.org/hook
+    - http://n.tkte.ch/h/516/9FONea-GLWhZC5VR6mJxlh01
