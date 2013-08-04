@@ -5,7 +5,7 @@
 	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
-	<version>1.6.2-R0.1-SNAPSHOT</version>
+	<version>1.6.2-R0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
@@ -14,9 +14,9 @@
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<buildNumber>0</buildNumber><!-- DO NOT TOUCH! -->
+		<buildNumber>0</buildNumber>
 		<mainClass>${project.groupId}.spout.Spout</mainClass>
-		<bukkitVersion>1.6.2-R0.1-SNAPSHOT</bukkitVersion>
+		<bukkitVersion>1.6.2-R0.2-SNAPSHOT</bukkitVersion>
 		<minecraftVersion>1.6.2</minecraftVersion>
 	</properties>
 
@@ -111,7 +111,7 @@
 		</dependency>
 		<!-- Provided by third-party -->
 		<dependency>
-			<groupId>org.bukkit</groupId>
+			<groupId>org.spout</groupId>
 			<artifactId>craftbukkit</artifactId>
 			<version>${bukkitVersion}</version>
 			<scope>provided</scope>
@@ -226,11 +226,11 @@
 							<relocations>
 								<relocation>
 									<pattern>net.sf.cglib</pattern>
-									<shadedPattern>org.getspout.lib.cglib</shadedPattern>
+									<shadedPattern>${project.groupId}.lib.cglib</shadedPattern>
 								</relocation>
 								<relocation>
 									<pattern>org.objectweb.asm</pattern>
-									<shadedPattern>org.getspout.lib.asm</shadedPattern>
+									<shadedPattern>${project.groupId}.lib.asm</shadedPattern>
 								</relocation>
 							</relocations>
 						</configuration>
