@@ -55,7 +55,7 @@ public class SimpleFileManager implements FileManager {
 	private Map<Plugin,  List<File>> preLoginCache = new HashMap<Plugin,  List<File>>();
 	private Map<Plugin,  List<String>> preLoginUrlCache = new HashMap<Plugin,  List<String>>();
 	private Map<Plugin, List<String>> cachedFiles = new HashMap<Plugin,  List<String>>();
-	private static final String[] validExtensions = {"txt", "yml", "xml", "png", "jpg", "ogg", "midi", "wav", "zip"};
+	private static final String[] validExtensions = {"txt", "yml", "xml", "png", "jpg", "ogg", "midi", "wav", "zip", "mp3"};
 
 	public void onPlayerJoin(final SpoutPlayer player) {
 		if (player.isSpoutCraftEnabled()) {

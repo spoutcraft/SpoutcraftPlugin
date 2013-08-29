@@ -281,6 +281,16 @@ public class Particle {
 		SNOWSHOVEL("snowshovel"),
 		SLIME("slime"),
 		HEART("heart"),
+		HUGEEXPLOSION("hugeexplosion"),
+		LARGEEXPLODE("largeexplode"),
+		FIREWORKSSPARK("fireworksSpark"),
+		MOBSPELLAMBIENT("mobSpellAmbient"),
+		INSTANTSPELL("instantSpell"),
+		WITCHMAGIC("witchMagic"),
+		ANGRYVILLAGER("angryVillager"),
+		HAPPYVILLAGER("happyVillager"),
+		ICONCRACK("iconcrack_*"),
+		TILECRACK("tilecrack_*_*"),
 		UNKNOWN(null),;
 		final String name;
 
