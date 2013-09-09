@@ -310,6 +310,13 @@ public final class CustomMCBlock implements MethodInterceptor {
 					} else {
 						Block.byId[i] = parent;
 					}
+					
+					// Revert non-used custom block classes to fix other issues.
+					if (parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockSkull") || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockAnvil")  || parent.getClass().toString().equalsIgnoreCase("class net.minecraft.server.BlockBeacon")) {
+						System.out.println("Skipping Proxy for : " + parent.getClass().toString());
+						Block.byId[i] = parent;
+					} 
+					
 					final Field strengthField = getField(fake.getClass(), "strength");
 					strengthField.setAccessible(true);
 					strengthField.setFloat(fake, strength);
