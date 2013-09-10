@@ -41,8 +41,10 @@ public class SpoutItemStack extends ItemStack {
 				addUnsafeEnchantment(SpoutEnchantment.DURABILITY, 0);
 			}
 		}
-		if (meta != null) {
-			super.setItemMeta(meta);
+		if (!(m instanceof GenericCustomTool)) { //don't strip meta data that is already there.
+			if (meta != null) {	
+				super.setItemMeta(meta);
+			}
 		}
 	}
 
