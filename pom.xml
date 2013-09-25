@@ -5,7 +5,7 @@
 	<name>SpoutPlugin</name>
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
-	<version>1.6.2-R0.2-SNAPSHOT</version>
+	<version>1.6.2-R1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNumber>0</buildNumber>
 		<mainClass>${project.groupId}.spout.Spout</mainClass>
-		<bukkitVersion>1.6.2-R0.2-SNAPSHOT</bukkitVersion>
+		<bukkitVersion>1.6.2-R1.1-SNAPSHOT</bukkitVersion>
 		<minecraftVersion>1.6.2</minecraftVersion>
 	</properties>
 
@@ -57,12 +57,10 @@
 	<!-- Dependency repositories -->
 	<repositories>
 		<repository>
-			<id>spout-repo</id>
-			<url>http://nexus.spout.org/content/groups/public/</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
+			<id>bukkit</id>
+			<name>Bukkit Artifactory</name>
+			<layout>default</layout>
+			<url>http://repo.bukkit.org/content/groups/public/</url>
 		</repository>
 	</repositories>
 
@@ -111,10 +109,14 @@
 		</dependency>
 		<!-- Provided by third-party -->
 		<dependency>
-			<groupId>org.spout</groupId>
-			<artifactId>craftbukkit</artifactId>
-			<version>${bukkitVersion}</version>
-			<scope>provided</scope>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId> <!-- THIS GOES FIRST -->
+			<version>1.6.2-R1.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>craftbukkit</artifactId> <!-- THIS GOES SECOND -->
+			<version>1.6.2-R1.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

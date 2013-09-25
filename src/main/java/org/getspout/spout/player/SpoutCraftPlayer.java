@@ -297,6 +297,21 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
+	public void setLastDamage(int i) {
+		super.setLastDamage((double) i);
+	}
+
+	@Override
+	public int _INVALID_getLastDamage() {
+		return (int) super.getLastDamage();
+	}
+
+	@Override
+	public void _INVALID_setLastDamage(int damage) {
+		super.setLastDamage((double) damage);
+	}
+
+	@Override
 	public void setRemainingAir(int time) {
 		if (time < 0) {
 			throw new IllegalArgumentException("The Remaining Air can not be below 0");
@@ -1439,5 +1454,55 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	@Override
 	public String getAccessoryURL(AccessoryType type) {
 		return accessories.get(type);
+	}
+
+	@Override
+	public void damage(int i) {
+		super.damage((double) i);
+	}
+
+	@Override
+	public void damage(int i, org.bukkit.entity.Entity entity) {
+		super.damage((double) i, entity);
+	}
+
+	@Override
+	public void setHealth(int i) {
+		super.setHealth((double) i);
+	}
+
+	@Override
+	public void setMaxHealth(int i) {
+		super.setMaxHealth((double) i);
+	}
+
+	@Override
+	public void _INVALID_damage(int amount) {
+		super.damage((double) amount);
+	}
+
+	@Override
+	public void _INVALID_damage(int amount, org.bukkit.entity.Entity source) {
+		super.damage((double) amount, source);
+	}
+
+	@Override
+	public int _INVALID_getHealth() {
+		return (int) super.getHealth();
+	}
+
+	@Override
+	public void _INVALID_setHealth(int health) {
+		super.setHealth((double) health);
+	}
+
+	@Override
+	public int _INVALID_getMaxHealth() {
+		return (int) super.getMaxHealth();
+	}
+
+	@Override
+	public void _INVALID_setMaxHealth(int health) {
+		super.setMaxHealth((double) health);
 	}
 }
