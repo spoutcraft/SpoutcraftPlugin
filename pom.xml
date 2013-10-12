@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Project information -->
@@ -7,18 +6,43 @@
 	<groupId>org.getspout</groupId>
 	<artifactId>spoutplugin</artifactId>
 	<version>1.5.2-R1.0-SNAPSHOT</version>
-	<url>http://www.spout.org</url>
+	<packaging>jar</packaging>
 	<inceptionYear>2011</inceptionYear>
-	<description>SpoutPlugin (formerly BukkitContrib) is a plugin for Bukkit, which extends the Bukkit API to provide features that aren't normally available. SpoutPlugin is a legacy project, and will be replaced by the Spout voxel game platform when finished.</description>
+	<url>https://github.com/Legacy/SpoutPlugin</url>
+	<description>Plugin for the CraftBukkit Minecraft server mod that extends the Bukkit plugin API.</description>
+
+	<!-- Parent information -->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>${project.groupId}.spout.Spout</mainClass>
-		<craftbukkitVersion>1.5.2-R1.0</craftbukkitVersion>
-		<minecraftVersion>1.5.2</minecraftVersion>
 		<buildNumber>0</buildNumber>
+		<ciSystem>unknown</ciSystem>
+		<commit>unknown</commit>
+		<mainClass>${project.groupId}.spout.Spout</mainClass>
+		<!--<mainClass>${project.groupId}.plugin.${project.groupId}Plugin</mainClass>-->
+		<bukkitVersion>1.5.2-R1.0</bukkitVersion>
+		<minecraftVersion>1.5.2</minecraftVersion>
 	</properties>
+
+	<!-- Project developers -->
+	<developers>
+		<developer>
+			<id>mcsnetworks</id>
+			<name>Mike Howe</name>
+			<email>dockter@almuramc.com</email>
+		</developer>
+		<developer>
+			<id>Wulfspider</id>
+			<name>Luke Spragg</name>
+			<email>the@wulf.im</email>
+		</developer>
+	</developers>
 
 	<!-- Organization information -->
 	<organization>
@@ -37,28 +61,44 @@
 
 	<!-- Source code access -->
 	<scm>
-		<developerConnection>scm:git:git@github.com:Legacy/SpoutPlugin.git</developerConnection>
 		<connection>scm:git:git://github.com/Legacy/SpoutPlugin.git</connection>
+		<developerConnection>scm:git:git@github.com:Legacy/SpoutPlugin.git</developerConnection>
 		<url>https://github.com/Legacy/SpoutPlugin</url>
 	</scm>
 
-	<!-- Build server -->
+	<!-- Continuous integration -->
 	<ciManagement>
-		<system>jenkins</system>
-		<url>http://build.spout.org/job/SpoutPlugin</url>
+		<system>travis</system>
+		<url>https://travis-ci.org/Legacy/SpoutPlugin</url>
 	</ciManagement>
 
-	<!-- Issue tracker -->
+	<!-- Issue management -->
 	<issueManagement>
 		<system>jira</system>
-		<url>http://issues.spout.org/browse/LEGACY</url>
+		<url>http://spoutdev.atlassian.net/browse/LEGACY</url>
 	</issueManagement>
 
 	<!-- Dependency repositories -->
 	<repositories>
 		<repository>
-			<id>spout-repo</id>
-			<url>http://repo.spout.org</url>
+			<id>bukkit-releases</id>
+			<url>http://repo.bukkit.org/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>bukkit-snapshots</id>
+			<url>http://repo.bukkit.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
@@ -69,24 +109,18 @@
 	<!-- Build plugin repositories -->
 	<pluginRepositories>
 		<pluginRepository>
-			<id>spout-repo</id>
-			<url>http://repo.spout.org</url>
+			<id>sonatype-nexus-releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
-	<!-- Distribution management -->
-	<distributionManagement>
-		<!-- Publish releases here -->
-		<repository>
-			<id>spout-releases</id>
-			<url>http://nexus.spout.org/content/repositories/releases</url>
-		</repository>
-		<!-- Publish snapshots here -->
-		<snapshotRepository>
-			<id>spout-snapshots</id>
-			<url>http://nexus.spout.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<!-- Project dependencies -->
 	<dependencies>
@@ -112,8 +146,14 @@
 		<!-- Provided by third-party -->
 		<dependency>
 			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+			<version>${bukkitVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>${craftbukkitVersion}</version>
+			<version>${bukkitVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -127,7 +167,7 @@
 			<!-- Static resources -->
 			<resource>
 				<filtering>false</filtering>
-				<directory>${project.basedir}</directory>
+				<directory>.</directory>
 				<targetPath>.</targetPath>
 				<includes>
 					<include>LICENSE.txt</include>
@@ -158,7 +198,7 @@
 								<name>${project.name}</name>
 								<url>${project.organization.url}</url>
 								<inceptionYear>${project.inceptionYear}</inceptionYear>
-								<company>${project.organization.name}</company>
+								<organization>${project.organization.name}</organization>
 							</properties>
 							<quiet>true</quiet>
 							<encoding>UTF-8</encoding>
@@ -187,7 +227,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -203,7 +243,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.0</version>
+				<version>2.1</version>
 				<executions>
 					<execution>
 						<configuration>
@@ -225,11 +265,11 @@
 							<relocations>
 								<relocation>
 									<pattern>net.sf.cglib</pattern>
-									<shadedPattern>org.getspout.lib.cglib</shadedPattern>
+									<shadedPattern>${project.groupId}.lib.cglib</shadedPattern>
 								</relocation>
 								<relocation>
 									<pattern>org.objectweb.asm</pattern>
-									<shadedPattern>org.getspout.lib.asm</shadedPattern>
+									<shadedPattern>${project.groupId}.lib.asm</shadedPattern>
 								</relocation>
 							</relocations>
 						</configuration>
@@ -254,6 +294,7 @@
 				<version>2.9</version>
 				<configuration>
 					<sourcepath>src/main/java/org/getspout/spoutapi</sourcepath>
+					<!--<sourcepath>src/main/java/org/spoutcraft/plugin/api</sourcepath>-->
 					<bottom><![CDATA[Copyright (c) {project.inceptionYear} <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
 					<doctitle><![CDATA[${project.name} API ${project.version}-b${buildNumber}]]></doctitle>
 					<windowtitle>Javadoc | ${project.name} API ${project.version}-b${buildNumber}</windowtitle>
