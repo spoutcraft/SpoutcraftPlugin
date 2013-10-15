@@ -28,11 +28,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class ChunkStore {
-	static HashMap<UUID, HashMap<Long, SimpleRegionFile>> regionFiles = new HashMap<UUID, HashMap<Long, SimpleRegionFile>>();
+	HashMap<UUID, HashMap<Long, SimpleRegionFile>> regionFiles = new HashMap<UUID, HashMap<Long, SimpleRegionFile>>();
 
 	public void closeAll() {
 		for (UUID uid : regionFiles.keySet()) {
@@ -91,41 +90,14 @@ public class ChunkStore {
 		}
 	}
 
-	public static void closeChunkMetaData(World world, int x, int z) {
+	public void closeChunkMetaData(World world, int x, int z) {
 		SimpleRegionFile rf = getSimpleRegionFile(world, x, z);
 		if (rf != null) {
 			rf.close();
 		}
 	}
 	
-	public static void deleteMetaFileByChunkLocation(World world, int x, int z) {
-	    File directory = new File(world.getWorldFolder(), "spout_meta");	    
-	    File metaFile = new File(directory, "spout_" + x + "_" + z + "_.spm");
-	  
-	    closeChunkMetaData(world, x, z);
-	    
-	    if (metaFile != null) {
-			metaFile.delete();
-			Bukkit.getLogger().warning("[SpoutPlugin] - Deleting file: " + metaFile.getName());
-		}
-	}
-	
-	public static void deleteMetaFileByCoordLocation(World world, int x, int z) {
-	    File directory = new File(world.getWorldFolder(), "spout_meta");
-	    
-	    closeChunkMetaData(world, x, z);
-	   
-	    int rx = x >> 5;
-	    int rz = z >> 5;
-	    File metaFile = new File(directory, "spout_" + rx + "_" + rz + "_.spm");
-	  
-	    if (metaFile != null) {
-			metaFile.delete();
-			Bukkit.getLogger().warning("[SpoutPlugin] - Deleting file: " + metaFile.getName());
-		}
-	}
-	
-	private static SimpleRegionFile getSimpleRegionFile(World world, int x, int z) {
+	private SimpleRegionFile getSimpleRegionFile(World world, int x, int z) {
 		File directory = new File(world.getWorldFolder(), "spout_meta");
 
 		directory.mkdirs();
