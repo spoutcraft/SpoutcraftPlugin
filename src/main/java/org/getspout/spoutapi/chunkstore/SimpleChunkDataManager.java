@@ -104,7 +104,21 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 			return false;
 		}
 	}
-
+	
+	public void clearCustomBlockData(World world, int x, int z) {
+		ChunkMetaData md = getMetaData(world, x, z, true, false);
+		if (md != null) {
+			md.setCustomBlockData(new byte[16 * 16 * world.getMaxHeight()]);
+		}
+	}
+	
+	public void clearCustomBlockIds(World world, int x, int z) {
+		ChunkMetaData md = getMetaData(world, x, z, true, false);
+		if (md != null) {
+			md.setCustomBlockIds(new short[16 * 16 * world.getMaxHeight()]);;
+		}
+	}
+	
 	public boolean unloadWorldChunks(World world) {
 		return saveWorldChunks(world, true);
 	}

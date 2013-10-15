@@ -27,9 +27,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkPopulateEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.getspout.spout.Spout;
-
 import org.getspout.spout.block.SpoutCraftChunk;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.chunkstore.SimpleChunkDataManager;
@@ -60,5 +60,27 @@ public class SpoutWorldListener implements Listener {
 	public void onWorldLoad(WorldLoadEvent event) {
 		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 		dm.loadWorldChunks(event.getWorld());
+	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onChunkRegenerate(ChunkPopulateEvent event) {
+		if (SpoutCraftChunk.replaceBukkitChunk(event.getChunk())) {
+			// Update the reference to the chunk in the event
+			try {
+				Field chunk = ChunkEvent.class.getDeclaredField("chunk");
+				chunk.setAccessible(true);
+				chunk.set(event, event.getChunk().getWorld().getChunkAt(event.getChunk().getX(), event.getChunk().getZ()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+			
+			// Clear custom block data from generated chunks if it exists
+			dm.clearCustomBlockIds(event.getWorld(), event.getChunk().getX(), event.getChunk().getZ());
+	        dm.clearCustomBlockData(event.getWorld(), event.getChunk().getX(), event.getChunk().getZ());
+			
+			dm.loadChunk(event.getChunk());
+		}
 	}
 }
