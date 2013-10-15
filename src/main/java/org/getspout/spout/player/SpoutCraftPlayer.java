@@ -297,7 +297,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public void setLastDamage(int i) {
+	public void setLastDamage(double i) {
 		super.setLastDamage((double) i);
 	}
 
@@ -1457,22 +1457,22 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public void damage(int i) {
+	public void damage(double i) {
 		super.damage((double) i);
 	}
 
 	@Override
-	public void damage(int i, org.bukkit.entity.Entity entity) {
+	public void damage(double i, org.bukkit.entity.Entity entity) {
 		super.damage((double) i, entity);
 	}
 
 	@Override
-	public void setHealth(int i) {
+	public void setHealth(double i) {
 		super.setHealth((double) i);
 	}
 
 	@Override
-	public void setMaxHealth(int i) {
+	public void setMaxHealth(double i) {
 		super.setMaxHealth((double) i);
 	}
 
