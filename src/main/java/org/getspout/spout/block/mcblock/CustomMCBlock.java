@@ -369,7 +369,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 	public static void updateGlass() {
 		// Allow placement of blocks on glass
 		try {
-			Field field = Material.SHATTERABLE.getClass().getDeclaredField("I");
+			Field field = Material.SHATTERABLE.getClass().getDeclaredField("J");
 			field.setAccessible(true);
 			field.setBoolean(Material.SHATTERABLE, false);
 		} catch (Exception e) {
