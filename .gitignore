@@ -68,15 +68,3 @@ nb-configuration.xml
 *.iml
 *.ipr
 *.iws
-
-# Runtime #
-###########
-/cache
-/config
-/data
-/natives
-/plugins
-/resources
-/update
-/updates
-/worlds

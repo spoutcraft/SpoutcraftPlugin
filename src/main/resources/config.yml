@@ -1,7 +1,8 @@
-ForceClientKickMessage: This server requires Spoutcraft! http://get.spout.org
+ForceClientKickMessage: This server requires Spoutcraft! http://spoutcraft.org
 MinecraftVersionCheck: true
 ClientCheckTicks: 200
 ChunkDataCache: true
+
 waypoints:
     world:
         Spawn:
