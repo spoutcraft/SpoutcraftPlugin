@@ -28,7 +28,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 /**
  * The Spout implementation of the default Bubble Bar.
  */
-public class BubbleBar extends GenericWidget implements Widget {
+public class BubbleBar extends Widget {
 	private int icons = 10;
 	private int iconOffset = 8;
 

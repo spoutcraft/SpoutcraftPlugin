@@ -19,29 +19,47 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+
 /**
- * Containers are a specific type of widget that are designed for easy layout
- * and control of other widgets.
- * <p/>
- * Containers make use of the various Margin methods to provide space between
- * elements. They also require both a Width and Height in order to actual
- * perform an automatic layout of child elements. This can be used to provide
- * a "group" type container that doesn't change the layout of any children.
- * <p/>
- * Most Widget methods that affect position or layout will be passed down to
- * all children when used on the container itself, that includes setDirty().
- * <p/>
- * Automatic layout is handled by updateLayout (though you should normally use
- * deferLayout() calls in subclasses). Any widgets that change dimension or
- * position at this stage will also be set as dirty.
+ * Contains other widgets with optional auto layout
  */
-public interface Container extends Widget {
+public class Container extends Widget {
+	protected List<Widget> children = new ArrayList<Widget>();
+	protected ContainerType type = ContainerType.VERTICAL;
+	protected WidgetAnchor align = WidgetAnchor.TOP_LEFT;
+	protected boolean reverse = false;
+	protected int minWidthCalc = 0, maxWidthCalc = 427, minHeightCalc = 0, maxHeightCalc = 240;
+	protected boolean auto = true;
+	protected boolean recalculating = false;
+	protected boolean needsLayout = true;
+
+	public Container() {
+	}
+
+	public Container(Widget... children) {
+		// Shortcuts because we don't have any of the insertChild values setup yet
+		this.children.addAll(Arrays.asList(children));
+		for (Widget child : children) {
+			child.setContainer(this);
+		}
+		// updateSize(); // Checks isFixed() which is false at init
+	}
+
 	/**
 	 * Adds a single widget to a container
 	 * @param child The widget to add
 	 * @return Widget
 	 */
-	public Container addChild(Widget child);
+	public Container addChild(Widget child) {
+		return insertChild(-1, child);
+	}
 
 	/**
 	 * Adds a single widget to a container
@@ -49,40 +67,237 @@ public interface Container extends Widget {
 	 * @param child The widget to add
 	 * @return Widget
 	 */
-	public Container insertChild(int index, Widget child);
+	public Container insertChild(int index, Widget child) {
+		if (index < 0 || index > this.children.size()) {
+			this.children.add(child);
+		} else {
+			this.children.add(index, child);
+		}
+		child.setContainer(this);
+		child.savePos();
+		child.shiftXPos(super.getX());
+		child.shiftYPos(super.getY());
+		child.setAnchor(super.getAnchor());
+		child.setVisible(super.isVisible());
+		if (getScreen() != null) {
+			Plugin p = child.getPlugin();
+			getScreen().attachWidget(p == Bukkit.getServer().getPluginManager().getPlugin("Spout") ? getPlugin() : p, child);
+		}
+		updateSize();
+		deferLayout();
+		return this;
+	}
 
 	/**
 	 * Adds a list of children to a container.
 	 * @param children The widgets to add
 	 * @return
 	 */
-	public Container addChildren(Widget... children);
+	public Container addChildren(Widget... children) {
+		for (Widget child : children) {
+			this.insertChild(-1, child);
+		}
+		return this;
+	}
+
+	/**
+	 * Get a list of widgets inside this container.
+	 * @return
+	 */
+	public Widget[] getChildren() {
+		Widget[] list = new Widget[children.size()];
+		children.toArray(list);
+		return list;
+	}
+
+	@Override
+	public void setDirty(boolean dirty) {
+		super.setDirty(dirty);
+		for (Widget widget : children) {
+			widget.setDirty(dirty);
+		}
+	}
+
+	@Override
+	public boolean isDirty() {
+		return false;
+	}
+
+	@Override
+	public Container setVisible(boolean enable) {
+		if (enable != isVisible()) {
+			super.setVisible(enable);
+			for (Widget widget : children) {
+				widget.setVisible(enable);
+			}
+		}
+		return this;
+	}
+
+	@Override
+	public Container setPriority(RenderPriority priority) {
+		super.setPriority(priority);
+		for (Widget widget : children) {
+			widget.setPriority(priority);
+		}
+		return this;
+	}
+
+	@Override
+	public Container setAnchor(WidgetAnchor anchor) {
+		super.setAnchor(anchor);
+		for (Widget widget : children) {
+			widget.setAnchor(anchor);
+		}
+		return this;
+	}
+
+	@Override
+	public WidgetType getType() {
+		return WidgetType.Container;
+	}
+
+	@Override
+	public Widget setX(int pos) {
+		int delta = pos - super.getX();
+		super.setX(pos);
+		for (Widget widget : children) {
+			widget.shiftXPos(delta);
+		}
+		return this;
+	}
+
+	@Override
+	public Widget setY(int pos) {
+		int delta = pos - super.getY();
+		super.setY(pos);
+		for (Widget widget : children) {
+			widget.shiftYPos(delta);
+		}
+		return this;
+	}
 
 	/**
 	 * Removes a single widget from this container
 	 * @param child The widget to add
 	 * @return
 	 */
-	public Container removeChild(Widget child);
+	public Container removeChild(Widget child) {
+		children.remove(child);
+		child.setContainer(null);
+		child.restorePos();
+		if (child.getScreen() != null) {
+			child.getScreen().removeWidget(child);
+		}
+		updateSize();
+		deferLayout();
+		return this;
+	}
 
-	/**
-	 * Get a list of widgets inside this container.
-	 * @return
-	 */
-	public Widget[] getChildren();
+	@Override
+	public Container setScreen(Plugin plugin, Screen screen) {
+		super.setScreen(plugin, screen);
+		for (Widget child : children) {
+			if (screen != null) {
+				screen.attachWidget(plugin, child);
+			} else if (child.getScreen() != null) {
+				child.getScreen().removeWidget(child);
+			}
+		}
+		return this;
+	}
+
+	@Override
+	public Container setHeight(int height) {
+		if (super.getHeight() != height) {
+			super.setHeight(height);
+			deferLayout();
+		}
+		return this;
+	}
+
+	@Override
+	public Container setWidth(int width) {
+		if (super.getWidth() != width) {
+			super.setWidth(width);
+			deferLayout();
+		}
+		return this;
+	}
 
 	/**
 	 * Set the automatic layout type for children, triggered by setWidth() or setHeight()
 	 * @param type ContainerType.VERTICAL, .HORIZONTAL or .OVERLAY
 	 * @return the container
 	 */
-	public Container setLayout(ContainerType type);
+	public Container setLayout(ContainerType type) {
+		if (this.type != type) {
+			this.type = type;
+			deferLayout();
+		}
+		return this;
+	}
 
 	/**
 	 * Get the automatic layout type for children
 	 * @return the type of container
 	 */
-	public ContainerType getLayout();
+	public ContainerType getLayout() {
+		return type;
+	}
+
+	/**
+	 * Set the contents alignment.
+	 * @param anchor Where to align
+	 * @return
+	 */
+	public Container setAlign(WidgetAnchor align) {
+		if (this.align != align) {
+			this.align = align;
+			deferLayout();
+		}
+		return this;
+	}
+
+	/**
+	 * Get the contents alignment.
+	 * @return
+	 */
+	public WidgetAnchor getAlign() {
+		return align;
+	}
+
+	/**
+	 * Reverse the drawing order (right to left or bottom to top).
+	 * @param reverse Set to reverse direction
+	 * @return
+	 */
+	public Container setReverse(boolean reverse) {
+		if (this.reverse != reverse) {
+			this.reverse = reverse;
+			deferLayout();
+		}
+		return this;
+	}
+
+	/**
+	 * If this is drawing in reverse order.
+	 * @return
+	 */
+	public boolean getReverse() {
+		return reverse;
+	}
+
+	/**
+	 * Automatically call updateLayout during the next onTick.
+	 * This is automatically called when anything changes that would affect the container layout.
+	 * NOTE: Subclasses should ensure they don't prevent Container.onTick() from running.
+	 * @return
+	 */
+	public Container deferLayout() {
+		needsLayout = true;
+		return this;
+	}
 
 	/**
 	 * Force the container to re-layout all non-fixed children.
@@ -91,51 +306,244 @@ public interface Container extends Widget {
 	 * This will re-position and resize all child elements.
 	 * @return
 	 */
-	public Container updateLayout();
+	public Container updateLayout() {
+		if (!recalculating && super.getWidth() > 0 && super.getHeight() > 0 && !children.isEmpty()) {
+			recalculating = true; // Prevent us from getting into a loop
+			List<Widget> visibleChildren = new ArrayList<Widget>();
+			int totalwidth = 0, totalheight = 0, newwidth, newheight, vcount = 0, hcount = 0;
+			int availableWidth = auto ? getWidth() : getMinWidth(), availableHeight = auto ? getHeight() : getMinHeight();
+			// We only layout visible children, invisible ones have zero physical presence on screen
+			for (Widget widget : children) {
+				if (widget.isVisible()) {
+					visibleChildren.add(widget);
+				}
+			}
+			// Reverse drawing order if we need to
+			if (reverse) {
+				Collections.reverse(visibleChildren);
+			}
+			// First - get the total space by fixed widgets and borders
+			if (type == ContainerType.OVERLAY) {
+				newwidth = availableWidth;
+				newheight = availableHeight;
+			} else {
+				for (Widget widget : visibleChildren) {
+					int horiz = widget.getMarginLeft() + widget.getMarginRight();
+					int vert = widget.getMarginTop() + widget.getMarginBottom();
+					if (widget.isFixed()) {
+						horiz += widget.getWidth();
+						vert += widget.getHeight();
+					}
+					if (type == ContainerType.VERTICAL) {
+						totalheight += vert;
+						if (!widget.isFixed()) {
+							vcount++;
+						}
+					} else if (type == ContainerType.HORIZONTAL) {
+						totalwidth += horiz;
+						if (!widget.isFixed()) {
+							hcount++;
+						}
+					}
+				}
+				// Work out the width and height for children
+				newwidth = (availableWidth - totalwidth) / Math.max(1, hcount);
+				newheight = (availableHeight - totalheight) / Math.max(1, vcount);
+				// Deal with minWidth and minHeight - change newwidth/newheight if needed
+				for (Widget widget : visibleChildren) {
+					if (!widget.isFixed()) {
+						if (type == ContainerType.VERTICAL) {
+							if (widget.getMinHeight() > newheight) {
+								totalheight += widget.getMinHeight() - newheight;
+								newheight = (availableHeight - totalheight) / Math.max(1, vcount);
+							} else if (newheight >= widget.getMaxHeight()) {
+								totalheight += widget.getMaxHeight();
+								vcount--;
+								newheight = (availableHeight - totalheight) / Math.max(1, vcount);
+							}
+						} else if (type == ContainerType.HORIZONTAL) {
+							if (widget.getMinWidth() > newwidth) {
+								totalwidth += widget.getMinWidth() - newwidth;
+								newwidth = (availableWidth - totalwidth) / Math.max(1, hcount);
+							} else if (newwidth >= widget.getMaxWidth()) {
+								totalwidth += widget.getMaxWidth();
+								hcount--;
+								newwidth = (availableWidth - totalwidth) / Math.max(1, hcount);
+							}
+						}
+					}
+				}
+				newheight = Math.max(newheight, 0);
+				newwidth = Math.max(newwidth, 0);
+			}
+			totalheight = totalwidth = 0;
+			// Resize any non-fixed widgets
+			for (Widget widget : visibleChildren) {
+				int vMargin = widget.getMarginTop() + widget.getMarginBottom();
+				int hMargin = widget.getMarginLeft() + widget.getMarginRight();
+				if (!widget.isFixed()) {
+					if (auto) {
+						widget.setHeight(Math.max(widget.getMinHeight(), Math.min(newheight - (this.type == ContainerType.VERTICAL ? 0 : vMargin), widget.getMaxHeight())));
+						widget.setWidth(Math.max(widget.getMinWidth(), Math.min(newwidth - (this.type == ContainerType.HORIZONTAL ? 0 : hMargin), widget.getMaxWidth())));
+					} else {
+						widget.setHeight(widget.getMinHeight() == 0 ? newheight - vMargin : widget.getMinHeight());
+						widget.setWidth(widget.getMinWidth() == 0 ? newwidth - hMargin : widget.getMinWidth());
+					}
+				}
+				if (type == ContainerType.VERTICAL) {
+					totalheight += widget.getHeight() + vMargin;
+				} else {
+					totalheight = Math.max(totalheight, widget.getHeight() + vMargin);
+				}
+				if (type == ContainerType.HORIZONTAL) {
+					totalwidth += widget.getWidth() + hMargin;
+				} else {
+					totalwidth = Math.max(totalwidth, widget.getWidth() + hMargin);
+				}
+			}
+			// Work out the new top-left position taking into account Align
+			int left = super.getX();
+			int top = super.getY();
+			if (align == WidgetAnchor.TOP_CENTER || align == WidgetAnchor.CENTER_CENTER || align == WidgetAnchor.BOTTOM_CENTER) {
+				left += (super.getWidth() - totalwidth) / 2;
+			} else if (align == WidgetAnchor.TOP_RIGHT || align == WidgetAnchor.CENTER_RIGHT || align == WidgetAnchor.BOTTOM_RIGHT) {
+				left += super.getWidth() - totalwidth;
+			}
+			if (align == WidgetAnchor.CENTER_LEFT || align == WidgetAnchor.CENTER_CENTER || align == WidgetAnchor.CENTER_RIGHT) {
+				top += (super.getHeight() - totalheight) / 2;
+			} else if (align == WidgetAnchor.BOTTOM_LEFT || align == WidgetAnchor.BOTTOM_CENTER || align == WidgetAnchor.BOTTOM_RIGHT) {
+				top += super.getHeight() - totalheight;
+			}
+			// Move all children into the correct position
+			for (Widget widget : visibleChildren) {
+				int realtop = top + widget.getMarginTop();
+				int realleft = left + widget.getMarginLeft();
+				if (widget.getY() != realtop || widget.getX() != realleft) {
+					widget.setY(realtop).setX(realleft);
+				}
+				if (type == ContainerType.VERTICAL) {
+					top += widget.getHeight() + widget.getMarginTop() + widget.getMarginBottom();
+				} else if (type == ContainerType.HORIZONTAL) {
+					left += widget.getWidth() + widget.getMarginLeft() + widget.getMarginRight();
+				}
+			}
+			recalculating = false;
+		}
+		needsLayout = false;
+		return this;
+	}
 
-	/**
-	 * Automatically call updateLayout during the next onTick.
-	 * This is automatically called when anything changes that would affect the container layout.
-	 * NOTE: Subclasses should ensure they don't prevent Container.onTick() from running.
-	 * @return
-	 */
-	public Container deferLayout();
+	@Override
+	public void onTick() {
+		if (needsLayout) {
+			updateLayout();
+		}
+	}
 
-	/**
-	 * Set the contents alignment.
-	 * @return
-	 */
-	public Container setAlign(WidgetAnchor anchor);
+	@Override
+	public int getMinWidth() {
+		return Math.max(super.getMinWidth(), minWidthCalc);
+	}
 
-	/**
-	 * Get the contents alignment.
-	 * @return
-	 */
-	public WidgetAnchor getAlign();
+	@Override
+	public int getMaxWidth() {
+		return Math.min(super.getMaxWidth(), maxWidthCalc);
+	}
 
-	/**
-	 * Reverse the drawing order (right to left or bottom to top).
-	 * @param reverse Set to reverse direction
-	 * @return
-	 */
-	public Container setReverse(boolean reverse);
+	@Override
+	public int getMinHeight() {
+		return Math.max(super.getMinHeight(), minHeightCalc);
+	}
 
-	/**
-	 * If this is drawing in reverse order.
-	 * @return
-	 */
-	public boolean getReverse();
+	@Override
+	public int getMaxHeight() {
+		return Math.min(super.getMaxHeight(), maxHeightCalc);
+	}
+
+	@Override
+	public Container updateSize() {
+		if (!recalculating && !isFixed()) {
+			recalculating = true; // Prevent us from getting into a loop due to both trickle down and push up
+			int minwidth = 0, maxwidth = 0, minheight = 0, maxheight = 0, minhoriz, maxhoriz, minvert, maxvert;
+			// Work out the minimum and maximum dimensions for the contents of this container
+			for (Widget widget : children) {
+				if (widget.isVisible()) {
+					if (widget instanceof Container) { // Trickle down to children
+						((Container) widget).updateSize();
+					}
+					minhoriz = maxhoriz = widget.getMarginLeft() + widget.getMarginRight();
+					minvert = maxvert = widget.getMarginTop() + widget.getMarginBottom();
+					if (widget.isFixed()) {
+						minhoriz += widget.getWidth();
+						maxhoriz += widget.getWidth();
+						minvert += widget.getHeight();
+						maxvert += widget.getHeight();
+					} else {
+						minhoriz += widget.getMinWidth();
+						maxhoriz += widget.getMaxWidth();
+						minvert += widget.getMinHeight();
+						maxvert += widget.getMaxHeight();
+					}
+					if (type == ContainerType.HORIZONTAL) {
+						minwidth += minhoriz;
+						maxwidth += maxhoriz;
+					} else {
+						minwidth = Math.max(minwidth, minhoriz);
+						if (type == ContainerType.OVERLAY) {
+							maxwidth = Math.max(maxwidth, maxhoriz);
+						} else {
+							maxwidth = Math.min(maxwidth, maxhoriz);
+						}
+					}
+					if (type == ContainerType.VERTICAL) {
+						minheight += minvert;
+						maxheight += maxvert;
+					} else {
+						minheight = Math.max(minheight, minvert);
+						if (type == ContainerType.OVERLAY) {
+							maxheight = Math.max(maxheight, maxvert);
+						} else {
+							maxheight = Math.min(maxheight, maxvert);
+						}
+					}
+				}
+			}
+			minwidth = Math.min(minwidth, 427);
+			maxwidth = Math.min(maxwidth == 0 ? 427 : maxwidth, 427);
+			minheight = Math.min(minheight, 240);
+			maxheight = Math.min(maxheight == 0 ? 240 : maxheight, 240);
+			// Check if the dimensions have changed
+			if (minwidth != minWidthCalc || maxwidth != maxWidthCalc || minheight != minHeightCalc || maxheight != maxHeightCalc) {
+				minWidthCalc = minwidth;
+				maxWidthCalc = maxwidth;
+				minHeightCalc = minheight;
+				maxHeightCalc = maxheight;
+				deferLayout();
+				if (hasContainer()) { // Push up to parents
+					getContainer().updateSize();
+					getContainer().deferLayout();
+				}
+			}
+			recalculating = false;
+		}
+		return this;
+	}
 
 	/**
 	 * Determines if children expand to fill width and height
 	 * @param auto
 	 * @return
 	 */
-	public Container setAuto(boolean auto);
+	public Container setAuto(boolean auto) {
+		this.auto = auto;
+		return this;
+	}
 
 	/**
 	 * True if the children will expand to fill width and height
 	 * @return
 	 */
-	public boolean isAuto();
+	public boolean isAuto() {
+		return auto;
+	}
 }

@@ -19,5 +19,21 @@
  */
 package org.getspout.spoutapi.gui;
 
-public interface OverlayScreen extends Screen {
+public class OverlayScreen extends Screen {
+	ScreenType screenType;
+
+	public OverlayScreen(int entityId, ScreenType type) {
+		super(entityId);
+		screenType = type;
+	}
+
+	@Override
+	public WidgetType getType() {
+		return WidgetType.OverlayScreen;
+	}
+
+	@Override
+	public ScreenType getScreenType() {
+		return screenType;
+	}
 }

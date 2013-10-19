@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class AbstractListModel {
-	private HashSet<GenericListView> views = new HashSet<GenericListView>();
+	private HashSet<ListView> views = new HashSet<ListView>();
 
 	public abstract ListWidgetItem getItem(int row);
 
@@ -32,21 +32,21 @@ public abstract class AbstractListModel {
 
 	public abstract void onSelected(int item, boolean doubleClick);
 
-	public void addView(GenericListView view) {
+	public void addView(ListView view) {
 		views.add(view);
 	}
 
-	public void removeView(GenericListView view) {
+	public void removeView(ListView view) {
 		views.remove(view);
 	}
 
 	public void sizeChanged() {
-		for (GenericListView view : views) {
+		for (ListView view : views) {
 			view.sizeChanged();
 		}
 	}
 
-	public Set<GenericListView> getViews() {
+	public Set<ListView> getViews() {
 		return Collections.unmodifiableSet(views);
 	}
 }

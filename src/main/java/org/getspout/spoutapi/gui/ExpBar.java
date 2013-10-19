@@ -21,7 +21,7 @@ package org.getspout.spoutapi.gui;
 
 import java.util.UUID;
 
-public class ExpBar extends GenericWidget {
+public class ExpBar extends Widget {
 	public ExpBar() {
 		super();
 		setX(427 / 2 - 91); // 122

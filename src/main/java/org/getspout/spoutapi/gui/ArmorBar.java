@@ -28,7 +28,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 /**
  * The Spout implementation of the default Armor Bar.
  */
-public class ArmorBar extends GenericWidget {
+public class ArmorBar extends Widget {
 	private int icons = 10;
 	private boolean alwaysVisible = false;
 	private int iconOffset = 8;

@@ -19,11 +19,11 @@
  */
 package org.getspout.spoutapi.gui;
 
-public class GenericListView extends GenericListWidget implements ListWidget {
+public class ListView extends ListWidget {
 	private AbstractListModel model = null;
 	private int selected = -1;
 
-	public GenericListView(AbstractListModel model) {
+	public ListView(AbstractListModel model) {
 		setModel(model);
 	}
 

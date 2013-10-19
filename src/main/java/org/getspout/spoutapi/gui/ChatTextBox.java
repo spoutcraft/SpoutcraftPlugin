@@ -30,7 +30,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
  * <p/>
  * This provides extra abilities above the default version.
  */
-public class ChatTextBox extends GenericWidget implements Widget {
+public class ChatTextBox extends Widget {
 	protected int visibleLines = 10;
 	protected int visibleChatLines = 20;
 	protected int fadeoutTicks = 250;
