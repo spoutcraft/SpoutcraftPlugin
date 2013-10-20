@@ -8,7 +8,7 @@
 	<version>1.6.2-R1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<inceptionYear>2011</inceptionYear>
-	<url>https://github.com/Legacy/SpoutPlugin</url>
+	<url>https://github.com/Spoutcraft/SpoutcraftPlugin</url>
 	<description>Plugin that extends the Bukkit Minecraft server API.</description>
 
 	<!-- Parent information -->
@@ -61,9 +61,9 @@
 
 	<!-- Source code access -->
 	<scm>
-		<connection>scm:git:git://github.com/Spoutcraft/SpoutPlugin.git</connection>
-		<developerConnection>scm:git:git@github.com:Spoutcraft/SpoutPlugin.git</developerConnection>
-		<url>https://github.com/Spoutcraft/SpoutPlugin</url>
+		<connection>scm:git:git://github.com/Spoutcraft/SpoutcraftPlugin.git</connection>
+		<developerConnection>scm:git:git@github.com:Spoutcraft/SpoutcraftPlugin.git</developerConnection>
+		<url>https://github.com/Spoutcraft/SpoutcraftPlugin</url>
 	</scm>
 
 	<!-- Continuous integration -->
