@@ -2,23 +2,47 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Project information -->
-	<name>SpoutPlugin</name>
-	<groupId>org.getspout</groupId>
-	<artifactId>spoutplugin</artifactId>
+	<name>SpoutcraftPlugin</name>
+	<groupId>org.spoutcraft</groupId>
+	<artifactId>spoutcraftplugin</artifactId>
 	<version>1.6.2-R1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
-	<description>SpoutPlugin is a plugin for the CraftBukkit Minecraft server mod that extends the Bukkit plugin API.</description>
+	<url>https://github.com/Legacy/SpoutPlugin</url>
+	<description>Plugin that extends the Bukkit Minecraft server API.</description>
+
+	<!-- Parent information -->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNumber>0</buildNumber>
+		<ciSystem>unknown</ciSystem>
+		<commit>unknown</commit>
 		<mainClass>${project.groupId}.spout.Spout</mainClass>
+		<!--<mainClass>${project.groupId}.plugin.${project.name}</mainClass>-->
 		<bukkitVersion>1.6.2-R1.1-SNAPSHOT</bukkitVersion>
 		<minecraftVersion>1.6.2</minecraftVersion>
 	</properties>
+
+	<!-- Project developers -->
+	<developers>
+		<developer>
+			<id>mcsnetworks</id>
+			<name>Mike Howe</name>
+			<email>dockter@almuramc.com</email>
+		</developer>
+		<developer>
+			<id>Wulfspider</id>
+			<name>Luke Spragg</name>
+			<email>the@wulf.im</email>
+		</developer>
+	</developers>
 
 	<!-- Organization information -->
 	<organization>
@@ -37,54 +61,66 @@
 
 	<!-- Source code access -->
 	<scm>
-		<connection>scm:git:git://github.com/Legacy/SpoutPlugin.git</connection>
-		<developerConnection>scm:git:git@github.com:Legacy/SpoutPlugin.git</developerConnection>
-		<url>https://github.com/Legacy/SpoutPlugin</url>
+		<connection>scm:git:git://github.com/Spoutcraft/SpoutPlugin.git</connection>
+		<developerConnection>scm:git:git@github.com:Spoutcraft/SpoutPlugin.git</developerConnection>
+		<url>https://github.com/Spoutcraft/SpoutPlugin</url>
 	</scm>
 
 	<!-- Continuous integration -->
 	<ciManagement>
 		<system>travis</system>
-		<url>https://travis-ci.org/Legacy/SpoutPlugin</url>
+		<url>https://travis-ci.org/Spoutcraft/SpoutcraftPlugin</url>
 	</ciManagement>
 
 	<!-- Issue management -->
 	<issueManagement>
-		<system>jira</system>
-		<url>http://spoutdev.atlassian.net/browse/LEGACY</url>
+		<system>forums</system>
+		<url>http://spoutcraft.org/forums/</url>
 	</issueManagement>
 
 	<!-- Dependency repositories -->
 	<repositories>
 		<repository>
-			<id>bukkit</id>
-			<name>Bukkit Artifactory</name>
-			<layout>default</layout>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
+			<id>bukkit-releases</id>
+			<url>http://repo.bukkit.org/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>bukkit-snapshots</id>
+			<url>http://repo.bukkit.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
 		</repository>
 	</repositories>
 
 	<!-- Build plugin repositories -->
 	<pluginRepositories>
 		<pluginRepository>
-			<id>spout-repo</id>
-			<url>http://nexus.spout.org/content/groups/public/</url>
+			<id>sonatype-nexus-releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
-	<!-- Distribution management -->
-	<distributionManagement>
-		<!-- Publish releases here -->
-		<repository>
-			<id>spout-releases</id>
-			<url>http://nexus.spout.org/content/repositories/releases/</url>
-		</repository>
-		<!-- Publish snapshots here -->
-		<snapshotRepository>
-			<id>spout-snapshots</id>
-			<url>http://nexus.spout.org/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<!-- Project dependencies -->
 	<dependencies>
@@ -110,13 +146,15 @@
 		<!-- Provided by third-party -->
 		<dependency>
 			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId> <!-- THIS GOES FIRST -->
-			<version>1.6.2-R1.1-SNAPSHOT</version>
+			<artifactId>bukkit</artifactId>
+			<version>${bukkitVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.bukkit</groupId>
-			<artifactId>craftbukkit</artifactId> <!-- THIS GOES SECOND -->
-			<version>1.6.2-R1.1-SNAPSHOT</version>
+			<artifactId>craftbukkit</artifactId>
+			<version>${bukkitVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -209,7 +247,6 @@
 				<executions>
 					<execution>
 						<configuration>
-							<createDependencyReducedPom>false</createDependencyReducedPom>
 							<minimizeJar>true</minimizeJar>
 							<filters>
 								<filter>
@@ -257,6 +294,7 @@
 				<version>2.9</version>
 				<configuration>
 					<sourcepath>src/main/java/org/getspout/spoutapi</sourcepath>
+					<!--<sourcepath>src/main/java/org/spoutcraft/api</sourcepath>-->
 					<bottom><![CDATA[Copyright (c) {project.inceptionYear} <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
 					<doctitle><![CDATA[${project.name} API ${project.version}-b${buildNumber}]]></doctitle>
 					<windowtitle>Javadoc | ${project.name} API ${project.version}-b${buildNumber}</windowtitle>
