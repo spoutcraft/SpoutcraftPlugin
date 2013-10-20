@@ -4,118 +4,116 @@ mcversion: ${minecraftVersion}
 description: ${project.description}
 website: ${project.url}
 author: ${project.organization.name}
-
 main: ${mainClass}
 load: startup
-
 commands:
-    spoutcraft:
-        aliases: [spoutcraftcommand, spoutcraftcmd, scpcmd]
-        description: Various Spoutcraft commands.
+    spout:
+        aliases: [spoutcommand, spoutcmd, spcmd]
+        description: Various Spout commands.
         usage: |
             Usage: /<command> version [player]
-
+            Usage: /<command> verify [motd]
 permissions:
-    spoutcraft.plugin.*:
-        description: Gives access to all spoutcraft plugin abilities
+    spout.plugin.*:
+        description: Gives access to all spout plugin abilities
         children:
-            spoutcraft.plugin.cheat.coords: true
-            spoutcraft.plugin.cheat.entitylabel: true
-            spoutcraft.plugin.cheat.clearwater: true
-            spoutcraft.plugin.cheat.sky: true
-            spoutcraft.plugin.cheat.stars: true
-            spoutcraft.plugin.cheat.time: true
-            spoutcraft.plugin.cheat.voidfog: true
-            spoutcraft.plugin.cheat.weather: true
-            spoutcraft.plugin.cheat.flightspeed: true
-            spoutcraft.plugin.minimap: true
-            spoutcraft.plugin.overviewmap: true
-            spoutcraft.plugin.sortinventory: true
-            spoutcraft.plugin.signcolors: true
-            spoutcraft.plugin.minimap.showentities: true
-            spoutcraft.plugin.autorun.forward: true
-            spoutcraft.plugin.autorun.backward: true
-    spoutcraft.plugin.forcespoutcraftcraft:
-        description: Forces players to join with spoutcraftcraft even if the server doesn't force spoutcraftcraft in the config.
+            spout.plugin.cheat.coords: true
+            spout.plugin.cheat.entitylabel: true
+            spout.plugin.cheat.clearwater: true
+            spout.plugin.cheat.sky: true
+            spout.plugin.cheat.stars: true
+            spout.plugin.cheat.time: true
+            spout.plugin.cheat.voidfog: true
+            spout.plugin.cheat.weather: true
+            spout.plugin.cheat.flightspeed: true
+            spout.plugin.minimap: true
+            spout.plugin.overviewmap: true
+            spout.plugin.sortinventory: true
+            spout.plugin.signcolors: true
+            spout.plugin.minimap.showentities: true
+            spout.plugin.autorun.forward: true
+            spout.plugin.autorun.backward: true
+    spout.plugin.forcespoutcraft:
+        description: Forces players to join with Spoutcraft even if the server doesn't force Spoutcraft in the config.
         default: false
-    spoutcraft.plugin.ignorespoutcraftcraft:
-        description: Allows players without spoutcraftcraft to join even if the server forces spoutcraftcraft in the config.
+    spout.plugin.ignorespoutcraft:
+        description: Allows players without Spoutcraft to join even if the server forces Spoutcraft in the config.
         default: false
-    spoutcraft.plugin.cheat.coords:
+    spout.plugin.cheat.coords:
         description: Allows the player to see coordinates on their client.
         default: true   
-    spoutcraft.plugin.cheat.entitylabel:
+    spout.plugin.cheat.entitylabel:
         description: Allows the player to see entity labels.
         default: true
-    spoutcraft.plugin.cheat.clearwater:
+    spout.plugin.cheat.clearwater:
         description: Allows the player to enable/disable clear water.
         default: true
-    spoutcraft.plugin.force.clearwater:
+    spout.plugin.force.clearwater:
         description: Forces below clear water setting.
         default: false
-    spoutcraft.plugin.show.clearwater:
+    spout.plugin.show.clearwater:
         description: show or hide clear water based on force permission.
         default: true
-    spoutcraft.plugin.cheat.sky:
+    spout.plugin.cheat.sky:
         description: Allows the player to enable/disable the sky.
         default: true
-    spoutcraft.plugin.force.sky:
+    spout.plugin.force.sky:
         description: Forces below sky setting.
         default: false
-    spoutcraft.plugin.show.sky:
+    spout.plugin.show.sky:
         description: Show or hide the sky.
         default: true
-    spoutcraft.plugin.cheat.stars:
+    spout.plugin.cheat.stars:
         description: Allows the player to enable/disable stars.
         default: true
-    spoutcraft.plugin.force.stars:
+    spout.plugin.force.stars:
         description: Forces below stars setting.
         default: false
-    spoutcraft.plugin.show.stars:
+    spout.plugin.show.stars:
         description: Show or hide the stars.
         default: true
-    spoutcraft.plugin.cheat.time:
+    spout.plugin.cheat.time:
         description: Allows the player to change their client time.
         default: true
-    spoutcraft.plugin.cheat.voidfog:
+    spout.plugin.cheat.voidfog:
         description: Allows the player to enable/disable the void fog.
         default: true
-    spoutcraft.plugin.force.voidfog:
+    spout.plugin.force.voidfog:
         description: Forces below void fog setting.
         default: false
-    spoutcraft.plugin.show.voidfog:
+    spout.plugin.show.voidfog:
         description: Show or hide the void fog.
         default: true  
-    spoutcraft.plugin.cheat.weather:
+    spout.plugin.cheat.weather:
         description: Allows the player to enable/disable weather.
         default: true
-    spoutcraft.plugin.force.weather:
+    spout.plugin.force.weather:
         description: Forces below weather setting.
         default: false
-    spoutcraft.plugin.show.weather:
+    spout.plugin.show.weather:
         description: Show or hide weather.
         default: true  
-    spoutcraft.plugin.cheat.flightspeed:
+    spout.plugin.cheat.flightspeed:
         description: Allows the player to change their flightspeed.
         default: true
-    spoutcraft.plugin.minimap:
+    spout.plugin.minimap:
         description: Allows the player to enable/disable minimap.
         default: true
-    spoutcraft.plugin.overviewmap:
+    spout.plugin.overviewmap:
         description: Allows the player to enable/disable overviewmap.
         default: true
-    spoutcraft.plugin.sortinventory:
+    spout.plugin.sortinventory:
         description: Allows the player to auto-sort their inventory.
         default: true
-    spoutcraft.plugin.signcolors:
+    spout.plugin.signcolors:
         description: Allows the player to input sign colors onto signs.
         default: true    
-    spoutcraft.plugin.minimap.showentities:
+    spout.plugin.minimap.showentities:
         description: Allows the player to see entities on minimap
         default: true
-    spoutcraft.plugin.autorun.forward:
+    spout.plugin.autorun.forward:
         description: Allows the player to enable/disable autorun forward.
         default: true
-    spoutcraft.plugin.autorun.backward:
+    spout.plugin.autorun.backward:
         description: Allows the player to enable/disable autorun backwards.
         default: true
