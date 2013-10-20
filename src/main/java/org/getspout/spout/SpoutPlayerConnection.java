@@ -45,7 +45,6 @@ import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.gui.GenericLabel;
 import org.getspout.spoutapi.gui.Label;
 import org.getspout.spoutapi.gui.RenderPriority;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -243,7 +242,7 @@ public class SpoutPlayerConnection extends PlayerConnection {
 	}
 }
 
-class DecayingLabel extends GenericLabel {
+class DecayingLabel extends Label {
 	private int ticksAlive = 0;
 
 	public DecayingLabel(int ticks, String s) {

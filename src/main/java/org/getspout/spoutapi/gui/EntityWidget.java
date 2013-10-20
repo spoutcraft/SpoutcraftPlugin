@@ -19,20 +19,64 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
+
 /**
  * This is used to display any in-game entity on the screen.
  */
-public interface EntityWidget extends Widget {
+public class EntityWidget extends Widget {
+	private int entityId = 0;
+
+	public EntityWidget() {
+	}
+
+	public EntityWidget(int entityId) {
+		this.entityId = entityId;
+	}
+
+	@Override
+	public WidgetType getType() {
+		return WidgetType.EntityWidget;
+	}
+
 	/**
 	 * Sets the id of this entity
 	 * @param id of the entity
 	 * @return this
 	 */
-	public EntityWidget setEntityId(int id);
+	public EntityWidget setEntityId(int id) {
+		if (entityId != id) {
+			entityId = id;
+			autoDirty();
+		}
+		return this;
+	}
 
 	/**
 	 * Gets the id of this entity
 	 * @return the id of this entity
 	 */
-	public int getEntityId();
+	public int getEntityId() {
+		return entityId;
+	}
+
+	@Override
+	public void readData(SpoutInputStream input) throws IOException {
+		super.readData(input);
+		entityId = input.readInt();
+	}
+
+	@Override
+	public void writeData(SpoutOutputStream output) throws IOException {
+		super.writeData(output);
+		output.writeInt(entityId);
+	}
+
+	@Override
+	public EntityWidget copy() {
+		return ((EntityWidget) super.copy()).setEntityId(getEntityId());
+	}
 }

@@ -25,7 +25,7 @@ import java.util.UUID;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
-public class HungerBar extends GenericWidget {
+public class HungerBar extends Widget {
 	private int icons = 10;
 	private int iconOffset = 8;
 
@@ -91,10 +91,12 @@ public class HungerBar extends GenericWidget {
 		return this;
 	}
 
+	@Override
 	public WidgetType getType() {
 		return WidgetType.HungerBar;
 	}
 
+	@Override
 	public UUID getId() {
 		return new UUID(0, 5);
 	}

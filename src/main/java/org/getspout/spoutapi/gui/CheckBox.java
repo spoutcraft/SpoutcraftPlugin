@@ -19,11 +19,65 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
+
 /**
  * This defines a simple checkbox widget.
  */
-public interface CheckBox extends Button {
-	public boolean isChecked();
+public class CheckBox extends Button {
+	boolean checked = false;
 
-	public CheckBox setChecked(boolean checked);
+	public CheckBox() {
+		super();
+	}
+
+	public CheckBox(String text) {
+		super(text);
+	}
+
+	@Override
+	public void readData(SpoutInputStream input) throws IOException {
+		super.readData(input);
+		checked = input.readBoolean();
+	}
+
+	@Override
+	public void writeData(SpoutOutputStream output) throws IOException {
+		super.writeData(output);
+		output.writeBoolean(checked);
+	}
+
+	@Override
+	public WidgetType getType() {
+		return WidgetType.CheckBox;
+	}
+
+	@Override
+	public CheckBox copy() {
+		return ((CheckBox) super.copy()).setChecked(isChecked());
+	}
+
+	/**
+	 * Check whether this checkbox is checked or not
+	 * @return
+	 */
+	public boolean isChecked() {
+		return checked;
+	}
+
+	/**
+	 * Set whether this checkbox is checked or not
+	 * @param checked if it should be checked
+	 * @return
+	 */
+	public CheckBox setChecked(boolean checked) {
+		if (isChecked() != checked) {
+			this.checked = checked;
+			autoDirty();
+		}
+		return this;
+	}
 }

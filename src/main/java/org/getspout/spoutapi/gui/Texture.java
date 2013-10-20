@@ -19,18 +19,59 @@
  */
 package org.getspout.spoutapi.gui;
 
-/**
- * This allow an image to be downloaded and shown to the user.
- * <p/>
- * Images must be in either png or jpg format. You may pre-cache images using
- * the FileManager, so only the filename is required afterwards.
- */
-public interface Texture extends Widget {
+import java.io.IOException;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
+
+public class Texture extends Widget {
+	protected String url = null;
+	protected boolean drawAlpha = false;
+	protected int top = -1;
+	protected int left = -1;
+
+	public Texture() {
+	}
+
+	public Texture(String url) {
+		this.url = url;
+	}
+
+	@Override
+	public int getVersion() {
+		return super.getVersion() + 3;
+	}
+
+	@Override
+	public WidgetType getType() {
+		return WidgetType.Texture;
+	}
+
+	@Override
+	public void readData(SpoutInputStream input) throws IOException {
+		super.readData(input);
+		this.setUrl(input.readString());
+		this.setDrawAlphaChannel(input.readBoolean());
+		setTop(input.readShort());
+		setLeft(input.readShort());
+	}
+
+	@Override
+	public void writeData(SpoutOutputStream output) throws IOException {
+		super.writeData(output);
+		output.writeString(getUrl());
+		output.writeBoolean(isDrawingAlphaChannel());
+		output.writeShort((short) top);
+		output.writeShort((short) left);
+	}
+
 	/**
 	 * Gets the url of this texture to render
 	 * @return url
 	 */
-	public String getUrl();
+	public String getUrl() {
+		return url;
+	}
 
 	/**
 	 * Sets the url of this texture to render
@@ -39,20 +80,39 @@ public interface Texture extends Widget {
 	 * @param url to set this texture to
 	 * @return texture
 	 */
-	public Texture setUrl(String url);
+	public Texture setUrl(String Url) {
+		if ((getUrl() != null && !getUrl().equals(Url)) || (getUrl() == null && Url != null)) {
+			this.url = Url;
+			autoDirty();
+		}
+		return this;
+	}
+
+	@Override
+	public Texture copy() {
+		return ((Texture) super.copy()).setUrl(getUrl()).setDrawAlphaChannel(isDrawingAlphaChannel());
+	}
 
 	/**
 	 * Gets if the texture draws the full alpha channel instead of just using a bit-mask.
 	 * @return if it's drawing the alpha channel
 	 */
-	public boolean isDrawingAlphaChannel();
+	public boolean isDrawingAlphaChannel() {
+		return drawAlpha;
+	}
 
 	/**
 	 * Sets if the texture should draw the full alpha channel instead of just using a bit-mask.
 	 * @param draw to set the drawing state
 	 * @return texture
 	 */
-	public Texture setDrawAlphaChannel(boolean draw);
+	public Texture setDrawAlphaChannel(boolean draw) {
+		if (isDrawingAlphaChannel() != draw) {
+			drawAlpha = draw;
+			autoDirty();
+		}
+		return this;
+	}
 
 	/**
 	 * Set the offset to the top of the image.
@@ -61,13 +121,21 @@ public interface Texture extends Widget {
 	 * @param top the top offset
 	 * @return texture
 	 */
-	public Texture setTop(int top);
+	public Texture setTop(int top) {
+		if (getTop() != top) {
+			this.top = top;
+			autoDirty();
+		}
+		return this;
+	}
 
 	/**
 	 * Get the offset to the top of the image.
 	 * @return top offset
 	 */
-	public int getTop();
+	public int getTop() {
+		return top;
+	}
 
 	/**
 	 * Set the offset to the left of the image.
@@ -76,11 +144,19 @@ public interface Texture extends Widget {
 	 * @param left the left offset
 	 * @return texture
 	 */
-	public Texture setLeft(int left);
+	public Texture setLeft(int left) {
+		if (getLeft() != left) {
+			this.left = left;
+			autoDirty();
+		}
+		return this;
+	}
 
 	/**
 	 * Get the offset to the left of the image.
 	 * @return left offset
 	 */
-	public int getLeft();
+	public int getLeft() {
+		return left;
+	}
 }

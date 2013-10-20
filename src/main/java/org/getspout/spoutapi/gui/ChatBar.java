@@ -30,7 +30,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
  * <p/>
  * This provides extra abilities above the default version.
  */
-public class ChatBar extends GenericWidget implements Widget {
+public class ChatBar extends Widget {
 	private int cursorX = 4, cursorY = 240;
 	protected Color textColor = new Color(1F, 1F, 1F);
 

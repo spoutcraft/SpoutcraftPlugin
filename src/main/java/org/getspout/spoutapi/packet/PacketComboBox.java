@@ -23,14 +23,14 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.gui.GenericComboBox;
+import org.getspout.spoutapi.gui.ComboBox;
 import org.getspout.spoutapi.gui.Widget;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketComboBox implements SpoutPacket {
-	private GenericComboBox box;
+	private ComboBox box;
 	private UUID uuid;
 	private boolean open;
 	private int selection;
@@ -38,7 +38,7 @@ public class PacketComboBox implements SpoutPacket {
 	public PacketComboBox() {
 	}
 
-	public PacketComboBox(GenericComboBox box) {
+	public PacketComboBox(ComboBox box) {
 		this.box = box;
 		this.uuid = box.getId();
 		this.open = box.isOpen();
@@ -75,8 +75,8 @@ public class PacketComboBox implements SpoutPacket {
 			w = player.getMainScreen().getActivePopup().getWidget(uuid);
 		}
 
-		if (w != null && w instanceof GenericComboBox) {
-			box = (GenericComboBox) w;
+		if (w != null && w instanceof ComboBox) {
+			box = (ComboBox) w;
 			box.setOpen(open, false);
 			box.setSelection(selection);
 		}

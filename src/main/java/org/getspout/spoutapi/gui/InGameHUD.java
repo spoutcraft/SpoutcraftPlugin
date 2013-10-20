@@ -19,54 +19,241 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.event.screen.ScreenCloseEvent;
+import org.getspout.spoutapi.event.screen.ScreenOpenEvent;
+import org.getspout.spoutapi.packet.PacketScreenAction;
+import org.getspout.spoutapi.packet.PacketWidget;
+import org.getspout.spoutapi.packet.ScreenAction;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
 /**
  * This is the main screen when playing Minecraft.
  * <p/>
  * There is no mouse interaction with this screen, so trying to place Controls
  * such as Buttons on it will fail.
  */
-public interface InGameHUD extends Screen {
-	/**
-	 * Gets the armor bar associated with this HUD
-	 * @return armor bar
-	 */
-	public ArmorBar getArmorBar();
+public class InGameHUD extends Screen {
+	protected HealthBar health;
+	protected BubbleBar bubble;
+	protected ChatBar chat;
+	protected ChatTextBox chatText;
+	protected ArmorBar armor;
+	protected HungerBar hunger;
+	protected ExpBar exp;
+	protected PopupScreen activePopup = null;
+
+	public InGameHUD(int playerId) {
+		super(playerId);
+		this.health = new HealthBar();
+		this.bubble = new BubbleBar();
+		this.chat = new ChatBar();
+		this.chatText = new ChatTextBox();
+		this.armor = new ArmorBar();
+		this.hunger = new HungerBar();
+		this.exp = new ExpBar();
+
+		Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Spout");
+
+		attachWidget(plugin, health).attachWidget(plugin, bubble).attachWidget(plugin, chat).attachWidget(plugin, chatText).attachWidget(plugin, armor).attachWidget(plugin, hunger).attachWidget(plugin, exp);
+	}
+
+	@Override
+	public void onTick() {
+		SpoutPlayer player = (SpoutPlayer) SpoutManager.getPlayerFromId(playerId);
+		if (player != null && player.isSpoutCraftEnabled()) {
+			if (getActivePopup() != null) {
+				if (getActivePopup().isDirty()) {
+					if (!getActivePopup().getType().isServerOnly()) {
+						player.sendPacket(new PacketWidget(getActivePopup(), getId()));
+					}
+					getActivePopup().setDirty(false);
+				}
+				getActivePopup().onTick();
+			}
+		}
+		super.onTick();
+	}
+
+	@Override
+	public InGameHUD attachWidget(Plugin plugin, Widget widget) {
+		if (canAttachWidget(widget)) {
+			super.attachWidget(plugin, widget);
+			return this;
+		}
+		throw new UnsupportedOperationException("Unsupported widget type");
+	}
+
+	@Override
+	public boolean updateWidget(Widget widget) {
+		if (widget instanceof HealthBar) {
+			health = (HealthBar) widget;
+		} else if (widget instanceof BubbleBar) {
+			bubble = (BubbleBar) widget;
+		} else if (widget instanceof ChatTextBox) {
+			chatText = (ChatTextBox) widget;
+		} else if (widget instanceof ChatBar) {
+			chat = (ChatBar) widget;
+		} else if (widget instanceof ArmorBar) {
+			armor = (ArmorBar) widget;
+		} else if (widget instanceof HungerBar) {
+			hunger = (HungerBar) widget;
+		} else if (widget instanceof ExpBar) {
+			exp = (ExpBar) widget;
+		}
+		return super.updateWidget(widget);
+	}
+
+	@Override
+	public Screen removeWidget(Widget widget) {
+		if (widget instanceof HealthBar) {
+			throw new UnsupportedOperationException("Cannot remove the health bar. Use setVisible(false) to hide it instead");
+		}
+		if (widget instanceof BubbleBar) {
+			throw new UnsupportedOperationException("Cannot remove the bubble bar. Use setVisible(false) to hide it instead");
+		}
+		if (widget instanceof ChatTextBox) {
+			throw new UnsupportedOperationException("Cannot remove the chat text box. Use setVisible(false) to hide it instead");
+		}
+		if (widget instanceof ChatBar) {
+			throw new UnsupportedOperationException("Cannot remove the chat bar. Use setVisible(false) to hide it instead");
+		}
+		if (widget instanceof ArmorBar) {
+			throw new UnsupportedOperationException("Cannot remove the armor bar. Use setVisible(false) to hide it instead");
+		}
+		if (widget instanceof HungerBar) {
+			throw new UnsupportedOperationException("Cannot remove the hunger bar. Use setVisible(false) to hide it instead");
+		}
+		if (widget instanceof ExpBar) {
+			throw new UnsupportedOperationException("Cannot remove the exp bar. Use setVisible(false) to hide it instead");
+		}
+		return super.removeWidget(widget);
+	}
+
+	@Override
+	public UUID getId() {
+		return new UUID(0, 0);
+	}
+
+	@Override
+	public int getHeight() {
+		return 240;
+	}
+
+	@Override
+	public int getWidth() {
+		return 427;
+	}
 
 	/**
-	 * Gets the chat text box associated with this HUD
-	 * @return chat text box
+	 * Closes the popup screen, or returns false on failure
+	 * @return true if a popup screen was closed
 	 */
-	public ChatTextBox getChatTextBox();
-
-	/**
-	 * Gets the chat text bar associated with this HUD
-	 * @return chat bar
-	 */
-	public ChatBar getChatBar();
-
-	/**
-	 * Gets the underwater bubble bar associated with this HUD
-	 * @return bubble bar
-	 */
-	public BubbleBar getBubbleBar();
+	public boolean closePopup() {
+		if (getActivePopup() == null) {
+			return false;
+		}
+		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
+		ScreenCloseEvent event = new ScreenCloseEvent(player, getActivePopup(), ScreenType.CUSTOM_SCREEN);
+		Bukkit.getServer().getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return false;
+		}
+		player.sendPacket(new PacketScreenAction(ScreenAction.Close, ScreenType.CUSTOM_SCREEN));
+		activePopup = null;
+		player.openScreen(ScreenType.GAME_SCREEN, false);
+		return true;
+	}
 
 	/**
 	 * Gets the health bar associated with this HUD
 	 * @return health bar
 	 */
-	public HealthBar getHealthBar();
+	public HealthBar getHealthBar() {
+		return health;
+	}
+
+	/**
+	 * Gets the underwater bubble bar associated with this HUD
+	 * @return bubble bar
+	 */
+	public BubbleBar getBubbleBar() {
+		return bubble;
+	}
+
+	/**
+	 * Gets the chat text bar associated with this HUD
+	 * @return chat bar
+	 */
+	public ChatBar getChatBar() {
+		return chat;
+	}
+
+	/**
+	 * Gets the chat text box associated with this HUD
+	 * @return chat text box
+	 */
+	public ChatTextBox getChatTextBox() {
+		return chatText;
+	}
+
+	/**
+	 * Gets the armor bar associated with this HUD
+	 * @return armor bar
+	 */
+	public ArmorBar getArmorBar() {
+		return armor;
+	}
 
 	/**
 	 * Gets the hunger bar associated with this HUD
 	 * @return hunger bar
 	 */
-	public HungerBar getHungerBar();
+	public HungerBar getHungerBar() {
+		return hunger;
+	}
 
 	/**
 	 * Gets the exp bar associated with this HUD
 	 * @return exp bar
 	 */
-	public ExpBar getExpBar();
+	public ExpBar getExpBar() {
+		return exp;
+	}
+
+	/**
+	 * Gets the active popup screen for this player, or null if none available
+	 * @return the active popup
+	 */
+	public PopupScreen getActivePopup() {
+		return activePopup;
+	}
+
+	/**
+	 * Attachs a popup screen and brings it to the front of the screen
+	 * @param screen to pop up
+	 * @return true if the popup screen was attached, false if there was already a popup launched
+	 */
+	public boolean attachPopupScreen(PopupScreen screen) {
+		if (getActivePopup() == null) {
+			ScreenOpenEvent event = new ScreenOpenEvent(SpoutManager.getPlayerFromId(playerId), screen, ScreenType.CUSTOM_SCREEN);
+			Bukkit.getServer().getPluginManager().callEvent(event);
+			if (event.isCancelled()) {
+				return false;
+			}
+			activePopup = screen;
+			screen.setDirty(true);
+			screen.setScreen(getPlugin(), this);
+			screen.playerId = this.playerId;
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Is true if the widget can be attached to the screen.
@@ -75,30 +262,37 @@ public interface InGameHUD extends Screen {
 	 * @param widget
 	 * @return true if the widge can be attached
 	 */
-	public boolean canAttachWidget(Widget widget);
+	public boolean canAttachWidget(Widget widget) {
+		return !(widget instanceof Screen);
+	}
 
-	/**
-	 * Attachs a popup screen and brings it to the front of the screen
-	 * @param screen to pop up
-	 * @return true if the popup screen was attached, false if there was already a popup launched
-	 */
-	public boolean attachPopupScreen(PopupScreen screen);
+	@Override
+	public WidgetType getType() {
+		return WidgetType.InGameScreen;
+	}
 
-	/**
-	 * Gets the active popup screen for this player, or null if none available
-	 * @return the active popup
-	 */
-	public PopupScreen getActivePopup();
+	public void clearPopup() {
+		activePopup = null;
+	}
 
-	/**
-	 * Closes the popup screen, or returns false on failure
-	 * @return true if a popup screen was closed
-	 */
-	public boolean closePopup();
+	public static boolean isCustomWidget(Widget widget) {
+		return widget instanceof HealthBar || widget instanceof BubbleBar || widget instanceof ChatTextBox || widget instanceof ChatBar || widget instanceof ArmorBar;
+	}
+
+	@Override
+	public ScreenType getScreenType() {
+		return ScreenType.GAME_SCREEN;
+	}
 
 	/**
 	 * Ease of use method setting all the survival mode HUD elements to setVisible(toggle);
 	 * @param toggle true or false
 	 */
-	public void toggleSurvivalHUD(boolean toggle);
+	public void toggleSurvivalHUD(boolean toggle) {
+		health.setVisible(toggle);
+		bubble.setVisible(toggle);
+		armor.setVisible(toggle);
+		hunger.setVisible(toggle);
+		exp.setVisible(toggle);
+	}
 }

@@ -78,8 +78,8 @@ import org.getspout.spout.packet.CustomPacket;
 import org.getspout.spout.packet.standard.MCCraftPacket;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.permission.PlayerPermissionEvent;
-import org.getspout.spoutapi.gui.GenericOverlayScreen;
-import org.getspout.spoutapi.gui.InGameScreen;
+import org.getspout.spoutapi.gui.OverlayScreen;
+import org.getspout.spoutapi.gui.InGameHUD;
 import org.getspout.spoutapi.gui.OverlayScreen;
 import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
@@ -132,7 +132,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	protected RenderDistance maximumRender = null;
 	protected RenderDistance minimumRender = null;
 	protected String clipboard = null;
-	protected InGameScreen mainScreen;
+	protected InGameHUD mainScreen;
 	protected Permissible perm;
 	private double gravityMod = 1;
 	private double swimmingMod = 1;
@@ -144,7 +144,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private Location lastClicked = null;
 	private boolean precachingComplete = false;
 	private ScreenType activeScreen = ScreenType.GAME_SCREEN;
-	private GenericOverlayScreen currentScreen = null;
+	private OverlayScreen currentScreen = null;
 	private Location lastTickLocation = null;
 	private boolean screenOpenThisTick = false;
 	public LinkedList<SpoutPacket> queued = new LinkedList<SpoutPacket>();
@@ -172,7 +172,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			perm = new SpoutPermissibleBase(new PermissibleBase(this));
 			perm.recalculatePermissions();
 		}
-		mainScreen = new InGameScreen(this.getEntityId());
+		mainScreen = new InGameHUD(this.getEntityId());
 
 		mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
 		prevMode = getGameMode();
@@ -378,7 +378,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	}
 
 	@Override
-	public InGameScreen getMainScreen() {
+	public InGameHUD getMainScreen() {
 		return mainScreen;
 	}
 
@@ -697,7 +697,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			sendPacket(new PacketOpenScreen(type));
 		}
 		if (activeScreen != ScreenType.GAME_SCREEN && activeScreen != ScreenType.CUSTOM_SCREEN) {
-			currentScreen = (GenericOverlayScreen) new GenericOverlayScreen(getEntityId(), getActiveScreen()).setX(0).setY(0);
+			currentScreen = (OverlayScreen) new OverlayScreen(getEntityId(), getActiveScreen()).setX(0).setY(0);
 			PacketWidget packetW = new PacketWidget(currentScreen, currentScreen.getId());
 			sendPacket(packetW);
 			currentScreen.onTick();

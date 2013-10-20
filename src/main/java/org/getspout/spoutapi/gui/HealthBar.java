@@ -28,7 +28,7 @@ import org.getspout.spoutapi.io.SpoutOutputStream;
 /**
  * The Spout implementation of the default Health Bar.
  */
-public class HealthBar extends GenericWidget {
+public class HealthBar extends Widget {
 	private int icons = 10;
 	private int iconOffset = 8;
 	private float dangerPercent = 20f;

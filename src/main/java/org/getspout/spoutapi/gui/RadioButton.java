@@ -19,16 +19,101 @@
  */
 package org.getspout.spoutapi.gui;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.getspout.spoutapi.io.SpoutInputStream;
+import org.getspout.spoutapi.io.SpoutOutputStream;
+
 /**
  * This is a simple radio button, which does not know anything about any other
  * radio buttons on the screen.
  */
-public interface RadioButton extends Button {
-	public boolean isSelected();
+public class RadioButton extends Button {
+	boolean selected = false;
+	int group = 0;
 
-	public RadioButton setSelected(boolean selected);
+	public RadioButton() {
+	}
 
-	public int getGroup();
+	public RadioButton(String text) {
+		super(text);
+	}
 
-	public RadioButton setGroup(int group);
+	@Override
+	public void readData(SpoutInputStream input) throws IOException {
+		super.readData(input);
+		selected = input.readBoolean();
+		group = input.readInt();
+	}
+
+	@Override
+	public void writeData(SpoutOutputStream output) throws IOException {
+		super.writeData(output);
+		output.writeBoolean(isSelected());
+		output.writeInt(getGroup());
+	}
+
+	@Override
+	public WidgetType getType() {
+		return WidgetType.RadioButton;
+	}
+
+	/**
+	 * Is this button selected
+	 * @return
+	 */
+	public boolean isSelected() {
+		return selected;
+	}
+
+	/**
+	 * Set if this button is selected
+	 * @param selected
+	 * @return
+	 */
+	public RadioButton setSelected(boolean selected) {
+		if (selected) {
+			for (RadioButton b : getRadiosInGroup()) {
+				b.setSelected(false);
+			}
+		}
+		this.selected = selected;
+		return this;
+	}
+
+	/**
+	 * Set which group this button is part of
+	 * @return
+	 */
+	public int getGroup() {
+		return group;
+	}
+
+	/**
+	 * Set which group this button is part of
+	 * @param group
+	 * @return
+	 */
+	public RadioButton setGroup(int group) {
+		this.group = group;
+		return this;
+	}
+
+	/**
+	 * Get a list of all buttons in this group
+	 * @return
+	 */
+	public List<RadioButton> getRadiosInGroup() {
+		List<RadioButton> ret = new ArrayList<RadioButton>();
+		for (Widget w : getScreen().getAttachedWidgets()) {
+			if (w instanceof RadioButton) {
+				if (((RadioButton) w).getGroup() == group) {
+					ret.add((RadioButton) w);
+				}
+			}
+		}
+		return ret;
+	}
 }
