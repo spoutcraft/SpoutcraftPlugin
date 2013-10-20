@@ -24,7 +24,7 @@
 		<buildNumber>0</buildNumber>
 		<ciSystem>unknown</ciSystem>
 		<commit>unknown</commit>
-		<mainClass>${project.groupId}.spout.Spout</mainClass>
+		<mainClass>org.getspout.spout.Spout</mainClass>
 		<!--<mainClass>${project.groupId}.plugin.${project.name}</mainClass>-->
 		<bukkitVersion>1.6.2-R1.1-SNAPSHOT</bukkitVersion>
 		<minecraftVersion>1.6.2</minecraftVersion>
