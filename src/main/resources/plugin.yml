@@ -1,4 +1,4 @@
-name: ${project.name}
+name: Spout
 version: ${project.version}-b${buildNumber}
 mcversion: ${minecraftVersion}
 description: ${project.description}
