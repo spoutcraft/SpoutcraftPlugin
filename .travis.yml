@@ -6,9 +6,9 @@ jdk: oraclejdk7
 install: mvn package -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=${TRAVIS_COMMIT:0:7}
 after_success:
   # Get files for use with build, namely the custom Maven settings.xml.
-  - "git clone https://github.com/Legacy/travis-ci-resources.git target/travis"
+  - "git clone https://github.com/Spoutcraft/travis-ci-resources.git target/travis"
   # Check if commit s not a pull request, if git repo is official, and if branch is master. If checks pass, deploy artifacts to Maven repository.
-  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == Legacy/SpoutPlugin ]] && [[ $TRAVIS_BRANCH == master ]] && mvn deploy --settings target/travis/settings.xml"
+  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == Spoutcraft/SpoutcraftPlugin ]] && [[ $TRAVIS_BRANCH == master ]] && mvn deploy --settings target/travis/settings.xml"
 
 notifications:
   # Disable build status email notifications, until the issue with forks is fixed.
@@ -19,5 +19,5 @@ notifications:
 
 env:
   global:
-    - secure: "dUeT21lzsK9PgFsyqsHoBhyGQMuI8rvvICODc8oPt1Jp59jVJQM+lPwwPcf1Fzp8KBHsd7jS9JFNTCW9SHPjraUT6MRnWcsKa0VBZdh97TZ79YUhd8P6gdVgXUKAW06/Fu0AIXo/T8nMfImdihExrSIXhtORAukhPpvlj+W2uiE="
-    - secure: "ewS57/ZxA3H14+zW9AhzqutY04AuE7+e75KdZqYEfm2A5o4M5VUMDdtsTaU5+ELyuP4ScZUSFauRnOZ4Cz+sBWl4i3Ufl59BBqPH8kM+2Oq0KkxUggMqBtCwmmAcUs2TFOVIQfbL5Kp2LwxlVSl0NKJiXhE5H5vbPqaqfM+tDZQ="
+    - secure: "TSoHaQax6ee65C2I8r/8jazz11/ze+wV8Ipu7wOvibEkUtUxucTpyVXigevswIgDVp/Dk+Gh6SUM1W0pmQhmUkSyW8bjCp7ONWwt0/KxRnTHvcBT22W2MTHbEVQfjNUBvdu5C5NPhlMmHd8NMgwT73P2khnRdFOpsd+lqmxcXww="
+    - secure: "iTr7MepCoGSevUTgMkFsO1SrBgitGCBSidocDSjw5TJVjJE3djYI/DfpN3Ys3PlpErVE6omDUTf7gEVSwYHYwKHQ3479+qoVe62wWvwbsY9KAtPnR+l0Fr76o8E4zEERZYzovWHMyz/+10UqvX/OUzWuoVSImV5AmZjCxHylDdI="
