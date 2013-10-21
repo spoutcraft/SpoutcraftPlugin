@@ -1,4 +1,23 @@
 /*
+ * This file is part of SpoutcraftPlugin.
+ *
+ * Copyright (c) 2011 Spout LLC <http://www.spout.org/>
+ * SpoutcraftPlugin is licensed under the GNU Lesser General Public License.
+ *
+ * SpoutcraftPlugin is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SpoutcraftPlugin is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/*
  * This file is part of SpoutPlugin.
  *
  * Copyright (c) 2011 Spout LLC <http://www.spout.org/>
@@ -40,6 +59,7 @@ public class ConfigReader {
 	private static String kickMessage = "This server requires Spoutcraft! http://get.spout.org";
 
 	private static boolean chunkDataCache = true;
+	private static boolean allowClientCache = true;
 	private static boolean teleportSmoothing = true;
 	private static boolean runDeadlockMonitor = false;
 
@@ -62,6 +82,7 @@ public class ConfigReader {
 		allowEntityLabelCheat = configuration.getBoolean("AllowEntityLabelCheat", false);
 		allowVoidFogCheat = configuration.getBoolean("AllowVoidFogCheat", false);*/
 		chunkDataCache = configuration.getBoolean("ChunkDataCache", true);
+		allowClientCache = configuration.getBoolean("AllowClientCache", true);
 		teleportSmoothing = configuration.getBoolean("TeleportSmoothing", true);
 		runDeadlockMonitor = configuration.getBoolean("DeadlockMonitor", false);
 
@@ -156,6 +177,10 @@ public class ConfigReader {
 
 	public static boolean isChunkDataCache() {
 		return chunkDataCache;
+	}
+	
+	public static boolean isAllowClientCache() {
+		return allowClientCache;
 	}
 
 	public static boolean isTeleportSmoothing() {
