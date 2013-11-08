@@ -90,4 +90,8 @@ public class SpoutItemStack extends ItemStack {
 	public boolean isCustomItem() {
 		return getMaterial() instanceof CustomItem;
 	}
+	
+	public boolean isCustomBlock() {
+		return getMaterial() instanceof CustomBlock;
+	}
 }
