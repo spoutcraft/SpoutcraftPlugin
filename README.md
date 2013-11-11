@@ -37,8 +37,8 @@ SpoutPlugin uses Maven to handle its dependencies.
 If you're using [Maven](http://maven.apache.org/download.html) to manage project dependencies, simply include the following in your `pom.xml`:
 
     <dependency>
-        <groupId>org.getspout</groupId>
-        <artifactId>spoutplugin</artifactId>
+        <groupId>org.spoutcraft</groupId>
+        <artifactId>spoutcraftplugin</artifactId>
         <version>1.6.4-R2.1-SNAPSHOT</version>
     </dependency>
 
