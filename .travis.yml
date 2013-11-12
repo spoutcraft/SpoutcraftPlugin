@@ -3,7 +3,7 @@ language: java
 jdk: oraclejdk7
 
 # Compile and package JAR and set build properties.
-install: mvn package -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=${TRAVIS_COMMIT:0:7} -DserviceJobId=$TRAVIS_JOB_ID
+install: mvn package cobertura:cobertura coveralls:cobertura -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=${TRAVIS_COMMIT:0:7} -DserviceJobId=$TRAVIS_JOB_ID
 after_success:
   # Get files for use with build, namely the custom Maven settings.xml.
   - "git clone https://github.com/Spoutcraft/travis-ci-resources.git target/travis"
