@@ -280,6 +280,14 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>2.0.1</version>
+				<configuration>
+					<serviceName>travis-ci</serviceName>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
