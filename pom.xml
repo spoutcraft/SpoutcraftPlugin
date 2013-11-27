@@ -46,8 +46,8 @@
 
 	<!-- Organization information -->
 	<organization>
-		<name>Spout LLC</name>
-		<url>http://www.spout.org</url>
+		<name>SpoutcraftDev</name>
+		<url>http://spoutcraft.org/</url>
 	</organization>
 
 	<!-- License information -->
@@ -75,7 +75,7 @@
 	<!-- Issue management -->
 	<issueManagement>
 		<system>forums</system>
-		<url>http://spoutcraft.org/forums/</url>
+		<url>http://spoutcraft.org/issues/</url>
 	</issueManagement>
 
 	<!-- Dependency repositories -->

@@ -66,7 +66,7 @@ Want to know how to use the API? Check out the latest [docs][Docs].
 [Forums]: http://spoutcraft.org/forums/
 [License]: http://www.gnu.org/licenses/lgpl.html
 [Source]: https://github.com/Spoutcraft/SpoutcraftPlugin
-[Download]: http://spoutcraft.org/download/
+[Download]: http://spoutcraft.org/downloads/
 [Source Download]: https://github.com/Spoutcraft/SpoutcraftPlugin/archive/master.zip
 [Docs]: https://spoutcraft.github.com
 [Issues]: http://spoutcraft.org/issues/
