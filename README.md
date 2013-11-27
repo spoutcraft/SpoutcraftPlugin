@@ -68,7 +68,7 @@ Want to know how to use the API? Check out the latest [docs][Docs].
 [Source]: https://github.com/Spoutcraft/SpoutcraftPlugin
 [Download]: http://spoutcraft.org/downloads/
 [Source Download]: https://github.com/Spoutcraft/SpoutcraftPlugin/archive/master.zip
-[Docs]: https://spoutcraft.github.com
+[Docs]: http://spoutcraft.org/docs/plugin/
 [Issues]: http://spoutcraft.org/issues/
 [Twitter]: https://twitter.com/Spoutcraft
 [Facebook]: http://www.facebook.com/pages/Spoutcraft/351909024946422
