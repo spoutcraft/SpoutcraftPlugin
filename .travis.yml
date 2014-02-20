@@ -1,23 +1,35 @@
-# Source language and JDK version to use.
+# Source language and JDK version to use
 language: java
 jdk: oraclejdk7
 
-# Compile and package JAR and set build properties.
+# Compile and package JAR and set build properties
 install: mvn package -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=${TRAVIS_COMMIT:0:7}
-after_success:
-  # Get files for use with build, namely the custom Maven settings.xml.
-  - "git clone https://github.com/Spoutcraft/travis-ci-resources.git target/travis"
-  # Check if commit s not a pull request, if git repo is official, and if branch is master. If checks pass, deploy artifacts to Maven repository.
-  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == Spoutcraft/SpoutcraftPlugin ]] && [[ $TRAVIS_BRANCH == master ]] && mvn deploy --settings target/travis/settings.xml"
 
+# Perform steps after compilation/test success
+after_success:
+  # Get files for use with build, namely the custom Maven settings.xml
+  - "git clone https://github.com/Spoutcraft/travis-ci-resources.git target/travis"
+  # Check if commit is not a pull request, if repo is official, and branch is master, generate and deploy artifacts and reports
+  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == Spoutcraft/SpoutcraftPlugin ]] && [[ $TRAVIS_BRANCH == master ]] && mvn javadoc:jar source:jar cobertura:cobertura coveralls:cobertura -DserviceJobId=$TRAVIS_JOB_ID deploy --settings target/travis/settings.xml"
+  # Check if commit s not a pull request, if repo is official, and branch is master, update gh-pages branch with generated site/docs
+  ## TODO: Only generate for release versions, not snapshots
+  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_REPO_SLUG == Spoutcraft/SpoutcraftPlugin ]] && [[ $TRAVIS_BRANCH == master ]] && chmod +x target/travis/update-gh-pages.sh && ./target/travis/update-gh-pages.sh"
+  # TODO: Add deployment to downloads site
+
+# Notification services
 notifications:
-  # Disable build status email notifications, until the issue with forks is fixed.
+  # Disable build status email notifications, until the issue with forks is fixed
   email: false
   webhooks:
-    # Send build information and status to Notifico.
+    # Send build information and status to Notifico
     - http://n.tkte.ch/h/516/9FONea-GLWhZC5VR6mJxlh01
 
+# Environmental system variables
 env:
   global:
+    # Make the log output cleaner
+    - TERM=dumb
+    # Super secure, encrypted variables! Ssssh!
     - secure: "TSoHaQax6ee65C2I8r/8jazz11/ze+wV8Ipu7wOvibEkUtUxucTpyVXigevswIgDVp/Dk+Gh6SUM1W0pmQhmUkSyW8bjCp7ONWwt0/KxRnTHvcBT22W2MTHbEVQfjNUBvdu5C5NPhlMmHd8NMgwT73P2khnRdFOpsd+lqmxcXww="
     - secure: "iTr7MepCoGSevUTgMkFsO1SrBgitGCBSidocDSjw5TJVjJE3djYI/DfpN3Ys3PlpErVE6omDUTf7gEVSwYHYwKHQ3479+qoVe62wWvwbsY9KAtPnR+l0Fr76o8E4zEERZYzovWHMyz/+10UqvX/OUzWuoVSImV5AmZjCxHylDdI="
+    - secure: "UKlIYGVyyXe/EikSmn3yWSwj8qFe0uNoAyezj4aYiPYA588G8vshuGP6XxjqnvVXCbqJNJPum7fyp6hxiy+zVBRGmfjpxNnubxrgtMEMGrKeXLK3Z5bDB7m3R0lW/DVSqtrr+yYIu7jE+/D5VomCjVcPL7NL1Dwk5NkchPwkHas="
