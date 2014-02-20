@@ -723,20 +723,26 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void setGravityMultiplier(double multiplier) {
-		gravityMod = multiplier;
-		updateMovement();
+		if (getGravityMultiplier() != multiplier) {
+			gravityMod = multiplier;
+			updateMovement();
+		}
 	}
 
 	@Override
 	public void setSwimmingMultiplier(double multiplier) {
-		swimmingMod = multiplier;
-		updateMovement();
+		if (getSwimmingMultiplier() != multiplier) {
+			swimmingMod = multiplier;
+			updateMovement();
+		}
 	}
 
 	@Override
 	public void setWalkingMultiplier(double multiplier) {
-		walkingMod = multiplier;
-		updateMovement();
+		if (getWalkingMultiplier() != multiplier) {
+			walkingMod = multiplier;
+			updateMovement();
+		}
 	}
 
 	@Override
@@ -746,8 +752,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void setJumpingMultiplier(double multiplier) {
-		this.jumpingMod = multiplier;
-		updateMovement();
+		if (getJumpingMultiplier() != multiplier) {
+			this.jumpingMod = multiplier;
+			updateMovement();
+		}
 	}
 
 	@Override
@@ -757,8 +765,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 
 	@Override
 	public void setAirSpeedMultiplier(double multiplier) {
-		airspeedMod = multiplier;
-		updateMovement();
+		if (getAirSpeedMultiplier() != multiplier) {
+			airspeedMod = multiplier;
+			updateMovement();
+		}
 	}
 
 	@Override
