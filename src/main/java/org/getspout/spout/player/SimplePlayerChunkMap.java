@@ -30,7 +30,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-
 import org.getspout.spoutapi.event.spout.SpoutcraftBuildSetEvent;
 import org.getspout.spoutapi.player.PlayerChunkMap;
 import org.getspout.spoutapi.player.PlayerInformation;
@@ -114,7 +113,7 @@ public class SimplePlayerChunkMap implements PlayerChunkMap {
 		if (sp instanceof SpoutCraftPlayer) {
 			SpoutCraftPlayer scp = (SpoutCraftPlayer)sp;
 			scp.setVersionString(versionString);
-			System.out.println("[SpoutPlugin] " + scp.getName() + " is running Spoutcraft build " + scp.getVersionString());
+			System.out.println("[SpoutPlugin] " + scp.getName() + " is running " + scp.getVersionString());
 			int build;
 			try {
 				build = Integer.parseInt(versionString);
