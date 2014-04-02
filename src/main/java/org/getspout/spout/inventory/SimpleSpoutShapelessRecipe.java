@@ -56,5 +56,6 @@ public class SimpleSpoutShapelessRecipe extends SpoutShapelessRecipe implements 
 			i++;
 		}
 		CraftingManager.getInstance().registerShapelessRecipe(CraftItemStack.asNMSCopy(getResult())/*Convert SpoutItemStack to MC ItemStack*/, data);
+        CraftingManager.getInstance().sort();
 	}
 }

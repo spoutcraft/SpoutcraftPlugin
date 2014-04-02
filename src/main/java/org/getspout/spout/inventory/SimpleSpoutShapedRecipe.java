@@ -26,6 +26,8 @@ import net.minecraft.server.v1_6_R3.CraftingManager;
 import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
+import org.bukkit.inventory.ShapedRecipe;
+import org.getspout.spout.Spout;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
 import org.getspout.spoutapi.material.Material;
 
@@ -69,6 +71,7 @@ public class SimpleSpoutShapedRecipe extends SpoutShapedRecipe implements SpoutR
 			data[i] = new net.minecraft.server.v1_6_R3.ItemStack(id, 1, dmg);
 			i++;
 		}
-		CraftingManager.getInstance().registerShapedRecipe(CraftItemStack.asNMSCopy(getResult())/*Convert SpoutItemStack to MC ItemStack*/, data);
+        CraftingManager.getInstance().registerShapedRecipe(CraftItemStack.asNMSCopy(getResult())/*Convert SpoutItemStack to MC ItemStack*/, data);
+        CraftingManager.getInstance().sort();
 	}
 }
