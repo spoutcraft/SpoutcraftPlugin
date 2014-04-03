@@ -24,14 +24,16 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 
 public class GenericSlot extends GenericControl implements Slot {
-	private ItemStack stack = new ItemStack(0);
+	private ItemStack stack = new ItemStack(Material.AIR);
 	private int depth = 16;
+    private boolean renderAmount = true;
 
 	public WidgetType getType() {
 		return WidgetType.Slot;
@@ -39,20 +41,30 @@ public class GenericSlot extends GenericControl implements Slot {
 
 	public ItemStack getItem() {
 		if (stack == null) {
-			stack = new ItemStack(0);
+			stack = new ItemStack(Material.AIR);
 		}
 		return stack.clone();
 	}
 
 	public Slot setItem(ItemStack item) {
 		if (item == null || item.getAmount() == 0) {
-			stack = new ItemStack(0);
+			stack = new ItemStack(Material.AIR);
 			return this;
 		}
 		stack = item.clone();
 		setDirty(true);
 		return this;
 	}
+
+    public boolean doesRenderAmount() {
+        return renderAmount;
+    }
+
+    public GenericSlot setRenderAmount(boolean renderAmount) {
+        this.renderAmount = renderAmount;
+        setDirty(true);
+        return this;
+    }
 
 	public boolean onItemPut(ItemStack item) {
 		return true;
@@ -86,6 +98,7 @@ public class GenericSlot extends GenericControl implements Slot {
 		stack.setAmount((int) input.readShort());
 		stack.setDurability(input.readShort());
 		depth = input.readInt();
+        renderAmount = input.readBoolean();
 	}
 
 	@Override
@@ -95,6 +108,7 @@ public class GenericSlot extends GenericControl implements Slot {
 		output.writeShort((short) stack.getAmount());
 		output.writeShort(stack.getDurability());
 		output.writeInt(depth);
+        output.writeBoolean(renderAmount);
 
 		if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName()) {
 			output.writeBoolean(true);
@@ -118,7 +132,7 @@ public class GenericSlot extends GenericControl implements Slot {
 			output.writeInt(stack.getItemMeta().getEnchants().size());
 			for (Entry e : stack.getItemMeta().getEnchants().entrySet()) {
 				output.writeInt(((Enchantment)e.getKey()).getId());
-				output.writeInt(((Integer)e.getValue()).intValue());
+				output.writeInt((Integer) e.getValue());
 			}
 		} else {
 			output.writeBoolean(false);
