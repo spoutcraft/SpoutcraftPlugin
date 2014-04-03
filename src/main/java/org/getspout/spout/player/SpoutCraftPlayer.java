@@ -21,6 +21,8 @@ package org.getspout.spout.player;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -87,27 +89,7 @@ import org.getspout.spoutapi.inventory.SpoutPlayerInventory;
 import org.getspout.spoutapi.io.CRCStore.URLCheck;
 import org.getspout.spoutapi.io.CRCStoreRunnable;
 import org.getspout.spoutapi.keyboard.Keyboard;
-import org.getspout.spoutapi.packet.CompressiblePacket;
-import org.getspout.spoutapi.packet.PacketAccessory;
-import org.getspout.spoutapi.packet.PacketAirTime;
-import org.getspout.spoutapi.packet.PacketAlert;
-import org.getspout.spoutapi.packet.PacketClipboardText;
-import org.getspout.spoutapi.packet.PacketEntitySkin;
-import org.getspout.spoutapi.packet.PacketEntityTitle;
-import org.getspout.spoutapi.packet.PacketMovementModifiers;
-import org.getspout.spoutapi.packet.PacketNotification;
-import org.getspout.spoutapi.packet.PacketOpenScreen;
-import org.getspout.spoutapi.packet.PacketOpenSignGUI;
-import org.getspout.spoutapi.packet.PacketPermissionUpdate;
-import org.getspout.spoutapi.packet.PacketRenderDistance;
-import org.getspout.spoutapi.packet.PacketScreenshot;
-import org.getspout.spoutapi.packet.PacketSetVelocity;
-import org.getspout.spoutapi.packet.PacketSkinURL;
-import org.getspout.spoutapi.packet.PacketSpawnTextEntity;
-import org.getspout.spoutapi.packet.PacketTexturePack;
-import org.getspout.spoutapi.packet.PacketWaypoint;
-import org.getspout.spoutapi.packet.PacketWidget;
-import org.getspout.spoutapi.packet.SpoutPacket;
+import org.getspout.spoutapi.packet.*;
 import org.getspout.spoutapi.packet.standard.MCPacket;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.PlayerInformation;
@@ -1466,7 +1448,17 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		return accessories.get(type);
 	}
 
-	@Override
+    @Override
+    public void sendLink(String link) throws MalformedURLException {
+        sendPacket(new PacketSendLink(link));
+    }
+
+    @Override
+    public void sendLink(URL link) {
+        sendPacket(new PacketSendLink(link));
+    }
+
+    @Override
 	public void damage(double i) {
 		super.damage((double) i);
 	}

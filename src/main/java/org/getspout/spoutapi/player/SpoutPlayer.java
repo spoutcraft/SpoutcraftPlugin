@@ -19,6 +19,8 @@
  */
 package org.getspout.spoutapi.player;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -854,4 +856,18 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 * @return  The url.
 	 */
 	public String getAccessoryURL(AccessoryType type);
+
+    /**
+     * Sends a HTTP link to the Spoutcraft client (as a String)
+     *
+     * @param link HTTP link as a String
+     * @throws java.net.MalformedURLException If the String isn't a valid HTTP link
+     */
+    public void sendLink(String link) throws MalformedURLException;
+
+    /**
+     * Sends a HTTP link to the Spoutcraft client
+     * @param link HTTP link to send
+     */
+    public void sendLink(URL link);
 }
