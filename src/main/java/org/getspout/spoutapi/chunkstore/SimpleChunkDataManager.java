@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 
 import org.bukkit.Bukkit;
@@ -92,6 +93,28 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		} else {
 			return false;
 		}
+	}
+
+	public boolean saveChunk(World w, int x, int z, boolean unload) {
+		boolean saved = saveChunk(w, x, z);
+		if (saved) {
+			if (unload) {
+				boolean closed = closeChunk(w, x, z);
+				if (closed) {
+					final TLongObjectHashMap<ChunkMetaData> chunks = chunkMetaDataLoaded.get(w.getUID());
+					if (chunks == null) {
+						return false;
+					}
+
+					chunks.remove((((long) x) << 32) | (((long) z) & 0xFFFFFFFFL));
+				} else {
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+		return true;
 	}
 
 	public boolean closeChunk(World w, int x, int z) {

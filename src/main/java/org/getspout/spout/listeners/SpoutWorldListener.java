@@ -27,6 +27,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.getspout.spout.Spout;
 
@@ -54,6 +55,12 @@ public class SpoutWorldListener implements Listener {
 			SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 			dm.loadChunk(event.getChunk());
 		}
+	}
+
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onChunkUnload(ChunkUnloadEvent event) {
+			SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
+			dm.saveChunk(event.getWorld(), event.getChunk().getX(), event.getChunk().getZ(), true);
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
