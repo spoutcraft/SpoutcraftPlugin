@@ -95,21 +95,16 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 		}
 	}
 
-	public boolean saveChunk(World w, int x, int z, boolean unload) {
+	public boolean saveChunk(World w, int x, int z, boolean remove) {
 		boolean saved = saveChunk(w, x, z);
 		if (saved) {
-			if (unload) {
-				boolean closed = closeChunk(w, x, z);
-				if (closed) {
-					final TLongObjectHashMap<ChunkMetaData> chunks = chunkMetaDataLoaded.get(w.getUID());
-					if (chunks == null) {
-						return false;
-					}
-
-					chunks.remove((((long) x) << 32) | (((long) z) & 0xFFFFFFFFL));
-				} else {
+			if (remove) {
+				final TLongObjectHashMap<ChunkMetaData> chunks = chunkMetaDataLoaded.get(w.getUID());
+				if (chunks == null) {
 					return false;
 				}
+
+				chunks.remove((((long) x) << 32) | (((long) z) & 0xFFFFFFFFL));
 			}
 		} else {
 			return false;
