@@ -37,11 +37,8 @@ public class SpoutWorldMonitorListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onChunkUnload(ChunkUnloadEvent event) {
-		if (event.isCancelled()) {
-			return;
-		}
 		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
-		dm.saveChunk(event.getChunk());
+		dm.saveChunk(event.getChunk(), true);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -52,9 +49,6 @@ public class SpoutWorldMonitorListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onWorldUnload(WorldUnloadEvent event) {
-		if (event.isCancelled()) {
-			return;
-		}
 		SimpleChunkDataManager dm = (SimpleChunkDataManager)SpoutManager.getChunkDataManager();
 		dm.unloadWorldChunks(event.getWorld());
 	}

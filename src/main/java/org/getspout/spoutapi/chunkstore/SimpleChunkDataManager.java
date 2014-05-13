@@ -83,10 +83,13 @@ public class SimpleChunkDataManager implements ChunkDataManager {
 	public boolean saveChunk(Chunk c) {
 		return saveChunk(c.getWorld(), c.getX(), c.getZ());
 	}
+	
+	public boolean saveChunk(Chunk c, boolean remove) {
+		return saveChunk(c.getWorld(), c.getX(), c.getZ(), remove);
+	}
 
 	public boolean saveChunk(World w, int x, int z) {
 		ChunkMetaData md = getMetaData(w, x, z, false, false);
-
 		if (md != null) {
 			chunkStore.writeChunkMetaData(w, x, z, md);
 			return true;
