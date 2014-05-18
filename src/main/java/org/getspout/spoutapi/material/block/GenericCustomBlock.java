@@ -28,7 +28,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-
+import org.getspout.spout.packet.builtin.PacketCustomBlock;
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.block.design.Axis;
 import org.getspout.spoutapi.block.design.BlockDesign;
@@ -39,12 +39,12 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
-import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
-import org.getspout.spoutapi.packet.PacketType;
+import org.getspout.spout.packet.builtin.PacketCustomBlockDesign;
+import org.getspout.spout.packet.builtin.PacketType;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class GenericCustomBlock extends GenericBlock implements CustomBlock, SpoutPacket {
+public class GenericCustomBlock extends GenericBlock implements CustomBlock {
 	public BlockDesign[] design = new BlockDesign[256];
 	private SpoutItemStack drop = null;
 	private String fullName;
@@ -65,7 +65,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with no model yet.
 	 * @param plugin         creating the block
 	 * @param name           of the block
-	 * @param blockID        of the underlying vanilla block
+	 * @param blockId        of the underlying vanilla block
 	 * @param metadata       of the underlying vanilla block
 	 * @param rotate         will the block rotate to face the player when placed
 	 * @param mirroredRotate can the block rotate upside-down
@@ -87,14 +87,14 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 		this.setItemDrop(new SpoutItemStack(this, 1));
 
 		for (SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
-			player.sendPacket(this);
+			player.sendPacket(new PacketCustomBlock(this));
 		}
 	}
 	/**
 	 * Creates a GenericCustomBlock with no model yet.
 	 * @param plugin   creating the block
 	 * @param name     of the block
-	 * @param blockID  of the underlying vanilla block
+	 * @param blockId  of the underlying vanilla block
 	 * @param metadata of the underlying vanilla block
 	 * @param rotate   will the block rotate to face the player when placed
 	 */
@@ -106,7 +106,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with no model yet.
 	 * @param plugin   creating the block
 	 * @param name     of the block
-	 * @param blockID  of the underlying vanilla block
+	 * @param blockId  of the underlying vanilla block
 	 * @param metadata of the underlying vanilla block
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, int blockId, int metadata) {
@@ -151,7 +151,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with no model yet and underlying vanilla block
 	 * @param plugin  creating the block
 	 * @param name    of the block
-	 * @param blockID of the underlying vanilla block
+	 * @param blockId of the underlying vanilla block
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, int blockId) {
 		this(plugin, name, blockId, 0);
@@ -161,7 +161,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with no model yet and underlying vanilla block
 	 * @param plugin  creating the block
 	 * @param name    of the block
-	 * @param blockID of the underlying vanilla block
+	 * @param blockId of the underlying vanilla block
 	 * @param rotate  will the block rotate to face the player when placed
 	 */
 	protected GenericCustomBlock(Plugin plugin, String name, int blockId, boolean rotate) {
@@ -172,7 +172,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with no model yet and underlying vanilla block
 	 * @param plugin         creating the block
 	 * @param name           of the block
-	 * @param blockID        of the underlying vanilla block
+	 * @param blockId        of the underlying vanilla block
 	 * @param rotate         will the block rotate to face the player when placed
 	 * @param mirroredRotate can the block rotate upside-down
 	 * @param fullRotate     can the block rotate in all directions
@@ -185,7 +185,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block
 	 * @param plugin  creating the block
 	 * @param name    of the block
-	 * @param blockID of the underlying vanilla block
+	 * @param blockId of the underlying vanilla block
 	 * @param design  to use for the block
 	 */
 	public GenericCustomBlock(Plugin plugin, String name, int blockId, BlockDesign design) {
@@ -197,7 +197,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block
 	 * @param plugin   creating the block
 	 * @param name     of the block
-	 * @param blockID  of the underlying vanilla block
+	 * @param blockId  of the underlying vanilla block
 	 * @param design   to use for the block
 	 * @param rotate   will the block rotate to face the player when placed
 	 */
@@ -209,7 +209,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block
 	 * @param plugin         creating the block
 	 * @param name           of the block
-	 * @param blockID        of the underlying vanilla block
+	 * @param blockId        of the underlying vanilla block
 	 * @param design         to use for the block
 	 * @param rotate         will the block rotate to face the player when placed
 	 * @param mirroredRotate can the block rotate upside-down
@@ -224,7 +224,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block + metadata
 	 * @param plugin   creating the block
 	 * @param name     of the block
-	 * @param blockID  of the underlying vanilla block
+	 * @param blockId  of the underlying vanilla block
 	 * @param metadata of the underlying vanilla block
 	 * @param design   to use for the block
 	 */
@@ -237,7 +237,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block + metadata
 	 * @param plugin   creating the block
 	 * @param name     of the block
-	 * @param blockID  of the underlying vanilla block
+	 * @param blockId  of the underlying vanilla block
 	 * @param metadata of the underlying vanilla block
 	 * @param design   to use for the block
 	 * @param rotate   will the block rotate to face the player when placed
@@ -250,7 +250,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	 * Creates a GenericCustomBlock with a specified design and underlying vanilla block + metadata
 	 * @param plugin         creating the block
 	 * @param name           of the block
-	 * @param blockID        of the underlying vanilla block
+	 * @param blockId        of the underlying vanilla block
 	 * @param metadata       of the underlying vanilla block
 	 * @param design         to use for the block
 	 * @param rotate         will the block rotate to face the player when placed
@@ -545,46 +545,6 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face) {
 		return false;
-	}
-
-	@Override
-	public void readData(SpoutInputStream input) throws IOException {
-		customId = input.readInt();
-		setName(input.readString());
-		plugin = Bukkit.getServer().getPluginManager().getPlugin(input.readString());
-		opaque = input.readBoolean();
-		setFriction(input.readFloat());
-		setHardness(input.readFloat());
-		setLightLevel(input.readInt());
-	}
-
-	@Override
-	public void writeData(SpoutOutputStream output) throws IOException {
-		output.writeInt(customId);
-		output.writeString(getName());
-		output.writeString(getPlugin().getDescription().getName());
-		output.writeBoolean(isOpaque());
-		output.writeFloat(getFriction());
-		output.writeFloat(getHardness());
-		output.writeInt(getLightLevel());
-	}
-
-	@Override
-	public void run(int playerId) {
-	}
-
-	@Override
-	public void failure(int playerId) {
-	}
-
-	@Override
-	public PacketType getPacketType() {
-		return PacketType.PacketCustomBlock;
-	}
-
-	@Override
-	public int getVersion() {
-		return 0;
 	}
 
 	public boolean isPowerSource() {

@@ -34,7 +34,7 @@ import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.Tool;
-import org.getspout.spoutapi.packet.PacketType;
+import org.getspout.spout.packet.builtin.PacketType;
 
 public class GenericCustomTool extends GenericCustomItem implements Tool {
 	private short maxdurability = 100;
@@ -77,52 +77,6 @@ public class GenericCustomTool extends GenericCustomItem implements Tool {
 			modified[i] = (Block) keys[i];
 		}
 		return modified;
-	}
-
-	@Override
-	public void readData(SpoutInputStream input) throws IOException {
-		super.readData(input);
-		setMaxDurability(input.readShort());
-		short size = input.readShort();
-		for (int i = 0; i < size; i++) {
-			int id = input.readInt();
-			int data = input.readShort();
-			float mod = input.readFloat();
-			Block block = MaterialData.getBlock(id, (short) data);
-			if (data == -1) {
-				block = MaterialData.getCustomBlock(id);
-			}
-			setStrengthModifier(block, mod);
-		}
-	}
-
-	@Override
-	public void writeData(SpoutOutputStream output) throws IOException {
-		super.writeData(output);
-		output.writeShort(getMaxDurability());
-		Block[] mod = getStrengthModifiedBlocks();
-		output.writeShort((short) mod.length);
-		for (int i = 0; i < mod.length; i++) {
-			Block block = mod[i];
-			if (block instanceof CustomBlock) {
-				output.writeInt(((CustomBlock) block).getCustomId());
-				output.writeShort((short) -1);
-			} else {
-				output.writeInt(block.getRawId());
-				output.writeShort((short) block.getRawData());
-			}
-			output.writeFloat(getStrengthModifier(block));
-		}
-	}
-
-	@Override
-	public PacketType getPacketType() {
-		return PacketType.PacketCustomTool;
-	}
-
-	@Override
-	public int getVersion() {
-		return super.getVersion() + 0;
 	}
 
 	public static short getDurability(ItemStack is) {

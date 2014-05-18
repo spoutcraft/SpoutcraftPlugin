@@ -28,7 +28,7 @@ import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.MaterialManager;
 import org.getspout.spoutapi.keyboard.KeyBindingManager;
-import org.getspout.spoutapi.packet.PacketManager;
+import org.getspout.spout.packet.builtin.PacketManager;
 import org.getspout.spoutapi.player.BiomeManager;
 import org.getspout.spoutapi.player.FileManager;
 import org.getspout.spoutapi.player.PlayerChunkMap;

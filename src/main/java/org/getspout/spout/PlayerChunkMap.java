@@ -35,12 +35,8 @@ import org.getspout.spout.precache.PrecacheManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.event.spout.SpoutcraftFailedEvent;
-import org.getspout.spoutapi.material.CustomBlock;
-import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.packet.PacketAllowVisualCheats;
-import org.getspout.spoutapi.packet.PacketBlockData;
-import org.getspout.spoutapi.packet.PacketCustomBlockDesign;
-import org.getspout.spoutapi.packet.PacketServerPlugins;
+import org.getspout.spout.packet.builtin.PacketAllowVisualCheats;
+import org.getspout.spout.packet.builtin.PacketBlockData;
 import org.getspout.spoutapi.player.PlayerInformation;
 import org.getspout.spoutapi.player.SpoutPlayer;
 

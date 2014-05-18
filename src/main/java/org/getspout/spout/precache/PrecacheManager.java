@@ -45,8 +45,8 @@ import org.getspout.spoutapi.block.design.BlockDesign;
 import org.getspout.spoutapi.io.FileUtil;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.packet.PacketPreCacheCompleted;
-import org.getspout.spoutapi.packet.PacketValidatePrecache;
+import org.getspout.spout.packet.builtin.PacketPreCacheCompleted;
+import org.getspout.spout.packet.builtin.PacketValidatePrecache;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PrecacheManager {

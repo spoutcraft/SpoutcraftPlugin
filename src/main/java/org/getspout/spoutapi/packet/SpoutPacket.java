@@ -23,27 +23,28 @@ import java.io.IOException;
 
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
+import org.getspout.spout.packet.builtin.PacketType;
 
-public interface SpoutPacket {
+public abstract class SpoutPacket {
 	/**
 	 * Reads the incoming data from the client.
 	 * <p/>
 	 * Note: Data should be read in exactly the same order as it was written.
 	 * @param input stream to read data from
 	 */
-	public void readData(SpoutInputStream input) throws IOException;
+	public abstract void readData(SpoutInputStream input) throws IOException;
 
 	/**
 	 * Writes the outgoing data to the output stream.
 	 * @param output to write data to
 	 */
-	public void writeData(SpoutOutputStream output) throws IOException;
+	public abstract void writeData(SpoutOutputStream output) throws IOException;
 
 	/**
 	 * Performs any tasks for the packet after data has been successfully read into the packet.
 	 * @param playerId for the packet
 	 */
-	public void run(int playerId);
+	public abstract void run(int playerId);
 
 	/**
 	 * Performs any tasks for the packet after the data has NOT been successfully read into the packet.
@@ -54,13 +55,13 @@ public interface SpoutPacket {
 	 * It may not be called for all cases of failure.
 	 * @param playerId
 	 */
-	public void failure(int playerId);
+	public abstract void failure(int playerId);
 
 	/**
 	 * The type of packet represented. Used to rebuild the correct packet on the client.
 	 * @return packet type.
 	 */
-	public PacketType getPacketType();
+	public abstract PacketType getPacketType();
 
 	/**
 	 * Version of the packet this represents. Version numbers should start with 0.
@@ -68,5 +69,7 @@ public interface SpoutPacket {
 	 * Mismatched packet versions are discarded, and {@link #failure(int)} is called.
 	 * @return version
 	 */
-	public int getVersion();
+	public int getVersion() {
+		return 0;
+	}
 }

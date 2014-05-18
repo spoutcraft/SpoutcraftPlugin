@@ -23,7 +23,7 @@ import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.getspout.spoutapi.packet.PacketAddonData;
+import org.getspout.spout.packet.builtin.PacketAddonData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**

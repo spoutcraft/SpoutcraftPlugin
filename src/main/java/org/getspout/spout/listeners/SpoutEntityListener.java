@@ -29,13 +29,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.getspout.spout.Spout;
 
 import org.getspout.spout.player.SpoutCraftPlayer;
-import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.packet.PacketWaypoint;
+import org.getspout.spout.packet.builtin.PacketWaypoint;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SpoutEntityListener implements Listener {

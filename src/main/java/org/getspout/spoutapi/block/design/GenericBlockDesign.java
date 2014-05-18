@@ -28,7 +28,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.util.BlockVector;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
-import org.getspout.spoutapi.packet.PacketUtil;
+import org.getspout.spout.packet.builtin.PacketUtil;
 
 public class GenericBlockDesign implements BlockDesign {
 	protected boolean reset = false;

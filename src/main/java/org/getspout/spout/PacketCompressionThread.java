@@ -21,7 +21,7 @@ package org.getspout.spout;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
-import org.getspout.spoutapi.packet.CompressiblePacket;
+import org.getspout.spout.packet.builtin.CompressiblePacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class PacketCompressionThread extends Thread {

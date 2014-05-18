@@ -26,7 +26,7 @@ import java.io.InputStream;
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.Plugin;
-
+import org.getspout.spout.packet.builtin.PacketCustomItem;
 import org.getspout.spoutapi.Spout;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -35,11 +35,11 @@ import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
-import org.getspout.spoutapi.packet.PacketType;
+import org.getspout.spout.packet.builtin.PacketType;
 import org.getspout.spoutapi.packet.SpoutPacket;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class GenericCustomItem extends GenericItem implements CustomItem, SpoutPacket {
+public class GenericCustomItem extends GenericItem implements CustomItem {
 	public static MaterialManager mm = SpoutManager.getMaterialManager();
 	private String fullName;
 	private Plugin plugin;
@@ -56,7 +56,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 		this.setName(name);
 		MaterialData.addCustomItem(this);
 		for (SpoutPlayer player : Spout.getServer().getOnlinePlayers()) {
-			player.sendPacket(this);
+			player.sendPacket(new PacketCustomItem(this));
 		}
 	}
 
@@ -104,7 +104,7 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	}
 
 	public CustomItem setTexture(String texture, boolean addToCache) {
-		if (addToCache == true) {
+		if (addToCache) {
 			SpoutManager.getFileManager().addToCache(plugin, texture);
 		}
 		this.texture = texture;
@@ -134,40 +134,6 @@ public class GenericCustomItem extends GenericItem implements CustomItem, SpoutP
 	@Override
 	public boolean onItemInteract(SpoutPlayer player, SpoutBlock block, BlockFace face) {
 		return true;
-	}
-
-	@Override
-	public void readData(SpoutInputStream input) throws IOException {
-		customId = input.readInt();
-		setName(input.readString());
-		plugin = Bukkit.getServer().getPluginManager().getPlugin(input.readString());
-		texture = input.readString();
-	}
-
-	@Override
-	public void writeData(SpoutOutputStream output) throws IOException {
-		output.writeInt(customId);
-		output.writeString(getName());
-		output.writeString(getPlugin().getDescription().getName());
-		output.writeString(getTexture());
-	}
-
-	@Override
-	public void run(int playerId) {
-	}
-
-	@Override
-	public void failure(int playerId) {
-	}
-
-	@Override
-	public PacketType getPacketType() {
-		return PacketType.PacketCustomItem;
-	}
-
-	@Override
-	public int getVersion() {
-		return 0;
 	}
 
 	@Override

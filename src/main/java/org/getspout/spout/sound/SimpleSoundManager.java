@@ -26,9 +26,9 @@ import org.bukkit.plugin.Plugin;
 
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.event.sound.BackgroundMusicEvent;
-import org.getspout.spoutapi.packet.PacketDownloadMusic;
-import org.getspout.spoutapi.packet.PacketPlaySound;
-import org.getspout.spoutapi.packet.PacketStopMusic;
+import org.getspout.spout.packet.builtin.PacketDownloadMusic;
+import org.getspout.spout.packet.builtin.PacketPlaySound;
+import org.getspout.spout.packet.builtin.PacketStopMusic;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.Music;
 import org.getspout.spoutapi.sound.SoundEffect;

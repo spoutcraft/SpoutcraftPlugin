@@ -31,7 +31,7 @@ import org.getspout.spoutapi.keyboard.BindingExecutionDelegate;
 import org.getspout.spoutapi.keyboard.KeyBinding;
 import org.getspout.spoutapi.keyboard.KeyBindingManager;
 import org.getspout.spoutapi.keyboard.Keyboard;
-import org.getspout.spoutapi.packet.PacketKeyBinding;
+import org.getspout.spout.packet.builtin.PacketKeyBinding;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class SimpleKeyBindingManager implements KeyBindingManager {

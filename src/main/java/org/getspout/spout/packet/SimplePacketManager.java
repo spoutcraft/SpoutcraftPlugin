@@ -21,7 +21,7 @@ package org.getspout.spout.packet;
 
 import org.getspout.spout.packet.listener.PacketListeners;
 import org.getspout.spout.packet.standard.MCCraftPacket;
-import org.getspout.spoutapi.packet.PacketManager;
+import org.getspout.spout.packet.builtin.PacketManager;
 import org.getspout.spoutapi.packet.listener.PacketListener;
 import org.getspout.spoutapi.packet.standard.MCPacket;
 

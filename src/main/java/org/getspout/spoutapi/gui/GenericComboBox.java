@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
-import org.getspout.spoutapi.packet.PacketComboBox;
+import org.getspout.spout.packet.builtin.PacketComboBox;
 
 public class GenericComboBox extends GenericButton implements ComboBox {
 	private List<String> items = new ArrayList<String>();

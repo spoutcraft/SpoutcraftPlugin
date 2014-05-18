@@ -25,7 +25,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import org.getspout.spoutapi.packet.PacketParticle;
+import org.getspout.spout.packet.builtin.PacketParticle;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class Particle {

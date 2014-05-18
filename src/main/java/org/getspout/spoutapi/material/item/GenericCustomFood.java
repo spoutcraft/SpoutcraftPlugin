@@ -19,14 +19,9 @@
  */
 package org.getspout.spoutapi.material.item;
 
-import java.io.IOException;
-
 import org.bukkit.plugin.Plugin;
 
-import org.getspout.spoutapi.io.SpoutInputStream;
-import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.material.Food;
-import org.getspout.spoutapi.packet.PacketType;
 
 public class GenericCustomFood extends GenericCustomItem implements Food {
 	private int hunger;
@@ -39,22 +34,5 @@ public class GenericCustomFood extends GenericCustomItem implements Food {
 	@Override
 	public int getHungerRestored() {
 		return hunger;
-	}
-
-	@Override
-	public void readData(SpoutInputStream input) throws IOException {
-		super.readData(input);
-		hunger = input.read();
-	}
-
-	@Override
-	public void writeData(SpoutOutputStream output) throws IOException {
-		super.writeData(output);
-		output.write(getHungerRestored());
-	}
-
-	@Override
-	public PacketType getPacketType() {
-		return PacketType.PacketCustomFood;
 	}
 }

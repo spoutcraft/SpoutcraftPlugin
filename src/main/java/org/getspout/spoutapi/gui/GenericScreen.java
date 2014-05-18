@@ -36,8 +36,8 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.screen.ScreenCloseEvent;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
-import org.getspout.spoutapi.packet.PacketWidget;
-import org.getspout.spoutapi.packet.PacketWidgetRemove;
+import org.getspout.spout.packet.builtin.PacketWidget;
+import org.getspout.spout.packet.builtin.PacketWidgetRemove;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public abstract class GenericScreen extends GenericWidget implements Screen {
