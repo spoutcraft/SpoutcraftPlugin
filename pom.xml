@@ -5,7 +5,7 @@
 	<name>SpoutcraftPlugin</name>
 	<groupId>org.spoutcraft</groupId>
 	<artifactId>spoutcraftplugin</artifactId>
-	<version>1.6.4-b4</version>
+	<version>1.6.4</version>
 	<packaging>jar</packaging>
 	<inceptionYear>2011</inceptionYear>
 	<url>https://github.com/Spoutcraft/SpoutcraftPlugin</url>
@@ -21,7 +21,7 @@
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<buildNumber>0</buildNumber>
+		<buildNumber>4</buildNumber>
 		<ciSystem>unknown</ciSystem>
 		<commit>unknown</commit>
 		<mainClass>org.getspout.spout.Spout</mainClass>
