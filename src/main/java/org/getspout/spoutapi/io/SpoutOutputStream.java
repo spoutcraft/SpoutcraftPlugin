@@ -19,12 +19,21 @@
  */
 package org.getspout.spoutapi.io;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.util.UUID;
+import java.util.zip.GZIPOutputStream;
 
+import net.minecraft.server.v1_6_R3.NBTBase;
+import net.minecraft.server.v1_6_R3.NBTTagCompound;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_6_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -61,10 +70,22 @@ public class SpoutOutputStream extends OutputStream {
 		this.writeDouble(vector.getZ());
 	}
 
-	public void writeItemStack(ItemStack item) {
-		this.writeInt(item.getTypeId());
-		this.writeShort(item.getDurability());
-		this.writeShort((short) item.getAmount());
+	public void writeItemStack(ItemStack stack) throws IOException {
+		if (stack == null) {
+			throw new IOException("Attempt made to send null ItemStack to the client!");
+		}
+		final net.minecraft.server.v1_6_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(stack);
+		writeInt(nmsStack.getItem().id);
+		write((byte) nmsStack.count);
+
+		// TODO: In Bukkit 1.6.4, j is Item.getItemDamage
+		writeShort((short) nmsStack.j());
+
+		// TODO: In Bukkit 1.6.4, n is Item.isDamageable
+		// TODO: In Bukkit 1.6.4, s is Item.getShareTag
+		if (nmsStack.getItem().n() || nmsStack.getItem().s()) {
+			writeNBTTagCompound(nmsStack.getTag());
+		}
 	}
 
 	public void writeMaterial(Material material) {
@@ -182,5 +203,39 @@ public class SpoutOutputStream extends OutputStream {
 		replacement.put(buffer.array());
 		replacement.position(buffer.position());
 		buffer = replacement;
+	}
+
+	public void writeNBTTagCompound(NBTTagCompound compound) throws IOException {
+		if (compound == null) {
+			throw new IOException("Attempt made to send null NBTTagCompound to the client!");
+		}
+		final byte[] compressed = compress(compound);
+		if (compressed.length > Short.MAX_VALUE) {
+			throw new IOException("NBTTagCompound is too large to be sent to the client!");
+		}
+		if (compressed.length == 0) {
+			throw new IOException("Attempt made to send zero length NBTTagCompound to the client!");
+		}
+		writeShort((short) compressed.length);
+		write(compressed);
+	}
+
+	private byte[] compress(NBTBase base) throws IOException {
+		final ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+
+		try (DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(bytearrayoutputstream))) {
+			dataoutputstream.writeByte(base.getTypeId());
+			if (base.getTypeId() != 0) {
+				dataoutputstream.writeUTF("");
+
+				final Method nbtWrite = base.getClass().getDeclaredMethod("write", new Class[] {DataOutput.class});
+				nbtWrite.setAccessible(true);
+				nbtWrite.invoke(base, dataoutputstream);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return bytearrayoutputstream.toByteArray();
 	}
 }
