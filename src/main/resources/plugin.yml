@@ -1,6 +1,6 @@
 name: Spout
 version: ${project.version}-b${buildNumber}
-mcversion: ${minecraftVersion}
+supportedVersions: [1.6.4-R2.0, 1.6.4-R2.1]
 description: ${project.description}
 website: ${project.url}
 author: ${project.organization.name}

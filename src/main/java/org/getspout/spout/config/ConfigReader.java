@@ -53,7 +53,7 @@ public class ConfigReader {
 
 		kickMessage = configuration.getString("ForceClientKickMessage");
 		authTicks = configuration.getInt("ClientCheckTicks", 200);
-		buildCheck = configuration.getBoolean("MinecraftVersionCheck", true);
+		buildCheck = configuration.getBoolean("ServerVersionCheck", true);
 		/*allowSkyCheat = configuration.getBoolean("AllowSkyCheat", false);
 		allowClearWaterCheat = configuration.getBoolean("AllowClearWaterCheat", false);
 		allowStarsCheat = configuration.getBoolean("AllowStarsCheat", false);
