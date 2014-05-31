@@ -161,32 +161,20 @@ public class Spout extends JavaPlugin {
 			InputStream is = getResource("plugin.yml");
 			final YamlConfiguration config = YamlConfiguration.loadConfiguration(is);
 
-			// Format the output from Bukkit.getVersion()
-			String output = "";
-			if (Bukkit.getServer().getVersion().contains("(MC: ")) {
-				String[] temp = Bukkit.getServer().getVersion().split("\\(MC: ");
-				output = temp[1].trim().substring(0, 5);
-			}
-
-			final String bukkitVersion = output;
-			final String minecraftVersion = config.getString("mcversion");
-
-			if (!minecraftVersion.equals(bukkitVersion)) {
-				warnMessage(minecraftVersion, bukkitVersion);
+			final String currentVersion = Bukkit.getBukkitVersion();
+			final List<String> supportedVersions = config.getStringList("supportedVersions");
+			if (!supportedVersions.contains(currentVersion.substring(0, 10))) {
 				hardDisable = true;
-				Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
-					@Override
-					public void run() {
-						warnMessage(minecraftVersion, bukkitVersion);
-						for (Player player : Bukkit.getOnlinePlayers()) {
-							if (player.isOp()) {
-								player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] " + ChatColor.RED + "SpoutPlugin is not working correctly, please check the console.");
-							} else {
-								//player.sendMessage("[" + ChatColor.BLUE + "Spout" + ChatColor.WHITE + "] Dear " + player.getName() + ", please let your admin know to check the console.");
-							}
-						}
-					}
-				}, 1200L, 1200L);
+				Bukkit.getPluginManager().disablePlugin(this);
+				Bukkit.getLogger().warning(
+						"\n-----------------------------------------------------------------------------\n" +
+								" SpoutcraftPlugin has been disabled due to version mismatch.\n" +
+								"   * You are currently running CraftBukkit " + currentVersion + "\n" +
+								"   * You must run one of the following CraftBukkit versions...\n" +
+								supportedVersions.toString().replace("[", "       * ").replace(", ", "\n       * ").replace("]", "\n") +
+								"   * To bypass this restriction, disable 'ServerVersionCheck' in \n" +
+								"     SpoutcraftPlugin's config.yml. Do so at your own risk.\n" +
+								"-----------------------------------------------------------------------------");
 			}
 		}
 		if (!hardDisable) {
@@ -280,17 +268,6 @@ public class Spout extends JavaPlugin {
 			Packet18ArmAnimation packet = new Packet18ArmAnimation();
 			packet.a = -42;
 			((SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(player)).getPlayerConnection().sendImmediatePacket(packet);
-	}
-
-	public void warnMessage(String minecraftVersion, String bukkitVersion) {
-		Bukkit.getServer().getLogger().info(
-				"\n-----------------------------------------------------\n" +
-						"|| SpoutPlugin is not working correctly due to version mismatch.\n" +
-						"|| Expected Minecraft Server version: " + minecraftVersion + "\n" +
-						"|| Current Minecraft Server version: " + bukkitVersion + "\n" +
-						"|| Either disable MinecraftVersionCheck in /plugins/Spout/config.yml or update CraftBukkit.\n" +
-						"-------------------------------------------------------"
-		);
 	}
 }
 
