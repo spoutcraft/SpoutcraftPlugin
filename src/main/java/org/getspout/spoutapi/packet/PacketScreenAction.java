@@ -81,7 +81,7 @@ public class PacketScreenAction implements SpoutPacket {
 					PopupScreen screen = player.getMainScreen().getActivePopup();
 					if (screen != null) {
 						screen.setDirty(true);
-						player.sendPacket(new PacketWidget(screen, screen.getId()));
+						player.sendImmediatePacket(new PacketWidget(screen, screen.getId()));
 					}
 				} else {
 					player.openScreen(ScreenType.getType(this.screen), false);
@@ -102,7 +102,7 @@ public class PacketScreenAction implements SpoutPacket {
 				return;
 			}
 			screen.setDirty(true);
-			player.sendPacket(new PacketWidget(screen, screen.getId()));
+			player.sendImmediatePacket(new PacketWidget(screen, screen.getId()));
 		}
 	}
 

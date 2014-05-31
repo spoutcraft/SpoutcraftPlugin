@@ -460,6 +460,7 @@ public interface SpoutPlayer extends org.bukkit.entity.Player {
 	 */
 	public void sendImmediatePacket(MCPacket packet);
 
+	public void sendImmediatePacket(SpoutPacket packet);
 	/**
 	 * Orders the client to reconnect to another server
 	 * <p/>

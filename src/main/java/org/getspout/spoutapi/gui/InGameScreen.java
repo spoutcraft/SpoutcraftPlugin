@@ -64,7 +64,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD {
 			if (getActivePopup() != null) {
 				if (getActivePopup().isDirty()) {
 					if (!getActivePopup().getType().isServerOnly()) {
-						player.sendPacket(new PacketWidget(getActivePopup(), getId()));
+						player.sendImmediatePacket(new PacketWidget(getActivePopup(), getId()));
 					}
 					getActivePopup().setDirty(false);
 				}
@@ -155,7 +155,7 @@ public class InGameScreen extends GenericScreen implements InGameHUD {
 		if (event.isCancelled()) {
 			return false;
 		}
-		player.sendPacket(new PacketScreenAction(ScreenAction.Close, ScreenType.CUSTOM_SCREEN));
+		player.sendImmediatePacket(new PacketScreenAction(ScreenAction.Close, ScreenType.CUSTOM_SCREEN));
 		activePopup = null;
 		player.openScreen(ScreenType.GAME_SCREEN, false);
 		return true;

@@ -869,6 +869,18 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 			sendPacket(packet);
 		}
 	}
+	
+	@Override
+	public void sendImmediatePacket(SpoutPacket packet) {
+		if (!(packet instanceof SpoutPacket)) {
+			throw new IllegalArgumentException("Packet not of type SpoutPacket");
+		}		
+		if (getHandle().playerConnection instanceof SpoutPlayerConnection) {
+			getPlayerConnection().sendPacket(new CustomPacket(packet));
+		} else {
+			sendPacket(packet);
+		}
+	}
 
 	@Override
 	public void checkUrl(String url) {

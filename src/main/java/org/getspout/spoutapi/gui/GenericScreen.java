@@ -90,7 +90,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 			if (widgets.containsKey(widget)) {
 				widgets.remove(widget);
 				if (!widget.getType().isServerOnly()) {
-					SpoutManager.getPlayerFromId(playerId).sendPacket(new PacketWidgetRemove(widget, getId()));
+					SpoutManager.getPlayerFromId(playerId).sendImmediatePacket(new PacketWidgetRemove(widget, getId()));
 				}
 				widget.setScreen(null);
 			}
@@ -180,7 +180,7 @@ public abstract class GenericScreen extends GenericWidget implements Screen {
 						widget.setHeight(widget.getHeight());
 					}
 					if (!widget.getType().isServerOnly()) {
-						player.sendPacket(new PacketWidget(widget, getId()));
+						player.sendImmediatePacket(new PacketWidget(widget, getId()));
 					}
 					widget.setDirty(false);
 				}
