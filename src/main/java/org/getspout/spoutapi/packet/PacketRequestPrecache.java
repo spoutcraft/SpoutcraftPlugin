@@ -25,6 +25,7 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.getspout.spout.Spout;
+import org.getspout.spout.packet.standard.MCCraftPacket0KeepAlive;
 import org.getspout.spout.precache.PrecacheManager;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.io.SpoutInputStream;
@@ -55,6 +56,7 @@ public class PacketRequestPrecache implements SpoutPacket {
 		if (preCache.exists()) {
 			SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 			if (player != null) {
+				player.sendImmediatePacket(new MCCraftPacket0KeepAlive());
 				player.sendPacket(new PacketSendPrecache(plugin, preCache));
 			}
 		}
