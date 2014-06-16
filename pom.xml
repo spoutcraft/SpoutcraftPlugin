@@ -21,7 +21,7 @@
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<buildNumber>4</buildNumber>
+		<buildNumber>5</buildNumber>
 		<ciSystem>unknown</ciSystem>
 		<commit>unknown</commit>
 		<mainClass>org.getspout.spout.Spout</mainClass>

@@ -21,7 +21,9 @@ package org.getspout.spoutapi.packet;
 
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.event.spout.SpoutcraftPreCacheCompletedEvent;
 import org.getspout.spoutapi.io.SpoutInputStream;
 import org.getspout.spoutapi.io.SpoutOutputStream;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -42,6 +44,7 @@ public class PacketPreCacheCompleted implements SpoutPacket {
 	public void run(int playerId) {
 		SpoutPlayer player = SpoutManager.getPlayerFromId(playerId);
 		player.setPreCachingComplete(true);
+		Bukkit.getServer().getPluginManager().callEvent(new SpoutcraftPreCacheCompletedEvent(player));
 	}
 
 	@Override
