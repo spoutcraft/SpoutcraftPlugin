@@ -68,7 +68,6 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
-
 import org.getspout.spout.PacketCompressionThread;
 import org.getspout.spout.SpoutPlayerConnection;
 import org.getspout.spout.SpoutPermissibleBase;
@@ -78,6 +77,7 @@ import org.getspout.spout.inventory.SpoutCraftInventoryPlayer;
 import org.getspout.spout.inventory.SpoutCraftingInventory;
 import org.getspout.spout.packet.CustomPacket;
 import org.getspout.spout.packet.standard.MCCraftPacket;
+import org.getspout.spout.packet.standard.MCCraftPacket0KeepAlive;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.permission.PlayerPermissionEvent;
 import org.getspout.spoutapi.gui.GenericOverlayScreen;
@@ -138,6 +138,7 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 	private GameMode prevMode;
 	private Map<String, String> addons;
 	private Map<AccessoryType, String> accessories = new HashMap<AccessoryType, String>();
+	private int updateCounter;
 
 	public SpoutCraftPlayer(CraftServer server, EntityPlayer entity) {
 		super(server, entity);
@@ -1219,6 +1220,12 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		if (!getGameMode().equals(prevMode)) {
 			prevMode = getGameMode();
 			mainScreen.toggleSurvivalHUD(!getGameMode().equals(GameMode.CREATIVE));
+		}
+		
+		++this.updateCounter;
+		if (!this.precachingComplete && this.updateCounter % 20 == 0) {
+			sendImmediatePacket(new MCCraftPacket0KeepAlive());
+			System.out.println("Sending KeepAlive Packet to: " + this.getName());
 		}
 
 		// Do this last!
