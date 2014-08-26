@@ -5,7 +5,7 @@
 	<name>SpoutcraftPlugin</name>
 	<groupId>org.spoutcraft</groupId>
 	<artifactId>spoutcraftplugin</artifactId>
-	<version>1.6.4</version>
+	<version>1.6.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<inceptionYear>2011</inceptionYear>
 	<url>https://github.com/Spoutcraft/SpoutcraftPlugin</url>
@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<version>9</version>
 	</parent>
 
 	<!-- Build properties -->
@@ -25,7 +25,6 @@
 		<ciSystem>unknown</ciSystem>
 		<commit>unknown</commit>
 		<mainClass>org.getspout.spout.Spout</mainClass>
-		<!--<mainClass>${project.groupId}.plugin.${project.name}</mainClass>-->
 		<bukkitVersion>1.6.4-R2.1-SNAPSHOT</bukkitVersion>
 		<minecraftVersion>1.6.4</minecraftVersion>
 	</properties>
@@ -243,7 +242,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.1</version>
+				<version>2.3</version>
 				<executions>
 					<execution>
 						<configuration>
@@ -284,7 +283,7 @@
 			<plugin>
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>2.0.1</version>
+				<version>2.2.0</version>
 			</plugin>
 			<!-- Cobertura test coverage plugin -->
 			<plugin>
