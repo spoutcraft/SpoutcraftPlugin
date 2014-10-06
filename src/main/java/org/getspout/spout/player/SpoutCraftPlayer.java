@@ -1223,9 +1223,10 @@ public class SpoutCraftPlayer extends CraftPlayer implements SpoutPlayer {
 		}
 		
 		++this.updateCounter;
+		
+		// Keeps client connected while precache completes.
 		if (!this.precachingComplete && this.updateCounter % 20 == 0) {
 			sendImmediatePacket(new MCCraftPacket0KeepAlive());
-			System.out.println("Sending KeepAlive Packet to: " + this.getName());
 		}
 
 		// Do this last!
