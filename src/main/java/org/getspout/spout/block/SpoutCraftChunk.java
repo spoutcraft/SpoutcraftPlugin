@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import gnu.trove.map.hash.TIntIntHashMap;
 
@@ -50,7 +51,9 @@ import org.getspout.spoutapi.material.MaterialData;
 public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 	protected final ConcurrentHashMap<Integer, Integer> queuedId = new ConcurrentHashMap<Integer, Integer>();
 	protected final ConcurrentHashMap<Integer, Byte> queuedData = new ConcurrentHashMap<Integer, Byte>();
-	protected static final Set<SpoutCraftChunk> queuedChunks = Collections.newSetFromMap(new ConcurrentHashMap<SpoutCraftChunk, Boolean>());
+    //TODO Very experimental...may need to be reverted
+	protected static final Set<SpoutCraftChunk> queuedChunks = new ConcurrentSkipListSet<SpoutCraftChunk>();
+    //protected static final Set<SpoutCraftChunk> queuedChunks = Collections.newSetFromMap(new ConcurrentHashMap<SpoutCraftChunk, Boolean>());
 
 	public final TIntIntHashMap powerOverrides = new TIntIntHashMap();
 
@@ -75,9 +78,9 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 		return new SpoutCraftBlock(this, (getX() << 4) | (x & 0xF), y & worldHeightMinusOne, (getZ() << 4) | (z & 0xF));
 	}
 
-	private Block getBlockFromPos(int pos) throws IllegalAccessException, NoSuchFieldException {
+	private Block getBlockFromPos(int pos) {
 		int x = (pos >> xBitShifts) & 0xF;
-		int y = (pos >> 0) & worldHeightMinusOne;
+		int y = (pos) & worldHeightMinusOne;
 		int z = (pos >> zBitShifts) & 0xF;
 
 		return getBlock(x, y, z);
@@ -85,32 +88,31 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 	}
 
 	public void onTick() {
-		while (!queuedData.isEmpty() || !queuedId.isEmpty()) {
-			Iterator<Entry<Integer, Integer>> i = queuedId.entrySet().iterator();
-			while (i.hasNext()) {
-				Entry<Integer, Integer> entry = i.next();
-				try {
-					Block block = getBlockFromPos(entry.getKey());
-					block.setTypeId(entry.getValue());
-					i.remove();
-				} catch (Exception e) {
-				}
-			}
-			Iterator<Entry<Integer, Byte>> j = queuedData.entrySet().iterator();
-			while (j.hasNext()) {
-				Entry<Integer, Byte> entry = j.next();
-				if (queuedId.isEmpty()) {
-					try {
-						Block block = getBlockFromPos(entry.getKey());
-						block.setData(entry.getValue());
-						j.remove();
-					} catch (Exception e) {
-					}
-				} else {
-					break;
-				}
-			}
-		}
+        //Apply queued ids on blocks
+        if (!queuedId.isEmpty()) {
+            final Iterator<Entry<Integer, Integer>> i = queuedId.entrySet().iterator();
+            while (i.hasNext()) {
+                final Entry<Integer, Integer> entry = i.next();
+                Block block = getBlockFromPos(entry.getKey());
+                block.setTypeId(entry.getValue());
+                i.remove();
+            }
+        }
+        //Apply queued data on blocks
+        if (queuedId.isEmpty()) {
+            final Iterator<Entry<Integer, Byte>> j = queuedData.entrySet().iterator();
+            while (j.hasNext()) {
+                //If another thread adds to the id queue, we need to halt and let the next tick apply it
+                //TODO Even possible, needed? Doesn't add much overhead to check this...
+                if (!queuedId.isEmpty()) {
+                    break;
+                }
+                final Entry<Integer, Byte> entry = j.next();
+                final Block block = getBlockFromPos(entry.getKey());
+                block.setData(entry.getValue());
+                j.remove();
+            }
+        }
 	}
 
 	protected void onReset() {
@@ -143,14 +145,13 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 				worldServer.setAccessible(true);
 				ChunkProviderServer cps = ((WorldServer) worldServer.get(cw)).chunkProviderServer;
 				for (Chunk c : cps.chunks.values()) {
-					Chunk chunk = c;
-					if (reset) {
-						if (chunk.bukkitChunk instanceof SpoutCraftChunk) {
-							((SpoutCraftChunk) chunk.bukkitChunk).onReset();
+                    if (reset) {
+						if (c.bukkitChunk instanceof SpoutCraftChunk) {
+							((SpoutCraftChunk) c.bukkitChunk).onReset();
 						}
-						resetBukkitChunk(chunk.bukkitChunk);
+						resetBukkitChunk(c.bukkitChunk);
 					} else {
-						replaceBukkitChunk(chunk.bukkitChunk);
+						replaceBukkitChunk(c.bukkitChunk);
 					}
 				}
 			} catch (Exception e) {

@@ -208,7 +208,7 @@ public class SpoutCraftBlock extends CraftBlock implements SpoutBlock {
 		getChunk().setCustomBlockData(x, y, z, data);
 	}
 
-	public void removeCustomBlockData() {
+    public void removeCustomBlockData() {
 		removeData(SimpleMaterialManager.blockIdString);
 	}
 
