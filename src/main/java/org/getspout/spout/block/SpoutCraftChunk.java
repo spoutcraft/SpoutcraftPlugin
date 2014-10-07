@@ -89,14 +89,12 @@ public class SpoutCraftChunk extends CraftChunk implements SpoutChunk {
 
 	public void onTick() {
         //Apply queued ids on blocks
-        if (!queuedId.isEmpty()) {
-            final Iterator<Entry<Integer, Integer>> i = queuedId.entrySet().iterator();
-            while (i.hasNext()) {
-                final Entry<Integer, Integer> entry = i.next();
-                Block block = getBlockFromPos(entry.getKey());
-                block.setTypeId(entry.getValue());
-                i.remove();
-            }
+        final Iterator<Entry<Integer, Integer>> i = queuedId.entrySet().iterator();
+        while (i.hasNext()) {
+            final Entry<Integer, Integer> entry = i.next();
+            Block block = getBlockFromPos(entry.getKey());
+            block.setTypeId(entry.getValue());
+            i.remove();
         }
         //Apply queued data on blocks
         if (queuedId.isEmpty()) {
