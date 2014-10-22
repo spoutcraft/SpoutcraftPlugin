@@ -550,6 +550,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public void readData(SpoutInputStream input) throws IOException {
 		customId = input.readInt();
+        	blockId = input.readInt();
+        	metadata = input.readInt();
 		setName(input.readString());
 		plugin = Bukkit.getServer().getPluginManager().getPlugin(input.readString());
 		opaque = input.readBoolean();
@@ -561,6 +563,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(customId);
+        	output.writeInt(blockId);
+        	output.writeInt(metadata);
 		output.writeString(getName());
 		output.writeString(getPlugin().getDescription().getName());
 		output.writeBoolean(isOpaque());
@@ -584,7 +588,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	@Override
 	public int getVersion() {
-		return 0;
+		return 1;
 	}
 
 	public boolean isPowerSource() {
