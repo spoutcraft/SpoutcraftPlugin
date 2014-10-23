@@ -143,18 +143,20 @@
 			<scope>compile</scope>
 		</dependency>
 		<!-- Provided by third-party -->
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>${bukkitVersion}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>craftbukkit</artifactId>
-			<version>${bukkitVersion}</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.6.4-R2.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/bukkit-1.6.4-R2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>1.6.4-R2.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/craftbukkit-1.6.4-R2.1.jar</systemPath>
+        </dependency>
 	</dependencies>
 
 	<!-- Build configuration -->
