@@ -421,6 +421,7 @@ public final class CustomMCBlock implements MethodInterceptor {
 	}
 
 	private final ConcurrentHashMap<Method, Method> fastMethodCache = new ConcurrentHashMap<Method, Method>(100);
+
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 		Method m = fastMethodCache.get(method);
@@ -445,26 +446,25 @@ public final class CustomMCBlock implements MethodInterceptor {
 			}
 		}
 		// Overridden methods
-		if (method.getName().equals("a") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {IBlockAccess.class, int.class, int.class, int.class, int.class})) {
+		if (method.getName().equals("b") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {IBlockAccess.class, int.class, int.class, int.class, int.class})) {
 			World world = (World) args[0];
 			int x = (Integer) args[1];
 			int y = (Integer) args[2];
 			int z = (Integer) args[3];
 			int face = (Integer) args[4];
-
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
-			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R3.block.CraftBlock.notchToBlockFace(face));
+			if (block != null && block.overridesBaseBlockPower(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R3.block.CraftBlock.notchToBlockFace(face))) {
+				return block.getBlockPowerOutput(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R3.block.CraftBlock.notchToBlockFace(face));
 			}
-		} else if (method.getName().equals("c") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, int.class})) {
+		} else if (method.getName().equals("c") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {IBlockAccess.class, int.class, int.class, int.class, int.class})) {
 			World world = (World) args[0];
 			int x = (Integer) args[1];
 			int y = (Integer) args[2];
 			int z = (Integer) args[3];
 			int face = (Integer) args[4];
 			org.getspout.spoutapi.material.CustomBlock block = getCustomBlock(world, x, y, z);
-			if (block != null) {
-				return block.isProvidingPowerTo(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R3.block.CraftBlock.notchToBlockFace(face));
+			if (block != null && block.overridesBaseBlockPowerOutput(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R3.block.CraftBlock.notchToBlockFace(face))) {
+				return block.getBlockPowerOutput(world.getWorld(), x, y, z, org.bukkit.craftbukkit.v1_6_R3.block.CraftBlock.notchToBlockFace(face));
 			}
 		} else if (method.getName().equals("b") && Arrays.deepEquals(method.getParameterTypes(), new Class[] {World.class, int.class, int.class, int.class, Entity.class})) {
 			World world = (World) args[0];

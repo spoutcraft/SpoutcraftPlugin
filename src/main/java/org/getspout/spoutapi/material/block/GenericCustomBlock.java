@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
+import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
@@ -537,21 +538,31 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	public void onBlockClicked(World world, int x, int y, int z, SpoutPlayer player) {
 	}
 
-	@Override
-	public boolean isProvidingPowerTo(World world, int x, int y, int z, BlockFace face) {
-		return false;
-	}
+    @Override
+    public int getBlockPower(World world, int x, int y, int z, BlockFace face) {
+        return 0;
+    }
 
-	@Override
-	public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face) {
-		return false;
-	}
+    @Override
+    public int getBlockPowerOutput(World world, int x, int y, int z, BlockFace face) {
+        return 0;
+    }
 
-	@Override
+    @Override
+    public boolean overridesBaseBlockPower(World world, int x, int y, int z, BlockFace face) {
+        return false;
+    }
+
+    @Override
+    public boolean overridesBaseBlockPowerOutput(World world, int x, int y, int z, BlockFace face) {
+        return false;
+    }
+
+    @Override
 	public void readData(SpoutInputStream input) throws IOException {
 		customId = input.readInt();
-        	blockId = input.readInt();
-        	metadata = input.readInt();
+        blockId = input.readInt();
+        metadata = input.readInt();
 		setName(input.readString());
 		plugin = Bukkit.getServer().getPluginManager().getPlugin(input.readString());
 		opaque = input.readBoolean();
@@ -563,8 +574,8 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public void writeData(SpoutOutputStream output) throws IOException {
 		output.writeInt(customId);
-        	output.writeInt(blockId);
-        	output.writeInt(metadata);
+        output.writeInt(blockId);
+        output.writeInt(metadata);
 		output.writeString(getName());
 		output.writeString(getPlugin().getDescription().getName());
 		output.writeBoolean(isOpaque());
@@ -589,9 +600,5 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 	@Override
 	public int getVersion() {
 		return 1;
-	}
-
-	public boolean isPowerSource() {
-		return false;
 	}
 }

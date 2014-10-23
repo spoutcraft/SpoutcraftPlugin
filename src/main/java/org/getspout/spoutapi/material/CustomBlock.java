@@ -220,30 +220,47 @@ public interface CustomBlock extends Block {
 	public void onBlockClicked(World world, int x, int y, int z, SpoutPlayer player);
 
 	/**
-	 * Called to check if the block is providing redstone power to a face
+	 * Called to get the power of a block
+	 * @param world the block is in
+	 * @param x     location of the block
+	 * @param y     location of the block
+     *
+	 * @param z     location of the block
+	 * @param face  to check
+     * @return power output, values above 15 will be capped to 15. Values 0 or below will be regarded as now power
+	 */
+	public int getBlockPower(World world, int x, int y, int z, BlockFace face);
+
+	/**
+	 * Called to get the power output from {@link org.bukkit.block.BlockFace}
 	 * @param world the block is in
 	 * @param x     location of the block
 	 * @param y     location of the block
 	 * @param z     location of the block
 	 * @param face  to check
-	 * @return true if the face is powered
+	 * @return power output, values above 15 will be capped to 15. Values 0 or below will be regarded as now power
 	 */
-	public boolean isProvidingPowerTo(World world, int x, int y, int z, BlockFace face);
+	public int getBlockPowerOutput(World world, int x, int y, int z, BlockFace face);
 
-	/**
-	 * Called to check if the block is indirectly providing redstone power to a face
-	 * @param world the block is in
-	 * @param x     location of the block
-	 * @param y     location of the block
-	 * @param z     location of the block
-	 * @param face  to check
-	 * @return true if the face is powered
-	 */
-	public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face);
+    /**
+     * Determines if this custom block will overrides the Vanilla handling for power at the x, y, z.
+     * @param world the block is in
+     * @param x location of the block
+     * @param y location of the block
+     * @param z location of the block
+     * @param face to check
+     * @return True to override the power, false to let Vanilla handle it
+     */
+    public boolean overridesBaseBlockPower(World world, int x, int y, int z, BlockFace face);
 
-	/**
-	 * True if this custom block is capable of providing redstone power to adjacent blocks
-	 * @return true if power source
-	 */
-	public boolean isPowerSource();
+    /**
+     * Determines if this custom block will override the Vanilla handling for output power at x, y, z
+     * @param world the block is in
+     * @param x location of the block
+     * @param y location of the block
+     * @param z location of the block
+     * @param face to check
+     * @return True to override the power, false to let Vanilla handle it
+     */
+    public boolean overridesBaseBlockPowerOutput(World world, int x, int y, int z, BlockFace face);
 }
