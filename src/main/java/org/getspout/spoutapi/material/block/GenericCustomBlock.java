@@ -445,6 +445,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	@Override
 	public CustomBlock setHardness(float hardness) {
+        super.setHardness(hardness);
 		this.hardness = hardness;
 		return this;
 	}
@@ -456,6 +457,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	@Override
 	public CustomBlock setFriction(float friction) {
+        super.setFriction(friction);
 		this.friction = friction;
 		return this;
 	}
@@ -467,6 +469,7 @@ public class GenericCustomBlock extends GenericBlock implements CustomBlock, Spo
 
 	@Override
 	public CustomBlock setLightLevel(int level) {
+        super.setLightLevel(level);
 		lightLevel = level;
 		return this;
 	}
