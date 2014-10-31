@@ -32,6 +32,11 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -49,8 +54,11 @@ import org.getspout.spoutapi.packet.PacketPreCacheCompleted;
 import org.getspout.spoutapi.packet.PacketValidatePrecache;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+import com.avaje.ebeaninternal.server.lib.thread.ThreadPoolManager;
+
 public class PrecacheManager {
 	private static HashMap<Plugin, Long> plugins = new HashMap<Plugin, Long>();
+	
 
 	public static void onPlayerJoin(final SpoutPlayer player) {
 		if (player.isSpoutCraftEnabled()) {
@@ -76,6 +84,12 @@ public class PrecacheManager {
 		List<String> urlCaches = ((SimpleFileManager)SpoutManager.getFileManager()).getPluginPreLoginUrlCache(plugin);
 		List<CustomBlock> blocks = MaterialData.getCustomBlocks(plugin);
 
+		plugin.getLogger().info(
+				String.format("Precache Size, File=%d, Url=%d, CustomBlocks=%d",
+						fileCaches==null?0:fileCaches.size(),
+						urlCaches==null?0:urlCaches.size(),
+						blocks==null?0:blocks.size()));
+		
 		if (blocks.size() > 0) {
 			int i0 = 0;
 			for (CustomBlock block : blocks) {
@@ -142,47 +156,28 @@ public class PrecacheManager {
 			}
 		}
 
+		
 		if (urlCaches != null) {
+			ExecutorService threadPool = Executors.newFixedThreadPool(20);
+			List<PrecacheUrlWorker> workers= new Vector<PrecacheUrlWorker>();
+			
+			int ordinal=0;
 			for (String url : urlCaches) {
-				try {
-					URL fileURL = new URL(url);
-					String fileName = url.substring( url.lastIndexOf('/')+1, url.length() );
+				PrecacheUrlWorker worker = new PrecacheUrlWorker(plugin, url,
+						ordinal++);
+				workers.add(worker);
+				threadPool.execute(worker);
+			}
+			
+			try {
+				threadPool.shutdown();
+				threadPool.awaitTermination(2, TimeUnit.HOURS);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
-					File target = new File(getPluginCacheFolder(plugin), fileName);
-
-					URLConnection connection = fileURL.openConnection();
-					connection.addRequestProperty("User-Agent", Spout.getInstance().getDescription().getFullName());
-
-					long urlLastModified = connection.getLastModified();
-
-					if (target.exists() && urlLastModified == target.lastModified()) {
-						continue;
-					}
-
-					if (target.exists()) {
-						target.delete();
-					}
-
-					if (!target.getParentFile().exists()) {
-						target.getParentFile().mkdirs();
-					}
-
-					Bukkit.getLogger().info("[SpoutPlugin] File " + target.getName() + " is out of date, updating now.");
-					ReadableByteChannel channel = Channels.newChannel(connection.getInputStream());
-
-					FileOutputStream outputStream = new FileOutputStream(target);
-					outputStream.getChannel().transferFrom(channel, 0, 1 << 24);
-					outputStream.close();
-
-					// Update modified time on file
-					target.setLastModified(urlLastModified);
-					changed= true;
-
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			for (PrecacheUrlWorker wi : workers) {
+				changed |= wi.changed;
 			}
 		}
 
@@ -255,5 +250,64 @@ public class PrecacheManager {
 			zip.write(buf, 0, len);
 		}
 		in.close();
+	}
+
+	static class PrecacheUrlWorker implements Runnable {
+		boolean changed = false;
+		String url;
+		Plugin plugin;
+		int order;
+
+		public PrecacheUrlWorker(Plugin plugin, String url, int order) {
+			this.plugin = plugin;
+			this.url = url;
+			this.order = order;
+		}
+
+		@Override
+		public void run() {
+			try {
+				plugin.getLogger().info("Url Precache ("+order+"): "+url);
+				URL fileURL = new URL(url);
+				String fileName = url.substring( url.lastIndexOf('/')+1, url.length() );
+
+				File target = new File(getPluginCacheFolder(plugin), fileName);
+				
+				URLConnection connection = fileURL.openConnection();
+				connection.setConnectTimeout(5000);
+				connection.setReadTimeout(5000);
+				connection.addRequestProperty("User-Agent", Spout.getInstance().getDescription().getFullName());
+
+				long urlLastModified = connection.getLastModified();
+
+				if (target.exists() && urlLastModified == target.lastModified()) {
+					return;
+				}
+
+				if (target.exists()) {
+					target.delete();
+				}
+
+				if (!target.getParentFile().exists()) {
+					target.getParentFile().mkdirs();
+				}
+
+				Bukkit.getLogger().info("[SpoutPlugin] File " + target.getName() + " is out of date, updating now.");
+				ReadableByteChannel channel = Channels.newChannel(connection.getInputStream());
+
+				FileOutputStream outputStream = new FileOutputStream(target);
+				outputStream.getChannel().transferFrom(channel, 0, 1 << 24);
+				outputStream.close();
+
+				// Update modified time on file
+				target.setLastModified(urlLastModified);
+				changed= true;
+
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
