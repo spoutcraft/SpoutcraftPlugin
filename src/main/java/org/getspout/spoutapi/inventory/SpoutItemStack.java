@@ -19,6 +19,8 @@
  */
 package org.getspout.spoutapi.inventory;
 
+import java.util.ArrayList;
+
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -42,6 +44,20 @@ public class SpoutItemStack extends ItemStack {
 			}
 		}
 		if (meta != null) {
+			if (typeId == 318) {
+				meta.setDisplayName(m.getName().replace("&","§");
+				ArrayList<String> lore = new ArrayList<String>();
+				lore.add("§3Spoutcraft Item");
+				meta.setLore(lore);
+			}
+			super.setItemMeta(meta);
+		}
+		else if (typeId == 318) {
+			meta = new ItemStack(318).getItemMeta();
+			meta.setDisplayName(m.getName().replace("&","§");
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add("§3Spoutcraft Item");
+			meta.setLore(lore);
 			super.setItemMeta(meta);
 		}
 	}
